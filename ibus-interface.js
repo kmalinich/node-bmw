@@ -99,7 +99,7 @@ var ibus_interface = function(device_path) {
       if (error) {
         log.error('[ibus_interface] Failed to write: ' + error);
       } else {
-        log.info('[ibus_interface]', clc.white('Wrote to device:'), data_buffer, resp);
+        // log.info('[ibus_interface]', clc.white('Wrote to device:'), data_buffer, resp);
 
         serial_port.drain(function(error) {
           log.debug(clc.white('Data drained'));

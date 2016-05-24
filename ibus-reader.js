@@ -21,7 +21,9 @@ function on_signal_int() {
 
 function on_ibus_data(data) {
 	var log_string = 'ibus_read,'+ibus_modules.get_module_name(data.src)+','+ibus_modules.get_module_name(data.dst)+','+data.msg+',';
-	console.log(log_string,data.msg);
+	//console.log(log_string,data.msg);
+
+	console.log(log_string,data.msg[0],data.msg);
 }
 
 function init() {

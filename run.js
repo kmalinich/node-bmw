@@ -5,7 +5,7 @@ var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
 // Serial device path
-var device = '/dev/cu.usbserial-141';
+var device = '/dev/cu.usbserial-47514789';
 
 // IBUS connection handle
 var ibus_connection = new ibus_interface(device);
@@ -22,19 +22,19 @@ function startup() {
 	ibus_connection.startup();
 
 	// Turn phone LED green
-	rad_led('green', 'solid');
+	// rad_led('green', 'solid');
 
 	// Send welcome message to cluster
-	ike_text('kdm-e39');
+	// ike_text('kdm-e39');
 }
 
 // Shutdown function
 function shutdown() {
 	// Turn phone LED off
-	rad_led('off', 'solid');
+	// rad_led('off', 'solid');
 
 	// Send goodbye message to cluster
-	ike_text('bye!');
+	// ike_text('bye!');
 
 	// Terminate connection
 	ibus_connection.shutdown(function() {
@@ -435,7 +435,7 @@ function lights(beam) {
 
 	var data_packet = {
 		src: 0x3f, // DIA
-		dst: 0xbf, // LCM
+		dst: 0xbf, // GLO 
 		msg: new Buffer(buffer_data)
 	}
 
@@ -450,15 +450,6 @@ function check_data(packet) {
 
 	// RAD
 	if (src == 'RAD') {
-		var rad_phone_down = new Buffer([0x48, 0x08]);
-		var rad_1_down     = new Buffer([0x48, 0x11]);
-		var rad_2_down     = new Buffer([0x48, 0x01]);
-		var rad_3_down     = new Buffer([0x48, 0x12]);
-		var rad_4_down     = new Buffer([0x48, 0x02]);
-		var rad_5_down     = new Buffer([0x48, 0x13]);
-		var rad_6_down     = new Buffer([0x48, 0x03]);
-		var rad_power_down = new Buffer([0x48, 0x06]);
-		var rad_power_up   = new Buffer([0x48, 0x86]);
 
 		if (msg.compare(rad_phone_down) == 0) {
 			var command = 'depressed';
@@ -500,9 +491,6 @@ function check_data(packet) {
 
 	// GM
 	if (src == 'GM') {
-		var fob_lock_down   = new Buffer([0x72, 0x12]);
-		var fob_unlock_down = new Buffer([0x72, 0x22]);
-		var fob_trunk_down  = new Buffer([0x72, 0x42]);
 
 		if (msg.compare(fob_trunk_down) == 0) {
 			var command = 'depressed';
@@ -516,13 +504,18 @@ function check_data(packet) {
 			var command = 'depressed';
 			var data    = 'unlock button';
 		}
+		else if (msg.compare(interior_lights_off) == 0) {
+			var command = 'interior lights';
+			var data    = 'off';
+		}
+		else if (msg.compare(interior_lights_on) == 0) {
+			var command = 'interior lights';
+			var data    = 'on';
+		}
 	}
 
 	// EWS
 	if (src == 'EWS') {
-		var key_out  = new Buffer([0x74, 0x00, 0xff]);
-		var key_1_in = new Buffer([0x74, 0x04,0x01]);
-
 		if (msg.compare(key_out) == 0) {
 			var command = 'removed';
 			var data    = 'key';
@@ -535,8 +528,6 @@ function check_data(packet) {
 
 	// IKE
 	if (src == 'IKE') {
-		var bc_in = new Buffer([0x57, 0x02]);
-
 		if (msg.compare(bc_in) == 0) {
 			var command = 'depressed';
 			var data    = 'BC button';
@@ -546,6 +537,38 @@ function check_data(packet) {
 	console.log(src, dst, command, data)
 }
 
-// startup();
+var rad_phone_down      = new Buffer([0x48, 0x08]);
+var rad_1_down          = new Buffer([0x48, 0x11]);
+var rad_2_down          = new Buffer([0x48, 0x01]);
+var rad_3_down          = new Buffer([0x48, 0x12]);
+var rad_4_down          = new Buffer([0x48, 0x02]);
+var rad_5_down          = new Buffer([0x48, 0x13]);
+var rad_6_down          = new Buffer([0x48, 0x03]);
+var rad_power_down      = new Buffer([0x48, 0x06]);
+var rad_power_up        = new Buffer([0x48, 0x86]);
+var bc_in               = new Buffer([0x57, 0x02]);
+var key_out             = new Buffer([0x74, 0x00, 0xff]);
+var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
+var fob_lock_down       = new Buffer([0x72, 0x12]);
+var fob_unlock_down     = new Buffer([0x72, 0x22]);
+var fob_trunk_down      = new Buffer([0x72, 0x42]);
 
-console.log(ibus_modules.modules);
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x00]); // Unlocked
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+WndwSun
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x20]); // Unlocked+Trunk
+// var interior_lights_off = new Buffer([0x7a, 0x11, 0x00]); // Unlocked+DoorFL
+// var interior_lights_off = new Buffer([0x7a, 0x12, 0x00]); // Unlocked+DoorFR
+// var interior_lights_off = new Buffer([0x7a, 0x14, 0x00]); // Unlocked+DoorRL
+// var interior_lights_off = new Buffer([0x7a, 0x18, 0x00]); // Unlocked+DoorRR
+// var interior_lights_off = new Buffer([0x7a, 0x50, 0x00]); // Unlocked+Interior lights
+// var interior_lights_off = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+Sunroof+Interior lights
+// var interior_lights_off = new Buffer([0x7a, 0x20, 0x00]); // Locked
+// var interior_lights_off = new Buffer([0x7a, 0x60, 0x00]); // Locked+Interior lights
+// var interior_lights_off = new Buffer([0x7a, 0x20, 0x10]); // Locked+Sunroof
+// var interior_lights_on  = new Buffer([0x7a, 0x50, 0x10]); // Unlocked+Sunroof+Interior lights
+
+startup();

@@ -4,7 +4,7 @@ var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
 // config
-var device = '/dev/cu.usbserial-141';
+var device = '/dev/cu.usbserial-47514789';
 
 // data
 var ibus_connection = new ibus_interface(device);

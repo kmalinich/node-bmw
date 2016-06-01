@@ -469,6 +469,38 @@ function rad_led(color, flash) {
 // LCM lights control
 function lights(beam) {
 
+	// From comhem.se:
+	// [ID:TURN_LIGHTS_OFF]
+	// 00 04 BF 76 00 cc
+	//
+	// [ID:FLASH_WARN]
+	// 00 04 bf 76 02 cc
+	//
+	// [ID:FLASH_LOW]
+	// 00 04 bf 76 04 cc
+	//
+	// [ID:FLASH_LOW_WARN]
+	// 00 04 bf 76 06 cc
+	//
+	// [ID:FLASH_HI]
+	// 00 04 bf 76 08 cc
+	//
+	// [ID:FLASH_HI_WARN]
+	// 00 04 bf 76 0A cc
+	//
+	// [ID:FLASH_LOW_HI]
+	// 00 04 bf 76 0C
+	//
+	// [ID:FLASH_LOW_HI_WARN]
+	// 00 04 bf 76 0E cc
+	//
+	// [ID:FLASH_LOW_SMALL]
+	// 80 04 BF 11 03 cc
+	//
+	// [ID:FLASH_TEST1]
+	// 00 04 bf 76 11 cc
+
+
   // 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x06 - Right fog, sidemarker, rear turn 
   // 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x0c - Right tail, cluster 
 
@@ -555,8 +587,6 @@ function lights(beam) {
   // 0x20 32 = R lowbeam
   // 0x40 64 = R fog 
 
-
-
   // L reverse
   var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00];
   // L lowbeam
@@ -567,7 +597,6 @@ function lights(beam) {
   var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00];
   // Both lowbeams + both fogs 
   var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00];
-
 
   var foglights  = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x06];
   var fl_fog     = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x06]; // with right rear turn signal
@@ -596,7 +625,6 @@ function lights(beam) {
     console.log("Front fogs and front lowbeams");
     var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00];
   }
-
 
   // L tail
   // R tail, cluster	

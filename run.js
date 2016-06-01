@@ -5,7 +5,7 @@ var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
 // Serial device path
-var device = '/dev/tty.SLAB_USBtoUART';
+var device = '/dev/ttyUSB0';
 
 // IBUS connection handle
 var ibus_connection = new ibus_interface(device);

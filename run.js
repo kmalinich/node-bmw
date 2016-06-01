@@ -22,10 +22,12 @@ function startup() {
   ibus_connection.startup();
 
   // Turn phone LED green
-  rad_led('green', 'flash');
+	setTimeout(function() {
+		rad_led('green', 'flash');
 
-  // Send welcome message to cluster
-  ike_text('    kdm e39 540i    ');
+		// Send welcome message to cluster
+		ike_text('    kdm e39 540i    ');
+	}, 1000);
 }
 
 // Shutdown function
@@ -284,7 +286,7 @@ function obc_reset(value) {
   ibus_send(ibus_packet);
 }
 
-// Flash lights indefstartupely
+// Flash lights indefinitey
 function lcm_flash(beam) {
   var src = 0x00; // All
   var dst = 0xbf; // LCM

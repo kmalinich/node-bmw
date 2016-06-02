@@ -1,5 +1,32 @@
 #!/usr/bin/env node
 
+// Notes...
+//
+// WRITER.writeBusPacket('3F', '00', ['0C', '4E', '01']) # Turn on the 'clown nose' for 3 seconds
+// WRITER.writeBusPacket('3F','00', ['0C', '53', '01']) # Put up window 1
+// WRITER.writeBusPacket('3F','00', ['0C', '42', '01']) # Put up window 2
+// WRITER.writeBusPacket('3F','00', ['0C', '55', '01']) # Put up window 3
+// WRITER.writeBusPacket('3F','00', ['0C', '43', '01']) # Put up window 4
+
+// var msg = new Buffer([0x7a, 0x10, 0x00]); // Unlocked
+// var msg = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
+// var msg = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
+// var msg = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
+// var msg = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
+// var msg = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+WndwSun
+// var msg = new Buffer([0x7a, 0x10, 0x20]); // Unlocked+Trunk
+// var msg = new Buffer([0x7a, 0x11, 0x00]); // Unlocked+DoorFL
+// var msg = new Buffer([0x7a, 0x12, 0x00]); // Unlocked+DoorFR
+// var msg = new Buffer([0x7a, 0x14, 0x00]); // Unlocked+DoorRL
+// var msg = new Buffer([0x7a, 0x18, 0x00]); // Unlocked+DoorRR
+// var msg = new Buffer([0x7a, 0x50, 0x00]); // Unlocked+Interior lights
+// var msg = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+Sunroof+Interior lights
+// var msg = new Buffer([0x7a, 0x20, 0x00]); // Locked
+// var msg = new Buffer([0x7a, 0x60, 0x00]); // Locked+Interior lights
+// var msg = new Buffer([0x7a, 0x20, 0x10]); // Locked+Sunroof
+// var msg = new Buffer([0x7a, 0x50, 0x10]); // Unlocked+Sunroof+Interior lights
+
+
 // Libraries
 var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
@@ -16,33 +43,7 @@ process.on('SIGINT', shutdown);
 // Run check_data() on data events
 ibus_connection.on('data', check_data);
 
-// Startup function
-function startup() {
-  // Open serial port
-  ibus_connection.startup();
 
-  // Turn phone LED green
-	rad_led('green', 'flash');
-
-	// Send welcome message to cluster
-	ike_text('    kdm e39 540i    ');
-}
-
-// Shutdown function
-function shutdown() {
-  // Turn phone LED off
-  rad_led('red', 'solid');
-
-  // Send goodbye message to cluster
-  ike_text('      bye kdm!      ');
-
-  // Terminate connection
-  setTimeout(function() {
-    ibus_connection.shutdown(function() {
-      process.exit();
-    });
-  }, 1000);
-}
 
 // ASCII to hex for cluster message
 function ascii2hex(str) { 
@@ -56,10 +57,52 @@ function ascii2hex(str) {
   return array;
 }
 
+
+
+// Startup function
+function startup() {
+	// Open serial port
+	ibus_connection.startup();
+}
+
+// Shutdown function
+function shutdown() {
+  // Terminate connection
+  setTimeout(function() {
+    ibus_connection.shutdown(function() {
+      process.exit();
+    });
+  }, 1000);
+}
+
+
+
 // Send IBUS message
 function ibus_send(ibus_packet) {
   ibus_connection.send_message(ibus_packet);
 }
+
+
+
+// On engine start
+function hello() {
+	// Turn phone LED green
+	rad_led('green', 'flash');
+
+	// Send welcome message to cluster
+	ike_text('Hot Garbage Mtrnwrke');
+}
+
+// On engine off
+function goodbye() {
+	// Turn phone LED off
+	rad_led('off', 'solid');
+
+	// Send goodbye message to cluster
+	ike_text('     ///M Power     ');
+}
+
+
 
 // RADio
 function rad(action) {
@@ -68,6 +111,10 @@ function rad(action) {
   // Volume down
   // Volume up
 }
+
+
+
+
 
 function windows(group) {
   var src = 0x3f; // DIS
@@ -111,89 +158,50 @@ function windows(group) {
   // var msg = new Buffer([0x0c, 0, ]); // 
   // var msg = new Buffer([0x0c, 0, ]); // 
 
-  if (group == 1) {
-    var msg = new Buffer([0x0c, 5, 5]); // Drivers seat tilt (not sure which way) 
-  }
-  // else if (group == 2) {
-  //   var msg = new Buffer([0x0c, 1, 0]); // 
-  // }
-  // else if (group == 3) {
-  //   var msg = new Buffer([0x0c, 32, 0]); // 
-  // }
-  // else if (group == 4) {
-  //   var msg = new Buffer([0x0c, 64, 0]); // 
-  // }
-  // else if (group == 5) {
-  //   var msg = new Buffer([0x0c, 128, 0]); // Driver seat forward
-  // }
-  // else if (group == 6) {
-  //   var msg = new Buffer([0x0c, 255, 0]); // 
-  // }
-  // else if (group == 7) {
-  //   var msg = new Buffer([0x0c, 13, 0]); // 
-  // }
-  // else if (group == 8) {
-  //   var msg = new Buffer([0x0c, 14, 0]); // 
-  // }
-  // else if (group == 9) {
-  //   var msg = new Buffer([0x0c, 15, 0]); // 
-  // }
-  // else if (group == 10) {
-  //   var msg = new Buffer([0x0c, 16, 0]); // 
-  // }
-  // else if (group == 11) {
-  //   var msg = new Buffer([0x0c, 17, 0]); // 
-  // }
-  // else if (group == 12) {
-  //   var msg = new Buffer([0x0c, 18, 0]); // 
-  // }
-  //
+	var msg     = new Buffer([0x0c, 5, 5]); // Drivers seat tilt (not sure which way)
+	var msg     = new Buffer([0x0c, 128, 0]); // Driver seat forward
 
-  else {
-    count++;
-    console.log('count: '+count);
-    var msg = new Buffer([0x0c, 0, count]);
-  }
+	var open_fl = new Buffer([0x0c, 0x52, 0x01]);
+	var open_fr = new Buffer([0x0c, 0x41, 0x01]);
+	var open_rr = new Buffer([0x0c, 0x00, 0x46]);
 
-
-  var open_fl  = new Buffer([0x0c, 0x52, 0x01]);
-  var open_fr  = new Buffer([0x0c, 0x41, 0x01]);
-  var open_rr  = new Buffer([0x0c, 0x00, 0x46]);
-
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
+	var msg     = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
+	var msg     = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
+	var msg     = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
+	var msg     = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
 
   var ibus_packet = {
     src: src, 
     dst: dst,
     msg: msg,
   }
+
   ibus_send(ibus_packet);
 }
+
+
+
 
 function windows_up() {
   var src = 0x3f; // DIS
   var dst = 0x00; // GM
 
-  var msg = new Buffer([0x0c, 0x01, 0x00]);
-  var close_fr = new Buffer([0x0c, 0x42, 0x01]);
-  var close_rl = new Buffer([0x0c, 0x00, 0x01]);
-  var close_rr = new Buffer([0x0c, 0x00, 0x46]);
-
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
-  var interior_lights_off      = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
+  var msg                 = new Buffer([0x0c, 0x01, 0x00]);
+  var close_fr            = new Buffer([0x0c, 0x42, 0x01]);
+  var close_rl            = new Buffer([0x0c, 0x00, 0x01]);
+  var close_rr            = new Buffer([0x0c, 0x00, 0x46]);
 
   var ibus_packet = {
     src: src, 
     dst: dst,
     msg: msg,
   }
+
   ibus_send(ibus_packet);
 }
+
+
+
 
 // General module
 function gm(object, action) {
@@ -636,11 +644,24 @@ function lights(beam) {
   ibus_send(data_packet);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 // Data handler
 function check_data(packet) {
   var dst = ibus_modules.get_module_name(packet.dst);
   var src = ibus_modules.get_module_name(packet.src);
   var msg = packet.msg;
+
+
 
   // RAD
   if (src == 'RAD') {
@@ -682,6 +703,12 @@ function check_data(packet) {
     }
   }
 
+// var fob_lock_down       = new Buffer([0x72, 0x12]);
+// var fob_unlock_down     = new Buffer([0x72, 0x22]);
+// var fob_trunk_down      = new Buffer([0x72, 0x42]);
+
+
+
   // GM
   if (src == 'GM') {
     if (msg.compare(fob_trunk_down) == 0) {
@@ -698,6 +725,11 @@ function check_data(packet) {
     }
   }
 
+
+
+// var key_out             = new Buffer([0x74, 0x00, 0xff]);
+// var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
+
   // EWS
   if (src == 'EWS') {
     if (msg.compare(key_out) == 0) {
@@ -709,6 +741,8 @@ function check_data(packet) {
       var data    = 'key 1';
     }
   }
+
+
 
   // MFL
   if (src == 'MFL') {
@@ -761,6 +795,9 @@ function check_data(packet) {
     }
   }
 
+
+
+
   // CCM
   if (src == 'CCM') {
     if (msg[0] == 0x51) {
@@ -773,78 +810,72 @@ function check_data(packet) {
     }
   }
 
+
+ //var rad_phone_down      = new Buffer([0x48, 0x08]);
+ //var rad_power_down      = new Buffer([0x48, 0x06]);
+ //var rad_power_up        = new Buffer([0x48, 0x86]);
+
+
   // BMBT
   if (src == 'BMBT') {
     if (msg[0] == 0x48) {
       var command = 'button';
       if (msg[1] == 0x11) {
         var data    = '1 pressed';
-        windows(1);
-      }
-      else if (msg[1] == 0x01) {
-        var data    = '2 pressed';
-        windows(2);
-      }
-      else if (msg[1] == 0x12) {
-        var data    = '3 pressed';
-        windows(3);
-      }
-      else if (msg[1] == 0x02) {
-        var data    = '4 pressed';
-        windows(4);
-      }
-      else if (msg[1] == 0x13) {
-        var data    = '5 pressed';
-        windows(5);
-      }
-      else if (msg[1] == 0x03) {
-        var data    = '6 pressed';
-        windows(6);
-      }
-      else if (msg[1] == 0x32) {
-        var data    = 'pty pressed';
-        windows(7);
-      }
-      else if (msg[1] == 0x22) {
-        var data    = 'rds pressed';
-        windows(8);
-      }
-      else if (msg[1] == 0x31) {
-        var data    = 'fm pressed';
-        windows(9);
-      }
-      else if (msg[1] == 0x21) {
-        var data    = 'am pressed';
-        windows(10);
-      }
-      else if (msg[1] == 0x33) {
-        var data    = 'dolby pressed';
-        windows(11);
-      }
-      else if (msg[1] == 0x23) {
-        var data    = 'mode pressed';
-        windows(12);
       }
       else if (msg[1] == 0x91) {
         var data    = '1 released';
       }
+      else if (msg[1] == 0x01) {
+        var data    = '2 pressed';
+      }
       else if (msg[1] == 0x81) {
         var data    = '2 released';
+      }
+      else if (msg[1] == 0x12) {
+        var data    = '3 pressed';
       }
       else if (msg[1] == 0x92) {
         var data    = '3 released';
       }
+      else if (msg[1] == 0x02) {
+        var data    = '4 pressed';
+      }
       else if (msg[1] == 0x82) {
         var data    = '4 released';
       }
+      else if (msg[1] == 0x13) {
+        var data    = '5 pressed';
+      }
       else if (msg[1] == 0x93) {
         var data    = '5 released';
+      }
+      else if (msg[1] == 0x03) {
+        var data    = '6 pressed';
       }
       else if (msg[1] == 0x83) {
         var data    = '6 released';
       }
       else if (msg[1] == 0xb2) {
         var data    = 'pty released';
+      }
+      else if (msg[1] == 0x32) {
+        var data    = 'pty pressed';
+      }
+      else if (msg[1] == 0x22) {
+        var data    = 'rds pressed';
+      }
+      else if (msg[1] == 0x31) {
+        var data    = 'fm pressed';
+      }
+      else if (msg[1] == 0x21) {
+        var data    = 'am pressed';
+      }
+      else if (msg[1] == 0x33) {
+        var data    = 'dolby pressed';
+      }
+      else if (msg[1] == 0x23) {
+        var data    = 'mode pressed';
       }
       else if (msg[1] == 0xa2) {
         var data    = 'rds released';
@@ -868,24 +899,28 @@ function check_data(packet) {
     }
   }
 
+
+  
+
+
   // IKE
   if (src == 'IKE') {
-    // if (msg.compare(bc_in) == 0) {
-    // 	var command = 'depressed';
-    // 	var data    = 'BC button';
-    // }
     if (msg[0] == 0x17) {
       var command = 'odometer';
       var data    = 'not sure yet.'
     }
+    else if (msg[0] == 0x57) {
+      var command = 'BC button';
+      var data    = 'depressed';
+    }
     else if (msg[0] == 0x18) {
       var command = 'speed/RPM';
-      if (msg[2] != 0) {
-        var data    = msg[1]+' km/h, '+msg[2]+'00 RPM';
-      }
-      else {
-        var data    = msg[1]+' km/h, 0 RPM';
-      }
+      
+      // Update vehicle and engine speed variables
+      engine_speed_rpm  = msg[2]*100;
+      vehicle_speed_kmh = msg[1];
+
+      var data          = vehicle_speed_kmh+' km/h, '+engine_speed_rpm+' RPM';
     }
     else if (msg[0] == 0x24) {
       var command    = 'obc text';
@@ -893,8 +928,11 @@ function check_data(packet) {
     }
     else if (msg[0] == 0x19) {
       var command    = 'temperature';
+
+      // Update external and engine coolant temp variables
       ext_temp_c     = msg[1];
       coolant_temp_c = msg[2];
+
       var data       = ext_temp_c+'C outside, '+coolant_temp_c+'C coolant';
     }
     else if (msg[0] == 0x11) {
@@ -919,8 +957,10 @@ function check_data(packet) {
     }
     else if (msg[0] == 0x13) {
       var command = 'sensors';
+
       if (msg[1] == 0x01) { handbrake = 'on'; } else { handbrake = 'off'; }
       if (msg[1] == 0x02) { engine    = 'on'; } else { engine    = 'off'; }
+
       var data    = 'handbrake: '+handbrake+', engine: '+engine;
     }
     else {
@@ -929,55 +969,37 @@ function check_data(packet) {
     }
   }
 
-  msg_count++;
-  if (msg_count == 10) {
-    msg_count = 0;
-  }
+  // msg_count++;
+  // if (msg_count == 10) {
+  //   msg_count = 0;
+  // }
 
   console.log(src, dst, command, data)
 
 }
 
-var rad_phone_down      = new Buffer([0x48, 0x08]);
-var rad_1_down          = new Buffer([0x48, 0x11]);
-var rad_2_down          = new Buffer([0x48, 0x01]);
-var rad_3_down          = new Buffer([0x48, 0x12]);
-var rad_4_down          = new Buffer([0x48, 0x02]);
-var rad_5_down          = new Buffer([0x48, 0x13]);
-var rad_6_down          = new Buffer([0x48, 0x03]);
-var rad_power_down      = new Buffer([0x48, 0x06]);
-var rad_power_up        = new Buffer([0x48, 0x86]);
-var bc_in               = new Buffer([0x57, 0x02]);
-var key_out             = new Buffer([0x74, 0x00, 0xff]);
-var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
-var fob_lock_down       = new Buffer([0x72, 0x12]);
-var fob_unlock_down     = new Buffer([0x72, 0x22]);
-var fob_trunk_down      = new Buffer([0x72, 0x42]);
 
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x00]); // Unlocked
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+WndwSun
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x20]); // Unlocked+Trunk
-// var interior_lights_off = new Buffer([0x7a, 0x11, 0x00]); // Unlocked+DoorFL
-// var interior_lights_off = new Buffer([0x7a, 0x12, 0x00]); // Unlocked+DoorFR
-// var interior_lights_off = new Buffer([0x7a, 0x14, 0x00]); // Unlocked+DoorRL
-// var interior_lights_off = new Buffer([0x7a, 0x18, 0x00]); // Unlocked+DoorRR
-// var interior_lights_off = new Buffer([0x7a, 0x50, 0x00]); // Unlocked+Interior lights
-// var interior_lights_off = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+Sunroof+Interior lights
-// var interior_lights_off = new Buffer([0x7a, 0x20, 0x00]); // Locked
-// var interior_lights_off = new Buffer([0x7a, 0x60, 0x00]); // Locked+Interior lights
-// var interior_lights_off = new Buffer([0x7a, 0x20, 0x10]); // Locked+Sunroof
-// var interior_lights_on  = new Buffer([0x7a, 0x50, 0x10]); // Unlocked+Sunroof+Interior lights
+// Instantiate initial variable values
+var handbrake         = 'off';
+var engine            = 'off';
+var ignition          = 'off';
+var msg_count         = 0;
+var ext_temp_c        = 0;
+var coolant_temp_c    = 0;
+var vehicle_speed_kmh = 0;
+var engine_speed_rpm  = 0;
 
-var count = 170;
-var handbrake      = 'off';
-var engine         = 'off';
-var ignition       = 'off';
-var msg_count      = 0;
-var ext_temp_c     = 0;
-var coolant_temp_c = 0;
+// Flaps/windows are positioned as if you are looking down on the car from the sky
+var open_flap_hood          = false;
+var open_flap_trunk         = false;
+var open_flap_front_left    = false;
+var open_flap_front_right   = false;
+var open_flap_rear_left     = false;
+var open_flap_rear_right    = false;
+var open_window_roof        = false;
+var open_window_front_left  = false;
+var open_window_front_right = false;
+var open_window_rear_left   = false;
+var open_window_rear_right  = false;
 
 startup();

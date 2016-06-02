@@ -842,14 +842,13 @@ function check_data(packet) {
 	// 007,128
 	// 008,256
 
-	// BMBT bitmask decoding...?
-	//       all = 001 002 004 008 016 032 064 128 256
+	// BMBT bitmask
 	//
-	// 1 pressed = 001             016
-	// 1 release = 001     004             064     256
-	//
-	// 2 pressed = 001
-	// 2 release = 001         008     032         256
+	// Release      : set bit 7
+	// Odd numbers  : set bit 4
+	// 
+	// Otherwise... 
+	// 
 
 	// BMBT
 	if (src == 'BMBT') {

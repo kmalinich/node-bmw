@@ -43,8 +43,8 @@ function bit_sample(dsc, hex) {
 	console.log(string);
 }
 
-var header = '        001|002|004|008|016|032|064|128|256';
-console.log(clc.yellow(header));
+// var header = '        001|002|004|008|016|032|064|128|256';
+// console.log(clc.yellow(header));
 var header = 'DSC|VAL| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8';
 console.log(clc.magenta(header));
 

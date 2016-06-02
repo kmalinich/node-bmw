@@ -5,7 +5,7 @@ var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
 // Serial device path
-var device = '/dev/ttyUSB0';
+var device = '/dev/tty.SLAB_USBtoUART';
 
 // IBUS connection handle
 var ibus_connection = new ibus_interface(device);
@@ -22,12 +22,10 @@ function startup() {
   ibus_connection.startup();
 
   // Turn phone LED green
-	setTimeout(function() {
-		rad_led('green', 'flash');
+	rad_led('green', 'flash');
 
-		// Send welcome message to cluster
-		ike_text('    kdm e39 540i    ');
-	}, 1000);
+	// Send welcome message to cluster
+	ike_text('    kdm e39 540i    ');
 }
 
 // Shutdown function
@@ -719,11 +717,12 @@ function check_data(packet) {
 
       if (msg[1] == 0x80) {
         var data    = 'send/end depressed';
-        ike_text('coolant: '+coolant_temp_c+'C        ');
+        //ike_text('coolant: '+coolant_temp_c+'C        ');
+        ike_text_urgent('coolant: '+coolant_temp_c+'C        ');
       }
       else if (msg[1] == 0xA0) {
         var data    = 'send/end released';
-        // ike_text_urgent_off();
+        ike_text_urgent_off();
       }
       else if (msg[1] == 0x90) {
         var data    = 'send/end long press';

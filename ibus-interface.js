@@ -30,11 +30,12 @@ var ibus_interface = function(device_path) {
   // implementation
   function init_ibus() {
     serial_port = new serialport.SerialPort(device, {
-      baudrate : 9600,
+			rtscts   : true,
+      baudRate : 9600,
+      dataBits : 8,
       parity   : 'even',
-      stopbits : 1,
-      databits : 8,
-      parser   : serialport.parsers.raw
+      parser   : serialport.parsers.raw,
+      stopBits : 1,
     }, false);
 
     serial_port.open(function(error) {

@@ -294,30 +294,6 @@ function obc_reset(value) {
 	ibus_send(ibus_packet);
 }
 
-// Flash lights indefinitey
-function lcm_flash(beam) {
-	var src = 0x00; // All
-	var dst = 0xBF; // LCM
-	
-	var action_flash  = 0x76;
-
-	var lights_off    = 0x00; // none
-	var lights_hz_ike = 0x01; // hazards in cluster
-	var lights_hz     = 0x02; // hazards
-	var lights_hzlb   = 0x0A; // hazards and low beams
-
-	var action        = action_flash;
-	var lights        = lights_off;
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer([action, lights]),
-	}
-
-	ibus_send(ibus_packet);
-}
-
 function ike() {
 	var RequestTime            = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Request Time", 0x41, 0x01, 0x01);
 	var RequestDate            = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Request Date", 0x41, 0x02, 0x01);
@@ -465,40 +441,32 @@ function rad_led(color, flash) {
 	ibus_send(ibus_packet);
 }
 
+// Flash lights indefinitely
+function lcm_flash(beam) {
+	var src = 0x00; // All
+	var dst = 0xBF; // LCM
+	
+	var action_flash  = 0x76;
+
+	var lights_off    = 0x00; // none
+	var lights_hz_ike = 0x01; // hazards in cluster
+	var lights_hz     = 0x02; // hazards
+	var lights_hzlb   = 0x0A; // hazards and low beams
+
+	var action        = action_flash;
+	var lights        = lights_off;
+
+	var ibus_packet = {
+		src: src, 
+		dst: dst,
+		msg: new Buffer([action, lights]),
+	}
+
+	ibus_send(ibus_packet);
+}
+
 // LCM lights control
 function lights(beam) {
-
-	// From comhem.se:
-	// [ID:TURN_LIGHTS_OFF]
-	// 00 04 BF 76 00 cc
-	//
-	// [ID:FLASH_WARN]
-	// 00 04 bf 76 02 cc
-	//
-	// [ID:FLASH_LOW]
-	// 00 04 bf 76 04 cc
-	//
-	// [ID:FLASH_LOW_WARN]
-	// 00 04 bf 76 06 cc
-	//
-	// [ID:FLASH_HI]
-	// 00 04 bf 76 08 cc
-	//
-	// [ID:FLASH_HI_WARN]
-	// 00 04 bf 76 0A cc
-	//
-	// [ID:FLASH_LOW_HI]
-	// 00 04 bf 76 0C
-	//
-	// [ID:FLASH_LOW_HI_WARN]
-	// 00 04 bf 76 0E cc
-	//
-	// [ID:FLASH_LOW_SMALL]
-	// 80 04 BF 11 03 cc
-	//
-	// [ID:FLASH_TEST1]
-	// 00 04 bf 76 11 cc
-
 
 	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x06 - Right fog, sidemarker, rear turn 
 	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x0c - Right tail, cluster 
@@ -532,16 +500,12 @@ function lights(beam) {
 	// Right IKE turn, IKE high beams, IKE rear fogs
 	// var buffer_data = [0x0c, 0x07];
 
-	// Bit 1 = hazards
-	// Bit 2 = low beam
-	// Bit 3 = fade
-	// Hazards = 1
-	// Low beam = 2
-	// Fade = 3
-	// High beam = 
-	// cluster = 
-	// right sidemarker
-	// left sidemarker
+	// Hazards
+	// Low beam
+	// High beam
+	// Cluster
+	// Right sidemarker
+	// Left sidemarker
 	// FR turn
 	// FL turn
 	// RL turn

@@ -7,7 +7,7 @@
 		"serialport": "^3.1.2",
 		"log": "*",
 		"cli-color": "*",
-		"sleep": "*"
+		"wait.for": "*"
 	},
 	"devDependencies": {},
 	"scripts": {

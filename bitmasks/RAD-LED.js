@@ -2,8 +2,6 @@
 
 // Color terminal output
 var clc = require('cli-color');
-// Sleep
-var sleep = require('sleep');
 var wait = require('wait.for');
 
 // Libraries
@@ -93,12 +91,6 @@ function rad_led_bitmask_decode(value) {
 	}
 
 	console.log(action);
-}
-
-function asyncthing(msg, callback) {
-	setTimeout(function() {
-		callback(null, 'message sent');
-	}, 2000);
 }
 
 function bit_sample(dsc, hex, callback) {

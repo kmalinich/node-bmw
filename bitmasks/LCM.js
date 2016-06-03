@@ -69,21 +69,6 @@ function pad(n, width, z) {
 }
 
 
-function lcm_bitmask_decode(value) {
-
-	// Determine action
-	if (bit_test(value, hold)) {
-		var action = clc.yellow('hold');
-	}
-	else if (bit_test(value, release)) {
-		var action = clc.red('release');
-	}
-	else {
-		var action = clc.green('press');
-	}
-
-	console.log(action);
-}
 
 function offoff() {
 	var bit_0_test = bit_test(hex, bit_0);
@@ -117,7 +102,9 @@ function offoff() {
 	ibus_connection.send_message(ibus_packet);
 }
 
-function bit_sample(dsc, hex, callback) {
+
+
+function lcm_bitmask_display(dsc, hex) {
 	var bit_0_test = bit_test(hex, bit_0);
 	var bit_1_test = bit_test(hex, bit_1);
 	var bit_2_test = bit_test(hex, bit_2);
@@ -133,53 +120,96 @@ function bit_sample(dsc, hex, callback) {
 
 	console.log(string);
 
-	var src = 0x3F; // DIA
-	var dst = 0xBF; // GLO
+	// Determine action
+	// if (bit_test(value, hold)) {
+	// 	var action = clc.yellow('hold');
+	// }
+	// else if (bit_test(value, release)) {
+	// 	var action = clc.red('release');
+	// }
+	// else {
+	// 	var action = clc.green('press');
+	// }
 
-	var msg   = new Buffer([0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, hex]);
-
-	var ibus_packet = {
-		src: src,
-		dst: dst,
-		msg: msg,
-	}
-
-	setTimeout(function() {
-		ibus_connection.send_message(ibus_packet);
-		callback(null, 'message sent');
-	}, 2000);
+	// console.log(action);
 }
 
-function do_sample() {
-	offoff();
-	var line       = '--------------------------------------------';
-	var header_dec = '             001|002|004|008|016|032|064|128';
-	var header     = 'Descr   |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 ';
+function bit_sample(dsc, hex, callback) {
+	setTimeout(function() {
+		lcm_bitmask_display(dsc, hex);
+
+		var src = 0x3F; // DIA
+		var dst = 0xBF; // GLO
+
+		var msg   = new Buffer([0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, hex, 0x00]);
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: msg,
+		}
+
+		ibus_connection.send_message(ibus_packet);
+		callback(null, 'message sent');
+	}, 1000);
+}
+
+function print_header() {
+	var line       = '-----------------------------------------------------------------';
+	var header_dec = '                                  001|002|004|008|016|032|064|128';
+	var header     = 'Descr                        |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 ';
 
 	console.log(clc.yellow(header_dec));
 	console.log(clc.magenta(header));
 	console.log(line);
-
-	var result = wait.for(bit_sample, 'Off     ', 0x00);
 }
 
-// startup();
+function do_sample() {
+	// Last offset
+	// var result = wait.for(bit_sample, 'Off                          ', 0x00);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x01);
+	// var result = wait.for(bit_sample, 'RR turn+R side               ', 0x02);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
+	// var result = wait.for(bit_sample, 'RR tail                      ', 0x08);
+	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x20);
+	// var result = wait.for(bit_sample, 'LF turn                      ', 0x40);
+	// var result = wait.for(bit_sample, 'RR reverse                   ', 0x80);
+	// var result = wait.for(bit_sample, 'LF turn+RR reverse           ', 0xC0);
+	// var result = wait.for(bit_sample, 'LF turn+RR turn+R side       ', 0x42);
+	
+	// 2nd to last offset
+	// var result = wait.for(bit_sample, '??                           ', 0x01);
+	// var result = wait.for(bit_sample, '??                           ', 0x08);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x00);
+	// var result = wait.for(bit_sample, 'Vertical aim                 ', 0x02);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
+	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
+	// var result = wait.for(bit_sample, 'RF halo                      ', 0x20);
+	// var result = wait.for(bit_sample, 'RF turn                      ', 0x40);
+	// var result = wait.for(bit_sample, 'LR turn+L side               ', 0x80);
+	var result = wait.for(bit_sample, 'LR turn+L side+RF turn       ', 0xC0);
+}
+
+startup();
 
 function go() {
 	wait.launchFiber(do_sample);
 }
 
-// ibus_connection.on('port_open', go);
+ibus_connection.on('port_open', go);
 
-// RR turn, R sidemarker
-var buffer_data   = 0x02;
-// Cluster
-var buffer_data   = 0x04;
-// RR turn, R tail, R sidemarker
-var buffer_data   = 0x0a;
+print_header();
 
-lcm_bitmask_decode(buffer_data);
-// lcm_bitmask_decode(0x72);
-// lcm_bitmask_decode(0xB2);
+// lcm_bitmask_display('testing???                   ', 0x01);
+// lcm_bitmask_display('RR turn, R sidemarker        ', 0x02);
+// lcm_bitmask_display('Cluster                      ', 0x04);
+// lcm_bitmask_display('testing???                   ', 0x08);
+// lcm_bitmask_display('testing???                   ', 0x10);
+// lcm_bitmask_display('testing???                   ', 0x20);
+// lcm_bitmask_display('testing???                   ', 0x40);
+// lcm_bitmask_display('testing???                   ', 0x80);
+
+// lcm_bitmask_display('RR turn, R tail, R sidemarker', 0x0a);
 
 //shutdown();

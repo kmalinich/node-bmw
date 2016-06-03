@@ -2,6 +2,22 @@
 
 var clc = require('cli-color');
 
+// Bitmasks in hex
+var bit_0 = 0x01;
+var bit_1 = 0x02;
+var bit_2 = 0x04;
+var bit_3 = 0x08;
+var bit_4 = 0x10;
+var bit_5 = 0x20;
+var bit_6 = 0x40;
+var bit_7 = 0x80;
+
+// Bitmask constants
+var hold    = bit_6;
+var release = bit_7; 
+
+
+
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
 		return true;
@@ -17,16 +33,6 @@ function pad(n, width, z) {
 }
 
 function bit_sample(dsc, hex) {
-	var bit_0 = 1;
-	var bit_1 = 2;
-	var bit_2 = 4;
-	var bit_3 = 8;
-	var bit_4 = 16;
-	var bit_5 = 32;
-	var bit_6 = 64;
-	var bit_7 = 128;
-	var bit_8 = 256;
-
 	var bit_0_test = bit_test(hex, bit_0);
 	var bit_1_test = bit_test(hex, bit_1);
 	var bit_2_test = bit_test(hex, bit_2);
@@ -35,23 +41,38 @@ function bit_sample(dsc, hex) {
 	var bit_5_test = bit_test(hex, bit_5);
 	var bit_6_test = bit_test(hex, bit_6);
 	var bit_7_test = bit_test(hex, bit_7);
-	var bit_8_test = bit_test(hex, bit_8);
 
-	var string = clc.magenta(dsc)+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test+'|'+bit_8_test;
+	var string = clc.magenta(dsc)+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test;
 	string = string.replace(/true/g,  clc.green('TRU'));
 	string = string.replace(/false/g, clc.red('FAL'));
+
 	console.log(string);
 }
 
-function bmbt_bitmask(value) {
- 	console.log('bmbt_bitmask() called');
-	var release = 128; 
+function bmbt_bitmask_decode(value) {
+
+  // Determine button
+
+
+  // Determine action
+	if (bit_test(value, hold)) {
+		var action = clc.yellow('hold');
+	}
+	else if (bit_test(value, release)) {
+		var action = clc.red('release');
+	}
+	else {
+		var action = clc.green('press');
+	}
+
+	console.log(action);
 }
-var line   = '----------------------------------------------'
-var header = '           001|002|004|008|016|032|064|128|256';
+var line   = '------------------------------------------';
+var header = '           001|002|004|008|016|032|064|128';
 console.log(clc.yellow(header));
-var header = 'Descr |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8';
+var header = 'Descr |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 ';
 console.log(clc.magenta(header));
+console.log(line);
 
 bit_sample('1   dn', 0x11);
 bit_sample('2   dn', 0x01);
@@ -59,42 +80,46 @@ bit_sample('3   dn', 0x12);
 bit_sample('4   dn', 0x02);
 bit_sample('5   dn', 0x13);
 bit_sample('6   dn', 0x03);
+bit_sample('Pwr dn', 0x06);
 console.log(line);
 
-bit_sample('P   dn', 0x06);
-bit_sample('pty dn', 0x32);
-bit_sample('rds dn', 0x22);
 bit_sample('fm  dn', 0x31);
 bit_sample('am  dn', 0x21);
+bit_sample('pty dn', 0x32);
+bit_sample('rds dn', 0x22);
 bit_sample('dby dn', 0x33);
 bit_sample('mde dn', 0x23);
 console.log(line);
 
-//bit_sample('P   hd', 0x06);
-bit_sample('pty hd', 0x72);
-bit_sample('rds hd', 0x62);
-bit_sample('fm  hd', 0x71);
-bit_sample('am  hd', 0x61);
-bit_sample('dby hd', 0x73);
-bit_sample('mde hd', 0x63);
-console.log(line);
+// bit_sample('Pwr hd', 0x46);
+// console.log(line);
 
-bit_sample('1   up', 0x91);
-bit_sample('2   up', 0x81);
-bit_sample('3   up', 0x92);
-bit_sample('4   up', 0x82);
-bit_sample('5   up', 0x93);
-bit_sample('6   up', 0x83);
-console.log(line);
+// bit_sample('fm  hd', 0x71);
+// bit_sample('am  hd', 0x61);
+// bit_sample('pty hd', 0x72);
+// bit_sample('rds hd', 0x62);
+// bit_sample('dby hd', 0x73);
+// bit_sample('mde hd', 0x63);
+// console.log(line);
 
-bit_sample('P   up', 0x86);
-bit_sample('pty up', 0xb2);
-bit_sample('rds up', 0xa2);
-bit_sample('fm  up', 0xb1);
-bit_sample('am  up', 0xa1);
-bit_sample('dby up', 0xb3);
-bit_sample('mde up', 0xa3);
+// bit_sample('1   up', 0x91);
+// bit_sample('2   up', 0x81);
+// bit_sample('3   up', 0x92);
+// bit_sample('4   up', 0x82);
+// bit_sample('5   up', 0x93);
+// bit_sample('6   up', 0x83);
+// console.log(line);
+// 
+// bit_sample('Pwr up', 0x86);
+// console.log(line);
+// 
+// bit_sample('fm  up', 0xb1);
+// bit_sample('am  up', 0xa1);
+// bit_sample('pty up', 0xb2);
+// bit_sample('rds up', 0xa2);
+// bit_sample('dby up', 0xb3);
+// bit_sample('mde up', 0xa3);
 
-var test_value = 0x33;
-
-
+bmbt_bitmask_decode(0x32);
+bmbt_bitmask_decode(0x72);
+bmbt_bitmask_decode(0xB2);

@@ -833,9 +833,10 @@ function check_data(packet) {
 
 	// BMBT bitmask
 	//
-	// Release       : set bit 7
-	// 'Next' button : set bit 4
-  // Power+2nd row : set bit 5
+	// prev. button : set bit 4
+  // non-numeric  : set bit 5
+	// Long press   : set bit 6
+	// Release      : set bit 7
 	// 
 	// Otherwise... 
 	// 1     = 0 + 4

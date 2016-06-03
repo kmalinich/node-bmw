@@ -2,6 +2,11 @@
 
 var clc = require('cli-color');
 
+
+// This below is unfinished work, but it shows bitmask testing for BMBT.
+// This would be much more useful for things like LCM & GM modules.
+
+
 // Bitmasks in hex
 var bit_0 = 0x01;
 var bit_1 = 0x02;
@@ -79,7 +84,10 @@ bit_sample('2   dn', 0x01);
 bit_sample('4   dn', 0x02);
 bit_sample('6   dn', 0x03);
 bit_sample('tne dn', 0x04);
+bit_sample('nav dn', 0x05);
 bit_sample('pwr dn', 0x06);
+bit_sample('fan dn', 0x07);
+bit_sample('phn dn', 0x08);
 bit_sample('<   dn', 0x10);
 bit_sample('1   dn', 0x11);
 bit_sample('3   dn', 0x12);
@@ -90,9 +98,11 @@ bit_sample('am  dn', 0x21);
 bit_sample('rds dn', 0x22);
 bit_sample('mde dn', 0x23);
 bit_sample('^   dn', 0x24);
+bit_sample('Rmn dn', 0x30);
 bit_sample('fm  dn', 0x31);
 bit_sample('pty dn', 0x32);
 bit_sample('dby dn', 0x33);
+bit_sample('Nmn dn', 0x34);
 
 
 // bit_sample('Pwr hd', 0x46);

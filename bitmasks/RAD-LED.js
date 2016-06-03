@@ -130,7 +130,7 @@ function bit_sample(dsc, hex, callback) {
 
 		ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
-	}, 150);
+	}, 125);
 }
 
 function do_sample() {
@@ -148,29 +148,39 @@ function do_sample() {
 
 	var result = wait.for(bit_sample, 'Off     ', 0x00);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
 	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
-	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, 'Off     ', 0x00);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
 	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
-	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, 'Off     ', 0x00);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
 	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, '   SR SY', 0x05);
+	var result = wait.for(bit_sample, 'SG SR SY', 0x15);
+	var result = wait.for(bit_sample, 'SG SR   ', 0x11);
 	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
-	var result = wait.for(bit_sample, yellow, 0x04);
-	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
-	var result = wait.for(bit_sample, yellow, 0x04);
-	var result = wait.for(bit_sample, green, 0x10);
-	var result = wait.for(bit_sample, red, 0x01);
-	var result = wait.for(bit_sample, yellow, 0x04);
+	var result = wait.for(bit_sample, 'Off     ', 0x00);
+
+
+
+	// var result = wait.for(bit_sample, red, 0x01);
 
 	// var result = wait.for(bit_sample, '   FR   ', 0x02);
 	// var result = wait.for(bit_sample, '   SR SY', 0x05);

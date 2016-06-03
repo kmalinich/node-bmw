@@ -141,7 +141,7 @@ function bit_sample(dsc, hex, callback) {
 		var src = 0x3F; // DIA
 		var dst = 0xBF; // GLO
 
-		var msg   = new Buffer([0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, hex, 0x00]);
+		var msg   = new Buffer([0x0c, hex, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
 
 		var ibus_packet = {
 			src: src,
@@ -151,7 +151,7 @@ function bit_sample(dsc, hex, callback) {
 
 		ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
-	}, 1000);
+	}, 10000);
 }
 
 function print_header() {
@@ -166,29 +166,105 @@ function print_header() {
 
 function do_sample() {
 	// Last offset
-	// var result = wait.for(bit_sample, 'Off                          ', 0x00);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x01);
 	// var result = wait.for(bit_sample, 'RR turn+R side               ', 0x02);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
 	// var result = wait.for(bit_sample, 'RR tail                      ', 0x08);
-	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x20);
 	// var result = wait.for(bit_sample, 'LF turn                      ', 0x40);
 	// var result = wait.for(bit_sample, 'RR reverse                   ', 0x80);
 	// var result = wait.for(bit_sample, 'LF turn+RR reverse           ', 0xC0);
 	// var result = wait.for(bit_sample, 'LF turn+RR turn+R side       ', 0x42);
+	// var result = wait.for(bit_sample, 'Off                          ', 0x00);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x01);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
+	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
+	// var result = wait.for(bit_sample, 'Cluster                      ', 0x20);
 	
 	// 2nd to last offset
+	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
+	// var result = wait.for(bit_sample, 'RF halo                      ', 0x20);
+	// var result = wait.for(bit_sample, 'RF turn                      ', 0x40);
+	// var result = wait.for(bit_sample, 'LR turn+L side               ', 0x80);
 	// var result = wait.for(bit_sample, '??                           ', 0x01);
 	// var result = wait.for(bit_sample, '??                           ', 0x08);
 	// var result = wait.for(bit_sample, 'Cluster                      ', 0x00);
 	// var result = wait.for(bit_sample, 'Vertical aim                 ', 0x02);
 	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
-	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
-	// var result = wait.for(bit_sample, 'RF halo                      ', 0x20);
-	// var result = wait.for(bit_sample, 'RF turn                      ', 0x40);
-	// var result = wait.for(bit_sample, 'LR turn+L side               ', 0x80);
-	var result = wait.for(bit_sample, 'LR turn+L side+RF turn       ', 0xC0);
+	// var result = wait.for(bit_sample, 'LR turn+L side+RF turn       ', 0xC0);
+
+	// 3rd to last offset
+	// var result = wait.for(bit_sample, 'Cluster                  ', 0x00);
+	// var result = wait.for(bit_sample, 'RF halo                  ', 0x01);
+	// var result = wait.for(bit_sample, 'LR tail                  ', 0x02);
+	// var result = wait.for(bit_sample, 'LF fog                  ', 0x04);
+	// var result = wait.for(bit_sample, 'LR reverse                  ', 0x08);
+	// var result = wait.for(bit_sample, 'LF lowbeam                  ', 0x10);
+	// var result = wait.for(bit_sample, 'RF lowbeam        ', 0x20);
+	// var result = wait.for(bit_sample, 'Cluster        ', 0x40);
+	// var result = wait.for(bit_sample, 'Cluster                   ', 0x80);
+
+	// 4th to last
+	// var result = wait.for(bit_sample, '???', 0x00);
+	// var result = wait.for(bit_sample, '???', 0x01);
+	// var result = wait.for(bit_sample, 'Off? hazard switch on', 0x02);
+	// var result = wait.for(bit_sample, 'Clu no hazard', 0x04);
+	// var result = wait.for(bit_sample, 'RL tail', 0x08);
+	// var result = wait.for(bit_sample, 'RR tail', 0x10);
+	// var result = wait.for(bit_sample, 'RF highbeam', 0x20);
+	// var result = wait.for(bit_sample, 'LF highbeam', 0x40);
+	// var result = wait.for(bit_sample, '??', 0x80);
+
+	// 5th to last
+	// var result = wait.for(bit_sample, '???', 0x00);
+	// var result = wait.for(bit_sample, '???', 0x01);
+	// var result = wait.for(bit_sample, '???', 0x40);
+	// var result = wait.for(bit_sample, '???', 0x80);
+	// var result = wait.for(bit_sample, 'Off?', 0x02);
+	// var result = wait.for(bit_sample, 'Clu no hazard', 0x04);
+	// var result = wait.for(bit_sample, '1st switch pos', 0x08);
+	// var result = wait.for(bit_sample, '1st switch pos+R fog', 0x10);
+	// var result = wait.for(bit_sample, 'Cold mon', 0x20);
+
+	// 6th to last
+	// var result = wait.for(bit_sample, '???', 0x00);
+	// var result = wait.for(bit_sample, '???', 0x01);
+	// var result = wait.for(bit_sample, 'Off?', 0x02);
+	// var result = wait.for(bit_sample, '???', 0x04);
+	// var result = wait.for(bit_sample, '???', 0x08);
+	// var result = wait.for(bit_sample, 'Rfog', 0x10);
+	// var result = wait.for(bit_sample, '1st switch pos', 0x20);
+	// var result = wait.for(bit_sample, 'RF halo', 0x40);
+	// var result = wait.for(bit_sample, 'LF halo', 0x80);
+
+	// 7th to last
+	// var result = wait.for(bit_sample, '???', 0x00);
+	// var result = wait.for(bit_sample, '???', 0x01);
+	// var result = wait.for(bit_sample, '??', 0x20);
+	// var result = wait.for(bit_sample, '??', 0x08);
+	// var result = wait.for(bit_sample, 'Off?', 0x02);
+	// var result = wait.for(bit_sample, '1st switch w/o autolevel (stuck on)', 0x04);
+	// var result = wait.for(bit_sample, 'Hazards (disableable after 20s)', 0x10);
+	// var result = wait.for(bit_sample, '??', 0x40);
+	// var result = wait.for(bit_sample, '??', 0x80);
+
+	// 8th to last
+	// var result = wait.for(bit_sample, '???', 0x00);
+	// var result = wait.for(bit_sample, '???', 0x01);
+	// var result = wait.for(bit_sample, 'Off?', 0x02);
+	// var result = wait.for(bit_sample, '???', 0x04);
+	// var result = wait.for(bit_sample, '???', 0x08);
+	// var result = wait.for(bit_sample, 'Rfog', 0x10);
+	// var result = wait.for(bit_sample, '???', 0x20);
+	// var result = wait.for(bit_sample, 'Brake lights', 0x40);
+	// var result = wait.for(bit_sample, '???', 0x80);
+
+	// var result = wait.for(bit_sample, '', 0x00);
+	// var result = wait.for(bit_sample, '', 0x01);
+	// var result = wait.for(bit_sample, '', 0x02);
+	// var result = wait.for(bit_sample, '', 0x04);
+	// var result = wait.for(bit_sample, '', 0x08);
+	// var result = wait.for(bit_sample, '', 0x10);
+	// var result = wait.for(bit_sample, '', 0x20);
+	// var result = wait.for(bit_sample, '', 0x40);
+	// var result = wait.for(bit_sample, '', 0x80);
 }
 
 startup();

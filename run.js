@@ -831,24 +831,18 @@ function check_data(packet) {
 	//var rad_power_up        = new Buffer([0x48, 0x86]);
 
 
-	// dec,2^d
-	// 000,001
-	// 001,002
-	// 002,004
-	// 003,008
-	// 004,016
-	// 005,032
-	// 006,064
-	// 007,128
-	// 008,256
-
 	// BMBT bitmask
 	//
 	// Release      : set bit 7
 	// Odd numbers  : set bit 4
 	// 
 	// Otherwise... 
-	// 
+	// 1 = bit 0 + bit 4
+	// 2 = bit 0
+	// 3 = bit 1 + bit 4
+	// 4 = bit 1
+	// 5 = bit 0 + bit 1 + bit 4
+	// 6 = bit 0 + bit 1 
 
 	// BMBT
 	if (src == 'BMBT') {

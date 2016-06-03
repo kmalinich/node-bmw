@@ -833,93 +833,24 @@ function check_data(packet) {
 
 	// BMBT bitmask
 	//
-	// Release      : set bit 7
-	// Odd numbers  : set bit 4
+	// Release       : set bit 7
+	// 'Next' button : set bit 4
+  // Power+2nd row : set bit 5
 	// 
 	// Otherwise... 
-	// 1 = bit 0 + bit 4
-	// 2 = bit 0
-	// 3 = bit 1 + bit 4
-	// 4 = bit 1
-	// 5 = bit 0 + bit 1 + bit 4
-	// 6 = bit 0 + bit 1 
+	// 1     = 0 + 4
+	// 2     = 0
+	// 3     = 1 + 4
+	// 4     = 1
+	// 5     = 0 + 1 + 4
+	// 6     = 0 + 1
+	// Power = 1 + 2 
 
 	// BMBT
 	if (src == 'BMBT') {
 		if (msg[0] == 0x48) {
 			var command = 'button';
-			if (msg[1] == 0x11) {
-				var data    = '1 pressed';
-			}
-			else if (msg[1] == 0x91) {
-				var data    = '1 released';
-			}
-			else if (msg[1] == 0x01) {
-				var data    = '2 pressed';
-			}
-			else if (msg[1] == 0x81) {
-				var data    = '2 released';
-			}
-			else if (msg[1] == 0x12) {
-				var data    = '3 pressed';
-			}
-			else if (msg[1] == 0x92) {
-				var data    = '3 released';
-			}
-			else if (msg[1] == 0x02) {
-				var data    = '4 pressed';
-			}
-			else if (msg[1] == 0x82) {
-				var data    = '4 released';
-			}
-			else if (msg[1] == 0x13) {
-				var data    = '5 pressed';
-			}
-			else if (msg[1] == 0x93) {
-				var data    = '5 released';
-			}
-			else if (msg[1] == 0x03) {
-				var data    = '6 pressed';
-			}
-			else if (msg[1] == 0x83) {
-				var data    = '6 released';
-			}
-			else if (msg[1] == 0xb2) {
-				var data    = 'pty released';
-			}
-			else if (msg[1] == 0x32) {
-				var data    = 'pty pressed';
-			}
-			else if (msg[1] == 0x22) {
-				var data    = 'rds pressed';
-			}
-			else if (msg[1] == 0x31) {
-				var data    = 'fm pressed';
-			}
-			else if (msg[1] == 0x21) {
-				var data    = 'am pressed';
-			}
-			else if (msg[1] == 0x33) {
-				var data    = 'dolby pressed';
-			}
-			else if (msg[1] == 0x23) {
-				var data    = 'mode pressed';
-			}
-			else if (msg[1] == 0xa2) {
-				var data    = 'rds released';
-			}
-			else if (msg[1] == 0xb1) {
-				var data    = 'fm released';
-			}
-			else if (msg[1] == 0xa1) {
-				var data    = 'am released';
-			}
-			else if (msg[1] == 0xb3) {
-				var data    = 'dolby released';
-			}
-			else if (msg[1] == 0xa3) {
-				var data    = 'mode released';
-			}
+
 		}
 		else {
 			var command = msg[0];

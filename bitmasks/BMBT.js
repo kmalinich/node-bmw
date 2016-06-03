@@ -43,8 +43,13 @@ function bit_sample(dsc, hex) {
 	console.log(string);
 }
 
-// var header = '        001|002|004|008|016|032|064|128|256';
-// console.log(clc.yellow(header));
+function bmbt_bitmask(value) {
+ 	console.log('bmbt_bitmask() called');
+	var release = 128; 
+}
+var line   = '----------------------------------------------'
+var header = '           001|002|004|008|016|032|064|128|256';
+console.log(clc.yellow(header));
 var header = 'Descr |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8';
 console.log(clc.magenta(header));
 
@@ -54,6 +59,7 @@ bit_sample('3   dn', 0x12);
 bit_sample('4   dn', 0x02);
 bit_sample('5   dn', 0x13);
 bit_sample('6   dn', 0x03);
+console.log(line);
 
 bit_sample('P   dn', 0x06);
 bit_sample('pty dn', 0x32);
@@ -62,6 +68,16 @@ bit_sample('fm  dn', 0x31);
 bit_sample('am  dn', 0x21);
 bit_sample('dby dn', 0x33);
 bit_sample('mde dn', 0x23);
+console.log(line);
+
+//bit_sample('P   hd', 0x06);
+bit_sample('pty hd', 0x72);
+bit_sample('rds hd', 0x62);
+bit_sample('fm  hd', 0x71);
+bit_sample('am  hd', 0x61);
+bit_sample('dby hd', 0x73);
+bit_sample('mde hd', 0x63);
+console.log(line);
 
 bit_sample('1   up', 0x91);
 bit_sample('2   up', 0x81);
@@ -69,6 +85,7 @@ bit_sample('3   up', 0x92);
 bit_sample('4   up', 0x82);
 bit_sample('5   up', 0x93);
 bit_sample('6   up', 0x83);
+console.log(line);
 
 bit_sample('P   up', 0x86);
 bit_sample('pty up', 0xb2);
@@ -77,3 +94,7 @@ bit_sample('fm  up', 0xb1);
 bit_sample('am  up', 0xa1);
 bit_sample('dby up', 0xb3);
 bit_sample('mde up', 0xa3);
+
+var test_value = 0x33;
+
+

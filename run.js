@@ -320,22 +320,21 @@ function lcm_flash(beam) {
 	// eg low beam and hazard lights =
 	// 0 0 0 0 0 1 1 0 = 06 (hex)
 	// 7 6 5 4 3 2 1 0
+	
+	var action_flash  = 0x76;
 
-	var lcm_flash_hz_ike = new Buffer([0x76, 0x01]);
-	var lights           = 'hazards in cluster';
-	var lcm_flash_hz     = new Buffer([0x76, 0x02]);
-	var lights           = 'hazards';
-	var lcm_flash_hzlb   = new Buffer([0x76, 0x0a]);
-	var lights           = 'hazards and low beams';
-	var lcm_flash_off    = new Buffer([0x76, 0x00]);
-	var lights           = 'none';
+	var lights_off    = 0x00; // none
+	var lights_hz_ike = 0x01; // hazards in cluster
+	var lights_hz     = 0x02; // hazards
+	var lights_hzlb   = 0x0A; // hazards and low beams
 
-	console.log('Flashing lights:', lights);
+	var action        = action_flash;
+	var lights        = lights_off;
 
 	var ibus_packet = {
 		src: src, 
 		dst: dst,
-		msg: new Buffer(msg),
+		msg: new Buffer([action, lights]),
 	}
 
 	ibus_send(ibus_packet);

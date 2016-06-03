@@ -31,6 +31,12 @@
 var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
+// Color terminal output
+var clc = require('cli-color');
+
+// Sleep
+var sleep = require('sleep');
+
 // Serial device path
 var device = '/dev/tty.SLAB_USBtoUART';
 
@@ -42,7 +48,7 @@ process.on('SIGINT', shutdown);
 
 // Run check_data() on data events
 ibus_connection.on('data', check_data);
-
+ibus_connection.on('port_open', hello);
 
 
 // ASCII to hex for cluster message
@@ -57,21 +63,6 @@ function ascii2hex(str) {
 	return array;
 }
 
-function bit_test(num, bit) {
-	return ((num>>bit) % 2 != 0)
-}
-
-function bit_set(num, bit) {
-	return num | 1<<bit;
-}
-
-function bit_clear(num, bit) {
-	return num & ~(1<<bit);
-}
-
-function bit_toggle(num, bit) {
-	return bit_test(num, bit)?bit_clear(num, bit):bit_set(num, bit);
-}
 
 
 // Startup function
@@ -83,14 +74,10 @@ function startup() {
 // Shutdown function
 function shutdown() {
 	// Terminate connection
-	setTimeout(function() {
-		ibus_connection.shutdown(function() {
-			process.exit();
-		});
-	}, 1000);
+	ibus_connection.shutdown(function() {
+		process.exit();
+	});
 }
-
-
 
 // Send IBUS message
 function ibus_send(ibus_packet) {
@@ -310,16 +297,7 @@ function obc_reset(value) {
 // Flash lights indefinitey
 function lcm_flash(beam) {
 	var src = 0x00; // All
-	var dst = 0xbf; // LCM
-
-	// Bit 1 = hazard light
-	// Bit 2 = low beam
-	// Bit 3 = fade
-	// Bit 4 = high beam
-	// The bits may be combined
-	// eg low beam and hazard lights =
-	// 0 0 0 0 0 1 1 0 = 06 (hex)
-	// 7 6 5 4 3 2 1 0
+	var dst = 0xBF; // LCM
 	
 	var action_flash  = 0x76;
 
@@ -483,6 +461,7 @@ function rad_led(color, flash) {
 		msg: msg,
 	}
 
+	console.log(ibus_packet);
 	ibus_send(ibus_packet);
 }
 
@@ -679,42 +658,8 @@ function check_data(packet) {
 
 	// RAD
 	if (src == 'RAD') {
-		if (msg.compare(rad_phone_down) == 0) {
-			var command = 'depressed';
-			var data    = 'phone';
-		}
-		else if (msg.compare(rad_power_down) == 0) {
-			var command = 'depressed';
-			var data    = 'power';
-		}
-		else if (msg.compare(rad_power_up) == 0) {
-			var command = 'released';
-			var data    = 'power';
-		}
-		else if (msg.compare(rad_1_down) == 0) {
-			var command = 'depressed';
-			var data    = '1';
-		}
-		else if (msg.compare(rad_2_down) == 0) {
-			var command = 'depressed';
-			var data    = '2';
-		}
-		else if (msg.compare(rad_3_down) == 0) {
-			var command = 'depressed';
-			var data    = '3';
-		}
-		else if (msg.compare(rad_4_down) == 0) {
-			var command = 'depressed';
-			var data    = '4';
-		}
-		else if (msg.compare(rad_5_down) == 0) {
-			var command = 'depressed';
-			var data    = '5';
-		}
-		else if (msg.compare(rad_6_down) == 0) {
-			var command = 'depressed';
-			var data    = '6';
-		}
+			var command = 'command';
+			var data    = 'data';
 	}
 
 	// var fob_lock_down       = new Buffer([0x72, 0x12]);

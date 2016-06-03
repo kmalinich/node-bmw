@@ -61,3 +61,6 @@ bit_sample('3up', 0x92);
 bit_sample('4up', 0x82);
 bit_sample('5up', 0x93);
 bit_sample('6up', 0x83);
+
+bit_sample('Pdn', 0x06);
+bit_sample('Pup', 0x86);

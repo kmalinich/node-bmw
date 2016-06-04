@@ -43,8 +43,25 @@ function shutdown() {
   });
 }
 
-// Send IBUS message
-function ibus_send(ibus_packet) {
+// Send message to LCM
+function lcm_send(lcm_packet) {
+  var src = 0x3F; // DIA
+  var dst = 0xBF; // GLO
+  var cmd = 0x0C; // "Command the lights"
+
+  // Add the command to the beginning of the LCM hex array
+  lcm_packet.unshift(cmd);
+  // Create a buffer with the hex string
+  var msg  = new Buffer(lcm_packet);
+
+  var ibus_packet = {
+    src: src,
+    dst: dst,
+    msg: msg,
+  }
+
+  // Send the message
+  console.log('Sending LCM packet');
   ibus_connection.send_message(ibus_packet);
 }
 
@@ -57,71 +74,131 @@ function bit_test(num, bit) {
   }
 }
 
-// 0 pad a string
-function pad(n, width, z) {
-  z = z || '0';
-  n = n + '';
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-}
-
-// Display bitmask info
-function lcm_bitmask_display(dsc, hex) {
-  var bit_0_test = bit_test(hex, bit_0);
-  var bit_1_test = bit_test(hex, bit_1);
-  var bit_2_test = bit_test(hex, bit_2);
-  var bit_3_test = bit_test(hex, bit_3);
-  var bit_4_test = bit_test(hex, bit_4);
-  var bit_5_test = bit_test(hex, bit_5);
-  var bit_6_test = bit_test(hex, bit_6);
-  var bit_7_test = bit_test(hex, bit_7);
-
-  var string = dsc+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test;
-  string     = string.replace(/true/g,  clc.green('TRU'));
-  string     = string.replace(/false/g, clc.red('FAL'));
-
-  console.log(string);
-}
-
-function bit_sample(dsc, hex, callback) {
-  setTimeout(function() {
-    lcm_bitmask_display(dsc, hex);
-
-    var src = 0x3F; // DIA
-    var dst = 0xBF; // GLO
-    var cmd = 0x0C; // "Command the lights"
-
-    var data = [cmd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]; // Nothing
-    var data = [cmd, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x09, 0xE4, 0xC2]; // Halos, reverse, both sidemarkers, both rear turns, both front turns, license plate
-    var data = [cmd, 0x00, 0x00, 0xC0, 0x00, 0x60, 0x3F, 0xE4, 0xCA]; // Everything except right front fog light..
-    var data = [cmd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00]; // Both lowbeams+both fogs 
-
-    var msg = new Buffer(data);
-
-    var ibus_packet = {
-      src: src,
-      dst: dst,
-      msg: msg,
-    }
-
-    ibus_connection.send_message(ibus_packet);
-    callback(null, 'message sent');
-  }, 3000);
-}
-
-function print_header() {
-  var line       = '-----------------------------------------------------------------';
-  var header_dec = '                                  001|002|004|008|016|032|064|128';
-  var header     = 'Descr                        |Val| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 ';
-
-  console.log(clc.yellow(header_dec));
-  console.log(clc.magenta(header));
-  console.log(line);
+// Set a bit in a bitmask
+function bit_set(num, bit) {
+  num |= bit;
+  return num;
 }
 
 // Encode the LCM bitmask string from an input of true/false values
 function lcm_bitmask_encode(array) {
-  console.log('encoding');
+  // Initialize bitmask variables
+  var bitmask_0 = 0x00;
+  var bitmask_1 = 0x00;
+  var bitmask_2 = 0x00;
+  var bitmask_3 = 0x00;
+  var bitmask_4 = 0x00;
+  var bitmask_5 = 0x00;
+  var bitmask_6 = 0x00;
+  var bitmask_7 = 0x00;
 
+  // 0
+  if(array.brake_switch) {
+    bitmask_0 = bit_set(bitmask_0, bit_6)
+  }
+
+  // 1
+  // '1st switch w/o autolevel (stuck on)', 0x04);
+  if(array.hazard_switch) {
+    bitmask_1 = bit_set(bitmask_1, bit_4);
+  }
+
+  // 2
+  if(array.running_lamps_1) {
+    bitmask_2 = bit_set(bitmask_2, bit_5);
+  }
+  if(array.parking_right  ) {
+    bitmask_2 = bit_set(bitmask_2, bit_6);
+  }
+  if(array.parking_left   ) {
+    bitmask_2 = bit_set(bitmask_2, bit_7);
+  }
+
+  // 3
+  if(array.running_lamps_2) {
+    bitmask_3 = bit_set(bitmask_2, bit_3);
+  }
+  if(array.cold_monitoring) {
+    bitmask_3 = bit_set(bitmask_2, bit_5);
+  }
+
+  // 4
+  if(array.cluster_led) {
+    bitmask_4 = bit_set(bitmask_4, bit_1);
+  }
+  if(array.hazard_led ) {
+    bitmask_4 = bit_set(bitmask_4, bit_2);
+  }
+  if(array.tail_left  ) {
+    bitmask_4 = bit_set(bitmask_4, bit_3);
+  }
+  if(array.tail_right ) {
+    bitmask_4 = bit_set(bitmask_4, bit_4);
+  }
+  if(array.high_right ) {
+    bitmask_4 = bit_set(bitmask_4, bit_5);
+  }
+  if(array.high_left  ) {
+    bitmask_4 = bit_set(bitmask_4, bit_6);
+  }
+
+  // 5
+  if(array.halo_left   ) {
+    bitmask_5 = bit_set(bitmask_5, bit_0);
+  }
+  if(array.brake_left  ) {
+    bitmask_5 = bit_set(bitmask_5, bit_1);
+  }
+  if(array.fog_left    ) {
+    bitmask_5 = bit_set(bitmask_5, bit_2);
+  }
+  if(array.reverse_left) {
+    bitmask_5 = bit_set(bitmask_5, bit_3);
+  }
+  if(array.low_left    ) {
+    bitmask_5 = bit_set(bitmask_5, bit_4);
+  }
+  if(array.low_right   ) {
+    bitmask_5 = bit_set(bitmask_5, bit_5);
+  }
+  if(array.fog_right   ) {
+    bitmask_5 = bit_set(bitmask_5, bit_6);
+  }
+
+  // 6
+  if(array.vertical_aim    ) {
+    bitmask_6 = bit_set(bitmask_6, bit_1);
+  }
+  if(array.license         ) {
+    bitmask_6 = bit_set(bitmask_6, bit_2);
+  }
+  if(array.halo_right      ) {
+    bitmask_6 = bit_set(bitmask_6, bit_5);
+  }
+  if(array.turn_front_right) {
+    bitmask_6 = bit_set(bitmask_6, bit_6);
+  }
+  if(array.turn_rear_left  ) {
+    bitmask_6 = bit_set(bitmask_6, bit_7);
+  }
+
+  // 7
+  if(array.turn_rear_right) {
+    bitmask_7 = bit_set(bitmask_7, bit_1);
+  }
+  if(array.brake_right    ) {
+    bitmask_7 = bit_set(bitmask_7, bit_3);
+  }
+  if(array.turn_front_left) {
+    bitmask_7 = bit_set(bitmask_7, bit_6);
+  }
+  if(array.reverse_right  ) {
+    bitmask_7 = bit_set(bitmask_7, bit_7);
+  }
+
+  var output = [bitmask_0, bitmask_1, bitmask_2, bitmask_3, bitmask_4, bitmask_5, bitmask_6, bitmask_7];
+
+  return output;
 }
 
 // Decode the LCM bitmask string and output an array of true/false values
@@ -136,37 +213,37 @@ function lcm_bitmask_decode(array) {
   var bitmask_7 = array[7];
 
   // 0
-  var brake_switch = bit_test(bitmask_0, bit_6);
+  var brake_switch     = bit_test(bitmask_0, bit_6);
 
   // 1
   // '1st switch w/o autolevel (stuck on)', 0x04);
-  var hazard_switch = bit_test(bitmask_1, bit_4);
+  var hazard_switch    = bit_test(bitmask_1, bit_4);
 
   // 2
-  var running_lamps_1 = bit_test(bitmask_2, bit_5);
-  var parking_right   = bit_test(bitmask_2, bit_6);
-  var parking_left    = bit_test(bitmask_2, bit_7);
+  var running_lamps_1  = bit_test(bitmask_2, bit_5);
+  var parking_right    = bit_test(bitmask_2, bit_6);
+  var parking_left     = bit_test(bitmask_2, bit_7);
 
   // 3
-  var running_lamps_2 = bit_test(bitmask_2, bit_3);
-  var cold_monitoring = bit_test(bitmask_2, bit_5);
+  var running_lamps_2  = bit_test(bitmask_2, bit_3);
+  var cold_monitoring  = bit_test(bitmask_2, bit_5);
 
   // 4
-  var cluster_led = bit_test(bitmask_4, bit_1);
-  var hazard_led  = bit_test(bitmask_4, bit_2);
-  var tail_left   = bit_test(bitmask_4, bit_3);
-  var tail_right  = bit_test(bitmask_4, bit_4);
-  var high_right  = bit_test(bitmask_4, bit_5);
-  var high_left   = bit_test(bitmask_4, bit_6);
+  var cluster_led      = bit_test(bitmask_4, bit_1);
+  var hazard_led       = bit_test(bitmask_4, bit_2);
+  var tail_left        = bit_test(bitmask_4, bit_3);
+  var tail_right       = bit_test(bitmask_4, bit_4);
+  var high_right       = bit_test(bitmask_4, bit_5);
+  var high_left        = bit_test(bitmask_4, bit_6);
 
   // 5
-  var halo_left    = bit_test(bitmask_5, bit_0);
-  var brake_left   = bit_test(bitmask_5, bit_1);
-  var fog_left     = bit_test(bitmask_5, bit_2);
-  var reverse_left = bit_test(bitmask_5, bit_3);
-  var low_left     = bit_test(bitmask_5, bit_4);
-  var low_right    = bit_test(bitmask_5, bit_5);
-  var fog_right    = bit_test(bitmask_5, bit_6);
+  var halo_left        = bit_test(bitmask_5, bit_0);
+  var brake_left       = bit_test(bitmask_5, bit_1);
+  var fog_left         = bit_test(bitmask_5, bit_2);
+  var reverse_left     = bit_test(bitmask_5, bit_3);
+  var low_left         = bit_test(bitmask_5, bit_4);
+  var low_right        = bit_test(bitmask_5, bit_5);
+  var fog_right        = bit_test(bitmask_5, bit_6);
 
   // 6
   var vertical_aim     = bit_test(bitmask_6, bit_1);
@@ -176,11 +253,10 @@ function lcm_bitmask_decode(array) {
   var turn_rear_left   = bit_test(bitmask_6, bit_7);
 
   // 7
-  var turn_rear_right = bit_test(bitmask_7, bit_1);
-  var brake_right     = bit_test(bitmask_7, bit_3);
-  var turn_front_left = bit_test(bitmask_7, bit_6);
-  var reverse_right   = bit_test(bitmask_7, bit_7);
-
+  var turn_rear_right  = bit_test(bitmask_7, bit_1);
+  var brake_right      = bit_test(bitmask_7, bit_3);
+  var turn_front_left  = bit_test(bitmask_7, bit_6);
+  var reverse_right    = bit_test(bitmask_7, bit_7);
 
   // This bit always lights up the rear fog LED in the cluster no matter where in the buffer it is
   // var result = wait.for(bit_sample, 'Rfog', 0x10);
@@ -216,39 +292,53 @@ function lcm_bitmask_decode(array) {
     'cold_monitoring'  : cold_monitoring,
   }
 
-  console.log(output)
+  return output;
+}
+
+// All the possible values to send to the LCM
+var array_of_possible_values = {
+  brake_left       : true,
+  brake_right      : true,
+  brake_switch     : true,
+  cluster_led      : true,
+  fog_left         : true,
+  fog_right        : true,
+  halo_left        : true,
+  halo_right       : true,
+  hazard_led       : true,
+  hazard_switch    : true,
+  high_left        : true,
+  high_right       : true,
+  license          : true,
+  low_left         : true,
+  low_right        : true,
+  reverse_left     : true,
+  reverse_right    : true,
+  tail_left        : true,
+  tail_right       : true,
+  turn_front_left  : true,
+  turn_front_right : true,
+  turn_rear_left   : true,
+  turn_rear_right  : true,
+  running_lamps_1  : true,
+  parking_right    : true,
+  parking_left     : true,
+  running_lamps_2  : true,
+  cold_monitoring  : true,
 }
 
 function go() {
-  wait.launchFiber(do_sample);
+  var array = {
+    brake_left  : true,
+    brake_right : true,
+  }
+
+  var encode = lcm_bitmask_encode(array);
+  var decode = lcm_bitmask_decode(encode);
+
+  lcm_send(encode);
 }
 
-//startup();
-//ibus_connection.on('port_open', go);
-
-// lcm_bitmask_display('RF halo                      ', 0x01);
-// lcm_bitmask_display('LR brake                     ', 0x02);
-// lcm_bitmask_display('LF fog                       ', 0x04);
-// lcm_bitmask_display('LR reverse                   ', 0x08);
-// lcm_bitmask_display('LF lowbeam                   ', 0x10);
-// lcm_bitmask_display('RF lowbeam                   ', 0x20);
-// lcm_bitmask_display('RF fog                       ', 0x40);
-// lcm_bitmask_display('Both fogs+both lowbeams      ', 0x74);
-
-
-var data = [0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00]; // Both lowbeams+both fogs
-var data = [0x00, 0x00, 0xC0, 0x00, 0x60, 0x3F, 0xE4, 0xCA]; // Everything except right front fog light..
-lcm_bitmask_decode(data);
-
-// lcm_bitmask_display('testing???                   ', 0x01);
-// lcm_bitmask_display('RR turn, R sidemarker        ', 0x02);
-// lcm_bitmask_display('Cluster                      ', 0x04);
-// lcm_bitmask_display('testing???                   ', 0x08);
-// lcm_bitmask_display('testing???                   ', 0x10);
-// lcm_bitmask_display('testing???                   ', 0x20);
-// lcm_bitmask_display('testing???                   ', 0x40);
-// lcm_bitmask_display('testing???                   ', 0x80);
-
-// lcm_bitmask_display('RR turn, R tail, R sidemarker', 0x0a);
-
+startup();
+ibus_connection.on('port_open', go);
 //shutdown();

@@ -47,11 +47,6 @@ var bit_5 = 0x20;
 var bit_6 = 0x40;
 var bit_7 = 0x80;
 
-// Bitmask constants
-var hazard  = bit_1;
-var beam_lo = bit_2;
-var fade    = bit_3;
-var beam_hi = bit_4;
 
 
 function bit_test(num, bit) {
@@ -69,41 +64,6 @@ function pad(n, width, z) {
 }
 
 
-
-function offoff() {
-	var bit_0_test = bit_test(hex, bit_0);
-	var bit_1_test = bit_test(hex, bit_1);
-	var bit_2_test = bit_test(hex, bit_2);
-	var bit_3_test = bit_test(hex, bit_3);
-	var bit_4_test = bit_test(hex, bit_4);
-	var bit_5_test = bit_test(hex, bit_5);
-	var bit_6_test = bit_test(hex, bit_6);
-	var bit_7_test = bit_test(hex, bit_7);
-
-	var dsc = 'superoff';
-	var hex = 0x00;
-
-	var string = dsc+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test;
-	string     = string.replace(/true/g,  clc.green('TRU'));
-	string     = string.replace(/false/g, clc.red('FAL'));
-
-	console.log(string);
-
-	var src = 0x00; // GM
-	var dst = 0xBF; // GLO
-	var msg = new Buffer([0x76, hex]);
-
-	var ibus_packet = {
-		src: src,
-		dst: dst,
-		msg: msg,
-	}
-
-	ibus_connection.send_message(ibus_packet);
-}
-
-
-
 function lcm_bitmask_display(dsc, hex) {
 	var bit_0_test = bit_test(hex, bit_0);
 	var bit_1_test = bit_test(hex, bit_1);
@@ -119,19 +79,6 @@ function lcm_bitmask_display(dsc, hex) {
 	string     = string.replace(/false/g, clc.red('FAL'));
 
 	console.log(string);
-
-	// Determine action
-	// if (bit_test(value, hold)) {
-	// 	var action = clc.yellow('hold');
-	// }
-	// else if (bit_test(value, release)) {
-	// 	var action = clc.red('release');
-	// }
-	// else {
-	// 	var action = clc.green('press');
-	// }
-
-	// console.log(action);
 }
 
 function bit_sample(dsc, hex, callback) {
@@ -140,10 +87,14 @@ function bit_sample(dsc, hex, callback) {
 
 		var src = 0x3F; // DIA
 		var dst = 0xBF; // GLO
+		var cmd = 0x0C; // "Command the lights"
 
-		var msg   = new Buffer([0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
-		var msg   = new Buffer([0x0c, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x09, 0xE4, 0xC2]); // Halos, reverse, both sidemarkers, both rear turns, both front turns, license plate
-		var msg   = new Buffer([0x0c, 0x00, 0x00, 0xC0, 0x00, 0x60, 0x3f, 0xE4, 0xCA]); // Everything except right front fog light.. 
+		var data = [cmd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]; // Nothing
+		var data = [cmd, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x09, 0xE4, 0xC2]; // Halos, reverse, both sidemarkers, both rear turns, both front turns, license plate
+		var data = [cmd, 0x00, 0x00, 0xC0, 0x00, 0x60, 0x3F, 0xE4, 0xCA]; // Everything except right front fog light..
+		var data = [cmd, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00]; // Both lowbeams+both fogs 
+
+		var msg = new Buffer(data);
 
 		var ibus_packet = {
 			src: src,
@@ -166,126 +117,128 @@ function print_header() {
 	console.log(line);
 }
 
-function do_sample() {
-	// Last offset
-	// var result = wait.for(bit_sample, 'RR turn+R side               ', 0x02);
-	// var result = wait.for(bit_sample, 'RR brake                      ', 0x08);
-	// var result = wait.for(bit_sample, 'LF turn                      ', 0x40);
-	// var result = wait.for(bit_sample, 'RR reverse                   ', 0x80);
-	//
-	// var result = wait.for(bit_sample, 'LF turn+RR turn+R side       ', 0x42);
-	// var result = wait.for(bit_sample, 'LF turn+RR turn+R side+RR rev', 0xC2);
-	//
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x01);
-	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x20);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x04);
+function lcm_bitmask_decode(array) {
+  console.log(array);
+  var bitmask_0 = array[0];
+  var bitmask_1 = array[1];
+  var bitmask_2 = array[2];
+  var bitmask_3 = array[3];
+  var bitmask_4 = array[4];
+  var bitmask_5 = array[5];
+  var bitmask_6 = array[6];
+  var bitmask_7 = array[7];
+
+  var bit_0 = 0x01;
+  var bit_1 = 0x02;
+  var bit_2 = 0x04;
+  var bit_3 = 0x08;
+  var bit_4 = 0x10;
+  var bit_5 = 0x20;
+  var bit_6 = 0x40;
+  var bit_7 = 0x80;
+
+	// 0
+	// 'Brake lights', 0x40);
+
+  // 1
+	// '1st switch w/o autolevel (stuck on)', 0x04);
+	// 'Hazards (disableable after 20s)', 0x10);
 	
-	// 2nd to last offset
-	// var result = wait.for(bit_sample, 'License plate                ', 0x04);
-	// var result = wait.for(bit_sample, 'RF halo                      ', 0x20);
-	// var result = wait.for(bit_sample, 'RF turn                      ', 0x40);
-	// var result = wait.for(bit_sample, 'LR turn+L side               ', 0x80);
-	// var result = wait.for(bit_sample, 'Vertical aim                 ', 0x02);
-	//
-	// var result = wait.for(bit_sample, 'LR turn+L side+RF turn       ', 0xC0);
-	// var result = wait.for(bit_sample, 'LR turn+L side+RF turn+Lic   ', 0xC4);
-	// var result = wait.for(bit_sample, 'LRturn+Lside+RFturn+RFhal+Lic', 0xE4);
-	//
-	// var result = wait.for(bit_sample, 'R fog                        ', 0x10);
-	// var result = wait.for(bit_sample, '??                           ', 0x01);
-	// var result = wait.for(bit_sample, '??                           ', 0x08);
-	// var result = wait.for(bit_sample, 'Cluster                      ', 0x00);
+  // 2
+  var running_lamps_1 = bit_test(bitmask_2, bit_5);
+	var parking_right   = bit_test(bitmask_2, bit_6);
+	var parking_left    = bit_test(bitmask_2, bit_7);
 
-	// 3rd to last offset
-	// var result = wait.for(bit_sample, 'RF halo                  ', 0x01);
-	// var result = wait.for(bit_sample, 'LR brake                  ', 0x02);
-	// var result = wait.for(bit_sample, 'LF fog                  ', 0x04);
-	// var result = wait.for(bit_sample, 'LR reverse                  ', 0x08);
-	// var result = wait.for(bit_sample, 'LF lowbeam                  ', 0x10);
-	// var result = wait.for(bit_sample, 'RF lowbeam        ', 0x20);
-	//
-	// var result = wait.for(bit_sample, 'Cluster                  ', 0x00);
-	// var result = wait.for(bit_sample, 'Cluster        ', 0x40);
-	// var result = wait.for(bit_sample, 'Cluster                   ', 0x80);
+  // 3
+  var running_lamps_2 = bit_test(bitmask_2, bit_3);
+	var cold_monitoring = bit_test(bitmask_2, bit_5);
 
-	// 4th to last
-	// var result = wait.for(bit_sample, '???', 0x00);
-	// var result = wait.for(bit_sample, '???', 0x01);
-	// var result = wait.for(bit_sample, 'Off? hazard switch on', 0x02);
-	// var result = wait.for(bit_sample, 'Clu no hazard', 0x04);
-	// var result = wait.for(bit_sample, 'RL tail', 0x08);
-	// var result = wait.for(bit_sample, 'RR tail', 0x10);
-	// var result = wait.for(bit_sample, 'RF highbeam', 0x20);
-	// var result = wait.for(bit_sample, 'LF highbeam', 0x40);
-	// var result = wait.for(bit_sample, '??', 0x80);
+  // 4
+	var cluster_led = bit_test(bitmask_4, bit_1);
+	var hazard_led  = bit_test(bitmask_4, bit_2);
+	var tail_left   = bit_test(bitmask_4, bit_3);
+	var tail_right  = bit_test(bitmask_4, bit_4);
+	var high_right  = bit_test(bitmask_4, bit_5);
+	var high_left   = bit_test(bitmask_4, bit_6);
 
-	// 5th to last
-	// var result = wait.for(bit_sample, '???', 0x00);
-	// var result = wait.for(bit_sample, '???', 0x01);
-	// var result = wait.for(bit_sample, '???', 0x40);
-	// var result = wait.for(bit_sample, '???', 0x80);
-	// var result = wait.for(bit_sample, 'Off?', 0x02);
-	// var result = wait.for(bit_sample, 'Clu no hazard', 0x04);
-	// var result = wait.for(bit_sample, '1st switch pos', 0x08);
-	// var result = wait.for(bit_sample, '1st switch pos+R fog', 0x10);
-	// var result = wait.for(bit_sample, 'Cold mon', 0x20);
-	// var result = wait.for(bit_sample, 'Cold mon', 0x20);
-	// var result = wait.for(bit_sample, 'Cold mon', 0x20);
+  // 5
+	var halo_left    = bit_test(bitmask_5, bit_0);
+	var brake_left   = bit_test(bitmask_5, bit_1);
+	var fog_left     = bit_test(bitmask_5, bit_2);
+	var reverse_left = bit_test(bitmask_5, bit_3);
+	var low_left     = bit_test(bitmask_5, bit_4);
+	var low_right    = bit_test(bitmask_5, bit_5);
+	var fog_right    = bit_test(bitmask_5, bit_6);
 
-	// 6th to last
-	// var result = wait.for(bit_sample, '???', 0x00);
-	// var result = wait.for(bit_sample, '???', 0x01);
-	// var result = wait.for(bit_sample, 'Off?', 0x02);
-	// var result = wait.for(bit_sample, '???', 0x04);
-	// var result = wait.for(bit_sample, '???', 0x08);
+  // 6
+	var vertical_aim     = bit_test(bitmask_6, bit_1);
+	var license          = bit_test(bitmask_6, bit_2);
+	var halo_right       = bit_test(bitmask_6, bit_5);
+	var turn_front_right = bit_test(bitmask_6, bit_6);
+	var turn_rear_left   = bit_test(bitmask_6, bit_7);
+
+  // 7
+	var turn_rear_right = bit_test(bitmask_7, bit_1);
+	var brake_right     = bit_test(bitmask_7, bit_3);
+	var turn_front_left = bit_test(bitmask_7, bit_6);
+	var reverse_right   = bit_test(bitmask_7, bit_7);
+
+
+  // This bit always lights up the rear fog LED in the cluster no matter where in the buffer it is
 	// var result = wait.for(bit_sample, 'Rfog', 0x10);
-	// var result = wait.for(bit_sample, '1st switch pos', 0x20);
-	// var result = wait.for(bit_sample, 'RF halo', 0x40); // maybe more suspect, i think parking lights
-	// var result = wait.for(bit_sample, 'LF halo', 0x80); // maybe more suspect
+ 
+  var output = {
+    'brake_left'       : brake_left,
+    'brake_right'      : brake_right,
+    'cluster_led'      : cluster_led,
+    'fog_left'         : fog_left,
+    'fog_right'        : fog_right,
+    'halo_left'        : halo_left,
+    'halo_right'       : halo_right,
+    'hazard_led'       : hazard_led,
+    'high_left'        : high_left,
+    'high_right'       : high_right,
+    'license'          : license,
+    'low_left'         : low_left,
+    'low_right'        : low_right,
+    'reverse_left'     : reverse_left,
+    'reverse_right'    : reverse_right,
+    'tail_left'        : tail_left,
+    'tail_right'       : tail_right,
+    'turn_front_left'  : turn_front_left,
+    'turn_front_right' : turn_front_right,
+    'turn_rear_left'   : turn_rear_left,
+    'turn_rear_right'  : turn_rear_right,
+    'running_lamps_1'  : running_lamps_1,
+    'parking_right'    : parking_right,
+    'parking_left'     : parking_left,
+    'running_lamps_2'  : running_lamps_2,
+    'cold_monitoring'  : cold_monitoring,
+  }
 
-	// 7th to last
-	// var result = wait.for(bit_sample, '???', 0x00);
-	// var result = wait.for(bit_sample, '???', 0x01);
-	// var result = wait.for(bit_sample, '??', 0x20);
-	// var result = wait.for(bit_sample, '??', 0x08);
-	// var result = wait.for(bit_sample, 'Off?', 0x02);
-	// var result = wait.for(bit_sample, '1st switch w/o autolevel (stuck on)', 0x04);
-	// var result = wait.for(bit_sample, 'Hazards (disableable after 20s)', 0x10);
-	// var result = wait.for(bit_sample, '??', 0x40);
-	// var result = wait.for(bit_sample, '??', 0x80);
-
-	// 8th to last
-	// var result = wait.for(bit_sample, '???', 0x00);
-	// var result = wait.for(bit_sample, '???', 0x01);
-	// var result = wait.for(bit_sample, 'Off?', 0x02);
-	// var result = wait.for(bit_sample, '???', 0x04);
-	// var result = wait.for(bit_sample, '???', 0x08);
-	// var result = wait.for(bit_sample, 'Rfog', 0x10);
-	// var result = wait.for(bit_sample, '???', 0x20);
-	// var result = wait.for(bit_sample, 'Brake lights', 0x40);
-	// var result = wait.for(bit_sample, '???', 0x80);
-
-	var result = wait.for(bit_sample, '', 0x00);
-	// var result = wait.for(bit_sample, '', 0x01);
-	// var result = wait.for(bit_sample, '', 0x02);
-	// var result = wait.for(bit_sample, '', 0x04);
-	// var result = wait.for(bit_sample, '', 0x08);
-	// var result = wait.for(bit_sample, '', 0x10);
-	// var result = wait.for(bit_sample, '', 0x20);
-	// var result = wait.for(bit_sample, '', 0x40);
-	// var result = wait.for(bit_sample, '', 0x80);
+  console.log(output)
 }
-
-startup();
 
 function go() {
 	wait.launchFiber(do_sample);
 }
 
-ibus_connection.on('port_open', go);
+//startup();
+//ibus_connection.on('port_open', go);
 
-print_header();
+// lcm_bitmask_display('RF halo                      ', 0x01);
+// lcm_bitmask_display('LR brake                     ', 0x02);
+// lcm_bitmask_display('LF fog                       ', 0x04);
+// lcm_bitmask_display('LR reverse                   ', 0x08);
+// lcm_bitmask_display('LF lowbeam                   ', 0x10);
+// lcm_bitmask_display('RF lowbeam                   ', 0x20);
+// lcm_bitmask_display('RF fog                       ', 0x40);
+// lcm_bitmask_display('Both fogs+both lowbeams      ', 0x74);
+
+
+var data = [0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00]; // Both lowbeams+both fogs
+var data = [0x00, 0x00, 0xC0, 0x00, 0x60, 0x3F, 0xE4, 0xCA]; // Everything except right front fog light..
+lcm_bitmask_decode(data);
 
 // lcm_bitmask_display('testing???                   ', 0x01);
 // lcm_bitmask_display('RR turn, R sidemarker        ', 0x02);

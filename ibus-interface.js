@@ -43,6 +43,7 @@ var ibus_interface = function(device_path) {
 				log.error('[ibus_interface] Failed to open: ' + error);
 			} else {
 				log.info('[ibus_interface] Port open [' + device + ']');
+				_self.emit('port_open');
 
 				serial_port.on('data', function(data) {
 					//log.debug('[ibus_interface] Data on port: ', data);
@@ -63,7 +64,6 @@ var ibus_interface = function(device_path) {
 				watch_for_empty_bus(process_write_queue);
 			}
 
-			_self.emit('port_open');
 		});
 	}
 

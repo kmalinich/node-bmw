@@ -24,11 +24,6 @@ var bit_5 = 0x20;
 var bit_6 = 0x40;
 var bit_7 = 0x80;
 
-
-// Run shutdown() on SIGINT
-process.on('SIGINT', shutdown);
-
-
 // Startup function
 function startup() {
   // Open serial port
@@ -92,111 +87,50 @@ function lcm_bitmask_encode(array) {
   var bitmask_6 = 0x00;
   var bitmask_7 = 0x00;
 
-  // 0
-  if(array.brake_switch) {
-    bitmask_0 = bit_set(bitmask_0, bit_6)
-  }
+  // '1st switch w/o autolevel (stuck on)', bitmask_1, bit_2);
 
-  // 1
-  // '1st switch w/o autolevel (stuck on)', 0x04);
-  if(array.hazard_switch) {
-    bitmask_1 = bit_set(bitmask_1, bit_4);
-  }
+  // Set the various bitmask values according to the input array
+  if(array.brake_switch    ) { bitmask_0 = bit_set(bitmask_0, bit_6); }
+  if(array.hazard_switch   ) { bitmask_1 = bit_set(bitmask_1, bit_4); }
+  if(array.running_lamps_1 ) { bitmask_2 = bit_set(bitmask_2, bit_5); }
+  if(array.parking_right   ) { bitmask_2 = bit_set(bitmask_2, bit_6); }
+  if(array.parking_left    ) { bitmask_2 = bit_set(bitmask_2, bit_7); }
+  if(array.running_lamps_2 ) { bitmask_3 = bit_set(bitmask_2, bit_3); }
+  if(array.cold_monitoring ) { bitmask_3 = bit_set(bitmask_2, bit_5); }
+  if(array.cluster_led     ) { bitmask_4 = bit_set(bitmask_4, bit_1); }
+  if(array.hazard_led      ) { bitmask_4 = bit_set(bitmask_4, bit_2); }
+  if(array.tail_left       ) { bitmask_4 = bit_set(bitmask_4, bit_3); }
+  if(array.tail_right      ) { bitmask_4 = bit_set(bitmask_4, bit_4); }
+  if(array.high_right      ) { bitmask_4 = bit_set(bitmask_4, bit_5); }
+  if(array.high_left       ) { bitmask_4 = bit_set(bitmask_4, bit_6); }
+  if(array.halo_left       ) { bitmask_5 = bit_set(bitmask_5, bit_0); }
+  if(array.brake_left      ) { bitmask_5 = bit_set(bitmask_5, bit_1); }
+  if(array.fog_left        ) { bitmask_5 = bit_set(bitmask_5, bit_2); }
+  if(array.reverse_left    ) { bitmask_5 = bit_set(bitmask_5, bit_3); }
+  if(array.low_left        ) { bitmask_5 = bit_set(bitmask_5, bit_4); }
+  if(array.low_right       ) { bitmask_5 = bit_set(bitmask_5, bit_5); }
+  if(array.fog_right       ) { bitmask_5 = bit_set(bitmask_5, bit_6); }
+  if(array.vertical_aim    ) { bitmask_6 = bit_set(bitmask_6, bit_1); }
+  if(array.license         ) { bitmask_6 = bit_set(bitmask_6, bit_2); }
+  if(array.halo_right      ) { bitmask_6 = bit_set(bitmask_6, bit_5); }
+  if(array.turn_front_right) { bitmask_6 = bit_set(bitmask_6, bit_6); }
+  if(array.turn_rear_left  ) { bitmask_6 = bit_set(bitmask_6, bit_7); }
+  if(array.turn_rear_right ) { bitmask_7 = bit_set(bitmask_7, bit_1); }
+  if(array.brake_right     ) { bitmask_7 = bit_set(bitmask_7, bit_3); }
+  if(array.turn_front_left ) { bitmask_7 = bit_set(bitmask_7, bit_6); }
+  if(array.reverse_right   ) { bitmask_7 = bit_set(bitmask_7, bit_7); }
 
-  // 2
-  if(array.running_lamps_1) {
-    bitmask_2 = bit_set(bitmask_2, bit_5);
-  }
-  if(array.parking_right  ) {
-    bitmask_2 = bit_set(bitmask_2, bit_6);
-  }
-  if(array.parking_left   ) {
-    bitmask_2 = bit_set(bitmask_2, bit_7);
-  }
-
-  // 3
-  if(array.running_lamps_2) {
-    bitmask_3 = bit_set(bitmask_2, bit_3);
-  }
-  if(array.cold_monitoring) {
-    bitmask_3 = bit_set(bitmask_2, bit_5);
-  }
-
-  // 4
-  if(array.cluster_led) {
-    bitmask_4 = bit_set(bitmask_4, bit_1);
-  }
-  if(array.hazard_led ) {
-    bitmask_4 = bit_set(bitmask_4, bit_2);
-  }
-  if(array.tail_left  ) {
-    bitmask_4 = bit_set(bitmask_4, bit_3);
-  }
-  if(array.tail_right ) {
-    bitmask_4 = bit_set(bitmask_4, bit_4);
-  }
-  if(array.high_right ) {
-    bitmask_4 = bit_set(bitmask_4, bit_5);
-  }
-  if(array.high_left  ) {
-    bitmask_4 = bit_set(bitmask_4, bit_6);
-  }
-
-  // 5
-  if(array.halo_left   ) {
-    bitmask_5 = bit_set(bitmask_5, bit_0);
-  }
-  if(array.brake_left  ) {
-    bitmask_5 = bit_set(bitmask_5, bit_1);
-  }
-  if(array.fog_left    ) {
-    bitmask_5 = bit_set(bitmask_5, bit_2);
-  }
-  if(array.reverse_left) {
-    bitmask_5 = bit_set(bitmask_5, bit_3);
-  }
-  if(array.low_left    ) {
-    bitmask_5 = bit_set(bitmask_5, bit_4);
-  }
-  if(array.low_right   ) {
-    bitmask_5 = bit_set(bitmask_5, bit_5);
-  }
-  if(array.fog_right   ) {
-    bitmask_5 = bit_set(bitmask_5, bit_6);
-  }
-
-  // 6
-  if(array.vertical_aim    ) {
-    bitmask_6 = bit_set(bitmask_6, bit_1);
-  }
-  if(array.license         ) {
-    bitmask_6 = bit_set(bitmask_6, bit_2);
-  }
-  if(array.halo_right      ) {
-    bitmask_6 = bit_set(bitmask_6, bit_5);
-  }
-  if(array.turn_front_right) {
-    bitmask_6 = bit_set(bitmask_6, bit_6);
-  }
-  if(array.turn_rear_left  ) {
-    bitmask_6 = bit_set(bitmask_6, bit_7);
-  }
-
-  // 7
-  if(array.turn_rear_right) {
-    bitmask_7 = bit_set(bitmask_7, bit_1);
-  }
-  if(array.brake_right    ) {
-    bitmask_7 = bit_set(bitmask_7, bit_3);
-  }
-  if(array.turn_front_left) {
-    bitmask_7 = bit_set(bitmask_7, bit_6);
-  }
-  if(array.reverse_right  ) {
-    bitmask_7 = bit_set(bitmask_7, bit_7);
-  }
-
-  var output = [bitmask_0, bitmask_1, bitmask_2, bitmask_3, bitmask_4, bitmask_5, bitmask_6, bitmask_7];
+  // Assemble the output array
+  var output = [
+    bitmask_0,
+    bitmask_1,
+    bitmask_2,
+    bitmask_3,
+    bitmask_4,
+    bitmask_5,
+    bitmask_6,
+    bitmask_7
+  ];
 
   return output;
 }
@@ -339,6 +273,10 @@ function go() {
   lcm_send(encode);
 }
 
-startup();
+// Run shutdown() on SIGINT
+process.on('SIGINT', shutdown);
+// Run go() on port_open
 ibus_connection.on('port_open', go);
+
+startup();
 //shutdown();

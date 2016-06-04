@@ -14,9 +14,6 @@ var device = '/dev/tty.SLAB_USBtoUART';
 // IBUS connection handle
 var ibus_connection = new ibus_interface(device);
 
-// Run shutdown() on SIGINT
-process.on('SIGINT', shutdown);
-
 // Startup function
 function startup() {
 	// Open serial port
@@ -115,7 +112,7 @@ function bit_sample(dsc, packet, callback) {
 
 		//ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
-	}, 100);
+	}, 10000);
 }
 
 function do_sample() {
@@ -142,10 +139,11 @@ function go() {
 	wait.launchFiber(do_sample);
 }
 
-//startup();
-//ibus_connection.on('port_open', go);
+// Run shutdown() on SIGINT
+process.on('SIGINT', shutdown);
+// Run go() on port_open
+ibus_connection.on('port_open', go);
 
+startup();
 print_header();
-go();
-
-//shutdown();
+shutdown();

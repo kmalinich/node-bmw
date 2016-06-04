@@ -213,7 +213,7 @@ function gm(object, action) {
 	var FoldMirrorsE46            = new Buffer([0x9b, 0x51, 0x6d, 0x90]);
 	var UnfoldMirrorsE46          = new Buffer([0x9b, 0x51, 0x6d, 0xa0]);
 
-	var src = 0x3f; // DIS
+	var src = 0x3F; // DIS
 	var dst = 0x00; // GM
 
 	var gm_windows_front_up       = new Buffer([0x0c, 0x00, 0x65]); // Not working
@@ -339,7 +339,6 @@ function ike_text_urgent_off() {
 	ibus_send(ibus_packet);
 }
 
-
 // IKE cluster text send message
 function ike_text(message) {
 	var src = 0x68; // RAD
@@ -361,263 +360,15 @@ function ike_text(message) {
 	ibus_send(ibus_packet);
 }
 
-// RAD phone LED control
-function rad_led(color, flash) {
-	var src = 0xc8; // TEL
-	var dst = 0xe7; // OBC
-
-	// Green  (left)   : 1
-	// Yellow (middle) : 2
-	// Red    (right)  : 3
-
-	// Yellow solid: 1
-	// Red    solid: 4
-	// Green  solid: 16
-	// Yellow flash: 2
-	// Red    flash: 8
-	// Green  flash: 32
-
-	var led_s1     = new Buffer([0x2b, 0x10]);
-	var led_s2     = new Buffer([0x2b, 0x01]);
-	var led_s3     = new Buffer([0x2b, 0x04]);
-	var led_s1s2   = new Buffer([0x2b, 0x11]);
-	var led_s1s3   = new Buffer([0x2b, 0x14]);
-	var led_s2s3   = new Buffer([0x2b, 0x05]);
-	var led_s1s2s3 = new Buffer([0x2b, 0x15]);
-
-	var led_f1     = new Buffer([0x2b, 0x20]);
-	var led_f2     = new Buffer([0x2b, 0x02]);
-	var led_f3     = new Buffer([0x2b, 0x08]);
-	var led_f1f2   = new Buffer([0x2b, 0x0a]);
-	var led_f1f3   = new Buffer([0x2b, 0x22]);
-	var led_f2f3   = new Buffer([0x2b, 0x28]);
-	var led_f1f2f3 = new Buffer([0x2b, 0x2a]);
-
-	var led_f1s2   = new Buffer([0x2b, 0x21]);
-	var led_f2s3   = new Buffer([0x2b, 0x06]);
-	var led_s1f2   = new Buffer([0x2b, 0x12]);
-	var led_s1f2s3 = new Buffer([0x2b, 0x16]);
-	var led_s1f3   = new Buffer([0x2b, 0x18]);
-	var led_s1s2f3 = new Buffer([0x2b, 0x19]);
-	var led_s2f3   = new Buffer([0x2b, 0x09]);
-
-	var led_off    = new Buffer([0x2b, 0x00]);
-
-	if (color == 'green') {
-		if (flash == 'solid') {
-			var msg = led_s1;
-		}
-		else if (flash == 'flash') {
-			var msg = led_f1;
-		}
-	}
-	else if (color == 'yellow') {
-		if (flash == 'solid') {
-			var msg = led_s2;
-		}
-		else if (flash == 'flash') {
-			var msg = led_f2;
-		}
-	}
-	else if (color == 'red') {
-		if (flash == 'solid') {
-			var msg = led_s3;
-		}
-		else if (flash == 'flash') {
-			var msg = led_f3; 
-		}
-	}
-	else if (color == 'off') {
-		var msg = led_off; 
-	}
-
-	var ibus_packet = {
-		src: src, // TEL
-		dst: dst, // OBC
-		msg: msg,
-	}
-
-	console.log(ibus_packet);
-	ibus_send(ibus_packet);
-}
-
-// Flash lights indefinitely
-function lcm_flash(beam) {
-	var src = 0x00; // All
-	var dst = 0xBF; // LCM
-	
-	var action_flash  = 0x76;
-
-	var lights_off    = 0x00; // none
-	var lights_hz_ike = 0x01; // hazards in cluster
-	var lights_hz     = 0x02; // hazards
-	var lights_hzlb   = 0x0A; // hazards and low beams
-
-	var action        = action_flash;
-	var lights        = lights_off;
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer([action, lights]),
-	}
-
-	ibus_send(ibus_packet);
-}
-
-// LCM lights control
-function lights(beam) {
-
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x06 - Right fog, sidemarker, rear turn 
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x0c - Right tail, cluster 
-
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x06 - stop light above
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x06 - stop light left (+A)
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x06 - stop light right (+A)
-
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x06 - left lowbeam, rear fog 
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x06 - right lowbeam, rear turn 
-
-	// 0x0c, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x06 - headlight low beam + with ignition high beam (IKE+LCM)
-
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x06 - RL turn signal
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x06 - RR turn signal
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x06 - FL turn signal
-	// 0x0c, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x06 - FR turn signal
-
-	// 0x0c, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x06 - L side marker
-	// 0x0c, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06 - R side marker
-	// var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]; // Cluster illumination
-
-	// Left IKE turn, IKE high beams, IKE fogs, low beams, cluster
-	// var buffer_data = [0x0c, 0x08, 0x0c];
-	// Left IKE turn, cluster, low beams
-	// var buffer_data = [0x0c, 0x08, 0x06];
-	// Left IKE turn, low beams, rear fogs
-	// var buffer_data = [0x0c, 0x08, 0x00];
-	// Left IKE turn, IKE high beams, IKE front fogs
-	// var buffer_data = [0x0c, 0x07, 0x00];
-	// Right IKE turn, IKE high beams, IKE rear fogs
-	// var buffer_data = [0x0c, 0x07];
-
-	// Hazards
-	// Low beam
-	// High beam
-	// Cluster
-	// Right sidemarker
-	// Left sidemarker
-	// FR turn
-	// FL turn
-	// RL turn
-	// L tail
-	// R tail
-	// R reverse
-	// L reverse
-	// L license
-	// R license
-	// L lowbeam
-	// R lowbeam
-	// L highbeam
-	// R highbeam
-	// L fog
-	// R fog
-	// L parking
-	// R parking
-
-	// RR turn, R sidemarker
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02];
-	// Cluster
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04];
-	// RR turn, R tail, R sidemarker
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a];
-
-	// 2 = rear fog
-	// 4 = license plate
-	// Cluster
-	// var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01];
-
-	// Rear fog
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00];
-	// License place + cluster 
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00];
-
-	// 1, 2, 4, 8, 16, 32, 64, 128, 256
-
-	// 0x02  2 = L tail
-	// 0x04  4 = L fog 
-	// 0x08  8 = L reverse
-	// 0x10 16 = L lowbeam 
-	// 0x20 32 = R lowbeam
-	// 0x40 64 = R fog 
-
-	// L reverse
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00];
-	// L lowbeam
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00];
-	// R lowbeam
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00];
-	// R fog
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00];
-	// Both lowbeams + both fogs 
-	var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00];
-
-	var foglights  = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x06];
-	var fl_fog     = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x06]; // with right rear turn signal
-	var backlight  = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x06];
-	var rearfog    = [0x0c, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06];
-
-	if (beam == "fl_lowbeam") {
-		console.log("Front left lowbeam");
-		var buffer_data = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x06];
-	} else if (beam == "fr_lowbeam") {
-		console.log("Front right lowbeam");
-		var buffer_data = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x06];
-	} else if (beam == "l_sidemarker") {
-		console.log("Left sidemarker");
-		var buffer_data = [0x0c, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x06];
-	} else if (beam == "r_sidemarker") {
-		console.log("Right sidemarker");
-		var buffer_data = [0x0c, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06];
-	} else if (beam == "l_taillight") {
-		console.log("Left taillight");
-		var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00];
-	} else if (beam == "r_taillight") {
-		console.log("Right taillight");
-		var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08];
-	} else if (beam == "front") {
-		console.log("Front fogs and front lowbeams");
-		var buffer_data   = [0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x74, 0x00, 0x00];
-	}
-
-	// L tail
-	// R tail, cluster	
-
-	var data_packet = {
-		src: 0x3f, // DIA
-		dst: 0xbf, // GLO 
-		msg: new Buffer(buffer_data)
-	}
-
-	ibus_send(data_packet);
-}
-
-
-
-
-
-
-
-
-
-
-
-
 // Data handler
 function check_data(packet) {
 	var dst = ibus_modules.get_module_name(packet.dst);
 	var src = ibus_modules.get_module_name(packet.src);
 	var msg = packet.msg;
 
+	// var fob_lock_down       = new Buffer([0x72, 0x12]);
+	// var fob_unlock_down     = new Buffer([0x72, 0x22]);
+	// var fob_trunk_down      = new Buffer([0x72, 0x42]);
 
 
 	// RAD
@@ -625,12 +376,6 @@ function check_data(packet) {
 			var command = 'command';
 			var data    = 'data';
 	}
-
-	// var fob_lock_down       = new Buffer([0x72, 0x12]);
-	// var fob_unlock_down     = new Buffer([0x72, 0x22]);
-	// var fob_trunk_down      = new Buffer([0x72, 0x42]);
-
-
 
 	// GM
 	if (src == 'GM') {
@@ -732,44 +477,6 @@ function check_data(packet) {
 			var data    = ''+msg+'';
 		}
 	}
-
-
-	//var rad_phone_down      = new Buffer([0x48, 0x08]);
-	//var rad_power_down      = new Buffer([0x48, 0x06]);
-	//var rad_power_up        = new Buffer([0x48, 0x86]);
-
-
-	// BMBT bitmask
-	//
-	// prev. button : set bit 4
-  // non-numeric  : set bit 5
-	// Long press   : set bit 6
-	// Release      : set bit 7
-	// 
-	// Otherwise... 
-	// 1     = 0 + 4
-	// 2     = 0
-	// 3     = 1 + 4
-	// 4     = 1
-	// 5     = 0 + 1 + 4
-	// 6     = 0 + 1
-	// Power = 1 + 2 
-
-	// BMBT
-	if (src == 'BMBT') {
-		if (msg[0] == 0x48) {
-			var command = 'button';
-
-		}
-		else {
-			var command = msg[0];
-			var data    = msg[1];
-		}
-	}
-
-
-
-
 
 	// IKE
 	if (src == 'IKE') {

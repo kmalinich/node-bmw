@@ -39,20 +39,18 @@ function shutdown() {
 }
 
 // Send message to LCM
-function lcm_send(lcm_packet) {
+function lcm_send(packet) {
   var src = 0x3F; // DIA
   var dst = 0xBF; // GLO
-  var cmd = 0x0C; // "Command the lights"
+  var cmd = 0x0C; // Set IO status 
 
   // Add the command to the beginning of the LCM hex array
-  lcm_packet.unshift(cmd);
-  // Create a buffer with the hex string
-  var msg  = new Buffer(lcm_packet);
+  packet.unshift(cmd);
 
   var ibus_packet = {
     src: src,
     dst: dst,
-    msg: msg,
+    msg: new Buffer(packet),
   }
 
   // Send the message
@@ -267,10 +265,7 @@ function go() {
     brake_right : true,
   }
 
-  var encode = lcm_bitmask_encode(array);
-  var decode = lcm_bitmask_decode(encode);
-
-  lcm_send(encode);
+  lcm_send(lcm_bitmask_encode(array));
 }
 
 // Run shutdown() on SIGINT

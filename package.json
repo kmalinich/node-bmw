@@ -7,7 +7,9 @@
 		"serialport": "^3.1.2",
 		"log": "*",
 		"cli-color": "*",
-		"wait.for": "*"
+		"wait.for": "*",
+		"http": "*",
+		"httpdispatcher": "*"
 	},
 	"devDependencies": {},
 	"scripts": {

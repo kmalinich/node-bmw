@@ -110,29 +110,45 @@ function bit_sample(dsc, packet, callback) {
 			msg: new Buffer(packet),
 		}
 
-		//ibus_connection.send_message(ibus_packet);
+		ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
-	}, 10000);
+	}, 100);
 }
 
 function do_sample() {
-	var result = wait.for(bit_sample, '0x00, 0x00', [0x00, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x01', [0x01, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x02', [0x02, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x04', [0x04, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x08', [0x08, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x10', [0x10, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x20', [0x20, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x40', [0x40, 0x00]);
-	var result = wait.for(bit_sample, '0x00, 0x80', [0x80, 0x00]);
-	var result = wait.for(bit_sample, '0x01, 0x00', [0x00, 0x01]);
-	var result = wait.for(bit_sample, '0x02, 0x00', [0x00, 0x02]);
-	var result = wait.for(bit_sample, '0x04, 0x00', [0x00, 0x04]);
-	var result = wait.for(bit_sample, '0x08, 0x00', [0x00, 0x08]);
-	var result = wait.for(bit_sample, '0x10, 0x00', [0x00, 0x10]);
-	var result = wait.for(bit_sample, '0x20, 0x00', [0x00, 0x20]);
-	var result = wait.for(bit_sample, '0x40, 0x00', [0x00, 0x40]);
-	var result = wait.for(bit_sample, '0x80, 0x00', [0x00, 0x80]);
+	// var result = wait.for(bit_sample, '0x00, 0x00', [0x00, 0x00]); // LR down 
+	// var result = wait.for(bit_sample, '0x00, 0x04', [0x00, 0x03]); // RR down
+
+	// var result = wait.for(bit_sample, '0x00, 0x01', [0x00, 0x01]); // LR up 
+	// var result = wait.for(bit_sample, '0x00, 0x04', [0x00, 0x04]); // RR up
+
+	var result = wait.for(bit_sample, '0x00, 0x08', [0x00, 0x01]); // Front down
+	//var result = wait.for(bit_sample, '0x00, 0x08', [0x00, bit_2]); // Front down
+	//var result = wait.for(bit_sample, '0x00, 0x08', [0x00, bit_5]); // Front down
+	//var result = wait.for(bit_sample, '0x00, 0x08', [0x00, bit_6]); // Front down
+
+	// var result = wait.for(bit_sample, '0x00, 0x08', [0x00, 0x01]); // 
+	// var result = wait.for(bit_sample, '0x00, 0x08', [0x53, 0x01]); // 
+
+	// var result = wait.for(bit_sample, '0x01, 0x00', [0x01, 0x00]); // nothing
+	// var result = wait.for(bit_sample, '0x02, 0x00', [0x02, 0x00]); // nothing
+	// var result = wait.for(bit_sample, '0x04, 0x00', [0x04, 0x00]); // nothing
+	// var result = wait.for(bit_sample, '0x08, 0x00', [0x08, 0x00]); // 
+	// var result = wait.for(bit_sample, '0x10, 0x00', [0x10, 0x00]); // 
+	// var result = wait.for(bit_sample, '0x20, 0x00', [0x20, 0x00]); // 
+	// var result = wait.for(bit_sample, '0x40, 0x00', [0x40, 0x00]); // 
+	// var result = wait.for(bit_sample, '0x80, 0x00', [0x80, 0x00]); // 
+
+
+
+	// var result = wait.for(bit_sample, '0x00, 0x02', [0x00, 0x02]); // Wiper+spray 
+	// var result = wait.for(bit_sample, '0x00, 0x08', [0x55, 0x01]); // Driver's seat back 
+	// var result = wait.for(bit_sample, '0x00, 0x08', [0x00, 0x08]); // Trunk release
+	// var result = wait.for(bit_sample, '0x00, 0x10', [0x00, 0x10]); // Interior light
+	// var result = wait.for(bit_sample, '0x00, 0x40', [0x00, 0x40]); // Trunk long release
+
+	// var result = wait.for(bit_sample, '0x00, 0x20', [0x00, 0x20]); // ?? 
+	// var result = wait.for(bit_sample, '0x00, 0x80', [0x00, 0x80]); // ?? 
 }
 
 function go() {
@@ -144,6 +160,10 @@ process.on('SIGINT', shutdown);
 // Run go() on port_open
 ibus_connection.on('port_open', go);
 
+
 startup();
 print_header();
-shutdown();
+
+setTimeout(function() {
+	shutdown();
+}, 1000);

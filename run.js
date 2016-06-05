@@ -3,10 +3,6 @@
 // Notes...
 //
 // WRITER.writeBusPacket('3F', '00', ['0C', '4E', '01']) # Turn on the 'clown nose' for 3 seconds
-// WRITER.writeBusPacket('3F','00', ['0C', '53', '01']) # Put up window 1
-// WRITER.writeBusPacket('3F','00', ['0C', '42', '01']) # Put up window 2
-// WRITER.writeBusPacket('3F','00', ['0C', '55', '01']) # Put up window 3
-// WRITER.writeBusPacket('3F','00', ['0C', '43', '01']) # Put up window 4
 
 // var msg = new Buffer([0x7a, 0x10, 0x00]); // Unlocked
 // var msg = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
@@ -144,23 +140,16 @@ function windows(group) {
 	// var msg = new Buffer([0x0c, 0x00, 0x17]); // Interior on, no fade
 	// var msg = new Buffer([0x0c, 0x00, 0x10]); // Wheel up, interior on 
 	// var msg = new Buffer([0x0c, 0x00, 0x0b]); // Lock doors (no toggle)
-	// var msg = new Buffer([0x0c, 1, 0]); // Unlock doors (no toggle) 
-	// var msg = new Buffer([0x0c, 5, 0]); // Driver seat forward
-	// var msg = new Buffer([0x0c, 0, 91]); // Interior light, hazard button
-	// var msg = new Buffer([0x0c, 0, 92]); // toggle locks ??
-	// var msg = new Buffer([0x0c, 0, 101]); // front windows fully down
-	// var msg = new Buffer([0x0c, 0, 102]); // Sunroof open
-	// var msg = new Buffer([0x0c, 0, 174]); // Red nose flash for 3 sec
-	// var msg = new Buffer([0x0c, 0, 177]); // wheel up, down
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
-	// var msg = new Buffer([0x0c, 0, ]); // 
+	// var msg = new Buffer([0x0c, 1, 0]);       // Unlock doors (no toggle) 
+	// var msg = new Buffer([0x0c, 5, 0]);       // Driver seat forward
+	// var msg = new Buffer([0x0c, 0, 91]);      // Interior light, hazard button
+	// var msg = new Buffer([0x0c, 0, 92]);      // toggle locks ??
+	// var msg = new Buffer([0x0c, 0, 101]);     // front windows fully down
+	// var msg = new Buffer([0x0c, 0, 102]);     // Sunroof open
+	// var msg = new Buffer([0x0c, 0, 174]);     // Red nose flash for 3 sec
+	// var msg = new Buffer([0x0c, 0, 177]);     // wheel up, down
 
-	var msg     = new Buffer([0x0c, 5, 5]); // Drivers seat tilt (not sure which way)
+	var msg     = new Buffer([0x0c, 5, 5]);   // Drivers seat tilt (not sure which way)
 	var msg     = new Buffer([0x0c, 128, 0]); // Driver seat forward
 
 	var open_fl = new Buffer([0x0c, 0x52, 0x01]);
@@ -238,14 +227,17 @@ function gm(object, action) {
 	var LockDriverDoor            = new Buffer([0x0c, 0x47, 0x01]);
 	var UnlockDoors               = new Buffer([0x0c, 0x45, 0x01]); // 0x0c, 0x03, 0x01
 	var ToggleLockDoors           = new Buffer([0x0c, 0x03, 0x01]);
+
 	var OpenWindowDriverFront     = new Buffer([0x0c, 0x52, 0x01]);
 	var OpenWindowDriverRear      = new Buffer([0x0c, 0x41, 0x01]);
 	var OpenWindowPassengerFront  = new Buffer([0x0c, 0x54, 0x01]);
 	var OpenWindowPassengerRear   = new Buffer([0x0c, 0x44, 0x01]);
+
 	var CloseWindowDriverFront    = new Buffer([0x0c, 0x53, 0x01]);
 	var CloseWindowDriverRear     = new Buffer([0x0c, 0x42, 0x01]);
 	var CloseWindowPassengerFront = new Buffer([0x0c, 0x55, 0x01]);
 	var CloseWindowPassengerRear  = new Buffer([0x0c, 0x43, 0x01]);
+
 	var OpenSunroof               = new Buffer([0x0c, 0x7e, 0x01]);
 	var CloseSunroof              = new Buffer([0x0c, 0x7f, 0x01]);
 	var FoldDriverMirrorE39       = new Buffer([0x0c, 0x01, 0x31, 0x01]);

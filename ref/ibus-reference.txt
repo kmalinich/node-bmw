@@ -9,10 +9,28 @@
 
 1+2+4+8+16+32+64
 
-First you should turn on the lights you want to light and send command ''3F 03 D0 0B E7" to read the LCM's IO status. Then the LCM will reply with a command like "D0 23 3F A0 E1 E0 00 10 00 00 02 00 00 A2 00 00 00 00 00 E5 34 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 FD FB". Get the IO status command, switch the place of the first and third byte, set the forth byte to 0C, recalculate the checksum byte at the end like "3F 23 D0 0C E1 E0 00 10 00 00 02 00 00 A2 00 00 00 00 00 E5 34 00 0A 00 00 00 00 00 00 00 00 00 00 00 00 FD CS" and send it back to IBUS. Voila! the command lights up the desired beams for around 6 second, so you have to resend it as much times as you wish to have them lighted.
+LCM IO Status
+
+send =
+src: 0x3F, // DIA 
+dst: 0xD0, // LCM
+msg: [0x0B] // Get IO status
+
+to read the LCM's IO status.
+
+Then the LCM will reply with:
+A0 C1 C0 00 20 00 00 00 00 00 A0 00 00 88 14 84 E4 FF 00 0A 00 00 00 00 00 00 00 00 00 00 FF FF FE
+
+// A0 = current IO status
+
+To apply IO status:
+command (1st byte): 0C // Set IO status
+
+0C C1 C0 00 20 00 00 00 00 00 A0 00 00 88 14 84 E4 FF 00 0A 00 00 00 00 00 00 00 00 00 00 FF FF FE
+
+and send it to IBUS.
 
 
-While experimenting i found following usefull commands that exists, just to give idea about IBUS, 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Devices 

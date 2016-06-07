@@ -1,0 +1,4 @@
+
+Clamp 58G   : Regulated Heating and AC E39
+Clamp 15    : Switched 12v
+Clamp 30A/B : Battery power

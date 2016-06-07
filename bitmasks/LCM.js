@@ -86,14 +86,13 @@ function lcm_bitmask_encode(array) {
   var bitmask_6  = 0x00;
   var bitmask_7  = 0x00;
   var bitmask_8  = 0x00;
-  var bitmask_9  = 0x00;
-  var bitmask_10 = 0x00;
+	// 9-11 are .. something, don't know yet.
+  var bitmask_9  = 0xE4;
+  var bitmask_10 = 0xFF;
   var bitmask_11 = 0x00;
 
-  // '1st switch w/o autolevel (stuck on)', bitmask_1, bit_2);
-
   // Set the various bitmask values according to the input array
-  if(array.brake_switch     ) { bitmask_0 = bit_set(bitmask_0, bit_6) ; }
+  if(array.     ) { bitmask_0 = bit_set(bitmask_0, bit_) ; }
 
   if(array.hazard_switch    ) { bitmask_1 = bit_set(bitmask_1, bit_4) ; }
 

@@ -131,7 +131,13 @@ function lcm_bitmask_encode(array) {
   if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4) ; }
   if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5) ; }
   if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6) ; }
+
+
+	// Off by one
   if(array.input_vertical_aim              ) { bitmask_5 = bit_set(bitmask_5, bit_7) ; }
+
+  if(array.output_brake_rear_left          ) { bitmask_5 = bit_set(bitmask_5, bit_7) ; }
+
   if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_1) ; }
   if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_2) ; }
   if(array.output_brake_rear_middle        ) { bitmask_6 = bit_set(bitmask_6, bit_3) ; }

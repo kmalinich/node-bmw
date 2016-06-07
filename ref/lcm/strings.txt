@@ -55,6 +55,7 @@ __ __ __ __ __ 03 __ __ __ E4 FF __ : output_reverse_rear_left
 __ __ __ __ __ 04 __ __ __ E4 FF __ : output_lowbeam_front_left
 __ __ __ __ __ 05 __ __ __ E4 FF __ : output_lowbeam_front_right
 __ __ __ __ __ 06 __ __ __ E4 FF __ : output_fog_front_right
+__ __ __ __ __ 07 __ __ __ E4 FF __ : output_brake_rear_left
 __ __ __ __ __ __ 00 __ __ E4 FF __ : ??
 __ __ __ __ __ __ 01 __ __ E4 FF __ : input_vertical_aim
 __ __ __ __ __ __ 02 __ __ E4 FF __ : output_license_rear_right

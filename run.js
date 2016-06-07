@@ -30,8 +30,8 @@ var ibus_modules   = require('./ibus-modules.js');
 // Color terminal output
 var clc = require('cli-color');
 
-// Sleep
-var sleep = require('sleep');
+// wait.for
+var wait = require('wait.for');
 
 // Serial device path
 var device = '/dev/tty.SLAB_USBtoUART';

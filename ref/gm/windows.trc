@@ -1,0 +1,34 @@
+src: 0x3F // DIA
+dst: 0x00 // ZKE (body module)
+cmd: 0xC0 // Set IO status
+
+LR left  rear
+RR right rear
+LF left  front
+LR right front
+SR sunroof
+
+00 00 01 0A : LR D F
+00 44 01 4E : LR U F
+
+ : LF D F
+01 1A 01 11 : LF U F
+
+00 03 01 09 : RR D F
+00 47 01 4D : RR D F
+ : RR U F
+
+02 36 01 3E : RF D F
+02 22 01 2A : RF U F
+
+
+
+
+
+00 01 01 0B : LR U P
+00 45 01 4F : LR U P
+00 04 01 0E : RR U P
+00 46 01 4C : RR U P
+01 18 01 13 : LF D P
+01 36 01 3D : LF D P
+02 32 01 3A : RF U P

@@ -390,11 +390,19 @@ function check_data(packet) {
 			if (msg[1] == 0x80) {
 				var data    = 'send/end depressed';
 				//ike_text('coolant: '+coolant_temp_c+'C        ');
-				ike_text_urgent('coolant: '+coolant_temp_c+'C        ');
+				// ike_text_urgent('coolant: '+coolant_temp_c+'C        ');
+
+	var ibus_packet = {
+		src: src, 
+		dst: dst,
+		msg: new Buffer(msg),
+	}
+
+	ibus_send(ibus_packet);
 			}
 			else if (msg[1] == 0xA0) {
 				var data    = 'send/end released';
-				ike_text_urgent_off();
+				// ike_text_urgent_off();
 			}
 			else if (msg[1] == 0x90) {
 				var data    = 'send/end long press';
@@ -548,3 +556,6 @@ var open_window_rear_left   = false;
 var open_window_rear_right  = false;
 
 startup();
+
+
+

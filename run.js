@@ -172,28 +172,6 @@ function windows(group) {
 
 
 
-
-function windows_up() {
-	var src = 0x3f; // DIS
-	var dst = 0x00; // GM
-
-	var msg                 = new Buffer([0x0c, 0x01, 0x00]);
-	var close_fr            = new Buffer([0x0c, 0x42, 0x01]);
-	var close_rl            = new Buffer([0x0c, 0x00, 0x01]);
-	var close_rr            = new Buffer([0x0c, 0x00, 0x46]);
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: msg,
-	}
-
-	ibus_send(ibus_packet);
-}
-
-
-
-
 // General module
 function gm(object, action) {
 	//static Message MessageOpenWindows = new Message(DeviceAddress.Diagnostic, DeviceAddress.BodyModule, 0x0C, 0x00, 0x65);

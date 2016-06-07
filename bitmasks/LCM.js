@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-// Color terminal output
-var clc = require('cli-color');
-var wait = require('wait.for');
-
-// Libraries
+// IBUS libraries
 var ibus_interface = require('../ibus-interface.js');
 var ibus_modules   = require('../ibus-modules.js');
+
+// Color terminal output
+var clc  = require('cli-color');
+// wait.for
+var wait = require('wait.for');
 
 // Serial device path
 var device = '/dev/tty.SLAB_USBtoUART';
@@ -136,6 +137,8 @@ function lcm_bitmask_encode(array) {
     bitmask_6,
     bitmask_7
   ];
+
+	output = output.concat([0x00, 0xE4, 0xFF, 0x00]);
 
 	console.log(output);
   return output;
@@ -315,7 +318,7 @@ startup();
 
 
 // Require the HTTP module
-var http = require('http');
+var http       = require('http');
 var dispatcher = require('httpdispatcher');
 
 // Create a server
@@ -327,7 +330,7 @@ const PORT = 8080;
 function handleRequest(request, response){
 	try {
 		// Log the request on console
-		console.log('Request URL: '+request.url);
+		console.log('Request URL: %s', request.url);
 
 		// Dispatch
 		dispatcher.dispatch(request, response);
@@ -336,7 +339,7 @@ function handleRequest(request, response){
 	}
 }
 
-//For all your static (js/css/images/etc.) set the directory name (relative path).
+// For all your static (js/css/images/etc.) set the directory name (relative path).
 dispatcher.setStatic('resources');
 
 // Shutdown app
@@ -349,9 +352,11 @@ dispatcher.onGet("/shutdown", function(req, res) {
 // A sample GET request    
 dispatcher.onGet("/lcm", function(req, res) {
 	var output = {};
+
 	for (var prop in req.params) {
 		output[''+prop+''] = true;
 	}
+
 	lcm_send(lcm_bitmask_encode(output));
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.end('LCM command sent\n');

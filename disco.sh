@@ -1,7 +1,7 @@
 #!/bin/bash - 
 
 BASE="http://localhost:8080/lcm?"
-SLEEP="0.05"
+SLEEP="0.04"
 
 ARR_LIGHTS=(
 turn_rear

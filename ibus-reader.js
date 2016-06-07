@@ -4,7 +4,7 @@ var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
 
 // config
-var device = '/dev/ttyUSB0';
+var device = '/dev/cu.SLAB_USBtoUART';
 
 // data
 var ibus_connection = new ibus_interface(device);

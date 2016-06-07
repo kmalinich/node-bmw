@@ -77,14 +77,18 @@ function bit_set(num, bit) {
 // Encode the LCM bitmask string from an input of true/false values
 function lcm_bitmask_encode(array) {
   // Initialize bitmask variables
-  var bitmask_0 = 0x00;
-  var bitmask_1 = 0x00;
-  var bitmask_2 = 0x00;
-  var bitmask_3 = 0x00;
-  var bitmask_4 = 0x00;
-  var bitmask_5 = 0x00;
-  var bitmask_6 = 0x00;
-  var bitmask_7 = 0x00;
+  var bitmask_0  = 0x00;
+  var bitmask_1  = 0x00;
+  var bitmask_2  = 0x00;
+  var bitmask_3  = 0x00;
+  var bitmask_4  = 0x00;
+  var bitmask_5  = 0x00;
+  var bitmask_6  = 0x00;
+  var bitmask_7  = 0x00;
+  var bitmask_8  = 0x00;
+  var bitmask_9  = 0x00;
+  var bitmask_10 = 0x00;
+  var bitmask_11 = 0x00;
 
   // '1st switch w/o autolevel (stuck on)', bitmask_1, bit_2);
 
@@ -135,7 +139,11 @@ function lcm_bitmask_encode(array) {
     bitmask_4,
     bitmask_5,
     bitmask_6,
-    bitmask_7
+		bitmask_7,
+		bitmask_8,
+		bitmask_9,
+		bitmask_10,
+		bitmask_11,
   ];
 
 	output = output.concat([0x00, 0xE4, 0xFF, 0x00]);

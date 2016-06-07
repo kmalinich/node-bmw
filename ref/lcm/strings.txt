@@ -2,64 +2,132 @@ src: 0x3F // DIA
 dst: 0xD0 // LCM
 cmd: 0x0C // Set IO status
 
-brake lights switch                 : 00 00 01 00 00 00 00 00 00 E4 FF 00
-clamp 15                            : 00 00 00 20 00 00 00 00 00 E4 FF 00
-clamp 30a                           : 01 00 00 00 00 00 00 00 00 E4 FF 00
-clamp 30b                           : 80 00 00 00 00 00 00 00 00 E4 FF 00
-clamp 58g                           : 00 00 00 00 00 00 00 00 00 E4 FF 00
-clamp r                             : 40 00 00 00 00 00 00 00 00 E4 FF 00
-failsafe                            : 00 00 00 00 00 00 00 00 01 E4 FF 00
-fog lamps switch                    : 00 00 10 00 00 00 00 00 00 E4 FF 00
-fog lights switch                   : 00 00 04 00 00 00 00 00 00 E4 FF 00
-front left side light               : 00 00 00 00 00 01 00 00 00 E4 FF 00
-front left turn signal              : 00 00 00 00 00 00 00 40 00 E4 FF 00
-front right turn signal             : 00 00 00 00 00 00 40 00 00 E4 FF 00
-hazard switch LED                   : 00 00 00 00 00 00 00 00 04 E4 FF 00
-hazard warning flasher switch       : 00 10 00 00 00 00 00 00 00 E4 FF 00
-headlight flasher switch            : 00 04 00 00 00 00 00 00 00 E4 FF 00
-high beam switch                    : 00 00 02 00 00 00 00 00 00 E4 FF 00
-inner rear left side light          : 00 00 00 00 00 02 00 00 00 E4 FF 00
-inner rear right side light         : 00 00 00 00 00 00 00 08 00 E4 FF 00
-input CARB                          : 10 00 00 00 00 00 00 00 00 E4 FF 00
-input KFN                           : 00 20 00 00 00 00 00 00 00 E4 FF 00
-input air suspension (armoured car) : 00 00 00 01 00 00 00 00 00 E4 FF 00
-input armoured door (armoured car)  : 00 40 00 00 00 00 00 00 00 E4 FF 00
-input brake fluid level (BRFN)      : 00 80 00 00 00 00 00 00 00 E4 FF 00
-input engine failsafe program       : 00 00 00 40 00 00 00 00 00 E4 FF 00
-input fire extinguisher             : 02 00 00 00 00 00 00 00 00 E4 FF 00
-input hold up alarm                 : 00 00 00 02 00 00 00 00 00 E4 FF 00
-input key in ignition lock (ZSK)    : 00 01 00 00 00 00 00 00 00 E4 FF 00
-input preheating/fuel injection     : 04 00 00 00 00 00 00 00 00 E4 FF 00
-input seat belts lock (GKFA)        : 00 02 00 00 00 00 00 00 00 E4 FF 00
-input tire defect                   : 00 00 00 80 00 00 00 00 00 E4 FF 00
-input washer fluid level            : 00 00 00 04 00 00 00 00 00 E4 FF 00
-left brake light                    : 00 00 00 00 00 80 00 00 00 E4 FF 00
-left fog lamp                       : 00 00 00 00 00 00 00 04 00 E4 FF 00
-left fog light                      : 00 00 00 00 00 04 00 00 00 E4 FF 00
-left high beam                      : 00 00 00 00 40 00 00 00 00 E4 FF 00
-left license plate light            : 00 00 00 00 04 00 00 00 00 E4 FF 00
-left low beam                       : 00 00 00 00 00 10 00 00 00 E4 FF 00
-left reverse                        : 00 00 00 00 00 08 00 00 00 E4 FF 00
-light switch LED                    : 00 00 00 00 00 00 00 00 08 E4 FF 00
-middle brake light                  : 00 00 00 00 00 00 10 00 00 E4 FF 00
-rear left side light                : 00 00 00 00 00 00 08 00 00 E4 FF 00
-rear left turn signal               : 00 00 00 00 00 00 80 00 00 E4 FF 00
-rear right side light               : 00 00 00 00 00 00 00 10 00 E4 FF 00
-rear right turn signal              : 00 00 00 00 00 00 00 02 00 E4 FF 00
-right brake light                   : 00 00 00 00 10 00 00 00 00 E4 FF 00
-right fog lamp                      : 00 00 00 00 00 80 00 00 00 E4 FF 00
-right fog light                     : 00 00 00 00 00 40 00 00 00 E4 FF 00
-right front side light              : 00 00 00 00 00 00 20 00 00 E4 FF 00
-right high beam                     : 00 00 00 00 20 00 00 00 00 E4 FF 00
-right license plate light           : 00 00 00 00 00 00 04 00 00 E4 FF 00
-right low beam                      : 00 00 00 00 00 20 00 00 00 E4 FF 00
-right reverse                       : 00 00 00 00 00 00 00 80 00 E4 FF 00
-side lights switch                  : 00 00 20 00 00 00 00 00 00 E4 FF 00
-sleep mode                          : 00 00 00 00 00 00 00 00 40 E4 FF 00
-switch 1 low beam                   : 00 00 00 10 00 00 00 00 00 E4 FF 00
-switch 2 lowbeam                    : 00 00 00 08 00 00 00 00 00 E4 FF 00
-switch left turn                    : 00 00 80 00 00 00 00 00 00 E4 FF 00
-switch right turn                   : 00 00 40 00 00 00 00 00 00 E4 FF 00
-trailer fog lamp                    : 00 00 00 00 00 00 00 00 00 E4 FF 00
-trailer reverse                     : 00 00 00 00 00 00 00 00 20 E4 FF 00
-vertical headlights aim control     : 00 00 00 00 00 00 02 00 00 E4 FF 00
+syntax:
+<clamp|mode|input|output>_<light>_<front|rear>_<left|right|trailer>
+
+bitmask sort:
+__ __ __ __ __ __ __ __ __ E4 FF __ : clamp_58g
+__ __ __ __ __ __ __ __ __ E4 FF __ : output_fog_rear_trailer
+__ __ __ __ __ __ __ __ 01 E4 FF __ : mode_failsafe
+__ __ __ __ __ __ __ __ 04 E4 FF __ : output_led_switch_hazard
+__ __ __ __ __ __ __ __ 08 E4 FF __ : output_led_switch_light
+__ __ __ __ __ __ __ __ 20 E4 FF __ : output_reverse_rear_trailer
+__ __ __ __ __ __ __ __ 40 E4 FF __ : mode_sleep
+__ __ __ __ __ __ __ 02 __ E4 FF __ : output_turn_rear_right
+__ __ __ __ __ __ __ 04 __ E4 FF __ : output_fog_rear_left
+__ __ __ __ __ __ __ 08 __ E4 FF __ : output_inner_standing_rear_right
+__ __ __ __ __ __ __ 10 __ E4 FF __ : output_standing_rear_right
+__ __ __ __ __ __ __ 40 __ E4 FF __ : output_turn_front_left
+__ __ __ __ __ __ __ 80 __ E4 FF __ : output_reverse_rear_right
+__ __ __ __ __ __ 02 __ __ E4 FF __ : input_vertical_aim 
+__ __ __ __ __ __ 04 __ __ E4 FF __ : output_license_rear_right
+__ __ __ __ __ __ 08 __ __ E4 FF __ : output_standing_rear_left
+__ __ __ __ __ __ 10 __ __ E4 FF __ : output_brake_rear_middle
+__ __ __ __ __ __ 20 __ __ E4 FF __ : output_standing_front_right
+__ __ __ __ __ __ 40 __ __ E4 FF __ : output_turn_front_right
+__ __ __ __ __ __ 80 __ __ E4 FF __ : output_turn_rear_left
+__ __ __ __ __ 01 __ __ __ E4 FF __ : output_standing_front_left
+__ __ __ __ __ 02 __ __ __ E4 FF __ : output_inner_standing_rear_left
+__ __ __ __ __ 04 __ __ __ E4 FF __ : output_fog_front_left
+__ __ __ __ __ 08 __ __ __ E4 FF __ : output_reverse_rear_left
+__ __ __ __ __ 10 __ __ __ E4 FF __ : output_lowbeam_front_left
+__ __ __ __ __ 20 __ __ __ E4 FF __ : output_lowbeam_front_right
+__ __ __ __ __ 40 __ __ __ E4 FF __ : output_fog_front_right
+__ __ __ __ __ 80 __ __ __ E4 FF __ : output_brake_rear_left
+__ __ __ __ __ 80 __ __ __ E4 FF __ : output_fog_rear_right
+__ __ __ __ 04 __ __ __ __ E4 FF __ : output_license_rear_left
+__ __ __ __ 10 __ __ __ __ E4 FF __ : output_brake_rear_right
+__ __ __ __ 20 __ __ __ __ E4 FF __ : output_highbeam_front_right
+__ __ __ __ 40 __ __ __ __ E4 FF __ : output_highbeam_front_left
+__ __ __ 01 __ __ __ __ __ E4 FF __ : input_air_suspension
+__ __ __ 02 __ __ __ __ __ E4 FF __ : input_hold_up_alarm
+__ __ __ 04 __ __ __ __ __ E4 FF __ : input_washer_fluid_level
+__ __ __ 08 __ __ __ __ __ E4 FF __ : switch_lowbeam_2
+__ __ __ 10 __ __ __ __ __ E4 FF __ : switch_lowbeam_1
+__ __ __ 20 __ __ __ __ __ E4 FF __ : clamp_15
+__ __ __ 40 __ __ __ __ __ E4 FF __ : input_engine_failsafe
+__ __ __ 80 __ __ __ __ __ E4 FF __ : input_tire_defect
+__ __ 01 __ __ __ __ __ __ E4 FF __ : switch_brake
+__ __ 02 __ __ __ __ __ __ E4 FF __ : switch_highbeam
+__ __ 04 __ __ __ __ __ __ E4 FF __ : switch_fog_front
+__ __ 10 __ __ __ __ __ __ E4 FF __ : switch_fog_rear
+__ __ 20 __ __ __ __ __ __ E4 FF __ : switch_standing
+__ __ 40 __ __ __ __ __ __ E4 FF __ : switch_turn_right
+__ __ 80 __ __ __ __ __ __ E4 FF __ : switch_turn_left
+__ 01 __ __ __ __ __ __ __ E4 FF __ : input_key_in_ignition
+__ 02 __ __ __ __ __ __ __ E4 FF __ : input_seat_belts_lock
+__ 04 __ __ __ __ __ __ __ E4 FF __ : switch_highbeam_flash
+__ 10 __ __ __ __ __ __ __ E4 FF __ : switch_hazard
+__ 20 __ __ __ __ __ __ __ E4 FF __ : input_kfn
+__ 40 __ __ __ __ __ __ __ E4 FF __ : input_armoured_door
+__ 80 __ __ __ __ __ __ __ E4 FF __ : input_brake_fluid_level
+01 __ __ __ __ __ __ __ __ E4 FF __ : clamp_30a
+02 __ __ __ __ __ __ __ __ E4 FF __ : input_fire_extinguisher
+04 __ __ __ __ __ __ __ __ E4 FF __ : input_preheating_fuel_injection
+10 __ __ __ __ __ __ __ __ E4 FF __ : input_carb
+40 __ __ __ __ __ __ __ __ E4 FF __ : clamp_r
+80 __ __ __ __ __ __ __ __ E4 FF __ : clamp_30b
+
+alphabetical sort:
+
+clamp_15
+clamp_30a
+clamp_30b
+clamp_58g
+clamp_r
+input_air_suspension
+input_armoured_door
+input_brake_fluid_level
+input_carb
+input_engine_failsafe
+input_fire_extinguisher
+input_hold_up_alarm
+input_key_in_ignition
+input_kfn
+input_preheating_fuel_injection
+input_seat_belts_lock
+input_tire_defect
+input_vertical_aim
+input_washer_fluid_level
+mode_failsafe
+mode_sleep
+output_brake_rear_left
+output_brake_rear_middle
+output_brake_rear_right
+output_fog_front_left
+output_fog_front_right
+output_fog_rear_left
+output_fog_rear_right
+output_fog_rear_trailer
+output_highbeam_front_left
+output_highbeam_front_right
+output_inner_standing_rear_left
+output_inner_standing_rear_right
+output_led_switch_hazard
+output_led_switch_light
+output_license_rear_left
+output_license_rear_right
+output_lowbeam_front_left
+output_lowbeam_front_right
+output_reverse_rear_left
+output_reverse_rear_right
+output_reverse_rear_trailer
+output_standing_front_left
+output_standing_front_right
+output_standing_rear_left
+output_standing_rear_right
+output_turn_front_left
+output_turn_front_right
+output_turn_rear_left
+output_turn_rear_right
+switch_brake
+switch_fog_front
+switch_fog_rear
+switch_hazard
+switch_highbeam
+switch_highbeam_flash
+switch_lowbeam_1
+switch_lowbeam_2
+switch_standing
+switch_turn_left
+switch_turn_right

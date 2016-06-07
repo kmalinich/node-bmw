@@ -3,41 +3,124 @@
 BASE="http://localhost:8080/lcm?"
 SLEEP="0.04"
 
-ARR_LIGHTS=(
-turn_rear
-brake
-tail
-reverse
-)
-
-ARR_SIDES=(
-left
-right
-)
-
 while true; do
-	echo 1
-	curl "${BASE}turn_rear_left&halo_right&turn_front_right&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
-	echo 2
-	curl "${BASE}turn_rear_left&halo_right&turn_front_right&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
-	echo 3
-	curl "${BASE}turn_rear_left&halo_left&brake_left&turn_front_right&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
-	echo 4
-	curl "${BASE}turn_rear_left&halo_left&brake_right&turn_front_right&cluster_led_off&hazard_led_off" # rfog
-	sleep ${SLEEP}
-	echo 5
-	curl "${BASE}turn_rear_right&halo_right&tail_left&turn_front_left&cluster_led_off&hazard_led_off" #
-	sleep ${SLEEP}
-	echo 6
-	curl "${BASE}turn_rear_right&halo_right&tail_right&turn_front_left&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
-	echo 7
-	curl "${BASE}turn_rear_right&halo_left&reverse_left&turn_front_left&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
-	echo 8
-	curl "${BASE}turn_rear_right&halo_left&reverse_right&turn_front_left&cluster_led_off&hazard_led_off"
-	sleep ${SLEEP}
+  # Start of loop
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"   ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"   ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  # Center of loop
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  # Reverse the loop
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"   ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_standing_rear_right" ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_right&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"  ; sleep ${SLEEP}
+
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_left"      ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_right&output_turn_rear_left&output_brake_rear_right"     ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_left"   ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_standing_rear_right"  ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_left"    ; sleep ${SLEEP}
+  curl "${BASE}output_standing_front_left&output_turn_front_left&output_turn_rear_right&output_reverse_rear_right"   ; sleep ${SLEEP}
 done

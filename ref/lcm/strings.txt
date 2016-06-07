@@ -49,7 +49,7 @@ __ __ __ __ 05 __ __ __ __ E4 FF __ : output_highbeam_front_right
 __ __ __ __ 06 __ __ __ __ E4 FF __ : output_highbeam_front_left
 __ __ __ __ 07 __ __ __ __ E4 FF __ : ??
 __ __ __ __ __ 00 __ __ __ E4 FF __ : output_standing_front_left
-__ __ __ __ __ 01 __ __ __ E4 FF __ : output_inner_standing_rear_left
+__ __ __ __ __ 01 __ __ __ E4 FF __ : output_standing_inner_rear_left
 __ __ __ __ __ 02 __ __ __ E4 FF __ : output_fog_front_left
 __ __ __ __ __ 03 __ __ __ E4 FF __ : output_reverse_rear_left
 __ __ __ __ __ 04 __ __ __ E4 FF __ : output_lowbeam_front_left
@@ -66,7 +66,7 @@ __ __ __ __ __ __ 07 __ __ E4 FF __ : output_turn_rear_left
 __ __ __ __ __ __ __ 00 __ E4 FF __ : ?? 
 __ __ __ __ __ __ __ 01 __ E4 FF __ : output_turn_rear_right
 __ __ __ __ __ __ __ 02 __ E4 FF __ : output_fog_rear_left
-__ __ __ __ __ __ __ 03 __ E4 FF __ : output_inner_standing_rear_right
+__ __ __ __ __ __ __ 03 __ E4 FF __ : output_standing_inner_rear_right
 __ __ __ __ __ __ __ 04 __ E4 FF __ : output_standing_rear_right
 __ __ __ __ __ __ __ 05 __ E4 FF __ : ?? 
 __ __ __ __ __ __ __ 06 __ E4 FF __ : output_turn_front_left
@@ -118,8 +118,6 @@ output_fog_rear_right
 output_fog_rear_trailer
 output_highbeam_front_left
 output_highbeam_front_right
-output_inner_standing_rear_left
-output_inner_standing_rear_right
 output_led_switch_hazard
 output_led_switch_light
 output_license_rear_left
@@ -131,6 +129,8 @@ output_reverse_rear_right
 output_reverse_rear_trailer
 output_standing_front_left
 output_standing_front_right
+output_standing_inner_rear_left
+output_standing_inner_rear_right
 output_standing_rear_left
 output_standing_rear_right
 output_turn_front_left

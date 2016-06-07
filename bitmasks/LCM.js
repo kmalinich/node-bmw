@@ -92,42 +92,79 @@ function lcm_bitmask_encode(array) {
   var bitmask_11 = 0x00;
 
   // Set the various bitmask values according to the input array
-  if(array.     ) { bitmask_0 = bit_set(bitmask_0, bit_) ; }
+  if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
+  if(array.input_fire_extinguisher         ) { bitmask_0 = bit_set(bitmask_0, bit_1) ; }
+  if(array.input_preheating_fuel_injection ) { bitmask_0 = bit_set(bitmask_0, bit_2) ; }
+  if(array.input_carb                      ) { bitmask_0 = bit_set(bitmask_0, bit_4) ; }
+  if(array.clamp_r                         ) { bitmask_0 = bit_set(bitmask_0, bit_6) ; }
+  if(array.clamp_30b                       ) { bitmask_0 = bit_set(bitmask_0, bit_7) ; }
+  if(array.input_key_in_ignition           ) { bitmask_1 = bit_set(bitmask_1, bit_0) ; }
+  if(array.input_seat_belts_lock           ) { bitmask_1 = bit_set(bitmask_1, bit_1) ; }
+  if(array.switch_highbeam_flash           ) { bitmask_1 = bit_set(bitmask_1, bit_2) ; }
+  if(array.switch_hazard                   ) { bitmask_1 = bit_set(bitmask_1, bit_4) ; }
+  if(array.input_kfn                       ) { bitmask_1 = bit_set(bitmask_1, bit_5) ; }
+  if(array.input_armoured_door             ) { bitmask_1 = bit_set(bitmask_1, bit_6) ; }
+  if(array.input_brake_fluid_level         ) { bitmask_1 = bit_set(bitmask_1, bit_7) ; }
+  if(array.switch_brake                    ) { bitmask_2 = bit_set(bitmask_2, bit_0) ; }
+  if(array.switch_highbeam                 ) { bitmask_2 = bit_set(bitmask_2, bit_1) ; }
+  if(array.switch_fog_front                ) { bitmask_2 = bit_set(bitmask_2, bit_2) ; }
+  if(array.switch_fog_rear                 ) { bitmask_2 = bit_set(bitmask_2, bit_4) ; }
+  if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5) ; }
+  if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6) ; }
+  if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7) ; }
+  if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0) ; }
+  if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1) ; }
+  if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2) ; }
+  if(array.switch_lowbeam_2                ) { bitmask_3 = bit_set(bitmask_3, bit_3) ; }
+  if(array.switch_lowbeam_1                ) { bitmask_3 = bit_set(bitmask_3, bit_4) ; }
+  if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5) ; }
+  if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6) ; }
+  if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7) ; }
+  if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2) ; }
+  if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4) ; }
+  if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5) ; }
+  if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6) ; }
+  if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0) ; }
+  if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1) ; }
+  if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2) ; }
+  if(array.output_reverse_rear_left        ) { bitmask_5 = bit_set(bitmask_5, bit_3) ; }
+  if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4) ; }
+  if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5) ; }
+  if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6) ; }
+  if(array.input_vertical_aim              ) { bitmask_5 = bit_set(bitmask_5, bit_7) ; }
+  if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_1) ; }
+  if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_2) ; }
+  if(array.output_brake_rear_middle        ) { bitmask_6 = bit_set(bitmask_6, bit_3) ; }
+  if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_4) ; }
+  if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_5) ; }
+  if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_6) ; }
+  if(array.output_turn_rear_right          ) { bitmask_6 = bit_set(bitmask_6, bit_7) ; }
+  if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_1) ; }
+  if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_2) ; }
+  if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_3) ; }
+  if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_4) ; }
+  if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_6) ; }
+  if(array.mode_failsafe                   ) { bitmask_7 = bit_set(bitmask_7, bit_7) ; }
+  if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_0) ; }
+  if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_2) ; }
+  if(array.output_reverse_rear_trailer     ) { bitmask_8 = bit_set(bitmask_8, bit_3) ; }
+  if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_5) ; }
+  if(array.output_fog_rear_right           ) { bitmask_8 = bit_set(bitmask_8, bit_6) ; }
 
-  if(array.hazard_switch    ) { bitmask_1 = bit_set(bitmask_1, bit_4) ; }
-
-  if(array.switch_pos_1     ) { bitmask_2 = bit_set(bitmask_2, bit_5) ; }
-  if(array.parking_right    ) { bitmask_2 = bit_set(bitmask_2, bit_6) ; }
-  if(array.parking_left     ) { bitmask_2 = bit_set(bitmask_2, bit_7) ; }
-
-  if(array.switch_pos_2     ) { bitmask_3 = bit_set(bitmask_2, bit_3) ; }
-  if(array.cold_monitoring  ) { bitmask_3 = bit_set(bitmask_2, bit_5) ; }
-
-  if(array.cluster_led_off  ) { bitmask_4 = bit_set(bitmask_4, bit_1) ; }
-  if(array.hazard_led_off   ) { bitmask_4 = bit_set(bitmask_4, bit_2) ; }
-  if(array.brake_left       ) { bitmask_4 = bit_set(bitmask_4, bit_3) ; }
-  if(array.brake_right      ) { bitmask_4 = bit_set(bitmask_4, bit_4) ; }
-  if(array.high_right       ) { bitmask_4 = bit_set(bitmask_4, bit_5) ; }
-  if(array.high_left        ) { bitmask_4 = bit_set(bitmask_4, bit_6) ; }
-
-  if(array.halo_left        ) { bitmask_5 = bit_set(bitmask_5, bit_0) ; }
-  if(array.tail_left        ) { bitmask_5 = bit_set(bitmask_5, bit_1) ; }
-  if(array.fog_left         ) { bitmask_5 = bit_set(bitmask_5, bit_2) ; }
-  if(array.reverse_left     ) { bitmask_5 = bit_set(bitmask_5, bit_3) ; }
-  if(array.low_left         ) { bitmask_5 = bit_set(bitmask_5, bit_4) ; }
-  if(array.low_right        ) { bitmask_5 = bit_set(bitmask_5, bit_5) ; }
-  if(array.fog_right        ) { bitmask_5 = bit_set(bitmask_5, bit_6) ; }
-
-  if(array.vertical_aim     ) { bitmask_6 = bit_set(bitmask_6, bit_1) ; }
-  if(array.license          ) { bitmask_6 = bit_set(bitmask_6, bit_2) ; }
-  if(array.halo_right       ) { bitmask_6 = bit_set(bitmask_6, bit_5) ; }
-  if(array.turn_front_right ) { bitmask_6 = bit_set(bitmask_6, bit_6) ; }
-  if(array.turn_rear_left   ) { bitmask_6 = bit_set(bitmask_6, bit_7) ; }
-
-  if(array.turn_rear_right  ) { bitmask_7 = bit_set(bitmask_7, bit_1) ; }
-  if(array.tail_right       ) { bitmask_7 = bit_set(bitmask_7, bit_3) ; }
-  if(array.turn_front_left  ) { bitmask_7 = bit_set(bitmask_7, bit_6) ; }
-  if(array.reverse_right    ) { bitmask_7 = bit_set(bitmask_7, bit_7) ; }
+  // if(array.) { bitmask_0 = bit_set(bitmask_0, bit_3) ; }
+  // if(array.) { bitmask_0 = bit_set(bitmask_0, bit_5) ; }
+  // if(array.) { bitmask_1 = bit_set(bitmask_1, bit_3) ; }
+  // if(array.) { bitmask_2 = bit_set(bitmask_2, bit_3) ; }
+  // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_0) ; }
+  // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_1) ; }
+  // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_3) ; }
+  // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_7) ; }
+  // if(array.) { bitmask_6 = bit_set(bitmask_6, bit_0) ; }
+  // if(array.) { bitmask_7 = bit_set(bitmask_7, bit_0) ; }
+  // if(array.) { bitmask_7 = bit_set(bitmask_7, bit_5) ; }
+  // if(array.) { bitmask_8 = bit_set(bitmask_8, bit_1) ; }
+  // if(array.) { bitmask_8 = bit_set(bitmask_8, bit_4) ; }
+  // if(array.) { bitmask_8 = bit_set(bitmask_8, bit_7) ; }
 
   // Assemble the output array
   var output = [
@@ -165,81 +202,66 @@ function lcm_bitmask_decode(array) {
   // 0
   var brake_switch     = bit_test(bitmask_0, bit_6);
 
-  // 1
-  // '1st switch w/o autolevel (stuck on)', 0x04);
-  var hazard_switch    = bit_test(bitmask_1, bit_4);
-
-  // 2
-  var switch_pos_1     = bit_test(bitmask_2, bit_5);
-  var parking_right    = bit_test(bitmask_2, bit_6);
-  var parking_left     = bit_test(bitmask_2, bit_7);
-
-  // 3
-  var switch_pos_2     = bit_test(bitmask_2, bit_3);
-  var cold_monitoring  = bit_test(bitmask_2, bit_5);
-
-  // 4
-  var cluster_led_off  = bit_test(bitmask_4, bit_1);
-  var hazard_led_off   = bit_test(bitmask_4, bit_2);
-  var brake_left       = bit_test(bitmask_4, bit_3);
-  var brake_right      = bit_test(bitmask_4, bit_4);
-  var high_right       = bit_test(bitmask_4, bit_5);
-  var high_left        = bit_test(bitmask_4, bit_6);
-
-  // 5
-  var halo_left        = bit_test(bitmask_5, bit_0);
-  var tail_left        = bit_test(bitmask_5, bit_1);
-  var fog_left         = bit_test(bitmask_5, bit_2);
-  var reverse_left     = bit_test(bitmask_5, bit_3);
-  var low_left         = bit_test(bitmask_5, bit_4);
-  var low_right        = bit_test(bitmask_5, bit_5);
-  var fog_right        = bit_test(bitmask_5, bit_6);
-
-  // 6
-  var vertical_aim     = bit_test(bitmask_6, bit_1);
-  var license          = bit_test(bitmask_6, bit_2);
-  var halo_right       = bit_test(bitmask_6, bit_5);
-  var turn_front_right = bit_test(bitmask_6, bit_6);
-  var turn_rear_left   = bit_test(bitmask_6, bit_7);
-
-  // 7
-  var turn_rear_right  = bit_test(bitmask_7, bit_1);
-  var tail_right       = bit_test(bitmask_7, bit_3);
-  var turn_front_left  = bit_test(bitmask_7, bit_6);
-  var reverse_right    = bit_test(bitmask_7, bit_7);
-
-  // This bit always lights up the rear fog LED in the cluster no matter where in the buffer it is
-  // var result = wait.for(bit_sample, 'Rfog', 0x10);
-
   var output = {
-    'tail_left'        : tail_left,
-    'tail_right'       : tail_right,
-    'brake_switch'     : brake_switch,
-    'cluster_led_off'  : cluster_led_off,
-    'fog_left'         : fog_left,
-    'fog_right'        : fog_right,
-    'halo_left'        : halo_left,
-    'halo_right'       : halo_right,
-    'hazard_led_off'   : hazard_led_off,
-    'hazard_switch'    : hazard_switch,
-    'high_left'        : high_left,
-    'high_right'       : high_right,
-    'license'          : license,
-    'low_left'         : low_left,
-    'low_right'        : low_right,
-    'reverse_left'     : reverse_left,
-    'reverse_right'    : reverse_right,
-    'brake_left'       : brake_left,
-    'brake_right'      : brake_right,
-    'turn_front_left'  : turn_front_left,
-    'turn_front_right' : turn_front_right,
-    'turn_rear_left'   : turn_rear_left,
-    'turn_rear_right'  : turn_rear_right,
-    'switch_pos_1'     : running_lamps_1,
-    'parking_right'    : parking_right,
-    'parking_left'     : parking_left,
-    'switch_pos_2'     : switch_pos_2,
-    'cold_monitoring'  : cold_monitoring,
+		clamp_15                         : clamp_15,
+		clamp_30a                        : clamp_30a,
+		clamp_30b                        : clamp_30b,
+		clamp_r                          : clamp_r,
+		input_air_suspension             : input_air_suspension,
+		input_armoured_door              : input_armoured_door,
+		input_brake_fluid_level          : input_brake_fluid_level,
+		input_carb                       : input_carb,
+		input_engine_failsafe            : input_engine_failsafe,
+		input_fire_extinguisher          : input_fire_extinguisher,
+		input_hold_up_alarm              : input_hold_up_alarm,
+		input_key_in_ignition            : input_key_in_ignition,
+		input_kfn                        : input_kfn,
+		input_preheating_fuel_injection  : input_preheating_fuel_injection,
+		input_seat_belts_lock            : input_seat_belts_lock,
+		input_tire_defect                : input_tire_defect,
+		input_vertical_aim               : input_vertical_aim,
+		input_washer_fluid_level         : input_washer_fluid_level,
+		mode_failsafe                    : mode_failsafe,
+		mode_sleep                       : mode_sleep,
+		output_brake_rear_middle         : output_brake_rear_middle,
+		output_brake_rear_right          : output_brake_rear_right,
+		output_fog_front_left            : output_fog_front_left,
+		output_fog_front_right           : output_fog_front_right,
+		output_fog_rear_left             : output_fog_rear_left,
+		output_fog_rear_right            : output_fog_rear_right,
+		output_fog_rear_trailer          : output_fog_rear_trailer,
+		output_highbeam_front_left       : output_highbeam_front_left,
+		output_highbeam_front_right      : output_highbeam_front_right,
+		output_led_switch_hazard         : output_led_switch_hazard,
+		output_led_switch_light          : output_led_switch_light,
+		output_license_rear_left         : output_license_rear_left,
+		output_license_rear_right        : output_license_rear_right,
+		output_lowbeam_front_left        : output_lowbeam_front_left,
+		output_lowbeam_front_right       : output_lowbeam_front_right,
+		output_reverse_rear_left         : output_reverse_rear_left,
+		output_reverse_rear_right        : output_reverse_rear_right,
+		output_reverse_rear_trailer      : output_reverse_rear_trailer,
+		output_standing_front_left       : output_standing_front_left,
+		output_standing_front_right      : output_standing_front_right,
+		output_standing_inner_rear_left  : output_standing_inner_rear_left,
+		output_standing_inner_rear_right : output_standing_inner_rear_right,
+		output_standing_rear_left        : output_standing_rear_left,
+		output_standing_rear_right       : output_standing_rear_right,
+		output_turn_front_left           : output_turn_front_left,
+		output_turn_front_right          : output_turn_front_right,
+		output_turn_rear_left            : output_turn_rear_left,
+		output_turn_rear_right           : output_turn_rear_right,
+		switch_brake                     : switch_brake,
+		switch_fog_front                 : switch_fog_front,
+		switch_fog_rear                  : switch_fog_rear,
+		switch_hazard                    : switch_hazard,
+		switch_highbeam                  : switch_highbeam,
+		switch_highbeam_flash            : switch_highbeam_flash,
+		switch_lowbeam_1                 : switch_lowbeam_1,
+		switch_lowbeam_2                 : switch_lowbeam_2,
+		switch_standing                  : switch_standing,
+		switch_turn_left                 : switch_turn_left,
+		switch_turn_right                : switch_turn_right,
   }
 
   return output;
@@ -247,66 +269,70 @@ function lcm_bitmask_decode(array) {
 
 // All the possible values to send to the LCM
 var array_of_possible_values = {
-  tail_left        : true,
-  tail_right       : true,
-  brake_switch     : true,
-  cluster_led_off  : true,
-  fog_left         : true,
-  fog_right        : true,
-  halo_left        : true,
-  halo_right       : true,
-  hazard_led_off   : true,
-  hazard_switch    : true,
-  high_left        : true,
-  high_right       : true,
-  license          : true,
-  low_left         : true,
-  low_right        : true,
-  reverse_left     : true,
-  reverse_right    : true,
-  brake_left       : true,
-  brake_right      : true,
-  turn_front_left  : true,
-  turn_front_right : true,
-  turn_rear_left   : true,
-  turn_rear_right  : true,
-  switch_pos_1     : true,
-  parking_right    : true,
-  parking_left     : true,
-  switch_pos_2     : true,
-  cold_monitoring  : true,
+  clamp_15                         : true,
+  clamp_30a                        : true,
+  clamp_30b                        : true,
+  clamp_r                          : true,
+  input_air_suspension             : true,
+  input_armoured_door              : true,
+  input_brake_fluid_level          : true,
+  input_carb                       : true,
+  input_engine_failsafe            : true,
+  input_fire_extinguisher          : true,
+  input_hold_up_alarm              : true,
+  input_key_in_ignition            : true,
+  input_kfn                        : true,
+  input_preheating_fuel_injection  : true,
+  input_seat_belts_lock            : true,
+  input_tire_defect                : true,
+  input_vertical_aim               : true,
+  input_washer_fluid_level         : true,
+  mode_failsafe                    : true,
+  mode_sleep                       : true,
+  output_brake_rear_middle         : true,
+  output_brake_rear_right          : true,
+  output_fog_front_left            : true,
+  output_fog_front_right           : true,
+  output_fog_rear_left             : true,
+  output_fog_rear_right            : true,
+  output_highbeam_front_left       : true,
+  output_highbeam_front_right      : true,
+  output_led_switch_hazard         : true,
+  output_led_switch_light          : true,
+  output_license_rear_left         : true,
+  output_license_rear_right        : true,
+  output_lowbeam_front_left        : true,
+  output_lowbeam_front_right       : true,
+  output_reverse_rear_left         : true,
+  output_reverse_rear_right        : true,
+  output_reverse_rear_trailer      : true,
+  output_standing_front_left       : true,
+  output_standing_front_right      : true,
+  output_standing_inner_rear_left  : true,
+  output_standing_inner_rear_right : true,
+  output_standing_rear_left        : true,
+  output_standing_rear_right       : true,
+  output_turn_front_left           : true,
+  output_turn_front_right          : true,
+  output_turn_rear_left            : true,
+  output_turn_rear_right           : true,
+  switch_brake                     : true,
+  switch_fog_front                 : true,
+  switch_fog_rear                  : true,
+  switch_hazard                    : true,
+  switch_highbeam                  : true,
+  switch_highbeam_flash            : true,
+  switch_lowbeam_1                 : true,
+  switch_lowbeam_2                 : true,
+  switch_standing                  : true,
+  switch_turn_left                 : true,
+  switch_turn_right                : true,
 }
 
 function go() {
   var array = {
-		brake_left       : false,
-		brake_right      : false,
-		brake_switch     : false,
-		cluster_led_off  : false,
-		cold_monitoring  : false,
-		fog_left         : false,
-		fog_right        : false,
-		halo_left        : false,
-		halo_right       : false,
-		hazard_led_off   : false,
-		hazard_switch    : false,
-		high_left        : false,
-		high_right       : false,
-		license          : false,
-		low_left         : false,
-		low_right        : false,
-		parking_left     : false,
-		parking_right    : false,
-		reverse_left     : false,
-		reverse_right    : false,
-		switch_pos_1     : false,
-		switch_pos_2     : true,
-		tail_left        : false,
-		tail_right       : false,
-		turn_front_left  : false,
-		turn_front_right : false,
-		turn_rear_left   : false,
-		turn_rear_right  : false,
+    output_highbeam_front_left       : true,
+    output_highbeam_front_right      : true,
 	}
 
 	lcm_send(lcm_bitmask_encode(array));

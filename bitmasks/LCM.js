@@ -200,7 +200,64 @@ function lcm_bitmask_decode(array) {
   var bitmask_7 = array[7];
 
   // 0
-  var brake_switch     = bit_test(bitmask_0, bit_6);
+  var clamp_15                        = bit_test(bitmask_3, bit_5);
+  var clamp_30a                       = bit_test(bitmask_0, bit_0);
+  var clamp_30b                       = bit_test(bitmask_0, bit_7);
+  var clamp_r                         = bit_test(bitmask_0, bit_6);
+  var input_air_suspension            = bit_test(bitmask_3, bit_0);
+  var input_armoured_door             = bit_test(bitmask_1, bit_6);
+  var input_brake_fluid_level         = bit_test(bitmask_1, bit_7);
+  var input_carb                      = bit_test(bitmask_0, bit_4);
+  var input_engine_failsafe           = bit_test(bitmask_3, bit_6);
+  var input_fire_extinguisher         = bit_test(bitmask_0, bit_1);
+  var input_hold_up_alarm             = bit_test(bitmask_3, bit_1);
+  var input_key_in_ignition           = bit_test(bitmask_1, bit_0);
+  var input_kfn                       = bit_test(bitmask_1, bit_5);
+  var input_preheating_fuel_injection = bit_test(bitmask_0, bit_2);
+  var input_seat_belts_lock           = bit_test(bitmask_1, bit_1);
+  var input_tire_defect               = bit_test(bitmask_3, bit_7);
+  var input_vertical_aim              = bit_test(bitmask_5, bit_7);
+  var input_washer_fluid_level        = bit_test(bitmask_3, bit_2);
+  var mode_failsafe                   = bit_test(bitmask_7, bit_7);
+  var mode_sleep                      = bit_test(bitmask_8, bit_5);
+  var output_brake_rear_middle        = bit_test(bitmask_6, bit_3);
+  var output_brake_rear_right         = bit_test(bitmask_4, bit_4);
+  var output_fog_front_left           = bit_test(bitmask_5, bit_2);
+  var output_fog_front_right          = bit_test(bitmask_5, bit_6);
+  var output_fog_rear_left            = bit_test(bitmask_7, bit_1);
+  var output_fog_rear_right           = bit_test(bitmask_8, bit_6);
+  var output_highbeam_front_left      = bit_test(bitmask_4, bit_6);
+  var output_highbeam_front_right     = bit_test(bitmask_4, bit_5);
+  var output_led_switch_hazard        = bit_test(bitmask_8, bit_0);
+  var output_led_switch_light         = bit_test(bitmask_8, bit_2);
+  var output_license_rear_left        = bit_test(bitmask_4, bit_2);
+  var output_license_rear_right       = bit_test(bitmask_6, bit_1);
+  var output_lowbeam_front_left       = bit_test(bitmask_5, bit_4);
+  var output_lowbeam_front_right      = bit_test(bitmask_5, bit_5);
+  var output_reverse_rear_left        = bit_test(bitmask_5, bit_3);
+  var output_reverse_rear_right       = bit_test(bitmask_7, bit_6);
+  var output_reverse_rear_trailer     = bit_test(bitmask_8, bit_3);
+  var output_standing_front_left      = bit_test(bitmask_5, bit_0);
+  var output_standing_front_right     = bit_test(bitmask_6, bit_4);
+  var output_standing_inner_rear_left = bit_test(bitmask_5, bit_1);
+  var output_standing_inner_rear_right= bit_test(bitmask_7, bit_2);
+  var output_standing_rear_left       = bit_test(bitmask_6, bit_2);
+  var output_standing_rear_right      = bit_test(bitmask_7, bit_3);
+  var output_turn_front_left          = bit_test(bitmask_7, bit_4);
+  var output_turn_front_right         = bit_test(bitmask_6, bit_5);
+  var output_turn_rear_left           = bit_test(bitmask_6, bit_6);
+  var output_turn_rear_right          = bit_test(bitmask_6, bit_7);
+  var switch_brake                    = bit_test(bitmask_2, bit_0);
+  var switch_fog_front                = bit_test(bitmask_2, bit_2);
+  var switch_fog_rear                 = bit_test(bitmask_2, bit_4);
+  var switch_hazard                   = bit_test(bitmask_1, bit_4);
+  var switch_highbeam                 = bit_test(bitmask_2, bit_1);
+  var switch_highbeam_flash           = bit_test(bitmask_1, bit_2);
+  var switch_lowbeam_1                = bit_test(bitmask_3, bit_4);
+  var switch_lowbeam_2                = bit_test(bitmask_3, bit_3);
+  var switch_standing                 = bit_test(bitmask_2, bit_5);
+  var switch_turn_left                = bit_test(bitmask_2, bit_7);
+  var switch_turn_right               = bit_test(bitmask_2, bit_6);
 
   var output = {
 		clamp_15                         : clamp_15,
@@ -378,7 +435,7 @@ dispatcher.setStatic('resources');
 // Shutdown app
 dispatcher.onGet("/shutdown", function(req, res) {
 	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Server shutdown');
+	res.end('Server shutdown\n');
 	shutdown();
 });
 

@@ -4,10 +4,13 @@
 var ibus_interface = require('../ibus-interface.js');
 var ibus_modules   = require('../ibus-modules.js');
 
-// Color terminal output
-var clc  = require('cli-color');
-// wait.for
-var wait = require('wait.for');
+// npm libraries
+var clc          = require('cli-color');
+var dispatcher   = require('httpdispatcher');
+var http         = require('http');
+var query_string = require('querystring');
+var url          = require('url');
+var wait         = require('wait.for');
 
 // Serial device path
 var device = '/dev/tty.SLAB_USBtoUART';
@@ -86,7 +89,7 @@ function lcm_bitmask_encode(array) {
   var bitmask_6  = 0x00;
   var bitmask_7  = 0x00;
   var bitmask_8  = 0x00;
-	// 9-11 are .. something, don't know yet.
+  // 9-11 are .. something, don't know yet.
   var bitmask_9  = 0xE4;
   var bitmask_10 = 0xFF;
   var bitmask_11 = 0x00;
@@ -152,12 +155,12 @@ function lcm_bitmask_encode(array) {
   if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6) ; }
 
 
-	// Suspect	
-	// array.clamp_58g
-	// array.output_fog_rear_right
-	// array.output_fog_rear_trailer
+  // Suspect	
+  // array.clamp_58g
+  // array.output_fog_rear_right
+  // array.output_fog_rear_trailer
 
-	// ?? 
+  // ?? 
   // if(array.) { bitmask_0 = bit_set(bitmask_0, bit_3) ; }
   // if(array.) { bitmask_0 = bit_set(bitmask_0, bit_5) ; }
   // if(array.) { bitmask_1 = bit_set(bitmask_1, bit_3) ; }
@@ -182,14 +185,14 @@ function lcm_bitmask_encode(array) {
     bitmask_4,
     bitmask_5,
     bitmask_6,
-		bitmask_7,
-		bitmask_8,
-		bitmask_9,
-		bitmask_10,
-		bitmask_11,
+    bitmask_7,
+    bitmask_8,
+    bitmask_9,
+    bitmask_10,
+    bitmask_11,
   ];
 
-	console.log('lcm_bitmask_encode() output: %s', output);
+  console.log('lcm_bitmask_encode() output: %s', output);
   return output;
 }
 
@@ -263,75 +266,75 @@ function lcm_bitmask_decode(array) {
   var switch_turn_left                 = bit_test(bitmask_2, bit_7);
   var switch_turn_right                = bit_test(bitmask_2, bit_6);
 
-	// Suspect
+  // Suspect
   // var clamp_58g                       = bit_test(bitmask_, bit_);
   // var output_fog_rear_right           = bit_test(bitmask_, bit_);
   // var output_fog_rear_trailer         = bit_test(bitmask_, bit_);
 
   var output = {
-		clamp_15                         : clamp_15,
-		clamp_30a                        : clamp_30a,
-		clamp_30b                        : clamp_30b,
-		clamp_r                          : clamp_r,
-		input_air_suspension             : input_air_suspension,
-		input_armoured_door              : input_armoured_door,
-		input_brake_fluid_level          : input_brake_fluid_level,
-		input_carb                       : input_carb,
-		input_engine_failsafe            : input_engine_failsafe,
-		input_fire_extinguisher          : input_fire_extinguisher,
-		input_hold_up_alarm              : input_hold_up_alarm,
-		input_key_in_ignition            : input_key_in_ignition,
-		input_kfn                        : input_kfn,
-		input_preheating_fuel_injection  : input_preheating_fuel_injection,
-		input_seat_belts_lock            : input_seat_belts_lock,
-		input_tire_defect                : input_tire_defect,
-		input_vertical_aim               : input_vertical_aim,
-		input_washer_fluid_level         : input_washer_fluid_level,
-		mode_failsafe                    : mode_failsafe,
-		mode_sleep                       : mode_sleep,
-		output_brake_rear_middle         : output_brake_rear_middle,
-		output_brake_rear_right          : output_brake_rear_right,
-		output_fog_front_left            : output_fog_front_left,
-		output_fog_front_right           : output_fog_front_right,
-		output_fog_rear_left             : output_fog_rear_left,
-		output_highbeam_front_left       : output_highbeam_front_left,
-		output_highbeam_front_right      : output_highbeam_front_right,
-		output_led_switch_hazard         : output_led_switch_hazard,
-		output_led_switch_light          : output_led_switch_light,
-		output_license_rear_left         : output_license_rear_left,
-		output_license_rear_right        : output_license_rear_right,
-		output_lowbeam_front_left        : output_lowbeam_front_left,
-		output_lowbeam_front_right       : output_lowbeam_front_right,
-		output_reverse_rear_left         : output_reverse_rear_left,
-		output_reverse_rear_right        : output_reverse_rear_right,
-		output_reverse_rear_trailer      : output_reverse_rear_trailer,
-		output_standing_front_left       : output_standing_front_left,
-		output_standing_front_right      : output_standing_front_right,
-		output_standing_inner_rear_left  : output_standing_inner_rear_left,
-		output_standing_inner_rear_right : output_standing_inner_rear_right,
-		output_standing_rear_left        : output_standing_rear_left,
-		output_standing_rear_right       : output_standing_rear_right,
-		output_turn_front_left           : output_turn_front_left,
-		output_turn_front_right          : output_turn_front_right,
-		output_turn_rear_left            : output_turn_rear_left,
-		output_turn_rear_right           : output_turn_rear_right,
-		switch_brake                     : switch_brake,
-		switch_fog_front                 : switch_fog_front,
-		switch_fog_rear                  : switch_fog_rear,
-		switch_hazard                    : switch_hazard,
-		switch_highbeam                  : switch_highbeam,
-		switch_highbeam_flash            : switch_highbeam_flash,
-		switch_lowbeam_1                 : switch_lowbeam_1,
-		switch_lowbeam_2                 : switch_lowbeam_2,
-		switch_standing                  : switch_standing,
-		switch_turn_left                 : switch_turn_left,
-		switch_turn_right                : switch_turn_right,
+    clamp_15                         : clamp_15,
+    clamp_30a                        : clamp_30a,
+    clamp_30b                        : clamp_30b,
+    clamp_r                          : clamp_r,
+    input_air_suspension             : input_air_suspension,
+    input_armoured_door              : input_armoured_door,
+    input_brake_fluid_level          : input_brake_fluid_level,
+    input_carb                       : input_carb,
+    input_engine_failsafe            : input_engine_failsafe,
+    input_fire_extinguisher          : input_fire_extinguisher,
+    input_hold_up_alarm              : input_hold_up_alarm,
+    input_key_in_ignition            : input_key_in_ignition,
+    input_kfn                        : input_kfn,
+    input_preheating_fuel_injection  : input_preheating_fuel_injection,
+    input_seat_belts_lock            : input_seat_belts_lock,
+    input_tire_defect                : input_tire_defect,
+    input_vertical_aim               : input_vertical_aim,
+    input_washer_fluid_level         : input_washer_fluid_level,
+    mode_failsafe                    : mode_failsafe,
+    mode_sleep                       : mode_sleep,
+    output_brake_rear_middle         : output_brake_rear_middle,
+    output_brake_rear_right          : output_brake_rear_right,
+    output_fog_front_left            : output_fog_front_left,
+    output_fog_front_right           : output_fog_front_right,
+    output_fog_rear_left             : output_fog_rear_left,
+    output_highbeam_front_left       : output_highbeam_front_left,
+    output_highbeam_front_right      : output_highbeam_front_right,
+    output_led_switch_hazard         : output_led_switch_hazard,
+    output_led_switch_light          : output_led_switch_light,
+    output_license_rear_left         : output_license_rear_left,
+    output_license_rear_right        : output_license_rear_right,
+    output_lowbeam_front_left        : output_lowbeam_front_left,
+    output_lowbeam_front_right       : output_lowbeam_front_right,
+    output_reverse_rear_left         : output_reverse_rear_left,
+    output_reverse_rear_right        : output_reverse_rear_right,
+    output_reverse_rear_trailer      : output_reverse_rear_trailer,
+    output_standing_front_left       : output_standing_front_left,
+    output_standing_front_right      : output_standing_front_right,
+    output_standing_inner_rear_left  : output_standing_inner_rear_left,
+    output_standing_inner_rear_right : output_standing_inner_rear_right,
+    output_standing_rear_left        : output_standing_rear_left,
+    output_standing_rear_right       : output_standing_rear_right,
+    output_turn_front_left           : output_turn_front_left,
+    output_turn_front_right          : output_turn_front_right,
+    output_turn_rear_left            : output_turn_rear_left,
+    output_turn_rear_right           : output_turn_rear_right,
+    switch_brake                     : switch_brake,
+    switch_fog_front                 : switch_fog_front,
+    switch_fog_rear                  : switch_fog_rear,
+    switch_hazard                    : switch_hazard,
+    switch_highbeam                  : switch_highbeam,
+    switch_highbeam_flash            : switch_highbeam_flash,
+    switch_lowbeam_1                 : switch_lowbeam_1,
+    switch_lowbeam_2                 : switch_lowbeam_2,
+    switch_standing                  : switch_standing,
+    switch_turn_left                 : switch_turn_left,
+    switch_turn_right                : switch_turn_right,
   }
 
-	// Suspect
-	// clamp_58g                        : clamp_58g,
-	// output_fog_rear_right            : output_fog_rear_right,
-	// output_fog_rear_trailer          : output_fog_rear_trailer,
+  // Suspect
+  // clamp_58g                        : clamp_58g,
+  // output_fog_rear_right            : output_fog_rear_right,
+  // output_fog_rear_trailer          : output_fog_rear_trailer,
 
   return output;
 }
@@ -397,7 +400,7 @@ var array_of_possible_values = {
   switch_turn_left                 : true,
   switch_turn_right                : true,
 
-	// Suspect
+  // Suspect
   // clamp_58g                        : true,
   // output_fog_rear_right            : true,
   // output_fog_rear_trailer          : true,
@@ -407,76 +410,65 @@ function go() {
   var array = {
     output_highbeam_front_left       : true,
     output_highbeam_front_right      : true,
-	}
+  }
 
-	lcm_send(lcm_bitmask_encode(array));
+  lcm_send(lcm_bitmask_encode(array));
 }
 
 // Run shutdown() on SIGINT
-process.on('SIGINT', shutdown);
+//process.on('SIGINT', shutdown);
 // Run go() on port_open
 //ibus_connection.on('port_open', go);
 
-startup();
+//startup();
 
 
 //shutdown();
 
 
 
-// Require the HTTP module
-var http       = require('http');
-var dispatcher = require('httpdispatcher');
 
-// Create a server
-var server = http.createServer(handleRequest);
 
-// Listening HTTP port
-const PORT = 8080; 
 
-function handleRequest(request, response){
-	try {
-		// Log the request on console
-		console.log('Request URL: %s', request.url);
+// Static content 
+dispatcher.setStatic('');
+dispatcher.setStaticDirname('/');
 
-		// Dispatch
-		dispatcher.dispatch(request, response);
-	} catch(err) {
-		console.log(err);
-	}
-}
+// LCM GET request    
+// dispatcher.onGet("/lcm", function(req, res) {
+//   res.writeHead(200, {'Content-Type': 'text/plain'});
+//   res.end('GET request\n');
+// });
 
-// For all your static (js/css/images/etc.) set the directory name (relative path).
-dispatcher.setStatic('resources');
+// LCM POST request
+dispatcher.onPost("/lcm", function(request, response) {
+  console.log('/lcm POST');
+  response.writeHead(200, {'Content-Type': 'text/plain'});
 
-// Shutdown app
-dispatcher.onGet("/shutdown", function(req, res) {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Server shutdown\n');
-	shutdown();
+  var post = query_string.parse(request.body);
+  console.log(post);
+  lcm_bitmask_encode(post);
+
+  response.end('Got POST message for LCM\n');
 });
 
-// A sample GET request    
-dispatcher.onGet("/lcm", function(req, res) {
-	var output = {};
-
-	for (var prop in req.params) {
-		output[''+prop+''] = true;
-	}
-
-	lcm_send(lcm_bitmask_encode(output));
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('LCM command sent\n');
-});    
-
-// A sample POST request
-dispatcher.onPost("/post1", function(req, res) {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Got POST Data\n');
+dispatcher.beforeFilter(/\//, function(req, res, chain) { // Any URL
+	// console.log("Before filter");
+	chain.next(req, res, chain);
 });
 
-//Lets start our server
-server.listen(PORT, function(){
-	// Callback triggered when server is successfully listening. Hurray!
-	console.log("Server listening on: http://localhost:%s", PORT);
+dispatcher.afterFilter(/\//, function(req, res, chain) { // Any URL
+	// console.log("After filter");
+	chain.next(req, res, chain);
 });
+
+// Error
+dispatcher.onError(function(req, res) {
+  console.error('Error: 404');
+  res.writeHead(404);
+  res.end();
+});
+
+http.createServer(function (req, res) {
+	dispatcher.dispatch(req, res);
+}).listen(8080, '127.0.0.1');

@@ -1,15 +1,17 @@
 {
-	"name": "node-ibus-interface",
-	"version": "0.0.1",
-	"description": "NodeJS-powered BMW IBUS interface",
-	"main": "run.js",
+	"name"        : "node-ibus-interface",
+	"version"     : "0.0.1",
+	"description" : "NodeJS-powered BMW IBUS interface",
+	"main"        : "run.js",
 	"dependencies": {
-		"serialport": "^3.1.2",
-		"log": "*",
-		"cli-color": "*",
-		"wait.for": "*",
-		"http": "*",
-		"httpdispatcher": "*"
+		"cli-color"      : "*",
+		"http"           : "*",
+		"httpdispatcher" : "*",
+		"log"            : "*",
+		"querystring"    : "*",
+		"serialport"     : "^3.1.2",
+		"url"            : "*",
+		"wait.for"       : "*"
 	},
 	"devDependencies": {},
 	"scripts": {
@@ -23,9 +25,9 @@
 		"bmw",
 		"ibus"
 	],
-	"author": "kdm <kennygprs@gmail.com>",
-	"license": "ISC",
-	"bugs": {
+	"author"  : "kdm <kennygprs@gmail.com>",
+	"license" : "ISC",
+	"bugs"    : {
 		"url": "https://github.com/kmalinich/node-ibus-interface/issues"
 	},
 	"homepage": "https://github.com/kmalinich/node-ibus-interface#readme"

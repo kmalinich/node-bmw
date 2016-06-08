@@ -1,0 +1,1 @@
+../../ibus-cmds.js

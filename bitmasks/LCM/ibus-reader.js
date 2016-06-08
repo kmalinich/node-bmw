@@ -1,0 +1,1 @@
+../../ibus-reader.js

@@ -1,0 +1,1 @@
+../../ibus-interface.js

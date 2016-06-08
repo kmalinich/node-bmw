@@ -420,10 +420,8 @@ function go() {
 // Run go() on port_open
 //ibus_connection.on('port_open', go);
 
-//startup();
+startup();
 
-
-//shutdown();
 
 
 
@@ -447,7 +445,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 
   var post = query_string.parse(request.body);
   console.log(post);
-  lcm_bitmask_encode(post);
+  lcm_send(lcm_bitmask_encode(post));
 
   response.end('Got POST message for LCM\n');
 });
@@ -472,4 +470,4 @@ dispatcher.onError(function(req, res) {
 http.createServer(function (req, res) {
 	console.log('%s Request: %s', req.method, req.url);
 	dispatcher.dispatch(req, res);
-}).listen(8080, '127.0.0.1');
+}).listen(8080, '0.0.0.0');

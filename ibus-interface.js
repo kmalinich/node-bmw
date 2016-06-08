@@ -1,11 +1,17 @@
 var serialport    = require('serialport');
-var Log           = require('log');
-var log           = new Log('info');
 var clc           = require('cli-color');
 var util          = require('util');
 var event_emitter = require('events').EventEmitter;
 var ibus_protocol = require('./ibus-protocol.js');
 var ibus_modules  = require('./ibus-modules.js');
+
+var Log           = require('log');
+var log           = new Log('info');
+
+log.on('line', function(line){
+	console.log('HEY');
+	console.log(line);
+});
 
 var ibus_interface = function(device_path) {
 
@@ -29,41 +35,47 @@ var ibus_interface = function(device_path) {
 
 	// implementation
 	function init_ibus() {
-		serial_port = new serialport.SerialPort(device, {
-			rtscts   : true,
-			baudRate : 9600,
-			dataBits : 8,
-			parity   : 'even',
-			parser   : serialport.parsers.raw,
-			stopBits : 1,
-		}, false);
+		// Auto-port-find functionality
+		serialport.list(function (err, ports) {
+			ports.forEach(function(port) {
+				device      = port.comName;
+				serial_port = new serialport.SerialPort(device, {
+					rtscts   : true,
+					baudRate : 9600,
+					dataBits : 8,
+					parity   : 'even',
+					parser   : serialport.parsers.raw,
+					stopBits : 1,
+				}, false);
 
-		serial_port.open(function(error) {
-			if (error) {
-				log.error('[ibus_interface] Failed to open: ' + error);
-			} else {
-				log.info('[ibus_interface] Port open [' + device + ']');
-				_self.emit('port_open');
+				serial_port.open(function(error) {
+					if (error) {
+						log.error('[ibus_interface] Failed to open: ' + error);
+					} else {
+						log.info('[ibus_interface] Port open [' + device + ']');
+						_self.emit('port_open');
 
-				serial_port.on('data', function(data) {
-					//log.debug('[ibus_interface] Data on port: ', data);
+						serial_port.on('data', function(data) {
+							//log.debug('[ibus_interface] Data on port: ', data);
 
-					last_activity_time = process.hrtime();
+							last_activity_time = process.hrtime();
+						});
+
+						serial_port.on('error', function(err) {
+							log.error("[ibus_interface] Error", err);
+							shutdown(startup);
+						});
+
+						parser = new ibus_protocol();
+						parser.on('message', on_message);
+
+						serial_port.pipe(parser);
+
+						watch_for_empty_bus(process_write_queue);
+					}
+
 				});
-
-				serial_port.on('error', function(err) {
-					log.error("[ibus_interface] Error", err);
-					shutdown(startup);
-				});
-
-				parser = new ibus_protocol();
-				parser.on('message', on_message);
-
-				serial_port.pipe(parser);
-
-				watch_for_empty_bus(process_write_queue);
-			}
-
+			});
 		});
 	}
 

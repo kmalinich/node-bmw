@@ -78,9 +78,6 @@ var ibus_interface = function(device_path) {
 						}
 					});
 				}
-				else {
-					log.error('[ibus_interface] Failed to find USB->Serial converter.');
-				}
 			});
 		});
 	}

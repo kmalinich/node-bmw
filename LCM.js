@@ -124,6 +124,7 @@ function lcm_bitmask_encode(array) {
   if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6) ; }
   if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7) ; }
   if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2) ; }
+  if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3) ; }
   if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4) ; }
   if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5) ; }
   if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6) ; }
@@ -134,7 +135,6 @@ function lcm_bitmask_encode(array) {
   if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4) ; }
   if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5) ; }
   if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6) ; }
-  if(array.output_brake_rear_left          ) { bitmask_5 = bit_set(bitmask_5, bit_7) ; }
   if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1) ; }
   if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2) ; }
   if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3) ; }
@@ -167,8 +167,8 @@ function lcm_bitmask_encode(array) {
   // if(array.) { bitmask_2 = bit_set(bitmask_2, bit_3) ; }
   // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_0) ; }
   // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_1) ; }
-  // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_3) ; }
   // if(array.) { bitmask_4 = bit_set(bitmask_4, bit_7) ; }
+  // if(array.) { bitmask_4 = bit_set(bitmask_5, bit_7) ; }
   // if(array.) { bitmask_6 = bit_set(bitmask_6, bit_0) ; }
   // if(array.) { bitmask_7 = bit_set(bitmask_7, bit_0) ; }
   // if(array.) { bitmask_7 = bit_set(bitmask_7, bit_5) ; }
@@ -227,7 +227,7 @@ function lcm_bitmask_decode(array) {
   var input_washer_fluid_level         = bit_test(bitmask_3, bit_2);
   var mode_failsafe                    = bit_test(bitmask_8, bit_0);
   var mode_sleep                       = bit_test(bitmask_8, bit_6);
-  var output_brake_rear_left           = bit_test(bitmask_5, bit_7);
+  var output_brake_rear_left           = bit_test(bitmask_4, bit_3);
   var output_brake_rear_middle         = bit_test(bitmask_6, bit_4);
   var output_brake_rear_right          = bit_test(bitmask_4, bit_4);
   var output_fog_front_left            = bit_test(bitmask_5, bit_2);

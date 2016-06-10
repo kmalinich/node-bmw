@@ -3,6 +3,11 @@
 export PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games"
 CONF_FILE="/etc/ap-or-client.conf"
 SCRIPT_NAME="ap-or-client"
+SSID_LIST="/tmp/ssid-list"
+WPA_CONF="/etc/wpa_supplicant/wpa_supplicant.conf"
+WPA_CONF_CLIENT="/etc/wpa_supplicant/wpa_supplicant.conf-client"
+WIFI_NIC="wlan0"
+NET_INFS="/etc/network/interfaces"
 
 # write to syslog
 function log()
@@ -10,21 +15,25 @@ function log()
 	logger -s -t "[${SCRIPT_NAME}]" "${1}"
 }
 
+
+
+log "Run start."
+
 CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
 log "CURRENT_MODE: ${CURRENT_MODE}"
 
-awk -F '=' '/ssid/ {print $2}' /etc/wpa_supplicant/wpa_supplicant.conf | sed "s/'//g" | sed 's/"//g' > /tmp/ssid-list
-SSID_TOTAL=$(cat /tmp/ssid-list | wc -l)
+awk -F '=' '/ssid/ {print $2}' ${WPA_CONF} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST} 
+SSID_TOTAL=$(cat ${SSID_LIST} | wc -l)
 
 log "Scanning for known APs."
 while read SSID; do
 	log "Scanning for SSID '${SSID}'."
-	iwlist wlan0 scan | grep -q "${SSID}"
+	iwlist ${WIFI_NIC} scan | grep -q "${SSID}"
 	SCAN_RESULT="${?}"
 	SSID_TOTAL=$((SSID_TOTAL-SCAN_RESULT))
 	#echo "[${SSID}] SCAN_RESULT: ${SCAN_RESULT} | SSID_TOTAL: ${SSID_TOTAL}"
-done < /tmp/ssid-list
-rm -f /tmp/ssid-list
+done < ${SSID_LIST} 
+rm -f  ${SSID_LIST}
 
 if [[ "${SSID_TOTAL}" != "0" ]]; then
 	# Connectable AP found
@@ -32,17 +41,27 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 	if [[ "${CURRENT_MODE}" != "CLIENT" ]]; then
 		log "Changing to CLIENT mode."
 
+		log "Updating wpa_supplicant."
+		cp ${WPA_CONF_CLIENT} ${WPA_CONF}
+		sleep 1
+
 		echo "CURRENT_MODE=CLIENT" > ${CONF_FILE}
 
-		rm -f  /etc/network/interfaces 
-		ln -fs /etc/network/interfaces-client /etc/network/interfaces
+		log "Changing ${NET_INFS} config."
+		rm -f  ${NET_INFS} 
+		ln -fs ${NET_INFS}-client ${NET_INFS} 
 
+		log "Stopping hostapd."
 		systemctl stop hostapd
 		sleep 1
+		log "Stopping dnsmasq."
 		systemctl stop dnsmasq
 		sleep 1
 
-		ifdown wlan0; ifup wlan0
+		log "Cycling ${WIFI_NIC}."
+		ifdown ${WIFI_NIC}
+		sleep 1
+		ifup   ${WIFI_NIC}
 	else
 		log "Staying in CLIENT mode."
 	fi
@@ -51,17 +70,30 @@ else
 	if [[ "${CURRENT_MODE}" != "AP" ]]; then
 		log "Changing to AP mode."
 
+		log "Updating wpa_supplicant."
+		rm -f ${WPA_CONF}
+		touch ${WPA_CONF}
+		sleep 1
+
 		echo "CURRENT_MODE=AP" > ${CONF_FILE}
 
-		rm -f  /etc/network/interfaces 
-		ln -fs /etc/network/interfaces-ap /etc/network/interfaces
+		log "Changing ${NET_INFS} config."
+		rm -f  ${NET_INFS} 
+		ln -fs ${NET_INFS}-ap ${NET_INFS} 
 
-		ifdown wlan0; ifup wlan0
+		log "Cycling ${WIFI_NIC}."
+		ifdown ${WIFI_NIC}
+		sleep 1
+		ifup   ${WIFI_NIC}
 
+		log "Starting hostapd."
 		systemctl start hostapd
 		sleep 1
+		log "Starting dnsmasq."
 		systemctl start dnsmasq
 	else
 		log "Staying in AP mode."
 	fi
 fi
+
+log "Run complete."

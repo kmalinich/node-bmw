@@ -32,8 +32,10 @@ function shutdown() {
 	});
 }
 
+// Start IBUS connection
+startup();
 
-// Static content 
+// Static content
 dispatcher.setStatic('');
 dispatcher.setStaticDirname('/');
 
@@ -44,7 +46,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 
 	var post = query_string.parse(request.body);
 	console.log(post);
-	LCM.lcm_send(lcm_bitmask_encode(post));
+	LCM_connection.lcm_bitmask_encode(post);
 
 	response.end('Got POST message for LCM\n');
 });

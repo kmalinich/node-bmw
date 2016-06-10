@@ -3,7 +3,13 @@
 // IBUS libraries
 var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
+var GM            = require('./modules/GM.js');
 var LCM            = require('./modules/LCM.js');
+
+// IBUS connection handle
+var ibus_connection = new ibus_interface();
+var GM_connection   = new GM(ibus_connection);
+var LCM_connection  = new LCM(ibus_connection);
 
 // npm libraries
 var clc          = require('cli-color');
@@ -12,10 +18,6 @@ var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');
 var wait         = require('wait.for');
-
-// IBUS connection handle
-var ibus_connection = new ibus_interface();
-var LCM_connection  = new LCM(ibus_connection);
 
 
 // Startup function
@@ -38,6 +40,18 @@ startup();
 // Static content
 dispatcher.setStatic('');
 dispatcher.setStaticDirname('/');
+
+// GM POST request
+dispatcher.onPost('/gm', function(request, response) {
+	console.log('/gm POST');
+	response.writeHead(200, {'Content-Type': 'text/plain'});
+
+	var post = query_string.parse(request.body);
+	console.log(post);
+	GM_connection.gm_bitmask_encode(post);
+
+	response.end('Got POST message for GM\n');
+});
 
 // LCM POST request
 dispatcher.onPost('/lcm', function(request, response) {

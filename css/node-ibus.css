@@ -1,7 +1,6 @@
 /* Misc page/element tweaks */
 
 body {
-	background             : url("/images/charisma-bg.png") fixed no-repeat bottom left;
 	-webkit-font-smoothing : subpixel-antialiased;
 }
 

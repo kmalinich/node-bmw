@@ -102,72 +102,35 @@ function goodbye() {
 
 
 
-// RADio
-function rad(action) {
-	// new Message(DeviceAddress.OnBoardMonitor, DeviceAddress.Radio, "Press radio on/off", 0x48, 0x06);
-	// new Message(DeviceAddress.OnBoardMonitor, DeviceAddress.Radio, "Release radio on/off", 0x48, 0x86);
-	// Volume down
-	// Volume up
-}
-
-
-
-
-
 function windows(group) {
 	var src = 0x3f; // DIS
 	var dst = 0x00; // GM
 
-	// 1 = up
-	// 
-	// 0 = RR
-	// 4 = LR
-
-	// var msg = new Buffer([0x0c, 0x00, 0x00]); // RR down
-	// var msg = new Buffer([0x0c, 0x00, 0x01]); // RR up
-	// var msg = new Buffer([0x0c, 0x00, 0x02]); // Wipers+washer
-	// var msg = new Buffer([0x0c, 0x00, 0x14]); // Wipers (one wipe?)
-	// var msg = new Buffer([0x0c, 0x00, 0x15]); // Wipers (auto?)
-	// var msg = new Buffer([0x0c, 0x00, 0x38]); // Wipers (3 wipes, stay up [maint. position?])
-	// var msg = new Buffer([0x0c, 0x00, 0x4b]); // Washer only
-	// var msg = new Buffer([0x0c, 0x00, 0x3c]); // Red nose on for 3 sec
-	// var msg = new Buffer([0x0c, 0x00, 0x56]); // ALARM!!!
-	// var msg = new Buffer([0x0c, 0x00, 0x03]); // LR down
-	// var msg = new Buffer([0x0c, 0x00, 0x04]); // LR up
-	// var msg = new Buffer([0x0c, 0x00, 0x05]); // Nothing
-	// var msg = new Buffer([0x0c, 0x00, 0x06]); // Nothing
-	// var msg = new Buffer([0x0c, 0x00, 0x08]); // Trunk open
-	// var msg = new Buffer([0x0c, 0x00, 0x17]); // Interior on, no fade
-	// var msg = new Buffer([0x0c, 0x00, 0x10]); // Wheel up, interior on 
-	// var msg = new Buffer([0x0c, 0x00, 0x0b]); // Lock doors (no toggle)
-	// var msg = new Buffer([0x0c, 1, 0]);       // Unlock doors (no toggle) 
-	// var msg = new Buffer([0x0c, 5, 0]);       // Driver seat forward
-	// var msg = new Buffer([0x0c, 0, 91]);      // Interior light, hazard button
-	// var msg = new Buffer([0x0c, 0, 92]);      // toggle locks ??
-	// var msg = new Buffer([0x0c, 0, 101]);     // front windows fully down
-	// var msg = new Buffer([0x0c, 0, 102]);     // Sunroof open
-	// var msg = new Buffer([0x0c, 0, 174]);     // Red nose flash for 3 sec
-	// var msg = new Buffer([0x0c, 0, 177]);     // wheel up, down
-
-	var msg     = new Buffer([0x0c, 5, 5]);   // Drivers seat tilt (not sure which way)
-	var msg     = new Buffer([0x0c, 128, 0]); // Driver seat forward
-
-	var open_fl = new Buffer([0x0c, 0x52, 0x01]);
-	var open_fr = new Buffer([0x0c, 0x41, 0x01]);
-	var open_rr = new Buffer([0x0c, 0x00, 0x46]);
-
-	var msg     = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
-	var msg     = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
-	var msg     = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
-	var msg     = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: msg,
-	}
-
-	ibus_send(ibus_packet);
+	// 00 00  // RR down
+	// 00 01  // RR up
+	// 00 02  // Wipers+washer
+	// 00 14  // Wipers (one wipe?)
+	// 00 15  // Wipers (auto?)
+	// 00 38  // Wipers (3 wipes, stay up [maint. position?])
+	// 00 4b  // Washer only
+	// 00 3c  // Red nose on for 3 sec
+	// 00 56  // ALARM!!!
+	// 00 03  // LR down
+	// 00 04  // LR up
+	// 00 05  // Nothing
+	// 00 06  // Nothing
+	// 00 08  // Trunk open
+	// 00 17  // Interior on, no fade
+	// 00 10  // Wheel up, interior on 
+	// 00 0b  // Lock doors (no toggle)
+	// 1, 0   // Unlock doors (no toggle) 
+	// 5, 0   // Driver seat forward
+	// 0, 91  // Interior light, hazard button
+	// 0, 92  // toggle locks ??
+	// 0, 101 // front windows fully down
+	// 0, 102 // Sunroof open
+	// 0, 174 // Red nose flash for 3 sec
+	// 0, 177 // wheel up, down
 }
 
 
@@ -194,11 +157,6 @@ function gm(object, action) {
 	var gm_windows_pss_rear_up    = new Buffer([0x0c, 0x00, 0x46]);
 
 	var gm_windows_front_down     = new Buffer([0x0c, 0x00, 0x65]);
-
-	var gm_seats_drv_forward      = new Buffer([0x0c, 0x00, 0x00]);
-	var gm_seats_drv_back         = new Buffer([0x0c, 0x00, 0x01]);
-	var gm_seats_pss_forward      = new Buffer([0x0c, 0x01, 0x00]);
-	var gm_seats_pss_back         = new Buffer([0x0c, 0x01, 0x01]);
 
 	var OpenTrunk                 = new Buffer([0x0c, 0x95, 0x01]);
 	var LockDoors                 = new Buffer([0x0c, 0x4f, 0x01]); // 0x0c, 0x97, 0x01
@@ -340,13 +298,6 @@ function check_data(packet) {
 	// var fob_unlock_down     = new Buffer([0x72, 0x22]);
 	// var fob_trunk_down      = new Buffer([0x72, 0x42]);
 
-
-	// RAD
-	if (src == 'RAD') {
-			var command = 'command';
-			var data    = 'data';
-	}
-
 	// GM
 	if (src == 'GM') {
 		if (msg.compare(fob_trunk_down) == 0) {
@@ -364,9 +315,9 @@ function check_data(packet) {
 	}
 
 
-
 	// var key_out             = new Buffer([0x74, 0x00, 0xff]);
 	// var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
+
 
 	// EWS
 	if (src == 'EWS') {
@@ -380,8 +331,6 @@ function check_data(packet) {
 		}
 	}
 
-
-
 	// MFL
 	if (src == 'MFL') {
 		if (msg[0] == 0x3B) {
@@ -392,13 +341,13 @@ function check_data(packet) {
 				//ike_text('coolant: '+coolant_temp_c+'C        ');
 				// ike_text_urgent('coolant: '+coolant_temp_c+'C        ');
 
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer(msg),
-	}
+				var ibus_packet = {
+					src: src, 
+					dst: dst,
+					msg: new Buffer(msg),
+				}
 
-	ibus_send(ibus_packet);
+				ibus_send(ibus_packet);
 			}
 			else if (msg[1] == 0xA0) {
 				var data    = 'send/end released';
@@ -556,6 +505,3 @@ var open_window_rear_left   = false;
 var open_window_rear_right  = false;
 
 startup();
-
-
-

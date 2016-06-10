@@ -9,7 +9,6 @@ var Log           = require('log');
 var log           = new Log('info');
 
 log.on('line', function(line){
-	console.log('HEY');
 	console.log(line);
 });
 

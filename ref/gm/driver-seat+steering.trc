@@ -8,8 +8,6 @@
 05 07 01 08 : Driver seat backrest backward
 05 08 01 07 : Driver seat headrest up
 05 09 01 06 : Driver seat headrest down
-05 0A 01 05 : ?? 
-05 0B 01 04 : ??
 05 0C 01 03 : Driver seat upper backwards
 05 0D 01 02 : Driver seat upper forwards 
 05 0E 01 01 : Steering wheel up

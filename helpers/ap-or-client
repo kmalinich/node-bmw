@@ -5,7 +5,7 @@ CONF_FILE="/etc/ap-or-client.conf"
 SCRIPT_NAME="ap-or-client"
 SSID_LIST="/tmp/ssid-list"
 WPA_CONF="/etc/wpa_supplicant/wpa_supplicant.conf"
-WPA_CONF_CLIENT="/etc/wpa_supplicant/wpa_supplicant.conf-client"
+WPA_CONF_CLIENT="${WPA_CONF}-client"
 WIFI_NIC="wlan0"
 NET_INFS="/etc/network/interfaces"
 
@@ -22,7 +22,7 @@ log "Run start."
 CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
 log "CURRENT_MODE: ${CURRENT_MODE}"
 
-awk -F '=' '/ssid/ {print $2}' ${WPA_CONF} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST} 
+awk -F '=' '/ssid/ {print $2}' ${WPA_CONF_CLIENT} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST} 
 SSID_TOTAL=$(cat ${SSID_LIST} | wc -l)
 
 log "Scanning for known APs."

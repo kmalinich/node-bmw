@@ -74,16 +74,20 @@ SR sunroof
 00 14  : Wipers (one wipe?)
 00 15  : Wipers (auto?)
 00 38  : Wipers (3 wipes, stay up [maint. position?])
-00 4b  : Washer only
-00 3c  : Red nose on for 3 sec
+00 4B  : Washer only
+00 3C  : Red nose on for 3 sec
+4E 01  : Turn on the 'clown nose' for 3 seconds
 00 56  : ALARM!!!
 00 08  : Trunk open
 00 17  : Interior on, no fade
 00 10  : Wheel up, interior on 
-00 0b  : Lock doors (no toggle)
+00 0B  : Lock doors (no toggle)
 01 00  : Unlock doors (no toggle) 
 00 91  : Interior light, hazard button
 00 92  : toggle locks ??
+
+
+// ?? not sure..
 00 101 : front windows fully down
 00 102 : Sunroof open
 00 174 : Red nose flash for 3 sec
@@ -109,3 +113,6 @@ SR sunroof
 7A 60 00 : Locked+Interior lights
 7A 20 10 : Locked+Sunroof
 7A 50 10 : Unlocked+Sunroof+Interior lights
+72 12    : fob_lock_down
+72 22    : fob_unlock_down
+72 42    : fob_trunk_down

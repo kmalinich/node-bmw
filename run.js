@@ -3,7 +3,7 @@
 // IBUS libraries
 var ibus_interface = require('./ibus-interface.js');
 var ibus_modules   = require('./ibus-modules.js');
-var GM            = require('./modules/GM.js');
+var GM             = require('./modules/GM.js');
 var LCM            = require('./modules/LCM.js');
 
 // IBUS connection handle

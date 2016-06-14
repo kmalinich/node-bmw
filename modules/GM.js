@@ -30,7 +30,7 @@ var GM = function(ibus_connection) {
   // Send message to GM
   function gm_send(packet) {
     var src = 0x3F; // DIA
-    var dst = 0xBF; // GLO
+    var dst = 0x00; // GM
     var cmd = 0x0C; // Set IO status 
 
     // Add the command to the beginning of the GM hex array
@@ -69,15 +69,6 @@ var GM = function(ibus_connection) {
     var bitmask_1  = 0x00;
     var bitmask_2  = 0x00;
     var bitmask_3  = 0x00;
-    var bitmask_4  = 0x00;
-    var bitmask_5  = 0x00;
-    var bitmask_6  = 0x00;
-    var bitmask_7  = 0x00;
-    var bitmask_8  = 0x00;
-    // 9-11 are .. something, don't know yet.
-    var bitmask_9  = 0xE4;
-    var bitmask_10 = 0xFF;
-    var bitmask_11 = 0x00;
 
     // Set the various bitmask values according to the input array
     if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
@@ -88,14 +79,6 @@ var GM = function(ibus_connection) {
       bitmask_1,
       bitmask_2,
       bitmask_3,
-      bitmask_4,
-      bitmask_5,
-      bitmask_6,
-      bitmask_7,
-      bitmask_8,
-      bitmask_9,
-      bitmask_10,
-      bitmask_11,
     ];
 
     console.log('gm_bitmask_encode() output: %s', output);
@@ -110,30 +93,46 @@ var GM = function(ibus_connection) {
     var bitmask_1 = array[1];
     var bitmask_2 = array[2];
     var bitmask_3 = array[3];
-    var bitmask_4 = array[4];
-    var bitmask_5 = array[5];
-    var bitmask_6 = array[6];
-    var bitmask_7 = array[7];
 
     var clamp_15                         = bit_test(bitmask_3, bit_5);
-
-    // Suspect
 
     var output = {
       clamp_15                         : clamp_15,
     }
-
-    // Suspect
 
     return output;
   }
 
   // All the possible values to send to the GM
   var array_of_possible_values = {
-    clamp_15                         : true,
-
-    // Suspect
-    }
+    wip
+    seat_driver_backrest_backward : true,
+    seat_driver_backrest_forward  : true,
+    seat_driver_backward          : true,
+    seat_driver_down              : true,
+    seat_driver_forward           : true,
+    seat_driver_headrest_down     : true,
+    seat_driver_headrest_up       : true,
+    seat_driver_tilt_backward     : true,
+    seat_driver_tilt_forward      : true,
+    seat_driver_up                : true,
+    seat_driver_upper_backwards   : true,
+    seat_driver_upper_forwards    : true,
+    wheel_backward                : true,
+    wheel_down                    : true,
+    wheel_forward                 : true,
+    wheel_up                      : true,
+    window_front_left_down        : true,
+    window_front_left_up          : true,
+    window_front_right_down       : true,
+    window_front_right_up         : true,
+    window_rear_left_down         : true,
+    window_rear_left_up           : true,
+    window_rear_right_down        : true,
+    window_rear_right_up          : true,
+    window_sunroof_down           : true,
+    window_sunroof_up             : true,
   }
+}
 
-  module.exports = GM;
+module.exports = GM;

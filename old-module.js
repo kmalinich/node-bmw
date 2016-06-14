@@ -1,50 +1,6 @@
 #!/usr/bin/env node
 
-// Notes...
-//
 // WRITER.writeBusPacket('3F', '00', ['0C', '4E', '01']) # Turn on the 'clown nose' for 3 seconds
-
-// var msg = new Buffer([0x7a, 0x10, 0x00]); // Unlocked
-// var msg = new Buffer([0x7a, 0x10, 0x01]); // Unlocked+WndwFL
-// var msg = new Buffer([0x7a, 0x10, 0x02]); // Unlocked+WndwFR
-// var msg = new Buffer([0x7a, 0x10, 0x04]); // Unlocked+WndwRL
-// var msg = new Buffer([0x7a, 0x10, 0x08]); // Unlocked+WndwRR
-// var msg = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+WndwSun
-// var msg = new Buffer([0x7a, 0x10, 0x20]); // Unlocked+Trunk
-// var msg = new Buffer([0x7a, 0x11, 0x00]); // Unlocked+DoorFL
-// var msg = new Buffer([0x7a, 0x12, 0x00]); // Unlocked+DoorFR
-// var msg = new Buffer([0x7a, 0x14, 0x00]); // Unlocked+DoorRL
-// var msg = new Buffer([0x7a, 0x18, 0x00]); // Unlocked+DoorRR
-// var msg = new Buffer([0x7a, 0x50, 0x00]); // Unlocked+Interior lights
-// var msg = new Buffer([0x7a, 0x10, 0x10]); // Unlocked+Sunroof+Interior lights
-// var msg = new Buffer([0x7a, 0x20, 0x00]); // Locked
-// var msg = new Buffer([0x7a, 0x60, 0x00]); // Locked+Interior lights
-// var msg = new Buffer([0x7a, 0x20, 0x10]); // Locked+Sunroof
-// var msg = new Buffer([0x7a, 0x50, 0x10]); // Unlocked+Sunroof+Interior lights
-
-
-// Libraries
-var ibus_interface = require('./ibus-interface.js');
-var ibus_modules   = require('./ibus-modules.js');
-
-// Color terminal output
-var clc = require('cli-color');
-
-// wait.for
-var wait = require('wait.for');
-
-// Serial device path
-var device = '/dev/tty.SLAB_USBtoUART';
-
-// IBUS connection handle
-var ibus_connection = new ibus_interface(device);
-
-// Run shutdown() on SIGINT
-process.on('SIGINT', shutdown);
-
-// Run check_data() on data events
-ibus_connection.on('data', check_data);
-ibus_connection.on('port_open', hello);
 
 
 // ASCII to hex for cluster message
@@ -58,28 +14,6 @@ function ascii2hex(str) {
 
 	return array;
 }
-
-
-
-// Startup function
-function startup() {
-	// Open serial port
-	ibus_connection.startup();
-}
-
-// Shutdown function
-function shutdown() {
-	// Terminate connection
-	ibus_connection.shutdown(function() {
-		process.exit();
-	});
-}
-
-// Send IBUS message
-function ibus_send(ibus_packet) {
-	ibus_connection.send_message(ibus_packet);
-}
-
 
 
 // On engine start
@@ -100,53 +34,12 @@ function goodbye() {
 	ike_text('     ///M Power     ');
 }
 
-
-
-function windows(group) {
-	var src = 0x3f; // DIS
-	var dst = 0x00; // GM
-
-	// 00 00  // RR down
-	// 00 01  // RR up
-	// 00 02  // Wipers+washer
-	// 00 14  // Wipers (one wipe?)
-	// 00 15  // Wipers (auto?)
-	// 00 38  // Wipers (3 wipes, stay up [maint. position?])
-	// 00 4b  // Washer only
-	// 00 3c  // Red nose on for 3 sec
-	// 00 56  // ALARM!!!
-	// 00 03  // LR down
-	// 00 04  // LR up
-	// 00 05  // Nothing
-	// 00 06  // Nothing
-	// 00 08  // Trunk open
-	// 00 17  // Interior on, no fade
-	// 00 10  // Wheel up, interior on 
-	// 00 0b  // Lock doors (no toggle)
-	// 1, 0   // Unlock doors (no toggle) 
-	// 5, 0   // Driver seat forward
-	// 0, 91  // Interior light, hazard button
-	// 0, 92  // toggle locks ??
-	// 0, 101 // front windows fully down
-	// 0, 102 // Sunroof open
-	// 0, 174 // Red nose flash for 3 sec
-	// 0, 177 // wheel up, down
-}
-
-
-
 // General module
 function gm(object, action) {
-	//static Message MessageOpenWindows = new Message(DeviceAddress.Diagnostic, DeviceAddress.BodyModule, 0x0C, 0x00, 0x65);
-
 	var RequestDoorsStatus        = new Buffer([0x80, 0x00, 0x79]);
 	var FoldMirrorsE46            = new Buffer([0x9b, 0x51, 0x6d, 0x90]);
 	var UnfoldMirrorsE46          = new Buffer([0x9b, 0x51, 0x6d, 0xa0]);
 
-	var src = 0x3F; // DIS
-	var dst = 0x00; // GM
-
-	var gm_windows_front_up       = new Buffer([0x0c, 0x00, 0x65]); // Not working
 	var gm_locks_toggle           = new Buffer([0x0c, 0x00, 0x0b]);
 	var gm_trunk                  = new Buffer([0x0c, 0x00, 0x40]);
 

@@ -1,0 +1,111 @@
+
+src: 0x3F // DIA
+dst: 0x00 // ZKE (body module)
+cmd: 0xC0 // Set IO status
+
+LR left  rear
+RR right rear
+LF left  front
+LR right front
+SR sunroof
+
+00 00 01 0A : LR D F
+00 44 01 4E : LR U F
+
+            : LF D F
+01 1A 01 11 : LF U F
+
+00 03 01 09 : RR D F
+00 47 01 4D : RR D F
+
+            : RR U F
+
+02 36 01 3E : RF D F
+02 22 01 2A : RF U F
+
+
+
+
+
+00 01 01 0B : LR U P
+00 45 01 4F : LR U P
+00 04 01 0E : RR U P
+00 46 01 4C : RR U P
+01 18 01 13 : LF D P
+01 36 01 3D : LF D P
+02 32 01 3A : RF U P
+00 46 01 4C : RR U P
+01 24 01 2F : 
+01 25 01 2E : 
+02 24 01 2C : 
+02 25 01 2D : 
+03 00 01 09 : 
+03 01 01 08 : 
+03 02 01 0B : 
+
+
+// Driver's seat
+
+05 00 01 0F : Driver seat forward
+05 01 01 0E : Driver seat backward
+05 02 01 0D : Driver seat up
+05 03 01 0C : Driver seat down
+05 04 01 0B : Driver seat tilt forward
+05 05 01 0A : Driver seat tilt backward
+05 06 01 09 : Driver seat backrest forward
+05 07 01 08 : Driver seat backrest backward
+05 08 01 07 : Driver seat headrest up
+05 09 01 06 : Driver seat headrest down
+05 0C 01 03 : Driver seat upper backwards
+05 0D 01 02 : Driver seat upper forwards 
+
+
+// Steering wheel
+
+05 0E 01 01 : Steering wheel up
+05 0F 01 00 : Steering wheel down
+05 10 01 1F : Steering wheel forwards
+05 11 01 1E : Steering wheel backwards
+
+
+// Needs tested...
+
+00 02  : Wipers+washer
+00 14  : Wipers (one wipe?)
+00 15  : Wipers (auto?)
+00 38  : Wipers (3 wipes, stay up [maint. position?])
+00 4b  : Washer only
+00 3c  : Red nose on for 3 sec
+00 56  : ALARM!!!
+00 08  : Trunk open
+00 17  : Interior on, no fade
+00 10  : Wheel up, interior on 
+00 0b  : Lock doors (no toggle)
+01 00  : Unlock doors (no toggle) 
+00 91  : Interior light, hazard button
+00 92  : toggle locks ??
+00 101 : front windows fully down
+00 102 : Sunroof open
+00 174 : Red nose flash for 3 sec
+00 177 : wheel up, down
+
+
+// Statuses.. possibly
+
+7A 10 00 : Unlocked
+7A 10 01 : Unlocked+WndwFL
+7A 10 02 : Unlocked+WndwFR
+7A 10 04 : Unlocked+WndwRL
+7A 10 08 : Unlocked+WndwRR
+7A 10 10 : Unlocked+WndwSun
+7A 10 20 : Unlocked+Trunk
+7A 11 00 : Unlocked+DoorFL
+7A 12 00 : Unlocked+DoorFR
+7A 14 00 : Unlocked+DoorRL
+7A 18 00 : Unlocked+DoorRR
+7A 50 00 : Unlocked+Interior lights
+7A 10 10 : Unlocked+Sunroof+Interior lights
+7A 20 00 : Locked
+7A 60 00 : Locked+Interior lights
+7A 20 10 : Locked+Sunroof
+7A 50 10 : Unlocked+Sunroof+Interior lights

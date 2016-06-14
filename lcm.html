@@ -42,373 +42,407 @@
 			<p class="lead no-margin">kdm's NodeJS IBUS interface.</p>
 			<hr>
 			<form class="form-horizontal" id="form-lcm" action="javascript:form_lcm();">
-				<p class="lead">Clamps</p>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="clamp_15" name="clamp_15">
-						clamp_15
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="clamp_30a" name="clamp_30a">
-						clamp_30a
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="clamp_30b" name="clamp_30b">
-						clamp_30b
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="clamp_r" name="clamp_r">
-						clamp_r
-					</label>
-				</div>
+				<div class="panel-group">
 
+					<div class="panel panel-default add-shadow" id="panel-lcm-clamps">
+						<div class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" href="#collapse-lcm-clamps">clamps</a></h4>
+						</div>
+						<div id="collapse-lcm-clamps" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="clamp_15" name="clamp_15">
+										clamp_15
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="clamp_30a" name="clamp_30a">
+										clamp_30a
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="clamp_30b" name="clamp_30b">
+										clamp_30b
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="clamp_r" name="clamp_r">
+										clamp_r
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default add-shadow" id="panel-lcm-inputs">
+						<div class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" href="#collapse-lcm-inputs">inputs</a></h4>
+						</div>
+						<div id="collapse-lcm-inputs" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_air_suspension" name="input_air_suspension">
+										input_air_suspension
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_armoured_door" name="input_armoured_door">
+										input_armoured_door
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_brake_fluid_level" name="input_brake_fluid_level">
+										input_brake_fluid_level
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_carb" name="input_carb">
+										input_carb
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_engine_failsafe" name="input_engine_failsafe">
+										input_engine_failsafe
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_fire_extinguisher" name="input_fire_extinguisher">
+										input_fire_extinguisher
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_hold_up_alarm" name="input_hold_up_alarm">
+										input_hold_up_alarm
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_key_in_ignition" name="input_key_in_ignition">
+										input_key_in_ignition
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_kfn" name="input_kfn">
+										input_kfn
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_preheating_fuel_injection" name="input_preheating_fuel_injection">
+										input_preheating_fuel_injection
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_seat_belts_lock" name="input_seat_belts_lock">
+										input_seat_belts_lock
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_tire_defect" name="input_tire_defect">
+										input_tire_defect
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_vertical_aim" name="input_vertical_aim">
+										input_vertical_aim
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="input_washer_fluid_level" name="input_washer_fluid_level">
+										input_washer_fluid_level
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default add-shadow" id="panel-lcm-modes">
+						<div class="panel-heading">
+							<h4 class="panel-title"><a data-toggle="collapse" href="#collapse-lcm-modes">modes</a></h4>
+						</div>
+						<div id="collapse-lcm-modes" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="mode_failsafe" name="mode_failsafe">
+										mode_failsafe
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="mode_sleep" name="mode_sleep">
+										mode_sleep
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default add-shadow" id="panel-lcm-outputs">
+							<div class="panel-heading">
+								<h4 class="panel-title"><a data-toggle="collapse" href="#collapse-lcm-outputs">outputs</a></h4>
+							</div>
+							<div id="collapse-lcm-outputs" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_brake_rear_left" name="output_brake_rear_left">
+											output_brake_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_brake_rear_middle" name="output_brake_rear_middle">
+											output_brake_rear_middle
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_brake_rear_right" name="output_brake_rear_right">
+											output_brake_rear_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_fog_front_left" name="output_fog_front_left">
+											output_fog_front_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_fog_front_right" name="output_fog_front_right">
+											output_fog_front_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_fog_rear_left" name="output_fog_rear_left">
+											output_fog_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_highbeam_front_left" name="output_highbeam_front_left">
+											output_highbeam_front_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_highbeam_front_right" name="output_highbeam_front_right">
+											output_highbeam_front_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_led_switch_hazard" name="output_led_switch_hazard">
+											output_led_switch_hazard
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_led_switch_light" name="output_led_switch_light">
+											output_led_switch_light
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_license_rear_left" name="output_license_rear_left">
+											output_license_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
+											output_license_rear_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_lowbeam_front_left" name="output_lowbeam_front_left">
+											output_lowbeam_front_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_lowbeam_front_right" name="output_lowbeam_front_right">
+											output_lowbeam_front_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_reverse_rear_left" name="output_reverse_rear_left">
+											output_reverse_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_reverse_rear_right" name="output_reverse_rear_right">
+											output_reverse_rear_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_reverse_rear_trailer" name="output_reverse_rear_trailer">
+											output_reverse_rear_trailer
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_front_left" name="output_standing_front_left">
+											output_standing_front_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_front_right" name="output_standing_front_right">
+											output_standing_front_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
+											output_standing_inner_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_inner_rear_right" name="output_standing_inner_rear_right">
+											output_standing_inner_rear_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
+											output_standing_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_standing_rear_right" name="output_standing_rear_right">
+											output_standing_rear_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_turn_front_left" name="output_turn_front_left">
+											output_turn_front_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_turn_front_right" name="output_turn_front_right">
+											output_turn_front_right
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_turn_rear_left" name="output_turn_rear_left">
+											output_turn_rear_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="output_turn_rear_right" name="output_turn_rear_right">
+											output_turn_rear_right
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default add-shadow" id="panel-lcm-note">
+							<div class="panel-heading">
+								<h4 class="panel-title"><a data-toggle="collapse" href="#collapse-lcm-note">switches</a></h4>
+							</div>
+							<div id="collapse-lcm-note" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_brake" name="switch_brake">
+											switch_brake
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_fog_front" name="switch_fog_front">
+											switch_fog_front
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_fog_rear" name="switch_fog_rear">
+											switch_fog_rear
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_hazard" name="switch_hazard">
+											switch_hazard
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_highbeam" name="switch_highbeam">
+											switch_highbeam
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_highbeam_flash" name="switch_highbeam_flash">
+											switch_highbeam_flash
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_lowbeam_1" name="switch_lowbeam_1">
+											switch_lowbeam_1
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_lowbeam_2" name="switch_lowbeam_2">
+											switch_lowbeam_2
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_standing" name="switch_standing">
+											switch_standing
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_turn_left" name="switch_turn_left">
+											switch_turn_left
+										</label>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" id="switch_turn_right" name="switch_turn_right">
+											switch_turn_right
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
+				</form>
 				<hr>
-				<p class="lead">Inputs</p>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_air_suspension" name="input_air_suspension">
-						input_air_suspension
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_armoured_door" name="input_armoured_door">
-						input_armoured_door
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_brake_fluid_level" name="input_brake_fluid_level">
-						input_brake_fluid_level
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_carb" name="input_carb">
-						input_carb
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_engine_failsafe" name="input_engine_failsafe">
-						input_engine_failsafe
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_fire_extinguisher" name="input_fire_extinguisher">
-						input_fire_extinguisher
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_hold_up_alarm" name="input_hold_up_alarm">
-						input_hold_up_alarm
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_key_in_ignition" name="input_key_in_ignition">
-						input_key_in_ignition
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_kfn" name="input_kfn">
-						input_kfn
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_preheating_fuel_injection" name="input_preheating_fuel_injection">
-						input_preheating_fuel_injection
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_seat_belts_lock" name="input_seat_belts_lock">
-						input_seat_belts_lock
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_tire_defect" name="input_tire_defect">
-						input_tire_defect
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_vertical_aim" name="input_vertical_aim">
-						input_vertical_aim
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="input_washer_fluid_level" name="input_washer_fluid_level">
-						input_washer_fluid_level
-					</label>
-				</div>
-
-				<p class="lead">Modes</p>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="mode_failsafe" name="mode_failsafe">
-						mode_failsafe
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="mode_sleep" name="mode_sleep">
-						mode_sleep
-					</label>
-				</div>
-
-				<hr>
-				<p class="lead">Outputs</p>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_brake_rear_left" name="output_brake_rear_left">
-						output_brake_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_brake_rear_middle" name="output_brake_rear_middle">
-						output_brake_rear_middle
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_brake_rear_right" name="output_brake_rear_right">
-						output_brake_rear_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_fog_front_left" name="output_fog_front_left">
-						output_fog_front_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_fog_front_right" name="output_fog_front_right">
-						output_fog_front_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_fog_rear_left" name="output_fog_rear_left">
-						output_fog_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_highbeam_front_left" name="output_highbeam_front_left">
-						output_highbeam_front_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_highbeam_front_right" name="output_highbeam_front_right">
-						output_highbeam_front_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_led_switch_hazard" name="output_led_switch_hazard">
-						output_led_switch_hazard
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_led_switch_light" name="output_led_switch_light">
-						output_led_switch_light
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_license_rear_left" name="output_license_rear_left">
-						output_license_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
-						output_license_rear_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_lowbeam_front_left" name="output_lowbeam_front_left">
-						output_lowbeam_front_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_lowbeam_front_right" name="output_lowbeam_front_right">
-						output_lowbeam_front_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_reverse_rear_left" name="output_reverse_rear_left">
-						output_reverse_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_reverse_rear_right" name="output_reverse_rear_right">
-						output_reverse_rear_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_reverse_rear_trailer" name="output_reverse_rear_trailer">
-						output_reverse_rear_trailer
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_front_left" name="output_standing_front_left">
-						output_standing_front_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_front_right" name="output_standing_front_right">
-						output_standing_front_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
-						output_standing_inner_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_inner_rear_right" name="output_standing_inner_rear_right">
-						output_standing_inner_rear_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
-						output_standing_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_standing_rear_right" name="output_standing_rear_right">
-						output_standing_rear_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_turn_front_left" name="output_turn_front_left">
-						output_turn_front_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_turn_front_right" name="output_turn_front_right">
-						output_turn_front_right
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_turn_rear_left" name="output_turn_rear_left">
-						output_turn_rear_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="output_turn_rear_right" name="output_turn_rear_right">
-						output_turn_rear_right
-					</label>
-				</div>
-
-				<hr>
-				<p class="lead">Switches</p>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_brake" name="switch_brake">
-						switch_brake
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_fog_front" name="switch_fog_front">
-						switch_fog_front
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_fog_rear" name="switch_fog_rear">
-						switch_fog_rear
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_hazard" name="switch_hazard">
-						switch_hazard
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_highbeam" name="switch_highbeam">
-						switch_highbeam
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_highbeam_flash" name="switch_highbeam_flash">
-						switch_highbeam_flash
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_lowbeam_1" name="switch_lowbeam_1">
-						switch_lowbeam_1
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_lowbeam_2" name="switch_lowbeam_2">
-						switch_lowbeam_2
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_standing" name="switch_standing">
-						switch_standing
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_turn_left" name="switch_turn_left">
-						switch_turn_left
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" id="switch_turn_right" name="switch_turn_right">
-						switch_turn_right
-					</label>
-				</div>
-				<hr>
-				<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
-			</form>
-			<hr>
-		</div>
-	</body>
-	<script src="/js/jquery.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/lcm.js"></script>
-</html>
+			</div>
+		</body>
+		<script src="/js/jquery.js"></script>
+		<script src="/js/bootstrap.js"></script>
+		<script src="/js/lcm.js"></script>
+	</html>

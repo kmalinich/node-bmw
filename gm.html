@@ -34,9 +34,16 @@
 			</div>
 		</nav>
 		<div class="container-fluid">
-			<p class="lead no-margin">kdm's NodeJS IBUS interface.</p>
-			<hr>
 			<form class="form-horizontal" id="form-gm" action="javascript:form_gm();">
+				<div class="row">
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-danger btn-block add-shadow" id="form-lcm-reset" type="reset">Reset</button>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-primary btn-block add-shadow" id="form-lcm-submit" type="submit">Send</button>
+					</div>
+				</div>
+				<hr>
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" id="clamp_15" name="clamp_15">
@@ -44,9 +51,15 @@
 					</label>
 				</div>
 				<hr>
-				<button class="btn btn-lg btn-primary btn-block" id="form-gm-submit" type="submit">Send</button>
+				<div class="row">
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-danger btn-block add-shadow" id="form-lcm-reset" type="reset">Reset</button>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-primary btn-block add-shadow" id="form-lcm-submit" type="submit">Send</button>
+					</div>
+				</div>
 			</form>
-			<hr>
 		</div>
 	</body>
 	<script src="/js/jquery.js"></script>

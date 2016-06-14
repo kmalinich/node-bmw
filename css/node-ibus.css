@@ -4,6 +4,10 @@ body {
 	-webkit-font-smoothing : subpixel-antialiased;
 }
 
+.row {
+	margin-bottom: 5px;
+}
+
 .inline {
 	display: inline-block;
 }

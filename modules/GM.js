@@ -94,10 +94,80 @@ var GM = function(ibus_connection) {
     var bitmask_2 = array[2];
     var bitmask_3 = array[3];
 
-    var clamp_15                         = bit_test(bitmask_3, bit_5);
+    var light_alarm                   bit_test(bitmask_, bit_);
+    var light_interior                bit_test(bitmask_, bit_);
+    var locks_lock                    bit_test(bitmask_, bit_);
+    var locks_toggle                  bit_test(bitmask_, bit_);
+    var locks_trunk                   bit_test(bitmask_, bit_);
+    var locks_unlock                  bit_test(bitmask_, bit_);
+    var seat_driver_backrest_backward bit_test(bitmask_, bit_);
+    var seat_driver_backrest_forward  bit_test(bitmask_, bit_);
+    var seat_driver_backward          bit_test(bitmask_, bit_);
+    var seat_driver_down              bit_test(bitmask_, bit_);
+    var seat_driver_forward           bit_test(bitmask_, bit_);
+    var seat_driver_headrest_down     bit_test(bitmask_, bit_);
+    var seat_driver_headrest_up       bit_test(bitmask_, bit_);
+    var seat_driver_tilt_backward     bit_test(bitmask_, bit_);
+    var seat_driver_tilt_forward      bit_test(bitmask_, bit_);
+    var seat_driver_up                bit_test(bitmask_, bit_);
+    var seat_driver_upper_backwards   bit_test(bitmask_, bit_);
+    var seat_driver_upper_forwards    bit_test(bitmask_, bit_);
+    var wheel_backward                bit_test(bitmask_, bit_);
+    var wheel_down                    bit_test(bitmask_, bit_);
+    var wheel_forward                 bit_test(bitmask_, bit_);
+    var wheel_up                      bit_test(bitmask_, bit_);
+    var window_front_left_down        bit_test(bitmask_, bit_);
+    var window_front_left_up          bit_test(bitmask_, bit_);
+    var window_front_right_down       bit_test(bitmask_, bit_);
+    var window_front_right_up         bit_test(bitmask_, bit_);
+    var window_rear_left_down         bit_test(bitmask_, bit_);
+    var window_rear_left_up           bit_test(bitmask_, bit_);
+    var window_rear_right_down        bit_test(bitmask_, bit_);
+    var window_rear_right_up          bit_test(bitmask_, bit_);
+    var window_sunroof_down           bit_test(bitmask_, bit_);
+    var window_sunroof_up             bit_test(bitmask_, bit_);
+    var wipers_auto                   bit_test(bitmask_, bit_);
+    var wipers_maintenance            bit_test(bitmask_, bit_);
+    var wipers_once                   bit_test(bitmask_, bit_);
+    var wipers_spray                  bit_test(bitmask_, bit_);
 
     var output = {
-      clamp_15                         : clamp_15,
+      light_alarm                   : light_alarm,
+      light_interior                : light_interior,
+      locks_lock                    : locks_lock,
+      locks_toggle                  : locks_toggle,
+      locks_trunk                   : locks_trunk,
+      locks_unlock                  : locks_unlock,
+      seat_driver_backrest_backward : seat_driver_backrest_backward,
+      seat_driver_backrest_forward  : seat_driver_backrest_forward,
+      seat_driver_backward          : seat_driver_backward,
+      seat_driver_down              : seat_driver_down,
+      seat_driver_forward           : seat_driver_forward,
+      seat_driver_headrest_down     : seat_driver_headrest_down,
+      seat_driver_headrest_up       : seat_driver_headrest_up,
+      seat_driver_tilt_backward     : seat_driver_tilt_backward,
+      seat_driver_tilt_forward      : seat_driver_tilt_forward,
+      seat_driver_up                : seat_driver_up,
+      seat_driver_upper_backwards   : seat_driver_upper_backwards,
+      seat_driver_upper_forwards    : seat_driver_upper_forwards,
+      wheel_backward                : wheel_backward,
+      wheel_down                    : wheel_down,
+      wheel_forward                 : wheel_forward,
+      wheel_up                      : wheel_up,
+      window_front_left_down        : window_front_left_down,
+      window_front_left_up          : window_front_left_up,
+      window_front_right_down       : window_front_right_down,
+      window_front_right_up         : window_front_right_up,
+      window_rear_left_down         : window_rear_left_down,
+      window_rear_left_up           : window_rear_left_up,
+      window_rear_right_down        : window_rear_right_down,
+      window_rear_right_up          : window_rear_right_up,
+      window_sunroof_down           : window_sunroof_down,
+      window_sunroof_up             : window_sunroof_up,
+      wipers_auto                   : wipers_auto,
+      wipers_maintenance            : wipers_maintenance,
+      wipers_once                   : wipers_once,
+      wipers_spray                  : wipers_spray,
     }
 
     return output;
@@ -105,7 +175,12 @@ var GM = function(ibus_connection) {
 
   // All the possible values to send to the GM
   var array_of_possible_values = {
-    wip
+    light_alarm                   : true,
+    light_interior                : true,
+    locks_lock                    : true,
+    locks_toggle                  : true,
+    locks_trunk                   : true,
+    locks_unlock                  : true,
     seat_driver_backrest_backward : true,
     seat_driver_backrest_forward  : true,
     seat_driver_backward          : true,
@@ -132,6 +207,10 @@ var GM = function(ibus_connection) {
     window_rear_right_up          : true,
     window_sunroof_down           : true,
     window_sunroof_up             : true,
+    wipers_auto                   : true,
+    wipers_maintenance            : true,
+    wipers_once                   : true,
+    wipers_spray                  : true,
   }
 }
 

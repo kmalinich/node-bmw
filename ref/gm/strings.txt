@@ -13,16 +13,18 @@ SR sunroof
 00 44 01 4E : LR U F
 
             : LF D F
+01 18 01 13 : LF D P
 01 1A 01 11 : LF U F
 
+// Needs testing
 00 03 01 09 : RR D F
 00 47 01 4D : RR D F
 
             : RR U F
+00 04 01 0E : RR U P
 
 02 36 01 3E : RF D F
 02 22 01 2A : RF U F
-
 
 
 
@@ -31,17 +33,9 @@ SR sunroof
 00 45 01 4F : LR U P
 00 04 01 0E : RR U P
 00 46 01 4C : RR U P
-01 18 01 13 : LF D P
 01 36 01 3D : LF D P
 02 32 01 3A : RF U P
 00 46 01 4C : RR U P
-01 24 01 2F : 
-01 25 01 2E : 
-02 24 01 2C : 
-02 25 01 2D : 
-03 00 01 09 : 
-03 01 01 08 : 
-03 02 01 0B : 
 
 
 // Driver's seat
@@ -56,6 +50,8 @@ SR sunroof
 05 07 01 08 : Driver seat backrest backward
 05 08 01 07 : Driver seat headrest up
 05 09 01 06 : Driver seat headrest down
+05 0A 01 05 : ?? Possibly sport bolster 
+05 0B 01 04 : ?? Possibly sport bolster 
 05 0C 01 03 : Driver seat upper backwards
 05 0D 01 02 : Driver seat upper forwards 
 

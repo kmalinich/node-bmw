@@ -74,9 +74,9 @@ var LCM = function(ibus_connection) {
 		var bitmask_6  = 0x00;
 		var bitmask_7  = 0x00;
 		var bitmask_8  = 0x00;
-		// 9-11 are .. something, don't know yet.
-		var bitmask_9  = 0xE4;
-		var bitmask_10 = 0xFF;
+		var bitmask_9  = 0xFF; // Dimmer from 00-FF
+		// 10-11 are .. something, don't know yet.
+		var bitmask_10 = 0x00;
 		var bitmask_11 = 0x00;
 
 		// Set the various bitmask values according to the input array

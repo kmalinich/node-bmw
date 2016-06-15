@@ -1,0 +1,7434 @@
+count 1D08
+string inpa.h
+string lights- checkmodule E38 / E39 / E52 / E53
+string 1.16
+string BMW TI-432 PICHLER
+string LCM,LCM_A,LCM_II,LCM_III,LCM_IV
+string D_00D0
+int 0000
+string 0x0000
+int 0000
+string Main menu
+string LCM_III
+string LCM_IV
+int 000F
+string pitman arm
+bool 01
+int 000F
+string 
+bool 01
+int 0001
+string Info
+bool 01
+int 0002
+string Ident
+bool 01
+int 0003
+string Code
+string LCM_IV
+bool 01
+bool 01
+int 0004
+string Error
+bool 01
+int 0005
+string Status
+string LCM_II
+string LCM_III
+bool 00
+string LCM_IV
+bool 01
+string LCM_A
+string LCM
+bool 01
+bool 01
+bool 01
+int 0006
+string Activate
+string 
+int 0000
+string LCM
+bool 01
+string LCM_A
+bool 01
+string LCM_II
+string LCM_III
+bool 00
+bool 01
+string LCM_IV
+bool 01
+bool 01
+bool 01
+string LCM_IV
+int 0007
+string Memory
+string Read memory
+string readable area of memory from 0000 to FFFF. 
+string The area from 0D61 to 0D98 is locked!
+string 0000
+string FFFF
+string ;
+bool 01
+int 0008
+string Select
+bool 01
+int 0012
+string Deselect
+int 0009
+string Print
+int 000A
+string End
+int 000B
+string Change
+bool 01
+string kvp_edit 
+string ;
+string ;
+string : 
+string ;
+int 000C
+string 
+bool 01
+int 000D
+string 
+bool 01
+int 000E
+string 
+bool 01
+int 000F
+string 
+string LCM_III
+string LCM_IV
+bool 01
+string LCM_III
+bool 01
+bool 01
+int 0010
+string 
+bool 01
+int 0011
+string 
+bool 01
+int 0013
+string 
+bool 01
+int 0014
+string Exit
+string Error memory
+int 0001
+string Read
+int 0000
+int 0000
+int 0008
+int 0023
+int 0005
+int 0032
+string Read error memory
+string 
+int 0000
+string Reading error memory! ... please wait
+int 0001
+int 0003
+int 0000
+int 0000
+int 00BF
+string w
+string 
+string 
+string 
+string na_fs.tmp
+int 0000
+string na_fs.tmp
+string Read error memory
+int 0002
+string Clear
+int 0000
+string FS_LOESCHEN
+string 
+string 
+string OKAY
+int 0000
+int 0008
+int 0023
+int 0005
+int 0032
+string Clear error memory
+string 
+int 0000
+string Error memory has been cleared!
+int 0001
+int 0003
+int 0000
+int 0000
+int 0003
+string info
+int 0000
+int 0000
+int 0008
+int 0023
+int 0005
+int 0032
+string reading information´s memory
+string 
+int 0000
+string The information´s memory is read! ... please wait
+int 0001
+int 0003
+int 0000
+int 0000
+int 00BF
+string w
+string 
+string 
+string IS_LESEN
+string na_fs.tmp
+int 0000
+string na_fs.tmp
+string reading information´s memory
+int 0004
+string 
+int 0000
+int 0005
+string 
+int 0000
+int 0006
+string 
+int 0000
+int 0007
+string 
+int 0000
+int 0008
+string 
+int 0000
+int 0009
+string Print
+int 0000
+int 0000
+int 0008
+int 0023
+int 0005
+int 0032
+string Print error memory
+string 
+int 0000
+string Reading error memory! ... please wait
+int 0001
+int 0003
+int 0000
+int 0000
+int 00BF
+string w
+string 
+string 
+string 
+string na_fs.tmp
+int 0000
+string na_fs.tmp
+string Print error memory
+string na_fs.tmp
+string 
+string 
+bool 01
+int 000A
+string Back
+int 0000
+bool 01
+int 0014
+string Exit
+int 0000
+string Read status
+int 0008
+string Select
+bool 01
+int 0012
+string Deselect
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+string reading coding data
+int 0001
+string block No.1
+bool 01
+int 0002
+string Code
+string LCM_III
+string LCM_IV
+bool 01
+bool 01
+int 0003
+string Hex-cod
+string input blocknumber
+string Please input a value between 0 and 18
+int 0000
+int 0012
+bool 01
+int 0004
+string VIN
+bool 01
+int 0005
+string SII
+bool 01
+int 0008
+string Select
+bool 01
+int 0012
+string Deselect
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+string reading coding data
+int 0001
+string Hex-cod
+string input blocknumber
+string Please input a value between 0 and 28
+int 0000
+int 001C
+bool 01
+int 0002
+string VIN
+bool 01
+int 0003
+string SII
+bool 01
+int 0008
+string Select
+bool 01
+int 0012
+string Deselect
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+string Activate
+int 0001
+string FeTraWe
+bool 01
+int 0002
+string start
+string STATUS_VORGEBEN
+string 
+string OKAY
+int 0008
+string Select
+string 
+bool 01
+bool 00
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+string Activate
+int 0001
+string FeTraWe
+bool 01
+int 0002
+string start
+string STEUERN_IO
+string 
+string OKAY
+int 0008
+string Select
+string 
+bool 01
+bool 00
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+string Plant-/transport-/servicemode (FeTraWe)
+int 0001
+string Plant
+string ENERGIESPARMODE
+string ein;aus;aus
+string 
+string OKAY
+string JOB_STATUS
+int 0001
+string 
+string OKAY
+string FeTraWe-Mode
+string Plant-mode is activated!
+bool 01
+int 0002
+string Transport
+string ENERGIESPARMODE
+string aus;ein;aus
+string 
+string OKAY
+string JOB_STATUS
+int 0001
+string 
+string OKAY
+string FeTraWe-Mode
+string Transport-mode is activated!
+bool 01
+int 0003
+string Service
+string ENERGIESPARMODE
+string aus;aus;ein
+string 
+string OKAY
+string JOB_STATUS
+int 0001
+string 
+string OKAY
+string FeTraWe-Mode
+string Service-mode is activated!
+bool 01
+int 0004
+string FeTraWe OFF
+string ENERGIESPARMODE
+string aus;aus;aus
+string 
+string OKAY
+string JOB_STATUS
+int 0001
+string 
+string OKAY
+string FeTraWe-Mode
+string Plant-/transport-/servicemode (FeTraWe) is deactivated!
+bool 01
+int 0009
+string Print
+int 000A
+string Back
+bool 01
+int 0014
+string Exit
+int 0000
+string Main menu
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string IDENT
+string 
+string 
+string OKAY
+string 
+string 
+string BMW part number
+int 0001
+int 0000
+int 0000
+int 0000
+string :
+int 0001
+int 0013
+int 0000
+int 0000
+string ID_BMW_NR
+int 0001
+string 
+int 0001
+int 0014
+int 0000
+int 0001
+string Date of manufacture
+int 0001
+int 002B
+int 0000
+int 0000
+string :
+int 0001
+int 003B
+int 0000
+int 0000
+string Week / year
+int 0001
+int 0044
+int 0000
+int 0000
+string /
+int 0001
+int 003F
+int 0000
+int 0001
+string ID_DATUM_KW
+int 0001
+string 
+int 0001
+int 003C
+int 0000
+int 0001
+string ID_DATUM_JAHR
+int 0001
+string 
+int 0001
+int 0041
+int 0000
+int 0001
+string < F1 >  Information
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  Identification
+int 0006
+int 0005
+int 0000
+int 0001
+string < F3 >  Coding data
+int 0008
+int 0005
+int 0000
+int 0001
+string < F4 >  Error memory
+int 000A
+int 0005
+int 0000
+int 0001
+string < F5 >  Read status
+int 000C
+int 0005
+int 0000
+int 0001
+string < F6 >  Activate
+int 000E
+int 0005
+int 0000
+int 0001
+string < F7 >  Read memory
+int 0010
+int 0005
+int 0000
+int 0001
+string < F8 >  Select
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  End
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F1 >  Change Editor
+int 0004
+int 002D
+int 0000
+int 0001
+string LCM_III
+string LCM_IV
+string <Shift> + < F5 >  status turn signal and high/low beam lever
+int 000C
+int 002D
+int 0000
+int 0001
+string <Shift> + < F8 >  Deselect
+int 0012
+int 002D
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Information
+int 0001
+int 0000
+int 0001
+int 0000
+string Rework program
+int 0007
+int 0000
+int 0000
+int 0001
+string :
+int 0007
+int 0021
+int 0000
+int 0001
+int 0007
+int 0023
+int 0000
+int 0001
+string Version
+int 0009
+int 0000
+int 0000
+int 0001
+string :
+int 0009
+int 0021
+int 0000
+int 0001
+int 0009
+int 0023
+int 0000
+int 0001
+string Responsibility
+int 000B
+int 0000
+int 0000
+int 0001
+string :
+int 000B
+int 0021
+int 0000
+int 0001
+int 000B
+int 0023
+int 0000
+int 0001
+string Control unit description file
+int 000F
+int 0000
+int 0000
+int 0001
+string :
+int 000F
+int 0021
+int 0000
+int 0001
+int 000F
+int 0023
+int 0000
+int 0001
+string Control unit
+int 0011
+int 0000
+int 0000
+int 0001
+string :
+int 0011
+int 0021
+int 0000
+int 0001
+int 0011
+int 0023
+int 0000
+int 0001
+string Version
+int 0013
+int 0000
+int 0000
+int 0001
+string :
+int 0013
+int 0021
+int 0000
+int 0001
+int 0013
+int 0023
+int 0000
+int 0001
+string Responsibility
+int 0015
+int 0000
+int 0000
+int 0001
+string :
+int 0015
+int 0021
+int 0000
+int 0001
+int 0015
+int 0023
+int 0000
+int 0001
+string Language
+int 0017
+int 0000
+int 0000
+int 0001
+string :
+int 0017
+int 0021
+int 0000
+int 0001
+int 0017
+int 0023
+int 0000
+int 0001
+string 
+string Comment
+int 0019
+int 0000
+int 0000
+int 0001
+string :
+int 0019
+int 0021
+int 0000
+int 0001
+int 0019
+int 0023
+int 0000
+int 0001
+string Identification
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string IDENT
+string 
+string 
+string OKAY
+string 
+string 
+string BMW part number
+int 0001
+int 0000
+int 0001
+int 0000
+string :
+int 0001
+int 0021
+int 0001
+int 0000
+string ID_BMW_NR
+int 0001
+string 
+int 0001
+int 0023
+int 0001
+int 0001
+string Hardware number
+int 0004
+int 0000
+int 0001
+int 0000
+string :
+int 0004
+int 0021
+int 0001
+int 0000
+string ID_HW_NR
+int 0001
+string 
+int 0004
+int 0023
+int 0001
+int 0001
+string Software number
+int 0007
+int 0000
+int 0001
+int 0000
+string :
+int 0007
+int 0021
+int 0001
+int 0000
+string ID_SW_NR
+int 0001
+string 
+int 0007
+int 0023
+int 0001
+int 0001
+string Supplier
+int 000A
+int 0000
+int 0001
+int 0000
+string :
+int 000A
+int 0021
+int 0001
+int 0000
+string ID_LIEF_TEXT
+int 0001
+string 
+int 000A
+int 0023
+int 0001
+int 0001
+string Coding index
+int 000D
+int 0000
+int 0001
+int 0000
+string :
+int 000D
+int 0021
+int 0001
+int 0000
+string ID_COD_INDEX
+int 0001
+string 
+int 000D
+int 0023
+int 0001
+int 0001
+string Diagnostic index
+int 0010
+int 0000
+int 0001
+int 0000
+string :
+int 0010
+int 0021
+int 0001
+int 0000
+string ID_DIAG_INDEX
+int 0001
+string 
+int 0010
+int 0023
+int 0001
+int 0001
+string Bus index
+int 0013
+int 0000
+int 0001
+int 0000
+string :
+int 0013
+int 0021
+int 0001
+int 0000
+string ID_BUS_INDEX
+int 0001
+string 
+int 0013
+int 0023
+int 0001
+int 0001
+string Date of manufacture
+int 0016
+int 0000
+int 0001
+int 0000
+string :
+int 0016
+int 0021
+int 0001
+int 0000
+string Week / year
+int 0016
+int 0037
+int 0001
+int 0000
+string /
+int 0016
+int 0029
+int 0001
+int 0001
+string ID_DATUM_KW
+int 0001
+string 
+int 0016
+int 0023
+int 0001
+int 0001
+string ID_DATUM_JAHR
+int 0001
+string 
+int 0016
+int 002D
+int 0001
+int 0001
+string read coding data
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+string 
+string < F1 >  block No.1 of coding data
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  general coding data
+int 0006
+int 0005
+int 0000
+int 0001
+string < F3 >  hexdump of coding data
+int 0008
+int 0005
+int 0000
+int 0001
+string < F4 >  vehicle identification number
+int 000A
+int 0005
+int 0000
+int 0001
+string < F5 >  SII-data
+int 000C
+int 0005
+int 0000
+int 0001
+string < F8 >  Select
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F8 >  Deselect
+int 0012
+int 002D
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string read coding data
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+string 
+string < F1 >  hexdump of coding data
+int 0008
+int 0005
+int 0000
+int 0001
+string < F2 >  vehicle identification number
+int 000A
+int 0005
+int 0000
+int 0001
+string < F3 >  SII-data
+int 000C
+int 0005
+int 0000
+int 0001
+string < F8 >  Select
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F8 >  Deselect
+int 0012
+int 002D
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string hexdump of coding data:
+int 0001
+int 0000
+int 0001
+int 0000
+string CODIERUNG_LESEN_ALLES
+string 
+string OKAY
+string BLOCK
+int 0001
+string 
+string read blocknumber: 
+int 0006
+int 000A
+int 0001
+int 0001
+string demanded blocknumber: 
+int 0004
+int 000A
+int 0001
+int 0001
+string CODIERDATEN
+int 0001
+string 0
+int 001F
+int 000A
+int 0005
+string 
+string 
+string reading vehicle identification number: 
+int 0001
+int 0000
+int 0001
+int 0000
+string FG_NR_LESEN
+string 
+string 
+string OKAY
+string read vehicle identification number:
+int 0004
+int 0000
+int 0001
+int 0000
+string FG_NR
+int 0001
+string 
+int 0004
+int 003C
+int 0001
+int 0001
+string 
+string 
+string reading vehicle identification number: 
+int 0001
+int 0000
+int 0001
+int 0000
+string C_FG_LESEN
+string 
+string 
+string OKAY
+string read vehicle identification number:
+int 0004
+int 0000
+int 0001
+int 0000
+string FG_NR
+int 0001
+string 
+int 0004
+int 003C
+int 0001
+int 0001
+string 
+string 
+string reading SII-data: 
+int 0001
+int 0000
+int 0001
+int 0000
+string SIA_LESEN
+string 
+string 
+string OKAY
+string read vehicle identification number:
+int 0004
+int 0000
+int 0001
+int 0000
+string FG_NR
+int 0001
+string 
+int 0004
+int 003C
+int 0001
+int 0001
+string read trip-counter [100 km]:
+int 0007
+int 0000
+int 0001
+int 0000
+string GESAMTWEGSTRECKE_WERT
+int 0001
+string 
+int 0007
+int 003C
+int 0001
+int 0001
+string read SII-trip-counter:
+int 000A
+int 0000
+int 0001
+int 0000
+string SI_WEGZAEHLER_WERT
+int 0001
+string 
+int 000A
+int 003C
+int 0001
+int 0001
+string last oilservice at [100 km]:
+int 000D
+int 0000
+int 0001
+int 0000
+string SI_WEGSTRECKE_LETZTER_OELSERVICE_WERT
+int 0001
+string 
+int 000D
+int 003C
+int 0001
+int 0001
+string SII time-inspection-counter [SII-days]:
+int 0010
+int 0000
+int 0001
+int 0000
+string SI_ZEITINSPEKTIONSZAEHLER_WERT
+int 0001
+string 
+int 0010
+int 003C
+int 0001
+int 0001
+string 
+string 
+string reading functional coding: 
+int 0001
+int 0000
+int 0001
+int 0000
+string CODIERUNG_LESEN
+string 
+string 
+string OKAY
+string error messages
+string 
+string error messages: 
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_STANDLICHT_FEHLERMELDUNG_EIN
+int 0001
+string side lights: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string COD_ABBLENDLICHT_FEHLERMELDUNG_EIN
+int 0001
+string low beam: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string COD_FERNLICHT_FEHLERMELDUNG_EIN
+int 0001
+string high beam: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 001E
+string on 
+string off 
+string COD_NEBELSCHEINWERFER_FEHLERMELDUNG_EIN
+int 0001
+string fog lights: 
+int 0006
+int 0028
+int 0000
+int 0000
+int 0006
+int 0046
+string on 
+string off 
+string LCM_A
+string LCM_II
+string COD_RUECKLICHT_AUSSEN_FEHLERMELDUNG_EIN
+int 0001
+string LCM
+string COD_RUECKLICHT_FEHLERMELDUNG_EIN
+int 0001
+string rear side lights: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 001E
+string on 
+string off 
+string COD_RUECKFAHRSCHEINWERFER_FEHLERMELDUNG_EIN
+int 0001
+string back up lights: 
+int 0009
+int 0028
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string COD_NSL_LINKS_FEHLERMELDUNG_EIN
+int 0001
+string left fog lamp: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 001E
+string on 
+string off 
+string COD_NSL_RECHTS_FEHLERMELDUNG_EIN
+int 0001
+string right fog lamp: 
+int 000C
+int 0028
+int 0000
+int 0000
+int 000C
+int 0046
+string on 
+string off 
+string COD_KEINE_BREMSLICHT_FEHLERMELDUNG_EIN
+int 0001
+string no error message for brake lights: 
+int 000F
+int 0000
+int 0000
+int 0000
+int 000F
+int 001E
+string on 
+string off 
+string COD_BREMSLICHT_MITTE_FEHLERMELDUNG_EIN
+int 0001
+string middle brake light: 
+int 000F
+int 0028
+int 0000
+int 0000
+int 000F
+int 0046
+string on 
+string off 
+string COD_KENNZEICHENLICHT_FEHLERMELDUNG_EIN
+int 0001
+string license plate light: 
+int 0012
+int 0000
+int 0000
+int 0000
+int 0012
+int 001E
+string on 
+string off 
+string COD_BLS_FEHLERMELDUNG_EIN
+int 0001
+string Brake lights switch: 
+int 0012
+int 0028
+int 0000
+int 0000
+int 0012
+int 0046
+string on 
+string off 
+string COD_ANHAENGER_FEHLERMELDUNG_EIN
+int 0001
+string trailer: 
+int 0015
+int 0000
+int 0000
+int 0000
+int 0015
+int 001E
+string on 
+string off 
+string LCM_A
+string COD_RUECKLICHT_INNEN_FEHLERMELDUNG_EIN
+int 0001
+string inner rear side light: 
+int 0015
+int 0028
+int 0000
+int 0000
+int 0015
+int 0046
+string on 
+string off 
+string LCM_II
+string COD_RUECKLICHT_FEHLERMELDUNG_EIN
+int 0001
+string inner rear side light: 
+int 0015
+int 0028
+int 0000
+int 0000
+int 0015
+int 0046
+string on 
+string off 
+string keine Kaltüberwachung für
+string 
+string no cold detection for:
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_KEINE_KALTUEBERWACHUNG_ABBLENDLICHT_EIN
+int 0001
+string low beam circuit: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string COD_KEINE_KALTUEBERWACHUNG_NSW_EIN
+int 0001
+string fog lights circuit: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string COD_KEINE_KALTUEBERWACHUNG_FERNLICHT_EIN
+int 0001
+string high beam circuit: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 001E
+string on 
+string off 
+string period of cold detection [sec]:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_PERIODENDAUER_KALTUEBERWACHUNG_WERT
+int 0001
+string 
+int 0009
+int 0028
+int 0000
+int 0001
+string LCM_A
+string LCM_II
+string COD_KEINE_KALTUEBERWACHUNG_BLK_HINTEN_EIN
+int 0001
+string rear turn lights: 
+int 0009
+int 0028
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string COD_KEINE_KALTUEBERWACHUNG_BLK_VORN_EIN
+int 0001
+string front turn lights: 
+int 0006
+int 0028
+int 0000
+int 0000
+int 0006
+int 0046
+string on 
+string off 
+string Brake lights switch
+string 
+string Brake lights switch
+int 0000
+int 0000
+int 0001
+int 0000
+string no error message brake lights switch:
+int 0003
+int 0000
+int 0000
+int 0000
+string COD_BLS_FEHLERMELDUNG_EIN
+int 0001
+int 0003
+int 003C
+string on 
+string off 
+string limit of acceleration for brake lights switch monitoring [m/(sec*sec)]:
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_BLS_B_SCHWELL_WERT
+int 0001
+string 
+int 0006
+int 003C
+int 0000
+int 0001
+string delay before error message brake lights switch [sec]:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_T_WARTE_FEHLER_BLS_WERT
+int 0001
+string 
+int 0009
+int 003C
+int 0000
+int 0001
+string LCM
+string LCM_A
+string COD_ENTPRELLZEIT_FEHLERERKENNUNG_BLS_BEI_KLR
+int 0001
+string 
+string delay before error detection of brake lights switch at clamp R [sec]: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 003C
+int 0000
+int 0001
+string limits
+string 
+string limits
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_WERT_ABSCHALTUNG_STAND_PARKLICHT
+int 0001
+string 
+string switch off limit for side and parking lights [volts]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 003C
+int 0000
+int 0001
+string COD_PERIODENDAUER_KALTUEBERWACHUNG_WERT
+int 0001
+string 
+string period of cold detection [s]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 003C
+int 0000
+int 0001
+string COD_ENTPRELLZAHL_FEHLERERKENNUNG
+int 0001
+string 
+string number of detections for error message [count]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 003C
+int 0000
+int 0001
+string coding to clamp 58g
+string 
+string coding to clamp 58g
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_TASTVERHAELTNIS_SPANNUNG_KLEMME58g_BEI_MIN_DIMMER
+int 0001
+string 
+string pulse duty factor of clamp 58g at minimum dimmer and battery 14 volts [%]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0046
+int 0000
+int 0001
+string COD_TASTVERHAELTNISZUWACHS_KLEMME58g_BEI_MAX_DIMMER
+int 0001
+string 
+string pulse duty factor of clamp 58g at maximum dimmer and battery 14 volts [%]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0046
+int 0000
+int 0001
+string COD_SCHWELLE_AENDERUNG_DIMMER_AN_I_BUS
+int 0001
+string 
+string minimum change of dimmer position for I-/K-bus-message [Grad]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 0046
+int 0000
+int 0001
+string LCM
+string COD_VERHAELTNIS_HELLIGKEIT_WBL_DIMMER
+int 0001
+string 
+string pulse duty factor of HWF-illumination to clamp 58g [%]: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 0046
+int 0000
+int 0001
+string other
+string 
+string other
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_WARNBLINKEN_ENABLE
+int 0001
+string double impulse (hazard warning flasher): 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0032
+string on 
+string off 
+string COD_FERNLICHT_DIMMUNG_TAG
+int 0001
+string pulse duty factor of dimmed high beam (daytime driving light) [%]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0008
+int 0000
+real 0
+real 100
+real 6.27
+real 100
+string 
+string COD_ABFRAGEZEIT_AHM_IN_STOP_MODE
+int 0001
+string detecting time of trailer module in stop-mode [ms]: 
+int 000A
+int 0000
+int 0000
+int 0000
+int 000C
+int 0000
+real 0
+real 7650
+real 0
+real 7650
+string 
+string reading functional coding: 
+int 0001
+int 0000
+int 0001
+int 0000
+string CODIERUNG_LESEN
+string 
+string 
+string OKAY
+string Equipment
+string 
+string Equipment: 
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_LICHTBEDIENEINHEIT_VERBAUT
+int 0001
+string lights-control-unit: 
+int 0002
+int 0000
+int 0000
+int 0000
+int 0002
+int 0028
+string installed           
+string not installed 
+string COD_ANALOGER_LENKSTOCKSCHALTER_VERBAUT
+int 0001
+string analog pitman arm: 
+int 0005
+int 0000
+int 0000
+int 0000
+int 0005
+int 0028
+string installed           
+string not installed 
+string COD_NSL_UND_NSW_TASTER_VERBAUT
+int 0001
+string fog-lights and -lamps-button: 
+int 0008
+int 0000
+int 0000
+int 0000
+int 0008
+int 0028
+string installed           
+string not installed 
+string COD_STANDLICHT_VORNE_VERBAUT
+int 0001
+string front side lights: 
+int 000B
+int 0000
+int 0000
+int 0000
+int 000B
+int 0028
+string installed           
+string not installed 
+string COD_ACC_STEUERGERAET_VERBAUT
+int 0001
+string ACC-control-unit: 
+int 000E
+int 0000
+int 0000
+int 0000
+int 000E
+int 0028
+string installed           
+string not installed 
+string COD_RUECKLICHT_INNEN_VERBAUT
+int 0001
+string inner rear side lights: 
+int 0011
+int 0000
+int 0000
+int 0000
+int 0011
+int 0028
+string installed           
+string not installed 
+string COD_GEDIMMTES_BREMSLICHT_ALS_STANDLICHT_EINSCHALTEN
+int 0001
+string dimmed brake lights as spare side lights: 
+int 0014
+int 0000
+int 0000
+int 0000
+int 0014
+int 0028
+string yes    
+string no 
+string COD_ALARMSCHALTER_SFZG_VERBAUT
+int 0001
+string alarm-switch for armoured car installed: 
+int 0017
+int 0000
+int 0000
+int 0000
+int 0017
+int 0028
+string yes    
+string no 
+string COD_ALARMSCHALTER_TAXI_VERBAUT
+int 0001
+string alarm-switch for taxi installed: 
+int 001A
+int 0000
+int 0000
+int 0000
+int 001A
+int 0028
+string yes    
+string no 
+string error messages
+string 
+string error messages: 
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_STANDLICHT_FEHLERMELDUNG_EIN
+int 0001
+string side lights: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string COD_ABBLENDLICHT_FEHLERMELDUNG_EIN
+int 0001
+string low beam: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string COD_FERNLICHT_FEHLERMELDUNG_EIN
+int 0001
+string high beam: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 001E
+string on 
+string off 
+string COD_NEBELSCHEINWERFER_FEHLERMELDUNG_EIN
+int 0001
+string fog lights: 
+int 0006
+int 0028
+int 0000
+int 0000
+int 0006
+int 0046
+string on 
+string off 
+string COD_RUECKLICHT_AUSSEN_FEHLERMELDUNG_EIN
+int 0001
+string rear side lights: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 001E
+string on 
+string off 
+string COD_RUECKFAHRSCHEINWERFER_FEHLERMELDUNG_EIN
+int 0001
+string back up lights: 
+int 0009
+int 0028
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string COD_NSL_LINKS_FEHLERMELDUNG_EIN
+int 0001
+string left fog lamp: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 001E
+string on 
+string off 
+string COD_NSL_RECHTS_FEHLERMELDUNG_EIN
+int 0001
+string right fog lamp: 
+int 000C
+int 0028
+int 0000
+int 0000
+int 000C
+int 0046
+string on 
+string off 
+string COD_KEINE_BREMSLICHT_FEHLERMELDUNG_EIN
+int 0001
+string no error message for brake lights: 
+int 000F
+int 0000
+int 0000
+int 0000
+int 000F
+int 001E
+string on 
+string off 
+string COD_BREMSLICHT_MITTE_FEHLERMELDUNG_EIN
+int 0001
+string middle brake light: 
+int 000F
+int 0028
+int 0000
+int 0000
+int 000F
+int 0046
+string on 
+string off 
+string COD_KENNZEICHENLICHT_FEHLERMELDUNG_EIN
+int 0001
+string license plate light: 
+int 0012
+int 0000
+int 0000
+int 0000
+int 0012
+int 001E
+string on 
+string off 
+string COD_BLS_FEHLERMELDUNG_EIN
+int 0001
+string Brake lights switch: 
+int 0012
+int 0028
+int 0000
+int 0000
+int 0012
+int 0046
+string on 
+string off 
+string COD_ANHAENGER_FEHLERMELDUNG_EIN
+int 0001
+string trailer: 
+int 0015
+int 0000
+int 0000
+int 0000
+int 0015
+int 001E
+string on 
+string off 
+string COD_RUECKLICHT_FEHLERMELDUNG_EIN
+int 0001
+string inner rear side light: 
+int 0015
+int 0028
+int 0000
+int 0000
+int 0015
+int 0046
+string on 
+string off 
+string no cold detection for
+string 
+string no cold detection for:
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_KEINE_KALTUEBERWACHUNG_ABBLENDLICHT_EIN
+int 0001
+string low beam circuit: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string COD_KEINE_KALTUEBERWACHUNG_NSW_EIN
+int 0001
+string fog lights circuit: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string COD_KEINE_KALTUEBERWACHUNG_FERNLICHT_EIN
+int 0001
+string high beam circuit: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 001E
+string on 
+string off 
+string period of cold detection [sec]:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_KEINE_KALTUEBERWACHUNG_BLK_VORN_EIN
+int 0001
+string front turn lights: 
+int 0006
+int 0028
+int 0000
+int 0000
+int 0006
+int 0046
+string on 
+string off 
+string COD_PERIODENDAUER_KALTUEBERWACHUNG_WERT
+int 0001
+string 
+int 0009
+int 001E
+int 0000
+int 0001
+string COD_KEINE_KALTUEBERWACHUNG_BLK_HINTEN_EIN
+int 0001
+string rear turn lights: 
+int 0009
+int 0028
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string coding to clamp 58g
+string 
+string coding to clamp 58g
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_TASTVERHAELTNIS_SPANNUNG_KLEMME58g_BEI_MIN_DIMMER
+int 0001
+string 3.2
+string pulse duty factor of clamp 58g at minimum dimmer and battery 14 volts [%]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0046
+int 0000
+int 0001
+string COD_TASTVERHAELTNISZUWACHS_KLEMME58g_BEI_MAX_DIMMER
+int 0001
+string 3.2
+string pulse duty factor of clamp 58g at maximum dimmer and battery 14 volts [%]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0046
+int 0000
+int 0001
+string COD_SCHWELLE_AENDERUNG_DIMMER_AN_I_BUS
+int 0001
+string 3.2
+string minimum change of dimmer position for I-/K-bus-message [Grad]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 0046
+int 0000
+int 0001
+string COD_MINIMALE_DIMMERSPANNUNG_WERT
+int 0001
+string 2.2
+string minimum dimmer-voltage [Volt]: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 0046
+int 0000
+int 0001
+string COD_DELTA_MIN_UND_MAX_DIMMERSPANNUNG_WERT
+int 0001
+string 2.2
+string difference from min. to max. dimmer-voltage [Volt]: 
+int 000F
+int 0000
+int 0000
+int 0000
+int 000F
+int 0046
+int 0000
+int 0001
+string COD_EXPONENTIELLE_AUSWERTUNG_DIMMERSTELLUNG_EIN
+int 0001
+string position of dimmer is evaluated exponetial:
+int 0012
+int 0000
+int 0000
+int 0000
+int 0012
+int 0046
+string Yes   
+string No 
+string Brake lights switch
+string 
+string Brake lights switch
+int 0000
+int 0000
+int 0001
+int 0000
+string no error message brake lights switch:
+int 0003
+int 0000
+int 0000
+int 0000
+string COD_BLS_FEHLERMELDUNG_EIN
+int 0001
+int 0003
+int 003C
+string on 
+string off 
+string limit of acceleration for brake lights switch monitoring [m/(sec*sec)]:
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_BLS_B_SCHWELL_WERT
+int 0001
+string 
+int 0006
+int 003C
+int 0000
+int 0001
+string delay before error message brake lights switch [sec]:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_T_WARTE_FEHLER_BLS_WERT
+int 0001
+string 
+int 0009
+int 003C
+int 0000
+int 0001
+string limits
+string 
+string limits
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_WERT_ABSCHALTUNG_STAND_PARKLICHT
+int 0001
+string 2.2
+string switch off limit for side and parking lights [volts]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 003C
+int 0000
+int 0001
+string COD_PERIODENDAUER_KALTUEBERWACHUNG_WERT
+int 0001
+string 
+string period of cold detection [s]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 003C
+int 0000
+int 0001
+string COD_ENTPRELLZAHL_FEHLERERKENNUNG
+int 0001
+string 
+string number of detections for error message [count]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 003C
+int 0000
+int 0001
+string voltage-limitation
+string 
+string voltage-limitation
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_SPANNUNGSBEGRENZUNG_STANDLICHT_WERT
+int 0001
+string 2.2
+string limit for side lights [volts]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 003C
+int 0000
+int 0001
+string COD_SPANNUNGSBEGRENZUNG_GEDIMMTE_BREMSLICHTER_WERT
+int 0001
+string 2.2
+string limit for dimmed brake lights [volts]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 003C
+int 0000
+int 0001
+string COD_SPANNUNGSBEGRENZUNG_GEDIMMTE_BLK_VORNE_WERT
+int 0001
+string 2.2
+string limit for dimmed front turn lights [volts]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 003C
+int 0000
+int 0001
+string COD_PERIODENDAUER_GEDIMMTE_LICHTER_WERT
+int 0001
+string 2.3
+string period of dimming [ms]: 
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 003C
+int 0000
+int 0001
+string functions of lights-dimming
+string 
+string functions of lights-dimming
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_FERNLICHT_DIMMUNG_TAG
+int 0001
+string 3.2
+string pulse duty factor of dimmed high beam (daytime driving light) [%]: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 003C
+int 0000
+int 0001
+string voltage-compensation for high beam-dimming:
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_SPANNUNGSKOMPENSATION_FL_DIMMUNG_EIN
+int 0001
+int 0006
+int 003C
+string Yes   
+string No 
+string switching behavior
+string 
+string switching behavior
+int 0000
+int 0000
+int 0001
+int 0000
+string high beam and fog lights on at same time:
+int 0003
+int 0000
+int 0000
+int 0000
+string COD_ERLAUBNIS_FL_UND_NSW_GLEICHZEITIG_EIN
+int 0001
+int 0003
+int 003C
+string on 
+string off 
+string daytime driving light:
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_TAGFAHRLICHT_EIN
+int 0001
+int 0006
+int 003C
+string on 
+string off 
+string low beam is daytime driving light:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_AL_IST_TAGFAHRLICHT_EIN
+int 0001
+int 0009
+int 003C
+string on 
+string off 
+string dimmed high beam is daytime driving light:
+int 000C
+int 0000
+int 0000
+int 0000
+string COD_GEDIMMTES_FL_IST_TAGFAHRLICHT_EIN
+int 0001
+int 000C
+int 003C
+string on 
+string off 
+string parking lights can be activated:
+int 000F
+int 0000
+int 0000
+int 0000
+string COD_PARKLICHT_EINSCHALTBAR_EIN
+int 0001
+int 000F
+int 003C
+string Yes 
+string No 
+string right fog lamp can be activated:
+int 0012
+int 0000
+int 0000
+int 0000
+string COD_NSL_RECHTS_ANSTEUERBAR
+int 0001
+int 0012
+int 003C
+string Yes 
+string No 
+string front turn lights as sidemarker:
+int 0015
+int 0000
+int 0000
+int 0000
+string COD_BLK_VORN_ALS_SIDEMARKER_EIN
+int 0001
+int 0015
+int 003C
+string Yes 
+string No 
+string brake lights and turn lights can be activated together:
+int 0018
+int 0000
+int 0000
+int 0000
+string COD_BL_UND_BLK_GEMEINSAM_ANSTEUERBAR
+int 0001
+int 0018
+int 003C
+string Yes 
+string No 
+string failsafe functions, pictogram
+string 
+string failsafe functions, pictogram
+int 0000
+int 0000
+int 0001
+int 0000
+string dimmed brake lights as spare rear side lights
+int 0003
+int 0000
+int 0000
+int 0000
+string COD_GEDIMMTES_BL_ALS_SL_ERSATZ_EIN
+int 0001
+int 0003
+int 003C
+string Yes 
+string No 
+string front turn lights as spare low beam / side lights
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_BLK_VORN_ALS_AL_SL_ERSATZ_EIN
+int 0001
+int 0006
+int 003C
+string Yes 
+string No 
+string pictogram like E46
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_PIKTOGRAMMANZEIGE_WIE_E46_EIN
+int 0001
+int 0009
+int 003C
+string Yes 
+string No 
+string pictogram flashes at defect brake lights
+int 000C
+int 0000
+int 0000
+int 0000
+string COD_PIKTOGRAMM_BLINKT_BEI_DEFEKTEM_BL_EIN
+int 0001
+int 000C
+int 003C
+string Yes 
+string No 
+string follow-me-home-functions
+string 
+string follow-me-home-functions
+int 0000
+int 0000
+int 0001
+int 0000
+string switch on time [sec]:
+int 0003
+int 0000
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_ZEIT
+int 0001
+string 
+int 0003
+int 001E
+int 0000
+int 0001
+string low beam:
+int 0006
+int 0000
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_AL_EIN
+int 0001
+int 0006
+int 001E
+string on   
+string off  
+string rear side lights:
+int 0006
+int 0028
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_SL_HINTEN_EIN
+int 0001
+int 0006
+int 0046
+string on   
+string off  
+string front side lights:
+int 0009
+int 0000
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_SL_VORN_EIN
+int 0001
+int 0009
+int 001E
+string on   
+string off  
+string clamp 58g:
+int 0009
+int 0028
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_Kl58g_EIN
+int 0001
+int 0009
+int 0046
+string on   
+string off  
+string license plate light:
+int 000C
+int 0000
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_KZL_EIN
+int 0001
+int 000C
+int 001E
+string on   
+string off  
+string fog lights:
+int 000C
+int 0028
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_NSW_EIN
+int 0001
+int 000C
+int 0046
+string on   
+string off  
+string brake lights:
+int 000F
+int 0000
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_BL_EIN
+int 0001
+int 000F
+int 001E
+string on   
+string off  
+string high beam:
+int 000F
+int 0028
+int 0000
+int 0000
+string COD_FOLLOW_ME_HOME_MIT_FL_EIN
+int 0001
+int 000F
+int 0046
+string on   
+string off  
+string other
+string 
+string other
+int 0000
+int 0000
+int 0001
+int 0000
+string COD_WARNBLINKEN_ENABLE
+int 0001
+string double impulse (hazard warning flasher): 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 003C
+string on 
+string off 
+string COD_ABFRAGEZEIT_AHM_IN_STOP_MODE
+int 0001
+string 1.3
+string detecting time of trailer module in stop-mode [sec]: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 003C
+int 0000
+int 0001
+string reading country coding and coding index: 
+int 0001
+int 0000
+int 0001
+int 0000
+string CODIERUNG_BLOCK_1_LESEN
+string 
+string 
+string OKAY
+string LAENDERVARIANTE
+int 0001
+string 
+string Country variant: 
+int 0005
+int 0005
+int 0000
+int 0000
+int 0005
+int 002D
+int 0000
+int 0001
+string CODIER_INDEX
+int 0001
+string 
+string coding index: 
+int 0008
+int 0005
+int 0000
+int 0000
+int 0008
+int 002D
+int 0000
+int 0001
+string CODIER_VARIANTE
+int 0001
+string 
+string coding variant: 
+int 000B
+int 0005
+int 0000
+int 0000
+int 000B
+int 002D
+int 0000
+int 0001
+string 
+string 
+string Read memory
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string SPEICHER_LESEN
+string 
+string JOB_STATUS
+int 0001
+string 
+string 
+string 
+string Start address
+int 0001
+int 0000
+int 0000
+int 0000
+string :
+int 0001
+int 0012
+int 0000
+int 0001
+int 0001
+int 0014
+int 0000
+int 0001
+string Data
+int 0005
+int 0000
+int 0000
+int 0000
+string :
+int 0005
+int 0012
+int 0000
+int 0001
+string OKAY
+int 0005
+int 0014
+int 0000
+int 0001
+string DATEN
+int 0001
+int 0020
+int 0005
+int 0014
+string Error memory
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string 
+string 
+string < F1 >  Read error memory
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  Clear error memory
+int 0006
+int 0005
+int 0000
+int 0001
+string < F3 >  reading information´s memory (messages from check-control and simple errors)
+int 0008
+int 0005
+int 0000
+int 0001
+string < F9 >  Print error memory
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Read status
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string STATUS_LESEN
+string 
+string 
+string OKAY
+string turn signal and high/low beam switch
+string 
+string turn signal and high/low beam switch
+int 0000
+int 0000
+int 0001
+int 0000
+string left turn signal switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string S1
+int 0002
+int 001A
+int 0000
+int 0000
+string S2
+int 0002
+int 0022
+int 0000
+int 0000
+string S1
+int 0002
+int 0042
+int 0000
+int 0000
+string S2
+int 0002
+int 004A
+int 0000
+int 0000
+string STAT_SCHALTER1_BLK_LINKS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER2_BLK_LINKS_EIN
+int 0001
+int 0003
+int 0021
+string on 
+string off 
+string right turn signal switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER1_BLK_RECHTS_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER2_BLK_RECHTS_EIN
+int 0001
+int 0003
+int 0049
+string on 
+string off 
+string STAT_SCHALTER_FL_EIN
+int 0001
+string high beam switch: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_LICHTHUPE_EIN
+int 0001
+string headlight flasher switch: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string lights switches
+string 
+string lights switches
+int 0000
+int 0000
+int 0001
+int 0000
+string side lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string S1
+int 0002
+int 001A
+int 0000
+int 0000
+string S2
+int 0002
+int 0022
+int 0000
+int 0000
+string S1
+int 0002
+int 0042
+int 0000
+int 0000
+string S2
+int 0002
+int 004A
+int 0000
+int 0000
+string STAT_SCHALTER1_SL_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER2_SL_EIN
+int 0001
+int 0003
+int 0021
+string on 
+string off 
+string low beam switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER1_AL_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER2_AL_EIN
+int 0001
+int 0003
+int 0049
+string on 
+string off 
+string fog lights/lamps switches
+string 
+string fog lights/lamps switches
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SCHALTER_NSW_EIN
+int 0001
+string fog lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_NSL_EIN
+int 0001
+string fog lamps switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string other switches
+string 
+string other switches
+int 0000
+int 0000
+int 0001
+int 0000
+string brake lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string S1
+int 0002
+int 001A
+int 0000
+int 0000
+string S2
+int 0002
+int 0022
+int 0000
+int 0000
+string STAT_EINGANG1_BLS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string STAT_EINGANG2_BLS_EIN
+int 0001
+int 0003
+int 0021
+string on 
+string off 
+string STAT_SCHALTER_WBL_EIN
+int 0001
+string hazard warning flasher switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string clamps and voltages
+string 
+string status of clamps and voltages
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_KLEMME_R_EIN
+int 0001
+string Clamp R: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0019
+string on 
+string off 
+string STAT_KLEMME_15_EIN
+int 0001
+string Clamp 15: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string STAT_KLEMME_30A_EIN
+int 0001
+string Clamp 30A: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_KLEMME_30B_EIN
+int 0001
+string Clamp 30B: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string STAT_U_BATT_WERT
+int 0001
+string battery voltage [volts]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 000B
+int 0000
+real 0
+real 18
+real 10
+real 15
+string 
+string front outputs
+string 
+string front outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_AUSGANG_AL_LINKS_EIN
+int 0001
+string  LB: 
+int 0003
+int 003C
+int 0000
+int 0000
+int 0004
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0032
+int 0000
+int 0000
+int 0008
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_BLK_LINKS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_FL_LINKS_EIN
+int 0001
+string HB: 
+int 0003
+int 0032
+int 0000
+int 0000
+int 0004
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_NSW_LINKS_EIN
+int 0001
+string fog: 
+int 0007
+int 003C
+int 0000
+int 0000
+int 0008
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0019
+int 0000
+int 0000
+int 0008
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_AL_RECHTS_EIN
+int 0001
+string LB: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_AUSGANG_FL_RECHTS_EIN
+int 0001
+string HB: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_NSW_RECHTS_EIN
+int 0001
+string fog: 
+int 0007
+int 000F
+int 0000
+int 0000
+int 0008
+int 000F
+string on 
+string off 
+string rear outputs
+string 
+string rear outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_AUSGANG_BLK_LINKS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0005
+int 0000
+int 0000
+int 0007
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_INNEN_LINKS_HINTEN_EIN
+int 0001
+string inner SL: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_LINKS_EIN
+int 0001
+string BL: 
+int 0009
+int 0005
+int 0000
+int 0000
+int 000A
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_NSL_LINKS_EIN
+int 0001
+string fog: 
+int 0009
+int 0011
+int 0000
+int 0000
+int 000A
+int 0011
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0046
+int 0000
+int 0000
+int 0007
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_SL_INNEN_RECHTS_HINTEN_EIN
+int 0001
+string inner SL: 
+int 0006
+int 003C
+int 0000
+int 0000
+int 0007
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_RECHTS_EIN
+int 0001
+string BL: 
+int 0009
+int 0046
+int 0000
+int 0000
+int 000A
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_NSL_RECHTS_EIN
+int 0001
+string fog: 
+int 0009
+int 003A
+int 0000
+int 0000
+int 000A
+int 003A
+string on 
+string off 
+string STAT_AUSGANG_RFS_LINKS_EIN
+int 0001
+string back: 
+int 0003
+int 000D
+int 0000
+int 0000
+int 0004
+int 000D
+string on 
+string off 
+string STAT_AUSGANG_RFS_RECHTS_EIN
+int 0001
+string back: 
+int 0003
+int 003E
+int 0000
+int 0000
+int 0004
+int 003E
+string on 
+string off 
+string STAT_AUSGANG_KZL_LINKS_EIN
+int 0001
+string LP: 
+int 0007
+int 0023
+int 0000
+int 0000
+int 0008
+int 0023
+string on 
+string off 
+string STAT_AUSGANG_KZL_RECHTS_EIN
+int 0001
+string LP: 
+int 0007
+int 002D
+int 0000
+int 0000
+int 0008
+int 002D
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_MITTE_EIN
+int 0001
+string middle BL: 
+int 0004
+int 0028
+int 0000
+int 0000
+int 0005
+int 0028
+string on 
+string off 
+string trailer module outputs
+string 
+string trailer module outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_NSL_ANHAENGER_EIN
+int 0001
+string fog: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_RFS_ANHAENGER_EIN
+int 0001
+string back: 
+int 0003
+int 0037
+int 0000
+int 0000
+int 0004
+int 0037
+string on 
+string off 
+string STAT_BLINKLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLINKLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string STAT_BREMSLICHT_ANHAENGER_EIN
+int 0001
+string BL: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+string on 
+string off 
+string STAT_STANDLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_STANDLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 0041
+int 0000
+int 0000
+int 0004
+int 0041
+string on 
+string off 
+string STAT_UNTERSPANNUNG_AHM_EIN
+int 0001
+string low voltage detection of trailer module: 
+int 0007
+int 0000
+int 0000
+int 0000
+int 0007
+int 0028
+string on 
+string off 
+string STAT_PARITY_AHM
+int 0001
+string paritybit trailer module: 
+int 000A
+int 0000
+int 0000
+int 0000
+int 000A
+int 0028
+string ONE  
+string ZERO  
+string front defect messages
+string 
+string front defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_AL_RECHTS_DEFEKT
+int 0001
+string LB: 
+int 0003
+int 0041
+int 0000
+int 0000
+int 0004
+int 0041
+string on 
+string off 
+string STAT_FL_LINKS_DEFEKT
+int 0001
+string HB: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_FL_RECHTS_DEFEKT
+int 0001
+string HB: 
+int 0003
+int 0037
+int 0000
+int 0000
+int 0004
+int 0037
+string on 
+string off 
+string STAT_NSW_LINKS_DEFEKT
+int 0001
+string fog: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_NSW_RECHTS_DEFEKT
+int 0001
+string fog: 
+int 0006
+int 0041
+int 0000
+int 0000
+int 0007
+int 0041
+string on 
+string off 
+string STAT_AL_LINKS_DEFEKT
+int 0001
+string LB: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_SL_RECHTS_VORN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0037
+int 0000
+int 0000
+int 0007
+int 0037
+string on 
+string off 
+string STAT_SL_LINKS_VORN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0019
+int 0000
+int 0000
+int 0007
+int 0019
+string on 
+string off 
+string STAT_BLK_LINKS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLK_RECHTS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string LCM_A
+string low beam defect message
+int 000A
+int 0000
+int 0000
+int 0000
+string STAT_AL_DEFEKT_MELDUNG
+int 0001
+string 
+int 000B
+int 000A
+int 0000
+int 0001
+string current voltage [volts]:
+int 000A
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_AL_DEFEKT_WERT
+int 0001
+int 000B
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string rear defect messages
+string 
+string rear defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_BLK_LINKS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_SL_LINKS_HINTEN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0005
+int 0000
+int 0000
+int 0007
+int 0005
+string on 
+string off 
+string STAT_SL_INNEN_LINKS_HINTEN_DEFEKT
+int 0001
+string inner SL: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_BL_LINKS_DEFEKT
+int 0001
+string BL: 
+int 0009
+int 0005
+int 0000
+int 0000
+int 000A
+int 0005
+string on 
+string off 
+string STAT_NSL_LINKS_DEFEKT
+int 0001
+string fog: 
+int 0009
+int 0011
+int 0000
+int 0000
+int 000A
+int 0011
+string on 
+string off 
+string STAT_BLK_RECHTS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_SL_RECHTS_HINTEN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0046
+int 0000
+int 0000
+int 0007
+int 0046
+string on 
+string off 
+string STAT_SL_INNEN_RECHTS_HINTEN_DEFEKT
+int 0001
+string inner SL: 
+int 0006
+int 003C
+int 0000
+int 0000
+int 0007
+int 003C
+string on 
+string off 
+string STAT_BL_RECHTS_DEFEKT
+int 0001
+string BL: 
+int 0009
+int 0046
+int 0000
+int 0000
+int 000A
+int 0046
+string on 
+string off 
+string STAT_NSL_RECHTS_DEFEKT
+int 0001
+string fog: 
+int 0009
+int 003A
+int 0000
+int 0000
+int 000A
+int 003A
+string on 
+string off 
+string STAT_BREMSLICHT_MITTE_DEFEKT
+int 0001
+string BL: 
+int 0004
+int 0028
+int 0000
+int 0000
+int 0005
+int 0028
+string on 
+string off 
+string STAT_KZL_LINKS_DEFEKT
+int 0001
+string LP: 
+int 0007
+int 0023
+int 0000
+int 0000
+int 0008
+int 0023
+string on 
+string off 
+string STAT_KZL_RECHTS_DEFEKT
+int 0001
+string LP: 
+int 0007
+int 002D
+int 0000
+int 0000
+int 0008
+int 002D
+string on 
+string off 
+string STAT_RFS_LINKS_DEFEKT
+int 0001
+string back: 
+int 0003
+int 000D
+int 0000
+int 0000
+int 0004
+int 000D
+string on 
+string off 
+string STAT_RFS_RECHTS_DEFEKT
+int 0001
+string back: 
+int 0003
+int 003E
+int 0000
+int 0000
+int 0004
+int 003E
+string on 
+string off 
+string dimmer
+string 
+string dimmer
+int 0000
+int 0000
+int 0001
+int 0000
+string imput voltage VHAC-poti [volts]:
+int 0002
+int 0000
+int 0000
+int 0000
+string STAT_EINGANGSSPANNUNG_LWR_POTI_WERT
+int 0001
+int 0004
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string STAT_EINGANGSSPANNUNG_DIMMER_WERT
+int 0001
+string input voltage of dimmer [volts]: 
+int 0002
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string dimming of clamp 58g: 
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_Kl58g_EIN
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string dimming of HWF-illumination: 
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DIMMUNG_WBL_SUCHBELEUCHTUNG_EIN
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string dimming of lights switch illumination: 
+int 0008
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_LICHTSCHALTERBELEUCHTUNG_EIN
+int 0001
+int 0008
+int 001E
+string on 
+string off 
+string vertical headlights aim control
+string 
+string STAT_AUSGANG_LWR_EIN
+int 0001
+string headlights vertical aim control: 
+int 0000
+int 0000
+int 0001
+int 0000
+int 0000
+int 003C
+string on 
+string off 
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string crash- and theft-prevention-alarme
+string 
+string crash- and theft-prevention-alarme
+int 0000
+int 0000
+int 0001
+int 0000
+string crash warning flasher
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_CRASH_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string theft-prevention warning flasher
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_DWA_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string TPS low beam warning flasher
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DWA_AL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string TPS hgih beam warning flasher
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DWA_FL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string crash-sensor active
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_CRASHSENSOR_AKTIV
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string TPS-alarm activated
+int 0009
+int 0028
+int 0000
+int 0000
+string STAT_DWA_AUSGELOEST
+int 0001
+int 0009
+int 0046
+string on 
+string off 
+string oil level sensor
+string 
+string oil level sensor
+int 0000
+int 0000
+int 0001
+int 0000
+string oil level warning (normal)
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_OELSTAND_WARNUNG1_AUSGELOEST
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string oil level warning (catastrophe)
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_OELSTAND_KATASTROPHE_AUSGELOEST
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string oil level sensor defect
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_OELSTANDSSENSOR_DEFEKT
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string input thermal oil level sensor
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_EINGANG_TOG_EIN
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string thermal oil level sensor (TOG)
+string 
+string thermal oil level sensor (TOG)
+int 0000
+int 0000
+int 0001
+int 0000
+string heating time [sec]
+int 0003
+int 0014
+int 0000
+int 0000
+string cooling time [sec]
+int 0007
+int 0014
+int 0000
+int 0000
+string STAT_TOG_HEIZZEIT_WERT
+int 0001
+int 0004
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string STAT_TOG_ABKUEHLZEIT_WERT
+int 0001
+int 0008
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string Read status
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string STATUS_LESEN
+string 
+string 
+string OKAY
+string turn signal and high/low beam switch
+string 
+string turn signal and high/low beam switch
+int 0000
+int 0000
+int 0001
+int 0000
+string left turn signal switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_SCHALTER_BLK_LINKS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string right turn signal switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER_BLK_RECHTS_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER_FL_EIN
+int 0001
+string high beam switch: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_LICHTHUPE_EIN
+int 0001
+string headlight flasher switch: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string lights switches
+string 
+string lights switches
+int 0000
+int 0000
+int 0001
+int 0000
+string side lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string S1
+int 0002
+int 0042
+int 0000
+int 0000
+string S2
+int 0002
+int 004A
+int 0000
+int 0000
+string STAT_SCHALTER_SL_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string low beam switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER1_AL_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER2_AL_EIN
+int 0001
+int 0003
+int 0049
+string on 
+string off 
+string switch automatic low beam: 
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_SCHALTER_AUTO_AL_EIN
+int 0001
+int 0002
+string  not installed 
+int 0006
+int 001B
+int 0000
+int 0000
+string  
+int 0007
+int 0000
+int 0000
+int 0000
+string STAT_SCHALTER_AUTO_AL_EIN
+int 0001
+int 0006
+int 0019
+string on 
+string off 
+string fog lights/lamps switches
+string 
+string fog lights/lamps switches
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SCHALTER_NSW_EIN
+int 0001
+string fog lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_NSL_EIN
+int 0001
+string fog lamps switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string other switches
+string 
+string other switches
+int 0000
+int 0000
+int 0001
+int 0000
+string brake lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_EINGANG_BLS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_WBL_EIN
+int 0001
+string hazard warning flasher switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string clamps and voltages
+string 
+string status of clamps and voltages
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_KLEMME_R_EIN
+int 0001
+string Clamp R: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0019
+string on 
+string off 
+string STAT_KLEMME_15_EIN
+int 0001
+string Clamp 15: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string STAT_KLEMME_30A_EIN
+int 0001
+string Clamp 30A: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_KLEMME_30B_EIN
+int 0001
+string Clamp 30B: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string STAT_U_BATT_WERT
+int 0001
+string battery voltage [volts]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 000B
+int 0000
+real 0
+real 18
+real 10
+real 15
+string 
+string front outputs
+string 
+string front outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_AUSGANG_AL_LINKS_EIN
+int 0001
+string  LB: 
+int 0003
+int 003C
+int 0000
+int 0000
+int 0004
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0032
+int 0000
+int 0000
+int 0008
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_BLK_LINKS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_FL_LINKS_EIN
+int 0001
+string HB: 
+int 0003
+int 0032
+int 0000
+int 0000
+int 0004
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_NSW_LINKS_EIN
+int 0001
+string fog: 
+int 0007
+int 003C
+int 0000
+int 0000
+int 0008
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0019
+int 0000
+int 0000
+int 0008
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_AL_RECHTS_EIN
+int 0001
+string LB: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_AUSGANG_FL_RECHTS_EIN
+int 0001
+string HB: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_NSW_RECHTS_EIN
+int 0001
+string fog: 
+int 0007
+int 000F
+int 0000
+int 0000
+int 0008
+int 000F
+string on 
+string off 
+string rear outputs
+string 
+string rear outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_AUSGANG_BLK_LINKS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0005
+int 0000
+int 0000
+int 0007
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_INNEN_LINKS_HINTEN_EIN
+int 0001
+string inner SL: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_LINKS_EIN
+int 0001
+string BL: 
+int 0009
+int 0005
+int 0000
+int 0000
+int 000A
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_NSL_LINKS_EIN
+int 0001
+string fog: 
+int 0009
+int 0011
+int 0000
+int 0000
+int 000A
+int 0011
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0046
+int 0000
+int 0000
+int 0007
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_SL_INNEN_RECHTS_HINTEN_EIN
+int 0001
+string inner SL: 
+int 0006
+int 003C
+int 0000
+int 0000
+int 0007
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_RECHTS_EIN
+int 0001
+string BL: 
+int 0009
+int 0046
+int 0000
+int 0000
+int 000A
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_NSL_RECHTS_EIN
+int 0001
+string fog: 
+int 0009
+int 003A
+int 0000
+int 0000
+int 000A
+int 003A
+string on 
+string off 
+string STAT_AUSGANG_RFS_LINKS_EIN
+int 0001
+string back: 
+int 0003
+int 000D
+int 0000
+int 0000
+int 0004
+int 000D
+string on 
+string off 
+string STAT_AUSGANG_RFS_RECHTS_EIN
+int 0001
+string back: 
+int 0003
+int 003E
+int 0000
+int 0000
+int 0004
+int 003E
+string on 
+string off 
+string STAT_AUSGANG_KZL_LINKS_EIN
+int 0001
+string LP: 
+int 0007
+int 0023
+int 0000
+int 0000
+int 0008
+int 0023
+string on 
+string off 
+string STAT_AUSGANG_KZL_RECHTS_EIN
+int 0001
+string LP: 
+int 0007
+int 002D
+int 0000
+int 0000
+int 0008
+int 002D
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_MITTE_EIN
+int 0001
+string middle BL: 
+int 0004
+int 0028
+int 0000
+int 0000
+int 0005
+int 0028
+string on 
+string off 
+string trailer module outputs
+string 
+string trailer module outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_NSL_ANHAENGER_EIN
+int 0001
+string fog: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_RFS_ANHAENGER_EIN
+int 0001
+string back: 
+int 0003
+int 0037
+int 0000
+int 0000
+int 0004
+int 0037
+string on 
+string off 
+string STAT_BLINKLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLINKLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string STAT_BREMSLICHT_ANHAENGER_EIN
+int 0001
+string BL: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+string on 
+string off 
+string STAT_STANDLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_STANDLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 0041
+int 0000
+int 0000
+int 0004
+int 0041
+string on 
+string off 
+string STAT_UNTERSPANNUNG_AHM_EIN
+int 0001
+string low voltage detection of trailer module: 
+int 0007
+int 0000
+int 0000
+int 0000
+int 0007
+int 0028
+string on 
+string off 
+string STAT_PARITY_AHM
+int 0001
+string paritybit trailer module: 
+int 000A
+int 0000
+int 0000
+int 0000
+int 000A
+int 0028
+string ONE  
+string ZERO  
+string front defect messages
+string 
+string front defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_AL_RECHTS_DEFEKT
+int 0001
+string LB: 
+int 0003
+int 0041
+int 0000
+int 0000
+int 0004
+int 0041
+string on 
+string off 
+string STAT_FL_LINKS_DEFEKT
+int 0001
+string HB: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_FL_RECHTS_DEFEKT
+int 0001
+string HB: 
+int 0003
+int 0037
+int 0000
+int 0000
+int 0004
+int 0037
+string on 
+string off 
+string STAT_NSW_LINKS_DEFEKT
+int 0001
+string fog: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_NSW_RECHTS_DEFEKT
+int 0001
+string fog: 
+int 0006
+int 0041
+int 0000
+int 0000
+int 0007
+int 0041
+string on 
+string off 
+string STAT_AL_LINKS_DEFEKT
+int 0001
+string LB: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_SL_RECHTS_VORN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0037
+int 0000
+int 0000
+int 0007
+int 0037
+string on 
+string off 
+string STAT_SL_LINKS_VORN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0019
+int 0000
+int 0000
+int 0007
+int 0019
+string on 
+string off 
+string STAT_BLK_LINKS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLK_RECHTS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string LCM_A
+string low beam defect message
+int 000A
+int 0000
+int 0000
+int 0000
+string STAT_AL_DEFEKT_MELDUNG
+int 0001
+string 
+int 000B
+int 000A
+int 0000
+int 0001
+string current voltage [volts]:
+int 000A
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_AL_DEFEKT_WERT
+int 0001
+int 000B
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string rear defect messages
+string 
+string rear defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_BLK_LINKS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_SL_LINKS_HINTEN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0005
+int 0000
+int 0000
+int 0007
+int 0005
+string on 
+string off 
+string STAT_SL_INNEN_LINKS_HINTEN_DEFEKT
+int 0001
+string inner SL: 
+int 0006
+int 000F
+int 0000
+int 0000
+int 0007
+int 000F
+string on 
+string off 
+string STAT_BL_LINKS_DEFEKT
+int 0001
+string BL: 
+int 0009
+int 0005
+int 0000
+int 0000
+int 000A
+int 0005
+string on 
+string off 
+string STAT_NSL_LINKS_DEFEKT
+int 0001
+string fog: 
+int 0009
+int 0011
+int 0000
+int 0000
+int 000A
+int 0011
+string on 
+string off 
+string STAT_BLK_RECHTS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_SL_RECHTS_HINTEN_DEFEKT
+int 0001
+string SL: 
+int 0006
+int 0046
+int 0000
+int 0000
+int 0007
+int 0046
+string on 
+string off 
+string STAT_SL_INNEN_RECHTS_HINTEN_DEFEKT
+int 0001
+string inner SL: 
+int 0006
+int 003C
+int 0000
+int 0000
+int 0007
+int 003C
+string on 
+string off 
+string STAT_BL_RECHTS_DEFEKT
+int 0001
+string BL: 
+int 0009
+int 0046
+int 0000
+int 0000
+int 000A
+int 0046
+string on 
+string off 
+string STAT_NSL_RECHTS_DEFEKT
+int 0001
+string fog: 
+int 0009
+int 003A
+int 0000
+int 0000
+int 000A
+int 003A
+string on 
+string off 
+string STAT_BREMSLICHT_MITTE_DEFEKT
+int 0001
+string BL: 
+int 0004
+int 0028
+int 0000
+int 0000
+int 0005
+int 0028
+string on 
+string off 
+string STAT_KZL_LINKS_DEFEKT
+int 0001
+string LP: 
+int 0007
+int 0023
+int 0000
+int 0000
+int 0008
+int 0023
+string on 
+string off 
+string STAT_KZL_RECHTS_DEFEKT
+int 0001
+string LP: 
+int 0007
+int 002D
+int 0000
+int 0000
+int 0008
+int 002D
+string on 
+string off 
+string STAT_RFS_LINKS_DEFEKT
+int 0001
+string back: 
+int 0003
+int 000D
+int 0000
+int 0000
+int 0004
+int 000D
+string on 
+string off 
+string STAT_RFS_RECHTS_DEFEKT
+int 0001
+string back: 
+int 0003
+int 003E
+int 0000
+int 0000
+int 0004
+int 003E
+string on 
+string off 
+string dimmer
+string 
+string dimmer
+int 0000
+int 0000
+int 0001
+int 0000
+string imput voltage VHAC-poti [volts]:
+int 0002
+int 0000
+int 0000
+int 0000
+string STAT_EINGANGSSPANNUNG_LWR_POTI_WERT
+int 0001
+int 0004
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string STAT_EINGANGSSPANNUNG_DIMMER_WERT
+int 0001
+string input voltage of dimmer [volts]: 
+int 0002
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string dimming of clamp 58g: 
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_Kl58g_EIN
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string dimming of HWF-illumination: 
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DIMMUNG_WBL_SUCHBELEUCHTUNG_EIN
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string dimming of lights switch illumination: 
+int 0008
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_LICHTSCHALTERBELEUCHTUNG_EIN
+int 0001
+int 0008
+int 001E
+string on 
+string off 
+string vertical headlights aim control
+string 
+string STAT_AUSGANG_LWR_EIN
+int 0001
+string headlights vertical aim control: 
+int 0000
+int 0000
+int 0001
+int 0000
+int 0000
+int 003C
+string on 
+string off 
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string crash- and theft-prevention-alarme
+string 
+string crash- and theft-prevention-alarme
+int 0000
+int 0000
+int 0001
+int 0000
+string crash warning flasher
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_CRASH_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string theft-prevention warning flasher
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_DWA_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string TPS low beam warning flasher
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DWA_AL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string TPS hgih beam warning flasher
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DWA_FL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string crash-sensor active
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_CRASHSENSOR_AKTIV
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string TPS-alarm activated
+int 0009
+int 0028
+int 0000
+int 0000
+string STAT_DWA_AUSGELOEST
+int 0001
+int 0009
+int 0046
+string on 
+string off 
+string oil level sensor
+string 
+string oil level sensor
+int 0000
+int 0000
+int 0001
+int 0000
+string oil level warning (normal)
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_OELSTAND_WARNUNG1_AUSGELOEST
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string oil level warning (catastrophe)
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_OELSTAND_KATASTROPHE_AUSGELOEST
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string oil level sensor defect
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_OELSTANDSSENSOR_DEFEKT
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string input thermal oil level sensor
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_EINGANG_TOG_EIN
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string thermal oil level sensor (TOG)
+string 
+string thermal oil level sensor (TOG)
+int 0000
+int 0000
+int 0001
+int 0000
+string heating time [sec]
+int 0003
+int 0014
+int 0000
+int 0000
+string cooling time [sec]
+int 0007
+int 0014
+int 0000
+int 0000
+string STAT_TOG_HEIZZEIT_WERT
+int 0001
+int 0004
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string STAT_TOG_ABKUEHLZEIT_WERT
+int 0001
+int 0008
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string Read status
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string STATUS_LESEN_E52
+string 
+string 
+string OKAY
+string turn signal and high/low beam switch
+string 
+string turn signal and high/low beam switch
+int 0000
+int 0000
+int 0001
+int 0000
+string left turn signal switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_SCHALTER_BLK_LINKS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string right turn signal switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER_BLK_RECHTS_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER_FL_EIN
+int 0001
+string high beam switch: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_LICHTHUPE_EIN
+int 0001
+string headlight flasher switch: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string STAT_FL_LH_SCHALTER_WERT
+int 0001
+string 
+string switch high beam / flasher:
+int 0009
+int 0000
+int 0000
+int 0000
+string       
+int 0009
+int 001E
+int 0000
+int 0001
+string STAT_BLK_SCHALTER_WERT
+int 0001
+string 
+string switch turn lights:
+int 0009
+int 0028
+int 0000
+int 0000
+string       
+int 0009
+int 0046
+int 0000
+int 0001
+string lights switches
+string 
+string lights switches
+int 0000
+int 0000
+int 0001
+int 0000
+string side lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string S1
+int 0002
+int 0042
+int 0000
+int 0000
+string S2
+int 0002
+int 004A
+int 0000
+int 0000
+string STAT_SCHALTER_SL_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string low beam switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+string STAT_SCHALTER1_AL_EIN
+int 0001
+int 0003
+int 0041
+string on 
+string off 
+string STAT_SCHALTER2_AL_EIN
+int 0001
+int 0003
+int 0049
+string on 
+string off 
+string fog lights/lamps switches
+string 
+string fog lights/lamps switches
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SCHALTER_NSL_EIN
+int 0001
+string fog lamps switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string fog lights not assembled in E52!
+int 0005
+int 0000
+int 0000
+int 0001
+string other switches
+string 
+string other switches
+int 0000
+int 0000
+int 0001
+int 0000
+string brake lights switch: 
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_EINGANG_BLS_EIN
+int 0001
+int 0003
+int 0019
+string on 
+string off 
+string STAT_SCHALTER_WBL_EIN
+int 0001
+string hazard warning flasher switch: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string clamps and voltages
+string 
+string status of clamps and voltages
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_KLEMME_R_EIN
+int 0001
+string Clamp R: 
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 0019
+string on 
+string off 
+string STAT_KLEMME_15_EIN
+int 0001
+string Clamp 15: 
+int 0003
+int 002D
+int 0000
+int 0000
+int 0003
+int 0041
+string on 
+string off 
+string STAT_KLEMME_30A_EIN
+int 0001
+string Clamp 30A: 
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 0019
+string on 
+string off 
+string STAT_KLEMME_30B_EIN
+int 0001
+string Clamp 30B: 
+int 0006
+int 002D
+int 0000
+int 0000
+int 0006
+int 0041
+string on 
+string off 
+string STAT_U_BATT_WERT
+int 0001
+string battery voltage [volts]: 
+int 0009
+int 0000
+int 0000
+int 0000
+int 000B
+int 0000
+real 0
+real 18
+real 10
+real 15
+string 
+string Neon-control-unit
+string 
+string Neon-control-unit
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_NEON_BLK_VL_EIN
+int 0001
+string turn light: 
+int 0003
+int 000A
+int 0000
+int 0000
+int 0004
+int 000A
+string on 
+string off 
+string STAT_NEON_BLK_VR_EIN
+int 0001
+string  turn light: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_NEON_BLK_HL_EIN
+int 0001
+string turn light: 
+int 0008
+int 000A
+int 0000
+int 0000
+int 0009
+int 000A
+string on 
+string off 
+string STAT_NEON_BLK_HR_EIN
+int 0001
+string  turn light: 
+int 0008
+int 0046
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string STAT_NEON_BL_L_EIN
+int 0001
+string brake lights: 
+int 0008
+int 001E
+int 0000
+int 0000
+int 0009
+int 001E
+string on 
+string off 
+string STAT_NEON_BL_R_EIN
+int 0001
+string  brake lights: 
+int 0008
+int 0032
+int 0000
+int 0000
+int 0009
+int 0032
+string on 
+string off 
+string front outputs
+string 
+string front outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_AUSGANG_AL_LINKS_EIN
+int 0001
+string  LB: 
+int 0003
+int 003C
+int 0000
+int 0000
+int 0004
+int 003C
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0032
+int 0000
+int 0000
+int 0008
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_BLK_LINKS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_FL_LINKS_EIN
+int 0001
+string HB: 
+int 0003
+int 0032
+int 0000
+int 0000
+int 0004
+int 0032
+string on 
+string off 
+string STAT_AUSGANG_ZUSATZBLINKER_LINKS_EIN
+int 0001
+string additional turn light: 
+int 0007
+int 0046
+int 0000
+int 0000
+int 0008
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_VORN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_VORN_EIN
+int 0001
+string SL: 
+int 0007
+int 0019
+int 0000
+int 0000
+int 0008
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_AL_RECHTS_EIN
+int 0001
+string LB: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_AUSGANG_FL_RECHTS_EIN
+int 0001
+string HB: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_AUSGANG_ZUSATZBLINKER_RECHTS_EIN
+int 0001
+string additional turn light: 
+int 0007
+int 0005
+int 0000
+int 0000
+int 0008
+int 0005
+string on 
+string off 
+string rear outputs
+string 
+string rear outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_AUSGANG_BLK_LINKS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_SL_LINKS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0005
+int 0000
+int 0000
+int 0007
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_LINKS_EIN
+int 0001
+string BL: 
+int 0009
+int 0005
+int 0000
+int 0000
+int 000A
+int 0005
+string on 
+string off 
+string STAT_AUSGANG_NSL_EIN
+int 0001
+string fog: 
+int 0009
+int 0011
+int 0000
+int 0000
+int 000A
+int 0011
+string on 
+string off 
+string STAT_AUSGANG_BLK_RECHTS_HINTEN_EIN
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_SL_RECHTS_HINTEN_EIN
+int 0001
+string SL: 
+int 0006
+int 0046
+int 0000
+int 0000
+int 0007
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_RECHTS_EIN
+int 0001
+string BL: 
+int 0009
+int 0046
+int 0000
+int 0000
+int 000A
+int 0046
+string on 
+string off 
+string STAT_AUSGANG_RFS_EIN
+int 0001
+string back: 
+int 0009
+int 003A
+int 0000
+int 0000
+int 000A
+int 003A
+string on 
+string off 
+string Attention: At japanese cars, fog light and reverse gear lamp are exchanged!
+int 000B
+int 0000
+int 0000
+int 0001
+string STAT_AUSGANG_KZL_LINKS_EIN
+int 0001
+string LP: 
+int 0007
+int 0023
+int 0000
+int 0000
+int 0008
+int 0023
+string on 
+string off 
+string STAT_AUSGANG_KZL_RECHTS_EIN
+int 0001
+string LP: 
+int 0007
+int 002D
+int 0000
+int 0000
+int 0008
+int 002D
+string on 
+string off 
+string STAT_AUSGANG_BREMSLICHT_MITTE_EIN
+int 0001
+string middle BL: 
+int 0004
+int 0028
+int 0000
+int 0000
+int 0005
+int 0028
+string on 
+string off 
+string door open warning light
+string 
+string door open warning light
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_TUERWARNLEUCHTE_LINKS_EIN
+int 0001
+string left: 
+int 0003
+int 000A
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string STAT_TUERWARNLEUCHTE_RECHTS_EIN
+int 0001
+string right: 
+int 0003
+int 0032
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string trailer module outputs
+string 
+string trailer module outputs
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_NSL_ANHAENGER_EIN
+int 0001
+string fog: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_RFS_ANHAENGER_EIN
+int 0001
+string back: 
+int 0003
+int 0037
+int 0000
+int 0000
+int 0004
+int 0037
+string on 
+string off 
+string STAT_BLINKLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLINKLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string STAT_BREMSLICHT_ANHAENGER_EIN
+int 0001
+string BL: 
+int 0003
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+string on 
+string off 
+string STAT_STANDLICHT_LINKS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 000F
+int 0000
+int 0000
+int 0004
+int 000F
+string on 
+string off 
+string STAT_STANDLICHT_RECHTS_ANHAENGER_EIN
+int 0001
+string SL: 
+int 0003
+int 0041
+int 0000
+int 0000
+int 0004
+int 0041
+string on 
+string off 
+string STAT_UNTERSPANNUNG_AHM_EIN
+int 0001
+string low voltage detection of trailer module: 
+int 0007
+int 0000
+int 0000
+int 0000
+int 0007
+int 0028
+string on 
+string off 
+string STAT_PARITY_AHM
+int 0001
+string paritybit trailer module: 
+int 000A
+int 0000
+int 0000
+int 0000
+int 000A
+int 0028
+string ONE  
+string ZERO  
+string front defect messages
+string 
+string front defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0039
+int 0000
+int 0000
+string right side
+int 0002
+int 0005
+int 0000
+int 0000
+string STAT_BLK_LINKS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BLK_RECHTS_VORN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 004B
+int 0000
+int 0000
+int 0004
+int 004B
+string on 
+string off 
+string STAT_AL_DEFEKT_MELDUNG
+int 0001
+string 
+string low beam defect message:
+int 0006
+int 0000
+int 0000
+int 0000
+string       
+int 0006
+int 001E
+int 0000
+int 0001
+string rear defect messages
+string 
+string rear defect messages
+int 0000
+int 0000
+int 0001
+int 0000
+string left side
+int 0002
+int 0005
+int 0000
+int 0000
+string right side
+int 0002
+int 0037
+int 0000
+int 0000
+string STAT_BLK_LINKS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0005
+int 0000
+int 0000
+int 0004
+int 0005
+string on 
+string off 
+string STAT_BL_LINKS_DEFEKT
+int 0001
+string BL: 
+int 0003
+int 0019
+int 0000
+int 0000
+int 0004
+int 0019
+string on 
+string off 
+string STAT_BLK_RECHTS_HINTEN_DEFEKT
+int 0001
+string turn: 
+int 0003
+int 0046
+int 0000
+int 0000
+int 0004
+int 0046
+string on 
+string off 
+string STAT_BL_RECHTS_DEFEKT
+int 0001
+string BL: 
+int 0003
+int 0032
+int 0000
+int 0000
+int 0004
+int 0032
+string on 
+string off 
+string dimmer
+string 
+string dimmer
+int 0000
+int 0000
+int 0001
+int 0000
+string imput voltage VHAC-poti [volts]:
+int 0002
+int 0000
+int 0000
+int 0000
+string STAT_EINGANGSSPANNUNG_LWR_POTI_WERT
+int 0001
+int 0004
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string STAT_EINGANGSSPANNUNG_DIMMER_WERT
+int 0001
+string input voltage of dimmer [volts]: 
+int 0002
+int 0028
+int 0000
+int 0000
+int 0004
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 1.2
+string dimming of clamp 58g: 
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_Kl58g_EIN
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string dimming of HWF-illumination: 
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DIMMUNG_WBL_SUCHBELEUCHTUNG_EIN
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string dimming of lights switch illumination: 
+int 0008
+int 0000
+int 0000
+int 0000
+string STAT_DIMMUNG_LICHTSCHALTERBELEUCHTUNG_EIN
+int 0001
+int 0008
+int 001E
+string on 
+string off 
+string vertical headlights aim control
+string 
+string STAT_AUSGANG_LWR_EIN
+int 0001
+string headlights vertical aim control: 
+int 0000
+int 0000
+int 0001
+int 0000
+int 0000
+int 003C
+string on 
+string off 
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string crash- and theft-prevention-alarme
+string 
+string crash- and theft-prevention-alarme
+int 0000
+int 0000
+int 0001
+int 0000
+string crash warning flasher
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_CRASH_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string theft-prevention warning flasher
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_DWA_WARNBLINKEN_AKTIV
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string TPS low beam warning flasher
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_DWA_AL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string TPS hgih beam warning flasher
+int 0006
+int 0028
+int 0000
+int 0000
+string STAT_DWA_FL_BLINKEN_AKTIV
+int 0001
+int 0006
+int 0046
+string on 
+string off 
+string crash-sensor active
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_CRASHSENSOR_AKTIV
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string TPS-alarm activated
+int 0009
+int 0028
+int 0000
+int 0000
+string STAT_DWA_AUSGELOEST
+int 0001
+int 0009
+int 0046
+string on 
+string off 
+string oil level sensor
+string 
+string oil level sensor
+int 0000
+int 0000
+int 0001
+int 0000
+string oil level warning (normal)
+int 0003
+int 0000
+int 0000
+int 0000
+string STAT_OELSTAND_WARNUNG1_AUSGELOEST
+int 0001
+int 0003
+int 001E
+string on 
+string off 
+string oil level warning (catastrophe)
+int 0003
+int 0028
+int 0000
+int 0000
+string STAT_OELSTAND_KATASTROPHE_AUSGELOEST
+int 0001
+int 0003
+int 0046
+string on 
+string off 
+string oil level sensor defect
+int 0006
+int 0000
+int 0000
+int 0000
+string STAT_OELSTANDSSENSOR_DEFEKT
+int 0001
+int 0006
+int 001E
+string on 
+string off 
+string input thermal oil level sensor
+int 0009
+int 0000
+int 0000
+int 0000
+string STAT_EINGANG_TOG_EIN
+int 0001
+int 0009
+int 001E
+string on 
+string off 
+string thermal oil level sensor (TOG)
+string 
+string thermal oil level sensor (TOG)
+int 0000
+int 0000
+int 0001
+int 0000
+string heating time [sec]
+int 0003
+int 0014
+int 0000
+int 0000
+string cooling time [sec]
+int 0007
+int 0014
+int 0000
+int 0000
+string STAT_TOG_HEIZZEIT_WERT
+int 0001
+int 0004
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string STAT_TOG_ABKUEHLZEIT_WERT
+int 0001
+int 0008
+int 0014
+real 0
+real 3.28
+real 0
+real 3.28
+string 
+string Check-Control-inputs
+string 
+string Check-Control-inputs
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_EINGANG_ZSK_EIN
+int 0001
+string ignition key:
+int 0003
+int 0000
+int 0000
+int 0000
+int 0003
+int 001E
+string on 
+string off 
+string STAT_EINGANG_GKFA_EIN
+int 0001
+string contact for driver's belt:
+int 0003
+int 0028
+int 0000
+int 0000
+int 0003
+int 0046
+string on 
+string off 
+string STAT_EINGANG_PANZERTUER_EIN
+int 0001
+string armored door:
+int 0006
+int 0000
+int 0000
+int 0000
+int 0006
+int 001E
+string on 
+string off 
+string STAT_EINGANG_BRFN_EIN
+int 0001
+string brake fluid level:
+int 0006
+int 0028
+int 0000
+int 0000
+int 0006
+int 0046
+string on 
+string off 
+string STAT_EINGANG_ALARM_EIN
+int 0001
+string DWA-alarme:
+int 0009
+int 0000
+int 0000
+int 0000
+int 0009
+int 001E
+string on 
+string off 
+string STAT_EINGANG_WWN_EIN
+int 0001
+string washer-fluid-level:
+int 0009
+int 0028
+int 0000
+int 0000
+int 0009
+int 0046
+string on 
+string off 
+string STAT_EINGANG_REIFEN_DEFEKT_EIN
+int 0001
+string tire defect:
+int 000C
+int 0000
+int 0000
+int 0000
+int 000C
+int 001E
+string on 
+string off 
+string read status of analog pitarm lever
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string STATUS_LENKSTOCKSCHALTER
+string 
+string 
+string OKAY
+string turn lights switch
+string 
+string voltage at turn lights switch [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SPANNUNG_BLK_SCHALTER_WERT
+int 0001
+int 0003
+int 0014
+real 0
+real 5
+real 0
+real 5
+string 
+string high beam / headlight flasher
+string 
+string voltage at high beam / headlight flasher switch [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SPANNUNG_FL_LH_SCHALTER_WERT
+int 0001
+int 0003
+int 0014
+real 0
+real 5
+real 0
+real 5
+string 
+string HVAC-potentiometer
+string 
+string voltae at HVAC-potentiometer [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string at low PU-wire
+int 0002
+int 0000
+int 0000
+int 0000
+string at high PU-wire
+int 0002
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_LWR_POTI_BEI_PU_LTG_LOW_WERT
+int 0001
+int 0003
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 
+string STAT_SPANNUNG_LWR_POTI_BEI_PU_LTG_HIGH_WERT
+int 0001
+int 0003
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 
+string dimmer's potentiometer
+string 
+string voltage at dimmer's potentiometer [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string at low PU-wire
+int 0002
+int 0000
+int 0000
+int 0000
+string at high PU-wire
+int 0002
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_DIMMER_POTI_BEI_PU_LTG_LOW_WERT
+int 0001
+int 0003
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 
+string STAT_SPANNUNG_DIMMER_POTI_BEI_PU_LTG_HIGH_WERT
+int 0001
+int 0003
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 
+string read status of analog pitarm lever
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+int 0003
+int 0000
+int 0000
+int 0000
+string STATUS_LESEN_LSS
+string 
+string 
+string OKAY
+string turn lights switch
+string 
+string voltage at turn lights switch [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SPANNUNG_BLK_SCHALTER_WERT
+int 0001
+int 0003
+int 0014
+real 0
+real 5
+real 0
+real 5
+string 
+string high beam / headlight flasher
+string 
+string voltage at high beam / headlight flasher switch [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string STAT_SPANNUNG_FL_LH_SCHALTER_WERT
+int 0001
+int 0003
+int 0014
+real 0
+real 5
+real 0
+real 5
+string 
+string HVAC-potentiometer
+string 
+string voltae at HVAC-potentiometer [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string at low PU-wire
+int 0002
+int 0000
+int 0000
+int 0000
+string at high PU-wire
+int 0002
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_LWR_POTI_BEI_PU_LTG_LOW_WERT
+int 0001
+int 0003
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 
+string STAT_SPANNUNG_LWR_POTI_BEI_PU_LTG_HIGH_WERT
+int 0001
+int 0003
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 
+string dimmer's potentiometer
+string 
+string voltage at dimmer's potentiometer [Volt]
+int 0000
+int 0000
+int 0001
+int 0000
+string at low PU-wire
+int 0002
+int 0000
+int 0000
+int 0000
+string at high PU-wire
+int 0002
+int 0028
+int 0000
+int 0000
+string STAT_SPANNUNG_DIMMER_POTI_BEI_PU_LTG_LOW_WERT
+int 0001
+int 0003
+int 0000
+real 0
+real 5
+real 0
+real 5
+string 
+string STAT_SPANNUNG_DIMMER_POTI_BEI_PU_LTG_HIGH_WERT
+int 0001
+int 0003
+int 0028
+real 0
+real 5
+real 0
+real 5
+string 
+string Activate
+int 0001
+int 0000
+int 0001
+int 0000
+string < F2 >  starting the control
+int 0006
+int 0005
+int 0000
+int 0001
+string < F8 >  selection of in- and / or outputs
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Clamp 30A
+string Kl30A
+string Clamp 30B
+string Kl30B
+string Clamp 15
+string Kl15
+string Clamp R
+string KlR
+string switch No.2 lowbeam
+string S2_AL
+string switch No.2 side lights
+string S2_SL
+string switch No.2 right turn
+string S2_BLK_R
+string switch No.2 left turn
+string S2_BLK_L
+string switch No.1 left turn
+string S1_BLK_L
+string switch No.1 right turn
+string S1_BLK_R
+string switch No.1 side lights
+string S1_SL
+string switch No.1 low beam
+string S1_AL
+string fog lamps switch
+string S_NSL
+string fog lights switch
+string S_NSW
+string high beam switch
+string S_FL
+string brake lights switch No.1
+string S1_BLS
+string brake lights switch No.2
+string S2_BLS
+string input key in ignition lock (ZSK)
+string ZSK
+string input seat belts lock (GKFA)
+string GKFA
+string headlight flasher switch
+string S_LH
+string hazard warning flasher switch
+string WBL
+string input KFN
+string KFN
+string input armoured door (safety / armoured car)
+string PANZTUE
+string input brake fluid level (BRFN)
+string BRFN
+string input air suspension (safety / armoured car)
+string LUFTAN
+string input fire extinguisher
+string LOESCHAN
+string input preheating / fuel injection
+string VGLESP
+string input CARB
+string CARB
+string input engine failsafe program
+string MOTNOT
+string input hold-up-alarm
+string ALARM
+string input washer fluid level
+string WWN
+string input tire defect
+string REIF_DEF
+string front left side light
+string SL_LV
+string inner rear left side light
+string SL_LHI
+string left fog light
+string NSW_L
+string left back up light
+string RFS_L
+string left low beam
+string AL_L
+string right low beam
+string AL_R
+string right fog light
+string NSW_R
+string right fog lamp
+string NSL_R
+string left brake light
+string BL_L
+string right license plate light
+string KZL_R
+string rear left side light
+string SL_LH
+string middle brake light
+string BL_M
+string right front side light
+string SL_RV
+string front right turn signal
+string BLK_RV
+string rear left turn signal
+string BLK_LH
+string left license plate light
+string KZL_L
+string vertical headlights aim control
+string LWR
+string right heigh beam
+string FL_R
+string left high beam
+string FL_L
+string right brake light
+string BL_R
+string rear right turn signal
+string BLK_RH
+string left fog lamp
+string NSL_L
+string inner rear right side light
+string SL_RHI
+string rear right side light
+string SL_RH
+string front left turn signal
+string BLK_LV
+string right back up light
+string RFS_R
+string activate failsafe function
+string NOTAKTIV
+string activate clamp 58g
+string KL58G_EIN
+string illumination of hazard warning flasher switch
+string WBLSUCH_EIN
+string illumination of lights switch
+string LSSUCH_EIN
+string trailer fog lamp
+string NLS_AH_EIN
+string trailer back up light
+string RFS_AH_EIN
+string commnuication start to trailer module
+string AHM_KOM_EIN
+string Activate
+int 0001
+int 0000
+int 0001
+int 0000
+string < F2 >  starting the control
+int 0006
+int 0005
+int 0000
+int 0001
+string < F8 >  selection of in- and / or outputs
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Clamp 30A
+string Kl30A
+string Clamp 30B
+string Kl30B
+string Clamp 15
+string Kl15
+string Clamp R
+string KlR
+string switch No.2 lowbeam
+string S2_AL
+string switch No.2 side lights
+string S2_SL
+string switch No.2 right turn
+string S2_BLK_R
+string switch No.2 left turn
+string S2_BLK_L
+string switch No.1 left turn
+string S1_BLK_L
+string switch No.1 right turn
+string S1_BLK_R
+string switch No.1 side lights
+string S1_SL
+string switch No.1 low beam
+string S1_AL
+string fog lamps switch
+string S_NSL
+string fog lights switch
+string S_NSW
+string high beam switch
+string S_FL
+string brake lights switch No.1
+string S1_BLS
+string brake lights switch No.2
+string S2_BLS
+string input key in ignition lock (ZSK)
+string ZSK
+string input seat belts lock (GKFA)
+string GKFA
+string headlight flasher switch
+string S_LH
+string hazard warning flasher switch
+string WBL
+string input KFN
+string KFN
+string input armoured door (safety / armoured car)
+string PANZTUE
+string input brake fluid level (BRFN)
+string BRFN
+string input air suspension (safety / armoured car)
+string LUFTAN
+string input fire extinguisher
+string LOESCHAN
+string input preheating / fuel injection
+string VGLESP
+string input CARB
+string CARB
+string input engine failsafe program
+string MOTNOT
+string input hold-up-alarm
+string ALARM
+string input washer fluid level
+string WWN
+string input tire defect
+string REIF_DEF
+string front left side light
+string SL_LV
+string inner rear left side light
+string SL_LHI
+string left fog light
+string NSW_L
+string left back up light
+string RFS_L
+string left low beam
+string AL_L
+string right low beam
+string AL_R
+string right fog light
+string NSW_R
+string right fog lamp
+string NSL_R
+string left brake light
+string BL_L
+string right license plate light
+string KZL_R
+string rear left side light
+string SL_LH
+string middle brake light
+string BL_M
+string right front side light
+string SL_RV
+string front right turn signal
+string BLK_RV
+string rear left turn signal
+string BLK_LH
+string left license plate light
+string KZL_L
+string vertical headlights aim control
+string LWR
+string right heigh beam
+string FL_R
+string left high beam
+string FL_L
+string right brake light
+string BL_R
+string rear right turn signal
+string BLK_RH
+string left fog lamp
+string NSL_L
+string inner rear right side light
+string SL_RHI
+string rear right side light
+string SL_RH
+string front left turn signal
+string BLK_LV
+string right back up light
+string RFS_R
+string activate failsafe function
+string NOTAKTIV
+string activate clamp 58g
+string KL58G_EIN
+string illumination of hazard warning flasher switch
+string WBLSUCH_EIN
+string illumination of lights switch
+string LSSUCH_EIN
+string trailer fog lamp
+string NLS_AH_EIN
+string trailer back up light
+string RFS_AH_EIN
+string Sleep-mode
+string SLEEPMODE
+string Activate
+int 0001
+int 0000
+int 0001
+int 0000
+string < F1 >  Plant-/transport-/servicemode (FeTraWe)
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  starting the control
+int 0006
+int 0005
+int 0000
+int 0001
+string < F8 >  selection of in- and / or outputs
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Clamp 30A
+string Kl30A
+string Clamp 30B
+string Kl30B
+string Clamp 15
+string Kl15
+string Clamp R
+string KlR
+string switch No.1 low beam
+string S1_AL
+string switch No.2 lowbeam
+string S2_AL
+string switch left turn
+string S_BLK_L
+string switch right turn
+string S_BLK_R
+string side lights switch
+string S_SL
+string fog lamps switch
+string S_NSL
+string fog lights switch
+string S_NSW
+string high beam switch
+string S_FL
+string Brake lights switch
+string S_BLS
+string input key in ignition lock (ZSK)
+string ZSK
+string input seat belts lock (GKFA)
+string GKFA
+string headlight flasher switch
+string S_LH
+string hazard warning flasher switch
+string WBL
+string input KFN
+string KFN
+string input armoured door (safety / armoured car)
+string PANZTUE
+string input brake fluid level (BRFN)
+string BRFN
+string input air suspension (safety / armoured car)
+string LUFTAN
+string input fire extinguisher
+string LOESCHAN
+string input preheating / fuel injection
+string VGLESP
+string input CARB
+string CARB
+string input engine failsafe program
+string MOTNOT
+string input hold-up-alarm
+string ALARM
+string input washer fluid level
+string WWN
+string input tire defect
+string REIF_DEF
+string front left side light
+string SL_LV
+string inner rear left side light
+string SL_LHI
+string left fog light
+string NSW_L
+string left back up light
+string RFS_L
+string left low beam
+string AL_L
+string right low beam
+string AL_R
+string right fog light
+string NSW_R
+string right fog lamp
+string NSL_R
+string left brake light
+string BL_L
+string right license plate light
+string KZL_R
+string rear left side light
+string SL_LH
+string middle brake light
+string BL_M
+string right front side light
+string SL_RV
+string front right turn signal
+string BLK_RV
+string rear left turn signal
+string BLK_LH
+string left license plate light
+string KZL_L
+string vertical headlights aim control
+string LWR
+string right heigh beam
+string FL_R
+string left high beam
+string FL_L
+string right brake light
+string BL_R
+string rear right turn signal
+string BLK_RH
+string left fog lamp
+string NSL_L
+string inner rear right side light
+string SL_RHI
+string rear right side light
+string SL_RH
+string front left turn signal
+string BLK_LV
+string right back up light
+string RFS_R
+string activate failsafe function
+string NOTAKTIV
+string activate clamp 58g
+string KL58G_EIN
+string illumination of hazard warning flasher switch
+string WBLSUCH_EIN
+string illumination of lights switch
+string LSSUCH_EIN
+string trailer fog lamp
+string NLS_AH_EIN
+string trailer back up light
+string RFS_AH_EIN
+string Sleep-mode
+string SLEEPMODE
+string Activate
+int 0001
+int 0000
+int 0001
+int 0000
+string < F1 >  Plant-/transport-/servicemode (FeTraWe)
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  starting the control
+int 0006
+int 0005
+int 0000
+int 0001
+string < F8 >  selection of in- and / or outputs
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Clamp 30A
+string Kl30A
+string Clamp 30B
+string Kl30B
+string Clamp 15
+string Kl15
+string Clamp R
+string KlR
+string switch No.1 low beam
+string S1_AL
+string switch No.2 lowbeam
+string S2_AL
+string switch left turn
+string S_BLK_L
+string switch right turn
+string S_BLK_R
+string side lights switch
+string S_SL
+string fog lamps switch
+string S_NSL
+string fog lights switch
+string S_NSW
+string high beam switch
+string S_FL
+string Brake lights switch
+string S_BLS
+string input key in ignition lock (ZSK)
+string ZSK
+string input seat belts lock (GKFA)
+string GKFA
+string headlight flasher switch
+string S_LH
+string hazard warning flasher switch
+string WBL
+string input KFN
+string KFN
+string input armoured door (safety / armoured car)
+string PANZTUE
+string input brake fluid level (BRFN)
+string BRFN
+string input air suspension (safety / armoured car)
+string LUFTAN
+string input fire extinguisher
+string LOESCHAN
+string input preheating / fuel injection
+string VGLESP
+string input CARB
+string CARB
+string input engine failsafe program
+string MOTNOT
+string input hold-up-alarm
+string ALARM
+string input washer fluid level
+string WWN
+string input tire defect
+string REIF_DEF
+string front left side light
+string SL_LV
+string inner rear left side light
+string SL_LHI
+string left fog light
+string NSW_L
+string left back up light
+string RFS_L
+string left low beam
+string AL_L
+string right low beam
+string AL_R
+string right fog light
+string NSW_R
+string right fog lamp
+string NSL_R
+string left brake light
+string BL_L
+string right license plate light
+string KZL_R
+string rear left side light
+string SL_LH
+string middle brake light
+string BL_M
+string right front side light
+string SL_RV
+string front right turn signal
+string BLK_RV
+string rear left turn signal
+string BLK_LH
+string left license plate light
+string KZL_L
+string vertical headlights aim control
+string LWR
+string right heigh beam
+string FL_R
+string left high beam
+string FL_L
+string right brake light
+string BL_R
+string rear right turn signal
+string BLK_RH
+string left fog lamp
+string NSL_L
+string inner rear right side light
+string SL_RHI
+string rear right side light
+string SL_RH
+string front left turn signal
+string BLK_LV
+string right back up light
+string RFS_R
+string activate failsafe function
+string NOTAKTIV
+string activate clamp 58g
+string KL58G_EIN
+string illumination of hazard warning flasher switch
+string WBLSUCH_EIN
+string illumination of lights switch
+string LSSUCH_EIN
+string trailer fog lamp
+string NLS_AH_EIN
+string trailer back up light
+string RFS_AH_EIN
+string Sleep-mode
+string SLEEPMODE
+string Activate
+int 0001
+int 0000
+int 0001
+int 0000
+string < F2 >  starting the control
+int 0006
+int 0005
+int 0000
+int 0001
+string < F8 >  selection of in- and / or outputs
+int 0012
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string Clamp 30A
+string Kl30A
+string Clamp 30B
+string Kl30B
+string Clamp 15
+string Kl15
+string Clamp R
+string KlR
+string switch No.1 low beam
+string S1_AL
+string switch No.2 lowbeam
+string S2_AL
+string switch left turn
+string S_BLK_L
+string switch right turn
+string S_BLK_R
+string side lights switch
+string S_SL
+string fog lamps switch
+string S_NSL
+string high beam switch
+string S_FL
+string Brake lights switch
+string S_BLS
+string input key in ignition lock (ZSK)
+string ZSK
+string input seat belts lock (GKFA)
+string GKFA
+string headlight flasher switch
+string S_LH
+string hazard warning flasher switch
+string WBL
+string Neon-control-unit, turn light front left
+string NEON_BLK_VL
+string Neon-control-unit, turn light front right
+string NEON_BLK_VR
+string Neon-control-unit, turn light rear left
+string NEON_BLK_HL
+string Neon-control-unit, turn light rear right
+string NEON_BLK_HR
+string Neon-control-unit, left brake light
+string NEON_BL_L
+string Neon-control-unit, right brake light
+string NEON_BL_R
+string left open door warning light
+string TWL_L
+string right door open warning light
+string TWL_R
+string signal reverse gear
+string SIGNAL_RFS
+string additional turn light left
+string Z_BLK_L
+string additional turn light right
+string Z_BLK_R
+string input armoured door (safety / armoured car)
+string PANZTUE
+string input brake fluid level (BRFN)
+string BRFN
+string input hold-up-alarm
+string ALARM
+string input washer fluid level
+string WWN
+string input tire defect
+string REIF_DEF
+string front left side light
+string SL_LV
+string left low beam
+string AL_L
+string right low beam
+string AL_R
+string fog lamp
+string NSL_L
+string left brake light
+string BL_L
+string right license plate light
+string KZL_R
+string rear left side light
+string SL_LH
+string middle brake light
+string BL_M
+string right front side light
+string SL_RV
+string front right turn signal
+string BLK_RV
+string rear left turn signal
+string BLK_LH
+string left license plate light
+string KZL_L
+string vertical headlights aim control
+string LWR
+string right heigh beam
+string FL_R
+string left high beam
+string FL_L
+string right brake light
+string BL_R
+string rear right turn signal
+string BLK_RH
+string fog lamp
+string NSL_L
+string rear right side light
+string SL_RH
+string front left turn signal
+string BLK_LV
+string back up lights
+string RFS_R
+string activate failsafe function
+string NOTAKTIV
+string activate clamp 58g
+string KL58G_EIN
+string illumination of hazard warning flasher switch
+string WBLSUCH_EIN
+string illumination of lights switch
+string LSSUCH_EIN
+string trailer fog lamp
+string NLS_AH_EIN
+string trailer back up light
+string RFS_AH_EIN
+string Sleep-mode
+string SLEEPMODE
+string Plant-/transport-/servicemode (FeTraWe)
+int 0001
+int 0000
+int 0001
+int 0000
+string 
+string 
+string < F1 >  Set plant-mode
+int 0004
+int 0005
+int 0000
+int 0001
+string < F2 >  Set transport-mode
+int 0006
+int 0005
+int 0000
+int 0001
+string < F3 >  Set service-mode
+int 0008
+int 0005
+int 0000
+int 0001
+string < F4 >  Deactivate plant-/transport-/servicemode (FeTraWe)
+int 000A
+int 0005
+int 0000
+int 0001
+string < F9 >  Print screen
+int 0014
+int 0005
+int 0000
+int 0001
+string < F10>  Back
+int 0016
+int 0005
+int 0000
+int 0001
+string <Shift> + < F10>  Exit
+int 0016
+int 002D
+int 0000
+int 0001
+string English Metric
+string ???
+string  Version 
+string INITIALISIERUNG
+string 
+string 
+string VARIANTE
+int 0000
+string 
+bool 00
+string Variant checking
+string . 
+string Program will be stopped!
+string LCM
+string LCM_A
+string LCM_II
+string LCM_III
+string LCM_IV
+string Variant checking
+string Requested control unit: '
+string ' not found. 
+string Control unit found: '
+string '. 
+string Program will be stopped!
+string INFO
+string 
+string 
+string ECU
+int 0001
+string 
+string REVISION
+int 0001
+string 
+string ORIGIN
+int 0001
+string 
+string COMMENT
+int 0001
+string 
+string SPRACHE
+int 0001
+string 
+int 0000
+int 0002
+int 0000
+int 0002
+bool 00
+string LCM_III
+string CODIERUNG_LESEN
+string 
+string 
+string COD_E52_LINKSLENKER
+int 0001
+string COD_E52_RECHTSLENKER
+int 0001
+bool 01
+bool 01
+bool 01
+string Checking versions
+string Versions do not match. 
+string Malfunction possible!
+string Checking language variants
+string Language variants do not match. 
+string Malfunction possible!
+bool 01
+count 1D08

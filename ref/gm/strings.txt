@@ -20,13 +20,13 @@ SBFTT Switch Window regulator Driver touch :
 -- Front --
 L D :  
 L U :  
-R D : 02 36 01 3E
-R U : 02 22 01 2A
+R D : 02 36 01
+R U : 02 22 01
 
 -- Rear -- 
-L D : 00 00 01 0A
+L D : 00 00 01
 L U :
-R D : 00 03 01 09
+R D : 00 03 01
 R U :            
 
 
@@ -34,44 +34,44 @@ R U :
 
 // Extras
 F L D P : 01 36 01 3D
-00 04 01 0E : RR U P
-01 18 01 13 : LF D P
-00 46 01 4C : RR U P
-02 32 01 3A : RF U P
+00 04 01 : RR U P
+01 18 01 : LF D P
+00 46 01 : RR U P
+02 32 01 : RF U P
 
-00 47 01 4D : RR D F
-00 45 01 4F : LR D F
+00 47 01 : RR D F
+00 45 01 : LR D F
 
 
 // Driver's seat
 
-05 00 01 0F : Driver seat forward
-05 01 01 0E : Driver seat backward
-05 02 01 0D : Driver seat up
-05 03 01 0C : Driver seat down
-05 04 01 0B : Driver seat tilt forward
-05 05 01 0A : Driver seat tilt backward
-05 06 01 09 : Driver seat backrest forward
-05 07 01 08 : Driver seat backrest backward
-05 08 01 07 : Driver seat headrest up
-05 09 01 06 : Driver seat headrest down
-05 0A 01 05 : ?? Possibly sport bolster 
-05 0B 01 04 : ?? Possibly sport bolster 
-05 0C 01 03 : Driver seat upper backwards
-05 0D 01 02 : Driver seat upper forwards 
+05 00 01 : Driver seat forward
+05 01 01 : Driver seat backward
+05 02 01 : Driver seat up
+05 03 01 : Driver seat down
+05 04 01 : Driver seat tilt forward
+05 05 01 : Driver seat tilt backward
+05 06 01 : Driver seat backrest forward
+05 07 01 : Driver seat backrest backward
+05 08 01 : Driver seat headrest up
+05 09 01 : Driver seat headrest down
+05 0A 01 : ?? Possibly sport bolster 
+05 0B 01 : ?? Possibly sport bolster 
+05 0C 01 : Driver seat upper backwards
+05 0D 01 : Driver seat upper forwards 
 
 
 // Steering wheel
 
-05 0E 01 01 : Steering wheel up
-05 0F 01 00 : Steering wheel down
-05 10 01 1F : Steering wheel forwards
-05 11 01 1E : Steering wheel backwards
+05 0E 01 : Steering wheel up
+05 0F 01 : Steering wheel down
+05 10 01 : Steering wheel forwards
+05 11 01 : Steering wheel backwards
 
-00 09 01 03 : Trunk open
-00 42 01 48 : Unlock rear doors (no toggle)
-00 41 01 4B : Lock   rear doors (no toggle)
-00 0B 01 01 : Central door lock switch (toggle)
+00 09 01 : Trunk open
+00 42 01 : Unlock rear doors (no toggle)
+00 41 01 : Lock   rear doors (no toggle)
+00 0B 01 : Central door lock switch (toggle)
 
 // Needs tested...
 
@@ -87,7 +87,6 @@ F L D P : 01 36 01 3D
 00 91 : Interior light, hazard button
 4E 01 : Turn on the 'clown nose' for 3 seconds
 
-01 00 : Unlock doors (no toggle) 
 00 92 : seat memory something.. 
 
 // ?? not sure..

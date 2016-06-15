@@ -3,43 +3,44 @@ src: 0x3F // DIA
 dst: 0x00 // ZKE (body module)
 cmd: 0xC0 // Set IO status
 
-LR left  rear
-RR right rear
 LF left  front
-LR right front
+RF right front
+
+LR left  rear
+
+RR right rear
+
 SR sunroof
 
-0A 03 01 00 03 04 00 03 2B 00 06 6F 6E 20 20 0A 06 6F 66 66 20 20 0A 06
-0A 03 01 00 03 09 00 03 2B 00 06 6F 6E 20 20 0A 06 6F 66 66 20 20 0A 06
+
+SBFTA Switch Window regulator Driver open  :  
+SBFTZ Switch Window regulator Driver close : 
+SBFTT Switch Window regulator Driver touch : 
+
+-- Front --
+L D :  
+L U :  
+R D : 02 36 01 3E
+R U : 02 22 01 2A
+
+-- Rear -- 
+L D : 00 00 01 0A
+L U :
+R D : 00 03 01 09
+R U :            
 
 
-00 00 01 0A : LR D F
-00 44 01 4E : LR U F
 
-            : LF D F
+
+// Extras
+F L D P : 01 36 01 3D
+00 04 01 0E : RR U P
 01 18 01 13 : LF D P
-01 1A 01 11 : LF U F
-
-// Needs testing
-00 03 01 09 : RR D F
-00 47 01 4D : RR D F
-
-            : RR U F
-00 04 01 0E : RR U P
-
-02 36 01 3E : RF D F
-02 22 01 2A : RF U F
-
-
-
-
-00 01 01 0B : LR U P
-00 45 01 4F : LR U P
-00 04 01 0E : RR U P
 00 46 01 4C : RR U P
-01 36 01 3D : LF D P
 02 32 01 3A : RF U P
-00 46 01 4C : RR U P
+
+00 47 01 4D : RR D F
+00 45 01 4F : LR D F
 
 
 // Driver's seat
@@ -67,12 +68,14 @@ SR sunroof
 05 10 01 1F : Steering wheel forwards
 05 11 01 1E : Steering wheel backwards
 
+00 09 01 03 : Trunk open
+00 42 01 48 : Unlock rear doors (no toggle)
+00 41 01 4B : Lock   rear doors (no toggle)
+00 0B 01 01 : Central door lock switch (toggle)
 
 // Needs tested...
 
 00 02 : Wipers+washer
-00 08 : Trunk open
-00 0B : Lock doors (no toggle)
 00 10 : Wheel up, interior on 
 00 14 : Wipers (one wipe?)
 00 15 : Wipers (auto?)
@@ -82,10 +85,10 @@ SR sunroof
 00 4B : Washer only
 00 56 : ALARM!!!
 00 91 : Interior light, hazard button
-00 92 : toggle locks ??
-01 00 : Unlock doors (no toggle) 
 4E 01 : Turn on the 'clown nose' for 3 seconds
 
+01 00 : Unlock doors (no toggle) 
+00 92 : seat memory something.. 
 
 // ?? not sure..
 00 101 : front windows fully down

@@ -21,7 +21,6 @@ function goodbye() {
 
 // General module
 function gm(object, action) {
-	var RequestDoorsStatus        = new Buffer([0x80, 0x00, 0x79]);
 	var FoldMirrorsE46            = new Buffer([0x9b, 0x51, 0x6d, 0x90]);
 	var UnfoldMirrorsE46          = new Buffer([0x9b, 0x51, 0x6d, 0xa0]);
 
@@ -41,16 +40,6 @@ function gm(object, action) {
 	var LockDriverDoor            = new Buffer([0x0c, 0x47, 0x01]);
 	var UnlockDoors               = new Buffer([0x0c, 0x45, 0x01]); // 0x0c, 0x03, 0x01
 	var ToggleLockDoors           = new Buffer([0x0c, 0x03, 0x01]);
-
-	var OpenWindowDriverFront     = new Buffer([0x0c, 0x52, 0x01]);
-	var OpenWindowDriverRear      = new Buffer([0x0c, 0x41, 0x01]);
-	var OpenWindowPassengerFront  = new Buffer([0x0c, 0x54, 0x01]);
-	var OpenWindowPassengerRear   = new Buffer([0x0c, 0x44, 0x01]);
-
-	var CloseWindowDriverFront    = new Buffer([0x0c, 0x53, 0x01]);
-	var CloseWindowDriverRear     = new Buffer([0x0c, 0x42, 0x01]);
-	var CloseWindowPassengerFront = new Buffer([0x0c, 0x55, 0x01]);
-	var CloseWindowPassengerRear  = new Buffer([0x0c, 0x43, 0x01]);
 
 	var OpenSunroof               = new Buffer([0x0c, 0x7e, 0x01]);
 	var CloseSunroof              = new Buffer([0x0c, 0x7f, 0x01]);

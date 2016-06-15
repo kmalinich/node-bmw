@@ -12,6 +12,7 @@ var _modules = {
 	'CID'                    : 0x46,
 	'DIA'                    : 0x3F,
 	'DME'                    : 0x12,
+	'DME'                    : 0xB8,
 	'DSP'                    : 0x6A,
 	'EWS'                    : 0x44,
 	'GLO'                    : 0xBF,

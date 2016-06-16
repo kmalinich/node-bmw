@@ -34,50 +34,41 @@ var ibus_interface = function(device_path) {
 
 	// implementation
 	function init_ibus() {
-		// Auto-port-find functionality
-		serialport.list(function (err, ports) {
-			ports.forEach(function(port) {
-				if (port.comName.includes('USB')) {
-					log.info('[ibus_interface] USB->Serial converter found!');
+		device      = '/dev/ttyUSB0'; 
+		serial_port = new serialport.SerialPort(device, {
+			rtscts   : true,
+			baudRate : 9600,
+			dataBits : 8,
+			parity   : 'even',
+			parser   : serialport.parsers.raw,
+			stopBits : 1,
+		}, false);
 
-					device      = port.comName;
-					serial_port = new serialport.SerialPort(device, {
-						rtscts   : true,
-						baudRate : 9600,
-						dataBits : 8,
-						parity   : 'even',
-						parser   : serialport.parsers.raw,
-						stopBits : 1,
-					}, false);
+		serial_port.open(function(error) {
+			if (error) {
+				log.error('[ibus_interface] Failed to open: ' + error);
+			} else {
+				log.info('[ibus_interface] Port open [' + device + ']');
+				_self.emit('port_open');
 
-					serial_port.open(function(error) {
-						if (error) {
-							log.error('[ibus_interface] Failed to open: ' + error);
-						} else {
-							log.info('[ibus_interface] Port open [' + device + ']');
-							_self.emit('port_open');
+				serial_port.on('data', function(data) {
+					//log.debug('[ibus_interface] Data on port: ', data);
 
-							serial_port.on('data', function(data) {
-								//log.debug('[ibus_interface] Data on port: ', data);
+					last_activity_time = process.hrtime();
+				});
 
-								last_activity_time = process.hrtime();
-							});
+				serial_port.on('error', function(err) {
+					log.error("[ibus_interface] Error", err);
+					shutdown(startup);
+				});
 
-							serial_port.on('error', function(err) {
-								log.error("[ibus_interface] Error", err);
-								shutdown(startup);
-							});
+				parser = new ibus_protocol();
+				parser.on('message', on_message);
 
-							parser = new ibus_protocol();
-							parser.on('message', on_message);
+				serial_port.pipe(parser);
 
-							serial_port.pipe(parser);
-
-							watch_for_empty_bus(process_write_queue);
-						}
-					});
-				}
-			});
+				watch_for_empty_bus(process_write_queue);
+			}
 		});
 	}
 

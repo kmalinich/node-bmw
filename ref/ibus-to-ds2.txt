@@ -24,9 +24,3 @@ AD = Device address (who is talking to Diagnostics)
 LA = Length all bytes (entire packet)
 ..Data...
 CS = Checksum
-
-
-// Example: Read IHKA fault memory
-
-DS2  : 5B LA 00 CS
-IBUS : 5B LL 3F 04 00 CS

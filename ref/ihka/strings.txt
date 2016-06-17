@@ -1,0 +1,11 @@
+// Start/keep diagnosing (keepalive signal)
+3F LL 5B 9E CS
+
+// Stop diagnosing
+3F LL 5B 9F CS
+
+
+// Blower to 50%
+3F LL 5B 07 04 00 00 6C 01 32 CS
+// Blower to 100%
+3F LL 5B 07 04 00 00 6C 01 64 CS

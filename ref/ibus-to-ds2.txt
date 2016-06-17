@@ -2,17 +2,17 @@ Diagnostic port
 D2  packet:       C8 10 A0 89 12 98 51 50 05 21 12 20 06 23 37 7E
                   AD LA [----data-segment--------------------] CS
 CDC port
-ibus Packet:   C8 0F 3F A0 89 12 98 51 50 05 21 12 20 06 23 37 5E
+ibus packet:   C8 0F 3F A0 89 12 98 51 50 05 21 12 20 06 23 37 5E
                TX LF RX [----data-segment--------------------] CS
 
-D2 packet:       C8 05 40 91 CS
-                 AD LA [dat] CS
+D2 packet:      C8 05 40 91 CS
+                AD LA [dat] CS
 
-ibus Packet: 3F 04 C8 40 91 22
+ibus packet: 3F 04 C8 40 91 22
              TX LF RX [dat] CS
 
 
-Ibus Packet:
+ibus packet:
 TX = sender address
 LF = length of following bytes (packet length - 2)
 RX = receiver address

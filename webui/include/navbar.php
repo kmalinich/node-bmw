@@ -8,7 +8,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/">
-				<img alt="node-ibus" class="navbar-brand-img" src="/images/charisma-top-no-shadow.png">
+				<img alt="node-bmw" class="navbar-brand-img" src="/images/charisma-top-no-shadow.png">
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar">
@@ -16,6 +16,7 @@
 				<li><a href="/">Home</a></li> 
 				<li><a href="/gm">GM</a></li> 
 				<li><a href="/lcm">LCM</a></li> 
+				<li><a href="/ws-ibus">IBUS websocket</a></li> 
 			</ul>
 		</div>
 	</div>

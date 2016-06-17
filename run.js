@@ -85,4 +85,4 @@ dispatcher.onError(function(req, res) {
 http.createServer(function (req, res) {
 	console.log('%s Request: %s', req.method, req.url);
 	dispatcher.dispatch(req, res);
-}).listen(8080, '0.0.0.0');
+}).listen(3001, '0.0.0.0');

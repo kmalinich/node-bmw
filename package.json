@@ -1,5 +1,5 @@
 {
-	"name"        : "node-ibus-interface",
+	"name"        : "node-bmw",
 	"version"     : "0.0.1",
 	"description" : "NodeJS-powered BMW IBUS interface",
 	"main"        : "run.js",
@@ -20,7 +20,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/kmalinich/node-ibus-interface.git"
+		"url": "git+https://github.com/kmalinich/node-bmw.git"
 	},
 	"keywords": [
 		"bmw",
@@ -29,7 +29,7 @@
 	"author"  : "kdm <kennygprs@gmail.com>",
 	"license" : "ISC",
 	"bugs"    : {
-		"url": "https://github.com/kmalinich/node-ibus-interface/issues"
+		"url": "https://github.com/kmalinich/node-bmw/issues"
 	},
-	"homepage": "https://github.com/kmalinich/node-ibus-interface#readme"
+	"homepage": "https://github.com/kmalinich/node-bmw#readme"
 }

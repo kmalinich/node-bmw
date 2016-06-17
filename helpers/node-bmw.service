@@ -1,16 +1,14 @@
 [Unit]
 After       = network.target
 Requires    = network.target
-After       = dnsmasq.service
-Requires    = dnsmasq.service
 
 [Service]
-ExecStart=/usr/local/bin/node /root/code/node-ibus-interface/run.js
-WorkingDirectory=/root/code/node-ibus-interface
+ExecStart=/usr/local/bin/node /usr/local/node-bmw/run.js
+WorkingDirectory=/usr/local/node-bmw
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=node-ibus-interface
+SyslogIdentifier=node-bmw
 User=root
 Group=root
 Environment=NODEPATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/local/lib/node_modules

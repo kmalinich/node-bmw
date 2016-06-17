@@ -1,3 +1,6 @@
+//// NOPE!
+
+
 // Start/keep diagnosing (keepalive signal)
 3F LL 80 9E CS
 

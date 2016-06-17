@@ -5,7 +5,62 @@
 3F LL 5B 9F CS
 
 
+Display test 1 5B 0A 07 04 00 01 86 01 C2 16
+Display test 2 5B 0A 07 04 00 01 86 01 E3 37
+Display test 3 5B 0A 07 04 00 01 86 01 E4 30 
+Display test 4 5B 0A 07 04 00 01 86 01 A1 75 
+Display test ? 5B 0A 07 04 00 01 86 01 00 D4 
+
+
 // Blower to 50%
 3F LL 5B 07 04 00 00 6C 01 32 CS
 // Blower to 100%
 3F LL 5B 07 04 00 00 6C 01 64 CS
+
+
+// Flaps, 0-255
+// VV = value
+// Checksums and length removed, configured as IBUS packets
+
+F1: Ventilation
+F2: Dynamic pressure
+F3: Footwell
+F4: Defroster
+F5: Rear compartment
+F6: Fresh air
+                     F1 F2 F3 F4 F5 F6
+3F LL 5B 07 04 00 01 45 06 FF FF 4D 00 00 1A CS
+3F LL 5B 07 04 00 01 45 06 FF 1A 4D 00 00 1A CS
+3F LL 5B 07 04 00 01 45 06 FF 1A 4D 1A 00 1A CS
+3F LL 5B 07 04 00 01 45 06 1A 1A 4D 1A 00 1A CS
+3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 00 1A CS
+3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 1A 1A CS
+
+
+executeJob('ihka39_4.prg'): 'STEUERN_SPRITZDUESENHEIZUNG'
+executeJob('ihka39_4.prg'): 'STATUS_IO'
+ (Send): 5B 05 0B 04 51 
+ (Resp): 5B 08 A0 E3 00 0F A5 BA 
+ (ArgBinary): 4F 4E 
+executeJob('ihka39_4.prg'): 'STEUERN_KLIMAKOMPRESSOR'
+executeJob('ihka39_4.prg'): 'STATUS_IO'
+ (Send): 5B 05 0B 04 51 
+ (Resp): 5B 08 A0 E3 00 0F A5 BA 
+ (ArgBinary): 4F 4E 
+executeJob('ihka39_4.prg'): 'STEUERN_RELAIS_ZUSATZLUEFTER'
+executeJob('ihka39_4.prg'): 'STATUS_IO'
+ (Send): 5B 05 0B 04 51 
+ (Resp): 5B 08 A0 E3 00 0F A5 BA 
+ (ArgBinary): 4F 4E 
+executeJob('ihka39_4.prg'): 'STEUERN_ZUSATZWASSERPUMPE'
+executeJob('ihka39_4.prg'): 'STATUS_IO'
+ (Send): 5B 05 0B 04 51 
+ (Resp): 5B 08 A0 E3 00 0F E5 FA 
+
+
+executeJob('ihka39_4.prg'): 'STEUERN_WASSERVENTIL'
+ (Send): 5B 0B 07 01 00 01 BD 02 01 01 E8 
+ (Resp): 5B 04 A0 FF 
+ (Send): 5B 0D 07 04 00 00 B8 04 01 68 01 68 E9 
+ (Resp): 5B 04 A0 FF 
+

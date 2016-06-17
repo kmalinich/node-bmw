@@ -17,10 +17,8 @@ function on_signal_int() {
 }
 
 function on_dbus_data(data) {
-	var log_string = 'dbus_read,'+bus_modules.get_module_name(data.src)+','+bus_modules.get_module_name(data.dst)+','+data.msg+',';
-	//console.log(log_string,data.msg);
-
-	console.log(log_string,data.msg[0],data.msg);
+	var module_dst = bus_modules.get_module_name(data.dst);
+	console.log('[ibus-reader] %s,', module_dst, data.msg);
 }
 
 function init() {

@@ -2,9 +2,8 @@ var serialport    = require('serialport');
 var clc           = require('cli-color');
 var util          = require('util');
 var event_emitter = require('events').EventEmitter;
-var ibus_protocol = require('./ibus-protocol.js');
-var ibus_modules  = require('./ibus-modules.js');
-
+var dbus_protocol = require('./dbus-protocol.js');
+var bus_modules   = require('../lib/bus-modules.js');
 var Log           = require('log');
 var log           = new Log('info');
 
@@ -12,15 +11,15 @@ log.on('line', function(line){
 	console.log(line);
 });
 
-var ibus_interface = function(device_path) {
+var dbus_interface = function(device_path) {
 
 	// self reference
 	var _self = this;
 
 	// exposed data
 	this.get_interface = get_interface;
-	this.init_ibus     = init_ibus;
-	this.close_ibus    = close_ibus;
+	this.init_dbus     = init_dbus;
+	this.close_dbus    = close_dbus;
 	this.startup       = startup;
 	this.shutdown      = shutdown;
 	this.send_message  = send_message;
@@ -33,10 +32,10 @@ var ibus_interface = function(device_path) {
 	var queue              = [];
 
 	// implementation
-	function init_ibus() {
-		device      = '/dev/ttyUSB0'; 
+	function init_dbus() {
+		device      = '/dev/rfcomm0'; 
 		serial_port = new serialport.SerialPort(device, {
-			rtscts   : true,
+			//rtscts   : true,
 			baudRate : 9600,
 			dataBits : 8,
 			parity   : 'even',
@@ -46,23 +45,23 @@ var ibus_interface = function(device_path) {
 
 		serial_port.open(function(error) {
 			if (error) {
-				log.error('[ibus_interface] Failed to open: ' + error);
+				log.error('[dbus_interface] Failed to open: ' + error);
 			} else {
-				log.info('[ibus_interface] Port open [' + device + ']');
+				log.info('[dbus_interface] Port open [' + device + ']');
 				_self.emit('port_open');
 
 				serial_port.on('data', function(data) {
-					//log.debug('[ibus_interface] Data on port: ', data);
+					//log.debug('[dbus_interface] Data on port: ', data);
 
 					last_activity_time = process.hrtime();
 				});
 
 				serial_port.on('error', function(err) {
-					log.error("[ibus_interface] Error", err);
+					log.error("[dbus_interface] Error", err);
 					shutdown(startup);
 				});
 
-				parser = new ibus_protocol();
+				parser = new dbus_protocol();
 				parser.on('message', on_message);
 
 				serial_port.pipe(parser);
@@ -101,13 +100,13 @@ var ibus_interface = function(device_path) {
 		// process 1 message
 		var data_buffer = queue.pop();
 
-		log.debug(clc.blue('[ibus_interface] Write queue length: '), queue.length);
+		log.debug(clc.blue('[dbus_interface] Write queue length: '), queue.length);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
-				log.error('[ibus_interface] Failed to write: ' + error);
+				log.error('[dbus_interface] Failed to write: ' + error);
 			} else {
-				// log.info('[ibus_interface]', clc.white('Wrote to device:'), data_buffer, resp);
+				// log.info('[dbus_interface]', clc.white('Wrote to device:'), data_buffer, resp);
 
 				serial_port.drain(function(error) {
 					log.debug(clc.white('Data drained'));
@@ -123,15 +122,15 @@ var ibus_interface = function(device_path) {
 		});
 	}
 
-	function close_ibus(callb) {
+	function close_dbus(callback) {
 		serial_port.close(function(error) {
 			if (error) {
-				log.error('[ibus_interface] Error closing port: ', error);
-				callb();
+				log.error('[dbus_interface] Error closing port: ', error);
+				callback();
 			} else {
-				log.info('[ibus_interface] Port closed [' + device + ']');
+				log.info('[dbus_interface] Port closed [' + device + ']');
 				parser = null;
-				callb();
+				callback();
 			}
 		});
 	}
@@ -141,28 +140,27 @@ var ibus_interface = function(device_path) {
 	}
 
 	function startup() {
-		init_ibus();
+		init_dbus();
 	}
 
-	function shutdown(callb) {
-		log.info('[ibus_interface] Shutting down ibus device..');
-		close_ibus(callb);
+	function shutdown(callback) {
+		log.info('[dbus_interface] Shutting down dbus device..');
+		close_dbus(callback);
 	}
 
 	function on_message(msg) {
-		log.debug('[ibus_interface] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
+		log.debug('[dbus_interface] Raw message: ', msg.dst, msg.len, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
 		_self.emit('data', msg);
 	}
 
 	function send_message(msg) {
-		var data_buffer = ibus_protocol.create_ibus_message(msg);
+		var data_buffer = dbus_protocol.create_dbus_message(msg);
 
-		// log.info('[send_message] Src :', ibus_modules.get_module_name(msg.src.toString(16)));
-		// log.info('[send_message] Dst :', ibus_modules.get_module_name(msg.dst.toString(16)));
-		log.debug('[ibus_interface] Send message: ', data_buffer);
+		// log.info('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
+		log.debug('[dbus_interface] Send message: ', data_buffer);
 
 		if (queue.length > 1000) {
-			log.warning('[ibus_interface] Queue too large, dropping message..', data_buffer);
+			log.warning('[dbus_interface] Queue too large, dropping message..', data_buffer);
 			return;
 		}
 
@@ -171,5 +169,5 @@ var ibus_interface = function(device_path) {
 
 };
 
-util.inherits(ibus_interface, event_emitter);
-module.exports = ibus_interface;
+util.inherits(dbus_interface, event_emitter);
+module.exports = dbus_interface;

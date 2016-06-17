@@ -1,38 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport"              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<meta name="theme-color"           content="#4e0d92">
-		<link rel="icon"                   href="/images/charisma-256px.png" type="image/png" size="256x256">
-		<title>NodeJS IBUS</title>
-		<link rel="stylesheet" href="/css/bootstrap.css"/>
-		<link rel="stylesheet" href="/css/node-ibus.css"/>
+		<?php include './include/head.php'; ?>
+		<?php include './include/css.php'; ?>
 	</head>
 	<body>
-		<nav class="navbar navbar-default add-shadow">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="/index.html">
-						<img alt="node-ibus" class="navbar-brand-img" src="/images/charisma-top-no-shadow.png">
-					</a>
-				</div>
-				<div class="collapse navbar-collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<li><a href="/index.html">Home</a></li> 
-						<li><a href="/gm.html">GM</a></li> 
-						<li><a href="/lcm.html">LCM</a></li> 
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 			<form class="form-horizontal" id="form-lcm" action="javascript:form_lcm();">
 
@@ -479,7 +452,5 @@
 		</form>
 	</div>
 </body>
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/node-ibus.js"></script>
+<?php include './include/scripts.php'; ?>
 </html>

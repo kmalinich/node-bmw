@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // IBUS libraries
-var ibus_interface = require('./ibus-interface.js');
-var ibus_modules   = require('./ibus-modules.js');
+var ibus_interface = require('./ibus/ibus-interface.js');
+var bus_modules    = require('./lib/bus-modules.js');
 var GM             = require('./modules/GM.js');
 var LCM            = require('./modules/LCM.js');
 

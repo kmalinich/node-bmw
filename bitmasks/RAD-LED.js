@@ -1,18 +1,13 @@
 #!/usr/bin/env node
 
-// Color terminal output
-var clc = require('cli-color');
-var wait = require('wait.for');
-
 // Libraries
-var ibus_interface = require('../ibus-interface.js');
-var ibus_modules   = require('../ibus-modules.js');
-
-// Serial device path
-var device = '/dev/tty.SLAB_USBtoUART';
+var clc            = require('cli-color');
+var wait           = require('wait.for');
+var ibus_interface = require('../ibus/ibus-interface.js');
+var bus_modules    = require('../lib/bus-modules.js');
 
 // IBUS connection handle
-var ibus_connection = new ibus_interface(device);
+var ibus_connection = new ibus_interface();
 
 // Run shutdown() on SIGINT
 process.on('SIGINT', shutdown);

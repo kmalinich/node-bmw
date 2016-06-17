@@ -6,7 +6,7 @@ var wait = require('wait.for');
 
 // Libraries
 var ibus_interface = require('../ibus-interface.js');
-var ibus_modules   = require('../ibus-modules.js');
+var bus_modules   = require('../bus-modules.js');
 
 // Serial device path
 var device = '/dev/tty.SLAB_USBtoUART';

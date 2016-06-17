@@ -11,7 +11,8 @@
 		"querystring"    : "*",
 		"serialport"     : "^3.1.2",
 		"url"            : "*",
-		"wait.for"       : "*"
+		"wait.for"       : "*",
+		"websocket"      : "*"
 	},
 	"devDependencies": {},
 	"scripts": {

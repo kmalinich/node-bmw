@@ -5,11 +5,11 @@
 3F LL 5B 9F CS
 
 
-Display test 1 5B 0A 07 04 00 01 86 01 C2 16
-Display test 2 5B 0A 07 04 00 01 86 01 E3 37
-Display test 3 5B 0A 07 04 00 01 86 01 E4 30 
-Display test 4 5B 0A 07 04 00 01 86 01 A1 75 
-Display test ? 5B 0A 07 04 00 01 86 01 00 D4 
+Display test 1 3F LL 5B 07 04 00 01 86 01 C2 CS
+Display test 2 3F LL 5B 07 04 00 01 86 01 E3 CS
+Display test 3 3F LL 5B 07 04 00 01 86 01 E4 CS
+Display test 4 3F LL 5B 07 04 00 01 86 01 A1 CS
+Display test ? 3F LL 5B 07 04 00 01 86 01 00 CS
 
 
 // Blower to 50%
@@ -28,13 +28,14 @@ F3: Footwell
 F4: Defroster
 F5: Rear compartment
 F6: Fresh air
-                     F1 F2 F3 F4 F5 F6
+                           F1 F2 F3 F4 F5 F6
 3F LL 5B 07 04 00 01 45 06 FF FF 4D 00 00 1A CS
 3F LL 5B 07 04 00 01 45 06 FF 1A 4D 00 00 1A CS
 3F LL 5B 07 04 00 01 45 06 FF 1A 4D 1A 00 1A CS
 3F LL 5B 07 04 00 01 45 06 1A 1A 4D 1A 00 1A CS
 3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 00 1A CS
 3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 1A 1A CS
+3F LL 5B 07 04 00 00 6C 01 64 CS
 
 
 executeJob('ihka39_4.prg'): 'STEUERN_SPRITZDUESENHEIZUNG'

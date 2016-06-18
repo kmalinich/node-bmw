@@ -94,7 +94,20 @@ function ws_ibus() {
 
 	ws_uri += "//" + loc.host + '/ws/ibus';
 	console.log('WebSocket URI:', ws_uri);
+	
+	// Open WebSocket
 	var socket  = new WebSocket(ws_uri);
+
+	// Assemble and send data from form below table
+	$('#ws-ibus-send').click(function() {
+		var data_send = {};
+		data_send.src = $('#ws-ibus-src').val();
+		data_send.dst = $('#ws-ibus-dst').val();
+		data_send.msg = $('#ws-ibus-msg').val();
+		data_send = JSON.stringify(data_send);
+		console.log(data_send);
+		socket.send(data_send);
+	});
 
 	socket.onopen = function() {
 	// socket.send('hello from the client');
@@ -108,15 +121,29 @@ function ws_ibus() {
 		var data = JSON.parse(message.data);
 
 		// Parse out said blob
-		var src = get_module_name(data.src);
+		var src = data.src.toUpperCase()+' ('+get_module_name(data.src)+')';
 		var len = data.len;
-		var dst = get_module_name(data.dst);
+		var dst = data.dst.toUpperCase()+' ('+get_module_name(data.dst)+')';
 		var msg = data.msg.data;
+
+		var msg_fmt = '';
+
+		// Format the message
+		for (var i = 0; i < msg.length; i++) {
+			// Convert it to hexadecimal
+			msg_fmt += msg[i].toString(16).toUpperCase();
+			// If we're not formatting the last entry in the array, add a space, too
+			if (i != msg.length) {
+				msg_fmt += ' ';
+			}
+		}
 
 		// Add a new row to the table
 		var ws_ibus_table = document.getElementById('ws-ibus-table');
 		var timestamp     = moment().format('h:mm:ss a'); 
-		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg+'</td></tr>';
+
+		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
+
 		$('#ws-ibus-table tbody').prepend(tr);
 	};
 

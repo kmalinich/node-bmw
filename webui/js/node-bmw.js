@@ -83,7 +83,6 @@ function form_lcm() {
 }
 
 function ws_ibus() {
-	var content = document.getElementById('content');
 	var loc     = window.location, ws_uri;
 
 	// Autodetect websocket URL
@@ -97,11 +96,12 @@ function ws_ibus() {
 	console.log('WebSocket URI:', ws_uri);
 	var socket  = new WebSocket(ws_uri);
 
-	// socket.onopen = function () {
-	//  socket.send('hello from the client');
-	// };
+	socket.onopen = function() {
+	// socket.send('hello from the client');
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
+	};
 
-	socket.onmessage = function (message) {
+	socket.onmessage = function(message) {
 		// If anybody sees this .. it's rudimentary for now
 
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
@@ -113,15 +113,15 @@ function ws_ibus() {
 		var dst = get_module_name(data.dst);
 		var msg = data.msg.data;
 
-		// Make a big string from the parsed blob
-		var string = 'Source: '+src+' Destination: '+dst+' Message: '+msg;
-
-		console.log(string);
-
-		content.innerHTML += string +'<br />';
+		// Add a new row to the table
+		var ws_ibus_table = document.getElementById('ws-ibus-table');
+		var timestamp     = moment().format('h:mm:ss a'); 
+		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg+'</td></tr>';
+		$('#ws-ibus-table tbody').prepend(tr);
 	};
 
 	socket.onerror = function (error) {
 		console.log('WebSocket error: ' + error);
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Live IBUS. Error. =/');
 	};
 }

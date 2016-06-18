@@ -319,6 +319,9 @@ a:focus, a:hover {
 	padding-bottom : 0px;
 }
 
+.navbar {
+	margin-bottom : 5px;
+}
 
 /* Custom navbar graphic */
 

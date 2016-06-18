@@ -12,7 +12,7 @@
 		"serialport"     : "^3.1.2",
 		"url"            : "*",
 		"wait.for"       : "*",
-		"websocket"      : "*"
+		"websocket.io"   : "*"
 	},
 	"devDependencies": {},
 	"scripts": {

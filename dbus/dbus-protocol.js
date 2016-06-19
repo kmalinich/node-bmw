@@ -168,7 +168,6 @@ dbus_protocol.create_dbus_message = function(msg) {
 
 	buf[2 + msg.msg.length] = crc;
 
-	console.log(buf);
 	return buf;
 };
 

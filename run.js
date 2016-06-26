@@ -12,15 +12,20 @@ var wait          = require('wait.for');
 var ibus_interface = require('./ibus/ibus-interface.js');
 var bus_modules    = require('./lib/bus-modules.js');
 var GM             = require('./modules/GM.js');
+var IKE            = require('./modules/IKE.js');
 var LCM            = require('./modules/LCM.js');
 
 // WebSocket libraries
-var socket_server = require('./lib/socket-server.js');
+var socket_server     = require('./lib/socket-server.js');
+
+// Data handler
+var ibus_data = require('./ibus/data-handler.js');
 
 // IBUS connection handle
-var ibus_connection = new ibus_interface();
-var GM_connection   = new GM(ibus_connection);
-var LCM_connection  = new LCM(ibus_connection);
+var ibus_connection   = new ibus_interface();
+var GM_connection     = new GM(ibus_connection);
+var LCM_connection    = new LCM(ibus_connection);
+var ibus_data_handler = new ibus_data(ibus_connection, bus_modules, GM_connection, IKE_connection, LCM_connection);
 
 
 // Startup function
@@ -38,10 +43,11 @@ function shutdown() {
 }
 
 function on_ibus_data(data) {
-	var module_src = bus_modules.get_module_name(data.src);
-	var module_dst = bus_modules.get_module_name(data.dst);
+	// var module_src = bus_modules.get_module_name(data.src);
+	// var module_dst = bus_modules.get_module_name(data.dst);
 	// console.log('[ibus-reader] %s, %s,', module_src, module_dst, data.msg);
 	socket_server.ibus_data(data);
+	ibus_data_handler.ibus_data(data);
 }
 
 // Events

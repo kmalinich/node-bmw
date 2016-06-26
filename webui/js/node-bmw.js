@@ -83,7 +83,6 @@ function form_lcm() {
 }
 
 function ws_ibus() {
-	var content = document.getElementById('content');
 	var loc     = window.location, ws_uri;
 
 	// Autodetect websocket URL
@@ -95,33 +94,61 @@ function ws_ibus() {
 
 	ws_uri += "//" + loc.host + '/ws/ibus';
 	console.log('WebSocket URI:', ws_uri);
+	
+	// Open WebSocket
 	var socket  = new WebSocket(ws_uri);
 
-	// socket.onopen = function () {
-	//  socket.send('hello from the client');
-	// };
+	// Assemble and send data from form below table
+	$('#ws-ibus-send').click(function() {
+		var data_send = {};
+		data_send.src = $('#ws-ibus-src').val();
+		data_send.dst = $('#ws-ibus-dst').val();
+		data_send.msg = $('#ws-ibus-msg').val();
+		data_send = JSON.stringify(data_send);
+		console.log(data_send);
+		socket.send(data_send);
+	});
 
-	socket.onmessage = function (message) {
+	socket.onopen = function() {
+	// socket.send('hello from the client');
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
+	};
+
+	socket.onmessage = function(message) {
 		// If anybody sees this .. it's rudimentary for now
 
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
 		var data = JSON.parse(message.data);
 
 		// Parse out said blob
-		var src = get_module_name(data.src);
+		var src = data.src.toUpperCase()+' ('+get_module_name(data.src)+')';
 		var len = data.len;
-		var dst = get_module_name(data.dst);
+		var dst = data.dst.toUpperCase()+' ('+get_module_name(data.dst)+')';
 		var msg = data.msg.data;
 
-		// Make a big string from the parsed blob
-		var string = 'Source: '+src+' Destination: '+dst+' Message: '+msg;
+		var msg_fmt = '';
 
-		console.log(string);
+		// Format the message
+		for (var i = 0; i < msg.length; i++) {
+			// Convert it to hexadecimal
+			msg_fmt += msg[i].toString(16).toUpperCase();
+			// If we're not formatting the last entry in the array, add a space, too
+			if (i != msg.length) {
+				msg_fmt += ' ';
+			}
+		}
 
-		content.innerHTML += string +'<br />';
+		// Add a new row to the table
+		var ws_ibus_table = document.getElementById('ws-ibus-table');
+		var timestamp     = moment().format('h:mm:ss a'); 
+
+		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
+
+		$('#ws-ibus-table tbody').prepend(tr);
 	};
 
 	socket.onerror = function (error) {
 		console.log('WebSocket error: ' + error);
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Live IBUS. Error. =/');
 	};
 }

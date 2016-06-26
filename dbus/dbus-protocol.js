@@ -106,7 +106,7 @@ dbus_protocol.prototype._transform = function(chunk, encoding, done) {
 			// Push the remaining chunk from the end of the last valid Message
 			_self._buffer = cchunk.slice(end_of_last_message);
 
-			log.debug('[dbus_protocol]',clc.yellow('Sliced data: '), end_of_last_message, _self._buffer);
+			log.debug('[dbus_protocol]', clc.yellow('Sliced data: '), end_of_last_message, _self._buffer);
 		} else {
 			// Push the entire chunk
 			if (_self._buffer.length > 500) {
@@ -158,7 +158,7 @@ dbus_protocol.create_dbus_message = function(msg) {
 	buf[1] = packet_length; 
 
 	for (var i = 0; i < msg.msg.length; i++) {
-		buf[3 + i] = msg.msg[i];
+		buf[2 + i] = msg.msg[i];
 	}
 
 	var crc = 0x00;

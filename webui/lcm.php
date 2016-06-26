@@ -11,10 +11,10 @@
 
 				<div class="row">
 					<div class="col-xs-6">
-						<button class="btn btn-lg btn-danger btn-block add-shadow" id="form-lcm-reset" type="reset">Reset</button>
+						<button class="btn btn-lg btn-danger btn-block" id="form-lcm-reset" type="reset">Reset</button>
 					</div>
 					<div class="col-xs-6">
-						<button class="btn btn-lg btn-primary btn-block add-shadow" id="form-lcm-submit" type="submit">Send</button>
+						<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
 					</div>
 				</div>
 				<hr>
@@ -23,7 +23,7 @@
 
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="panel panel-default add-shadow" id="panel-lcm-outputs">
+							<div class="panel panel-default" id="panel-lcm-outputs">
 								<div class="panel-heading">
 									<h4 class="panel-title text-center"><a data-toggle="collapse" href="#collapse-lcm-outputs">outputs</a></h4>
 								</div>
@@ -200,7 +200,7 @@
 
 				<div class="row">
 					<div class="col-xs-6">
-						<div class="panel panel-default add-shadow" id="panel-lcm-clamps">
+						<div class="panel panel-default" id="panel-lcm-clamps">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center"><a data-toggle="collapse" href="#collapse-lcm-clamps">clamps</a></h4>
 							</div>
@@ -236,7 +236,7 @@
 					</div>
 
 					<div class="col-xs-6">
-						<div class="panel panel-default add-shadow" id="panel-lcm-modes">
+						<div class="panel panel-default" id="panel-lcm-modes">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center"><a data-toggle="collapse" href="#collapse-lcm-modes">modes</a></h4>
 							</div>
@@ -263,7 +263,7 @@
 				<div class="row">
 					<div class="col-xs-6">
 
-						<div class="panel panel-default add-shadow" id="panel-lcm-inputs">
+						<div class="panel panel-default" id="panel-lcm-inputs">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center"><a data-toggle="collapse" href="#collapse-lcm-inputs">inputs</a></h4>
 							</div>
@@ -359,7 +359,7 @@
 					</div>
 
 					<div class="col-xs-6">
-						<div class="panel panel-default add-shadow" id="panel-lcm-switches">
+						<div class="panel panel-default" id="panel-lcm-switches">
 							<div class="panel-heading">
 								<h4 class="panel-title text-center"><a data-toggle="collapse" href="#collapse-lcm-switches">switches</a></h4>
 							</div>
@@ -442,10 +442,10 @@
 
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-lg btn-danger btn-block add-shadow" id="form-lcm-reset" type="reset">Reset</button>
+					<button class="btn btn-lg btn-danger btn-block" id="form-lcm-reset" type="reset">Reset</button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-lg btn-primary btn-block add-shadow" id="form-lcm-submit" type="submit">Send</button>
+					<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
 				</div>
 			</div>
 

@@ -18,11 +18,26 @@ function on_signal_int() {
 
 function on_dbus_data(data) {
 	var module_dst = bus_modules.get_module_name(data.dst);
-	console.log('[ibus-reader] %s,', module_dst, data.msg);
+	console.log('[dbus-reader] %s,', module_dst, data.msg);
 }
 
 function init() {
 	dbus_connection.startup();
 }
 
+function dodbus() {
+	var packet      = [0x0b, 0x03];
+	var dbus_packet = {
+		dst: 0x5B,
+		msg: new Buffer(packet),
+	}
+
+	// Send the message
+	console.log('[dbus-reader] Sending IHKA packet.');
+	dbus_connection.send_message(dbus_packet);
+}
+
+
 init();
+
+setInterval(dodbus, 2000);

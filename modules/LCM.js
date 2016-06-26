@@ -43,7 +43,7 @@ var LCM = function(ibus_connection) {
 		}
 
 		// Send the message
-		console.log('Sending LCM packet');
+		console.log('[LCM.js] Sending LCM packet.');
 		ibus_connection.send_message(ibus_packet);
 	}
 
@@ -177,7 +177,7 @@ var LCM = function(ibus_connection) {
 			bitmask_11,
 		];
 
-		console.log('lcm_bitmask_encode() output: %s', output);
+		console.log('[LCM.js] lcm_bitmask_encode() output: %s', output);
 		lcm_send(output);
 
 		//return output;

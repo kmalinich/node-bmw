@@ -27,3 +27,19 @@ function init() {
 }
 
 init();
+
+function doibus() {
+	var packet      = [0x0b, 0x03];
+	var ibus_packet = {
+		src: 0x3F,
+		dst: 0x5B,
+		msg: new Buffer(packet),
+	}
+
+	// Send the message
+	console.log('[ibus-reader] Sending IHKA packet.');
+	ibus_connection.send_message(ibus_packet);
+}
+
+
+setInterval(doibus, 1000);

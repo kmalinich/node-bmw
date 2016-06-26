@@ -53,7 +53,7 @@ ibus_connection.on('data', on_ibus_data);
 startup();
 
 // Start WebSocket server
-socket_server.init(3002);
+socket_server.init(3002, ibus_connection);
 
 
 // Port 3001 listener for POST requests to modules

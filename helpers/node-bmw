@@ -1,25 +1,44 @@
 #!/usr/bin/env bash
 
 UNIT="node-bmw"
+APP_DIR="/usr/local/${UNIT}"
+
+sleep_msg() {
+	echo "Sleeping."
+	sleep 1
+}
 
 status() {
+	echo -e "Checking status of ${UNIT}.\n"
 	systemctl status ${UNIT}
 }
 
 restart() {
-	systemctl stop ${UNIT}
-	sleep 1
-	systemctl start ${UNIT}
+	stop
+	sleep_msg
+	start
+	sleep_msg
+	status
 }
 
 stop() {
+	echo "Stopping ${UNIT}."
 	systemctl stop ${UNIT}
+	sleep_msg
+	status
 }
 
 start() {
+	echo "Starting ${UNIT}."
 	systemctl start ${UNIT}
+	sleep_msg
+	status
 }
 
-[[ ${1} ]] && ${1} && sleep 1
+go() {
+	echo "Changing to ${APP_DIR}."
+	cd ${APP_DIR}
+}
 
-status
+
+[[ ${1} ]] && ${1} || status

@@ -63,19 +63,23 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 		else if (src == 'IKE') {
 			if (msg[0] == 0x11) {
 				var command = 'ignition';
-				console.log('[IKE] Updating vehicle ignition status');
 
 				if      (msg[1] == 0x00) { vehicle_status.vehicle.ignition = 'off';       }
 				else if (msg[1] == 0x01) { vehicle_status.vehicle.ignition = 'accessory'; }
-				else if (msg[1] == 0x03) { vehicle_status.vehicle.ignition = 'on';        }
-				else if (msg[1] == 0x07) { vehicle_status.vehicle.ignition = 'starting';  }
+				else if (msg[1] == 0x03) { vehicle_status.vehicle.ignition = 'run';       }
+				else if (msg[1] == 0x07) { vehicle_status.vehicle.ignition = 'start';     }
 				else                     { vehicle_status.vehicle.ignition = 'unknown';   }
+
+				console.log('[IKE] Setting vehicle ignition to "%s"', vehicle_status.vehicle.ignition);
 			}
 			else if (msg[0] == 0x13) {
 				var command = 'sensors';
 
 				if (msg[1] == 0x01) { vehicle_status.vehicle.handbrake = 'on';      } else { vehicle_status.vehicle.handbrake = 'off'; }
 				if (msg[2] == 0x03) { vehicle_status.engine.status     = 'running'; } else { vehicle_status.engine.status     = 'off'; }
+
+				console.log('[IKE] Setting vehicle handbrake to "%s"', vehicle_status.vehicle.handbrake);
+				console.log('[IKE] Setting engine status status to "%s"', engine_status.engine.status);
 			}
 			else if (msg[0] == 0x17) {
 				var command = 'odometer';

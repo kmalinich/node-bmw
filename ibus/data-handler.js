@@ -23,6 +23,12 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 				if      (msg[1] == 0x12) {
 					var data = 'lock depressed';
+					
+					// WELCOME LIGHTS!
+					var lcm_object = {};
+
+					console.log('[data-handler] Deactivating welcome lights');
+					LCM_connection.lcm_bitmask_encode(lcm_object);
 				}
 
 				else if (msg[1] == 0x22) {
@@ -47,16 +53,10 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 				else if (msg[1] == 0x42) {
 					var data = 'trunk depressed';
-					
-					// WELCOME LIGHTS!
-					var lcm_object = {};
-
-					console.log('[data-handler] Deactivating welcome lights');
-					LCM_connection.lcm_bitmask_encode(lcm_object);
 				}
 			}
 
-			console.log(src, dst, command, data, msg);
+			console.log(src, dst, command, msg);
 		}
 
 		// IKE

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Ultimately this could be moved inside the module functions, after the modules themselves are cleaned up...
+
 var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection) {
 
 	// Self reference
@@ -74,12 +76,15 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 			}
 			else if (msg[0] == 0x13) {
 				var command = 'sensors';
+				// This is a bitmask
+				// msg[2]: 0x01 = engine running, 0x10 = reverse
+				// For now, dirty hack
 
-				if (msg[1] == 0x01) { vehicle_status.vehicle.handbrake = 'on';      } else { vehicle_status.vehicle.handbrake = 'off'; }
-				if (msg[2] == 0x03) { vehicle_status.engine.status     = 'running'; } else { vehicle_status.engine.status     = 'off'; }
+				if (msg[1] == 0x01) { vehicle_status.vehicle.handbrake = true; } else { vehicle_status.vehicle.handbrake = false; }
+				if (msg[2] == 0x01) { vehicle_status.engine.running    = true; } else { vehicle_status.engine.running    = false; }
+				if (msg[2] == 0x11) { vehicle_status.vehicle.reverse   = true; vehicle_status.engine.running    = true; } else { vehicle_status.vehicle.reverse   = false; };
 
-				console.log('[IKE] Setting vehicle handbrake to "%s"', vehicle_status.vehicle.handbrake);
-				console.log('[IKE] Setting engine status status to "%s"', engine_status.engine.status);
+				console.log('[IKE] Setting handbrake = %s, engine running = %s, reverse = %s', vehicle_status.vehicle.handbrake, vehicle_status.engine.running, vehicle_status.vehicle.reverse);
 			}
 			else if (msg[0] == 0x17) {
 				var command = 'odometer';

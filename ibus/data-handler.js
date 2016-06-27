@@ -30,7 +30,15 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 					
 					// WELCOME LIGHTS!
 					var lcm_object = {
-						switch_standing : true,
+						output_lowbeam_front_left   : true,
+						output_lowbeam_front_right  : true,
+						output_standing_front_left  : true,
+						output_standing_front_right : true,
+						output_turn_rear_left       : true,
+						output_turn_rear_right      : true,
+						output_license_rear_right   : true,
+						output_reverse_rear_left    : true,
+						output_reverse_rear_right   : true,
 					};
 
 					console.log('[data-handler] Activating welcome lights');

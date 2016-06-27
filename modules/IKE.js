@@ -1,193 +1,352 @@
 #!/usr/bin/env node
 
-// ASCII to hex for cluster message
-function ascii2hex(str) { 
-	var array = [];
+// npm libraries
+var clc  = require('cli-color');
+var wait = require('wait.for');
 
-	for (var n = 0, l = str.length; n < l; n ++) {
-		var hex = str.charCodeAt(n);
-		array.push(hex);
+// Bitmasks in hex
+var bit_0 = 0x01;
+var bit_1 = 0x02;
+var bit_2 = 0x04;
+var bit_3 = 0x08;
+var bit_4 = 0x10;
+var bit_5 = 0x20;
+var bit_6 = 0x40;
+var bit_7 = 0x80;
+
+
+var IKE = function(ibus_connection, vehicle_status) {
+
+	// self reference
+	var _self = this;
+
+	// exposed data
+	this.obc_get   = obc_get;
+	this.obc_reset = obc_reset;
+	this.ike_send  = ike_send;
+	this.ike_text  = ike_text;
+	this.ike_data  = ike_data;
+
+	// ASCII to hex for cluster message
+	function ascii2hex(str) { 
+		var array = [];
+
+		for (var n = 0, l = str.length; n < l; n ++) {
+			var hex = str.charCodeAt(n);
+			array.push(hex);
+		}
+
+		return array;
 	}
 
-	return array;
-}
+	// Pad string for IKE text screen length (20 characters)
+	String.prototype.ike_pad = function() {
+		var string = this;
 
+		while (string.length < 20) {
+			string = string + ' ';
+		}
 
-// On engine start
-function hello() {
-	// Turn phone LED green
-	rad_led('green', 'flash');
-
-	// Send welcome message to cluster
-	ike_text('Hot Garbage Mtrnwrke');
-}
-
-// OBC reset
-function obc_reset(value) {
-	var src = 0x3b; // NAV
-	var dst = 0x80; // IKE
-
-	// if statements to determine action
-	if (value == 'speed') {
-		var msg       = new Buffer([0x41, 0x0a, 0x10]);
-		var obc_value = 'Average speed';
-	} else if (value == 'cons1') {
-		var msg       = new Buffer([0x41, 0x04, 0x10]);
-		var obc_value = 'Average consumption 1';
-	} else if (value == 'cons2') {
-		var msg       = new Buffer([0x41, 0x05, 0x10]);
-		var obc_value = 'Average consumption 2';
+		return string;
 	}
 
-	console.log('Resetting OBC value:', obc_value);
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer(msg),
+	// Refresh custom HUD
+	function hud_refresh() {
+		console.log('[IKE] Refreshing OBC HUD');
+		ike_text(vehicle_status.obc.time+' C:'+vehicle_status.obc.consumption_1+' T:'+vehicle_status.temperature.coolant_c);
 	}
 
-	ibus_send(ibus_packet);
-}
-
-function ike() {
-	var RequestTime            = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Request Time", 0x41, 0x01, 0x01);
-	var RequestDate            = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Request Date", 0x41, 0x02, 0x01);
-	var Gong1                  = new Message(DeviceAddress.Radio,                    DeviceAddress.InstrumentClusterElectronics, "Gong 1", 0x23, 0x62, 0x30, 0x37, 0x08);
-	var Gong2                  = new Message(DeviceAddress.Radio,                    DeviceAddress.InstrumentClusterElectronics, "Gong 2", 0x23, 0x62, 0x30, 0x37, 0x10);
-	var ResetConsumption1      = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Reset Consumption 1", 0x41, 0x04, 0x10);
-	var ResetConsumption2      = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Reset Consumption 2", 0x41, 0x05, 0x10);
-	var ResetAverageSpeed      = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Reset Avgerage Speed", 0x41, 0x0A, 0x10);
-	var SpeedLimitCurrentSpeed = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Speed Limit to Current Speed", 0x41, 0x09, 0x20);
-	var SpeedLimitOff          = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Speed Limit OFF", 0x41, 0x09, 0x08);
-	var SpeedLimitOn           = new Message(DeviceAddress.GraphicsNavigationDriver, DeviceAddress.InstrumentClusterElectronics, "Speed Limit ON", 0x41, 0x09, 0x04);
-}
-
-function ike_text_urgent(message) {
-	var src = 0x30; // ??
-	var dst = 0x80; // IKE
-
-	var message_hex = [0x1A, 0x35, 0x00];
-	var message_hex = message_hex.concat(ascii2hex(message));
-	// var message_hex = message_hex.concat(0x04);
-
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer(message_hex),
+	// Refresh OBC data
+	function obc_refresh() {
+		obc_get('cons1');
+		obc_get('time');
 	}
 
-	ibus_send(ibus_packet);
-}
+	// OBC get
+	function obc_get(value) {
+		var src = 0x3B; // GT
+		var dst = 0x80; // IKE
 
-function ike_text_urgent_off() {
-	var src = 0x30; // ??
-	var dst = 0x80; // IKE
+		// Determine desired value to get 
+		if (value == 'time') {
+			var msg       = [0x41, 0x01, 0x01];
+			var obc_value = 'Time';
+		}
 
-	var message_hex = [0x1A, 0x30, 0x00];
+		else if (value == 'date') {
+			var msg       = [0x41, 0x02, 0x01];
+			var obc_value = 'Date';
+		}
 
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer(message_hex),
+		else if (value == 'temp_external') {
+			var msg       = [0x41, 0x03, 0x01];
+			var obc_value = 'External temp';
+		}
+
+		else if (value == 'cons1') {
+			var msg       = [0x41, 0x04, 0x01];
+			var obc_value = 'Average consumption 1';
+		}
+
+		else if (value == 'cons2') {
+			var msg       = [0x41, 0x05, 0x01];
+			var obc_value = 'Average consumption 2';
+		}
+
+		else if (value == 'range') {
+			var msg       = [0x41, 0x06, 0x01];
+			var obc_value = 'Range';
+		}
+
+		else if (value == 'distance') {
+			var msg       = [0x41, 0x07, 0x01];
+			var obc_value = 'Distance';
+		}
+
+		//else if (value == '') {
+		//	var msg       = [0x41, 0x08, 0x01];
+		//	var obc_value = '';
+		//}
+
+		else if (value == 'limit') {
+			var msg       = [0x41, 0x09, 0x01];
+			var obc_value = 'Speed limit';
+		}
+
+		else if (value == 'speedavg') {
+			var msg       = [0x41, 0x0A, 0x01];
+			var obc_value = 'Average speed';
+		}
+
+		else if (value == 'timer') {
+			var msg       = [0x41, 0x0E, 0x01];
+			var obc_value = 'Timer';
+		}
+
+		else if (value == 'auxheat1') {
+			var msg       = [0x41, 0x0F, 0x01];
+			var obc_value = 'Aux heating timer 1';
+		}
+
+		else if (value == 'auxheat2') {
+			var msg       = [0x41, 0x10, 0x01];
+			var obc_value = 'Aux heating timer 2';
+		}
+
+		else if (value == 'stopwatch') {
+			var msg       = [0x41, 0x1A, 0x01];
+			var obc_value = 'Stopwatch';
+		}
+
+		console.log('[IKE] Getting OBC value %s', obc_value);
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		ibus_connection.send_message(ibus_packet);
 	}
 
-	ibus_send(ibus_packet);
-}
+	// OBC reset
+	function obc_reset(value) {
+		var src = 0x3B; // GT
+		var dst = 0x80; // IKE
 
-// IKE cluster text send message
-function ike_text(message) {
-	var src = 0x68; // RAD
-	var dst = 0x80; // IKE
+		// Determine desired value to reset 
+		if (value == 'speedavg') {
+			var msg       = [0x41, 0x0A, 0x10];
+			var obc_value = 'Average speed';
 
-	// Need to center and pad spaces out to 20 chars
-	console.log('Sending message to IKE:', message);
+		} else if (value == 'cons1') {
+			var msg       = [0x41, 0x04, 0x10];
+			var obc_value = 'Average consumption 1';
 
-	var message_hex = [0x23, 0x50, 0x30, 0x07];
-	var message_hex = message_hex.concat(ascii2hex(message));
-	var message_hex = message_hex.concat(0x04);
+		} else if (value == 'cons2') {
+			var msg       = [0x41, 0x05, 0x10];
+			var obc_value = 'Average consumption 2';
 
-	var ibus_packet = {
-		src: src, 
-		dst: dst,
-		msg: new Buffer(message_hex),
+		} else if (value == 'speedlimitoff') {
+			var msg       = [0x41, 0x09, 0x08];
+			var obc_value = 'Speed limit off';
+
+		} else if (value == 'speedlimiton') {
+			var msg       = [0x41, 0x09, 0x04];
+			var obc_value = 'Speed limit on';
+
+		} else if (value == 'speedlimitcurrent') {
+			var msg       = [0x41, 0x09, 0x20];
+			var obc_value = 'Speed limit current';
+
+		}
+
+		console.log('[IKE] Setting/resetting OBC value %s', obc_value);
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		ibus_connection.send_message(ibus_packet);
 	}
 
-	ibus_send(ibus_packet);
-}
+	// OBC gong
+	function obc_gong(value) {
+		var src = 0x68; // RAD
+		var dst = 0x80; // IKE
 
-// Data handler
-function check_data(packet) {
-	var dst = ibus_modules.get_module_name(packet.dst);
-	var src = ibus_modules.get_module_name(packet.src);
-	var msg = packet.msg;
-
-	// IKE
-	if (src == 'IKE') {
-		if (msg[0] == 0x17) {
-			var command = 'odometer';
-			var data    = 'not sure yet.'
+		// Determine desired value to gong 
+		if (value == '1') {
+			var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
+			var obc_value = '1';
+		} else if (value == '2') {
+			var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
+			var obc_value = '2';
 		}
-		else if (msg[0] == 0x57) {
-			var command = 'BC button';
-			var data    = 'depressed';
+
+		console.log('[IKE] OBC gong %s', obc_value);
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(msg),
 		}
-		else if (msg[0] == 0x18) {
-			var command = 'speed/RPM';
 
-			// Update vehicle and engine speed variables
-			engine_speed_rpm  = msg[2]*100;
-			vehicle_speed_kmh = msg[1];
+		ibus_connection.send_message(ibus_packet);
+	}
 
-			var data          = vehicle_speed_kmh+' km/h, '+engine_speed_rpm+' RPM';
+	function ike() {
+		// 0x3B : GT
+		// 0x80 : IKE
+
+		var RequestTime            = new Message(0x3B, 0x80, 0x41, 0x01, 0x01);
+		var RequestDate            = new Message(0x3B, 0x80, 0x41, 0x02, 0x01);
+	}
+
+	function ike_text_urgent(message) {
+		var src = 0x30; // ??
+		var dst = 0x80; // IKE
+
+		var message_hex = [0x1A, 0x35, 0x00];
+		var message_hex = message_hex.concat(ascii2hex(message));
+		// var message_hex = message_hex.concat(0x04);
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(message_hex),
 		}
-		else if (msg[0] == 0x24) {
-			var command    = 'obc text';
-			var data       = ' '+msg+' ';
+
+		ibus_connection.send_message(ibus_packet);
+	}
+
+	function ike_text_urgent_off() {
+		var src = 0x30; // ??
+		var dst = 0x80; // IKE
+
+		var message_hex = [0x1A, 0x30, 0x00];
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(message_hex),
 		}
-		else if (msg[0] == 0x19) {
-			var command    = 'temperature';
 
-			// Update external and engine coolant temp variables
-			ext_temp_c     = msg[1];
-			coolant_temp_c = msg[2];
+		ibus_connection.send_message(ibus_packet);
+	}
 
-			var data       = ext_temp_c+'C outside, '+coolant_temp_c+'C coolant';
+	// IKE cluster text send message
+	function ike_text(string) {
+		var src = 0x68; // RAD
+		var dst = 0x80; // IKE
+
+		string = string.ike_pad();
+
+		// Need to center and pad spaces out to 20 chars
+		console.log('[IKE] Sending text to IKE: "%s"', string);
+
+		var string_hex = [0x23, 0x50, 0x30, 0x07];
+		var string_hex = string_hex.concat(ascii2hex(string));
+		var string_hex = string_hex.concat(0x04);
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(string_hex),
 		}
-		else if (msg[0] == 0x11) {
-			var command = 'ignition';
-			if (msg[1] == 0x00) {
-				ignition = 'off';
-			}
-			else if (msg[1] == 0x01) {
-				ignition = 'accessory';
-			}
-			else if (msg[1] == 0x03) {
-				ignition = 'on';
-			}
-			else if (msg[1] == 0x07) {
-				ignition = 'starting';
-			}
-			else {
-				ignition = 'unknown';
-			}
 
-			var data    = 'ignition: '+ignition;
+		ibus_connection.send_message(ibus_packet);
+	}
+
+	// Loop to update text in the cluster
+	function ike_text_loop() {
+		console.log('[IKE] text loop');
+		console.log(vehicle_status);
+	}
+
+	// Send message to IKE
+	function ike_send(packet) {
+		var src = 0x3F; // DIA
+		var dst = 0xBF; // GLO
+		var cmd = 0x0C; // Set IO status 
+
+		// Add the command to the beginning of the IKE hex array
+		packet.unshift(cmd);
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(packet),
 		}
-		else if (msg[0] == 0x13) {
-			var command = 'sensors';
 
-			if (msg[1] == 0x01) { handbrake = 'on'; } else { handbrake = 'off'; }
-			if (msg[1] == 0x02) { engine    = 'on'; } else { engine    = 'off'; }
+		// Send the message
+		console.log('[IKE] Sending IKE packet.');
+		ibus_connection.send_message(ibus_packet);
+	}
 
-			var data    = 'handbrake: '+handbrake+', engine: '+engine;
+	// Handle incoming commands
+	function ike_data(data) {
+		console.log('[IKE] ike_data()');
+		console.log(data)
+
+		if (typeof data['obc-text'] !== 'undefined') {
+			console.log('[IKE] IKE text string: "%s"', data['obc-text']);
+			ike_text(data['obc-text']);
+		}
+		else if (typeof data['obc-get'] !== 'undefined') {
+			console.log('[IKE] IKE OBC get: "%s"', data['obc-get']);
+			obc_get(data['obc-get']);
+		}
+		else if (typeof data['obc-reset'] !== 'undefined') {
+			console.log('[IKE] IKE OBC reset: "%s"', data['obc-reset']);
+			obc_reset(data['obc-reset']);
+		}
+		else if (typeof data['obc-gong'] !== 'undefined') {
+			console.log('[IKE] IKE OBC gong: "%s"', data['obc-gong']);
+			obc_gong(data['obc-gong']);
 		}
 		else {
-			var command = msg[0];
-			var data    = msg[1];
+			console.log('[IKE] Unknown command');
 		}
+
 	}
 
-	console.log(src, dst, command, data)
+	// Refresh OBC data once every half-second
+	setInterval(function() {
+		if (vehicle_status.engine.status == 'running') {
+			obc_refresh();
+		}
+	}, 500);
+
+	// Refresh OBC HUD once per second
+	setInterval(function() {
+		if (vehicle_status.engine.status == 'running') {
+			hud_refresh();
+		}
+	}, 1000);
 
 }
+
+module.exports = IKE;

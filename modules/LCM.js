@@ -14,13 +14,12 @@ var bit_5 = 0x20;
 var bit_6 = 0x40;
 var bit_7 = 0x80;
 
-
 var LCM = function(ibus_connection) {
 
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
+	// Exposed data
 	this.lcm_send           = lcm_send;
 	this.bit_test           = bit_test;
 	this.bit_set            = bit_set;
@@ -43,7 +42,7 @@ var LCM = function(ibus_connection) {
 		}
 
 		// Send the message
-		console.log('[LCM.js] Sending LCM packet.');
+		console.log('[LCM] Sending LCM packet.');
 		ibus_connection.send_message(ibus_packet);
 	}
 
@@ -177,7 +176,7 @@ var LCM = function(ibus_connection) {
 			bitmask_11,
 		];
 
-		console.log('[LCM.js] lcm_bitmask_encode() output: %s', output);
+		console.log('[LCM] lcm_bitmask_encode() output: %s', output);
 		lcm_send(output);
 
 		//return output;

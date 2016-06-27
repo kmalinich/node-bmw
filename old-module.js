@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 // On engine start
 function hello() {
 	// Turn phone LED green
@@ -52,13 +51,13 @@ function gm(object, action) {
 
 // IKE/gauge backlight dimmer
 function lcm_dimmer(value) {
-	var src = 0xd0; // LCM
-	var dst = 0xbf; // GLO 
+	var src = 0xD0; // LCM
+	var dst = 0xBF; // GLO 
 
 	// Will need to concat and push array for value
 
-	var lcm_dimmer_000 = new Buffer([0x5c, 0x00, 0x00]);
-	var lcm_dimmer_254 = new Buffer([0x5c, 0xfe, 0x00]);
+	var lcm_dimmer_000 = new Buffer([0x5C, 0x00, 0x00]);
+	var lcm_dimmer_254 = new Buffer([0x5C, 0xFE, 0x00]);
 }
 
 // Data handler
@@ -67,13 +66,12 @@ function check_data(packet) {
 	var src = ibus_modules.get_module_name(packet.src);
 	var msg = packet.msg;
 
-
-	// var key_out             = new Buffer([0x74, 0x00, 0xff]);
-	// var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
-
-
 	// EWS
 	if (src == 'EWS') {
+
+		var key_out             = new Buffer([0x74, 0x00, 0xff]);
+		var key_1_in            = new Buffer([0x74, 0x04, 0x01]);
+
 		if (msg.compare(key_out) == 0) {
 			var command = 'removed';
 			var data    = 'key';
@@ -81,65 +79,6 @@ function check_data(packet) {
 		else if (msg.compare(key_1_in) == 0) {
 			var command = 'inserted';
 			var data    = 'key 1';
-		}
-	}
-
-	// MFL
-	if (src == 'MFL') {
-		if (msg[0] == 0x3B) {
-			var command = 'button';
-
-			if (msg[1] == 0x80) {
-				var data    = 'send/end depressed';
-				//ike_text('coolant: '+coolant_temp_c+'C        ');
-				// ike_text_urgent('coolant: '+coolant_temp_c+'C        ');
-
-				var ibus_packet = {
-					src: src, 
-					dst: dst,
-					msg: new Buffer(msg),
-				}
-
-				ibus_send(ibus_packet);
-			}
-			else if (msg[1] == 0xA0) {
-				var data    = 'send/end released';
-				// ike_text_urgent_off();
-			}
-			else if (msg[1] == 0x90) {
-				var data    = 'send/end long press';
-			}
-			else if (msg[1] == 0x01) {
-				var data    = 'right pressed';
-				windows_up();
-			}
-			else if (msg[1] == 0x08) {
-				var data    = 'left pressed';
-				windows_down();
-			}
-			else if (msg[1] == 0x21) {
-				var data    = 'right released';
-			}
-			else if (msg[1] == 0x28) {
-				var data    = 'left released';
-			}
-			else if (msg[1] == 0x18) {
-				var data    = 'left long press';
-			}
-			else if (msg[1] == 0x11) {
-				var data    = 'right long press';
-			}
-			else {
-				var data = msg[1];
-			}
-		}
-		else if (msg[0] == 0x01) {
-			var command = 'button';
-			var data    = 'r/t pressed';
-		}
-		else {
-			var command = 'unknown';
-			var data    = 'unknown';
 		}
 	}
 
@@ -158,27 +97,3 @@ function check_data(packet) {
 	console.log(src, dst, command, data)
 
 }
-
-
-// Instantiate initial variable values
-var handbrake         = 'off';
-var engine            = 'off';
-var ignition          = 'off';
-var msg_count         = 0;
-var ext_temp_c        = 0;
-var coolant_temp_c    = 0;
-var vehicle_speed_kmh = 0;
-var engine_speed_rpm  = 0;
-
-// Flaps/windows are positioned as if you are looking down on the car from the sky
-var open_flap_hood          = false;
-var open_flap_trunk         = false;
-var open_flap_front_left    = false;
-var open_flap_front_right   = false;
-var open_flap_rear_left     = false;
-var open_flap_rear_right    = false;
-var open_window_roof        = false;
-var open_window_front_left  = false;
-var open_window_front_right = false;
-var open_window_rear_left   = false;
-var open_window_rear_right  = false;

@@ -15,7 +15,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="/">Home</a></li> 
 				<li><a href="/gm">GM</a></li> 
+				<li><a href="/ike">IKE</a></li> 
 				<li><a href="/lcm">LCM</a></li> 
+				<li><a href="/status">Status</a></li> 
 				<li><a href="/ws-ibus">IBUS websocket</a></li> 
 			</ul>
 		</div>

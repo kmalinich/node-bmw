@@ -127,9 +127,26 @@ Bit 2 = KL_50 (Pos3_Start). Starter
 IKE Sensor Status
 
 13 02 10 00 00 00 00 38 // in reverse
-13 02 00 00 00 00 00 38 //out of reverse
+13 02 00 00 00 00 00 38 // out of reverse
 
-handbrake on, oil pressure low, brake pads worn, transmission emergency program, gearbox not in P, motor running, vehicle driving, reverse not plausible, Gear: R, Gear: 1, Gear: 2, Gear: D, alarm horn on, immobiliser on, Aux heating on, Aux ventillation on, Temp deg F
+handbrake on
+oil pressure low
+brake pads worn
+transmission emergency program
+gearbox not in P
+motor running
+vehicle driving
+reverse not plausible
+Gear R
+Gear 1
+Gear 2
+Gear D
+alarm horn on
+immobiliser on
+aux heating on
+aux ventillation on
+temp deg F
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Speed message
 

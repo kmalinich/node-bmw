@@ -56,6 +56,34 @@ function get_module_name(key) {
   return 'Unknown Device' + ' - ' + key;
 };
 
+function vehicle_status() {
+	$.ajax({
+		url      : '/api/status',
+		type     : 'GET',
+		dataType : 'json',
+		success  : function(return_data) {
+			$('#engine-speed').text(return_data.engine.speed);
+			$('#engine-status').text(return_data.engine.status);
+
+			$('#temperature-coolant-c').text(return_data.temperature.coolant_c);
+			$('#temperature-coolant-f').text(return_data.temperature.coolant_f);
+			$('#temperature-exterior-c').text(return_data.temperature.exterior_c);
+			$('#temperature-exterior-f').text(return_data.temperature.exterior_f);
+
+			$('#vehicle-handbrake').text(return_data.vehicle.handbrake);
+			$('#vehicle-ignition').text(return_data.vehicle.ignition);
+			$('#vehicle-speed-kmh').text(return_data.vehicle.speed_kmh);
+			$('#vehicle-speed-mph').text(return_data.vehicle.speed_mph);
+
+			$('#obc-time').text(return_data.obc.time);
+			$('#obc-consumption-1').text(return_data.obc.consumption_1);
+			$('#obc-consumption-2').text(return_data.obc.consumption_2);
+
+			console.log(return_data);
+		}
+	});
+}
+
 function form_gm() {
 	console.log($('#form-gm').serialize());
 	$.ajax({
@@ -76,6 +104,58 @@ function form_lcm() {
 		type     : 'POST',
 		dataType : 'json',
 		data     : $('#form-lcm').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_text() {
+	console.log($('#form-ike-text').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-text').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_get() {
+	console.log($('#form-ike-get').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-get').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_reset() {
+	console.log($('#form-ike-reset').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-reset').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_gong() {
+	console.log($('#form-ike-gong').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-gong').serialize(),
 		success  : function(return_data) {
 			console.log(return_data);
 		}

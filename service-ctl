@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+UNIT="node-bmw"
+
+status() {
+	systemctl status ${UNIT}
+}
+
+restart() {
+	systemctl stop ${UNIT}
+	sleep 1
+	systemctl start ${UNIT}
+}
+
+stop() {
+	systemctl stop ${UNIT}
+}
+
+start() {
+	systemctl start ${UNIT}
+}
+
+[[ ${1} ]] && ${1} && sleep 1
+
+status

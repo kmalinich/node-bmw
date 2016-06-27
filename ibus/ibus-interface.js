@@ -36,12 +36,14 @@ var ibus_interface = function(device_path) {
 	function init_ibus() {
 		device      = '/dev/ttyUSB0'; 
 		serial_port = new serialport.SerialPort(device, {
-			rtscts   : true,
 			baudRate : 9600,
 			dataBits : 8,
 			parity   : 'even',
 			parser   : serialport.parsers.raw,
+			rtscts   : true,
 			stopBits : 1,
+			vmin     : 100,
+			vtime    : 0,
 		}, false);
 
 		serial_port.open(function(error) {

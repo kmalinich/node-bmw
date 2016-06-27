@@ -1,18 +1,18 @@
 [Unit]
-After       = network.target
-Requires    = network.target
+After    = network.target
+Requires = network.target
 
 [Service]
-ExecStart=/usr/local/bin/node /usr/local/node-bmw/run.js
-WorkingDirectory=/usr/local/node-bmw
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=node-bmw
-User=root
-Group=root
-Environment=NODEPATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/local/lib/node_modules
-Environment=NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/local/lib/node_modules
+ExecStart        = /usr/local/bin/node /usr/local/node-bmw/run.js
+WorkingDirectory = /usr/local/node-bmw
+Restart          = always
+StandardOutput   = syslog
+StandardError    = syslog
+SyslogIdentifier = node-bmw
+User             = root
+Group            = root
+Environment      = NODEPATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/local/lib/node_modules
+Environment      = NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/local/lib/node_modules
 
 [Install]
-WantedBy=multi-user.target
+WantedBy = multi-user.target

@@ -1,6 +1,6 @@
 node-bmw
 ======
-A NodeJS powered interface for IBUS BMW vehicles, for use with Raspberry Pi.
+A node.js powered interface for IBUS BMW vehicles, for use with Raspberry Pi.
 
 Currently being developed using a US-spec 2000 E39 540i and a Raspberry Pi 3.
 

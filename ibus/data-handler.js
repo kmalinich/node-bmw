@@ -63,6 +63,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 		else if (src == 'IKE') {
 			if (msg[0] == 0x11) {
 				var command = 'ignition';
+				console.log('[IKE] Updating vehicle ignition status');
 
 				if      (msg[1] == 0x00) { vehicle_status.vehicle.ignition = 'off';       }
 				else if (msg[1] == 0x01) { vehicle_status.vehicle.ignition = 'accessory'; }

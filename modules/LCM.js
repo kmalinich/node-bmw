@@ -176,10 +176,8 @@ var LCM = function(ibus_connection) {
 			bitmask_11,
 		];
 
-		console.log('[LCM] lcm_bitmask_encode() output: %s', output);
+		// console.log('[LCM] lcm_bitmask_encode() output: %s', output);
 		lcm_send(output);
-
-		//return output;
 	}
 
 	// Decode the LCM bitmask string and output an array of true/false values

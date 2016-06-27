@@ -53,7 +53,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 	// Refresh custom HUD
 	function hud_refresh() {
 		console.log('[IKE] Refreshing OBC HUD');
-		ike_text(vehicle_status.obc.time+' C:'+vehicle_status.obc.consumption_1+' T:'+vehicle_status.temperature.coolant_c);
+		ike_text(vehicle_status.obc.time+'  C:'+vehicle_status.obc.consumption_1+'  T:'+vehicle_status.temperature.coolant_c);
 	}
 
 	// Refresh OBC data
@@ -178,7 +178,6 @@ var IKE = function(ibus_connection, vehicle_status) {
 		} else if (value == 'speedlimitcurrent') {
 			var msg       = [0x41, 0x09, 0x20];
 			var obc_value = 'Speed limit current';
-
 		}
 
 		console.log('[IKE] Setting/resetting OBC value %s', obc_value);
@@ -193,6 +192,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 	}
 
 	// OBC gong
+	// Doesn't work right now
 	function obc_gong(value) {
 		var src = 0x68; // RAD
 		var dst = 0x80; // IKE
@@ -215,14 +215,6 @@ var IKE = function(ibus_connection, vehicle_status) {
 		}
 
 		ibus_connection.send_message(ibus_packet);
-	}
-
-	function ike() {
-		// 0x3B : GT
-		// 0x80 : IKE
-
-		var RequestTime            = new Message(0x3B, 0x80, 0x41, 0x01, 0x01);
-		var RequestDate            = new Message(0x3B, 0x80, 0x41, 0x02, 0x01);
 	}
 
 	function ike_text_urgent(message) {
@@ -335,17 +327,17 @@ var IKE = function(ibus_connection, vehicle_status) {
 
 	// Refresh OBC data once every half-second
 	setInterval(function() {
-		if (vehicle_status.engine.status == 'running') {
+		if (vehicle_status.vehicle.ignition == 'run') {
 			obc_refresh();
 		}
 	}, 500);
 
 	// Refresh OBC HUD once per second
 	setInterval(function() {
-		if (vehicle_status.engine.status == 'running') {
+		if (vehicle_status.vehicle.ignition == 'run') {
 			hud_refresh();
 		}
-	}, 1000);
+	}, 2000);
 
 }
 

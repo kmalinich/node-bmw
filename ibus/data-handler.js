@@ -22,7 +22,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 				var command = 'key fob button';
 
 				if      (msg[1] == 0x12) {
-					var data = 'lock depressed';
+					var button = 'lock depressed';
 					
 					// WELCOME LIGHTS!
 					var lcm_object = {};
@@ -32,7 +32,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 				}
 
 				else if (msg[1] == 0x22) {
-					var data = 'unlock depressed';
+					var button = 'unlock depressed';
 					
 					// WELCOME LIGHTS!
 					var lcm_object = {
@@ -52,11 +52,11 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 				}
 
 				else if (msg[1] == 0x42) {
-					var data = 'trunk depressed';
+					var button = 'trunk depressed';
 				}
 			}
 
-			console.log(src, dst, command, msg);
+			// console.log(src, dst, command, button, msg);
 		}
 
 		// IKE

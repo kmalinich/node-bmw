@@ -335,14 +335,14 @@ var IKE = function(ibus_connection, vehicle_status) {
 
 	// Refresh OBC data once every half-second
 	setInterval(function() {
-		if (vehicle_ignition.vehicle.ignition == 'run') {
+		if (vehicle_status.vehicle.ignition == 'run') {
 			obc_refresh();
 		}
 	}, 500);
 
 	// Refresh OBC HUD once per second
 	setInterval(function() {
-		if (vehicle_ignition.vehicle.ignition == 'run') {
+		if (vehicle_status.vehicle.ignition == 'run') {
 			hud_refresh();
 		}
 	}, 1000);

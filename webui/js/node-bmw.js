@@ -62,8 +62,8 @@ function vehicle_status() {
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
+			$('#engine-running').text(return_data.engine.running);
 			$('#engine-speed').text(return_data.engine.speed);
-			$('#engine-status').text(return_data.engine.status);
 
 			$('#temperature-coolant-c').text(return_data.temperature.coolant_c);
 			$('#temperature-coolant-f').text(return_data.temperature.coolant_f);

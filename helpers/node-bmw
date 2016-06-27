@@ -35,10 +35,4 @@ start() {
 	status
 }
 
-go() {
-	echo "Changing to ${APP_DIR}."
-	cd ${APP_DIR}
-}
-
-
 [[ ${1} ]] && ${1} || status

@@ -13,7 +13,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar">
 			<ul class="nav navbar-nav">
-				<li><a href="/">Home</a></li> 
+				<li><a href="/images">images</a></li> 
 				<li><a href="/gm">GM</a></li> 
 				<li><a href="/ike">IKE</a></li> 
 				<li><a href="/lcm">LCM</a></li> 

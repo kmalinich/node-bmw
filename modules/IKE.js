@@ -53,7 +53,11 @@ var IKE = function(ibus_connection, vehicle_status) {
 	// Refresh custom HUD
 	function hud_refresh() {
 		console.log('[IKE] Refreshing OBC HUD');
-		ike_text(vehicle_status.obc.time+'  C:'+vehicle_status.obc.consumption_1+'  T:'+vehicle_status.temperature.coolant_c);
+		obc_get('cons1');
+		obc_get('time');
+		var cons1 = parseFloat(vehicle_status.obc.consumption_1_mpg).toFixed(1);
+		var ctmp  = Math.round(vehicle_status.temperature.coolant_c);
+		ike_text(vehicle_status.obc.time+' C:'+cons1+' T:'+ctmp);
 	}
 
 	// Refresh OBC data
@@ -342,13 +346,13 @@ var IKE = function(ibus_connection, vehicle_status) {
 	}
 
 	// Refresh OBC data once every half-second
-	setInterval(function() {
-		if (vehicle_status.vehicle.ignition == 'run') {
-			obc_refresh();
-		}
-	}, 500);
+	//setInterval(function() {
+	//	if (vehicle_status.vehicle.ignition == 'run') {
+	//		obc_refresh();
+	//	}
+	//}, 500);
 
-	// Refresh OBC HUD once per second
+	// Refresh OBC HUD once every 2 seconds
 	setInterval(function() {
 		if (vehicle_status.vehicle.ignition == 'run') {
 			hud_refresh();

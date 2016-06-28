@@ -58,7 +58,7 @@ function get_module_name(key) {
 
 // Remove all color-coded CSS classes from a text id
 function clean_class(id) {
-	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').text('');
+	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').removeClass('text-info').text('');
 }
 
 // Clean all the text strings
@@ -110,6 +110,17 @@ function vehicle_status_refresh_on() {
 	$('#icon-refresh').addClass('fa-spin');
 	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:vehicle_status_refresh_off();');
 
+	// Pulse clamps 15, 30A, 30B
+	$.ajax({
+		url      : '/api/lcm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+
 	// Set the loops
 	vehicle_status_refresh = setInterval(function() {
 		// Data refresh from OBC/IKE
@@ -122,12 +133,12 @@ function vehicle_status_refresh_on() {
 				console.log(return_data);
 			}
 		});
-	}, 5000);
+	}, 10000);
 
 	vehicle_status_loop = setInterval(function() {
 		// Refresh browser view
 		vehicle_status();
-	}, 2000);
+	}, 11000);
 
 }
 
@@ -210,11 +221,14 @@ function vehicle_status() {
 			}
 
 			// Ignition
-			if (return_data.vehicle.ignition == 'on') {
-				$('#vehicle-ignition').text('Ignition on').addClass('text-success');
+			if (return_data.vehicle.ignition == 'run') {
+				$('#vehicle-ignition').text('Ignition run').addClass('text-success');
 			}
 			else if (return_data.vehicle.ignition == 'accessory') {
-				$('#vehicle-ignition').text('Ignition accessory').addClass('text-warning');
+				$('#vehicle-ignition').text('Ignition accessory').addClass('text-info');
+			}
+			else if (return_data.vehicle.ignition == 'start') {
+				$('#vehicle-ignition').text('Ignition start').addClass('text-warning');
 			}
 			else {
 				$('#vehicle-ignition').text('Ignition off').addClass('text-danger');
@@ -225,13 +239,13 @@ function vehicle_status() {
 			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed);
 			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed);
 
-			if (return_data.coding.unit_speed == 'kph') {
-				$('#vehicle-speed' ).text(return_data.vehicle_speed_kph);
-				$('#obc-speedavg'  ).text(return_data.obc.speedavg_kph);
-				$('#obc-speedlimit').text(return_data.obc.speedlimit_kph);
+			if (return_data.coding.unit_speed == 'kmh') {
+				$('#vehicle-speed' ).text(return_data.vehicle.speed_kmh);
+				$('#obc-speedavg'  ).text(return_data.obc.speedavg_kmh);
+				$('#obc-speedlimit').text(return_data.obc.speedlimit_kmh);
 			}
 			else if (return_data.coding.unit_speed == 'mph') {
-				$('#vehicle-speed' ).text(return_data.vehicle_speed_mph);
+				$('#vehicle-speed' ).text(return_data.vehicle.speed_mph);
 				$('#obc-speedavg'  ).text(return_data.obc.speedavg_mph);
 				$('#obc-speedlimit').text(return_data.obc.speedlimit_mph);
 			}

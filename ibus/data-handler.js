@@ -120,15 +120,15 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 				var command = 'speed/RPM';
 
 				// Update vehicle and engine speed variables
-				vehicle_status.vehicle.speed_kmh = msg[1]*2;
-				vehicle_status.engine.speed      = msg[2]*100;
+				vehicle_status.vehicle.speed_kmh = parseFloat(msg[1]*2).toFixed(2);
+				vehicle_status.engine.speed      = parseFloat(msg[2]*100).toFixed(2);
 
 				// Convert values and round to 2 decimals
 				vehicle_status.vehicle.speed_mph = parseFloat((msg[1]*2)*0.621371192237334).toFixed(2);
 
-				console.log('[data-handler] Set vehicle_status.vehicle.speed_kmh = %s kmh', vehicle_status.vehicle.speed_kmh);
-				console.log('[data-handler] Set vehicle_status.vehicle.speed_mph = %s mph', vehicle_status.vehicle.speed_mph);
-				console.log('[data-handler] Set vehicle_status.engine.speed      = %s rpm', vehicle_status.engine.speed);
+				console.log('[data-handler] Set vehicle_status.vehicle.speed_kmh      = %s', vehicle_status.vehicle.speed_kmh);
+				console.log('[data-handler] Set vehicle_status.vehicle.speed_mph      = %s', vehicle_status.vehicle.speed_mph);
+				console.log('[data-handler] Set vehicle_status.engine.speed           = %s', vehicle_status.engine.speed);
 			}
 			else if (msg[0] == 0x24) {
 				var command = 'OBC text';
@@ -185,13 +185,13 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 					// Update vehicle_status variables
 					if (string_temp_exterior_unit == 'c') {
-						vehicle_status.obc.temp_exterior_c = string_temp_exterior_value;
-						vehicle_status.obc.temp_exterior_f = ((string_temp_exterior_value*9)/5)+32;
+						vehicle_status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
+						vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value*9)/5)+32).toFixed(2);
 						vehicle_status.coding.unit_temp    = 'c';
 					}
 					else {
-						vehicle_status.obc.temp_exterior_f = string_temp_exterior_value;
-						vehicle_status.obc.temp_exterior_f = (string_temp_exterior_value-32)*(5/9);
+						vehicle_status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
+						vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value-32)*(5/9))).toFixed(2);
 						vehicle_status.coding.unit_temp    = 'f';
 					}
 
@@ -265,17 +265,20 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 					var string_range_unit = new Buffer([msg[7], msg[8]]);
 					string_range_unit     = string_range_unit.toString().trim().toLowerCase();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.range = string_range;
-
 					if (string_range_unit == 'ml') {
 						vehicle_status.coding.unit_distance = 'mi';
+						// Update vehicle_status variables
+						vehicle_status.obc.range_mi = parseFloat(string_range).toFixed(2);
+						vehicle_status.obc.range_km = parseFloat(string_range*1.60934).toFixed(2);
 					}
 					else if (string_range_unit == 'km') {
 						vehicle_status.coding.unit_distance = 'km';
+						vehicle_status.obc.range_mi = parseFloat(string_range*0.621371).toFixed(2);
+						vehicle_status.obc.range_km = parseFloat(string_range).toFixed(2);
 					}
 
-					console.log('[data-handler] Set vehicle_status.obc.range              = %s', vehicle_status.obc.range);
+					console.log('[data-handler] Set vehicle_status.obc.range_mi           = %s', vehicle_status.obc.range_mi);
+					console.log('[data-handler] Set vehicle_status.obc.range_km           = %s', vehicle_status.obc.range_km);
 					console.log('[data-handler] Set vehicle_status.coding.unit_distance   = \'%s\'', vehicle_status.coding.unit_distance);
 				}
 
@@ -299,7 +302,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 					string_speedlimit     = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
 					// Update vehicle_status variables
-					vehicle_status.obc.speedlimit = string_speedlimit; 
+					vehicle_status.obc.speedlimit = string_speedlimit.toFixed(2); 
 					console.log('[data-handler] Set vehicle_status.obc.speedlimit         = %s mph', vehicle_status.obc.speedlimit);
 				}
 
@@ -314,20 +317,20 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 					// Convert values appropriately based on coding data units
 					if (string_speedavg_unit == 'k') {
-						vehicle_status.coding.unit_speed = 'kph';
-						vehicle_status.obc.speedavg_kph = string_speedavg;
-						vehicle_status.obc.speedavg_mph = string_speedavg*0.62;
+						vehicle_status.coding.unit_speed = 'kmh';
+						// Update vehicle_status variables
+						vehicle_status.obc.speedavg_kmh = string_speedavg.toFixed(2);
+						vehicle_status.obc.speedavg_mph = (string_speedavg*0.621371).toFixed(2);
 					}
 					else if (string_speedavg_unit == 'm') {
 						vehicle_status.coding.unit_speed = 'mph';
-						vehicle_status.obc.speedavg_kph = string_speedavg*1.60;
-						vehicle_status.obc.speedavg_mph = string_speedavg;
+						// Update vehicle_status variables
+						vehicle_status.obc.speedavg_kmh = (string_speedavg*1.60934).toFixed(2);
+						vehicle_status.obc.speedavg_mph = string_speedavg.toFixed(2);
 					}
 
-					// Update vehicle_status variables
-					vehicle_status.obc.speedavg = string_speedavg.toFixed(2); 
-					console.log('[data-handler] Set vehicle_status.coding.unit_speed      = %s', vehicle_status.coding.unit_speed);
-					console.log('[data-handler] Set vehicle_status.obc.speedavg_kph       = %s', vehicle_status.obc.speedavg_kph);
+					console.log('[data-handler] Set vehicle_status.coding.unit_speed      = \'%s\'', vehicle_status.coding.unit_speed);
+					console.log('[data-handler] Set vehicle_status.obc.speedavg_kmh       = %s', vehicle_status.obc.speedavg_kmh);
 					console.log('[data-handler] Set vehicle_status.obc.speedavg_mph       = %s', vehicle_status.obc.speedavg_mph);
 				}
 
@@ -348,7 +351,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 					// Update vehicle_status variables
 					vehicle_status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
-					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_1   = %s', vehicle_status.obc.aux_heat_timer_1);
+					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_1   = \'%s\'', vehicle_status.obc.aux_heat_timer_1);
 				}
 
 				else if (msg[1] == 0x10) { // Aux heat timer 2
@@ -358,7 +361,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 
 					// Update vehicle_status variables
 					vehicle_status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
-					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_2   = %s', vehicle_status.obc.aux_heat_timer_2);
+					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_2   = \'%s\'', vehicle_status.obc.aux_heat_timer_2);
 				}
 
 				else if (msg[1] == 0x1A) { // Stopwatch

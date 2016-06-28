@@ -8,8 +8,15 @@
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> OBC get</h4>
+			<h4>OBC Get</h4>
 			<form class="form-horizontal" id="form-ike-get" action="javascript:form_ike_get();">
+
+				<div class="radio">
+					<label>
+						<input type="radio" name="obc-get" id="form-ike-get-all" value="all" checked>
+						All
+					</label>
+				</div>
 
 				<div class="radio">
 					<label>
@@ -48,6 +55,13 @@
 
 				<div class="radio">
 					<label>
+						<input type="radio" name="obc-get" id="form-ike-get-speedlimit" value="speedlimit">
+						Current speed limit
+					</label>
+				</div>
+
+				<div class="radio">
+					<label>
 						<input type="radio" name="obc-get" id="form-ike-get-distance" value="distance">
 						Distance
 					</label>
@@ -55,22 +69,15 @@
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-get" id="form-ike-get-speedlimit" value="speedlimiton">
-						Speed limit on
+						<input type="radio" name="obc-get" id="form-ike-get-distance" value="range">
+						Range
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-get" id="form-ike-get-speedlimit" value="speedlimitoff">
-						Speed limit off
-					</label>
-				</div>
-
-				<div class="radio">
-					<label>
-						<input type="radio" name="obc-get" id="form-ike-get-speedlimit" value="speedlimitcurrent">
-						Speed limit current speed
+						<input type="radio" name="obc-get" id="form-ike-get-distance" value="temp_exterior">
+						Exterior temp
 					</label>
 				</div>
 
@@ -87,7 +94,7 @@
 			</form>
 			<hr>
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> OBC reset</h4>
+			<h4>OBC Reset</h4>
 			<form class="form-horizontal" id="form-ike-reset" action="javascript:form_ike_reset();">
 
 				<div class="radio">
@@ -134,8 +141,8 @@
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-speedlimit" value="speedlimitcurrent">
-						Speed limit current speed
+						<input type="radio" name="obc-reset" id="form-ike-reset-speedlimit" value="speedlimit">
+						Current speed limit
 					</label>
 				</div>
 
@@ -153,7 +160,7 @@
 			<hr>
 
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> Gong</h4>
+			<h4>Gong</h4>
 			<form class="form-horizontal" id="form-ike-gong" action="javascript:form_ike_gong();">
 
 				<div class="radio">
@@ -183,7 +190,7 @@
 			</form>
 			<hr>
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> Text</h4>
+			<h4>Text</h4>
 			<form class="form-horizontal" id="form-ike-text" action="javascript:form_ike_text();">
 
 				<input class="form-control" type="text" name="obc-text" id="form-ike-text-text" placeholder="Cluster text">

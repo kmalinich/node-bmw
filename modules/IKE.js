@@ -58,8 +58,19 @@ var IKE = function(ibus_connection, vehicle_status) {
 
 	// Refresh OBC data
 	function obc_refresh() {
+		obc_get('auxheat1');
+		obc_get('auxheat2');
 		obc_get('cons1');
+		obc_get('cons2');
+		obc_get('date');
+		obc_get('distance');
+		obc_get('range');
+		obc_get('speedavg');
+		obc_get('speedlimit');
+		obc_get('stopwatch');
+		obc_get('temp_exterior');
 		obc_get('time');
+		obc_get('timer');
 	}
 
 	// OBC get
@@ -78,9 +89,9 @@ var IKE = function(ibus_connection, vehicle_status) {
 			var obc_value = 'Date';
 		}
 
-		else if (value == 'temp_external') {
+		else if (value == 'temp_exterior') {
 			var msg       = [0x41, 0x03, 0x01];
-			var obc_value = 'External temp';
+			var obc_value = 'Exterior temp';
 		}
 
 		else if (value == 'cons1') {
@@ -108,7 +119,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 		//	var obc_value = '';
 		//}
 
-		else if (value == 'limit') {
+		else if (value == 'speedlimit') {
 			var msg       = [0x41, 0x09, 0x01];
 			var obc_value = 'Speed limit';
 		}
@@ -175,9 +186,9 @@ var IKE = function(ibus_connection, vehicle_status) {
 			var msg       = [0x41, 0x09, 0x04];
 			var obc_value = 'Speed limit on';
 
-		} else if (value == 'speedlimitcurrent') {
+		} else if (value == 'speedlimit') {
 			var msg       = [0x41, 0x09, 0x20];
-			var obc_value = 'Speed limit current';
+			var obc_value = 'Speed limit';
 		}
 
 		console.log('[IKE] Setting/resetting OBC value %s', obc_value);
@@ -301,22 +312,27 @@ var IKE = function(ibus_connection, vehicle_status) {
 	// Handle incoming commands
 	function ike_data(data) {
 		console.log('[IKE] ike_data()');
-		console.log(data)
 
 		if (typeof data['obc-text'] !== 'undefined') {
-			console.log('[IKE] IKE text string: "%s"', data['obc-text']);
+			console.log('[IKE] IKE text string: \'%s\'', data['obc-text']);
 			ike_text(data['obc-text']);
 		}
 		else if (typeof data['obc-get'] !== 'undefined') {
-			console.log('[IKE] IKE OBC get: "%s"', data['obc-get']);
-			obc_get(data['obc-get']);
+			console.log('[IKE] IKE OBC get: \'%s\'', data['obc-get']);
+			if (data['obc-get'] == 'all')
+				{ obc_refresh(); }
+			else
+				{ obc_get(data['obc-get']); }
 		}
 		else if (typeof data['obc-reset'] !== 'undefined') {
-			console.log('[IKE] IKE OBC reset: "%s"', data['obc-reset']);
-			obc_reset(data['obc-reset']);
+			console.log('[IKE] IKE OBC reset: \'%s\'', data['obc-reset']);
+			if (data['obc-reset'] == 'all')
+				{ obc_refresh(); }
+			else
+				{ obc_reset(data['obc-reset']); }
 		}
 		else if (typeof data['obc-gong'] !== 'undefined') {
-			console.log('[IKE] IKE OBC gong: "%s"', data['obc-gong']);
+			console.log('[IKE] IKE OBC gong: \'%s\'', data['obc-gong']);
 			obc_gong(data['obc-gong']);
 		}
 		else {

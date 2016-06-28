@@ -23,15 +23,14 @@ var socket_server = require('./lib/socket-server.js');
 var vehicle_status = require('./lib/vehicle-status.js');
 
 // IBUS connection handle
-var ibus_connection   = new ibus_interface();
+var ibus_connection = new ibus_interface();
 
 // IBUS module connection handles
-// var GM_connection     = new GM(ibus_connection);
-var LCM_connection    = new LCM(ibus_connection);
-var IKE_connection    = new IKE(ibus_connection, vehicle_status);
+var GM_connection  = new GM(ibus_connection);
+var LCM_connection = new LCM(ibus_connection);
+var IKE_connection = new IKE(ibus_connection, vehicle_status);
 
 // Data handler
-//var ibus_data_handler = new ibus_data(ibus_connection, bus_modules, GM_connection, IKE_connection, LCM_connection);
 var data_handler_connection = new data_handler(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection);
 
 
@@ -125,3 +124,4 @@ http.createServer(function (req, res) {
 	//console.log('%s Request: %s', req.method, req.url);
 	dispatcher.dispatch(req, res);
 }).listen(3001, '0.0.0.0');
+console.log('[run.js] Started API interface on port 3001');

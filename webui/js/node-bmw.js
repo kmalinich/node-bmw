@@ -1,85 +1,265 @@
 var _modules = {
-  'ABG'                    : 0xA4,
-  'Assist'                 : 0xCA,
-  'BMBT'                   : 0xF0,
-  'CCM'                    : 0x30,
-  'CD changer DIN size'    : 0x76,
-  'CDC'                    : 0x18,
-  'CID'                    : 0x46,
-  'DIA'                    : 0x3F,
-  'DME'                    : 0x12,
-  'DME'                    : 0xB8,
-  'DSP'                    : 0x6A,
-  'EWS'                    : 0x44,
-  'GLO'                    : 0xBF,
-  'GM'                     : 0x00,
-  'GT'                     : 0x3B,
-  'GTR'                    : 0x43,
-  'HAC'                    : 0x9A,
-  'IHKA'                   : 0x5B,
-  'IKE'                    : 0x80,
-  'IRIS'                   : 0xE0,
-  'Key fob'                : 0x40,
-  'LCM'                    : 0xD0,
-  'LOC'                    : 0xFF,
-  'MFL'                    : 0x50,
-  'MID'                    : 0xC0,
-  'Navigation (EUR)'       : 0x7F,
-  'Navigation (JP)'        : 0xBB,
-  'OBC'                    : 0xE7,
-  'PDC'                    : 0x60,
-  'Power mirror 1'         : 0x51,
-  'Power mirror 2'         : 0x9B,
-  'Power mirror 3'         : 0x9C,
-  'RAD'                    : 0x68,
-  'RLS'                    : 0xE8,
-  'Radio controlled clock' : 0x28,
-  'Rear Multinfo display'  : 0xA0,
-  'SES'                    : 0xB0,
-  'SM'                     : 0x08,
-  'Seat 1'                 : 0x72,
-  'Seat 2'                 : 0xDA,
-  'Seats'                  : 0xED,
-  'Sirius radio'           : 0x73,
-  'TEL'                    : 0xC8,
+	'ABG'                    : 0xA4,
+	'Assist'                 : 0xCA,
+	'BMBT'                   : 0xF0,
+	'CCM'                    : 0x30,
+	'CD changer DIN size'    : 0x76,
+	'CDC'                    : 0x18,
+	'CID'                    : 0x46,
+	'DIA'                    : 0x3F,
+	'DME'                    : 0x12,
+	'DME'                    : 0xB8,
+	'DSP'                    : 0x6A,
+	'EWS'                    : 0x44,
+	'GLO'                    : 0xBF,
+	'GM'                     : 0x00,
+	'GT'                     : 0x3B,
+	'GTR'                    : 0x43,
+	'HAC'                    : 0x9A,
+	'IHKA'                   : 0x5B,
+	'IKE'                    : 0x80,
+	'IRIS'                   : 0xE0,
+	'Key fob'                : 0x40,
+	'LCM'                    : 0xD0,
+	'LOC'                    : 0xFF,
+	'MFL'                    : 0x50,
+	'MID'                    : 0xC0,
+	'Navigation (EUR)'       : 0x7F,
+	'Navigation (JP)'        : 0xBB,
+	'OBC'                    : 0xE7,
+	'PDC'                    : 0x60,
+	'Power mirror 1'         : 0x51,
+	'Power mirror 2'         : 0x9B,
+	'Power mirror 3'         : 0x9C,
+	'RAD'                    : 0x68,
+	'RLS'                    : 0xE8,
+	'Radio controlled clock' : 0x28,
+	'Rear Multinfo display'  : 0xA0,
+	'SES'                    : 0xB0,
+	'SM'                     : 0x08,
+	'Seat 1'                 : 0x72,
+	'Seat 2'                 : 0xDA,
+	'Seats'                  : 0xED,
+	'Sirius radio'           : 0x73,
+	'TEL'                    : 0xC8,
 };
 
 function get_module_name(key) {
-  var hkey = parseInt(key, 16);
+	var hkey = parseInt(key, 16);
 
-  for (var dkey in _modules) {
-    if (_modules[dkey] === hkey) {
-      return dkey;
-    }
-  }
+	for (var dkey in _modules) {
+		if (_modules[dkey] === hkey) {
+			return dkey;
+		}
+	}
 
-  return 'Unknown Device' + ' - ' + key;
+	return 'Unknown Device' + ' - ' + key;
 };
 
+// Remove all color-coded CSS classes from a text id
+function clean_class(id) {
+	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').text('');
+}
+
+// Clean all the text strings
+function clean_class_all() {
+	clean_class('#engine-running');
+	clean_class('#engine-speed');
+	clean_class('#obc-aux-heat-timer-1');
+	clean_class('#obc-aux-heat-timer-2');
+	clean_class('#obc-coding-unit-cons');
+	clean_class('#obc-coding-unit-distance');
+	clean_class('#obc-coding-unit-speed');
+	clean_class('#obc-coding-unit-temp');
+	clean_class('#obc-coding-unit-time');
+	clean_class('#obc-consumption-1');
+	clean_class('#obc-consumption-1-unit');
+	clean_class('#obc-consumption-2');
+	clean_class('#obc-consumption-2-unit');
+	clean_class('#obc-date');
+	clean_class('#obc-distance');
+	clean_class('#obc-distance-unit');
+	clean_class('#obc-range');
+	clean_class('#obc-range-unit');
+	clean_class('#obc-speedavg');
+	clean_class('#obc-speedavg-unit');
+	clean_class('#obc-speedlimit');
+	clean_class('#obc-speedlimit-unit');
+	clean_class('#obc-stopwatch');
+	clean_class('#obc-temp-exterior');
+	clean_class('#obc-temp-exterior-unit');
+	clean_class('#obc-time');
+	clean_class('#obc-timer');
+	clean_class('#temperature-coolant');
+	clean_class('#temperature-coolant-unit');
+	clean_class('#vehicle-handbrake');
+	clean_class('#vehicle-ignition');
+	clean_class('#vehicle-reverse');
+	clean_class('#vehicle-speed');
+	clean_class('#vehicle-speed-unit');
+	//clean_class('');
+}
+
+// Status page autorefresh enable
+
+var vehicle_status_loop;
+
+function vehicle_status_refresh_on() {
+	// Refresh once first
+	vehicle_status();
+
+	// CSS magic
+	$('#icon-refresh').addClass('fa-spin');
+	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:vehicle_status_refresh_off();');
+
+	// Set the loop
+	vehicle_status_loop = setInterval(function() {
+		vehicle_status();
+	}, 5000);
+}
+
+// Status page autorefresh disable
+function vehicle_status_refresh_off() {
+	// CSS magic
+	$('#icon-refresh').removeClass('fa-spin');
+	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:vehicle_status_refresh_on();');
+
+	// Clear the loop
+	clearInterval(vehicle_status_loop);
+}
+
+// Get vehicle_status object, parse, and display
 function vehicle_status() {
 	$.ajax({
 		url      : '/api/status',
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
-			$('#engine-running').text(return_data.engine.running);
-			$('#engine-speed').text(return_data.engine.speed);
-
-			$('#temperature-coolant-c').text(return_data.temperature.coolant_c);
-			$('#temperature-coolant-f').text(return_data.temperature.coolant_f);
-			$('#temperature-exterior-c').text(return_data.temperature.exterior_c);
-			$('#temperature-exterior-f').text(return_data.temperature.exterior_f);
-
-			$('#vehicle-handbrake').text(return_data.vehicle.handbrake);
-			$('#vehicle-ignition').text(return_data.vehicle.ignition);
-			$('#vehicle-speed-kmh').text(return_data.vehicle.speed_kmh);
-			$('#vehicle-speed-mph').text(return_data.vehicle.speed_mph);
-
-			$('#obc-time').text(return_data.obc.time);
-			$('#obc-consumption-1').text(return_data.obc.consumption_1);
-			$('#obc-consumption-2').text(return_data.obc.consumption_2);
-
 			console.log(return_data);
+
+			// Clean up page
+			clean_class_all();
+
+			// Time and date
+			$('#obc-time').text(return_data.obc.time);
+			$('#obc-date').text(return_data.obc.date);
+
+			// Engine status
+			$('#engine-speed').text(return_data.engine.speed);
+			if (return_data.engine.running) {
+				$('#engine-running').text('Running').addClass('text-success');
+			}
+			else {
+				$('#engine-running').text('Not running').addClass('text-danger');
+			}
+
+			/*
+			 * Temperatures
+			 */
+
+			// Units
+			$('#temperature-coolant-unit').text(return_data.coding.unit_temp);
+			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp);
+
+			if (return_data.coding.unit_temp == 'c') { 
+				// Coolant temperature
+				$('#temperature-coolant').text(return_data.temperature.coolant_c);
+				// Exterior temperature
+				$('#obc-temp-exterior').text(return_data.obc.temp_exterior_c);
+			}
+			else if (return_data.coding.unit_temp == 'f') {
+				$('#temperature-coolant').text(return_data.temperature.coolant_f);
+				$('#obc-temp-exterior'  ).text(return_data.obc.temp_exterior_f);
+			}
+
+			//$('#temperature-exterior-c').text(return_data.temperature.exterior_c);
+			//$('#temperature-exterior-f').text(return_data.temperature.exterior_f);
+
+			/*
+			 * Vehicle sensors
+			 */
+
+			// Handbrake
+			if (return_data.vehicle.handbrake) {
+				$('#vehicle-handbrake').text('Handbrake on').addClass('text-success');
+			}
+			else {
+				$('#vehicle-handbrake').text('Handbrake off').addClass('text-danger');
+			}
+
+			// Reverse
+			if (return_data.vehicle.reverse) {
+				$('#vehicle-reverse').text('In reverse').addClass('text-danger');
+			}
+			else {
+				$('#vehicle-reverse').text('Not in reverse').addClass('text-success');
+			}
+
+			// Ignition
+			if (return_data.vehicle.ignition == 'on') {
+				$('#vehicle-ignition').text('Ignition on').addClass('text-success');
+			}
+			else if (return_data.vehicle.ignition == 'accessory') {
+				$('#vehicle-ignition').text('Ignition accessory').addClass('text-warning');
+			}
+			else {
+				$('#vehicle-ignition').text('Ignition off').addClass('text-danger');
+			}
+
+			// Current, average, and limit speed
+			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed);
+			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed);
+			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed);
+
+			if (return_data.coding.unit_speed == 'kph') {
+				$('#vehicle-speed' ).text(return_data.vehicle_speed_kph);
+				$('#obc-speedavg'  ).text(return_data.obc.speedavg_kph);
+				$('#obc-speedlimit').text(return_data.obc.speedlimit_kph);
+			}
+			else if (return_data.coding.unit_speed == 'mph') {
+				$('#vehicle-speed' ).text(return_data.vehicle_speed_mph);
+				$('#obc-speedavg'  ).text(return_data.obc.speedavg_mph);
+				$('#obc-speedlimit').text(return_data.obc.speedlimit_mph);
+			}
+
+			// Distance to arrival and range to empty
+			$('#obc-distance-unit').text(return_data.coding.unit_distance);
+			$('#obc-range-unit'   ).text(return_data.coding.unit_distance);
+
+			if (return_data.coding.unit_distance == 'mi') {
+				$('#obc-distance').text(return_data.obc.distance_mi);
+				$('#obc-range').text(return_data.obc.range_mi);
+			}
+			else if (return_data.coding.unit_distance == 'km') {
+				$('#obc-distance').text(return_data.obc.distance_km);
+				$('#obc-range').text(return_data.obc.range_km);
+			}
+
+			// Fuel consumption
+			$('#obc-consumption-1-unit').text(return_data.coding.unit_cons);
+			$('#obc-consumption-2-unit').text(return_data.coding.unit_cons);
+
+			if (return_data.coding.unit_cons == 'mpg') {
+				$('#obc-consumption-1').text(return_data.obc.consumption_1_mpg);
+				$('#obc-consumption-2').text(return_data.obc.consumption_2_mpg);
+			}
+			else if ( return_data.coding.unit_cons == 'l100') {
+				$('#obc-consumption-1').text(return_data.obc.consumption_1_l100);
+				$('#obc-consumption-2').text(return_data.obc.consumption_2_100);
+			}
+
+			// Stopwatch, timer, aux heat timers
+			$('#obc-aux-heat-timer-1').text(return_data.obc.aux_heat_timer_1);
+			$('#obc-aux-heat-timer-2').text(return_data.obc.aux_heat_timer_2);
+			$('#obc-stopwatch'       ).text(return_data.obc.stopwatch);
+			$('#obc-timer'           ).text(return_data.obc.timer);
+
+			// Coding data
+			$('#obc-coding-unit-cons'     ).text(return_data.coding.unit_cons     );
+			$('#obc-coding-unit-distance' ).text(return_data.coding.unit_distance );
+			$('#obc-coding-unit-speed'    ).text(return_data.coding.unit_speed    );
+			$('#obc-coding-unit-temp'     ).text(return_data.coding.unit_temp     );
+			$('#obc-coding-unit-time'     ).text(return_data.coding.unit_time     );
 		}
 	});
 }
@@ -174,7 +354,7 @@ function ws_ibus() {
 
 	ws_uri += "//" + loc.host + '/ws/ibus';
 	console.log('WebSocket URI:', ws_uri);
-	
+
 	// Open WebSocket
 	var socket  = new WebSocket(ws_uri);
 
@@ -190,7 +370,7 @@ function ws_ibus() {
 	});
 
 	socket.onopen = function() {
-	// socket.send('hello from the client');
+		// socket.send('hello from the client');
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
 	};
 

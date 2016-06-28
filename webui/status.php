@@ -4,33 +4,213 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body onload="javascript:vehicle_status();">
+	<body onload="javascript:vehicle_status_refresh_on();">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
-			<button class="btn btn-lg btn-primary btn-block" onclick="javascript:vehicle_status();">Refresh</button>
+			<h4><i id="icon-refresh" class="fa fa-refresh fa-inverse"></i> Refresh</h4>
+			<div class="row">
+				<div class="col-xs-6">
+					<button class="btn btn-lg btn-warning btn-block" onclick="javascript:vehicle_status();">Force</button>
+				</div>
+				<div class="col-xs-6">
+					<button id="btn-refresh" class="btn btn-lg btn-success btn-block" onclick="javascript:vehicle_status_refresh_on();">Enable</button>
+				</div>
+			</div>
 			<hr>
 
-			<h4><span class="glyphicon glyphicon-dashboard"></span> Engine (running: <span id="engine-running"></span>)</h4>
-			<p class="lead">Speed: <span id="engine-speed"></span> RPM</p>
+			<div class="row">
+
+				<div class="col-lg-12 col-xs-12">
+
+					<h4><i class="fa fa-tachometer fa-inverse"></i> Engine</h4>
+					<div class="row text-center">
+
+						<div class="col-xs-4">
+							<h5>Status</h5>
+							<h6 id="engine-running"></h5>
+						</div>
+
+						<div class="col-xs-4">
+							<h5>RPM</h5>
+							<h6><span id="engine-speed"></span> rpm</h6>
+						</div>
+
+						<div class="col-xs-4">
+							<h5>Temp</h5>
+							<h6><span id="temperature-coolant"></span><span id="temperature-coolant-unit"></span></h6>
+						</div>
+
+					</div>
+
+					<hr>
+
+					<h4><i class="fa fa-car fa-inverse"></i> Vehicle</h4>
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Status</h5>
+							<h6 id="vehicle-ignition" ></h6>
+							<h6 id="vehicle-handbrake"></h6>
+							<h6 id="vehicle-reverse"  ></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Speed</h5>
+							<h6><span id="vehicle-speed"></span> <span id="vehicle-speed-unit"></span></h6>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 			<hr>
 
-			<h4><span class="glyphicon glyphicons-car"></span> Vehicle</h4>
-			<p class="lead">Speed: <span id="vehicle-speed-mph"></span> MPH (<span id="vehicle-speed-kmh"></span> km/h)</p>
-			<p class="lead">Handbrake: <span id="vehicle-handbrake"></span></p>
-			<p class="lead">Ignition: <span id="vehicle-ignition"></span></p>
-			<hr>
+			<div class="row">
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> Temperature</h4>
-			<p class="lead">Coolant: <span id="temperature-coolant-c"></span>C (<span id="temperature-coolant-f"></span>F)</p>
-			<p class="lead">Exterior: <span id="temperature-exterior-c"></span>C (<span id="temperature-exterior-f"></span>F)</p>
-			<hr>
+				<div class="col-lg-12 col-xs-12">
+					<h4><i class="fa fa-desktop fa-inverse"></i> OBC</h4>
 
-			<h4><span class="glyphicon glyphicon-refresh"></span> OBC</h4>
-			<p class="lead">Time: <span id="obc-time"></span></p>
-			<p class="lead">Consumption 1: <span id="obc-consumption-1"></span> MPG</p>
-			<p class="lead">Consumption 2: <span id="obc-consumption-2"></span> MPG</p>
-			<hr>
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Date/Time</h5>
+							<h6><span id="obc-time"></span> <span id="obc-date"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Ext. temp</h5>
+							<h6><span id="obc-temp-exterior"></span><span id="obc-temp-exterior-unit"></span></h6>
+						</div>
+
+					</div>
+
+					<hr>
+
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Speed average</h5>
+							<h6><span id="obc-speedavg"></span> <span id="obc-speedavg-unit"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Speed limit</h5>
+							<h6><span id="obc-speedlimit"></span> <span id="obc-speedlimit-unit"></span></h6>
+							<!--
+							<h5></h5>
+							<h6><span id="obc-"></span></h6>
+							-->
+						</div>
+
+					</div>
+					<hr>
+
+					<div class="row text-center">
+						<div class="col-xs-6">
+							<h5>Distance</h5>
+							<h6><span id="obc-distance"></span> <span id="obc-distance-unit"></span></h6>
+						</div>
+						<div class="col-xs-6">
+							<h5>Range</h5>
+							<h6><span id="obc-range"></span> <span id="obc-range-unit"></span></h6>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>MPG 1</h5>
+							<h6><span id="obc-consumption-1"></span> <span id="obc-consumption-1-unit"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>MPG 2</h5>
+							<h6><span id="obc-consumption-2"></span> <span id="obc-consumption-2-unit"></span></h6>
+						</div>
+
+
+					</div>
+
+					<hr>
+
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Aux heat timer 1</h5>
+							<h6><span id="obc-aux-heat-timer-1"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Aux heat timer 2</h5>
+							<h6><span id="obc-aux-heat-timer-2"></span></h6>
+						</div>
+
+					</div>
+
+					<hr>
+
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Stopwatch</h5>
+							<h6><span id="obc-stopwatch"></span> sec</h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Timer</h5>
+							<h6><span id="obc-timer"></span> sec</h6>
+						</div>
+
+					</div>
+
+					<hr>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-lg-12 col-xs-12">
+
+					<h4><i class="fa fa-gear fa-inverse"></i> Coding data</h4>
+
+					<div class="row text-center">
+
+						<div class="col-xs-6">
+							<h5>Consumption</h5>
+							<h6><span id="obc-coding-unit-cons"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Distance</h5>
+							<h6><span id="obc-coding-unit-distance"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Speed</h5>
+							<h6><span id="obc-coding-unit-speed"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Temp</h5>
+							<h6><span id="obc-coding-unit-temp"></span></h6>
+						</div>
+
+						<div class="col-xs-6">
+							<h5>Time</h5>
+							<h6><span id="obc-coding-unit-time"></span></h6>
+						</div>
+
+					</div>
+					<hr>
+
+				</div>
+			</div>
 
 
 		</div>

@@ -1,3 +1,14 @@
+/* Misc page/element tweaks */
+
+.row {
+	margin-bottom: 5px;
+}
+
+h1, h2, h3, h4, h5, h6, hr, p, .lead {
+	margin: 6px 0px 6px 0px;
+}
+
+
 /* Custom navbar graphic */
 
 .navbar-brand {

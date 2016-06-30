@@ -8,10 +8,6 @@ var bus_modules   = require('../lib/bus-modules.js');
 var Log           = require('log');
 var log           = new Log('info');
 
-log.on('line', function(line){
-	console.log(line);
-});
-
 var ibus_interface = function(device_path) {
 
 	// self reference
@@ -46,7 +42,7 @@ var ibus_interface = function(device_path) {
 
 		serial_port.open(function(error) {
 			if (error) {
-				log.error('[ibus-interface] Failed to open: ' + error);
+				console.error('[ibus-interface] Failed to open: ' + error);
 			} else {
 				console.log('[ibus-interface] Port open [' + device + ']');
 				_self.emit('port_open');
@@ -58,7 +54,7 @@ var ibus_interface = function(device_path) {
 				});
 
 				serial_port.on('error', function(err) {
-					log.error("[ibus-interface] Error", err);
+					//log.error('[ibus-interface] Error', err);
 					shutdown(startup);
 				});
 
@@ -75,6 +71,7 @@ var ibus_interface = function(device_path) {
 	function get_ht_diff_time(time) {
 		// ts = [seconds, nanoseconds]
 		var ts = process.hrtime(time);
+
 		// convert seconds to miliseconds and nanoseconds to miliseconds as well
 		return (ts[0] * 1000) + (ts[1] / 1000000);
 	};
@@ -101,16 +98,16 @@ var ibus_interface = function(device_path) {
 		// process 1 message
 		var data_buffer = queue.pop();
 
-		log.debug(clc.blue('[ibus-interface] Write queue length: '), queue.length);
+		//log.debug(clc.blue('[ibus-interface] Write queue length: '), queue.length);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
-				log.error('[ibus-interface] Failed to write: ' + error);
+				//log.error('[ibus-interface] Failed to write: ' + error);
 			} else {
 				// console.log('[ibus-interface]', clc.white('Wrote to device:'), data_buffer, resp);
 
 				serial_port.drain(function(error) {
-					log.debug(clc.white('Data drained'));
+					// log.debug(clc.white('Data drained'));
 
 					// this counts as an activity, so mark it
 					last_activity_time = process.hrtime();
@@ -126,7 +123,7 @@ var ibus_interface = function(device_path) {
 	function close_ibus(callb) {
 		serial_port.close(function(error) {
 			if (error) {
-				log.error('[ibus-interface] Error closing port: ', error);
+				//log.error('[ibus-interface] Error closing port: ', error);
 				callb();
 			} else {
 				console.log('[ibus-interface] Port closed [' + device + ']');
@@ -151,7 +148,7 @@ var ibus_interface = function(device_path) {
 	}
 
 	function on_message(msg) {
-		log.debug('[ibus-interface] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
+		//log.debug('[ibus-interface] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
 		_self.emit('data', msg);
 	}
 
@@ -160,10 +157,10 @@ var ibus_interface = function(device_path) {
 
 		// console.log('[send_message] Src :', bus_modules.get_module_name(msg.src.toString(16)));
 		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
-		log.debug('[ibus-interface] Send message: ', data_buffer);
+		//log.debug('[ibus-interface] Send message: ', data_buffer);
 
 		if (queue.length > 1000) {
-			log.warning('[ibus-interface] Queue too large, dropping message..', data_buffer);
+			//log.warning('[ibus-interface] Queue too large, dropping message..', data_buffer);
 			return;
 		}
 

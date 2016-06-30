@@ -36,7 +36,7 @@ var ibus_interface = function(device_path) {
 			dataBits        : 8,
 			parity          : 'even',
 			parser          : serialport.parsers.raw,
-			rtscts          : true,
+			// rtscts          : true,
 			stopBits        : 1,
 		}, false);
 

@@ -30,7 +30,7 @@ var data_handler = function(omnibus) {
 					var lcm_object = {};
 
 					console.log('[data-handler] Deactivating welcome lights');
-					omnibus.LCM_connection.lcm_bitmask_encode(lcm_object);
+					omnibus.LCM.lcm_bitmask_encode(lcm_object);
 				}
 
 				else if (msg[1] == 0x22) {
@@ -50,7 +50,7 @@ var data_handler = function(omnibus) {
 					};
 
 					console.log('[data-handler] Activating welcome lights');
-					omnibus.LCM_connection.lcm_bitmask_encode(lcm_object);
+					omnibus.LCM.lcm_bitmask_encode(lcm_object);
 				}
 
 				else if (msg[1] == 0x42) {

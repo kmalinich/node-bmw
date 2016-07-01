@@ -26,8 +26,8 @@ omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.vehicle_status  = require('./lib/vehicle-status.js'); // Vehicle status object
 omnibus.ibus_connection = new ibus_interface(); // IBUS connection handle
 omnibus.GM_connection   = new GM(omnibus);
-omnibus.LCM_connection  = new LCM(omnibus);
-omnibus.IKE_connection  = new IKE(omnibus);
+omnibus.LCM  = new LCM(omnibus);
+omnibus.IKE  = new IKE(omnibus);
 
 // Data handler
 var data_handler_connection = new data_handler(omnibus);
@@ -84,7 +84,7 @@ dispatcher.onPost('/ike', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	omnibus.IKE_connection.ike_data(post);
+	omnibus.IKE.ike_data(post);
 
 	response.end('Got POST message for IKE\n');
 });
@@ -95,7 +95,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	omnibus.LCM_connection.lcm_bitmask_encode(post);
+	omnibus.LCM.lcm_bitmask_encode(post);
 
 	response.end('Got POST message for LCM\n');
 });

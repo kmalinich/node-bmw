@@ -102,13 +102,13 @@ function clean_class_all() {
 }
 
 // Status page autorefresh enable
-var vehicle_status_loop;
-var vehicle_status_refresh;
+var status_loop;
+var status_refresh;
 
-function vehicle_status_refresh_on() {
+function status_refresh_on() {
 	// CSS magic
 	$('#icon-refresh').addClass('fa-spin');
-	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:vehicle_status_refresh_off();');
+	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:status_refresh_off();');
 
 	// Pulse clamps 15, 30A, 30B
 	$.ajax({
@@ -122,7 +122,7 @@ function vehicle_status_refresh_on() {
 	});
 
 	// Set the loops
-	vehicle_status_refresh = setInterval(function() {
+	status_refresh = setInterval(function() {
 		// Data refresh from OBC/IKE
 		$.ajax({
 			url      : '/api/ike',
@@ -135,26 +135,26 @@ function vehicle_status_refresh_on() {
 		});
 	}, 3000);
 
-	vehicle_status_loop = setInterval(function() {
+	status_loop = setInterval(function() {
 		// Refresh browser view
-		vehicle_status();
+		status();
 	}, 2000);
 
 }
 
 // Status page autorefresh disable
-function vehicle_status_refresh_off() {
+function status_refresh_off() {
 	// CSS magic
 	$('#icon-refresh').removeClass('fa-spin');
-	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:vehicle_status_refresh_on();');
+	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:status_refresh_on();');
 
 	// Clear the loop
-	clearInterval(vehicle_status_loop);
-	clearInterval(vehicle_status_refresh);
+	clearInterval(status_loop);
+	clearInterval(status_refresh);
 }
 
-// Get vehicle_status object, parse, and display
-function vehicle_status() {
+// Get status object, parse, and display
+function status() {
 	$.ajax({
 		url      : '/api/status',
 		type     : 'GET',

@@ -55,9 +55,9 @@ var IKE = function(omnibus) {
 		console.log('[IKE] Refreshing OBC HUD');
 		obc_get('cons1');
 		obc_get('time');
-		var cons1 = parseFloat(omnibus.vehicle_status.obc.consumption_1_mpg).toFixed(1);
-		var ctmp  = Math.round(omnibus.vehicle_status.temperature.coolant_c);
-		ike_text(omnibus.vehicle_status.obc.time+' C:'+cons1+' T:'+ctmp);
+		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
+		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
+		ike_text(omnibus.status.obc.time+' C:'+cons1+' T:'+ctmp);
 	}
 
 	// Refresh OBC data
@@ -290,7 +290,7 @@ var IKE = function(omnibus) {
 	// Loop to update text in the cluster
 	function ike_text_loop() {
 		console.log('[IKE] text loop');
-		console.log(omnibus.vehicle_status);
+		console.log(omnibus.status);
 	}
 
 	// Send message to IKE
@@ -347,14 +347,14 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC data once every half-second
 	//setInterval(function() {
-	//	if (omnibus.vehicle_status.vehicle.ignition == 'run') {
+	//	if (omnibus.status.vehicle.ignition == 'run') {
 	//		obc_refresh();
 	//	}
 	//}, 500);
 
 	// Refresh OBC HUD once every 2 seconds
 	setInterval(function() {
-		if (omnibus.vehicle_status.vehicle.ignition == 'run') {
+		if (omnibus.status.vehicle.ignition == 'run') {
 			hud_refresh();
 		}
 	}, 2000);

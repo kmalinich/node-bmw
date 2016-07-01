@@ -371,12 +371,13 @@ function form_ike_gong() {
 }
 
 // Initialize IKE backlight slider
-function ike_backlight_prepare() {
+function prepare_ike_backlight() {
 	$('#slider-ike-backlight').on('slideStop', function(data) {
 		ike_backlight(data.value);
 	});
 }
 
+// AJAX for IKE backlight
 function ike_backlight(value) {
 	console.log('ike_backlight(%s);', value);
 
@@ -385,6 +386,45 @@ function ike_backlight(value) {
 		type     : 'POST',
 		dataType : 'json',
 		data     : 'ike-backlight='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// Prepare IKE page
+function prepare_ike() {
+	prepare_ike_backlight();
+}
+
+// Prepare GM page
+function prepare_gm() {
+	prepare_gm_interior_light();
+}
+
+// Initialize GM interior_light slider
+function prepare_gm_interior_light() {
+	$('#slider-gm-interior-light').on('slideStart', function(data) {
+		console.log('gm_interior_light_slideStart: %s', data.value);
+		gm_interior_light(data.value);
+	});
+
+	$('#slider-gm-interior-light').on('slideStop', function(data) {
+		console.log('gm_interior_light_slidestop: %s', data.value);
+		gm_interior_light(data.value);
+	});
+
+}
+
+// AJAX for GM interior_light
+function gm_interior_light(value) {
+	console.log('gm_interior_light(%s);', value);
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-interior-light='+value,
 		success  : function(return_data) {
 			console.log(return_data);
 		}

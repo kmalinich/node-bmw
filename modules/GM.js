@@ -15,17 +15,50 @@ var bit_6 = 0x40;
 var bit_7 = 0x80;
 
 
-var GM = function(ibus_connection) {
+var GM = function(omnibus) {
 
   // self reference
   var _self = this;
 
   // exposed data
-  this.gm_send           = gm_send;
-  this.bit_test          = bit_test;
-  this.bit_set           = bit_set;
-  this.gm_bitmask_encode = gm_bitmask_encode;
-  this.gm_bitmask_decode = gm_bitmask_decode;
+	this.gm_send = gm_send;
+	this.gm_data = gm_data;
+
+	// Handle incoming commands
+	function gm_data(data) {
+		console.log('[GM] gm_data()');
+
+		if (typeof data['gm-interior-light'] !== 'undefined') {
+			console.log('[GM] Interior light: \'%s\'', data['gm-interior-light']);
+			gm_interior_light(data['gm-interior-light']);
+		}
+
+    else {
+      console.log('[GM] Unknown command');
+    }
+	}
+
+	// Cluster/interior backlight 
+	function gm_interior_light(value) {
+		var src = 0x3F; // DIA
+		var dst = 0x00; // GM
+
+		console.log('[GM] Setting interior light to %s', value);
+
+		// Convert the value to hex
+		value = value.toString(16);
+
+		// Will need to concat and push array for value
+		var msg = [0x0C, 0x10, 0x05, value];
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}	
 
   // Send message to GM
   function gm_send(packet) {
@@ -44,7 +77,7 @@ var GM = function(ibus_connection) {
 
     // Send the message
     console.log('Sending GM packet');
-    ibus_connection.send_message(ibus_packet);
+    omnibus.ibus_connection.send_message(ibus_packet);
   }
 
   // Test if a bit in a bitmask is set

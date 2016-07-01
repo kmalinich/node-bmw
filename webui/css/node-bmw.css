@@ -34,20 +34,11 @@ h1, h2, h3, h4, h5, h6, hr, p, .lead {
 
 /* IKE backlight slider */
 
-.slider.slider-horizontal .slider-track {
-	height : 20px;
-}
-
 .slider {
-	min-width : 95%;
+	min-width : 100%;
 }
 
-.slider-handle {
-	width  : 30px;
-	height : 30px;
-}
-
-.slider.slider-horizontal .tooltip.top .tooltip-inner {
+.tooltip {
 	font-size : 18px;
 }
 
@@ -55,14 +46,6 @@ h1, h2, h3, h4, h5, h6, hr, p, .lead {
 	background-color : rgba(42, 159, 214, 0.75);
 }
 
-.tooltip.top {
-	margin-top     : -13px;
-	padding-bottom : 5px;
-	padding-top    : 0px;
-	padding-left   : 24px;
-	padding-right  : 24px;
-}
-
-.tooltip.top .tooltip-arrow {
-	border-top-color : rgba(42, 159, 214, 0.75);
+.tooltip.bottom .tooltip-arrow {
+	border-bottom-color : rgba(42, 159, 214, 0.75);
 }

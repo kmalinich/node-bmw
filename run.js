@@ -25,7 +25,7 @@ var omnibus = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js'); // Vehicle status object
 omnibus.ibus_connection = new ibus_interface(); // IBUS connection handle
-omnibus.GM_connection   = new GM(omnibus);
+omnibus.GM              = new GM(omnibus);
 omnibus.LCM             = new LCM(omnibus);
 omnibus.IKE             = new IKE(omnibus);
 
@@ -73,7 +73,7 @@ dispatcher.onPost('/gm', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	omnibus.GM_connection.gm_bitmask_encode(post);
+	omnibus.GM.gm_data(post);
 
 	response.end('Got POST message for GM\n');
 });

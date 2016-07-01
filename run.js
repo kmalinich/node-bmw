@@ -35,7 +35,7 @@ var data_handler_connection = new data_handler(omnibus);
 // Shutdown function
 function shutdown() {
 	// Terminate connection
-	ibus_connection.shutdown(function() {
+	omnibus.ibus_connection.shutdown(function() {
 		process.exit();
 	});
 }

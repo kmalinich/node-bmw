@@ -43,6 +43,10 @@ var GM = function(omnibus) {
 			else if (data['gm-command'] == 'gm_central_lock') {
 				gm_central_lock();
 			}
+
+			else if (data['gm-command'] == 'gm_central_toggle') {
+				gm_central_toggle();
+			}
 		}
 
 		else {
@@ -79,6 +83,23 @@ var GM = function(omnibus) {
 		var src = 0x3F; // DIA
 		var dst = 0x00; // GM
 		var msg = [0x0C, 0x9E, 0x01];
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	// Central toggleing - toggle
+	function gm_central_toggle() {
+		console.log('[GM] Central locking: toggle');
+
+		var src = 0x3F; // DIA
+		var dst = 0x00; // GM
+		var msg = [0x0C, 0x00, 0x0B, 0x01];
 
 		var ibus_packet = {
 			src: src,

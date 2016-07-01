@@ -308,6 +308,20 @@ function gm_central_unlock() {
 	});
 }
 
+function gm_central_toggle() {
+	console.log('gm_central_toggle();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_toggle',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function gm_central_lock() {
 	console.log('gm_central_lock();');
 

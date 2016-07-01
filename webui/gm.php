@@ -11,10 +11,13 @@
 			<h4>Central locking</h4>
 
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-4">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-unlock" onclick="javascript:gm_central_unlock();">Unlock</button>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-xs-4">
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-toggle" onclick="javascript:gm_central_toggle();">Toggle</button>
+				</div>
+				<div class="col-xs-4">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_central_lock();">Lock</button>
 				</div>
 			</div>

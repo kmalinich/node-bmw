@@ -52,7 +52,7 @@ function startup() {
 // Shutdown function
 function shutdown() {
 	// Terminate connection
-	omnibus.ibus_connection.shutdown(function() {
+	ibus_connection.shutdown(function() {
 		process.exit();
 	});
 }
@@ -66,11 +66,9 @@ function on_ibus_data(data) {
 process.on('SIGINT', shutdown);
 omnibus.ibus_connection.on('data', on_ibus_data);
 
-
-
-// Start things up 
 // Start IBUS connection
 omnibus.ibus_connection.startup();
+
 // Start WebSocket server
 socket_server.init(3002, omnibus);
 
@@ -91,7 +89,7 @@ dispatcher.onPost('/gm', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	GM_connection.gm_bitmask_encode(post);
+	omnibus.GM_connection.gm_bitmask_encode(post);
 
 	response.end('Got POST message for GM\n');
 });
@@ -102,7 +100,7 @@ dispatcher.onPost('/ike', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	IKE_connection.ike_data(post);
+	omnibus.IKE_connection.ike_data(post);
 
 	response.end('Got POST message for IKE\n');
 });
@@ -113,7 +111,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	LCM_connection.lcm_bitmask_encode(post);
+	omnibus.LCM_connection.lcm_bitmask_encode(post);
 
 	response.end('Got POST message for LCM\n');
 });

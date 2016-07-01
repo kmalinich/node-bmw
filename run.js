@@ -23,11 +23,11 @@ var socket_server = require('./lib/socket-server.js');
 // Everything connection handle
 var omnibus = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
-omnibus.vehicle_status  = require('./lib/vehicle-status.js'); // Vehicle status object
+omnibus.status          = require('./lib/status.js'); // Vehicle status object
 omnibus.ibus_connection = new ibus_interface(); // IBUS connection handle
 omnibus.GM_connection   = new GM(omnibus);
-omnibus.LCM  = new LCM(omnibus);
-omnibus.IKE  = new IKE(omnibus);
+omnibus.LCM             = new LCM(omnibus);
+omnibus.IKE             = new IKE(omnibus);
 
 // Data handler
 var data_handler_connection = new data_handler(omnibus);
@@ -64,7 +64,7 @@ dispatcher.onGet('/status', function(request, response) {
 	console.log('[get-handler] /status');
 	response.writeHead(200, {'Content-Type': 'application/json'});
 
-	response.end(JSON.stringify(omnibus.vehicle_status));
+	response.end(JSON.stringify(omnibus.status));
 });
 
 // GM POST request

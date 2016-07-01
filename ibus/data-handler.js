@@ -58,7 +58,30 @@ var data_handler = function(omnibus) {
 				}
 			}
 
+			else if (msg[0] == 0x7A) {
+				var command = 'doors/flaps status';
+
+				console.log('[data-handler] GM: %s', command);
+			}
+
 			// console.log(src, dst, command, button, msg);
+		}
+
+		// LCM
+		else if (src == 'LCM') {
+			if (msg[0] == 0xA0 && typeof msg[1] !== 'undefined') {
+				var command = 'current IO status';
+				console.log('[data-handler] LCM sent IO status');
+
+				omnibus.LCM.lcm_bitmask_decode(msg);
+				console.log(msg);
+			}
+
+			else if(msg[0] == 0x5C) {
+				var command = 'Light dimmer status';
+				console.log('[data-handler] LCM --> GLO : Light dimmer: %s', msg[1]);
+			}
+			
 		}
 
 		// IKE

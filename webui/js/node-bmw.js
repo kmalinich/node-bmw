@@ -294,6 +294,34 @@ function status() {
 	});
 }
 
+function gm_central_unlock() {
+	console.log('gm_central_unlock();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_unlock',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function gm_central_lock() {
+	console.log('gm_central_lock();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_lock',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function form_gm() {
 	console.log($('#form-gm').serialize());
 	$.ajax({
@@ -423,10 +451,25 @@ function lcm_dimmer(value) {
 	console.log('lcm_dimmer(%s);', value);
 
 	$.ajax({
-		url      : '/api/gm',
+		url      : '/api/lcm',
 		type     : 'POST',
 		dataType : 'json',
 		data     : 'lcm-dimmer='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// LCM Get IO status
+function lcm_get() {
+	console.log('lcm_get();');
+
+	$.ajax({
+		url      : '/api/lcm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'lcm-get=true',
 		success  : function(return_data) {
 			console.log(return_data);
 		}

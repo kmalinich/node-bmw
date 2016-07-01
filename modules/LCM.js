@@ -25,19 +25,59 @@ var LCM = function(omnibus) {
 	this.lcm_bitmask_decode = lcm_bitmask_decode;
 	this.lcm_bitmask_encode = lcm_bitmask_encode;
 	this.lcm_data           = lcm_data;
-	this.lcm_send           = lcm_send;
+	this.lcm_get            = lcm_get;
+	this.lcm_set            = lcm_set;
 
 	// Handle incoming commands
 	function lcm_data(data) {
-		console.log('[LCM] lcm_data()');
+		console.log('[LCM] lcm_data(%s);', data);
+		if (typeof data['lcm-get'] !== 'undefined') {
+			console.log('[LCM] lcm_data command: \'Get IO status\'');
+			lcm_get();
+		}
 
-		// Dirty assumption
-		console.log('[LCM] Assuming lcm_bitmask_encode()');
-		lcm_bitmask_encode(data);
+		else {
+			// Dirty assumption
+			console.log('[LCM] Assuming lcm_bitmask_encode()');
+			lcm_bitmask_encode(data);
+		}
+	}
+
+	// Send 'Get IO status' to LCM 
+	function lcm_get2() {
+		var src = 0x3F; // DIA
+		var dst = 0xD0; // GLO
+		var cmd = 0x0B; // Get IO status 
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(cmd),
+		}
+
+		// Send the message
+		console.log('[LCM] Sending \'Get IO status\' LCM packet.');
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	function lcm_get() {
+		var src = 0x3F; // DIA
+		var dst = 0xD0; // GLO
+		var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status 
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(cmd),
+		}
+
+		// Send the message
+		console.log('[LCM] Sending \'Get IO status\' LCM packet.');
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// Send message to LCM
-	function lcm_send(packet) {
+	function lcm_set(packet) {
 		var src = 0x3F; // DIA
 		var dst = 0xBF; // GLO
 		var cmd = 0x0C; // Set IO status 
@@ -52,7 +92,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM] Sending LCM packet.');
+		console.log('[LCM] Sending \'Set IO status\' LCM packet.');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -189,19 +229,23 @@ var LCM = function(omnibus) {
 		];
 
 		// console.log('[LCM] lcm_bitmask_encode() output: %s', output);
-		lcm_send(output);
+		lcm_set(output);
 	}
 
 	// Decode the LCM bitmask string and output an array of true/false values
 	function lcm_bitmask_decode(array) {
-		var bitmask_0 = array[0];
-		var bitmask_1 = array[1];
-		var bitmask_2 = array[2];
-		var bitmask_3 = array[3];
-		var bitmask_4 = array[4];
-		var bitmask_5 = array[5];
-		var bitmask_6 = array[6];
-		var bitmask_7 = array[7];
+		var bitmask_0  = array[1];
+		var bitmask_1  = array[2];
+		var bitmask_2  = array[3];
+		var bitmask_3  = array[4];
+		var bitmask_4  = array[5];
+		var bitmask_5  = array[6];
+		var bitmask_6  = array[7];
+		var bitmask_7  = array[8];
+		var bitmask_8  = array[9];
+		var bitmask_9  = array[10]; // Dimmer from 00-FF
+		var bitmask_10 = array[11];
+		var bitmask_11 = array[12];
 
 		var clamp_15                         = bit_test(bitmask_3, bit_5);
 		var clamp_30a                        = bit_test(bitmask_0, bit_0);
@@ -261,6 +305,7 @@ var LCM = function(omnibus) {
 		var switch_standing                  = bit_test(bitmask_2, bit_5);
 		var switch_turn_left                 = bit_test(bitmask_2, bit_7);
 		var switch_turn_right                = bit_test(bitmask_2, bit_6);
+		var dimmer_value                     = bitmask_9;
 
 		// Suspect
 		// var clamp_58g                       = bit_test(bitmask_, bit_);
@@ -272,6 +317,7 @@ var LCM = function(omnibus) {
 			clamp_30a                        : clamp_30a,
 			clamp_30b                        : clamp_30b,
 			clamp_r                          : clamp_r,
+			dimmer_value                     : dimmer_value,
 			input_air_suspension             : input_air_suspension,
 			input_armoured_door              : input_armoured_door,
 			input_brake_fluid_level          : input_brake_fluid_level,
@@ -332,7 +378,8 @@ var LCM = function(omnibus) {
 		// output_fog_rear_right            : output_fog_rear_right,
 		// output_fog_rear_trailer          : output_fog_rear_trailer,
 
-		return output;
+		//return output;
+		console.log(output);
 	}
 
 	// All the possible values to send to the LCM
@@ -341,6 +388,7 @@ var LCM = function(omnibus) {
 		clamp_30a                        : true,
 		clamp_30b                        : true,
 		clamp_r                          : true,
+		dimmer_value                     : 0xFF,
 		input_air_suspension             : true,
 		input_armoured_door              : true,
 		input_brake_fluid_level          : true,

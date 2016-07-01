@@ -84,7 +84,7 @@
 				<br/>
 				<div class="row">
 					<div class="col-xs-6">
-						<button class="btn btn-lg btn-danger btn-block" id="form-ike-get-get" type="get">Reset</button>
+						<button class="btn btn-lg btn-danger btn-block" id="form-ike-get-reset" type="reset">Reset</button>
 					</div>
 					<div class="col-xs-6">
 						<button class="btn btn-lg btn-primary btn-block" id="form-ike-get-submit" type="submit">Send</button>
@@ -212,7 +212,7 @@
 
 			<h4>Backlight</h4>
 
-			<div class="container">
+			<div class="container-fluid">
 				<input type="text" id="slider-ike-backlight" name="ike-backlight" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
 			</div>
 			<br/>

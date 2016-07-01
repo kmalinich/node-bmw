@@ -1,0 +1,2 @@
+5/4/2011 5:47:05 PM.370: F0 03 00 79 8A
+5/4/2011 5:47:05 PM.370: BMBT --> GM : Doors/flaps status request

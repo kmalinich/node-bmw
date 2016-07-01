@@ -1,0 +1,4 @@
+5/4/2011 5:47:05 PM.370: F0 03 D0 5D 7E
+5/4/2011 5:47:05 PM.370: BMBT --> LCM : Light dimmer status request
+5/4/2011 5:47:05 PM.386: D0 05 BF 5C FF 00 C9
+5/4/2011 5:47:05 PM.386: LCM --> GLO : Light dimmer: 255 (max)

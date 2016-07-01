@@ -14,7 +14,7 @@ var bit_5 = 0x20;
 var bit_6 = 0x40;
 var bit_7 = 0x80;
 
-var LCM = function(ibus_connection) {
+var LCM = function(omnibus) {
 
 	// Self reference
 	var _self = this;
@@ -43,7 +43,7 @@ var LCM = function(ibus_connection) {
 
 		// Send the message
 		console.log('[LCM] Sending LCM packet.');
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// Test if a bit in a bitmask is set

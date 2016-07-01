@@ -367,15 +367,15 @@ function form_ike_set_clock() {
 		url      : '/api/ike',
 		type     : 'POST',
 		dataType : 'json',
-    data     : {
-      command : 'obc_clock',
-      values  : {
-        day    : $('#form-ike-clock-day').val(),
-        month  : $('#form-ike-clock-month').val(),
-        year   : $('#form-ike-clock-year').val(),
-        hour   : $('#form-ike-clock-hour').val(),
-        minute : $('#form-ike-clock-minute').val(),
-      },
+		data     : {
+			command : 'obc_clock',
+			values  : {
+				day    : $('#form-ike-clock-day').val(),
+				month  : $('#form-ike-clock-month').val(),
+				year   : $('#form-ike-clock-year').val(),
+				hour   : $('#form-ike-clock-hour').val(),
+				minute : $('#form-ike-clock-minute').val(),
+			},
 		},
 		success  : function(return_data) {
 			console.log(return_data);

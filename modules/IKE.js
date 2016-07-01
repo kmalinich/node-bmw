@@ -232,29 +232,35 @@ var IKE = function(omnibus) {
 	}
 
 	// OBC set clock
-	function obc_clock(value) {
+	function obc_clock(values) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 
-		console.log('[IKE] OBC clock, day    : %s', value);
-		console.log('[IKE] OBC clock, month  : %s', value);
-		console.log('[IKE] OBC clock, year   : %s', value);
-		console.log('[IKE] OBC clock, hour   : %s', value);
-		console.log('[IKE] OBC clock, minute : %s', value);
-
-		var day;
-		var month;
-		var year;
+		console.log('[IKE] OBC clock, day    : %s', values.day);
+		console.log('[IKE] OBC clock, month  : %s', values.month);
+		console.log('[IKE] OBC clock, year   : %s', values.year);
+		console.log('[IKE] OBC clock, hour   : %s', values.hour);
+		console.log('[IKE] OBC clock, minute : %s', values.minute);
 	
-		var msg = [0x40, 0x02, day, month, year];
-
-		var ibus_packet = {
+		var date_msg         = [0x40, 0x02, values.day, values.month, values.year];
+		var date_ibus_packet = {
 			src: src, 
 			dst: dst,
-			msg: new Buffer(msg),
+			msg: new Buffer(date_msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		var time_msg         = [0x40, 0x01, values.hour, values.minute];
+		var time_ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(time_msg),
+		}
+
+		console.log(date_ibus_packet);
+		console.log(time_ibus_packet);
+
+		omnibus.ibus_connection.send_message(date_ibus_packet);
+		omnibus.ibus_connection.send_message(time_ibus_packet);
 	}
 
 	// OBC gong
@@ -391,8 +397,7 @@ var IKE = function(omnibus) {
 
 		else if (data.command == 'obc_clock') {
 			console.log('[IKE] IKE OBC set clock');
-      console.log(data);
-			//obc_clock(data.values);
+			obc_clock(data.values);
 		}
 
 		else if (typeof data['obc-time'] !== 'undefined') {

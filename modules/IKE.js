@@ -27,6 +27,63 @@ var IKE = function(omnibus) {
 	this.ike_text  = ike_text;
 	this.ike_data  = ike_data;
 
+	// Handle incoming commands
+	function ike_data(data) {
+		if (typeof data['obc-text'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE text string: \'%s\'', data['obc-text']);
+			ike_text(data['obc-text']);
+		}
+
+		else if (typeof data['obc-get'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE OBC get: \'%s\'', data['obc-get']);
+			if (data['obc-get'] == 'all')
+				{ obc_refresh(); }
+			else
+				{ obc_get(data['obc-get']); }
+		}
+
+		else if (typeof data['obc-reset'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE OBC reset: \'%s\'', data['obc-reset']);
+
+			if (data['obc-reset'] == 'all')
+				{ obc_refresh(); }
+			else
+				{ obc_reset(data['obc-reset']); }
+		}
+
+		else if (data.command == 'obc_clock') {
+			console.log('[IKE] ike_data(): calling obc_clock();');
+			obc_clock(data);
+		}
+
+		else if (typeof data['obc-time'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE OBC time: \'%s\'', data['obc-time']);
+			obc_time(data['obc-time']);
+		}
+
+		else if (typeof data['obc-gong'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE OBC gong: \'%s\'', data['obc-gong']);
+			obc_gong(data['obc-gong']);
+		}
+
+		else if (typeof data['ike-backlight'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE backlight: %s', data['ike-backlight']);
+			ike_backlight(data['ike-backlight']);
+		}
+
+		else {
+			console.log('[IKE] ike_data(): Unknown command');
+		}
+
+	}
+
+	// Refresh OBC HUD once every 2 seconds
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run') {
+			hud_refresh();
+		}
+	}, 2000);
+
 	// ASCII to hex for cluster message
 	function ascii2hex(str) { 
 		var array = [];
@@ -232,32 +289,25 @@ var IKE = function(omnibus) {
 	}
 
 	// OBC set clock
-	function obc_clock(values) {
+	function obc_clock(data) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 
-		console.log('[IKE] OBC clock, day    : %s', values.day);
-		console.log('[IKE] OBC clock, month  : %s', values.month);
-		console.log('[IKE] OBC clock, year   : %s', values.year);
-		console.log('[IKE] OBC clock, hour   : %s', values.hour);
-		console.log('[IKE] OBC clock, minute : %s', values.minute);
+		console.log('[IKE] Set OBC clock                                      = %s/%s/%s %s:%s', data.month, data.day, data.year, data.hour, data.minute);
 	
-		var date_msg         = [0x40, 0x02, values.day, values.month, values.year];
+		var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
 		var date_ibus_packet = {
 			src: src, 
 			dst: dst,
 			msg: new Buffer(date_msg),
 		}
 
-		var time_msg         = [0x40, 0x01, values.hour, values.minute];
+		var time_msg         = [0x40, 0x01, data.hour, data.minute];
 		var time_ibus_packet = {
 			src: src, 
 			dst: dst,
 			msg: new Buffer(time_msg),
 		}
-
-		console.log(date_ibus_packet);
-		console.log(time_ibus_packet);
 
 		omnibus.ibus_connection.send_message(date_ibus_packet);
 		omnibus.ibus_connection.send_message(time_ibus_packet);
@@ -369,71 +419,6 @@ var IKE = function(omnibus) {
 		console.log('[IKE] Sending IKE packet.');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
-
-	// Handle incoming commands
-	function ike_data(data) {
-		console.log('[IKE] ike_data()');
-
-		if (typeof data['obc-text'] !== 'undefined') {
-			console.log('[IKE] IKE text string: \'%s\'', data['obc-text']);
-			ike_text(data['obc-text']);
-		}
-
-		else if (typeof data['obc-get'] !== 'undefined') {
-			console.log('[IKE] IKE OBC get: \'%s\'', data['obc-get']);
-			if (data['obc-get'] == 'all')
-				{ obc_refresh(); }
-			else
-				{ obc_get(data['obc-get']); }
-		}
-
-		else if (typeof data['obc-reset'] !== 'undefined') {
-			console.log('[IKE] IKE OBC reset: \'%s\'', data['obc-reset']);
-			if (data['obc-reset'] == 'all')
-				{ obc_refresh(); }
-			else
-				{ obc_reset(data['obc-reset']); }
-		}
-
-		else if (data.command == 'obc_clock') {
-			console.log('[IKE] IKE OBC set clock');
-			obc_clock(data.values);
-		}
-
-		else if (typeof data['obc-time'] !== 'undefined') {
-			console.log('[IKE] IKE OBC time: \'%s\'', data['obc-time']);
-			obc_time(data['obc-time']);
-		}
-
-		else if (typeof data['obc-gong'] !== 'undefined') {
-			console.log('[IKE] IKE OBC gong: \'%s\'', data['obc-gong']);
-			obc_gong(data['obc-gong']);
-		}
-
-		else if (typeof data['ike-backlight'] !== 'undefined') {
-			console.log('[IKE] IKE backlight: %s', data['ike-backlight']);
-			ike_backlight(data['ike-backlight']);
-		}
-
-		else {
-			console.log('[IKE] Unknown command');
-		}
-
-	}
-
-	// Refresh OBC data once every half-second
-	//setInterval(function() {
-	//	if (omnibus.status.vehicle.ignition == 'run') {
-	//		obc_refresh();
-	//	}
-	//}, 500);
-
-	// Refresh OBC HUD once every 2 seconds
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') {
-			hud_refresh();
-		}
-	}, 2000);
 
 }
 

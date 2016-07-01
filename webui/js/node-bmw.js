@@ -363,20 +363,19 @@ function form_lcm() {
 }
 
 function form_ike_set_clock() {
+	var post_data     = {};
+	post_data.command = 'obc_clock';
+	post_data.day     = $('#form-ike-clock-day').val();
+	post_data.month   = $('#form-ike-clock-month').val();
+	post_data.year    = $('#form-ike-clock-year').val();
+	post_data.hour    = $('#form-ike-clock-hour').val();
+	post_data.minute  = $('#form-ike-clock-minute').val();
+
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
 		dataType : 'json',
-		data     : {
-			command : 'obc_clock',
-			values  : {
-				day    : $('#form-ike-clock-day').val(),
-				month  : $('#form-ike-clock-month').val(),
-				year   : $('#form-ike-clock-year').val(),
-				hour   : $('#form-ike-clock-hour').val(),
-				minute : $('#form-ike-clock-minute').val(),
-			},
-		},
+		data     : post_data,
 		success  : function(return_data) {
 			console.log(return_data);
 		}

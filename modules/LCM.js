@@ -20,11 +20,28 @@ var LCM = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.lcm_send           = lcm_send;
-	this.bit_test           = bit_test;
 	this.bit_set            = bit_set;
-	this.lcm_bitmask_encode = lcm_bitmask_encode;
+	this.bit_test           = bit_test;
 	this.lcm_bitmask_decode = lcm_bitmask_decode;
+	this.lcm_bitmask_encode = lcm_bitmask_encode;
+	this.lcm_data           = lcm_data;
+	this.lcm_send           = lcm_send;
+
+	// Handle incoming commands
+	function lcm_data(data) {
+		console.log('[LCM] lcm_data()');
+
+		if (typeof data['lcm-dimmer'] !== 'undefined') {
+			console.log('[LCM] Dimmer: \'%s\'', data['lcm-dimmer']);
+			lcm_dimmer(data['lcm-dimmer']);
+		}
+
+		else {
+			// Dirty assumption
+			console.log('[LCM] Assuming lcm_bitmask_encode()');
+			lcm_bitmask_encode(data);
+		}
+	}
 
 	// Send message to LCM
 	function lcm_send(packet) {
@@ -62,7 +79,7 @@ var LCM = function(omnibus) {
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values
-	function lcm_bitmask_encode(array) {
+	function lcm_bitmask_encode(array, dimmer_value) {
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -79,64 +96,67 @@ var LCM = function(omnibus) {
 		var bitmask_11 = 0x00;
 
 		// Set the various bitmask values according to the input array
-		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
-		if(array.input_fire_extinguisher         ) { bitmask_0 = bit_set(bitmask_0, bit_1) ; }
-		if(array.input_preheating_fuel_injection ) { bitmask_0 = bit_set(bitmask_0, bit_2) ; }
-		if(array.input_carb                      ) { bitmask_0 = bit_set(bitmask_0, bit_4) ; }
-		if(array.clamp_r                         ) { bitmask_0 = bit_set(bitmask_0, bit_6) ; }
-		if(array.clamp_30b                       ) { bitmask_0 = bit_set(bitmask_0, bit_7) ; }
-		if(array.input_key_in_ignition           ) { bitmask_1 = bit_set(bitmask_1, bit_0) ; }
-		if(array.input_seat_belts_lock           ) { bitmask_1 = bit_set(bitmask_1, bit_1) ; }
-		if(array.switch_highbeam_flash           ) { bitmask_1 = bit_set(bitmask_1, bit_2) ; }
-		if(array.switch_hazard                   ) { bitmask_1 = bit_set(bitmask_1, bit_4) ; }
-		if(array.input_kfn                       ) { bitmask_1 = bit_set(bitmask_1, bit_5) ; }
-		if(array.input_armoured_door             ) { bitmask_1 = bit_set(bitmask_1, bit_6) ; }
-		if(array.input_brake_fluid_level         ) { bitmask_1 = bit_set(bitmask_1, bit_7) ; }
-		if(array.switch_brake                    ) { bitmask_2 = bit_set(bitmask_2, bit_0) ; }
-		if(array.switch_highbeam                 ) { bitmask_2 = bit_set(bitmask_2, bit_1) ; }
-		if(array.switch_fog_front                ) { bitmask_2 = bit_set(bitmask_2, bit_2) ; }
-		if(array.switch_fog_rear                 ) { bitmask_2 = bit_set(bitmask_2, bit_4) ; }
-		if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5) ; }
-		if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6) ; }
-		if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7) ; }
-		if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0) ; }
-		if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1) ; }
-		if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2) ; }
-		if(array.switch_lowbeam_2                ) { bitmask_3 = bit_set(bitmask_3, bit_3) ; }
-		if(array.switch_lowbeam_1                ) { bitmask_3 = bit_set(bitmask_3, bit_4) ; }
-		if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5) ; }
-		if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6) ; }
-		if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7) ; }
-		if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2) ; }
-		if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3) ; }
-		if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4) ; }
-		if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5) ; }
-		if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6) ; }
-		if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0) ; }
-		if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1) ; }
-		if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2) ; }
-		if(array.output_reverse_rear_left        ) { bitmask_5 = bit_set(bitmask_5, bit_3) ; }
-		if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4) ; }
-		if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5) ; }
-		if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6) ; }
-		if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1) ; }
-		if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2) ; }
-		if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3) ; }
-		if(array.output_brake_rear_middle        ) { bitmask_6 = bit_set(bitmask_6, bit_4) ; }
-		if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_5) ; }
-		if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_6) ; }
-		if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_7) ; }
-		if(array.output_turn_rear_right          ) { bitmask_7 = bit_set(bitmask_7, bit_1) ; }
-		if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_2) ; }
-		if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_3) ; }
-		if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_4) ; }
-		if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_6) ; }
-		if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_7) ; }
-		if(array.mode_failsafe                   ) { bitmask_8 = bit_set(bitmask_8, bit_0) ; }
-		if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_2) ; }
-		if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_3) ; }
-		if(array.output_reverse_rear_trailer     ) { bitmask_8 = bit_set(bitmask_8, bit_5) ; }
-		if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6) ; }
+		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0); }
+		if(array.input_fire_extinguisher         ) { bitmask_0 = bit_set(bitmask_0, bit_1); }
+		if(array.input_preheating_fuel_injection ) { bitmask_0 = bit_set(bitmask_0, bit_2); }
+		if(array.input_carb                      ) { bitmask_0 = bit_set(bitmask_0, bit_4); }
+		if(array.clamp_r                         ) { bitmask_0 = bit_set(bitmask_0, bit_6); }
+		if(array.clamp_30b                       ) { bitmask_0 = bit_set(bitmask_0, bit_7); }
+		if(array.input_key_in_ignition           ) { bitmask_1 = bit_set(bitmask_1, bit_0); }
+		if(array.input_seat_belts_lock           ) { bitmask_1 = bit_set(bitmask_1, bit_1); }
+		if(array.switch_highbeam_flash           ) { bitmask_1 = bit_set(bitmask_1, bit_2); }
+		if(array.switch_hazard                   ) { bitmask_1 = bit_set(bitmask_1, bit_4); }
+		if(array.input_kfn                       ) { bitmask_1 = bit_set(bitmask_1, bit_5); }
+		if(array.input_armoured_door             ) { bitmask_1 = bit_set(bitmask_1, bit_6); }
+		if(array.input_brake_fluid_level         ) { bitmask_1 = bit_set(bitmask_1, bit_7); }
+		if(array.switch_brake                    ) { bitmask_2 = bit_set(bitmask_2, bit_0); }
+		if(array.switch_highbeam                 ) { bitmask_2 = bit_set(bitmask_2, bit_1); }
+		if(array.switch_fog_front                ) { bitmask_2 = bit_set(bitmask_2, bit_2); }
+		if(array.switch_fog_rear                 ) { bitmask_2 = bit_set(bitmask_2, bit_4); }
+		if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5); }
+		if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6); }
+		if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7); }
+		if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0); }
+		if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1); }
+		if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2); }
+		if(array.switch_lowbeam_2                ) { bitmask_3 = bit_set(bitmask_3, bit_3); }
+		if(array.switch_lowbeam_1                ) { bitmask_3 = bit_set(bitmask_3, bit_4); }
+		if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5); }
+		if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6); }
+		if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7); }
+		if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2); }
+		if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3); }
+		if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4); }
+		if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5); }
+		if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6); }
+		if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0); }
+		if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1); }
+		if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2); }
+		if(array.output_reverse_rear_left        ) { bitmask_5 = bit_set(bitmask_5, bit_3); }
+		if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4); }
+		if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5); }
+		if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6); }
+		if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1); }
+		if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2); }
+		if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3); }
+		if(array.output_brake_rear_middle        ) { bitmask_6 = bit_set(bitmask_6, bit_4); }
+		if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_5); }
+		if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_6); }
+		if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_7); }
+		if(array.output_turn_rear_right          ) { bitmask_7 = bit_set(bitmask_7, bit_1); }
+		if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_2); }
+		if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_3); }
+		if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_4); }
+		if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_6); }
+		if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_7); }
+		if(array.mode_failsafe                   ) { bitmask_8 = bit_set(bitmask_8, bit_0); }
+		if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_2); }
+		if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_3); }
+		if(array.output_reverse_rear_trailer     ) { bitmask_8 = bit_set(bitmask_8, bit_5); }
+		if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6); }
+
+		// LCM dimmer
+		if(array.dimmer_value                    ) { bitmask_9 = dimmer_value.toString(16); }
 
 
 		// Suspect	

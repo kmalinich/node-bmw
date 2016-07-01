@@ -4,10 +4,21 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body>
+	<body onload="javascript:prepare_lcm();">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 			<form class="form-horizontal" id="form-lcm" action="javascript:form_lcm();">
+
+				<h4>Dimmer wheel</h4>
+
+				<div class="container">
+					<input type="text" id="slider-lcm-dimmer" name="lcm-dimmer" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
+				</div>
+				</br>
+				</br>
+				</br>
+
+				<hr>
 
 				<div class="row">
 					<div class="col-xs-6">

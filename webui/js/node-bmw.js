@@ -258,6 +258,7 @@ function status() {
 				$('#obc-distance').text(return_data.obc.distance_mi);
 				$('#obc-range').text(return_data.obc.range_mi);
 			}
+
 			else if (return_data.coding.unit_distance == 'km') {
 				$('#obc-distance').text(return_data.obc.distance_km);
 				$('#obc-range').text(return_data.obc.range_km);
@@ -271,6 +272,7 @@ function status() {
 				$('#obc-consumption-1').text(return_data.obc.consumption_1_mpg);
 				$('#obc-consumption-2').text(return_data.obc.consumption_2_mpg);
 			}
+
 			else if ( return_data.coding.unit_cons == 'l100') {
 				$('#obc-consumption-1').text(return_data.obc.consumption_1_l100);
 				$('#obc-consumption-2').text(return_data.obc.consumption_2_100);
@@ -283,11 +285,11 @@ function status() {
 			$('#obc-timer'           ).text(return_data.obc.timer);
 
 			// Coding data
-			$('#obc-coding-unit-cons'     ).text(return_data.coding.unit_cons     );
-			$('#obc-coding-unit-distance' ).text(return_data.coding.unit_distance );
-			$('#obc-coding-unit-speed'    ).text(return_data.coding.unit_speed    );
-			$('#obc-coding-unit-temp'     ).text(return_data.coding.unit_temp     );
-			$('#obc-coding-unit-time'     ).text(return_data.coding.unit_time     );
+			$('#obc-coding-unit-cons'    ).text(return_data.coding.unit_cons    );
+			$('#obc-coding-unit-distance').text(return_data.coding.unit_distance);
+			$('#obc-coding-unit-speed'   ).text(return_data.coding.unit_speed   );
+			$('#obc-coding-unit-temp'    ).text(return_data.coding.unit_temp    );
+			$('#obc-coding-unit-time'    ).text(return_data.coding.unit_time    );
 		}
 	});
 }
@@ -372,7 +374,13 @@ function form_ike_gong() {
 
 // Initialize IKE backlight slider
 function prepare_ike_backlight() {
+	$('#slider-ike-backlight').on('slideStart', function(data) {
+		console.log('ike_backlight_slideStart: %s', data.value);
+		ike_backlight(data.value);
+	});
+
 	$('#slider-ike-backlight').on('slideStop', function(data) {
+		console.log('ike_backlight_slidestop: %s', data.value);
 		ike_backlight(data.value);
 	});
 }
@@ -386,6 +394,39 @@ function ike_backlight(value) {
 		type     : 'POST',
 		dataType : 'json',
 		data     : 'ike-backlight='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// Prepare LCM page
+function prepare_lcm() {
+	prepare_lcm_dimmer();
+}
+
+// Initialize LCM dimmer slider 
+function prepare_lcm_dimmer() {
+	$('#slider-lcm-dimmer').on('slideStart', function(data) {
+		console.log('lcm_dimmer_slideStart: %s', data.value);
+		lcm_dimmer(data.value);
+	});
+
+	$('#slider-lcm-dimmer').on('slideStop', function(data) {
+		console.log('lcm_dimmer_slidestop: %s', data.value);
+		lcm_dimmer(data.value);
+	});
+}
+
+// AJAX for LCM dimmer
+function lcm_dimmer(value) {
+	console.log('lcm_dimmer(%s);', value);
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'lcm-dimmer='+value,
 		success  : function(return_data) {
 			console.log(return_data);
 		}
@@ -413,7 +454,6 @@ function prepare_gm_interior_light() {
 		console.log('gm_interior_light_slidestop: %s', data.value);
 		gm_interior_light(data.value);
 	});
-
 }
 
 // AJAX for GM interior_light

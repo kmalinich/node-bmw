@@ -95,7 +95,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
-	omnibus.LCM.lcm_bitmask_encode(post);
+	omnibus.LCM.lcm_data(post);
 
 	response.end('Got POST message for LCM\n');
 });

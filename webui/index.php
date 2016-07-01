@@ -11,5 +11,5 @@
 			<h1>kdm-e39.</h1>
 		</div>
 	</body>
-	<?php include './include/scripts.php'; ?>
+	<?php include './include/js.php'; ?>
 </html>

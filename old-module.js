@@ -31,16 +31,6 @@ function gm(object, action) {
 	var GetAnalogValues          = new Buffer([0x0b, 0x01]);
 }
 
-// IKE/gauge backlight dimmer
-function lcm_dimmer(value) {
-	var src = 0xD0; // LCM
-	var dst = 0xBF; // GLO 
-
-	// Will need to concat and push array for value
-	var lcm_dimmer_000 = new Buffer([0x5C, 0x00, 0x00]);
-	var lcm_dimmer_254 = new Buffer([0x5C, 0xFE, 0x00]);
-}
-
 // Data handler
 function check_data(packet) {
 	var dst = ibus_modules.get_module_name(packet.dst);

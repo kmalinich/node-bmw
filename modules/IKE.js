@@ -53,10 +53,13 @@ var IKE = function(omnibus) {
 	// Refresh custom HUD
 	function hud_refresh() {
 		console.log('[IKE] Refreshing OBC HUD');
+
 		obc_get('cons1');
 		obc_get('time');
+
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
+
 		ike_text(omnibus.status.obc.time+' C:'+cons1+' T:'+ctmp);
 	}
 
@@ -206,6 +209,28 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
+	// Cluster/interior backlight 
+	function ike_backlight(value) {
+		var src = 0xD0; // LCM
+		var dst = 0xBF; // GLO 
+
+		console.log('[IKE] Setting backlight to %s', value);
+
+		// Convert the value to hex
+		value = value.toString(16);
+
+		// Will need to concat and push array for value
+		var msg = [0x5C, value, 0x00];
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
 	// OBC gong
 	// Doesn't work right now
 	function obc_gong(value) {
@@ -321,6 +346,7 @@ var IKE = function(omnibus) {
 			console.log('[IKE] IKE text string: \'%s\'', data['obc-text']);
 			ike_text(data['obc-text']);
 		}
+
 		else if (typeof data['obc-get'] !== 'undefined') {
 			console.log('[IKE] IKE OBC get: \'%s\'', data['obc-get']);
 			if (data['obc-get'] == 'all')
@@ -328,6 +354,7 @@ var IKE = function(omnibus) {
 			else
 				{ obc_get(data['obc-get']); }
 		}
+
 		else if (typeof data['obc-reset'] !== 'undefined') {
 			console.log('[IKE] IKE OBC reset: \'%s\'', data['obc-reset']);
 			if (data['obc-reset'] == 'all')
@@ -335,10 +362,17 @@ var IKE = function(omnibus) {
 			else
 				{ obc_reset(data['obc-reset']); }
 		}
+
 		else if (typeof data['obc-gong'] !== 'undefined') {
 			console.log('[IKE] IKE OBC gong: \'%s\'', data['obc-gong']);
 			obc_gong(data['obc-gong']);
 		}
+
+		else if (typeof data['ike-backlight'] !== 'undefined') {
+			console.log('[IKE] IKE backlight: %s', data['ike-backlight']);
+			ike_backlight(data['ike-backlight']);
+		}
+
 		else {
 			console.log('[IKE] Unknown command');
 		}

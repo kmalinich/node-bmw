@@ -370,8 +370,31 @@ function form_ike_gong() {
 	});
 }
 
+// Initialize IKE backlight slider
+function ike_backlight_prepare() {
+	$('#slider-ike-backlight').slider()
+
+	$('#slider-ike-backlight').on('slideStop', function(data) {
+		ike_backlight(data.value);
+	});
+}
+
+function ike_backlight(value) {
+	console.log('ike_backlight(%s);', value);
+
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'ike-backlight='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function ws_ibus() {
-	var loc     = window.location, ws_uri;
+	var loc = window.location, ws_uri;
 
 	// Autodetect websocket URL
 	if (loc.protocol === "https:") {

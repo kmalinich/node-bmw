@@ -4,7 +4,7 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body>
+	<body onload="javascript:ike_backlight_prepare();">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
@@ -188,6 +188,7 @@
 				</div>
 
 			</form>
+
 			<hr>
 
 			<h4>Text</h4>
@@ -207,7 +208,18 @@
 
 			</form>
 
+			<hr>
+
+			<h4>Backlight</h4>
+
+			<input type="text" class="slider-ike-backlight" id="slider-ike-backlight" name="ike-backlight" data-slider-min="0" data-slider-max="254">
+			<br/>
+			<br/>
+
+			<hr>
+
 		</div>
+
 	</body>
-	<?php include './include/scripts.php'; ?>
+	<?php include './include/js.php'; ?>
 </html>

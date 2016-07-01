@@ -42,5 +42,5 @@
 		</div>
 	</body>
 	<script src="/js/moment.js"></script>
-	<?php include './include/scripts.php'; ?>
+	<?php include './include/js.php'; ?>
 </html>

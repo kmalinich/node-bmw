@@ -1,0 +1,1 @@
+bootstrap-slider-2.0.0.js

@@ -526,5 +526,5 @@
 			</form>
 		</div>
 	</body>
-	<?php include './include/scripts.php'; ?>
+	<?php include './include/js.php'; ?>
 </html>

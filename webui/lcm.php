@@ -22,7 +22,7 @@
 				<div class="panel-group">
 
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-xs-6">
 							<div class="panel panel-default" id="panel-lcm-front">
 
 								<div class="panel-heading">
@@ -107,10 +107,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-xs-6">
 							<div class="panel panel-default" id="panel-lcm-rear">
 
 								<div class="panel-heading">

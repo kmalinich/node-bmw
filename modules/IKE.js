@@ -231,6 +231,32 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
+	// OBC set clock
+	function obc_clock(value) {
+		var src = 0x3B; // GT
+		var dst = 0x80; // IKE
+
+		console.log('[IKE] OBC clock, day    : %s', value);
+		console.log('[IKE] OBC clock, month  : %s', value);
+		console.log('[IKE] OBC clock, year   : %s', value);
+		console.log('[IKE] OBC clock, hour   : %s', value);
+		console.log('[IKE] OBC clock, minute : %s', value);
+
+		var day;
+		var month;
+		var year;
+	
+		var msg = [0x40, 0x02, day, month, year];
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
 	// OBC gong
 	// Doesn't work right now
 	function obc_gong(value) {
@@ -361,6 +387,17 @@ var IKE = function(omnibus) {
 				{ obc_refresh(); }
 			else
 				{ obc_reset(data['obc-reset']); }
+		}
+
+		else if (data.command == 'obc_clock') {
+			console.log('[IKE] IKE OBC set clock');
+      console.log(data);
+			//obc_clock(data.values);
+		}
+
+		else if (typeof data['obc-time'] !== 'undefined') {
+			console.log('[IKE] IKE OBC time: \'%s\'', data['obc-time']);
+			obc_time(data['obc-time']);
 		}
 
 		else if (typeof data['obc-gong'] !== 'undefined') {

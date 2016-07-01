@@ -8,6 +8,31 @@
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
+			<h4>OBC Set Clock</h4>
+			<form class="form-horizontal" id="form-ike-set-clock" action="javascript:form_ike_set_clock();">
+				<input class="form-control" type="text" name="obc-clock-day" id="form-ike-clock-day" placeholder="Day">
+				<br/>
+				<input class="form-control" type="text" name="obc-clock-month" id="form-ike-clock-month" placeholder="Month">
+				<br/>
+				<input class="form-control" type="text" name="obc-clock-year" id="form-ike-clock-year" placeholder="Year">
+				<br/>
+				<input class="form-control" type="text" name="obc-clock-hour" id="form-ike-clock-hour" placeholder="Hour">
+				<br/>
+				<input class="form-control" type="text" name="obc-clock-minute" id="form-ike-clock-minute" placeholder="Minute">
+				<br/>
+
+				<br/>
+				<div class="row">
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-danger btn-block" id="form-ike-get-reset" type="reset">Reset</button>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-primary btn-block" id="form-ike-get-submit" type="submit">Send</button>
+					</div>
+				</div>
+			</form>
+			<hr>
+
 			<h4>OBC Get</h4>
 			<form class="form-horizontal" id="form-ike-get" action="javascript:form_ike_get();">
 

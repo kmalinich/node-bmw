@@ -362,6 +362,28 @@ function form_lcm() {
 	});
 }
 
+function form_ike_set_clock() {
+	console.log($('#form-ike-set-clock').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+    data     : {
+      command : 'obc_clock',
+      values  : {
+        day    : $('#form-ike-clock-day').text(),
+        month  : $('#form-ike-clock-month').text(),
+        year   : $('#form-ike-clock-year').text(),
+        hour   : $('#form-ike-clock-hour').text(),
+        minute : $('#form-ike-clock-minute').text(),
+      },
+		},
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function form_ike_text() {
 	console.log($('#form-ike-text').serialize());
 	$.ajax({

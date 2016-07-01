@@ -12,7 +12,7 @@
 				<h4>Dimmer wheel</h4>
 
 				<div class="container">
-					<input type="text" id="slider-lcm-dimmer" name="lcm-dimmer" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
+					<input type="text" id="dimmer_value" name="dimmer_value" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
 				</div>
 				</br>
 				</br>

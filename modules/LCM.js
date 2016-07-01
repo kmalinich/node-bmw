@@ -31,16 +31,9 @@ var LCM = function(omnibus) {
 	function lcm_data(data) {
 		console.log('[LCM] lcm_data()');
 
-		if (typeof data['lcm-dimmer'] !== 'undefined') {
-			console.log('[LCM] Dimmer: \'%s\'', data['lcm-dimmer']);
-			lcm_dimmer(data['lcm-dimmer']);
-		}
-
-		else {
-			// Dirty assumption
-			console.log('[LCM] Assuming lcm_bitmask_encode()');
-			lcm_bitmask_encode(data);
-		}
+		// Dirty assumption
+		console.log('[LCM] Assuming lcm_bitmask_encode()');
+		lcm_bitmask_encode(data);
 	}
 
 	// Send message to LCM
@@ -79,7 +72,7 @@ var LCM = function(omnibus) {
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values
-	function lcm_bitmask_encode(array, dimmer_value) {
+	function lcm_bitmask_encode(array) {
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -156,8 +149,7 @@ var LCM = function(omnibus) {
 		if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6); }
 
 		// LCM dimmer
-		if(array.dimmer_value                    ) { bitmask_9 = dimmer_value.toString(16); }
-
+		if(array.dimmer_value                    ) { bitmask_9 = parseInt(array.dimmer_value); }
 
 		// Suspect	
 		// array.clamp_58g

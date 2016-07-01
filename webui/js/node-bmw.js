@@ -409,12 +409,12 @@ function prepare_lcm() {
 function prepare_lcm_dimmer() {
 	$('#slider-lcm-dimmer').on('slideStart', function(data) {
 		console.log('lcm_dimmer_slideStart: %s', data.value);
-		lcm_dimmer(data.value);
+		// lcm_dimmer(data.value);
 	});
 
 	$('#slider-lcm-dimmer').on('slideStop', function(data) {
 		console.log('lcm_dimmer_slidestop: %s', data.value);
-		lcm_dimmer(data.value);
+		// lcm_dimmer(data.value);
 	});
 }
 

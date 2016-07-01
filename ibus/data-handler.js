@@ -2,7 +2,7 @@
 
 // Ultimately this could be moved inside the module functions, after the modules themselves are cleaned up...
 
-var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection) {
+var data_handler = function(omnibus) {
 
 	// Self reference
 	var _self = this;
@@ -11,7 +11,7 @@ var data_handler = function(ibus_connection, bus_modules, vehicle_status, IKE_co
 	this.check_data = check_data;
 
 	// Events
-	ibus_connection.on('data', check_data)
+	omnibus.ibus_connection.on('data', check_data)
 
 	function check_data(data) {
 		var dst = bus_modules.get_module_name(data.dst);

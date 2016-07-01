@@ -1,37 +1,43 @@
 #!/usr/bin/env node
 
 // npm libraries
-var clc           = require('cli-color');
-var dispatcher    = require('httpdispatcher');
-var http          = require('http');
-var query_string  = require('querystring');
-var url           = require('url');
-var wait          = require('wait.for');
+var clc          = require('cli-color');
+var dispatcher   = require('httpdispatcher');
+var http         = require('http');
+var query_string = require('querystring');
+var url          = require('url');
+var wait         = require('wait.for');
 
 // IBUS libraries
 var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
 var bus_modules    = require('./lib/bus-modules.js');
-var GM             = require('./modules/GM.js');
-var IKE            = require('./modules/IKE.js');
-var LCM            = require('./modules/LCM.js');
+
+// Module libraries
+var GM  = require('./modules/GM.js');
+var IKE = require('./modules/IKE.js');
+var LCM = require('./modules/LCM.js');
 
 // WebSocket libraries
 var socket_server = require('./lib/socket-server.js');
 
 // Vehicle status object
-var vehicle_status = require('./lib/vehicle-status.js');
 
 // IBUS connection handle
-var ibus_connection = new ibus_interface();
+// var ibus_connection = new ibus_interface();
 
-// IBUS module connection handles
-var GM_connection  = new GM(ibus_connection);
-var LCM_connection = new LCM(ibus_connection);
-var IKE_connection = new IKE(ibus_connection, vehicle_status);
+// Everything's connection handle
+var omnibus = {};
+
+omnibus.vehicle_status  = require('./lib/vehicle-status.js');
+omnibus.ibus_connection = new ibus_interface();
+omnibus.GM_connection   = new GM(omnibus);
+omnibus.LCM_connection  = new LCM(omnibus);
+omnibus.IKE_connection  = new IKE(omnibus);
 
 // Data handler
-var data_handler_connection = new data_handler(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection);
+// var data_handler_connection = new data_handler(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection);
+var data_handler_connection = new data_handler(omnibus);
 
 
 // Startup function
@@ -40,13 +46,13 @@ function startup() {
 	ibus_connection.startup();
 
 	// Start WebSocket server
-	socket_server.init(3002, ibus_connection);
+	socket_server.init(3002, omnibus);
 }
 
 // Shutdown function
 function shutdown() {
 	// Terminate connection
-	ibus_connection.shutdown(function() {
+	omnibus.ibus_connection.shutdown(function() {
 		process.exit();
 	});
 }
@@ -58,15 +64,15 @@ function on_ibus_data(data) {
 
 // Events
 process.on('SIGINT', shutdown);
-ibus_connection.on('data', on_ibus_data);
+omnibus.ibus_connection.on('data', on_ibus_data);
 
 
 
 // Start things up 
 // Start IBUS connection
-ibus_connection.startup();
+omnibus.ibus_connection.startup();
 // Start WebSocket server
-socket_server.init(3002, ibus_connection);
+socket_server.init(3002, omnibus);
 
 // Port 3001 listener for POST requests to modules
 // This should be moved into it's own object

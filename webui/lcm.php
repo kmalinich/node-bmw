@@ -143,28 +143,28 @@
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
-												Left standing inner
+												Left inner tail
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_right" name="output_standing_inner_rear_right">
-												Right standing inner
+												Right inner tail
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
-												Left standing
+												Left outer tail
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_right" name="output_standing_rear_right">
-												Right standing
+												Right outer tail
 											</label>
 										</div>
 

@@ -363,7 +363,6 @@ function form_lcm() {
 }
 
 function form_ike_set_clock() {
-	console.log($('#form-ike-set-clock').serialize());
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
@@ -371,11 +370,11 @@ function form_ike_set_clock() {
     data     : {
       command : 'obc_clock',
       values  : {
-        day    : $('#form-ike-clock-day').text(),
-        month  : $('#form-ike-clock-month').text(),
-        year   : $('#form-ike-clock-year').text(),
-        hour   : $('#form-ike-clock-hour').text(),
-        minute : $('#form-ike-clock-minute').text(),
+        day    : $('#form-ike-clock-day').val(),
+        month  : $('#form-ike-clock-month').val(),
+        year   : $('#form-ike-clock-year').val(),
+        hour   : $('#form-ike-clock-hour').val(),
+        minute : $('#form-ike-clock-minute').val(),
       },
 		},
 		success  : function(return_data) {

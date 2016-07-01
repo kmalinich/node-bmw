@@ -9,7 +9,7 @@
 		<div class="container-fluid">
 
 			<h4>OBC Set Clock</h4>
-			<form class="form-horizontal" id="form-ike-set-clock" action="javascript:form_ike_set_clock();">
+			<form class="form-horizontal" id="form-ike-clock" action="javascript:form_ike_set_clock();">
 				<input class="form-control" type="text" name="obc-clock-day" id="form-ike-clock-day" placeholder="Day">
 				<br/>
 				<input class="form-control" type="text" name="obc-clock-month" id="form-ike-clock-month" placeholder="Month">

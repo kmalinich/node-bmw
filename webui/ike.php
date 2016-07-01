@@ -212,7 +212,7 @@
 
 			<h4>Backlight</h4>
 
-			<input type="text" class="slider-ike-backlight" id="slider-ike-backlight" name="ike-backlight" data-slider-min="0" data-slider-max="254">
+			<input type="text" id="slider-ike-backlight" name="ike-backlight" data-provide="slider" data-slider-min="0" data-slider-max="254">
 			<br/>
 			<br/>
 

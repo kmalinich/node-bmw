@@ -1,1 +1,1 @@
-bootstrap-slider-2.0.0.js
+bootstrap-slider-7.1.1.min.js

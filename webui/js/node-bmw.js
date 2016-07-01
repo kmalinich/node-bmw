@@ -372,8 +372,6 @@ function form_ike_gong() {
 
 // Initialize IKE backlight slider
 function ike_backlight_prepare() {
-	$('#slider-ike-backlight').slider()
-
 	$('#slider-ike-backlight').on('slideStop', function(data) {
 		ike_backlight(data.value);
 	});

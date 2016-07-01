@@ -195,13 +195,6 @@
 
 										<div class="checkbox">
 											<label>
-												<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
-												Right license plate
-											</label>
-										</div>
-
-										<div class="checkbox">
-											<label>
 												<input type="checkbox" id="output_reverse_rear_left" name="output_reverse_rear_left">
 												Left reverse
 											</label>
@@ -236,6 +229,13 @@
 											</label>
 										</div>
 										-->
+
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
+												License plate
+											</label>
+										</div>
 
 									</div>
 								</div>

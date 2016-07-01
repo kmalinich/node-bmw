@@ -133,12 +133,12 @@ function vehicle_status_refresh_on() {
 				console.log(return_data);
 			}
 		});
-	}, 1000);
+	}, 3000);
 
 	vehicle_status_loop = setInterval(function() {
 		// Refresh browser view
 		vehicle_status();
-	}, 1000);
+	}, 2000);
 
 }
 

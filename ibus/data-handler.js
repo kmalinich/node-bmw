@@ -14,8 +14,8 @@ var data_handler = function(omnibus) {
 	omnibus.ibus_connection.on('data', check_data)
 
 	function check_data(data) {
-		var dst = bus_modules.get_module_name(data.dst);
-		var src = bus_modules.get_module_name(data.src);
+		var dst = omnibus.bus_modules.get_module_name(data.dst);
+		var src = omnibus.bus_modules.get_module_name(data.src);
 		var msg = data.msg;
 
 		// GM

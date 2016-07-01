@@ -11,7 +11,6 @@ var wait         = require('wait.for');
 // IBUS libraries
 var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
-var bus_modules    = require('./lib/bus-modules.js');
 
 // Module libraries
 var GM  = require('./modules/GM.js');
@@ -29,6 +28,7 @@ var socket_server = require('./lib/socket-server.js');
 // Everything's connection handle
 var omnibus = {};
 
+omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.vehicle_status  = require('./lib/vehicle-status.js');
 omnibus.ibus_connection = new ibus_interface();
 omnibus.GM_connection   = new GM(omnibus);

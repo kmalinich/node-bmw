@@ -66,38 +66,38 @@ var data_handler = function(omnibus) {
 			if (msg[0] == 0x11) {
 				var command = 'ignition';
 
-				if      (msg[1] == 0x00) { vehicle_status.vehicle.ignition = 'off';       }
-				else if (msg[1] == 0x01) { vehicle_status.vehicle.ignition = 'accessory'; }
-				else if (msg[1] == 0x03) { vehicle_status.vehicle.ignition = 'run';       }
-				else if (msg[1] == 0x07) { vehicle_status.vehicle.ignition = 'start';     }
-				else                     { vehicle_status.vehicle.ignition = 'unknown';   }
+				if      (msg[1] == 0x00) { omnibus.vehicle_status.vehicle.ignition = 'off';       }
+				else if (msg[1] == 0x01) { omnibus.vehicle_status.vehicle.ignition = 'accessory'; }
+				else if (msg[1] == 0x03) { omnibus.vehicle_status.vehicle.ignition = 'run';       }
+				else if (msg[1] == 0x07) { omnibus.vehicle_status.vehicle.ignition = 'start';     }
+				else                     { omnibus.vehicle_status.vehicle.ignition = 'unknown';   }
 
-				console.log('[data-handler] Set vehicle_status.vehicle.ignition       = \'%s\'', vehicle_status.vehicle.ignition);
+				console.log('[data-handler] Set omnibus.vehicle_status.vehicle.ignition       = \'%s\'', omnibus.vehicle_status.vehicle.ignition);
 			}
 			else if (msg[0] == 0x13) {
 				var command = 'sensors';
 
-				if (msg[1] == 0x01) { vehicle_status.vehicle.handbrake = true; } else { vehicle_status.vehicle.handbrake = false; }
+				if (msg[1] == 0x01) { omnibus.vehicle_status.vehicle.handbrake = true; } else { omnibus.vehicle_status.vehicle.handbrake = false; }
 				
 				// This is a bitmask
 				// msg[2]: 0x01 = engine running, 0x10 = reverse
 				// For now, dirty hack
 				if (msg[2] == 0x01) {
-					vehicle_status.engine.running  = true;
-					vehicle_status.vehicle.reverse = false;
+					omnibus.vehicle_status.engine.running  = true;
+					omnibus.vehicle_status.vehicle.reverse = false;
 				}
 				else if (msg[2] == 0x10) {
-					vehicle_status.engine.running  = false;
-					vehicle_status.vehicle.reverse = true;
+					omnibus.vehicle_status.engine.running  = false;
+					omnibus.vehicle_status.vehicle.reverse = true;
 				}
 				else if (msg[2] == 0x11) {
-					vehicle_status.vehicle.reverse = true;
-					vehicle_status.engine.running  = true;
+					omnibus.vehicle_status.vehicle.reverse = true;
+					omnibus.vehicle_status.engine.running  = true;
 				}
 
-				console.log('[data-handler] Set vehicle_status.vehicle.handbrake      = %s', vehicle_status.vehicle.handbrake);
-				console.log('[data-handler] Set vehicle_status.vehicle.reverse        = %s', vehicle_status.vehicle.reverse);
-				console.log('[data-handler] Set vehicle_status.engine.running         = %s', vehicle_status.engine.running);
+				console.log('[data-handler] Set omnibus.vehicle_status.vehicle.handbrake      = %s', omnibus.vehicle_status.vehicle.handbrake);
+				console.log('[data-handler] Set omnibus.vehicle_status.vehicle.reverse        = %s', omnibus.vehicle_status.vehicle.reverse);
+				console.log('[data-handler] Set omnibus.vehicle_status.engine.running         = %s', omnibus.vehicle_status.engine.running);
 			}
 			else if (msg[0] == 0x17) {
 				var command = 'odometer';
@@ -106,29 +106,29 @@ var data_handler = function(omnibus) {
 				var command = 'temperatures';
 
 				// Update external and engine coolant temp variables
-				vehicle_status.temperature.exterior_c = parseFloat(msg[1]).toFixed(2);
-				vehicle_status.temperature.coolant_c  = parseFloat(msg[2]).toFixed(2);
+				omnibus.vehicle_status.temperature.exterior_c = parseFloat(msg[1]).toFixed(2);
+				omnibus.vehicle_status.temperature.coolant_c  = parseFloat(msg[2]).toFixed(2);
 
-				vehicle_status.temperature.exterior_f = parseFloat(((msg[1]*9)/5)+32).toFixed(2);
-				vehicle_status.temperature.coolant_f  = parseFloat(((msg[2]*9)/5)+32).toFixed(2);
-				console.log('[data-handler] Set vehicle_status.temperature.exterior_c = %s', vehicle_status.temperature.exterior_c);
-				console.log('[data-handler] Set vehicle_status.temperature.coolant_c  = %s', vehicle_status.temperature.coolant_c);
-				console.log('[data-handler] Set vehicle_status.temperature.exterior_f = %s', vehicle_status.temperature.exterior_f);
-				console.log('[data-handler] Set vehicle_status.temperature.coolant_f  = %s', vehicle_status.temperature.coolant_f);
+				omnibus.vehicle_status.temperature.exterior_f = parseFloat(((msg[1]*9)/5)+32).toFixed(2);
+				omnibus.vehicle_status.temperature.coolant_f  = parseFloat(((msg[2]*9)/5)+32).toFixed(2);
+				console.log('[data-handler] Set omnibus.vehicle_status.temperature.exterior_c = %s', omnibus.vehicle_status.temperature.exterior_c);
+				console.log('[data-handler] Set omnibus.vehicle_status.temperature.coolant_c  = %s', omnibus.vehicle_status.temperature.coolant_c);
+				console.log('[data-handler] Set omnibus.vehicle_status.temperature.exterior_f = %s', omnibus.vehicle_status.temperature.exterior_f);
+				console.log('[data-handler] Set omnibus.vehicle_status.temperature.coolant_f  = %s', omnibus.vehicle_status.temperature.coolant_f);
 			}
 			else if (msg[0] == 0x18) {
 				var command = 'speed/RPM';
 
 				// Update vehicle and engine speed variables
-				vehicle_status.vehicle.speed_kmh = parseFloat(msg[1]*2).toFixed(2);
-				vehicle_status.engine.speed      = parseFloat(msg[2]*100).toFixed(2);
+				omnibus.vehicle_status.vehicle.speed_kmh = parseFloat(msg[1]*2).toFixed(2);
+				omnibus.vehicle_status.engine.speed      = parseFloat(msg[2]*100).toFixed(2);
 
 				// Convert values and round to 2 decimals
-				vehicle_status.vehicle.speed_mph = parseFloat((msg[1]*2)*0.621371192237334).toFixed(2);
+				omnibus.vehicle_status.vehicle.speed_mph = parseFloat((msg[1]*2)*0.621371192237334).toFixed(2);
 
-				console.log('[data-handler] Set vehicle_status.vehicle.speed_kmh      = %s', vehicle_status.vehicle.speed_kmh);
-				console.log('[data-handler] Set vehicle_status.vehicle.speed_mph      = %s', vehicle_status.vehicle.speed_mph);
-				console.log('[data-handler] Set vehicle_status.engine.speed           = %s', vehicle_status.engine.speed);
+				console.log('[data-handler] Set omnibus.vehicle_status.vehicle.speed_kmh      = %s', omnibus.vehicle_status.vehicle.speed_kmh);
+				console.log('[data-handler] Set omnibus.vehicle_status.vehicle.speed_mph      = %s', omnibus.vehicle_status.vehicle.speed_mph);
+				console.log('[data-handler] Set omnibus.vehicle_status.engine.speed           = %s', omnibus.vehicle_status.engine.speed);
 			}
 			else if (msg[0] == 0x24) {
 				var command = 'OBC text';
@@ -140,29 +140,29 @@ var data_handler = function(omnibus) {
 
 					// Detect 12h or 24h time and parse value
 					if (string_time_unit == 'am' || string_time_unit == 'pm') {
-						vehicle_status.coding.unit_time = '12h';
+						omnibus.vehicle_status.coding.unit_time = '12h';
 						var string_time = new Buffer([msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9]]);
 					}
 					else {
-						vehicle_status.coding.unit_time = '24h';
+						omnibus.vehicle_status.coding.unit_time = '24h';
 						var string_time = new Buffer([msg[3], msg[4], msg[5], msg[6], msg[7]]);
 					}
 
 					string_time = string_time.toString().trim().toLowerCase();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.time = string_time; 
-					console.log('[data-handler] Set vehicle_status.obc.time               = \'%s\'', vehicle_status.obc.time);
-					console.log('[data-handler] Set vehicle_status.coding.unit_time       = \'%s\'', vehicle_status.coding.unit_time);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.time = string_time; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.time               = \'%s\'', omnibus.vehicle_status.obc.time);
+					console.log('[data-handler] Set omnibus.vehicle_status.coding.unit_time       = \'%s\'', omnibus.vehicle_status.coding.unit_time);
 				}
 				else if (msg[1] == 0x02) { // Date
 					// Parse value
 					var string_date = new Buffer([msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9], msg[10], msg[11], msg[12]]);
 					string_date     = string_date.toString().trim();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.date = string_date; 
-					console.log('[data-handler] Set vehicle_status.obc.date               = \'%s\'', vehicle_status.obc.date);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.date = string_date; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.date               = \'%s\'', omnibus.vehicle_status.obc.date);
 				}
 				else if (msg[1] == 0x03) { // Exterior temp
 					// Parse unit
@@ -183,21 +183,21 @@ var data_handler = function(omnibus) {
 						string_temp_exterior_value     = string_temp_exterior_value.toString().trim().toLowerCase();
 					}
 
-					// Update vehicle_status variables
+					// Update omnibus.vehicle_status variables
 					if (string_temp_exterior_unit == 'c') {
-						vehicle_status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
-						vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value*9)/5)+32).toFixed(2);
-						vehicle_status.coding.unit_temp    = 'c';
+						omnibus.vehicle_status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
+						omnibus.vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value*9)/5)+32).toFixed(2);
+						omnibus.vehicle_status.coding.unit_temp    = 'c';
 					}
 					else {
-						vehicle_status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
-						vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value-32)*(5/9))).toFixed(2);
-						vehicle_status.coding.unit_temp    = 'f';
+						omnibus.vehicle_status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
+						omnibus.vehicle_status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value-32)*(5/9))).toFixed(2);
+						omnibus.vehicle_status.coding.unit_temp    = 'f';
 					}
 
-					console.log('[data-handler] Set vehicle_status.coding.unit_temp       = \'%s\'', vehicle_status.coding.unit_temp);
-					console.log('[data-handler] Set vehicle_status.obc.temp_exterior_c    = %s', vehicle_status.obc.temp_exterior_c);
-					console.log('[data-handler] Set vehicle_status.obc.temp_exterior_f    = %s', vehicle_status.obc.temp_exterior_f);
+					console.log('[data-handler] Set omnibus.vehicle_status.coding.unit_temp       = \'%s\'', omnibus.vehicle_status.coding.unit_temp);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.temp_exterior_c    = %s', omnibus.vehicle_status.obc.temp_exterior_c);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.temp_exterior_f    = %s', omnibus.vehicle_status.obc.temp_exterior_f);
 				}
 
 				else if (msg[1] == 0x04) { // Consumption 1
@@ -211,23 +211,23 @@ var data_handler = function(omnibus) {
 
 					// Perform appropriate conversions between units
 					if (string_consumption_1_unit == 'm') {
-						vehicle_status.coding.unit_cons = 'mpg';
+						omnibus.vehicle_status.coding.unit_cons = 'mpg';
 						string_consumption_1_mpg        = string_consumption_1;
 						string_consumption_1_l100       = 235.21/string_consumption_1;
 					}
 					else {
-						vehicle_status.coding.unit_cons = 'l100';
+						omnibus.vehicle_status.coding.unit_cons = 'l100';
 						string_consumption_1_mpg        = 235.21/string_consumption_1;
 						string_consumption_1_l100       = string_consumption_1;
 					}
 
-					// Update vehicle_status variables
-					vehicle_status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
-					vehicle_status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
+					omnibus.vehicle_status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
 
-					console.log('[data-handler] Set vehicle_status.coding.unit_cons       = \'%s\'', vehicle_status.coding.unit_cons);
-					console.log('[data-handler] Set vehicle_status.obc.consumption_1_l100 = %s', vehicle_status.obc.consumption_1_l100);
-					console.log('[data-handler] Set vehicle_status.obc.consumption_1_mpg  = %s', vehicle_status.obc.consumption_1_mpg);
+					console.log('[data-handler] Set omnibus.vehicle_status.coding.unit_cons       = \'%s\'', omnibus.vehicle_status.coding.unit_cons);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.consumption_1_l100 = %s', omnibus.vehicle_status.obc.consumption_1_l100);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.consumption_1_mpg  = %s', omnibus.vehicle_status.obc.consumption_1_mpg);
 				}
 
 				else if (msg[1] == 0x05) { // Consumption 2
@@ -249,12 +249,12 @@ var data_handler = function(omnibus) {
 						string_consumption_2_l100       = string_consumption_2;
 					}
 
-					// Update vehicle_status variables
-					vehicle_status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
-					vehicle_status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
+					omnibus.vehicle_status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
 
-					console.log('[data-handler] Set vehicle_status.obc.consumption_2_l100 = %s', vehicle_status.obc.consumption_2_l100);
-					console.log('[data-handler] Set vehicle_status.obc.consumption_2_mpg  = %s', vehicle_status.obc.consumption_2_mpg);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.consumption_2_l100 = %s', omnibus.vehicle_status.obc.consumption_2_l100);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.consumption_2_mpg  = %s', omnibus.vehicle_status.obc.consumption_2_mpg);
 				}
 
 				else if (msg[1] == 0x06) { // Range
@@ -266,20 +266,20 @@ var data_handler = function(omnibus) {
 					string_range_unit     = string_range_unit.toString().trim().toLowerCase();
 
 					if (string_range_unit == 'ml') {
-						vehicle_status.coding.unit_distance = 'mi';
-						// Update vehicle_status variables
-						vehicle_status.obc.range_mi = parseFloat(string_range).toFixed(2);
-						vehicle_status.obc.range_km = parseFloat(string_range*1.60934).toFixed(2);
+						omnibus.vehicle_status.coding.unit_distance = 'mi';
+						// Update omnibus.vehicle_status variables
+						omnibus.vehicle_status.obc.range_mi = parseFloat(string_range).toFixed(2);
+						omnibus.vehicle_status.obc.range_km = parseFloat(string_range*1.60934).toFixed(2);
 					}
 					else if (string_range_unit == 'km') {
-						vehicle_status.coding.unit_distance = 'km';
-						vehicle_status.obc.range_mi = parseFloat(string_range*0.621371).toFixed(2);
-						vehicle_status.obc.range_km = parseFloat(string_range).toFixed(2);
+						omnibus.vehicle_status.coding.unit_distance = 'km';
+						omnibus.vehicle_status.obc.range_mi = parseFloat(string_range*0.621371).toFixed(2);
+						omnibus.vehicle_status.obc.range_km = parseFloat(string_range).toFixed(2);
 					}
 
-					console.log('[data-handler] Set vehicle_status.obc.range_mi           = %s', vehicle_status.obc.range_mi);
-					console.log('[data-handler] Set vehicle_status.obc.range_km           = %s', vehicle_status.obc.range_km);
-					console.log('[data-handler] Set vehicle_status.coding.unit_distance   = \'%s\'', vehicle_status.coding.unit_distance);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.range_mi           = %s', omnibus.vehicle_status.obc.range_mi);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.range_km           = %s', omnibus.vehicle_status.obc.range_km);
+					console.log('[data-handler] Set omnibus.vehicle_status.coding.unit_distance   = \'%s\'', omnibus.vehicle_status.coding.unit_distance);
 				}
 
 				else if (msg[1] == 0x07) { // Distance
@@ -287,9 +287,9 @@ var data_handler = function(omnibus) {
 					var string_distance = new Buffer([msg[3], msg[4], msg[5], msg[6]]);
 					string_distance     = string_distance.toString().trim().toLowerCase();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.distance = string_distance; 
-					console.log('[data-handler] Set vehicle_status.obc.distance           = %s', vehicle_status.obc.distance);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.distance = string_distance; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.distance           = %s', omnibus.vehicle_status.obc.distance);
 				}
 
 				else if (msg[1] == 0x08) { // --:--
@@ -301,9 +301,9 @@ var data_handler = function(omnibus) {
 					var string_speedlimit = new Buffer([msg[3], msg[4], msg[5]]);
 					string_speedlimit     = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
-					// Update vehicle_status variables
-					vehicle_status.obc.speedlimit = string_speedlimit.toFixed(2); 
-					console.log('[data-handler] Set vehicle_status.obc.speedlimit         = %s mph', vehicle_status.obc.speedlimit);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.speedlimit = string_speedlimit.toFixed(2); 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.speedlimit         = %s mph', omnibus.vehicle_status.obc.speedlimit);
 				}
 
 				else if (msg[1] == 0x0A) { // Avg. speed
@@ -317,21 +317,21 @@ var data_handler = function(omnibus) {
 
 					// Convert values appropriately based on coding data units
 					if (string_speedavg_unit == 'k') {
-						vehicle_status.coding.unit_speed = 'kmh';
-						// Update vehicle_status variables
-						vehicle_status.obc.speedavg_kmh = string_speedavg.toFixed(2);
-						vehicle_status.obc.speedavg_mph = (string_speedavg*0.621371).toFixed(2);
+						omnibus.vehicle_status.coding.unit_speed = 'kmh';
+						// Update omnibus.vehicle_status variables
+						omnibus.vehicle_status.obc.speedavg_kmh = string_speedavg.toFixed(2);
+						omnibus.vehicle_status.obc.speedavg_mph = (string_speedavg*0.621371).toFixed(2);
 					}
 					else if (string_speedavg_unit == 'm') {
-						vehicle_status.coding.unit_speed = 'mph';
-						// Update vehicle_status variables
-						vehicle_status.obc.speedavg_kmh = (string_speedavg*1.60934).toFixed(2);
-						vehicle_status.obc.speedavg_mph = string_speedavg.toFixed(2);
+						omnibus.vehicle_status.coding.unit_speed = 'mph';
+						// Update omnibus.vehicle_status variables
+						omnibus.vehicle_status.obc.speedavg_kmh = (string_speedavg*1.60934).toFixed(2);
+						omnibus.vehicle_status.obc.speedavg_mph = string_speedavg.toFixed(2);
 					}
 
-					console.log('[data-handler] Set vehicle_status.coding.unit_speed      = \'%s\'', vehicle_status.coding.unit_speed);
-					console.log('[data-handler] Set vehicle_status.obc.speedavg_kmh       = %s', vehicle_status.obc.speedavg_kmh);
-					console.log('[data-handler] Set vehicle_status.obc.speedavg_mph       = %s', vehicle_status.obc.speedavg_mph);
+					console.log('[data-handler] Set omnibus.vehicle_status.coding.unit_speed      = \'%s\'', omnibus.vehicle_status.coding.unit_speed);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.speedavg_kmh       = %s', omnibus.vehicle_status.obc.speedavg_kmh);
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.speedavg_mph       = %s', omnibus.vehicle_status.obc.speedavg_mph);
 				}
 
 				else if (msg[1] == 0x0E) { // Timer
@@ -339,9 +339,9 @@ var data_handler = function(omnibus) {
 					var string_timer = new Buffer([msg[3], msg[4], msg[5], msg[6]]);
 					string_timer     = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
 
-					// Update vehicle_status variables
-					vehicle_status.obc.timer = string_timer; 
-					console.log('[data-handler] Set vehicle_status.obc.timer              = %s', vehicle_status.obc.timer);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.timer = string_timer; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.timer              = %s', omnibus.vehicle_status.obc.timer);
 				}
 
 				else if (msg[1] == 0x0F) { // Aux heat timer 1
@@ -349,9 +349,9 @@ var data_handler = function(omnibus) {
 					var string_aux_heat_timer_1 = new Buffer([msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9]]);
 					string_aux_heat_timer_1     = string_aux_heat_timer_1.toString().trim().toLowerCase();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
-					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_1   = \'%s\'', vehicle_status.obc.aux_heat_timer_1);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.aux_heat_timer_1   = \'%s\'', omnibus.vehicle_status.obc.aux_heat_timer_1);
 				}
 
 				else if (msg[1] == 0x10) { // Aux heat timer 2
@@ -359,9 +359,9 @@ var data_handler = function(omnibus) {
 					var string_aux_heat_timer_2 = new Buffer([msg[3], msg[4], msg[5], msg[6], msg[7], msg[8], msg[9]]);
 					string_aux_heat_timer_2     = string_aux_heat_timer_2.toString().trim().toLowerCase();
 
-					// Update vehicle_status variables
-					vehicle_status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
-					console.log('[data-handler] Set vehicle_status.obc.aux_heat_timer_2   = \'%s\'', vehicle_status.obc.aux_heat_timer_2);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.aux_heat_timer_2   = \'%s\'', omnibus.vehicle_status.obc.aux_heat_timer_2);
 				}
 
 				else if (msg[1] == 0x1A) { // Stopwatch
@@ -369,9 +369,9 @@ var data_handler = function(omnibus) {
 					var string_stopwatch = new Buffer([msg[3], msg[4], msg[5], msg[6]]);
 					string_stopwatch     = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
 
-					// Update vehicle_status variables
-					vehicle_status.obc.stopwatch = string_stopwatch; 
-					console.log('[data-handler] Set vehicle_status.obc.stopwatch          = %s', vehicle_status.obc.stopwatch);
+					// Update omnibus.vehicle_status variables
+					omnibus.vehicle_status.obc.stopwatch = string_stopwatch; 
+					console.log('[data-handler] Set omnibus.vehicle_status.obc.stopwatch          = %s', omnibus.vehicle_status.obc.stopwatch);
 				}
 			}
 			else if (msg[0] == 0x57) {

@@ -63,6 +63,7 @@ function clean_class(id) {
 
 // Clean all the text strings
 function clean_class_all() {
+	// This is really dumb and there is a better way
 	clean_class('#engine-running');
 	clean_class('#engine-speed');
 	clean_class('#obc-aux-heat-timer-1');
@@ -101,7 +102,6 @@ function clean_class_all() {
 }
 
 // Status page autorefresh enable
-
 var vehicle_status_loop;
 var vehicle_status_refresh;
 
@@ -133,12 +133,12 @@ function vehicle_status_refresh_on() {
 				console.log(return_data);
 			}
 		});
-	}, 10000);
+	}, 1000);
 
 	vehicle_status_loop = setInterval(function() {
 		// Refresh browser view
 		vehicle_status();
-	}, 11000);
+	}, 1000);
 
 }
 

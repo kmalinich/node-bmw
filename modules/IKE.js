@@ -15,7 +15,7 @@ var bit_6 = 0x40;
 var bit_7 = 0x80;
 
 
-var IKE = function(ibus_connection, vehicle_status) {
+var IKE = function(omnibus) {
 
 	// self reference
 	var _self = this;
@@ -55,9 +55,9 @@ var IKE = function(ibus_connection, vehicle_status) {
 		console.log('[IKE] Refreshing OBC HUD');
 		obc_get('cons1');
 		obc_get('time');
-		var cons1 = parseFloat(vehicle_status.obc.consumption_1_mpg).toFixed(1);
-		var ctmp  = Math.round(vehicle_status.temperature.coolant_c);
-		ike_text(vehicle_status.obc.time+' C:'+cons1+' T:'+ctmp);
+		var cons1 = parseFloat(omnibus.vehicle_status.obc.consumption_1_mpg).toFixed(1);
+		var ctmp  = Math.round(omnibus.vehicle_status.temperature.coolant_c);
+		ike_text(omnibus.vehicle_status.obc.time+' C:'+cons1+' T:'+ctmp);
 	}
 
 	// Refresh OBC data
@@ -161,7 +161,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(msg),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// OBC reset
@@ -203,7 +203,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(msg),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// OBC gong
@@ -229,7 +229,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(msg),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	function ike_text_urgent(message) {
@@ -246,7 +246,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(message_hex),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	function ike_text_urgent_off() {
@@ -261,7 +261,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(message_hex),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// IKE cluster text send message
@@ -284,13 +284,13 @@ var IKE = function(ibus_connection, vehicle_status) {
 			msg: new Buffer(string_hex),
 		}
 
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// Loop to update text in the cluster
 	function ike_text_loop() {
 		console.log('[IKE] text loop');
-		console.log(vehicle_status);
+		console.log(omnibus.vehicle_status);
 	}
 
 	// Send message to IKE
@@ -310,7 +310,7 @@ var IKE = function(ibus_connection, vehicle_status) {
 
 		// Send the message
 		console.log('[IKE] Sending IKE packet.');
-		ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
 	// Handle incoming commands
@@ -347,14 +347,14 @@ var IKE = function(ibus_connection, vehicle_status) {
 
 	// Refresh OBC data once every half-second
 	//setInterval(function() {
-	//	if (vehicle_status.vehicle.ignition == 'run') {
+	//	if (omnibus.vehicle_status.vehicle.ignition == 'run') {
 	//		obc_refresh();
 	//	}
 	//}, 500);
 
 	// Refresh OBC HUD once every 2 seconds
 	setInterval(function() {
-		if (vehicle_status.vehicle.ignition == 'run') {
+		if (omnibus.vehicle_status.vehicle.ignition == 'run') {
 			hud_refresh();
 		}
 	}, 2000);

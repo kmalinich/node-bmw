@@ -20,34 +20,17 @@ var LCM = require('./modules/LCM.js');
 // WebSocket libraries
 var socket_server = require('./lib/socket-server.js');
 
-// Vehicle status object
-
-// IBUS connection handle
-// var ibus_connection = new ibus_interface();
-
-// Everything's connection handle
+// Everything connection handle
 var omnibus = {};
-
 omnibus.bus_modules     = require('./lib/bus-modules.js');
-omnibus.vehicle_status  = require('./lib/vehicle-status.js');
-omnibus.ibus_connection = new ibus_interface();
+omnibus.vehicle_status  = require('./lib/vehicle-status.js'); // Vehicle status object
+omnibus.ibus_connection = new ibus_interface(); // IBUS connection handle
 omnibus.GM_connection   = new GM(omnibus);
 omnibus.LCM_connection  = new LCM(omnibus);
 omnibus.IKE_connection  = new IKE(omnibus);
 
 // Data handler
-// var data_handler_connection = new data_handler(ibus_connection, bus_modules, vehicle_status, IKE_connection, LCM_connection);
 var data_handler_connection = new data_handler(omnibus);
-
-
-// Startup function
-function startup() {
-	// Start IBUS connection
-	ibus_connection.startup();
-
-	// Start WebSocket server
-	socket_server.init(3002, omnibus);
-}
 
 // Shutdown function
 function shutdown() {
@@ -57,9 +40,10 @@ function shutdown() {
 	});
 }
 
+// IBUS data handler
+// Should be moved inside socket_server
 function on_ibus_data(data) {
 	socket_server.ibus_data(data);
-	//ibus_data_handler.check_data(data);
 }
 
 // Events
@@ -80,7 +64,7 @@ dispatcher.onGet('/status', function(request, response) {
 	console.log('[get-handler] /status');
 	response.writeHead(200, {'Content-Type': 'application/json'});
 
-	response.end(JSON.stringify(vehicle_status));
+	response.end(JSON.stringify(omnibus.vehicle_status));
 });
 
 // GM POST request
@@ -128,4 +112,5 @@ http.createServer(function (req, res) {
 	//console.log('%s Request: %s', req.method, req.url);
 	dispatcher.dispatch(req, res);
 }).listen(3001, '0.0.0.0');
+
 console.log('[run.js] Started API interface on port 3001');

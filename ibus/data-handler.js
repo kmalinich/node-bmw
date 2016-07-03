@@ -38,15 +38,13 @@ var data_handler = function(omnibus) {
 					
 					// WELCOME LIGHTS!
 					var lcm_object = {
-						output_lowbeam_front_left   : true,
-						output_lowbeam_front_right  : true,
 						output_standing_front_left  : true,
 						output_standing_front_right : true,
-						output_turn_rear_left       : true,
-						output_turn_rear_right      : true,
-						output_license_rear_right   : true,
+						output_standing_rear_right  : true,
+						output_standing_rear_left   : true,
 						output_reverse_rear_left    : true,
 						output_reverse_rear_right   : true,
+						output_license_rear_right   : true,
 					};
 
 					console.log('[data-handler] Activating welcome lights');

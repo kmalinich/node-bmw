@@ -82,7 +82,6 @@
 											</label>
 										</div>
 
-
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_front_left" name="output_standing_front_left">
@@ -126,7 +125,6 @@
 								<div id="collapse-lcm-rear" class="panel-collapse collapse">
 									<div class="panel-body">
 
-
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_brake_rear_left" name="output_brake_rear_left">
@@ -148,6 +146,7 @@
 											</label>
 										</div>
 
+										<!--
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
@@ -161,18 +160,19 @@
 												Right inner tail
 											</label>
 										</div>
+										-->
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
-												Left outer tail
+												Left CELIS
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_right" name="output_standing_rear_right">
-												Right outer tail
+												Right CELIS
 											</label>
 										</div>
 

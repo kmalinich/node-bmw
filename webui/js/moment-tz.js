@@ -1,1 +1,1 @@
-moment-tz-0.5.2-2016b.min.js
+moment-tz-0.5.4.min.js

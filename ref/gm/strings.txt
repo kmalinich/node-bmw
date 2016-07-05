@@ -96,7 +96,10 @@ F L D P : 01 36 01 3D
 00 177 : wheel up, down
 
 
-// Key fob messages 
-72 12 : fob_lock_down
-72 22 : fob_unlock_down
-72 42 : fob_trunk_down
+// Key fob messages
+cmd: 0x72 // Key fob message
+
+0x00 : no button pressed
+0x12 : lock down
+0x22 : unlock down
+0x42 : trunk down

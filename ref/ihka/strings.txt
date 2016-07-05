@@ -1,21 +1,25 @@
 // Start/keep diagnosing (keepalive signal)
-3F LL 5B 9E CS
+0x9E
 
 // Stop diagnosing
-3F LL 5B 9F CS
+0x9F
 
 
-Display test 1 3F LL 5B 07 04 00 01 86 01 C2 CS
-Display test 2 3F LL 5B 07 04 00 01 86 01 E3 CS
-Display test 3 3F LL 5B 07 04 00 01 86 01 E4 CS
-Display test 4 3F LL 5B 07 04 00 01 86 01 A1 CS
-Display test ? 3F LL 5B 07 04 00 01 86 01 00 CS
-
+// Display test 1
+0x07, 0x04, 0x00, 0x01, 0x86, 0x01, 0xC2
+// Display test 2
+0x07, 0x04, 0x00, 0x01, 0x86, 0x01, 0xE3
+// Display test 3
+0x07, 0x04, 0x00, 0x01, 0x86, 0x01, 0xE4
+// Display test 4
+0x07, 0x04, 0x00, 0x01, 0x86, 0x01, 0xA1
+// Display test ?
+0x07, 0x04, 0x00, 0x01, 0x86, 0x01, 0x00
 
 // Blower to 50%
-3F LL 5B 07 04 00 00 6C 01 32 CS
+0x07, 0x04, 0x00, 0x00, 0x6C, 0x01, 0x32
 // Blower to 100%
-3F LL 5B 07 04 00 00 6C 01 64 CS
+0x07, 0x04, 0x00, 0x00, 0x6C, 0x01, 0x64
 
 
 // Flaps, 0-255
@@ -28,40 +32,25 @@ F3: Footwell
 F4: Defroster
 F5: Rear compartment
 F6: Fresh air
-                           F1 F2 F3 F4 F5 F6
-3F LL 5B 07 04 00 01 45 06 FF FF 4D 00 00 1A CS
-3F LL 5B 07 04 00 01 45 06 FF 1A 4D 00 00 1A CS
-3F LL 5B 07 04 00 01 45 06 FF 1A 4D 1A 00 1A CS
-3F LL 5B 07 04 00 01 45 06 1A 1A 4D 1A 00 1A CS
-3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 00 1A CS
-3F LL 5B 07 04 00 01 45 06 1A 1A 1A 1A 1A 1A CS
-3F LL 5B 07 04 00 00 6C 01 64 CS
+                                     F1    F2    F3    F4    F5    F6
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0xFF, 0xFF, 0x4D, 0x00, 0x00, 0x1A
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0xFF, 0x1A, 0x4D, 0x00, 0x00, 0x1A
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0xFF, 0x1A, 0x4D, 0x1A, 0x00, 0x1A
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0x1A, 0x1A, 0x4D, 0x1A, 0x00, 0x1A
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0x1A, 0x1A, 0x1A, 0x1A, 0x00, 0x1A
+0x07, 0x04, 0x00, 0x01, 0x45, 0x06, 0x1A, 0x1A, 0x1A, 0x1A, 0x1A, 0x1A
+0x07, 0x04, 0x00, 0x00, 0x6C, 0x01, 0x64
 
 
-executeJob('ihka39_4.prg'): 'STEUERN_SPRITZDUESENHEIZUNG'
-executeJob('ihka39_4.prg'): 'STATUS_IO'
- (Send): 5B 05 0B 04 51 
- (Resp): 5B 08 A0 E3 00 0F A5 BA 
- (ArgBinary): 4F 4E 
-executeJob('ihka39_4.prg'): 'STEUERN_KLIMAKOMPRESSOR'
-executeJob('ihka39_4.prg'): 'STATUS_IO'
- (Send): 5B 05 0B 04 51 
- (Resp): 5B 08 A0 E3 00 0F A5 BA 
- (ArgBinary): 4F 4E 
-executeJob('ihka39_4.prg'): 'STEUERN_RELAIS_ZUSATZLUEFTER'
-executeJob('ihka39_4.prg'): 'STATUS_IO'
- (Send): 5B 05 0B 04 51 
- (Resp): 5B 08 A0 E3 00 0F A5 BA 
- (ArgBinary): 4F 4E 
-executeJob('ihka39_4.prg'): 'STEUERN_ZUSATZWASSERPUMPE'
-executeJob('ihka39_4.prg'): 'STATUS_IO'
- (Send): 5B 05 0B 04 51 
- (Resp): 5B 08 A0 E3 00 0F E5 FA 
+// Get IO status
+0x0B, 0x04, 0x51 
+
+// IO status response (DBUS)
+0x5B, 0x08, 0xA0, 0xE3, 0x00, 0x0F, 0xE5, 0xFA, 0x
 
 
-executeJob('ihka39_4.prg'): 'STEUERN_WASSERVENTIL'
- (Send): 5B 0B 07 01 00 01 BD 02 01 01 E8 
- (Resp): 5B 04 A0 FF 
- (Send): 5B 0D 07 04 00 00 B8 04 01 68 01 68 E9 
- (Resp): 5B 04 A0 FF 
-
+// Water valve commands (DBUS)
+(Send): 5B 0B 07 01 00 01 BD 02 01 01 E8 
+(Resp): 5B 04 A0 FF 
+(Send): 5B 0D 07 04 00 00 B8 04 01 68 01 68 E9 
+(Resp): 5B 04 A0 FF 

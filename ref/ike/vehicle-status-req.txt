@@ -1,4 +1,0 @@
-5/4/2011 5:47:21 PM.713: 80 03 D0 53 00
-5/4/2011 5:47:21 PM.713: IKE --> LCM : Vehicle data request
-5/4/2011 5:47:21 PM.745: D0 10 80 54 4C 4E 83 01 70 05 99 42 91 00 00 06 D3 7E
-5/4/2011 5:47:21 PM.745: LCM --> IKE : Vehicle data status: VIN LN83017; Total dist 143300 kms; SI-L 6570 litres since last service; ; SI-T 0 days since last service

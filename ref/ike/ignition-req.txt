@@ -1,2 +1,0 @@
-BMBT --> IKE : Ignition status request
-// To IKE       F0 03 80 10 63  

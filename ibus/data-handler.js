@@ -13,6 +13,16 @@ var data_handler = function(omnibus) {
 	// Events
 	omnibus.ibus_connection.on('data', check_data)
 
+	// Test number for bitmask
+	function bit_test(num, bit) {
+		if ((num & bit) != 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// Data handler
 	function check_data(data) {
 		var dst = omnibus.bus_modules.get_module_name(data.dst);
 		var src = omnibus.bus_modules.get_module_name(data.src);
@@ -59,7 +69,22 @@ var data_handler = function(omnibus) {
 			else if (msg[0] == 0x7A) {
 				var command = 'doors/flaps status';
 
-				console.log('[data-handler] GM: %s', command);
+				// Set status from message
+				if      (bit_test(msg[1], 0x01)) { omnibus.status.flaps.front_left    = true; }
+				else if (bit_test(msg[1], 0x02)) { omnibus.status.flaps.front_right   = true; }
+				else if (bit_test(msg[1], 0x04)) { omnibus.status.flaps.rear_left     = true; }
+				else if (bit_test(msg[1], 0x08)) { omnibus.status.flaps.rear_right    = true; }
+				else if (bit_test(msg[1], 0x20)) { omnibus.status.locked              = true; }
+				else if (bit_test(msg[1], 0x40)) { omnibus.status.lights.interior     = true; }
+				else if (bit_test(msg[2], 0x20)) { omnibus.status.windows.roof        = true; }
+				else if (bit_test(msg[2], 0x01)) { omnibus.status.windows.front_left  = true; }
+				else if (bit_test(msg[2], 0x02)) { omnibus.status.windows.front_right = true; }
+				else if (bit_test(msg[2], 0x04)) { omnibus.status.windows.rear_left   = true; }
+				else if (bit_test(msg[2], 0x08)) { omnibus.status.windows.rear_right  = true; }
+        else if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; }
+				else if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; }
+
+				console.log('[data-handler] GM: Setting doors/flaps status');
 			}
 
 			// console.log(src, dst, command, button, msg);

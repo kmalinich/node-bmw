@@ -56,3 +56,4 @@ BIT1 bitmask:
 0x08 : WndwRR
 0x10 : WndwSun
 0x20 : Trunk
+0x40 : Hood // Needs tested

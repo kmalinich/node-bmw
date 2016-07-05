@@ -33,10 +33,6 @@ function gm(object, action) {
 
 // Data handler
 function check_data(packet) {
-	var dst = ibus_modules.get_module_name(packet.dst);
-	var src = ibus_modules.get_module_name(packet.src);
-	var msg = packet.msg;
-
 	// EWS
 	if (src == 'EWS') {
 		var key_out  = new Buffer([0x74, 0x00, 0xff]);

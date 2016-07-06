@@ -1,3 +1,4 @@
+// Array of module names
 var _modules = {
 	'ABG'                    : 0xA4,
 	'Assist'                 : 0xCA,
@@ -44,23 +45,6 @@ var _modules = {
 	'TEL'                    : 0xC8,
 };
 
-function get_module_name(key) {
-	var hkey = parseInt(key, 16);
-
-	for (var dkey in _modules) {
-		if (_modules[dkey] === hkey) {
-			return dkey;
-		}
-	}
-
-	return 'Unknown Device' + ' - ' + key;
-};
-
-// Remove all color-coded CSS classes from a text id
-function clean_class(id) {
-	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').removeClass('text-info').text('');
-}
-
 // Clean all the text strings
 function clean_class_all() {
 	// This is really dumb and there is a better way
@@ -101,56 +85,279 @@ function clean_class_all() {
 	//clean_class('');
 }
 
-// Status page autorefresh enable
-var status_loop;
-var status_refresh;
+// Remove all color-coded CSS classes from a text id
+function clean_class(id) {
+	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').removeClass('text-info').text('');
+}
 
-function status_refresh_on() {
-	// CSS magic
-	$('#icon-refresh').addClass('fa-spin');
-	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:status_refresh_off();');
-
-	// Pulse clamps 15, 30A, 30B
+function form_gm() {
+	console.log($('#form-gm').serialize());
 	$.ajax({
-		url      : '/api/lcm',
+		url      : '/api/gm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
+		data     : $('#form-gm').serialize(),
 		success  : function(return_data) {
 			console.log(return_data);
 		}
 	});
-
-	// Set the loops
-	status_refresh = setInterval(function() {
-		// Data refresh from OBC/IKE
-		$.ajax({
-			url      : '/api/ike',
-			type     : 'POST',
-			dataType : 'json',
-			data     : 'obc-get=all',
-			success  : function(return_data) {
-				console.log(return_data);
-			}
-		});
-	}, 3000);
-
-	status_loop = setInterval(function() {
-		// Refresh browser view
-		status();
-	}, 2000);
-
 }
 
-// Status page autorefresh disable
-function status_refresh_off() {
-	// CSS magic
-	$('#icon-refresh').removeClass('fa-spin');
-	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:status_refresh_on();');
+function form_ike_get() {
+	console.log($('#form-ike-get').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-get').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
 
-	// Clear the loop
-	clearInterval(status_loop);
-	clearInterval(status_refresh);
+function form_ike_gong() {
+	console.log($('#form-ike-gong').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-gong').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_reset() {
+	console.log($('#form-ike-reset').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-reset').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_ike_text() {
+	console.log($('#form-ike-text').serialize());
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-ike-text').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function form_lcm() {
+	console.log($('#form-lcm').serialize());
+	$.ajax({
+		url      : '/api/lcm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : $('#form-lcm').serialize(),
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// Decode hex string and get module name
+function get_module_name(key) {
+	var hkey = parseInt(key, 16);
+
+	for (var dkey in _modules) {
+		if (_modules[dkey] === hkey) {
+			return dkey;
+		}
+	}
+
+	return 'Unknown Device' + ' - ' + key;
+};
+
+function gm_central_lock() {
+	console.log('gm_central_lock();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_lock',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function gm_central_toggle() {
+	console.log('gm_central_toggle();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_toggle',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function gm_central_unlock() {
+	console.log('gm_central_unlock();');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm_central_unlock',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// AJAX for GM interior_light
+function gm_interior_light(value) {
+	console.log('gm_interior_light(%s);', value);
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-interior-light='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// AJAX for IKE backlight
+function ike_backlight(value) {
+	console.log('ike_backlight(%s);', value);
+
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'ike-backlight='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function ike_set_clock() {
+	var timestamp     = moment();
+	var post_data     = {};
+
+	post_data.command = 'obc_clock';
+	post_data.day     = timestamp.format('D');
+	post_data.month   = timestamp.format('M');
+	post_data.year    = timestamp.format('YY');
+	post_data.hour    = timestamp.format('h');
+	post_data.minute  = timestamp.format('m');
+	console.log(post_data);
+
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : post_data,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// AJAX for LCM dimmer
+function lcm_dimmer(value) {
+	console.log('lcm_dimmer(%s);', value);
+
+	$.ajax({
+		url      : '/api/lcm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'lcm-dimmer='+value,
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// LCM Get IO status
+function lcm_get() {
+	console.log('lcm_get();');
+
+	$.ajax({
+		url      : '/api/lcm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'lcm-get=true',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// Prepare GM page
+function prepare_gm() {
+	prepare_gm_interior_light();
+}
+
+// Initialize GM interior_light slider
+function prepare_gm_interior_light() {
+	$('#slider-gm-interior-light').on('slideStart', function(data) {
+		console.log('gm_interior_light_slideStart: %s', data.value);
+		gm_interior_light(data.value);
+	});
+
+	$('#slider-gm-interior-light').on('slideStop', function(data) {
+		console.log('gm_interior_light_slidestop: %s', data.value);
+		gm_interior_light(data.value);
+	});
+}
+
+// Prepare IKE page
+function prepare_ike() {
+	prepare_ike_backlight();
+}
+
+// Initialize IKE backlight slider
+function prepare_ike_backlight() {
+	$('#slider-ike-backlight').on('slideStart', function(data) {
+		console.log('ike_backlight_slideStart: %s', data.value);
+		ike_backlight(data.value);
+	});
+
+	$('#slider-ike-backlight').on('slideStop', function(data) {
+		console.log('ike_backlight_slidestop: %s', data.value);
+		ike_backlight(data.value);
+	});
+}
+
+// Prepare LCM page
+function prepare_lcm() {
+	prepare_lcm_dimmer();
+}
+
+// Initialize LCM dimmer slider 
+function prepare_lcm_dimmer() {
+	$('#slider-lcm-dimmer').on('slideStart', function(data) {
+		console.log('lcm_dimmer_slideStart: %s', data.value);
+		// lcm_dimmer(data.value);
+	});
+
+	$('#slider-lcm-dimmer').on('slideStop', function(data) {
+		console.log('lcm_dimmer_slidestop: %s', data.value);
+		// lcm_dimmer(data.value);
+	});
 }
 
 // Get status object, parse, and display
@@ -294,262 +501,59 @@ function status() {
 	});
 }
 
-function gm_central_unlock() {
-	console.log('gm_central_unlock();');
+// Status page autorefresh disable
+function status_refresh_off() {
+	// CSS magic
+	$('#icon-refresh').removeClass('fa-spin');
+	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:status_refresh_on();');
 
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-command=gm_central_unlock',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
+	// Clear the loop
+	clearInterval(status_loop);
+	clearInterval(status_refresh);
 }
 
-function gm_central_toggle() {
-	console.log('gm_central_toggle();');
+// Status page autorefresh enable
+var status_loop;
+var status_refresh;
 
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-command=gm_central_toggle',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
+function status_refresh_on() {
+	// CSS magic
+	$('#icon-refresh').addClass('fa-spin');
+	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:status_refresh_off();');
 
-function gm_central_lock() {
-	console.log('gm_central_lock();');
-
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-command=gm_central_lock',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_gm() {
-	console.log($('#form-gm').serialize());
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-gm').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_lcm() {
-	console.log($('#form-lcm').serialize());
+	// Pulse clamps 15, 30A, 30B
 	$.ajax({
 		url      : '/api/lcm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : $('#form-lcm').serialize(),
+		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
 		success  : function(return_data) {
 			console.log(return_data);
 		}
 	});
+
+	// Set the loops
+	status_refresh = setInterval(function() {
+		// Data refresh from OBC/IKE
+		$.ajax({
+			url      : '/api/ike',
+			type     : 'POST',
+			dataType : 'json',
+			data     : 'obc-get=all',
+			success  : function(return_data) {
+				console.log(return_data);
+			}
+		});
+	}, 3000);
+
+	status_loop = setInterval(function() {
+		// Refresh browser view
+		status();
+	}, 2000);
+
 }
 
-function form_ike_set_clock() {
-	var timestamp     = moment();
-	var post_data     = {};
-
-	post_data.command = 'obc_clock';
-	post_data.day     = timestamp.format('D');
-	post_data.month   = timestamp.format('M');
-	post_data.year    = timestamp.format('YY');
-	post_data.hour    = timestamp.format('h');
-	post_data.minute  = timestamp.format('m');
-
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : post_data,
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_ike_text() {
-	console.log($('#form-ike-text').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-text').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_ike_get() {
-	console.log($('#form-ike-get').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-get').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_ike_reset() {
-	console.log($('#form-ike-reset').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-reset').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-function form_ike_gong() {
-	console.log($('#form-ike-gong').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-gong').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-// Initialize IKE backlight slider
-function prepare_ike_backlight() {
-	$('#slider-ike-backlight').on('slideStart', function(data) {
-		console.log('ike_backlight_slideStart: %s', data.value);
-		ike_backlight(data.value);
-	});
-
-	$('#slider-ike-backlight').on('slideStop', function(data) {
-		console.log('ike_backlight_slidestop: %s', data.value);
-		ike_backlight(data.value);
-	});
-}
-
-// AJAX for IKE backlight
-function ike_backlight(value) {
-	console.log('ike_backlight(%s);', value);
-
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'ike-backlight='+value,
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-// Prepare LCM page
-function prepare_lcm() {
-	prepare_lcm_dimmer();
-}
-
-// Initialize LCM dimmer slider 
-function prepare_lcm_dimmer() {
-	$('#slider-lcm-dimmer').on('slideStart', function(data) {
-		console.log('lcm_dimmer_slideStart: %s', data.value);
-		// lcm_dimmer(data.value);
-	});
-
-	$('#slider-lcm-dimmer').on('slideStop', function(data) {
-		console.log('lcm_dimmer_slidestop: %s', data.value);
-		// lcm_dimmer(data.value);
-	});
-}
-
-// AJAX for LCM dimmer
-function lcm_dimmer(value) {
-	console.log('lcm_dimmer(%s);', value);
-
-	$.ajax({
-		url      : '/api/lcm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'lcm-dimmer='+value,
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-// LCM Get IO status
-function lcm_get() {
-	console.log('lcm_get();');
-
-	$.ajax({
-		url      : '/api/lcm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'lcm-get=true',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
-// Prepare IKE page
-function prepare_ike() {
-	prepare_ike_backlight();
-}
-
-// Prepare GM page
-function prepare_gm() {
-	prepare_gm_interior_light();
-}
-
-// Initialize GM interior_light slider
-function prepare_gm_interior_light() {
-	$('#slider-gm-interior-light').on('slideStart', function(data) {
-		console.log('gm_interior_light_slideStart: %s', data.value);
-		gm_interior_light(data.value);
-	});
-
-	$('#slider-gm-interior-light').on('slideStop', function(data) {
-		console.log('gm_interior_light_slidestop: %s', data.value);
-		gm_interior_light(data.value);
-	});
-}
-
-// AJAX for GM interior_light
-function gm_interior_light(value) {
-	console.log('gm_interior_light(%s);', value);
-
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-interior-light='+value,
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
+// Live IBUS data websocket
 function ws_ibus() {
 	var loc = window.location, ws_uri;
 

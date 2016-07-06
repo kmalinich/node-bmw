@@ -9,7 +9,7 @@
 		<div class="container-fluid">
 
 			<h4>OBC Set Clock</h4>
-			<button class="btn btn-lg btn-primary btn-block" id="btn-ike-set-clock" onclick="javascript:ike_set_clock();"></button>
+			<button class="btn btn-lg btn-primary btn-block" id="btn-ike-set-clock" onclick="javascript:ike_set_clock();">Set clock</button>
 			<hr>
 
 			<h4>OBC Get</h4>

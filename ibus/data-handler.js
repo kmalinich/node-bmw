@@ -33,7 +33,7 @@ var data_handler = function(omnibus) {
 			if (msg[0] == 0x72) {
 				var command = 'key fob button';
 
-				if (msg[1] == 0x12) {
+				if (msg[1] == 0x10) {
 					var button = 'lock depressed';
 					
 					// WELCOME LIGHTS!
@@ -43,7 +43,7 @@ var data_handler = function(omnibus) {
 					omnibus.LCM.lcm_bitmask_encode(lcm_object);
 				}
 
-				else if (msg[1] == 0x22) {
+				else if (bit_test(msg[1], 0x20)) {
 					var button = 'unlock depressed';
 					
 					// WELCOME LIGHTS!
@@ -52,8 +52,6 @@ var data_handler = function(omnibus) {
 						output_standing_front_right : true,
 						output_standing_rear_right  : true,
 						output_standing_rear_left   : true,
-						output_reverse_rear_left    : true,
-						output_reverse_rear_right   : true,
 						output_license_rear_right   : true,
 					};
 
@@ -61,8 +59,12 @@ var data_handler = function(omnibus) {
 					omnibus.LCM.lcm_bitmask_encode(lcm_object);
 				}
 
-				else if (msg[1] == 0x42) {
+				else if (bit_test(msg[1], 0x40)) {
 					var button = 'trunk depressed';
+				}
+
+				else if (msg[1] == 0x00) {
+					var button = 'no button pressed';
 				}
 			}
 

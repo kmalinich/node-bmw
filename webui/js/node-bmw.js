@@ -261,7 +261,7 @@ function ike_set_clock() {
 	post_data.day     = timestamp.format('D');
 	post_data.month   = timestamp.format('M');
 	post_data.year    = timestamp.format('YY');
-	post_data.hour    = timestamp.format('h');
+	post_data.hour    = timestamp.format('H');
 	post_data.minute  = timestamp.format('m');
 	console.log(post_data);
 
@@ -403,9 +403,6 @@ function status() {
 				$('#temperature-coolant').text(return_data.temperature.coolant_f);
 				$('#obc-temp-exterior'  ).text(return_data.obc.temp_exterior_f);
 			}
-
-			//$('#temperature-exterior-c').text(return_data.temperature.exterior_c);
-			//$('#temperature-exterior-f').text(return_data.temperature.exterior_f);
 
 			/*
 			 * Vehicle sensors
@@ -576,7 +573,8 @@ function ws_ibus() {
 		data_send.src = $('#ws-ibus-src').val();
 		data_send.dst = $('#ws-ibus-dst').val();
 		data_send.msg = $('#ws-ibus-msg').val();
-		data_send = JSON.stringify(data_send);
+		data_send     = JSON.stringify(data_send);
+
 		console.log(data_send);
 		socket.send(data_send);
 	});

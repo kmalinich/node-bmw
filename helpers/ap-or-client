@@ -17,6 +17,10 @@ function log() {
 	logger -s -t "[${SCRIPT_NAME}]" "${1}"
 }
 
+log "IWLIST_OUTPUT       : ${IWLIST_OUTPUT}"
+log "SSID_LIST           : ${SSID_LIST}"
+log "SSID_AVAILABLE_LIST : ${SSID_AVAILABLE_LIST}"
+
 log "Run start."
 
 CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
@@ -30,7 +34,7 @@ blink1-tool -q --red
 
 # Execute custom iwlist scan
 log "Scanning for known APs."
-iwlist ${WIFI_NIC} scan 2>&1 | grep -oE 'ESSID:".*."|level=.*.dBm' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/level=-//g' -e 's/\ dBm//g' > ${IWLIST_OUTPUT}
+iwlist ${WIFI_NIC} scan | grep -oE 'ESSID:".*."|level=.*.dBm' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/level=-//g' -e 's/\ dBm//g' > ${IWLIST_OUTPUT}
 
 ODD="1"
 while read LINE; do
@@ -57,9 +61,9 @@ while read SSID; do
 done < ${SSID_LIST} 
 
 # Delete temp files
-rm -f  ${SSID_LIST}
-rm -f  ${SSID_AVAILABLE_LIST}
-rm -f  ${IWLIST_OUTPUT}
+rm -f ${SSID_LIST}
+rm -f ${SSID_AVAILABLE_LIST}
+rm -f ${IWLIST_OUTPUT}
 
 if [[ "${SSID_TOTAL}" != "0" ]]; then
 	# Connectable AP found

@@ -76,14 +76,14 @@ var GM = function(omnibus) {
 	// Central toggleing - toggle
 	function gm_central_toggle() {
 		console.log('[GM] Central locking: toggle');
-		var msg = [0x00, 0x0B, 0x01];
+		var msg = [0x97, 0x01];
 		omnibus.GM.gm_send(msg);
 	}
 
 	// Central locking - lock
 	function gm_central_lock() {
 		console.log('[GM] Central locking: lock');
-		var msg = [0x34, 0x01];
+		var msg = [0x00, 0x0B];
 		omnibus.GM.gm_send(msg);
 	}
 

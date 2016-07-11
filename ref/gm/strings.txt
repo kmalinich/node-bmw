@@ -99,8 +99,10 @@ RR U P : 00 46 01
 // Locks (tested)
 
 00 0B 01 : toggle (only 'outside' locks) 
-9F 01    : nothing
+03 01    : nothing 
+34 01    : nothing 
 9E 01    : nothing
+9F 01    : nothing
 
 
 // Locks (need tested)
@@ -111,8 +113,6 @@ RR U P : 00 46 01
 00 41 01 : lock rear doors
 00 42    : lock gas cap
 00 42 01 : unlock rear doors
-03 01    : unlock all doors (Like interior button)
-34 01    : lock all doors (Like key fob)
 4F 01    : lock all but LF 
 97 01    : toggle 
 
@@ -152,6 +152,7 @@ RR U P : 00 46 01
 // Wipers
 
 00 02 : Wipers+washer
+00 4B : Washer only
 00 14 : Wipers (one wipe?)
 00 15 : Wipers (auto?)
 00 38 : Wipers (3 wipes, stay up [maint. position?])
@@ -183,15 +184,11 @@ cmd  : 0x6D (move?)
 02 30 01 : right out
 
 
-
-
-
 // Misc
 
 00 10 : Wheel up, interior on 
 00 17 : Interior on, no fade
 00 3C : Red nose on for 3 sec
-00 4B : Washer only
 00 56 : ALARM!!!
 00 91 : Interior light, hazard button
 00 AE : Red nose flash for 3 sec
@@ -199,7 +196,7 @@ cmd  : 0x6D (move?)
 4E 01 : turn on the 'clown nose' for 3 seconds
 60 01 : turn on interior lights for 3 seconds
 62 01 : spray windshield washer fluid
-63 01 : trigger trunk relay for 3 seconds (use 95 01 or 02 01 instead for release only)
+63 01 : trigger trunk relay for 3 seconds
 68 01 : fade out interior lights
 70 01 : flash hazards + turn on interior lights
 73 01 : trigger many door relays, don't know what it does

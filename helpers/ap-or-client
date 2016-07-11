@@ -3,41 +3,71 @@
 export PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games"
 CONF_FILE="/etc/ap-or-client.conf"
 SCRIPT_NAME="ap-or-client"
-SSID_LIST="/tmp/ssid-list"
 WPA_CONF="/etc/wpa_supplicant/wpa_supplicant.conf"
 WPA_CONF_CLIENT="${WPA_CONF}-client"
 WIFI_NIC="wlan0"
 NET_INFS="/etc/network/interfaces"
 
+IWLIST_OUTPUT="$(mktemp)"
+SSID_LIST="$(mktemp)"
+SSID_AVAILABLE_LIST="$(mktemp)"
+
 # write to syslog
-function log()
-{
+function log() {
 	logger -s -t "[${SCRIPT_NAME}]" "${1}"
 }
-
-
 
 log "Run start."
 
 CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
-log "CURRENT_MODE: ${CURRENT_MODE}"
+log "Current mode: ${CURRENT_MODE}"
 
 awk -F '=' '/ssid/ {print $2}' ${WPA_CONF_CLIENT} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST} 
 SSID_TOTAL=$(cat ${SSID_LIST} | wc -l)
 
+# Turn blink(1) red
+blink1-tool -q --red
+
+# Execute custom iwlist scan
 log "Scanning for known APs."
+iwlist ${WIFI_NIC} scan 2>&1 | grep -oE 'ESSID:".*."|level=.*.dBm' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/level=-//g' -e 's/\ dBm//g' > ${IWLIST_OUTPUT}
+
+ODD="1"
+while read LINE; do
+	if [[ "${ODD}" == "1" ]]; then
+		ODD="0"
+		SIGNAL="${LINE}"
+	else
+		SSID="${LINE}"
+		ODD="1"
+
+		# Only output SSIDs with greater than -50 dBm
+		if [[ "${SIGNAL}" -le "50" ]]; then
+			echo "${SSID}" >> ${SSID_AVAILABLE_LIST}
+		fi
+	fi
+done < ${IWLIST_OUTPUT} | sort -u
+
 while read SSID; do
 	log "Scanning for SSID '${SSID}'."
-	iwlist ${WIFI_NIC} scan | grep -q "${SSID}"
+	grep -q "${SSID}" "${IWLIST_OUTPUT}"
 	SCAN_RESULT="${?}"
 	SSID_TOTAL=$((SSID_TOTAL-SCAN_RESULT))
 	#echo "[${SSID}] SCAN_RESULT: ${SCAN_RESULT} | SSID_TOTAL: ${SSID_TOTAL}"
 done < ${SSID_LIST} 
+
+# Delete temp files
 rm -f  ${SSID_LIST}
+rm -f  ${SSID_AVAILABLE_LIST}
+rm -f  ${IWLIST_OUTPUT}
 
 if [[ "${SSID_TOTAL}" != "0" ]]; then
 	# Connectable AP found
 	log "Connectable AP found."
+
+	# Turn blink(1) blue
+	blink1-tool -q --blue
+
 	if [[ "${CURRENT_MODE}" != "CLIENT" ]]; then
 		log "Changing to CLIENT mode."
 
@@ -52,21 +82,25 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 		ln -fs ${NET_INFS}-client ${NET_INFS} 
 
 		log "Stopping hostapd."
-		systemctl stop hostapd
+		systemctl stop hostapd > /dev/null 2>&1
 		sleep 1
 		log "Stopping dnsmasq."
-		systemctl stop dnsmasq
+		systemctl stop dnsmasq > /dev/null 2>&1
 		sleep 1
 
 		log "Cycling ${WIFI_NIC}."
-		ifdown ${WIFI_NIC}
+		ifdown ${WIFI_NIC} > /dev/null 2>&1
 		sleep 1
-		ifup   ${WIFI_NIC}
+		ifup   ${WIFI_NIC} > /dev/null 2>&1
 	else
 		log "Staying in CLIENT mode."
 	fi
 else
 	log "No connectable APs found."
+
+	# Turn blink(1) green
+	blink1-tool -q --green
+
 	if [[ "${CURRENT_MODE}" != "AP" ]]; then
 		log "Changing to AP mode."
 
@@ -78,19 +112,19 @@ else
 		echo "CURRENT_MODE=AP" > ${CONF_FILE}
 
 		log "Changing ${NET_INFS} config."
-		rm -f  ${NET_INFS} 
-		ln -fs ${NET_INFS}-ap ${NET_INFS} 
+		rm -f  ${NET_INFS}
+		ln -fs ${NET_INFS}-ap ${NET_INFS}
 
 		log "Cycling ${WIFI_NIC}."
-		ifdown ${WIFI_NIC}
+		ifdown ${WIFI_NIC} > /dev/null 2>&1
 		sleep 1
-		ifup   ${WIFI_NIC}
+		ifup   ${WIFI_NIC} > /dev/null 2>&1
 
 		log "Starting hostapd."
-		systemctl start hostapd
+		systemctl start hostapd > /dev/null 2>&1
 		sleep 1
 		log "Starting dnsmasq."
-		systemctl start dnsmasq
+		systemctl start dnsmasq > /dev/null 2>&1
 	else
 		log "Staying in AP mode."
 	fi

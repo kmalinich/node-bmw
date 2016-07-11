@@ -238,6 +238,24 @@ function gm_interior_light(value) {
 	});
 }
 
+// GM window control
+function gm_windows(window, action) {
+	console.log('Putting \'%s\' window \'%s\'', window, action);
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : {
+			'gm-window'        : window,
+			'gm-window-action' : action,
+		},
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 // AJAX for IKE backlight
 function ike_backlight(value) {
 	console.log('ike_backlight(%s);', value);

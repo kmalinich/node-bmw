@@ -48,10 +48,66 @@ var GM = function(omnibus) {
 				gm_central_toggle();
 			}
 		}
+		else if (typeof data['gm-window'] !== 'undefined') {
+			console.log('gm_windows(\'%s\', \'%s\');', data['gm-window'], data['gm-window-action']);
+			gm_windows(data['gm-window'], data['gm-window-action']);
+		}
 
 		else {
 			console.log('[GM] Unknown command');
 		}
+	}
+
+	// GM window control
+	function gm_windows(window, action) {
+		console.log('[GM] Window control: \'%s\', \'%s\'', window, action);
+		if (window == 'roof') {
+			if (action == 'up') {
+				var msg = [0x7F, 0x01];
+			}
+			else if (action == 'down') {
+				var msg = [0x7E, 0x01];
+			}
+		}
+
+		else if (window == 'lf') {
+			if (action == 'up') {
+				var msg = [0x53, 0x01];
+			}
+			else if (action == 'down') {
+				var msg = [0x52, 0x01];
+			}
+		}
+
+		else if (window == 'rf') {
+			if (action == 'up') {
+				var msg = [0x02, 0x22, 0x01];
+			}
+			else if (action == 'down') {
+				var msg = [0x02, 0x36, 0x01];
+			}
+		}
+
+		else if (window == 'lr') {
+			if (action == 'up') {
+				var msg = [0x42, 0x01];
+			}
+			else if (action == 'down') {
+				var msg = [0x00, 0x00, 0x01];
+			}
+		}
+
+		else if (window == 'rr') {
+			if (action == 'up') {
+				var msg = [0x43, 0x01];
+			}
+			else if (action == 'down') {
+				var msg = [0x00, 0x03, 0x01];
+			}
+		}
+
+		var msg = [0x03, 0x01];
+		omnibus.GM.gm_send(msg);
 	}
 
 	// Cluster/interior backlight 

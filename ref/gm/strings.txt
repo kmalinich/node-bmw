@@ -136,7 +136,11 @@ RR U P : 00 46 01
 
 // Trunk (need tested)
 
-00 09 01 : Trunk open
+00 09 01 : trunk
+02 01    : trunk
+05 01    : trunk
+95 01    : trunk
+63 01    : trunk (3 seconds)
 
 
 // Sunroof
@@ -145,19 +149,12 @@ RR U P : 00 46 01
 7F 01 : close sunroof
 
 
-// Needs tested...
+// Wipers
 
 00 02 : Wipers+washer
-00 10 : Wheel up, interior on 
 00 14 : Wipers (one wipe?)
 00 15 : Wipers (auto?)
-00 17 : Interior on, no fade
 00 38 : Wipers (3 wipes, stay up [maint. position?])
-00 3C : Red nose on for 3 sec
-00 4B : Washer only
-00 56 : ALARM!!!
-00 91 : Interior light, hazard button
-4E 01 : Turn on the 'clown nose' for 3 seconds
 
 
 // Seat memory
@@ -186,10 +183,27 @@ cmd  : 0x6D (move?)
 02 30 01 : right out
 
 
-// ?? not sure..
 
-00 174 : Red nose flash for 3 sec
-00 177 : wheel up, down
+
+
+// Misc
+
+00 10 : Wheel up, interior on 
+00 17 : Interior on, no fade
+00 3C : Red nose on for 3 sec
+00 4B : Washer only
+00 56 : ALARM!!!
+00 91 : Interior light, hazard button
+00 AE : Red nose flash for 3 sec
+00 B1 : wheel up, down
+4E 01 : turn on the 'clown nose' for 3 seconds
+60 01 : turn on interior lights for 3 seconds
+62 01 : spray windshield washer fluid
+63 01 : trigger trunk relay for 3 seconds (use 95 01 or 02 01 instead for release only)
+68 01 : fade out interior lights
+70 01 : flash hazards + turn on interior lights
+73 01 : trigger many door relays, don't know what it does
+75 01 : flash hazards for 3 seconds (no blinker in-dash)
 
 
 // Key fob messages

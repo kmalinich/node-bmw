@@ -9,33 +9,46 @@ RR right rear
 SR sunroof
 
 
--- Front --
-L D :  
-L U :  
-R D : 02 36 01
-R U : 02 22 01
-
--- Rear -- 
-L D : 00 00 01
-L U :
-R D : 00 03 01
-R U :            
+- Front
+-- Left
+--- Down
+----
+--- Up
+----
+-- Right
+--- Down
+---- 02 36 01
+--- Up
+---- 02 22 01
+- Rear
+-- Left
+--- Down
+---- 00 00 01
+--- Up
+----
+-- Right 
+--- Down
+---- 00 03 01
+--- Up
+----
 
 
 
 
 // Extras
 
-01 36 01 3D : FL D P
-00 04 01    : RR U P
-01 18 01    : LF D P
-00 46 01    : RR U P
-02 32 01    : RF U P
+LF D ? : 52 01      
+LF D P : 01 18 01   
+LF D P : 01 36 01 3D
+LF U ? : 53 01      
+LR D F : 00 45 01   
+RF U P : 02 32 01   
+RR D F : 00 47 01   
+RR U P : 00 04 01   
+RR U P : 00 46 01   
 
-00 47 01    : RR D F
-00 45 01    : LR D F
-52 01       : Open front driver window
-53 01       : close front driver window
+00 65  : front windows fully down
+00 66  : Sunroof open
 
 
 // Driver's seat
@@ -85,19 +98,16 @@ R U :
 
 // Locks (need tested)
 
-97 01    : lock/unlock doors
-4F 01    : lock all but driver door
-46 01    : lock front passenger door only
-47 01    : lock front driver door only
-00 42 01 : Unlock rear doors (no toggle)
-00 41 01 : Lock   rear doors (no toggle)
 00 0B 01 : Central door lock switch (toggle)
-03 01    : doors unlock (pressed like Knopf@Innenraum)
-34 01    : doors lock (pressed as with key)
-46 01    : doors + gas cap hard LOCK, trunk openly
-47 01    : driver's door lock (door handle lässt itself heavily pull)
-4F 01    : all doors except driver's door verschlssen
-97 01    : doors lock (hard LOCK)
+00 41 01 : Lock rear doors
+00 41    : Lock rear doors, trunk and gas cap
+00 42 01 : Unlock rear doors
+03 01    : doors unlock (Like interior button)
+34 01    : doors lock (Like key fob)
+46 01    : lock RF only
+47 01    : lock LF only
+4F 01    : lock all but LF 
+97 01    : lock/unlock doors
 
 
 // Trunk (need tested)
@@ -127,26 +137,34 @@ R U :
 
 
 // Seat memory
-02 01 00 move driver seat to memory 1
-02 02 00 move driver seat to memory 2
-02 04 00 move driver seat to memory 3
+3F 06 72 02 01 00 : move driver seat to memory 1
+3F 06 72 02 02 00 : move driver seat to memory 2
+3F 06 72 02 04 00 : move driver seat to memory 3
+72 05 BF 78 05 00 : Driver's seat save memory 1
 
 
-// Power mirror
-9B 04 51 6D 41 passenger mirror move out
-9B 04 51 6D 42 passenger mirror move in
-9B 04 51 6D 44 passenger mirror move up
-9B 04 51 6D 48 passenger mirror move down
-9B 04 51 6D 40 passenger mirror stop (motor won't stop until you tell it)
+// Power mirrors
+
+src : 0x9B (Power mirror 2)
+dst : 0x51 (Power mirror 1)
+cmd : 0x6D (move?)
+41  : passenger mirror move out
+42  : passenger mirror move in
+44  : passenger mirror move up
+48  : passenger mirror move down
+40  : passenger mirror stop (motor won't stop until you tell it)
+
+// with normal GM cmd
+01 31 01 : Driver Mirror Fold In
+01 30 01 : Driver Mirror Fold Out
+02 31 01 : Passenger Mirror Fold In
+02 30 01 : Passenger Mirror Fold Out
 
 
 // ?? not sure..
 
-00 101 : front windows fully down
-00 102 : Sunroof open
 00 174 : Red nose flash for 3 sec
 00 177 : wheel up, down
-
 
 
 // Key fob messages

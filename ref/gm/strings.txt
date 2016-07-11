@@ -1,21 +1,13 @@
-
 src: 0x3F // DIA
 dst: 0x00 // ZKE (body module)
 cmd: 0xC0 // Set IO status
 
 LF left  front
 RF right front
-
 LR left  rear
-
 RR right rear
-
 SR sunroof
 
-
-SBFTA Switch Window regulator Driver open  :  
-SBFTZ Switch Window regulator Driver close : 
-SBFTT Switch Window regulator Driver touch : 
 
 -- Front --
 L D :  
@@ -61,6 +53,24 @@ F L D P : 01 36 01 3D
 05 0D 01 : Driver seat upper forwards 
 
 
+// Possibly passenger seat
+
+04 00 01 : Driver seat forward
+04 01 01 : Driver seat backward
+04 02 01 : Driver seat up
+04 03 01 : Driver seat down
+04 04 01 : Driver seat tilt forward
+04 05 01 : Driver seat tilt backward
+04 06 01 : Driver seat backrest forward
+04 07 01 : Driver seat backrest backward
+04 08 01 : Driver seat headrest up
+04 09 01 : Driver seat headrest down
+04 0A 01 : ?? Possibly sport bolster 
+04 0B 01 : ?? Possibly sport bolster 
+04 0C 01 : Driver seat upper backwards
+04 0D 01 : Driver seat upper forwards 
+
+
 // Steering wheel
 
 05 0E 01 : Steering wheel up
@@ -68,10 +78,20 @@ F L D P : 01 36 01 3D
 05 10 01 : Steering wheel forwards
 05 11 01 : Steering wheel backwards
 
+
+// Trunk/locks (need tested)
+
 00 09 01 : Trunk open
 00 42 01 : Unlock rear doors (no toggle)
 00 41 01 : Lock   rear doors (no toggle)
 00 0B 01 : Central door lock switch (toggle)
+// From website
+03 01    : doors unlock (pressed like Knopf@Innenraum)
+34 01    : doors lock (pressed as with key)
+46 01    : doors + gas cap hard LOCK, trunk openly
+47 01    : driver's door lock (door handle lässt itself heavily pull)
+4F 01    : all doors except driver's door verschlssen
+97 01    : doors lock (hard LOCK)
 
 // Needs tested...
 
@@ -89,17 +109,20 @@ F L D P : 01 36 01 3D
 
 00 92 : seat memory something.. 
 
+
 // ?? not sure..
+
 00 101 : front windows fully down
 00 102 : Sunroof open
 00 174 : Red nose flash for 3 sec
 00 177 : wheel up, down
 
 
+
 // Key fob messages
 cmd: 0x72 // Key fob message
 
 0x00 : no button pressed
-0x12 : lock down
-0x22 : unlock down
-0x42 : trunk down
+0x10 : lock down
+0x20 : unlock down
+0x40 : trunk down

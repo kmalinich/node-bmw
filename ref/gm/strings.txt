@@ -25,14 +25,17 @@ R U :
 
 
 // Extras
-F L D P : 01 36 01 3D
-00 04 01 : RR U P
-01 18 01 : LF D P
-00 46 01 : RR U P
-02 32 01 : RF U P
 
-00 47 01 : RR D F
-00 45 01 : LR D F
+01 36 01 3D : FL D P
+00 04 01    : RR U P
+01 18 01    : LF D P
+00 46 01    : RR U P
+02 32 01    : RF U P
+
+00 47 01    : RR D F
+00 45 01    : LR D F
+52 01       : Open front driver window
+53 01       : close front driver window
 
 
 // Driver's seat
@@ -53,24 +56,6 @@ F L D P : 01 36 01 3D
 05 0D 01 : Driver seat upper forwards 
 
 
-// Possibly passenger seat
-
-04 00 01 : Driver seat forward
-04 01 01 : Driver seat backward
-04 02 01 : Driver seat up
-04 03 01 : Driver seat down
-04 04 01 : Driver seat tilt forward
-04 05 01 : Driver seat tilt backward
-04 06 01 : Driver seat backrest forward
-04 07 01 : Driver seat backrest backward
-04 08 01 : Driver seat headrest up
-04 09 01 : Driver seat headrest down
-04 0A 01 : ?? Possibly sport bolster 
-04 0B 01 : ?? Possibly sport bolster 
-04 0C 01 : Driver seat upper backwards
-04 0D 01 : Driver seat upper forwards 
-
-
 // Steering wheel
 
 05 0E 01 : Steering wheel up
@@ -79,19 +64,52 @@ F L D P : 01 36 01 3D
 05 11 01 : Steering wheel backwards
 
 
-// Trunk/locks (need tested)
 
-00 09 01 : Trunk open
+// Possibly passenger seat
+
+04 00 01 : Passenger seat forward
+04 01 01 : Passenger seat backward
+04 02 01 : Passenger seat up
+04 03 01 : Passenger seat down
+04 04 01 : Passenger seat tilt forward
+04 05 01 : Passenger seat tilt backward
+04 06 01 : Passenger seat backrest forward
+04 07 01 : Passenger seat backrest backward
+04 08 01 : Passenger seat headrest up
+04 09 01 : Passenger seat headrest down
+04 0A 01 : ?? Possibly sport bolster 
+04 0B 01 : ?? Possibly sport bolster 
+04 0C 01 : Passenger seat upper backwards
+04 0D 01 : Passenger seat upper forwards 
+
+
+// Locks (need tested)
+
+97 01    : lock/unlock doors
+4F 01    : lock all but driver door
+46 01    : lock front passenger door only
+47 01    : lock front driver door only
 00 42 01 : Unlock rear doors (no toggle)
 00 41 01 : Lock   rear doors (no toggle)
 00 0B 01 : Central door lock switch (toggle)
-// From website
 03 01    : doors unlock (pressed like Knopf@Innenraum)
 34 01    : doors lock (pressed as with key)
 46 01    : doors + gas cap hard LOCK, trunk openly
 47 01    : driver's door lock (door handle lässt itself heavily pull)
 4F 01    : all doors except driver's door verschlssen
 97 01    : doors lock (hard LOCK)
+
+
+// Trunk (need tested)
+
+00 09 01 : Trunk open
+
+
+// Sunroof
+
+7E 01 : open sunroof
+7F 01 : close sunroof
+
 
 // Needs tested...
 
@@ -107,7 +125,19 @@ F L D P : 01 36 01 3D
 00 91 : Interior light, hazard button
 4E 01 : Turn on the 'clown nose' for 3 seconds
 
-00 92 : seat memory something.. 
+
+// Seat memory
+02 01 00 move driver seat to memory 1
+02 02 00 move driver seat to memory 2
+02 04 00 move driver seat to memory 3
+
+
+// Power mirror
+9B 04 51 6D 41 passenger mirror move out
+9B 04 51 6D 42 passenger mirror move in
+9B 04 51 6D 44 passenger mirror move up
+9B 04 51 6D 48 passenger mirror move down
+9B 04 51 6D 40 passenger mirror stop (motor won't stop until you tell it)
 
 
 // ?? not sure..

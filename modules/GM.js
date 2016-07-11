@@ -56,75 +56,36 @@ var GM = function(omnibus) {
 
 	// Cluster/interior backlight 
 	function gm_interior_light(value) {
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-
 		console.log('[GM] Setting interior light to %s', value);
 
 		// Convert the value to hex
 		value = value.toString(16);
 
 		// Will need to concat and push array for value
-		var msg = [0x0C, 0x10, 0x05, value];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		var msg = [0x10, 0x05, value];
+		omnibus.GM.gm_send(msg);
 	}	
 
 	// Central locking - unlock
 	function gm_central_unlock() {
 		console.log('[GM] Central locking: unlock');
-
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-		var msg = [0x0C, 0x9E, 0x01];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		var msg = [0x03, 0x01];
+		omnibus.GM.gm_send(msg);
 	}
 
 	// Central toggleing - toggle
 	function gm_central_toggle() {
 		console.log('[GM] Central locking: toggle');
-
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-		var msg = [0x0C, 0x00, 0x0B, 0x01];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		// var msg = [0x00, 0x0B, 0x01]; // Only 'outside' locks
+		var msg = [0x00, 0x0B, 0x01];
+		omnibus.GM.gm_send(msg);
 	}
 
 	// Central locking - lock
 	function gm_central_lock() {
 		console.log('[GM] Central locking: lock');
-
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-		var msg = [0x0C, 0x9F, 0x01];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		var msg = [0x34, 0x01];
+		omnibus.GM.gm_send(msg);
 	}
 
 	// Send message to GM
@@ -133,7 +94,7 @@ var GM = function(omnibus) {
 		var dst = 0x00; // GM
 		var cmd = 0x0C; // Set IO status 
 
-		// Add the command to the beginning of the GM hex array
+		// Add the command code (cmd) to the beginning of the message hex array
 		packet.unshift(cmd);
 
 		var ibus_packet = {
@@ -151,7 +112,8 @@ var GM = function(omnibus) {
 	function bit_test(num, bit) {
 		if ((num & bit) != 0) {
 			return true;
-		} else {
+		}
+		else {
 			return false;
 		}
 	}

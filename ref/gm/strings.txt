@@ -96,18 +96,42 @@ RR U P : 00 46 01
 04 0D 01 : Passenger seat upper forwards 
 
 
+// Locks (tested)
+
+00 0B 01 : toggle (only 'outside' locks) 
+9F 01    : nothing
+9E 01    : nothing
+
+
 // Locks (need tested)
 
-00 0B 01 : Central door lock switch (toggle)
-00 41 01 : Lock rear doors
-00 41    : Lock rear doors, trunk and gas cap
-00 42 01 : Unlock rear doors
-03 01    : doors unlock (Like interior button)
-34 01    : doors lock (Like key fob)
-46 01    : lock RF only
-47 01    : lock LF only
+00 0B    : lock all
+00 40    : soft close
+00 41    : lock rear doors, trunk and gas cap
+00 41 01 : lock rear doors
+00 42    : lock gas cap
+00 42 01 : unlock rear doors
+03 01    : unlock all doors (Like interior button)
+34 01    : lock all doors (Like key fob)
 4F 01    : lock all but LF 
-97 01    : lock/unlock doors
+97 01    : toggle 
+
+52 01 : LF window open
+53 01 : LF window close
+47 01 : LF lock
+
+
+54 01 : RF window open
+55 01 : RF window close
+46 01 : RF lock
+
+
+41 01 : LR window open
+42 01 : LR window close
+
+
+44 01 : RR window open
+43 01 : RR window close
 
 
 // Trunk (need tested)
@@ -137,28 +161,29 @@ RR U P : 00 46 01
 
 
 // Seat memory
+
 3F 06 72 02 01 00 : move driver seat to memory 1
 3F 06 72 02 02 00 : move driver seat to memory 2
 3F 06 72 02 04 00 : move driver seat to memory 3
-72 05 BF 78 05 00 : Driver's seat save memory 1
+72 05 BF 78 05 00 : driver seat save memory 1
 
 
 // Power mirrors
 
-src : 0x9B (Power mirror 2)
-dst : 0x51 (Power mirror 1)
-cmd : 0x6D (move?)
-41  : passenger mirror move out
-42  : passenger mirror move in
-44  : passenger mirror move up
-48  : passenger mirror move down
-40  : passenger mirror stop (motor won't stop until you tell it)
+src  : 0x9B (Power mirror 2)
+dst  : 0x51 (Power mirror 1)
+cmd  : 0x6D (move?)
+0x41 : passenger mirror move out
+0x42 : passenger mirror move in
+0x44 : passenger mirror move up
+0x48 : passenger mirror move down
+0x40 : passenger mirror stop (motor won't stop until you tell it)
 
 // with normal GM cmd
-01 31 01 : Driver Mirror Fold In
-01 30 01 : Driver Mirror Fold Out
-02 31 01 : Passenger Mirror Fold In
-02 30 01 : Passenger Mirror Fold Out
+01 31 01 : left in 
+01 30 01 : left out 
+02 31 01 : right in
+02 30 01 : right out
 
 
 // ?? not sure..

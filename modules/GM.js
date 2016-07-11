@@ -76,7 +76,6 @@ var GM = function(omnibus) {
 	// Central toggleing - toggle
 	function gm_central_toggle() {
 		console.log('[GM] Central locking: toggle');
-		// var msg = [0x00, 0x0B, 0x01]; // Only 'outside' locks
 		var msg = [0x00, 0x0B, 0x01];
 		omnibus.GM.gm_send(msg);
 	}

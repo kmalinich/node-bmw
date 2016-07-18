@@ -66,7 +66,7 @@ var GM = function(omnibus) {
 				var msg = [0x7F, 0x01];
 			}
 			else if (action == 'down') {
-				var msg = [0x7E, 0x01];
+				var msg = [0x00, 0x66];
 			}
 		}
 
@@ -90,19 +90,19 @@ var GM = function(omnibus) {
 
 		else if (window == 'lr') {
 			if (action == 'up') {
-				var msg = [0x42, 0x01];
+				var msg = [0x00, 0x44];
 			}
 			else if (action == 'down') {
-				var msg = [0x00, 0x00, 0x01];
+				var msg = [0x00, 0x45];
 			}
 		}
 
 		else if (window == 'rr') {
 			if (action == 'up') {
-				var msg = [0x43, 0x01];
+				var msg = [0x00, 0x46];
 			}
 			else if (action == 'down') {
-				var msg = [0x00, 0x03, 0x01];
+				var msg = [0x00, 0x47];
 			}
 		}
 

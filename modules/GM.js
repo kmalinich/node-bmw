@@ -91,6 +91,7 @@ var GM = function(omnibus) {
 		else if (window == 'lr') {
 			if (action == 'up') {
 				var msg = [0x00, 0x44];
+				// 0x00, 0x01 - appeared to work
 			}
 			else if (action == 'down') {
 				var msg = [0x00, 0x45];

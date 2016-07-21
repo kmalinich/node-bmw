@@ -12,9 +12,27 @@ IWLIST_OUTPUT="$(mktemp)"
 SSID_LIST="$(mktemp)"
 SSID_AVAILABLE_LIST="$(mktemp)"
 
-# write to syslog
+# Write to syslog/stderr
 function log() {
 	logger -s -t "[${SCRIPT_NAME}]" "${1}"
+}
+
+# Control blink(1)
+function blink1-ctl() {
+killall -9 blink1-tool > /dev/null 2>&1
+
+case "${1}" in
+	scan)
+		blink1-tool --red -t 250 --chase=0,1,8 &
+		;;
+	ap)
+		blink1-tool --green -t 250 --chase=0,1,36 &
+		;;
+	client)
+		blink1-tool --blue -t 250 --chase=0,1,36 &
+		;;
+esac
+
 }
 
 log "IWLIST_OUTPUT       : ${IWLIST_OUTPUT}"
@@ -30,7 +48,7 @@ awk -F '=' '/ssid/ {print $2}' ${WPA_CONF_CLIENT} | sed "s/'//g" | sed 's/"//g' 
 SSID_TOTAL=$(cat ${SSID_LIST} | wc -l)
 
 # Turn blink(1) red
-blink1-tool -q --red
+blink1-ctl scan
 
 # Execute custom iwlist scan
 log "Scanning for known APs."
@@ -70,7 +88,7 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 	log "Connectable AP found."
 
 	# Turn blink(1) blue
-	blink1-tool -q --blue
+	blink1-ctl client
 
 	if [[ "${CURRENT_MODE}" != "CLIENT" ]]; then
 		log "Changing to CLIENT mode."
@@ -103,7 +121,7 @@ else
 	log "No connectable APs found."
 
 	# Turn blink(1) green
-	blink1-tool -q --green
+	blink1-ctl ap
 
 	if [[ "${CURRENT_MODE}" != "AP" ]]; then
 		log "Changing to AP mode."

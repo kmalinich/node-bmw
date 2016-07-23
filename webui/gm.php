@@ -40,11 +40,11 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'up');">LF up</button>
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'down');">LF down</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'dn');">LF down</button>
 				</div>
 				<div class="col-xs-6">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'up');">RF up</button>
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'down');">RF down</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'dn');">RF down</button>
 				</div>
 			</div>
 
@@ -53,18 +53,18 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'up');">LR up</button>
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'down');">LR down</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'dn');">LR down</button>
 				</div>
 				<div class="col-xs-6">
 					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'up');">RR up</button>
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'down');">RR down</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'dn');">RR down</button>
 				</div>
 			</div>
 
 			<hr>
 
 			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof up</button>
-			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'down');">Roof down</button>
+			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof down</button>
 
 		</div>
 	</body>

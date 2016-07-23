@@ -5,14 +5,14 @@ var clc  = require('cli-color');
 var wait = require('wait.for');
 
 // Bitmasks in hex
-var bit_0 = 0x01;
-var bit_1 = 0x02;
-var bit_2 = 0x04;
-var bit_3 = 0x08;
-var bit_4 = 0x10;
-var bit_5 = 0x20;
-var bit_6 = 0x40;
-var bit_7 = 0x80;
+var bit_0 = 0x01; // 1
+var bit_1 = 0x02; // 2
+var bit_2 = 0x04; // 4
+var bit_3 = 0x08; // 8
+var bit_4 = 0x10; // 16
+var bit_5 = 0x20; // 32
+var bit_6 = 0x40; // 64
+var bit_7 = 0x80; // 128
 
 
 var GM = function(omnibus) {
@@ -36,78 +36,53 @@ var GM = function(omnibus) {
 
 		else if (typeof data['gm-command'] !== 'undefined') {
 			console.log('[GM] command: \'%s\'', data['gm-command']);
-			if (data['gm-command'] == 'gm_central_unlock') {
-				gm_central_unlock();
-			}
-
-			else if (data['gm-command'] == 'gm_central_lock') {
-				gm_central_lock();
-			}
-
-			else if (data['gm-command'] == 'gm_central_toggle') {
-				gm_central_toggle();
-			}
+			if      (data['gm-command'] == 'gm_central_unlock') { gm_central_unlock(); }
+			else if (data['gm-command'] == 'gm_central_lock')   { gm_central_lock();   }
+			else if (data['gm-command'] == 'gm_central_toggle') { gm_central_toggle(); }
 		}
+
 		else if (typeof data['gm-window'] !== 'undefined') {
 			console.log('gm_windows(\'%s\', \'%s\');', data['gm-window'], data['gm-window-action']);
 			gm_windows(data['gm-window'], data['gm-window-action']);
 		}
 
 		else {
-			console.log('[GM] Unknown command');
+			console.log('[GM] Unknown command, data: \'%s\'', data);
 		}
 	}
 
 	// GM window control
 	function gm_windows(window, action) {
 		console.log('[GM] Window control: \'%s\', \'%s\'', window, action);
+
+		// Init message variable
+		var msg;
+
 		if (window == 'roof') {
-			if (action == 'up') {
-				var msg = [0x7F, 0x01];
-			}
-			else if (action == 'down') {
-				var msg = [0x00, 0x66];
-			}
+			if      (action == 'dn') { msg = [0x00, 0x66]; }
+			else if (action == 'up') { msg = [0x7F, 0x01]; }
 		}
 
 		else if (window == 'lf') {
-			if (action == 'up') {
-				var msg = [0x53, 0x01];
-			}
-			else if (action == 'down') {
-				var msg = [0x52, 0x01];
-			}
+			if      (action == 'dn') { msg = [0x52, 0x01]; }
+			else if (action == 'up') { msg = [0x53, 0x01]; }
 		}
 
 		else if (window == 'rf') {
-			if (action == 'up') {
-				var msg = [0x02, 0x22, 0x01];
-			}
-			else if (action == 'down') {
-				var msg = [0x02, 0x36, 0x01];
-			}
+			if      (action == 'dn') { msg = [0x54, 0x01]; }
+			else if (action == 'up') { msg = [0x55, 0x01]; }
 		}
 
 		else if (window == 'lr') {
-			if (action == 'up') {
-				var msg = [0x00, 0x44];
-				// 0x00, 0x01 - appeared to work
-			}
-			else if (action == 'down') {
-				var msg = [0x00, 0x45];
-			}
+			if      (action == 'dn') { msg = [0x41, 0x01]; }
+			else if (action == 'up') { msg = [0x42, 0x01]; }
 		}
 
 		else if (window == 'rr') {
-			if (action == 'up') {
-				var msg = [0x00, 0x46];
-			}
-			else if (action == 'down') {
-				var msg = [0x00, 0x47];
-			}
+			if      (action == 'dn') { msg = [0x44, 0x01]; }
+			else if (action == 'up') { msg = [0x43, 0x01]; }
 		}
 
-		var msg = [0x03, 0x01];
 		omnibus.GM.gm_send(msg);
 	}
 
@@ -123,17 +98,17 @@ var GM = function(omnibus) {
 		omnibus.GM.gm_send(msg);
 	}	
 
-	// Central locking - unlock
-	function gm_central_unlock() {
-		console.log('[GM] Central locking: unlock');
-		var msg = [0x03, 0x01];
-		omnibus.GM.gm_send(msg);
-	}
-
 	// Central toggleing - toggle
 	function gm_central_toggle() {
 		console.log('[GM] Central locking: toggle');
 		var msg = [0x97, 0x01];
+		omnibus.GM.gm_send(msg);
+	}
+
+	// Central locking - unlock
+	function gm_central_unlock() {
+		console.log('[GM] Central locking: unlock');
+		var msg = [0x03, 0x01];
 		omnibus.GM.gm_send(msg);
 	}
 
@@ -160,7 +135,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('Sending GM packet');
+		console.log('[GM] Sending packet \'%s\'', ibus_packet);
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

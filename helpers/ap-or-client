@@ -19,25 +19,23 @@ function log() {
 
 # Control blink(1)
 function blink1-ctl() {
-killall -9 blink1-tool > /dev/null 2>&1
-
-case "${1}" in
-	scan)
-		blink1-tool --red -t 250 --chase=0,1,8 &
-		;;
-	ap)
-		blink1-tool --green -t 250 --chase=0,1,36 &
-		;;
-	client)
-		blink1-tool --blue -t 250 --chase=0,1,36 &
-		;;
-esac
-
+	killall -9 blink1-tool > /dev/null 2>&1
+	
+	case "${1}" in
+		scan)
+			blink1-tool --red           -t 0 --chase=0,1,9  > /dev/null 2>&1 &
+			;;
+		config) # Orange
+			blink1-tool --rgb=255,130,0 -t 0 --chase=0,1,12 > /dev/null 2>&1 &
+			;;
+		ap)
+			blink1-tool --green         -t 0 --chase=0,1,24 > /dev/null 2>&1 &
+			;;
+		client)
+			blink1-tool --blue          -t 0 --chase=0,1,24 > /dev/null 2>&1 &
+			;;
+	esac
 }
-
-log "IWLIST_OUTPUT       : ${IWLIST_OUTPUT}"
-log "SSID_LIST           : ${SSID_LIST}"
-log "SSID_AVAILABLE_LIST : ${SSID_AVAILABLE_LIST}"
 
 log "Run start."
 
@@ -68,7 +66,7 @@ while read LINE; do
 			echo "${SSID}" >> ${SSID_AVAILABLE_LIST}
 		fi
 	fi
-done < ${IWLIST_OUTPUT} | sort -u
+done < ${IWLIST_OUTPUT}
 
 while read SSID; do
 	log "Scanning for SSID '${SSID}'."
@@ -86,9 +84,6 @@ rm -f ${IWLIST_OUTPUT}
 if [[ "${SSID_TOTAL}" != "0" ]]; then
 	# Connectable AP found
 	log "Connectable AP found."
-
-	# Turn blink(1) blue
-	blink1-ctl client
 
 	if [[ "${CURRENT_MODE}" != "CLIENT" ]]; then
 		log "Changing to CLIENT mode."
@@ -110,6 +105,9 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 		systemctl stop dnsmasq > /dev/null 2>&1
 		sleep 1
 
+		# Turn blink(1) yellow
+		blink1-ctl config
+
 		log "Cycling ${WIFI_NIC}."
 		ifdown ${WIFI_NIC} > /dev/null 2>&1
 		sleep 1
@@ -117,11 +115,11 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 	else
 		log "Staying in CLIENT mode."
 	fi
+
+	# Turn blink(1) blue
+	blink1-ctl client
 else
 	log "No connectable APs found."
-
-	# Turn blink(1) green
-	blink1-ctl ap
 
 	if [[ "${CURRENT_MODE}" != "AP" ]]; then
 		log "Changing to AP mode."
@@ -137,6 +135,9 @@ else
 		rm -f  ${NET_INFS}
 		ln -fs ${NET_INFS}-ap ${NET_INFS}
 
+		# Turn blink(1) yellow
+		blink1-ctl config
+
 		log "Cycling ${WIFI_NIC}."
 		ifdown ${WIFI_NIC} > /dev/null 2>&1
 		sleep 1
@@ -150,6 +151,9 @@ else
 	else
 		log "Staying in AP mode."
 	fi
+
+	# Turn blink(1) green
+	blink1-ctl ap
 fi
 
 log "Run complete."

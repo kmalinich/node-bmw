@@ -87,7 +87,8 @@ var data_handler = function(omnibus) {
 				else if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; }
 
 				console.log('[data-handler] GM: Setting doors/flaps status');
-				console.log(omnibus.status);
+				console.log(msg);
+				console.log(omnibus.status.windows);
 			}
 
 			// console.log(src, dst, command, button, msg);

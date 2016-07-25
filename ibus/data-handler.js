@@ -10,6 +10,16 @@ var data_handler = function(omnibus) {
 	// Exposed data
 	this.check_data = check_data;
 
+	// Bitmasks in hex
+	var bit_0 = 0x01; // 1
+	var bit_1 = 0x02; // 2
+	var bit_2 = 0x04; // 4
+	var bit_3 = 0x08; // 8
+	var bit_4 = 0x10; // 16
+	var bit_5 = 0x20; // 32
+	var bit_6 = 0x40; // 64
+	var bit_7 = 0x80; // 128
+
 	// Events
 	omnibus.ibus_connection.on('data', check_data)
 
@@ -153,23 +163,31 @@ var data_handler = function(omnibus) {
 
 				console.log('[data-handler] Set omnibus.status.vehicle.ignition       = \'%s\'', omnibus.status.vehicle.ignition);
 			}
+
 			else if (msg[0] == 0x13) {
 				var command = 'sensors';
 				
 				// This is a bitmask
 				// msg[1]: 0x01 = handbrake on
-				if (bit_test(msg[1], 0x01)) { omnibus.status.vehicle.handbrake = true; } else { omnibus.status.vehicle.handbrake = false; }
+				if (bit_test(msg[1], bit_0)) { omnibus.status.vehicle.handbrake = true; } else { omnibus.status.vehicle.handbrake = false; }
 				// msg[2]: 0x01 = engine running, 0x10 = reverse
-				if (bit_test(msg[2], 0x01)) { omnibus.status.engine.running    = true; } else { omnibus.status.engine.running    = false; }
-				if (bit_test(msg[2], 0x10)) { omnibus.status.vehicle.reverse   = true; } else { omnibus.status.vehicle.reverse   = false; }
+				if (bit_test(msg[2], bit_0)) { omnibus.status.engine.running    = true; } else { omnibus.status.engine.running    = false; }
+				if (bit_test(msg[2], bit_4) && !bit_test(msg[2], bit_5) && !bit_test(msg[2], bit_6) && !bit_test(msg[2], bit_7)) {
+					omnibus.status.vehicle.reverse = true;
+				}
+				else {
+					omnibus.status.vehicle.reverse = false;
+				}
 
 				console.log('[data-handler] Set omnibus.status.vehicle.handbrake      = %s', omnibus.status.vehicle.handbrake);
 				console.log('[data-handler] Set omnibus.status.vehicle.reverse        = %s', omnibus.status.vehicle.reverse);
 				console.log('[data-handler] Set omnibus.status.engine.running         = %s', omnibus.status.engine.running);
 			}
+
 			else if (msg[0] == 0x17) {
 				var command = 'odometer';
 			}
+
 			else if (msg[0] == 0x19) {
 				var command = 'temperatures';
 
@@ -184,6 +202,7 @@ var data_handler = function(omnibus) {
 				console.log('[data-handler] Set omnibus.status.temperature.exterior_f = %s', omnibus.status.temperature.exterior_f);
 				console.log('[data-handler] Set omnibus.status.temperature.coolant_f  = %s', omnibus.status.temperature.coolant_f);
 			}
+
 			else if (msg[0] == 0x18) {
 				var command = 'speed/RPM';
 
@@ -198,6 +217,7 @@ var data_handler = function(omnibus) {
 				console.log('[data-handler] Set omnibus.status.vehicle.speed_mph      = %s', omnibus.status.vehicle.speed_mph);
 				console.log('[data-handler] Set omnibus.status.engine.speed           = %s', omnibus.status.engine.speed);
 			}
+
 			else if (msg[0] == 0x24) {
 				var command = 'OBC text';
 				

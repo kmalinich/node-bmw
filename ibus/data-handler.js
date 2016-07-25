@@ -71,20 +71,23 @@ var data_handler = function(omnibus) {
 			else if (msg[0] == 0x7A) {
 				var command = 'doors/flaps status';
 
-				// Set status from message
-				if      (bit_test(msg[1], 0x01)) { omnibus.status.flaps.front_left    = true; }
-				else if (bit_test(msg[1], 0x02)) { omnibus.status.flaps.front_right   = true; }
-				else if (bit_test(msg[1], 0x04)) { omnibus.status.flaps.rear_left     = true; }
-				else if (bit_test(msg[1], 0x08)) { omnibus.status.flaps.rear_right    = true; }
-				else if (bit_test(msg[1], 0x20)) { omnibus.status.locked              = true; }
-				else if (bit_test(msg[1], 0x40)) { omnibus.status.lights.interior     = true; }
-				else if (bit_test(msg[2], 0x20)) { omnibus.status.windows.roof        = true; }
-				else if (bit_test(msg[2], 0x01)) { omnibus.status.windows.front_left  = true; }
-				else if (bit_test(msg[2], 0x02)) { omnibus.status.windows.front_right = true; }
-				else if (bit_test(msg[2], 0x04)) { omnibus.status.windows.rear_left   = true; }
-				else if (bit_test(msg[2], 0x08)) { omnibus.status.windows.rear_right  = true; }
-        else if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; }
-				else if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; }
+				// Set status from message by decrypting bitmask
+				// msg[1] = doors
+				if (bit_test(msg[1], 0x01)) { omnibus.status.flaps.front_left    = true; }
+				if (bit_test(msg[1], 0x02)) { omnibus.status.flaps.front_right   = true; }
+				if (bit_test(msg[1], 0x04)) { omnibus.status.flaps.rear_left     = true; }
+				if (bit_test(msg[1], 0x08)) { omnibus.status.flaps.rear_right    = true; }
+				if (bit_test(msg[1], 0x20)) { omnibus.status.locked              = true; }
+				if (bit_test(msg[1], 0x40)) { omnibus.status.lights.interior     = true; }
+
+				// msg[2] = windows
+				if (bit_test(msg[2], 0x20)) { omnibus.status.windows.roof        = true; }
+				if (bit_test(msg[2], 0x01)) { omnibus.status.windows.front_left  = true; }
+				if (bit_test(msg[2], 0x02)) { omnibus.status.windows.front_right = true; }
+				if (bit_test(msg[2], 0x04)) { omnibus.status.windows.rear_left   = true; }
+				if (bit_test(msg[2], 0x08)) { omnibus.status.windows.rear_right  = true; }
+        if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; }
+				if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; }
 
 				console.log('[data-handler] GM: Setting doors/flaps status');
 				console.log(msg);

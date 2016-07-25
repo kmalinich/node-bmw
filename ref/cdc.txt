@@ -31,6 +31,7 @@ T# = Track number (not a bitmask)
 
          M# F# E# I#    D# T#
 18 68 39 02 09 00 3F 00 01 00 CDC->RAD CD_status Play  Request=Play  CD=1  Track=0  CDs_Loaded=P1,P2,P3,P4,P5,P6
+18 68 39 02 09 00 01 00 01 00 CDC->RAD CD_status Play  Request=Play  CD=1  Track=0  CDs_Loaded=P1
 
 Steps:
 

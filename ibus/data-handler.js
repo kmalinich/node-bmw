@@ -17,7 +17,8 @@ var data_handler = function(omnibus) {
 	function bit_test(num, bit) {
 		if ((num & bit) != 0) {
 			return true;
-		} else {
+		}
+		else {
 			return false;
 		}
 	}
@@ -95,6 +96,28 @@ var data_handler = function(omnibus) {
 			// console.log(src, dst, command, button, msg);
 		}
 
+		// RAD
+		else if (src == 'RAD') {
+			// CD changer emulation handling
+			if (dst == 'CDC') {
+				if (msg[0] == 0x01) {
+					var command = 'Device status request';
+
+					// Do CDC->LOC Device status ready
+					omnibus.CDC.send_device_status_ready
+				}
+
+				else if(msg[0] == 0x38 && msg[1] == 0x00 && msg[2] == 0x00) {
+					var command = 'CD control status request';
+
+					// Do CDC->LOC CD status play
+					omnibus.CDC.send_cd_status_play
+				}
+			}
+
+			console.log('[data-handler] %s->%s: %s', src, dst, command);
+		}
+
 		// LCM
 		else if (src == 'LCM') {
 			if (msg[0] == 0xA0 && typeof msg[1] !== 'undefined') {
@@ -109,7 +132,6 @@ var data_handler = function(omnibus) {
 				var command = 'Light dimmer status';
 				console.log('[data-handler] LCM --> GLO : Light dimmer: %s', msg[1]);
 			}
-			
 		}
 
 		// IKE
@@ -132,19 +154,8 @@ var data_handler = function(omnibus) {
 				
 				// This is a bitmask
 				// msg[2]: 0x01 = engine running, 0x10 = reverse
-				// For now, dirty hack
-				if (msg[2] == 0x01) {
-					omnibus.status.engine.running  = true;
-					omnibus.status.vehicle.reverse = false;
-				}
-				else if (msg[2] == 0x10) {
-					omnibus.status.engine.running  = false;
-					omnibus.status.vehicle.reverse = true;
-				}
-				else if (msg[2] == 0x11) {
-					omnibus.status.vehicle.reverse = true;
-					omnibus.status.engine.running  = true;
-				}
+				if (bit_test(msg[2], 0x01)) { omnibus.status.engine.running  = true; } else { omnibus.status.engine.running  = false; }
+				if (bit_test(msg[2], 0x10)) { omnibus.status.vehicle.reverse = true; } else { omnibus.status.vehicle.reverse = false; }
 
 				console.log('[data-handler] Set omnibus.status.vehicle.handbrake      = %s', omnibus.status.vehicle.handbrake);
 				console.log('[data-handler] Set omnibus.status.vehicle.reverse        = %s', omnibus.status.vehicle.reverse);

@@ -13,6 +13,7 @@ var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
 
 // Module libraries
+var CDC = require('./modules/CDC.js');
 var GM  = require('./modules/GM.js');
 var IKE = require('./modules/IKE.js');
 var LCM = require('./modules/LCM.js');
@@ -21,13 +22,14 @@ var LCM = require('./modules/LCM.js');
 var socket_server = require('./lib/socket-server.js');
 
 // Everything connection handle
-var omnibus = {};
+var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js'); // Vehicle status object
 omnibus.ibus_connection = new ibus_interface();       // IBUS connection handle
+omnibus.CDC             = new CDC(omnibus);
 omnibus.GM              = new GM(omnibus);
-omnibus.LCM             = new LCM(omnibus);
 omnibus.IKE             = new IKE(omnibus);
+omnibus.LCM             = new LCM(omnibus);
 
 // Data handler
 var data_handler_connection = new data_handler(omnibus);

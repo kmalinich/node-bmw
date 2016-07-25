@@ -428,10 +428,10 @@ function status() {
 
 			// Handbrake
 			if (return_data.vehicle.handbrake) {
-				$('#vehicle-handbrake').text('Handbrake on').addClass('text-success');
+				$('#vehicle-handbrake').text('Handbrake on').addClass('text-danger');
 			}
 			else {
-				$('#vehicle-handbrake').text('Handbrake off').addClass('text-danger');
+				$('#vehicle-handbrake').text('Handbrake off').addClass('text-success');
 			}
 
 			// Reverse

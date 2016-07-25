@@ -168,10 +168,19 @@ var data_handler = function(omnibus) {
 				var command = 'sensors';
 				
 				// This is a bitmask
-				// msg[1]: 0x01 = handbrake on
+				// msg[1]:
+				// 0x01 = handbrake on
 				if (bit_test(msg[1], bit_0)) { omnibus.status.vehicle.handbrake = true; } else { omnibus.status.vehicle.handbrake = false; }
-				// msg[2]: 0x01 = engine running, 0x10 = reverse
-				if (bit_test(msg[2], bit_0)) { omnibus.status.engine.running    = true; } else { omnibus.status.engine.running    = false; }
+				// msg[2]:
+				//   1 = Engine running
+				// 176 = P (4+5+7)
+				//  16 = R (4)
+				// 112 = N (4+5+6)
+				// 128 = D (7)
+				// 192 = 4 (6+7)
+				// 208 = 3 (4+6+7)
+				//  64 = 2 (6)
+				if (bit_test(msg[2], bit_0)) { omnibus.status.engine.running = true; } else { omnibus.status.engine.running = false; }
 				if (bit_test(msg[2], bit_4) && !bit_test(msg[2], bit_5) && !bit_test(msg[2], bit_6) && !bit_test(msg[2], bit_7)) {
 					omnibus.status.vehicle.reverse = true;
 				}

@@ -114,7 +114,13 @@ var data_handler = function(omnibus) {
 					omnibus.CDC.send_cd_status_play();
 				}
 
-				console.log('[data-handler] %s->%s: %s', src, dst, command);
+				if (typeof command !== 'undefined') {
+					console.log('[data-handler] %s->%s: %s', src, dst, command);
+				}
+
+				else {
+					console.log('[data-handler] %s->%s: unknown message - %s', src, dst, msg);
+				}
 			}
 		}
 

@@ -1,5 +1,3 @@
-Set Time (thanks enforcer) I might use this to set car time from PC/GPS time.
-
 GT telling IKE to set the time: 
 
 3B 06 80 40 01 0C 3B cc

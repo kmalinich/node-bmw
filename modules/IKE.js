@@ -293,14 +293,7 @@ var IKE = function(omnibus) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 
-		console.log('[IKE] Set OBC clock                                      = %s/%s/%s %s:%s', data.month, data.day, data.year, data.hour, data.minute);
-	
-		var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
-		var date_ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(date_msg),
-		}
+		console.log('[IKE] Set OBC clock                                      = %s/%s/%s %s:%s', data.day, data.month, data.year, data.hour, data.minute);
 
 		var time_msg         = [0x40, 0x01, data.hour, data.minute];
 		var time_ibus_packet = {
@@ -309,8 +302,16 @@ var IKE = function(omnibus) {
 			msg: new Buffer(time_msg),
 		}
 
-		omnibus.ibus_connection.send_message(date_ibus_packet);
 		omnibus.ibus_connection.send_message(time_ibus_packet);
+
+		var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
+		var date_ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(date_msg),
+		}
+
+		omnibus.ibus_connection.send_message(date_ibus_packet);
 	}
 
 	// OBC gong

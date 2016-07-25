@@ -104,18 +104,18 @@ var data_handler = function(omnibus) {
 					var command = 'Device status request';
 
 					// Do CDC->LOC Device status ready
-					omnibus.CDC.send_device_status_ready
+					omnibus.CDC.send_device_status_ready();
 				}
 
 				else if(msg[0] == 0x38 && msg[1] == 0x00 && msg[2] == 0x00) {
 					var command = 'CD control status request';
 
 					// Do CDC->LOC CD status play
-					omnibus.CDC.send_cd_status_play
+					omnibus.CDC.send_cd_status_play();
 				}
-			}
 
-			console.log('[data-handler] %s->%s: %s', src, dst, command);
+				console.log('[data-handler] %s->%s: %s', src, dst, command);
+			}
 		}
 
 		// LCM

@@ -118,9 +118,9 @@ var data_handler = function(omnibus) {
 					console.log('[data-handler] %s->%s: %s', src, dst, command);
 				}
 
-				else {
-					console.log('[data-handler] %s->%s: unknown message - %s', src, dst, msg);
-				}
+				// else {
+				// 	console.log('[data-handler] %s->%s: unknown message - %s', src, dst, msg);
+				// }
 			}
 		}
 

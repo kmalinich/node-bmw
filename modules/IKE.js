@@ -233,24 +233,26 @@ var IKE = function(omnibus) {
 		if (value == 'speedavg') {
 			var msg       = [0x41, 0x0A, 0x10];
 			var obc_value = 'Average speed';
+		}
 
-		} else if (value == 'cons1') {
+		else if (value == 'cons1') {
 			var msg       = [0x41, 0x04, 0x10];
 			var obc_value = 'Average consumption 1';
+		}
 
-		} else if (value == 'cons2') {
+		else if (value == 'cons2') {
 			var msg       = [0x41, 0x05, 0x10];
 			var obc_value = 'Average consumption 2';
-
-		} else if (value == 'speedlimitoff') {
+		}
+		else if (value == 'speedlimitoff') {
 			var msg       = [0x41, 0x09, 0x08];
 			var obc_value = 'Speed limit off';
-
-		} else if (value == 'speedlimiton') {
+		}
+		else if (value == 'speedlimiton') {
 			var msg       = [0x41, 0x09, 0x04];
 			var obc_value = 'Speed limit on';
-
-		} else if (value == 'speedlimit') {
+		}
+		else if (value == 'speedlimit') {
 			var msg       = [0x41, 0x09, 0x20];
 			var obc_value = 'Speed limit';
 		}

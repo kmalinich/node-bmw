@@ -1,0 +1,30 @@
+Aux_Heating_On
+3B 80 41 12
+Aux_Heating_Off
+3B 80 41 11
+Aux_Vent_On
+3B 80 41 14
+Aux_Vent_Off
+3B 80 41 13
+
+
+SET TIMER:
+3B 06 80 40 TT HH MM CK
+
+TT = Timer 1(0F), Timer 2(10)
+HH = Hour (24h)
+MM = Minute
+CK = Checksum
+
+Timer 1 Switch:
+ON  = 3B 05 80 41 0F 04 F4
+OFF = 3B 05 80 41 0F 08 F8
+
+Timer 2 Switch:
+ON  = 3B 05 80 41 10 04 EB
+OFF = 3B 05 80 41 10 08 E7
+
+
+80 E7 2A 00 00 Aux_Heating_LED = Off
+80 E7 2A 00 04 Aux_Heating_LED = On
+80 E7 2A 00 08 Aux_Heating_LED = Flash

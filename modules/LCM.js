@@ -43,23 +43,7 @@ var LCM = function(omnibus) {
 		}
 	}
 
-	// Send 'Get IO status' to LCM 
-	function lcm_get2() {
-		var src = 0x3F; // DIA
-		var dst = 0xD0; // GLO
-		var cmd = 0x0B; // Get IO status 
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(cmd),
-		}
-
-		// Send the message
-		console.log('[LCM] Sending \'Get IO status\' LCM packet.');
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
+	// Get LCM IO status
 	function lcm_get() {
 		var src = 0x3F; // DIA
 		var dst = 0xD0; // GLO

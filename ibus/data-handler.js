@@ -155,13 +155,13 @@ var data_handler = function(omnibus) {
 			}
 			else if (msg[0] == 0x13) {
 				var command = 'sensors';
-
-				if (msg[1] == 0x01) { omnibus.status.vehicle.handbrake = true; } else { omnibus.status.vehicle.handbrake = false; }
 				
 				// This is a bitmask
+				// msg[1]: 0x01 = handbrake on
+				if (bit_test(msg[1], 0x01)) { omnibus.status.vehicle.handbrake = true; } else { omnibus.status.vehicle.handbrake = false; }
 				// msg[2]: 0x01 = engine running, 0x10 = reverse
-				if (bit_test(msg[2], 0x01)) { omnibus.status.engine.running  = true; } else { omnibus.status.engine.running  = false; }
-				if (bit_test(msg[2], 0x10)) { omnibus.status.vehicle.reverse = true; } else { omnibus.status.vehicle.reverse = false; }
+				if (bit_test(msg[2], 0x01)) { omnibus.status.engine.running    = true; } else { omnibus.status.engine.running    = false; }
+				if (bit_test(msg[2], 0x10)) { omnibus.status.vehicle.reverse   = true; } else { omnibus.status.vehicle.reverse   = false; }
 
 				console.log('[data-handler] Set omnibus.status.vehicle.handbrake      = %s', omnibus.status.vehicle.handbrake);
 				console.log('[data-handler] Set omnibus.status.vehicle.reverse        = %s', omnibus.status.vehicle.reverse);

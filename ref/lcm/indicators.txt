@@ -1,0 +1,9 @@
+D0 05 BF 5C FF 00 C9       | LCM | GLO | Light dimmer | 255 (max)
+D0 07 BF 5B 00 40 00 00 73 | LCM | GLO | Lamp status  | All_Off Faulty: Indicator_Right
+D0 07 BF 5B 01 40 00 00 72 | LCM | GLO | Lamp status  | Park Faulty: Indicator_Right
+D0 07 BF 5B 03 00 00 00 30 | LCM | GLO | Lamp status  | Park Low_Beam  All_OK
+D0 07 BF 5B 07 40 00 00 74 | LCM | GLO | Lamp status  | Park Low_Beam High_Beam Faulty: Indicator_Right
+D0 07 BF 5B 20 40 04 00 57 | LCM | GLO | Lamp status  | Indicator_Left Indicator_sync Faulty: Indicator_Right
+D0 07 BF 5B 21 40 04 00 56 | LCM | GLO | Lamp status  | Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+D0 07 BF 5B 80 40 00 00 F3 | LCM | GLO | Lamp status  | Faulty: Indicator_Right Indicator_Fast_Blink
+D0 07 BF 5B C0 40 04 00 B7 | LCM | GLO | Lamp status  | Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink

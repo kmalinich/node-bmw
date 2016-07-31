@@ -1,3 +1,5 @@
+// HAS CHECKSUMS AT ENDS
+
 // Read identity
 3F 03 D0 00 EC
 // Ack

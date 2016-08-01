@@ -1,48 +1,49 @@
 // Array of module names
 var _modules = {
-	'ABG'                    : 0xA4,
+	'ABG'                    : 0xA4, // Airbag
+	'ANZV'                   : 0xE7, // Display group
 	'Assist'                 : 0xCA,
-	'BMBT'                   : 0xF0,
-	'CCM'                    : 0x30,
+	'BMBT'                   : 0xF0, // On board monitor
+	'CCM'                    : 0x30, // Check control messages
 	'CD changer DIN size'    : 0x76,
-	'CDC'                    : 0x18,
+	'CDC'                    : 0x18, // CD changer
 	'CID'                    : 0x46,
-	'DIA'                    : 0x3F,
-	'DME'                    : 0x12,
-	'DME'                    : 0xB8,
-	'DSP'                    : 0x6A,
-	'EWS'                    : 0x44,
-	'GLO'                    : 0xBF,
-	'GM'                     : 0x00,
-	'GT'                     : 0x3B,
+	'DIA'                    : 0x3F, // Diagnostic
+	'DME'                    : 0x12, // Digital Motor Electronics
+	'DMEK2000'               : 0xB8,
+	'DSP'                    : 0x6A, // Digital sound processor/amplifier
+	'EHC'                    : 0xAC, // Electronic height control
+	'EWS'                    : 0x44, // EWS immobilizer
+	'FBZV'                   : 0x40, // Key fob
+	'GLO'                    : 0xBF, // Global
+	'GM'                     : 0x00, // General module
+	'GT'                     : 0x3B, // Navigation
 	'GTR'                    : 0x43,
-	'HAC'                    : 0x9A,
-	'IHKA'                   : 0x5B,
-	'IKE'                    : 0x80,
-	'IRIS'                   : 0xE0,
-	'Key fob'                : 0x40,
-	'LCM'                    : 0xD0,
-	'LOC'                    : 0xFF,
-	'MFL'                    : 0x50,
-	'MID'                    : 0xC0,
-	'Navigation (EUR)'       : 0x7F,
-	'Navigation (JP)'        : 0xBB,
-	'OBC'                    : 0xE7,
-	'PDC'                    : 0x60,
+	'HAC'                    : 0x9A, // Headlight aim control
+	'IHKA'                   : 0x5B, // Auto HVAC 
+	'IKE'                    : 0x80, // Cluster
+	'IRIS'                   : 0xE0, // Integrated radio information system
+	'LCM'                    : 0xD0, // Light/check module
+	'LOC'                    : 0xFF, // Local
+	'MFL'                    : 0x50, // Multi function lever
+	'MID'                    : 0xC0, // Information display
+	'NAVE'                   : 0x7F, // Navigation Europe
+	'NAVJ'                   : 0xBB, // Navigation Japan
+	'PDC'                    : 0x60, // Park distance control
 	'Power mirror 1'         : 0x51,
 	'Power mirror 2'         : 0x9B,
 	'Power mirror 3'         : 0x9C,
-	'RAD'                    : 0x68,
-	'RLS'                    : 0xE8,
+	'RAD'                    : 0x68, // Radio
+	'RLS'                    : 0xE8, // Rain+Light sensor
 	'Radio controlled clock' : 0x28,
 	'Rear Multinfo display'  : 0xA0,
 	'SES'                    : 0xB0,
-	'SM'                     : 0x08,
+	'SM'                     : 0x08, // Seat module
 	'Seat 1'                 : 0x72,
 	'Seat 2'                 : 0xDA,
-	'Seats'                  : 0xED,
 	'Sirius radio'           : 0x73,
-	'TEL'                    : 0xC8,
+	'TEL'                    : 0xC8, // Telephone
+	'VID'                    : 0xED,
 };
 
 // Clean all the text strings
@@ -195,28 +196,18 @@ function gm_central_lock() {
 	});
 }
 
-function gm_central_toggle() {
-	console.log('gm_central_toggle();');
+// Central locking/unlocking
+function gm_cl(action) {
+	console.log('gm_central_unlock(%s);', action);
 
 	$.ajax({
 		url      : '/api/gm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'gm-command=gm_central_toggle',
-		success  : function(return_data) {
-			console.log(return_data);
+		data     : {
+			'gm-command'        : 'gm-cl',
+			'gm-command-action' : action,
 		}
-	});
-}
-
-function gm_central_unlock() {
-	console.log('gm_central_unlock();');
-
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-command=gm_central_unlock',
 		success  : function(return_data) {
 			console.log(return_data);
 		}

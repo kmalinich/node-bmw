@@ -34,20 +34,28 @@ var GM = function(omnibus) {
 			gm_interior_light(data['gm-interior-light']);
 		}
 
+		// Central locking
 		else if (typeof data['gm-command'] !== 'undefined') {
 			console.log('[GM] command: \'%s\'', data['gm-command']);
-			if      (data['gm-command'] == 'gm_central_unlock') { gm_central_unlock(); }
-			else if (data['gm-command'] == 'gm_central_lock')   { gm_central_lock();   }
-			else if (data['gm-command'] == 'gm_central_toggle') { gm_central_toggle(); }
+
+			if (data['gm-command'] == 'gm-cl') {
+				gm_cl(data['gm-command-action']);
+			}
+
+			else {
+				console.log('[GM] Unknown command');
+			}
 		}
 
+		// Window control
 		else if (typeof data['gm-window'] !== 'undefined') {
 			console.log('gm_windows(\'%s\', \'%s\');', data['gm-window'], data['gm-window-action']);
+
 			gm_windows(data['gm-window'], data['gm-window-action']);
 		}
 
 		else {
-			console.log('[GM] Unknown command, data: \'%s\'', data);
+			console.log('[GM] Unknown data: \'%s\'', data);
 		}
 	}
 
@@ -58,29 +66,44 @@ var GM = function(omnibus) {
 		// Init message variable
 		var msg;
 
-		if (window == 'roof') {
-			if      (action == 'dn') { msg = [0x00, 0x66]; }
-			else if (action == 'up') { msg = [0x7F, 0x01]; }
-		}
+		// Switch for window and action
+		// Moonroof
+		// Left front
+		// Right front
+		// Left rear
+		// Right rear
+		switch (window) {
 
-		else if (window == 'lf') {
-			if      (action == 'dn') { msg = [0x52, 0x01]; }
-			else if (action == 'up') { msg = [0x53, 0x01]; }
-		}
+			case 'roof':
+				switch (action) {
+					case 'dn' : msg = [0x03, 0x01, 0x01]; break;
+					case 'up' : msg = [0x03, 0x02, 0x01]; break;
+					case 'tt' : msg = [0x03, 0x00, 0x01]; break;
+				}
 
-		else if (window == 'rf') {
-			if      (action == 'dn') { msg = [0x54, 0x01]; }
-			else if (action == 'up') { msg = [0x55, 0x01]; }
-		}
+			case 'lf' :
+				switch (action) {
+					case 'dn' : msg = [0x01, 0x36, 0x01]; break;
+					case 'up' : msg = [0x01, 0x1A, 0x01]; break;
+				}
 
-		else if (window == 'lr') {
-			if      (action == 'dn') { msg = [0x41, 0x01]; }
-			else if (action == 'up') { msg = [0x42, 0x01]; }
-		}
+			case 'rf' :
+				switch (action) {
+					case 'dn' : msg = [0x02, 0x20, 0x01]; break;
+					case 'up' : msg = [0x02, 0x22, 0x01]; break;
+				}
 
-		else if (window == 'rr') {
-			if      (action == 'dn') { msg = [0x44, 0x01]; }
-			else if (action == 'up') { msg = [0x43, 0x01]; }
+			case 'lr' :
+				switch (action) {
+					case 'dn' : msg = [0x00, 0x00, 0x01]; break;
+					case 'up' : msg = [0x42, 0x01]; break;
+				}
+
+			case 'rr' :
+				switch (action) {
+					case 'dn' : msg = [0x00, 0x03, 0x01]; break;
+					case 'up' : msg = [0x43, 0x01]; break;
+				}
 		}
 
 		omnibus.GM.gm_send(msg);
@@ -98,24 +121,31 @@ var GM = function(omnibus) {
 		omnibus.GM.gm_send(msg);
 	}	
 
-	// Central toggleing - toggle
-	function gm_central_toggle() {
-		console.log('[GM] Central locking: toggle');
-		var msg = [0x97, 0x01];
-		omnibus.GM.gm_send(msg);
-	}
+	// Central locking
+	function gm_cl(action) {
+		console.log('[GM] Central locking: \'%s\'', action);
+		// Hex:
+		// 01 3A 01 : LF unlock (CL)
+		// 01 39 01 : LF lock (CL)
+		// 02 3A 01 : RF unlock (CL)
+		// 02 39 01 : RF lock (CL)
+		//
+		// 01 41 01 : Rear lock
+		// 01 42 02 : Rear unlock
 
-	// Central locking - unlock
-	function gm_central_unlock() {
-		console.log('[GM] Central locking: unlock');
-		var msg = [0x03, 0x01];
-		omnibus.GM.gm_send(msg);
-	}
+		// Init message variable
+		var msg;
 
-	// Central locking - lock
-	function gm_central_lock() {
-		console.log('[GM] Central locking: lock');
-		var msg = [0x00, 0x0B];
+		// Switch for action
+		// Toggle
+		// Unlock
+		// Lock
+		switch (action) {
+			case 'toggle' : msg = [0x97, 0x01]; break;
+			case 'lock'   : msg = [0x03, 0x01]; break;
+			case 'unlock' : msg = [0x00, 0x0B]; break;
+		}
+
 		omnibus.GM.gm_send(msg);
 	}
 

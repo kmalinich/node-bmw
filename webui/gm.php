@@ -12,13 +12,13 @@
 
 			<div class="row">
 				<div class="col-xs-4">
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-unlock" onclick="javascript:gm_central_unlock();">Unlock</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-unlock" onclick="javascript:gm_cl('unlock');">Unlock</button>
 				</div>
 				<div class="col-xs-4">
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-toggle" onclick="javascript:gm_central_toggle();">Toggle</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-toggle" onclick="javascript:gm_cl('toggle');">Toggle</button>
 				</div>
 				<div class="col-xs-4">
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_central_lock();">Lock</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_cl('lock');">Lock</button>
 				</div>
 			</div>
 
@@ -64,6 +64,7 @@
 			<hr>
 
 			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof up</button>
+			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'tt');">Roof tilt</button>
 			<button class="btn btn-lg btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof down</button>
 
 		</div>

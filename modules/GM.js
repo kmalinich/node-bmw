@@ -20,10 +20,9 @@ var GM = function(omnibus) {
 	var _self = this;
 
 	// exposed data
-	this.gm_send           = gm_send;
-	this.gm_data           = gm_data;
-	this.gm_central_unlock = gm_central_unlock;
-	this.gm_central_lock   = gm_central_lock;
+	this.gm_send = gm_send;
+	this.gm_data = gm_data;
+	this.gm_cl   = gm_cl;
 
 	// Handle incoming commands
 	function gm_data(data) {
@@ -165,7 +164,8 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Sending packet \'%s\'', ibus_packet);
+		console.log('[GM] Sending packet \'%s\'', packet);
+
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

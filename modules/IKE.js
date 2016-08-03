@@ -328,7 +328,7 @@ var IKE = function(omnibus) {
 		var ibus_packet = {
 			src: src, 
 			dst: dst,
-			msg: new Buffer(cmd, status),
+			msg: new Buffer([cmd, status]),
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);

@@ -207,8 +207,8 @@ function gm_cl(action) {
 		data     : {
 			'gm-command'        : 'gm-cl',
 			'gm-command-action' : action,
-		}
-		success  : function(return_data) {
+		},
+		success : function(return_data) {
 			console.log(return_data);
 		}
 	});

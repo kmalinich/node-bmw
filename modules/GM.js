@@ -216,7 +216,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Requesting status \'%s\'', packet);
+		console.log('[GM] Requesting doors/flaps status');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

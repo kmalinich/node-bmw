@@ -53,6 +53,7 @@
 							<h6 id="vehicle-ignition" ></h6>
 							<h6 id="vehicle-handbrake"></h6>
 							<h6 id="vehicle-reverse"  ></h6>
+							<h6 id="vehicle-locked"   ></h6>
 						</div>
 
 						<div class="col-xs-6">
@@ -84,6 +85,7 @@
 							<h6 id="windows-rear-left"  ></h6>
 							<h6 id="windows-rear-right" ></h6>
 							<h6 id="windows-roof"       ></h6>
+							<h6 id="lights-interior"    ></h6>
 						</div>
 
 					</div>

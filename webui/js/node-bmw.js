@@ -547,12 +547,14 @@ function status_refresh_off() {
 	clearInterval(status_loop);
 	clearInterval(status_refresh);
 	clearInterval(gm_refresh);
+	clearInterval(ignition_refresh);
 }
 
 // Status page autorefresh enable
 var status_loop;
 var status_refresh;
 var gm_refresh;
+var ignition_refresh;
 
 function status_refresh_on() {
 	// CSS magic
@@ -570,16 +572,18 @@ function status_refresh_on() {
 		}
 	});
 
-	// Pretend the car is on
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'ike-ignition=pos2',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
+	ignition_refresh = setInterval(function() {
+		// Pretend the car is on
+		$.ajax({
+			url      : '/api/ike',
+			type     : 'POST',
+			dataType : 'json',
+			data     : 'ike-ignition=pos2',
+			success  : function(return_data) {
+				console.log(return_data);
+			}
+		});
+	}, 3000);
 
 	// Set the loops
 	status_refresh = setInterval(function() {
@@ -612,7 +616,6 @@ function status_refresh_on() {
 		// Refresh browser view
 		status();
 	}, 2000);
-
 }
 
 // Live IBUS data websocket

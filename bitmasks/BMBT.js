@@ -21,12 +21,11 @@ var bit_7 = 0x80; // 128
 var hold    = bit_6;
 var release = bit_7; 
 
-
-
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
 		return true;
-	} else {
+	}
+	else {
 		return false;
 	}
 }

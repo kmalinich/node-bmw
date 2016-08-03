@@ -43,7 +43,8 @@ var ibus_interface = function(device_path) {
 		serial_port.open(function(error) {
 			if (error) {
 				console.error('[ibus-interface] Failed to open: ' + error);
-			} else {
+			}
+			else {
 				console.log('[ibus-interface] Port open [' + device + ']');
 				_self.emit('port_open');
 
@@ -82,7 +83,8 @@ var ibus_interface = function(device_path) {
 				// operation is ready, resume looking for an empty bus
 				setImmediate(watch_for_empty_bus, workerFn);
 			});
-		} else {
+		}
+		else {
 			// keep looking for an empty bus
 			setImmediate(watch_for_empty_bus, workerFn);
 		}
@@ -103,7 +105,8 @@ var ibus_interface = function(device_path) {
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
 				//log.error('[ibus-interface] Failed to write: ' + error);
-			} else {
+			}
+			else {
 				// console.log('[ibus-interface]', clc.white('Wrote to device:'), data_buffer, resp);
 
 				serial_port.drain(function(error) {
@@ -125,7 +128,8 @@ var ibus_interface = function(device_path) {
 			if (error) {
 				//log.error('[ibus-interface] Error closing port: ', error);
 				callb();
-			} else {
+			}
+			else {
 				console.log('[ibus-interface] Port closed [' + device + ']');
 				parser = null;
 				callb();

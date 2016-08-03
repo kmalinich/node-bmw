@@ -20,9 +20,11 @@ var GM = function(omnibus) {
 	var _self = this;
 
 	// exposed data
-	this.gm_send = gm_send;
-	this.gm_data = gm_data;
-	this.gm_cl   = gm_cl;
+	this.gm_cl             = gm_cl;
+	this.gm_data           = gm_data;
+	this.gm_interior_light = gm_interior_light;
+	this.gm_send           = gm_send;
+	this.gm_windows        = gm_windows;
 
 	// Handle incoming commands
 	function gm_data(data) {
@@ -70,43 +72,65 @@ var GM = function(omnibus) {
 		// Left front
 		// Right front
 		// Left rear
-		// Right rear
-		switch (window) {
+    // Right rear
+    switch (window) {
 
-			case 'roof':
-				switch (action) {
-					case 'dn' : msg = [0x03, 0x01, 0x01]; break;
-					case 'up' : msg = [0x03, 0x02, 0x01]; break;
-					case 'tt' : msg = [0x03, 0x00, 0x01]; break;
-				}
+      case 'roof':
+        switch (action) {
+          case 'dn':
+            msg = [0x03, 0x01, 0x01];
+            break;
+          case 'up':
+            msg = [0x03, 0x02, 0x01];
+            break;
+          case 'tt':
+            msg = [0x03, 0x00, 0x01];
+            break;
+        }
 
-			case 'lf' :
-				switch (action) {
-					case 'dn' : msg = [0x01, 0x36, 0x01]; break;
-					case 'up' : msg = [0x01, 0x1A, 0x01]; break;
-				}
+      case 'lf' :
+        switch (action) {
+          case 'dn':
+            msg = [0x01, 0x36, 0x01];
+            break;
+          case 'up':
+            msg = [0x01, 0x1A, 0x01];
+            break;
+        }
 
-			case 'rf' :
-				switch (action) {
-					case 'dn' : msg = [0x02, 0x20, 0x01]; break;
-					case 'up' : msg = [0x02, 0x22, 0x01]; break;
-				}
+      case 'rf' :
+        switch (action) {
+          case 'dn':
+            msg = [0x02, 0x20, 0x01];
+            break;
+          case 'up':
+            msg = [0x02, 0x22, 0x01];
+            break;
+        }
 
-			case 'lr' :
-				switch (action) {
-					case 'dn' : msg = [0x00, 0x00, 0x01]; break;
-					case 'up' : msg = [0x42, 0x01]; break;
-				}
+      case 'lr' :
+        switch (action) {
+          case 'dn':
+            msg = [0x00, 0x00, 0x01];
+            break;
+          case 'up':
+            msg = [0x42, 0x01];
+            break;
+        }
 
-			case 'rr' :
-				switch (action) {
-					case 'dn' : msg = [0x00, 0x03, 0x01]; break;
-					case 'up' : msg = [0x43, 0x01]; break;
-				}
-		}
+      case 'rr' :
+        switch (action) {
+          case 'dn':
+            msg = [0x00, 0x03, 0x01];
+            break;
+          case 'up':
+            msg = [0x43, 0x01];
+            break;
+        }
+    }
 
-		omnibus.GM.gm_send(msg);
-	}
+    omnibus.GM.gm_send(msg);
+  }
 
 	// Cluster/interior backlight 
 	function gm_interior_light(value) {
@@ -140,9 +164,15 @@ var GM = function(omnibus) {
 		// Unlock
 		// Lock
 		switch (action) {
-			case 'toggle' : msg = [0x97, 0x01]; break;
-			case 'lock'   : msg = [0x03, 0x01]; break;
-			case 'unlock' : msg = [0x00, 0x0B]; break;
+			case 'toggle':
+        msg = [0x97, 0x01];
+        break;
+			case 'lock':
+        msg = [0x03, 0x01];
+        break;
+			case 'unlock':
+        msg = [0x00, 0x0B];
+        break;
 		}
 
 		omnibus.GM.gm_send(msg);
@@ -194,7 +224,7 @@ var GM = function(omnibus) {
 		var bitmask_3  = 0x00;
 
 		// Set the various bitmask values according to the input array
-		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
+		if(array.clamp_30a) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
 
 		// Assemble the output array
 		var output = [

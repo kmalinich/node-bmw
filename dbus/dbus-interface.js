@@ -46,7 +46,8 @@ var dbus_interface = function(device_path) {
 		serial_port.open(function(error) {
 			if (error) {
 				log.error('[dbus-interface] Failed to open: ' + error);
-			} else {
+			}
+			else {
 				console.log('[dbus-interface] Port open [' + device + ']');
 				_self.emit('port_open');
 
@@ -84,7 +85,8 @@ var dbus_interface = function(device_path) {
 				// operation is ready, resume looking for an empty bus
 				setImmediate(watch_for_empty_bus, workerFn);
 			});
-		} else {
+		}
+		else {
 			// keep looking for an empty bus
 			setImmediate(watch_for_empty_bus, workerFn);
 		}
@@ -105,7 +107,8 @@ var dbus_interface = function(device_path) {
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
 				log.error('[dbus-interface] Failed to write: ' + error);
-			} else {
+			}
+			else {
 				console.log('[dbus-interface]', clc.white('Wrote to device:'), data_buffer, resp);
 
 				serial_port.drain(function(error) {
@@ -127,7 +130,8 @@ var dbus_interface = function(device_path) {
 			if (error) {
 				log.error('[dbus-interface] Error closing port: ', error);
 				callback();
-			} else {
+			}
+			else {
 				console.log('[dbus-interface] Port closed [' + device + ']');
 				parser = null;
 				callback();

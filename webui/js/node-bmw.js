@@ -566,7 +566,8 @@ function ws_ibus() {
 	// Autodetect websocket URL
 	if (loc.protocol === "https:") {
 		ws_uri = "wss:";
-	} else {
+	}
+	else {
 		ws_uri = "ws:";
 	}
 

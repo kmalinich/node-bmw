@@ -41,7 +41,8 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 
 	if (cchunk.length < 5) {
 		// chunk too small, gather more data
-	} else {
+	}
+	else {
 		log.debug('[ibus_protocol]', 'Analyzing: ', cchunk);
 
 		// gather messages from current chunk
@@ -111,7 +112,8 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 			_self._buffer = cchunk.slice(endOfLastMessage);
 
 			log.debug('[ibus_protocol]',clc.yellow('Sliced data: '), endOfLastMessage, _self._buffer);
-		} else {
+		}
+		else {
 			// Push the entire chunk
 			if (_self._buffer.length > 500) {
 				// Chunk too big? (overflow protection)

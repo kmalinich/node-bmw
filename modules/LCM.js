@@ -84,7 +84,8 @@ var LCM = function(omnibus) {
 	function bit_test(num, bit) {
 		if ((num & bit) != 0) {
 			return true;
-		} else {
+		}
+		else {
 			return false;
 		}
 	}

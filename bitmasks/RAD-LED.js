@@ -53,7 +53,8 @@ var beam_hi = bit_4;
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
 		return true;
-	} else {
+	}
+	else {
 		return false;
 	}
 }

@@ -326,7 +326,9 @@ var IKE = function(omnibus) {
 		if (value == '1') {
 			var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
 			var obc_value = '1';
-		} else if (value == '2') {
+		}
+		
+		else if (value == '2') {
 			var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
 			var obc_value = '2';
 		}

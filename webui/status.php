@@ -62,11 +62,13 @@
 
 					</div>
 
-					<h4><i class="fa fa-key fa-inverse"></i> Doors</h4>
+					<hr>
+
+					<h4><i class="fa fa-folder-open fa-inverse"></i> Doors/windows</h4>
 					<div class="row text-center">
 
-						<div class="col-xs-12">
-							<h5>Status</h5>
+						<div class="col-xs-6">
+							<h5><i class="fa fa-key fa-inverse"></i> Doors</h5>
 							<h6 id="flaps-front-left" ></h6>
 							<h6 id="flaps-front-right"></h6>
 							<h6 id="flaps-rear-left"  ></h6>
@@ -75,13 +77,8 @@
 							<h6 id="flaps-trunk"      ></h6>
 						</div>
 
-					</div>
-
-					<h4><i class="fa fa-windows fa-inverse"></i> Windows</h4>
-					<div class="row text-center">
-
-						<div class="col-xs-12">
-							<h5>Status</h5>
+						<div class="col-xs-6">
+							<h5><i class="fa fa-windows fa-inverse"></i> Windows</h5>
 							<h6 id="windows-front-left" ></h6>
 							<h6 id="windows-front-right"></h6>
 							<h6 id="windows-rear-left"  ></h6>

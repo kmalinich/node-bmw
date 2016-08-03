@@ -461,7 +461,7 @@ function status() {
 			// Doors (flaps) and window status
 			if (return_data.flaps.front_left)    { $('#flaps-front-left').text('Front left open');     } else { $('#flaps-front-left').text('Front left closed');     } 
 			if (return_data.flaps.front_right)   { $('#flaps-front-right').text('Front right open');   } else { $('#flaps-front-right').text('Front right closed');   } 
-			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');                 } else { $('#flaps-hood').text('Hoood closed');                } 
+			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');                 } else { $('#flaps-hood').text('Hood closed');                 } 
 			if (return_data.flaps.rear_left)     { $('#flaps-rear-left').text('Rear left open');       } else { $('#flaps-rear-left').text('Rear left closed');       } 
 			if (return_data.flaps.rear_right)    { $('#flaps-rear-right').text('Rear right open');     } else { $('#flaps-rear-right').text('Rear right closed');     } 
 			if (return_data.flaps.trunk)         { $('#flaps-trunk').text('Trunk open');               } else { $('#flaps-trunk').text('Trunk closed');               } 

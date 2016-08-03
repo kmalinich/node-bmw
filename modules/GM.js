@@ -22,6 +22,7 @@ var GM = function(omnibus) {
 	// exposed data
 	this.gm_cl             = gm_cl;
 	this.gm_data           = gm_data;
+	this.gm_get            = gm_get;
 	this.gm_interior_light = gm_interior_light;
 	this.gm_send           = gm_send;
 	this.gm_windows        = gm_windows;
@@ -41,6 +42,9 @@ var GM = function(omnibus) {
 
 			if (data['gm-command'] == 'gm-cl') {
 				gm_cl(data['gm-command-action']);
+			}
+			else if (data['gm-command'] == 'gm-get') {
+				gm_get();
 			}
 
 			else {
@@ -195,6 +199,24 @@ var GM = function(omnibus) {
 
 		// Send the message
 		console.log('[GM] Sending packet \'%s\'', packet);
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	// Request doors/flaps status from GM
+	function gm_get() {
+		var src = 0xF0; // BMBT
+		var dst = 0x00; // GM
+		var cmd = 0x79; // Set IO status 
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(cmd),
+		}
+
+		// Send the message
+		console.log('[GM] Requesting status \'%s\'', packet);
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

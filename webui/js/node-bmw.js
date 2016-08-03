@@ -582,6 +582,19 @@ function status_refresh_on() {
 		});
 	}, 3000);
 
+	gm_refresh = setInterval(function() {
+		// Data refresh from GM
+		$.ajax({
+			url      : '/api/gm',
+			type     : 'POST',
+			dataType : 'json',
+			data     : 'gm-command=gm-get',
+			success  : function(return_data) {
+				console.log(return_data);
+			}
+		});
+	}, 3000);
+
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();

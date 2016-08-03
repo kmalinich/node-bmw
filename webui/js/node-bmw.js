@@ -546,11 +546,13 @@ function status_refresh_off() {
 	// Clear the loop
 	clearInterval(status_loop);
 	clearInterval(status_refresh);
+	clearInterval(gm_refresh);
 }
 
 // Status page autorefresh enable
 var status_loop;
 var status_refresh;
+var gm_refresh;
 
 function status_refresh_on() {
 	// CSS magic
@@ -563,6 +565,17 @@ function status_refresh_on() {
 		type     : 'POST',
 		dataType : 'json',
 		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+
+	// Pretend the car is on
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'ike-ignition=pos2',
 		success  : function(return_data) {
 			console.log(return_data);
 		}

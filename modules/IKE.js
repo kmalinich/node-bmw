@@ -36,19 +36,23 @@ var IKE = function(omnibus) {
 
 		else if (typeof data['obc-get'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE OBC get: \'%s\'', data['obc-get']);
-			if (data['obc-get'] == 'all')
-				{ obc_refresh(); }
-			else
-				{ obc_get(data['obc-get']); }
+			if (data['obc-get'] == 'all') {
+				obc_refresh();
+			}
+			else {
+				obc_get(data['obc-get']);
+			}
 		}
 
 		else if (typeof data['obc-reset'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE OBC reset: \'%s\'', data['obc-reset']);
 
-			if (data['obc-reset'] == 'all')
-				{ obc_refresh(); }
-			else
-				{ obc_reset(data['obc-reset']); }
+			if (data['obc-reset'] == 'all') {
+				obc_refresh();
+			}
+			else {
+				obc_reset(data['obc-reset']);
+			}
 		}
 
 		else if (data.command == 'obc_clock') {
@@ -69,6 +73,11 @@ var IKE = function(omnibus) {
 		else if (typeof data['ike-backlight'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE backlight: %s', data['ike-backlight']);
 			ike_backlight(data['ike-backlight']);
+		}
+
+		else if (typeof data['ike-ignition'] !== 'undefined') {
+			console.log('[IKE] ike_data(): IKE ignition: %s', data['ike-ignition']);
+			ike_ignition(data['ike-ignition']);
 		}
 
 		else {
@@ -285,6 +294,41 @@ var IKE = function(omnibus) {
 			src: src, 
 			dst: dst,
 			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	// Pretend to be IKE saying the car is on
+	function ike_ignition(value) {
+		var src = 0x80; // IKE 
+		var dst = 0xBF; // GLO 
+		var cmd = 0x11; // Ignition status
+		var status;
+
+		console.log('[IKE] Claiming ignition is \'%s\'', value);
+
+		// Translate English to hex
+		if (value == 'off') {
+			status = 0x00;
+		}
+		// Accessory
+		else if (value == 'pos1') {
+			status = 0x01;
+		}
+		// Run
+		else if (value == 'pos2') {
+			status = 0x03;
+		}
+		// Start
+		else if (value == 'pos3') {
+			status = 0x07;
+		}
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer(cmd, status),
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);

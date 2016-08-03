@@ -97,13 +97,40 @@ var data_handler = function(omnibus) {
 				if (bit_test(msg[2], 0x02)) { omnibus.status.windows.front_right = true; } else { omnibus.status.windows.front_right = false; }
 				if (bit_test(msg[2], 0x04)) { omnibus.status.windows.rear_left   = true; } else { omnibus.status.windows.rear_left   = false; }
 				if (bit_test(msg[2], 0x08)) { omnibus.status.windows.rear_right  = true; } else { omnibus.status.windows.rear_right  = false; }
-        if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
+				if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
 				if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
 
 				console.log('[data-handler] GM: Setting doors/flaps status');
 			}
 
 			// console.log(src, dst, command, button, msg);
+		}
+
+		// EWS
+		else if (src == 'EWS') {
+			var key_out  = new Buffer([0x74, 0x00, 0xff]);
+			var key_1_in = new Buffer([0x74, 0x04, 0x01]);
+
+			if (msg.compare(key_out) == 0) {
+				var command = 'removed';
+				var data    = 'key';
+			}
+			else if (msg.compare(key_1_in) == 0) {
+				var command = 'inserted';
+				var data    = 'key 1';
+			}
+		}
+
+		// CCM
+		else if (src == 'CCM') {
+			if (msg[0] == 0x51) {
+				var command = 'check control sensors';
+				var data    = 'not sure yet.'
+			}     
+			else if (msg[0] == 0x1a) {
+				var command = 'urgent text';
+				var data    = ''+msg+'';
+			}
 		}
 
 		// RAD

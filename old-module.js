@@ -30,33 +30,3 @@ function gm(object, action) {
 	var UnfoldPassengerMirrorE39 = new Buffer([0x0c, 0x02, 0x30, 0x01]);
 	var GetAnalogValues          = new Buffer([0x0b, 0x01]);
 }
-
-// Data handler
-function check_data(packet) {
-	// EWS
-	if (src == 'EWS') {
-		var key_out  = new Buffer([0x74, 0x00, 0xff]);
-		var key_1_in = new Buffer([0x74, 0x04, 0x01]);
-
-		if (msg.compare(key_out) == 0) {
-			var command = 'removed';
-			var data    = 'key';
-		}
-		else if (msg.compare(key_1_in) == 0) {
-			var command = 'inserted';
-			var data    = 'key 1';
-		}
-	}
-
-	// CCM
-	if (src == 'CCM') {
-		if (msg[0] == 0x51) {
-			var command = 'check control sensors';
-			var data    = 'not sure yet.'
-		}
-		else if (msg[0] == 0x1a) {
-			var command = 'urgent text';
-			var data    = ''+msg+'';
-		}
-	}
-}

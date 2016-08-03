@@ -101,7 +101,7 @@ var data_handler = function(omnibus) {
 				if (bit_test(msg[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
 				if (bit_test(msg[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
 
-				console.log('[data-handler] GM: Setting doors/flaps status');
+				console.log('[data-handler] GLO->GM: Received doors/flaps status');
 			}
 
 			// console.log(src, dst, command, button, msg);

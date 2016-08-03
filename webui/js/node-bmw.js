@@ -51,6 +51,12 @@ function clean_class_all() {
 	// This is really dumb and there is a better way
 	clean_class('#engine-running');
 	clean_class('#engine-speed');
+	clean_class('#flaps-front-left');
+	clean_class('#flaps-front-right');
+	clean_class('#flaps-hood');
+	clean_class('#flaps-rear-left');
+	clean_class('#flaps-rear-right');
+	clean_class('#flaps-trunk');
 	clean_class('#obc-aux-heat-timer-1');
 	clean_class('#obc-aux-heat-timer-2');
 	clean_class('#obc-coding-unit-cons');
@@ -83,6 +89,11 @@ function clean_class_all() {
 	clean_class('#vehicle-reverse');
 	clean_class('#vehicle-speed');
 	clean_class('#vehicle-speed-unit');
+	clean_class('#windows-front-left');
+	clean_class('#windows-front-right');
+	clean_class('#windows-rear-left');
+	clean_class('#windows-rear-right');
+	clean_class('#windows-roof');
 	//clean_class('');
 }
 
@@ -446,6 +457,19 @@ function status() {
 			else {
 				$('#vehicle-ignition').text('Ignition off').addClass('text-danger');
 			}
+
+			// Doors (flaps) and window status
+			if (return_data.flaps.front_left)    { $('#flaps-front-left').text('Front left open');     } else { $('#flaps-front-left').text('Front left closed');     } 
+			if (return_data.flaps.front_right)   { $('#flaps-front-right').text('Front right open');   } else { $('#flaps-front-right').text('Front right closed');   } 
+			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');                 } else { $('#flaps-hood').text('Hoood closed');                } 
+			if (return_data.flaps.rear_left)     { $('#flaps-rear-left').text('Rear left open');       } else { $('#flaps-rear-left').text('Rear left closed');       } 
+			if (return_data.flaps.rear_right)    { $('#flaps-rear-right').text('Rear right open');     } else { $('#flaps-rear-right').text('Rear right closed');     } 
+			if (return_data.flaps.trunk)         { $('#flaps-trunk').text('Trunk open');               } else { $('#flaps-trunk').text('Trunk closed');               } 
+			if (return_data.windows.front_left)  { $('#windows-front-left').text('Front left open');   } else { $('#windows-front-left').text('Front left closed');   } 
+			if (return_data.windows.front_right) { $('#windows-front-right').text('Front right open'); } else { $('#windows-front-right').text('Front right closed'); } 
+			if (return_data.windows.rear_left)   { $('#windows-rear-left').text('Rear left open');     } else { $('#windows-rear-left').text('Rear left closed');     } 
+			if (return_data.windows.rear_right)  { $('#windows-rear-right').text('Rear right open');   } else { $('#windows-rear-right').text('Rear right closed');   } 
+			if (return_data.windows.roof)        { $('#windows-roof').text('Moonroof open');           } else { $('#windows-roof').text('Moonroof closed');           } 
 
 			// Current, average, and limit speed
 			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed);

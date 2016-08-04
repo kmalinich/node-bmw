@@ -1,0 +1,384 @@
+2016-06-26 00:57:57.157:  !
+2016-06-26 00:57:57.157:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-06-26 00:57:57.157:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-06-26 00:57:57.157:  ! [Debug Mode]
+2016-06-26 00:57:57.157:  ! [Procotol = Auto]
+2016-06-26 00:57:57.157:  ! Script: Setting Scripting state to Off
+2016-06-26 00:57:57.298:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-06-26 00:58:01.934:  ! Setting COM port parameters for COM2
+2016-06-26 00:58:01.965:  ! COM2 opened
+2016-06-26 00:58:06.820:  44 05 BF 74 04 01 8F
+2016-06-26 00:58:06.820:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_1
+2016-06-26 00:58:08.771:  44 05 BF 74 00 FF 75
+2016-06-26 00:58:08.771:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-06-26 00:58:09.958:  44 05 BF 74 04 01 8F
+2016-06-26 00:58:09.958:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_1
+2016-06-26 00:58:11.019:  44 05 BF 74 00 FF 75
+2016-06-26 00:58:11.019:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-06-26 00:58:12.986:  44 05 BF 74 04 01 8F
+2016-06-26 00:58:12.986:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_1
+2016-06-26 00:58:13.626:  80 04 BF 11 01 2B
+2016-06-26 00:58:13.626:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-06-26 00:58:13.657:  80 0A BF 13 00 00 00 00 00 00 3E 18
+2016-06-26 00:58:13.657:  ! IKE  --> GLO : IKE sensor status, 
+2016-06-26 00:58:13.673:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:13.673:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:13.688:  D0 05 BF 5C FF 00 C9
+2016-06-26 00:58:13.688:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-06-26 00:58:13.704:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:13.704:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:13.720:  30 04 BF 51 00 DA
+2016-06-26 00:58:13.720:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-06-26 00:58:13.751:  80 0F E7 24 02 00 30 36 2F 32 36 2F 32 30 31 36 49
+2016-06-26 00:58:13.751:  ! IKE  --> ANZV: Update Text, Layout=Date  Flags=  F0="06/26/2016"
+2016-06-26 00:58:13.782:  80 0C E7 24 01 00 31 32 3A 35 38 41 4D 76
+2016-06-26 00:58:13.782:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="12:58AM"
+2016-06-26 00:58:13.813:  00 04 BF 72 02 CB
+2016-06-26 00:58:13.813:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-06-26 00:58:13.829:  00 05 BF 7A 13 1F CC
+2016-06-26 00:58:13.829:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+2016-06-26 00:58:13.845:  80 04 BF 11 03 29
+2016-06-26 00:58:13.845:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:13.860:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:13.860:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:13.876:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:13.876:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:13.891:  80 06 BF 19 1C 25 00 19
+2016-06-26 00:58:13.891:  ! IKE  --> GLO : Temperature, Outside 28°C [82°F], Coolant 37°C [99°F]
+2016-06-26 00:58:13.923:  00 04 BF 72 02 CB
+2016-06-26 00:58:13.923:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-06-26 00:58:13.938:  80 06 60 07 00 00 00 E1
+2016-06-26 00:58:13.938:  ! IKE  --> PDC : Gong status, Data="00 00 00"
+2016-06-26 00:58:13.954:  44 05 BF 74 05 01 8E
+2016-06-26 00:58:13.954:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Valid_key_detected Key_1
+2016-06-26 00:58:13.969:  80 04 BF 11 03 29
+2016-06-26 00:58:13.969:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:14.063:  80 0A BF 13 01 00 00 02 00 00 3E 1B
+2016-06-26 00:58:14.063:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:14.094:  80 03 D0 53 00
+2016-06-26 00:58:14.094:  ! IKE  --> LCM : Vehicle data request
+2016-06-26 00:58:14.141:  D0 10 80 54 47 43 95 64 60 07 B4 00 A3 00 00 00 00 91
+2016-06-26 00:58:14.141:  ! LCM  --> IKE : Vehicle data status, VIN GC95646; Total dist 197,200 kms [122,534 mls]; SI-L 1630 litres since last service; ; SI-T 0 days since last service
+2016-06-26 00:58:14.375:  80 0A BF 13 01 00 00 02 00 08 3E 13
+2016-06-26 00:58:14.375:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:14.422:  A4 06 BF 70 03 00 05 6B
+2016-06-26 00:58:14.422:  ! AB   --> GLO : Remote control central locking status, Data="03 00 05"
+2016-06-26 00:58:14.656:  F0 04 BF 02 01 48
+2016-06-26 00:58:14.656:  ! BMBT --> GLO : Device status ready, after Reset
+2016-06-26 00:58:14.672:  80 04 BF 11 03 29
+2016-06-26 00:58:14.672:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:14.687:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:14.687:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:14.766:  80 0A BF 13 01 00 00 02 00 00 3E 1B
+2016-06-26 00:58:14.766:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:14.828:  E8 04 BF 02 01 50
+2016-06-26 00:58:14.828:  ! RLS  --> GLO : Device status ready, after Reset
+2016-06-26 00:58:14.844:  80 04 BF 11 03 29
+2016-06-26 00:58:14.844:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:14.859:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:14.859:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:15.000:  50 03 C8 01 9A
+2016-06-26 00:58:15.000:  ! MFL  --> TEL : Device status request
+2016-06-26 00:58:15.171:  80 0A BF 13 01 00 00 02 00 08 3E 13
+2016-06-26 00:58:15.171:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:15.577:  80 0A BF 13 01 00 00 02 00 00 3E 1B
+2016-06-26 00:58:15.577:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:15.608:  80 0A BF 17 4E 02 03 00 1C 00 00 71
+2016-06-26 00:58:15.608:  ! IKE  --> GLO : Odometer, 197,198 kms  [122,533 mls]
+2016-06-26 00:58:15.608:  50 03 B0 01 E2
+2016-06-26 00:58:15.608:  ! MFL  --> SES : Device status request
+2016-06-26 00:58:15.702:  80 05 BF 18 00 00 22
+2016-06-26 00:58:15.702:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:15.858:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:15.858:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:15.967:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:15.967:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:16.373:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:16.373:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:16.779:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:16.779:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:16.888:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:16.888:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:17.138:  A4 06 BF 70 02 00 05 6A
+2016-06-26 00:58:17.138:  ! AB   --> GLO : Remote control central locking status, Data="02 00 05"
+2016-06-26 00:58:17.169:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:17.169:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:17.575:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:17.575:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:17.700:  80 05 BF 18 00 00 22
+2016-06-26 00:58:17.700:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:17.981:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:17.981:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:18.137:  50 03 B0 01 E2
+2016-06-26 00:58:18.137:  ! MFL  --> SES : Device status request
+2016-06-26 00:58:18.371:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:18.371:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:18.746:  50 03 C8 01 9A
+2016-06-26 00:58:18.746:  ! MFL  --> TEL : Device status request
+2016-06-26 00:58:18.777:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:18.777:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:19.168:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:19.168:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:19.573:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:19.573:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:19.667:  F0 04 BF 02 01 48
+2016-06-26 00:58:19.667:  ! BMBT --> GLO : Device status ready, after Reset
+2016-06-26 00:58:19.683:  80 04 BF 11 03 29
+2016-06-26 00:58:19.683:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:19.714:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:19.714:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:19.730:  80 05 BF 18 00 00 22
+2016-06-26 00:58:19.730:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:19.917:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:19.917:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:19.964:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:19.964:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:20.370:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:20.370:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:20.775:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:20.775:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:21.166:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:21.166:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:21.556:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:21.556:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:21.712:  80 05 BF 18 00 00 22
+2016-06-26 00:58:21.712:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:21.946:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:21.946:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:22.368:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:22.368:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:22.774:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:22.774:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:22.930:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:22.930:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:23.148:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:23.148:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:23.226:  50 03 B0 01 E2
+2016-06-26 00:58:23.226:  ! MFL  --> SES : Device status request
+2016-06-26 00:58:23.570:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:23.570:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:23.663:  F0 03 68 01 9A
+2016-06-26 00:58:23.663:  ! BMBT --> RAD : Device status request
+2016-06-26 00:58:23.726:  80 05 BF 18 00 00 22
+2016-06-26 00:58:23.726:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:23.741:  80 06 BF 19 1C 25 00 19
+2016-06-26 00:58:23.741:  ! IKE  --> GLO : Temperature, Outside 28°C [82°F], Coolant 37°C [99°F]
+2016-06-26 00:58:23.835:  50 03 C8 01 9A
+2016-06-26 00:58:23.835:  ! MFL  --> TEL : Device status request
+2016-06-26 00:58:23.960:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:23.960:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:24.132:  80 0A BF 13 00 00 00 00 00 08 3E 10
+2016-06-26 00:58:24.132:  ! IKE  --> GLO : IKE sensor status, 
+2016-06-26 00:58:24.366:  80 0A BF 13 00 00 00 00 00 00 3E 18
+2016-06-26 00:58:24.366:  ! IKE  --> GLO : IKE sensor status, 
+2016-06-26 00:58:24.678:  F0 04 BF 02 01 48
+2016-06-26 00:58:24.678:  ! BMBT --> GLO : Device status ready, after Reset
+2016-06-26 00:58:24.709:  80 04 BF 11 03 29
+2016-06-26 00:58:24.709:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:24.725:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:24.725:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:24.787:  80 0A BF 13 00 00 00 00 00 08 3E 10
+2016-06-26 00:58:24.787:  ! IKE  --> GLO : IKE sensor status, 
+2016-06-26 00:58:24.943:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:24.943:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:25.177:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:25.177:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:25.583:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:25.583:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:25.724:  80 05 BF 18 00 00 22
+2016-06-26 00:58:25.724:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:25.942:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:25.942:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:25.974:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:25.974:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:26.379:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:26.379:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:26.785:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:26.785:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:27.176:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:27.176:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:27.581:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:27.581:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:27.738:  80 05 BF 18 00 00 22
+2016-06-26 00:58:27.738:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:27.987:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:27.987:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:28.378:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:28.378:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:28.783:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:28.783:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:28.939:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:28.939:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:29.189:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:29.189:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:29.580:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:29.580:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:29.720:  F0 04 BF 02 01 48
+2016-06-26 00:58:29.720:  ! BMBT --> GLO : Device status ready, after Reset
+2016-06-26 00:58:29.736:  80 04 BF 11 03 29
+2016-06-26 00:58:29.736:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:29.751:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:29.751:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:29.782:  80 05 BF 18 00 00 22
+2016-06-26 00:58:29.782:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:29.985:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:29.985:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:30.376:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:30.376:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:30.766:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:30.766:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:31.172:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:31.172:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:31.562:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:31.562:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:31.734:  80 05 BF 18 00 00 22
+2016-06-26 00:58:31.734:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:31.952:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:31.952:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:31.983:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:31.983:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:32.374:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:32.374:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:32.764:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:32.764:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:33.170:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:33.170:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:33.560:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:33.560:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:33.685:  F0 03 68 01 9A
+2016-06-26 00:58:33.685:  ! BMBT --> RAD : Device status request
+2016-06-26 00:58:33.747:  80 05 BF 18 00 00 22
+2016-06-26 00:58:33.747:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:33.763:  80 06 BF 19 1C 25 00 19
+2016-06-26 00:58:33.763:  ! IKE  --> GLO : Temperature, Outside 28°C [82°F], Coolant 37°C [99°F]
+2016-06-26 00:58:33.966:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:33.966:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:34.372:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:34.372:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:34.653:  3F 03 D0 00 EC
+2016-06-26 00:58:34.653:  ! DIA  --> LCM : Read identity
+2016-06-26 00:58:34.653:  D0 0F 3F A0 08 38 62 08 01 18 13 00 16 00 09 41 4E
+2016-06-26 00:58:34.653:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="08 38 62 08 01 18 13 00 16 00 09 41"    [ 8b        A]
+2016-06-26 00:58:34.731:  F0 04 BF 02 01 48
+2016-06-26 00:58:34.731:  ! BMBT --> GLO : Device status ready, after Reset
+2016-06-26 00:58:34.793:  80 04 BF 11 03 29
+2016-06-26 00:58:34.793:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-06-26 00:58:34.793:  80 05 E7 2A 00 00 48
+2016-06-26 00:58:34.793:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-06-26 00:58:34.793:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:34.793:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:34.809:  3F 04 D0 08 00 E3
+2016-06-26 00:58:34.809:  ! DIA  --> LCM : Read coding data, Data="00"    [ ]
+2016-06-26 00:58:34.871:  D0 23 3F A0 00 86 BF 57 01 00 3C 74 00 00 00 00 00 00 00 7F 00 4E 40 90 00 04 0B 80 00 00 00 F0 84 00 00 00 51
+2016-06-26 00:58:34.871:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="00 86 BF 57 01 00 3C 74 00 00 00 00 00 00 00 7F 00 4E 40 90 00 04 0B 80 00 00 00 F0 84 00 00 00"    [ †¿W  <t        N@   €   ð„   ]
+2016-06-26 00:58:35.012:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:35.012:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:35.012:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:35.012:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:35.277:  3F 04 D0 08 12 F1
+2016-06-26 00:58:35.277:  ! DIA  --> LCM : Read coding data, Data="12"    [ ]
+2016-06-26 00:58:35.277:  D0 23 3F A0 12 FF FF FF F1 FF 03 20 80 FF FF 0F FC C7 8F FF E0 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00 7C
+2016-06-26 00:58:35.277:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="12 FF FF FF F1 FF 03 20 80 FF FF 0F FC C7 8F FF E0 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00"    [ ÿÿÿñÿ  €ÿÿ üÇÿà ÿ  ÿÿÿÿ #E   ]
+2016-06-26 00:58:35.465:  ! Read LCM - LCM coding successfully read.  NavCoder has been updated with the current LCM settings.
+2016-06-26 00:58:35.558:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:35.558:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:35.745:  80 05 BF 18 00 00 22
+2016-06-26 00:58:35.745:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:35.964:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:35.964:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:36.370:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:36.370:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:36.573:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:36.573:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:36.963:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:36.963:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:37.369:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:37.369:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:37.744:  80 05 BF 18 00 00 22
+2016-06-26 00:58:37.744:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:37.962:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:37.962:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:37.978:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:37.978:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:38.384:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:38.384:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:38.587:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:38.587:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:38.992:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:38.992:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:39.586:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:39.586:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:39.773:  80 05 BF 18 00 00 22
+2016-06-26 00:58:39.773:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:39.991:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:39.991:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:40.179:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:40.179:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:40.788:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:40.788:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:40.990:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:40.990:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:41.022:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:41.022:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:41.381:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:41.381:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:41.755:  80 05 BF 18 00 00 22
+2016-06-26 00:58:41.755:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:41.787:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:41.787:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:42.192:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:42.192:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:42.598:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:42.598:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:43.004:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:43.004:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:43.394:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:43.394:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:43.691:  F0 04 68 4B 05 D2
+2016-06-26 00:58:43.691:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-06-26 00:58:43.707:  F0 03 68 01 9A
+2016-06-26 00:58:43.707:  ! BMBT --> RAD : Device status request
+2016-06-26 00:58:43.769:  80 05 BF 18 00 00 22
+2016-06-26 00:58:43.769:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:43.785:  80 06 BF 19 1C 25 00 19
+2016-06-26 00:58:43.785:  ! IKE  --> GLO : Temperature, Outside 28°C [82°F], Coolant 37°C [99°F]
+2016-06-26 00:58:43.800:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:43.800:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:43.988:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:43.988:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:44.206:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:44.206:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:44.596:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:44.596:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:45.002:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:45.002:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:45.393:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:45.393:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:45.783:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:45.783:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:45.798:  80 05 BF 18 00 00 22
+2016-06-26 00:58:45.798:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:46.173:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:46.173:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:46.595:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:46.595:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:46.985:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:46.985:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:47.000:  D0 07 BF 5B 00 00 00 00 33
+2016-06-26 00:58:47.000:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-06-26 00:58:47.375:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:47.375:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:47.796:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:47.796:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:47.812:  80 05 BF 18 00 00 22
+2016-06-26 00:58:47.812:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-06-26 00:58:48.171:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:48.171:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:48.577:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:48.577:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:48.983:  80 0A BF 13 01 00 00 00 00 00 3E 19
+2016-06-26 00:58:48.983:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:49.576:  80 0A BF 13 01 00 00 00 00 08 3E 11
+2016-06-26 00:58:49.576:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-06-26 00:58:49.654:  ! NavCoder logging stopped, NavCoder closed
+2016-06-26 00:58:49.654:  !

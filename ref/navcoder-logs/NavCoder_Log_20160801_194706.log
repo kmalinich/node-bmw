@@ -1,0 +1,221 @@
+2016-08-01 19:47:06.276:  !
+2016-08-01 19:47:06.276:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-08-01 19:47:06.276:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-08-01 19:47:06.276:  ! [Debug Mode]
+2016-08-01 19:47:06.276:  ! [Procotol = Auto]
+2016-08-01 19:47:06.281:  ! Script: Setting Scripting state to Off
+2016-08-01 19:47:06.437:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-08-01 19:48:16.623:  ! Setting COM port parameters for COM16
+2016-08-01 19:48:16.625:  ! COM16 opened
+2016-08-01 19:48:32.591:  ! Setting COM port parameters for COM2
+2016-08-01 19:48:32.598:  ! ERROR: MSComm
+2016-08-01 19:48:32.598:  ! ERROR: NavCoder - Cannot open COM2 port - Port already open
+2016-08-01 19:52:00.045:  ! Setting COM port parameters for COM2
+2016-08-01 19:52:00.092:  ! COM2 opened
+2016-08-01 19:52:04.038:  D0 07 BF 5B 00 00 00 00 33
+2016-08-01 19:52:04.038:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-08-01 19:52:04.054:  D0 07 BF 5B 00 00 00 00 33
+2016-08-01 19:52:04.054:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-08-01 19:52:04.070:  D0 05 BF 5C FF 00 C9
+2016-08-01 19:52:04.070:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-08-01 19:52:04.148:  80 04 BF 11 01 2B
+2016-08-01 19:52:04.148:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:04.163:  80 0A BF 13 00 00 00 00 00 00 39 1F
+2016-08-01 19:52:04.163:  ! IKE  --> GLO : IKE sensor status, 
+2016-08-01 19:52:04.179:  00 04 BF 72 00 C9
+2016-08-01 19:52:04.179:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-08-01 19:52:04.194:  30 04 BF 51 00 DA
+2016-08-01 19:52:04.194:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-08-01 19:52:04.210:  30 04 BF 51 04 DE
+2016-08-01 19:52:04.210:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-08-01 19:52:04.210:  00 05 BF 7A 12 3F ED
+2016-08-01 19:52:04.210:  ! GM   --> GLO : Doors/flaps status, Open:  PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+2016-08-01 19:52:04.288:  E8 03 80 10 7B
+2016-08-01 19:52:04.288:  ! RLS  --> IKE : Ignition status request
+2016-08-01 19:52:04.304:  44 05 BF 74 05 01 8E
+2016-08-01 19:52:04.304:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Valid_key_detected Key_1
+2016-08-01 19:52:04.319:  80 04 BF 11 01 2B
+2016-08-01 19:52:04.319:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:04.382:  68 04 FF 02 01 90
+2016-08-01 19:52:04.382:  ! RAD  --> LOC : Device status ready, after Reset
+2016-08-01 19:52:04.382:  F0 04 68 4B 05 D2
+2016-08-01 19:52:04.382:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-08-01 19:52:04.397:  80 04 BF 11 01 2B
+2016-08-01 19:52:04.397:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:04.491:  E8 05 00 58 FF 7F 35
+2016-08-01 19:52:04.491:  ! RLS  --> GM  : Headlight wipe interval, Data="FF 7F"
+2016-08-01 19:52:04.678:  68 05 18 38 00 00 4D
+2016-08-01 19:52:04.678:  ! RAD  --> CDC : CD_control, Status_Request
+2016-08-01 19:52:04.694:  68 03 80 14 FF
+2016-08-01 19:52:04.694:  ! RAD  --> IKE : Country coding status request
+2016-08-01 19:52:04.725:  80 07 BF 15 02 F1 FA 46 62
+2016-08-01 19:52:04.725:  ! IKE  --> GLO : Country coding status, Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+2016-08-01 19:52:04.740:  E8 03 00 75 9E
+2016-08-01 19:52:04.740:  ! RLS  --> GM  : Wiper status request
+2016-08-01 19:52:04.756:  50 03 D0 5D DE
+2016-08-01 19:52:04.756:  ! MFL  --> LCM : Light dimmer status request
+2016-08-01 19:52:04.772:  00 04 E8 77 0C 97
+2016-08-01 19:52:04.772:  ! GM   --> RLS : Wiper status, Data="0C"
+2016-08-01 19:52:04.772:  D0 05 BF 5C FF 00 C9
+2016-08-01 19:52:04.772:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-08-01 19:52:04.881:  A4 06 BF 70 03 00 05 6B
+2016-08-01 19:52:04.881:  ! AB   --> GLO : Remote control central locking status, Data="03 00 05"
+2016-08-01 19:52:05.162:  F0 04 BF 02 01 48
+2016-08-01 19:52:05.162:  ! BMBT --> GLO : Device status ready, after Reset
+2016-08-01 19:52:05.193:  68 04 F0 4A 90 46
+2016-08-01 19:52:05.193:  ! RAD  --> BMBT: Cassette control, State_unknown, Data="90"
+2016-08-01 19:52:05.208:  F0 04 68 4B 05 D2
+2016-08-01 19:52:05.208:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-08-01 19:52:05.208:  68 04 F0 4A 00 D6
+2016-08-01 19:52:05.208:  ! RAD  --> BMBT: Cassette control, Power_Off
+2016-08-01 19:52:05.224:  F0 04 68 4B 05 D2
+2016-08-01 19:52:05.224:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-08-01 19:52:05.240:  80 04 BF 11 01 2B
+2016-08-01 19:52:05.240:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:05.255:  68 04 F0 4A FF 29
+2016-08-01 19:52:05.255:  ! RAD  --> BMBT: Cassette control, Power_On
+2016-08-01 19:52:05.271:  F0 04 68 4B 05 D2
+2016-08-01 19:52:05.271:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-08-01 19:52:05.286:  E8 04 BF 02 01 50
+2016-08-01 19:52:05.286:  ! RLS  --> GLO : Device status ready, after Reset
+2016-08-01 19:52:05.302:  80 04 BF 11 01 2B
+2016-08-01 19:52:05.302:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:05.474:  50 03 C8 01 9A
+2016-08-01 19:52:05.474:  ! MFL  --> TEL : Device status request
+2016-08-01 19:52:05.614:  68 03 18 01 72
+2016-08-01 19:52:05.614:  ! RAD  --> CDC : Device status request
+2016-08-01 19:52:05.739:  6A 04 FF 02 01 92
+2016-08-01 19:52:05.739:  ! DSP  --> LOC : Device status ready, after Reset
+2016-08-01 19:52:05.770:  80 04 BF 11 01 2B
+2016-08-01 19:52:05.770:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-08-01 19:52:05.786:  68 04 FF 36 AF 0A
+2016-08-01 19:52:05.786:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-08-01 19:52:05.786:  68 04 FF 36 66 C3
+2016-08-01 19:52:05.786:  ! RAD  --> LOC : Audio_control, Bass = +6
+2016-08-01 19:52:05.801:  68 04 FF 36 C2 67
+2016-08-01 19:52:05.801:  ! RAD  --> LOC : Audio_control, Treble = +2
+2016-08-01 19:52:05.801:  68 04 FF 36 80 25
+2016-08-01 19:52:05.801:  ! RAD  --> LOC : Audio_control, Fader = Center0
+2016-08-01 19:52:05.832:  68 04 FF 36 40 E5
+2016-08-01 19:52:05.832:  ! RAD  --> LOC : Audio_control, Balance = Center_0
+2016-08-01 19:52:05.832:  68 04 FF 36 E1 44
+2016-08-01 19:52:05.832:  ! RAD  --> LOC : Audio_control, DSP_Function 1
+2016-08-01 19:52:05.848:  68 04 FF 36 30 95
+2016-08-01 19:52:05.848:  ! RAD  --> LOC : Audio_control, DSP_Function 0
+2016-08-01 19:52:05.848:  68 04 FF 36 A1 04
+2016-08-01 19:52:05.848:  ! RAD  --> LOC : Audio_control, Source = Tuner/Tape
+2016-08-01 19:52:05.864:  68 04 6A 32 31 05
+2016-08-01 19:52:05.864:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:05.895:  68 04 6A 32 31 05
+2016-08-01 19:52:05.895:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:05.926:  68 04 6A 32 31 05
+2016-08-01 19:52:05.926:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:05.957:  68 04 6A 32 31 05
+2016-08-01 19:52:05.957:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.004:  68 04 6A 32 31 05
+2016-08-01 19:52:06.004:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.035:  68 04 6A 32 31 05
+2016-08-01 19:52:06.035:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.051:  44 03 80 16 D1
+2016-08-01 19:52:06.051:  ! EWS  --> IKE : Odometer request
+2016-08-01 19:52:06.066:  80 0A BF 17 00 00 00 00 1F 00 00 3D
+2016-08-01 19:52:06.066:  ! IKE  --> GLO : Odometer, 0 kms  [0 mls]
+2016-08-01 19:52:06.098:  68 04 6A 32 31 05
+2016-08-01 19:52:06.098:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.098:  50 03 B0 01 E2
+2016-08-01 19:52:06.098:  ! MFL  --> SES : Device status request
+2016-08-01 19:52:06.113:  68 04 6A 32 31 05
+2016-08-01 19:52:06.113:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.160:  68 04 6A 32 31 05
+2016-08-01 19:52:06.160:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.191:  68 04 6A 32 31 05
+2016-08-01 19:52:06.191:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:06.222:  68 04 6A 32 31 05
+2016-08-01 19:52:06.222:  ! RAD  --> DSP : Volume Control, Increase 3 steps
+2016-08-01 19:52:07.595:  A4 06 BF 70 02 00 05 6A
+2016-08-01 19:52:07.595:  ! AB   --> GLO : Remote control central locking status, Data="02 00 05"
+2016-08-01 19:52:08.609:  50 03 B0 01 E2
+2016-08-01 19:52:08.609:  ! MFL  --> SES : Device status request
+2016-08-01 19:52:09.218:  50 03 C8 01 9A
+2016-08-01 19:52:09.218:  ! MFL  --> TEL : Device status request
+2016-08-01 19:52:10.434:  F0 04 68 48 06 D2
+2016-08-01 19:52:10.450:  ! BMBT --> RAD : BM Button, Radio_on/off_pressed
+2016-08-01 19:52:10.466:  68 04 FF 36 AF 0A
+2016-08-01 19:52:10.466:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-08-01 19:52:10.481:  68 04 F0 4A 00 D6
+2016-08-01 19:52:10.481:  ! RAD  --> BMBT: Cassette control, Power_Off
+2016-08-01 19:52:10.481:  F0 04 68 4B 05 D2
+2016-08-01 19:52:10.481:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-08-01 19:52:10.590:  F0 04 68 48 86 52
+2016-08-01 19:52:10.590:  ! BMBT --> RAD : BM Button, Radio_on/off_released
+2016-08-01 19:52:12.462:  68 04 FF 36 AF 0A
+2016-08-01 19:52:12.462:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-08-01 19:52:12.525:  80 04 BF 11 00 2A
+2016-08-01 19:52:12.525:  ! IKE  --> GLO : Ignition status, Off
+2016-08-01 19:52:12.540:  30 04 BF 51 04 DE
+2016-08-01 19:52:12.540:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-08-01 19:52:12.587:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-08-01 19:52:12.587:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-08-01 19:52:12.930:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-08-01 19:52:12.930:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-08-01 19:52:14.210:  ! Setting COM port parameters for COM16
+2016-08-01 19:52:14.225:  ! COM16 opened
+2016-08-01 19:52:32.085:  ! ERROR: Cmd_Read_Click.CheckResponse
+2016-08-01 19:52:32.085:  ! ERROR: NavCoder - Error - No response from device (timeout); ;  Check interface connections, and check that the device is switched on
+2016-08-01 19:52:32.085:  ! ERROR: ibus Msg = ID.RawData=
+2016-08-01 19:52:47.401:  ! ERROR: Cmd_Read_Click.CheckResponse
+2016-08-01 19:52:47.401:  ! ERROR: NavCoder - Error - No response from device (timeout); ;  Check interface connections, and check that the device is switched on
+2016-08-01 19:52:47.401:  ! ERROR: ibus Msg = ID.RawData=
+2016-08-01 19:52:56.634:  ! Setting COM port parameters for COM2
+2016-08-01 19:52:57.227:  ! COM2 opened
+2016-08-01 19:52:57.414:  F0 04 68 32 10 BE
+2016-08-01 19:52:57.414:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-08-01 19:52:57.461:  F0 04 68 32 30 9E
+2016-08-01 19:52:57.461:  ! BMBT --> RAD : Volume Control, Decrease 3 steps
+2016-08-01 19:52:57.539:  F0 04 68 32 10 BE
+2016-08-01 19:52:57.539:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-08-01 19:52:57.632:  F0 04 68 32 10 BE
+2016-08-01 19:52:57.632:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-08-01 19:52:58.085:  F0 04 68 32 11 BF
+2016-08-01 19:52:58.085:  ! BMBT --> RAD : Volume Control, Increase 1 step
+2016-08-01 19:52:58.178:  F0 04 68 32 11 BF
+2016-08-01 19:52:58.178:  ! BMBT --> RAD : Volume Control, Increase 1 step
+2016-08-01 19:53:01.953:  3F 03 D0 00 EC
+2016-08-01 19:53:01.953:  ! DIA  --> LCM : Read identity
+2016-08-01 19:53:01.953:  D0 0F 3F A0 FF FF FF 62 05 20 14 00 17 03 06 51 AF
+2016-08-01 19:53:01.953:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="FF FF FF 62 05 20 14 00 17 03 06 51"    [ÿÿÿb       Q]
+2016-08-01 19:53:02.171:  3F 04 D0 08 00 E3
+2016-08-01 19:53:02.171:  ! DIA  --> LCM : Read coding data, Data="00"    [ ]
+2016-08-01 19:53:02.171:  D0 23 3F A0 00 33 00 40 01 00 08 00 00 00 00 00 00 00 00 23 20 4E 21 90 00 00 4E 00 00 06 00 5A 16 00 00 00 EE
+2016-08-01 19:53:02.171:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="00 33 00 40 01 00 08 00 00 00 00 00 00 00 00 23 20 4E 21 90 00 00 4E 00 00 06 00 5A 16 00 00 00"    [ 3 @           # N!  N    Z    ]
+2016-08-01 19:53:02.343:  3F 04 D0 08 03 E0
+2016-08-01 19:53:02.343:  ! DIA  --> LCM : Read coding data, Data="03"    [ ]
+2016-08-01 19:53:02.421:  D0 23 3F A0 03 00 00 00 00 00 00 00 00 00 00 00 00 0A 10 64 14 01 20 00 00 00 00 00 00 00 00 00 00 00 00 00 24
+2016-08-01 19:53:02.421:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="03 00 00 00 00 00 00 00 00 00 00 00 00 0A 10 64 14 01 20 00 00 00 00 00 00 00 00 00 00 00 00 00"    [               d                ]
+2016-08-01 19:53:02.514:  ! Read LCM - LCM coding successfully read.  NavCoder has been updated with the current LCM settings.
+2016-08-01 19:53:03.575:  F0 03 68 01 9A
+2016-08-01 19:53:03.575:  ! BMBT --> RAD : Device status request
+2016-08-01 19:53:03.606:  68 04 FF 02 00 91
+2016-08-01 19:53:03.606:  ! RAD  --> LOC : Device status ready, 
+2016-08-01 19:53:03.840:  68 03 18 01 72
+2016-08-01 19:53:03.840:  ! RAD  --> CDC : Device status request
+2016-08-01 19:53:13.588:  F0 03 68 01 9A
+2016-08-01 19:53:13.588:  ! BMBT --> RAD : Device status request
+2016-08-01 19:53:13.603:  68 04 FF 02 00 91
+2016-08-01 19:53:13.603:  ! RAD  --> LOC : Device status ready, 
+2016-08-01 19:53:13.931:  68 03 18 01 72
+2016-08-01 19:53:13.931:  ! RAD  --> CDC : Device status request
+2016-08-01 19:53:23.601:  F0 03 68 01 9A
+2016-08-01 19:53:23.601:  ! BMBT --> RAD : Device status request
+2016-08-01 19:53:23.632:  68 04 FF 02 00 91
+2016-08-01 19:53:23.632:  ! RAD  --> LOC : Device status ready, 
+2016-08-01 19:53:24.022:  68 03 18 01 72
+2016-08-01 19:53:24.022:  ! RAD  --> CDC : Device status request
+2016-08-01 19:53:33.615:  F0 03 68 01 9A
+2016-08-01 19:53:33.615:  ! BMBT --> RAD : Device status request
+2016-08-01 19:53:33.630:  68 04 FF 02 00 91
+2016-08-01 19:53:33.630:  ! RAD  --> LOC : Device status ready, 
+2016-08-01 19:53:34.114:  68 03 18 01 72
+2016-08-01 19:53:34.114:  ! RAD  --> CDC : Device status request
+2016-08-01 19:53:40.571:  ! NavCoder logging stopped, NavCoder closed
+2016-08-01 19:53:40.571:  !

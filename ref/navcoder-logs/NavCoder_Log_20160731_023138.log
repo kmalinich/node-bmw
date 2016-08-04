@@ -1,0 +1,299 @@
+2016-07-31 02:31:38.519:  !
+2016-07-31 02:31:38.520:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-07-31 02:31:38.520:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-07-31 02:31:38.520:  ! [Debug Mode]
+2016-07-31 02:31:38.520:  ! [Procotol = Auto]
+2016-07-31 02:31:38.525:  ! Script: Setting Scripting state to Off
+2016-07-31 02:31:38.686:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-07-31 02:31:47.138:  ! Setting COM port parameters for COM16
+2016-07-31 02:31:47.255:  ! COM16 opened
+2016-07-31 02:32:00.141:  ! Setting COM port parameters for COM16
+2016-07-31 02:32:00.142:  ! COM16 opened
+2016-07-31 02:32:10.798:  ! Setting COM port parameters for COM16
+2016-07-31 02:32:10.799:  ! COM16 opened
+2016-07-31 02:32:37.434:  ! Setting COM port parameters for COM2
+2016-07-31 02:32:38.020:  ! COM2 opened
+2016-07-31 02:32:38.095:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:38.095:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:38.465:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:38.465:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:38.880:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:38.880:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:38.975:  F0 04 68 32 20 8E
+2016-07-31 02:32:38.975:  ! BMBT --> RAD : Volume Control, Decrease 2 steps
+2016-07-31 02:32:39.005:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.005:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.048:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.048:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.086:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.086:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.165:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.165:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.284:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:39.284:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:39.426:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.426:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.505:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.505:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.574:  80 05 BF 18 00 00 22
+2016-07-31 02:32:39.574:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:39.639:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.639:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.677:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:39.677:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:39.706:  F0 03 68 01 9A
+2016-07-31 02:32:39.706:  ! BMBT --> RAD : Device status request
+2016-07-31 02:32:39.718:  68 04 FF 02 00 91
+2016-07-31 02:32:39.718:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 02:32:39.758:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.758:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:39.892:  F0 04 68 32 10 BE
+2016-07-31 02:32:39.892:  ! BMBT --> RAD : Volume Control, Decrease 1 step
+2016-07-31 02:32:40.089:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:40.089:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:40.500:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:40.500:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:40.641:  68 03 18 01 72
+2016-07-31 02:32:40.641:  ! RAD  --> CDC : Device status request
+2016-07-31 02:32:40.829:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:40.829:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:40.888:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:40.888:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:41.295:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:41.295:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:41.582:  80 05 BF 18 00 00 22
+2016-07-31 02:32:41.582:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:41.598:  80 06 BF 19 18 27 00 1F
+2016-07-31 02:32:41.599:  ! IKE  --> GLO : Temperature, Outside 24°C [75°F], Coolant 39°C [102°F]
+2016-07-31 02:32:41.693:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:41.693:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:42.089:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:42.090:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:42.484:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:42.484:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:42.903:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:42.903:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:43.290:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:43.290:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:43.589:  80 05 BF 18 00 00 22
+2016-07-31 02:32:43.589:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:43.685:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:43.685:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:43.839:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:43.839:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:44.088:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:44.088:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:44.497:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:44.498:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:44.898:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:44.898:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:45.300:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:45.300:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:45.586:  80 05 BF 18 00 00 22
+2016-07-31 02:32:45.586:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:45.699:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:45.700:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:46.099:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:46.099:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:46.508:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:46.508:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:46.849:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:46.849:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:46.872:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:46.872:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:47.269:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:47.269:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:47.595:  80 05 BF 18 00 00 22
+2016-07-31 02:32:47.595:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:47.676:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:47.676:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:48.070:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:48.070:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:48.470:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:48.470:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:48.858:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:48.858:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:49.272:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:49.272:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:49.593:  80 05 BF 18 00 00 22
+2016-07-31 02:32:49.593:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:49.680:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:49.680:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:49.722:  F0 03 68 01 9A
+2016-07-31 02:32:49.722:  ! BMBT --> RAD : Device status request
+2016-07-31 02:32:49.748:  68 04 FF 02 00 91
+2016-07-31 02:32:49.748:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 02:32:49.855:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:49.855:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:50.064:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:50.064:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:50.479:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:50.479:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:50.731:  68 03 18 01 72
+2016-07-31 02:32:50.731:  ! RAD  --> CDC : Device status request
+2016-07-31 02:32:50.871:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:50.871:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:51.268:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:51.268:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:51.597:  80 05 BF 18 00 00 22
+2016-07-31 02:32:51.597:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:51.621:  80 06 BF 19 18 27 00 1F
+2016-07-31 02:32:51.621:  ! IKE  --> GLO : Temperature, Outside 24°C [75°F], Coolant 39°C [102°F]
+2016-07-31 02:32:51.670:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:51.670:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:52.063:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:52.063:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:52.478:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:52.478:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:52.864:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:52.864:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:52.895:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:52.895:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:53.281:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:53.281:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:53.609:  80 05 BF 18 00 00 22
+2016-07-31 02:32:53.609:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:53.681:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:53.681:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:54.086:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:54.086:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:54.484:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:54.484:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:54.887:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:54.887:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:55.291:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:55.291:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:55.605:  80 05 BF 18 00 00 22
+2016-07-31 02:32:55.605:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:55.685:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:55.685:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:55.868:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:55.868:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:56.090:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:56.090:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:56.491:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:56.491:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:56.884:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:56.885:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:57.292:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:57.292:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:57.612:  80 05 BF 18 00 00 22
+2016-07-31 02:32:57.612:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:57.692:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:57.692:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:58.093:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:58.093:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:58.468:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:58.468:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:58.859:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:58.859:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:58.885:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:32:58.885:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:32:59.267:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:32:59.267:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:59.616:  80 05 BF 18 00 00 22
+2016-07-31 02:32:59.616:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:32:59.660:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:32:59.660:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:32:59.739:  F0 03 68 01 9A
+2016-07-31 02:32:59.739:  ! BMBT --> RAD : Device status request
+2016-07-31 02:32:59.764:  68 04 FF 02 00 91
+2016-07-31 02:32:59.764:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 02:33:00.061:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:00.061:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:00.472:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:00.472:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:00.824:  68 03 18 01 72
+2016-07-31 02:33:00.824:  ! RAD  --> CDC : Device status request
+2016-07-31 02:33:00.869:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:00.869:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:01.263:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:01.263:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:01.620:  80 05 BF 18 00 00 22
+2016-07-31 02:33:01.620:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:01.648:  80 06 BF 19 18 28 00 10
+2016-07-31 02:33:01.648:  ! IKE  --> GLO : Temperature, Outside 24°C [75°F], Coolant 40°C [104°F]
+2016-07-31 02:33:01.678:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:01.678:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:01.886:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:33:01.886:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:33:02.065:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:02.065:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:02.467:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:02.467:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:02.867:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:02.867:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:03.267:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:03.267:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:03.625:  80 05 BF 18 00 00 22
+2016-07-31 02:33:03.625:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:03.682:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:03.682:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:04.079:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:04.079:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:04.480:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:04.480:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:04.890:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:04.890:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:04.912:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:33:04.912:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:33:05.280:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:05.281:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:05.632:  80 05 BF 18 00 00 22
+2016-07-31 02:33:05.632:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:05.682:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:05.682:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:06.089:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:06.089:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:06.493:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:06.493:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:06.885:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:06.886:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:07.295:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:07.295:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:07.633:  80 05 BF 18 00 00 22
+2016-07-31 02:33:07.633:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:07.688:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:07.688:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:07.909:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:33:07.909:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:33:08.063:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:08.063:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:08.463:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:08.463:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:08.874:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:08.874:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:09.262:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:09.262:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:09.632:  80 05 BF 18 00 00 22
+2016-07-31 02:33:09.632:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:09.664:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:09.664:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:09.756:  F0 03 68 01 9A
+2016-07-31 02:33:09.756:  ! BMBT --> RAD : Device status request
+2016-07-31 02:33:09.779:  68 04 FF 02 00 91
+2016-07-31 02:33:09.779:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 02:33:10.063:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:10.063:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:10.474:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:10.474:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:10.871:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:10.871:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:10.915:  68 03 18 01 72
+2016-07-31 02:33:10.915:  ! RAD  --> CDC : Device status request
+2016-07-31 02:33:10.938:  D0 07 BF 5B 00 40 02 03 72
+2016-07-31 02:33:10.938:  ! LCM  --> GLO : Lamp status, All_Off Brake Faulty: Indicator_Right Brake_Right Brake_Left
+2016-07-31 02:33:11.275:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:11.275:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:11.637:  80 05 BF 18 00 00 22
+2016-07-31 02:33:11.637:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 02:33:11.659:  80 06 BF 19 18 28 00 10
+2016-07-31 02:33:11.659:  ! IKE  --> GLO : Temperature, Outside 24°C [75°F], Coolant 40°C [104°F]
+2016-07-31 02:33:11.684:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:11.684:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:12.073:  80 0A BF 13 03 00 00 00 00 00 41 64
+2016-07-31 02:33:12.073:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:12.474:  80 0A BF 13 03 00 00 00 00 08 41 6C
+2016-07-31 02:33:12.474:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Oil_Pressure_Low
+2016-07-31 02:33:12.558:  ! NavCoder logging stopped, NavCoder closed
+2016-07-31 02:33:12.558:  !

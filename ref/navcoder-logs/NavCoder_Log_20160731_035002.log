@@ -1,0 +1,981 @@
+2016-07-31 03:50:02.461:  !
+2016-07-31 03:50:02.461:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-07-31 03:50:02.461:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-07-31 03:50:02.461:  ! [Debug Mode]
+2016-07-31 03:50:02.461:  ! [Procotol = Auto]
+2016-07-31 03:50:02.464:  ! Script: Setting Scripting state to Off
+2016-07-31 03:50:02.616:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-07-31 03:50:07.917:  ! Setting COM port parameters for COM2
+2016-07-31 03:50:07.959:  ! COM2 opened
+2016-07-31 03:50:08.025:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:08.025:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:08.422:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:08.422:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:08.741:  68 03 18 01 72
+2016-07-31 03:50:08.741:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:08.767:  80 05 BF 18 00 07 25
+2016-07-31 03:50:08.767:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 700 RPM
+2016-07-31 03:50:08.787:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:08.787:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:08.817:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:08.817:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:09.216:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:09.216:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:09.615:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:09.615:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:10.014:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:10.014:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:10.412:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:10.412:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:10.763:  80 05 BF 18 00 07 25
+2016-07-31 03:50:10.763:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 700 RPM
+2016-07-31 03:50:10.813:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:10.813:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:11.243:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:11.243:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:11.664:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:11.664:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:11.820:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:11.820:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:12.038:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:12.038:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:12.444:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:12.444:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:12.787:  80 05 BF 18 00 07 25
+2016-07-31 03:50:12.787:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 700 RPM
+2016-07-31 03:50:12.787:  80 06 BF 19 17 57 00 60
+2016-07-31 03:50:12.787:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 87°C [189°F]
+2016-07-31 03:50:12.834:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:12.834:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:13.255:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:13.255:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:13.411:  F0 03 68 01 9A
+2016-07-31 03:50:13.411:  ! BMBT --> RAD : Device status request
+2016-07-31 03:50:13.427:  68 04 FF 02 00 91
+2016-07-31 03:50:13.427:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:50:13.661:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:13.661:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:14.066:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:14.066:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:14.472:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:14.472:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:14.800:  80 05 BF 18 00 07 25
+2016-07-31 03:50:14.800:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 700 RPM
+2016-07-31 03:50:14.831:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:14.831:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:14.878:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:14.878:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:15.268:  80 0A BF 13 01 01 00 00 00 08 3E 10
+2016-07-31 03:50:15.268:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:15.673:  80 0A BF 13 01 01 00 00 00 00 3E 18
+2016-07-31 03:50:15.673:  ! IKE  --> GLO : IKE sensor status, Handbrake_On  Motor_Running
+2016-07-31 03:50:15.970:  80 0A BF 13 00 01 00 00 00 00 3E 19
+2016-07-31 03:50:15.970:  ! IKE  --> GLO : IKE sensor status, Motor_Running
+2016-07-31 03:50:16.032:  80 04 BF 11 01 2B
+2016-07-31 03:50:16.032:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:50:16.048:  80 0A BF 13 00 00 00 00 00 00 3E 18
+2016-07-31 03:50:16.048:  ! IKE  --> GLO : IKE sensor status, 
+2016-07-31 03:50:16.063:  30 04 BF 51 04 DE
+2016-07-31 03:50:16.063:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-07-31 03:50:16.375:  5B 04 BF 82 03 61
+2016-07-31 03:50:16.375:  ! IHKA --> GLO : Cmd_0x82, Data="03"
+2016-07-31 03:50:16.796:  80 05 BF 18 00 00 22
+2016-07-31 03:50:16.796:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:50:17.061:  80 04 BF 11 01 2B
+2016-07-31 03:50:17.061:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:50:17.841:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:17.841:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:18.855:  68 03 18 01 72
+2016-07-31 03:50:18.855:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:21.648:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:21.648:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:22.209:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:22.209:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:23.426:  F0 03 68 01 9A
+2016-07-31 03:50:23.426:  ! BMBT --> RAD : Device status request
+2016-07-31 03:50:23.442:  68 04 FF 02 00 91
+2016-07-31 03:50:23.442:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:50:26.593:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:26.593:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:27.233:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:27.233:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:27.872:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:27.872:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:28.512:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:28.512:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:28.948:  68 03 18 01 72
+2016-07-31 03:50:28.948:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:29.073:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:29.073:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:33.441:  F0 03 68 01 9A
+2016-07-31 03:50:33.441:  ! BMBT --> RAD : Device status request
+2016-07-31 03:50:33.457:  68 04 FF 02 00 91
+2016-07-31 03:50:33.457:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:50:34.596:  D0 07 BF 5B C1 40 04 00 B6
+2016-07-31 03:50:34.596:  ! LCM  --> GLO : Lamp status, Park Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:50:35.173:  D0 07 BF 5B 81 40 00 00 F2
+2016-07-31 03:50:35.173:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:50:35.251:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:35.251:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:36.405:  D0 07 BF 5B C1 40 04 00 B6
+2016-07-31 03:50:36.405:  ! LCM  --> GLO : Lamp status, Park Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:50:37.045:  D0 07 BF 5B C1 40 04 00 B6
+2016-07-31 03:50:37.045:  ! LCM  --> GLO : Lamp status, Park Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:50:37.622:  D0 07 BF 5B 81 40 00 00 F2
+2016-07-31 03:50:37.622:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:50:37.700:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:37.700:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:39.041:  68 03 18 01 72
+2016-07-31 03:50:39.041:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:43.456:  F0 03 68 01 9A
+2016-07-31 03:50:43.456:  ! BMBT --> RAD : Device status request
+2016-07-31 03:50:43.472:  68 04 FF 02 00 91
+2016-07-31 03:50:43.472:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:50:49.134:  68 03 18 01 72
+2016-07-31 03:50:49.134:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:53.471:  F0 03 68 01 9A
+2016-07-31 03:50:53.471:  ! BMBT --> RAD : Device status request
+2016-07-31 03:50:53.486:  68 04 FF 02 00 91
+2016-07-31 03:50:53.486:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:50:54.656:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:54.656:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:55.233:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:55.233:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:50:56.761:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:56.761:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:57.401:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:57.401:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:58.040:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:58.040:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:58.695:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:50:58.695:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:50:59.210:  68 03 18 01 72
+2016-07-31 03:50:59.210:  ! RAD  --> CDC : Device status request
+2016-07-31 03:50:59.241:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:50:59.241:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:51:00.504:  68 04 FF 36 AF 0A
+2016-07-31 03:51:00.504:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-07-31 03:51:00.567:  80 04 BF 11 00 2A
+2016-07-31 03:51:00.567:  ! IKE  --> GLO : Ignition status, Off
+2016-07-31 03:51:00.567:  80 04 FF 57 41 6D
+2016-07-31 03:51:00.567:  ! IKE  --> LOC : Check Control button, CHECK_released
+2016-07-31 03:51:00.614:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-07-31 03:51:00.614:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-07-31 03:51:00.629:  30 04 BF 51 04 DE
+2016-07-31 03:51:00.629:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-07-31 03:51:00.645:  80 04 30 1B 00 AF
+2016-07-31 03:51:00.645:  ! IKE  --> CCM : IKE text status, 0 text messages acknowledged
+2016-07-31 03:51:00.692:  00 05 BF 7A 60 1F BF
+2016-07-31 03:51:00.692:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+2016-07-31 03:51:03.748:  D0 07 BF 5B 01 00 00 00 32
+2016-07-31 03:51:03.748:  ! LCM  --> GLO : Lamp status, Park  All_OK
+2016-07-31 03:51:03.858:  80 04 BF 11 01 2B
+2016-07-31 03:51:03.858:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:03.873:  D0 07 BF 5B 01 00 00 00 32
+2016-07-31 03:51:03.873:  ! LCM  --> GLO : Lamp status, Park  All_OK
+2016-07-31 03:51:03.889:  80 0A BF 13 00 00 00 00 00 00 3F 19
+2016-07-31 03:51:03.889:  ! IKE  --> GLO : IKE sensor status, 
+2016-07-31 03:51:03.904:  D0 05 BF 5C EC 00 DA
+2016-07-31 03:51:03.904:  ! LCM  --> GLO : Light dimmer, 236
+2016-07-31 03:51:03.920:  30 04 BF 51 04 DE
+2016-07-31 03:51:03.920:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-07-31 03:51:03.936:  80 05 E7 2A 00 00 48
+2016-07-31 03:51:03.936:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:51:03.951:  00 04 BF 72 00 C9
+2016-07-31 03:51:03.951:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-31 03:51:03.967:  00 05 BF 7A 20 1F FF
+2016-07-31 03:51:03.967:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+2016-07-31 03:51:04.045:  80 04 BF 11 01 2B
+2016-07-31 03:51:04.045:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:04.107:  68 04 FF 02 01 90
+2016-07-31 03:51:04.107:  ! RAD  --> LOC : Device status ready, after Reset
+2016-07-31 03:51:04.107:  F0 04 68 4B 05 D2
+2016-07-31 03:51:04.107:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-07-31 03:51:04.123:  80 04 BF 11 01 2B
+2016-07-31 03:51:04.123:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:04.138:  80 05 E7 2A 00 00 48
+2016-07-31 03:51:04.138:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:51:04.403:  A4 06 BF 70 03 00 05 6B
+2016-07-31 03:51:04.403:  ! AB   --> GLO : Remote control central locking status, Data="03 00 05"
+2016-07-31 03:51:04.419:  68 05 18 38 00 00 4D
+2016-07-31 03:51:04.419:  ! RAD  --> CDC : CD_control, Status_Request
+2016-07-31 03:51:04.419:  68 03 80 14 FF
+2016-07-31 03:51:04.419:  ! RAD  --> IKE : Country coding status request
+2016-07-31 03:51:04.450:  80 07 BF 15 02 F1 FA 06 22
+2016-07-31 03:51:04.450:  ! IKE  --> GLO : Country coding status, Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+2016-07-31 03:51:04.871:  F0 04 BF 02 01 48
+2016-07-31 03:51:04.871:  ! BMBT --> GLO : Device status ready, after Reset
+2016-07-31 03:51:04.887:  68 04 F0 4A 90 46
+2016-07-31 03:51:04.887:  ! RAD  --> BMBT: Cassette control, State_unknown, Data="90"
+2016-07-31 03:51:04.903:  68 04 F0 4A 00 D6
+2016-07-31 03:51:04.903:  ! RAD  --> BMBT: Cassette control, Power_Off
+2016-07-31 03:51:04.918:  F0 04 68 4B 05 D2
+2016-07-31 03:51:04.918:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-07-31 03:51:04.934:  F0 04 68 4B 05 D2
+2016-07-31 03:51:04.934:  ! BMBT --> RAD : Cassette status, No_Tape
+2016-07-31 03:51:04.949:  80 04 BF 11 01 2B
+2016-07-31 03:51:04.949:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:04.965:  80 05 E7 2A 00 00 48
+2016-07-31 03:51:04.965:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:51:05.043:  E8 04 BF 02 01 50
+2016-07-31 03:51:05.043:  ! RLS  --> GLO : Device status ready, after Reset
+2016-07-31 03:51:05.059:  80 04 BF 11 01 2B
+2016-07-31 03:51:05.059:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:05.090:  80 05 E7 2A 00 00 48
+2016-07-31 03:51:05.090:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:51:05.183:  50 03 C8 01 9A
+2016-07-31 03:51:05.183:  ! MFL  --> TEL : Device status request
+2016-07-31 03:51:05.308:  68 03 18 01 72
+2016-07-31 03:51:05.308:  ! RAD  --> CDC : Device status request
+2016-07-31 03:51:05.464:  6A 04 FF 02 01 92
+2016-07-31 03:51:05.464:  ! DSP  --> LOC : Device status ready, after Reset
+2016-07-31 03:51:05.495:  80 04 BF 11 01 2B
+2016-07-31 03:51:05.495:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:51:05.511:  68 04 FF 36 AF 0A
+2016-07-31 03:51:05.511:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-07-31 03:51:05.526:  80 05 E7 2A 00 00 48
+2016-07-31 03:51:05.526:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:51:05.807:  80 0A BF 17 7C 0B 03 00 1F 00 00 49
+2016-07-31 03:51:05.807:  ! IKE  --> GLO : Odometer, 199,548 kms  [123,993 mls]
+2016-07-31 03:51:05.823:  50 03 B0 01 E2
+2016-07-31 03:51:05.823:  ! MFL  --> SES : Device status request
+2016-07-31 03:51:07.117:  A4 06 BF 70 02 00 05 6A
+2016-07-31 03:51:07.117:  ! AB   --> GLO : Remote control central locking status, Data="02 00 05"
+2016-07-31 03:51:07.772:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:51:07.772:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:51:08.334:  50 03 B0 01 E2
+2016-07-31 03:51:08.334:  ! MFL  --> SES : Device status request
+2016-07-31 03:51:08.942:  50 03 C8 01 9A
+2016-07-31 03:51:08.942:  ! MFL  --> TEL : Device status request
+2016-07-31 03:51:11.624:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:51:11.624:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:51:12.186:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:51:12.186:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:51:13.075:  D0 07 BF 5B C1 40 04 00 B6
+2016-07-31 03:51:13.075:  ! LCM  --> GLO : Lamp status, Park Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:51:13.402:  50 03 B0 01 E2
+2016-07-31 03:51:13.402:  ! MFL  --> SES : Device status request
+2016-07-31 03:51:13.636:  D0 07 BF 5B 81 40 00 00 F2
+2016-07-31 03:51:13.636:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:51:13.714:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:51:13.714:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:51:13.870:  F0 03 68 01 9A
+2016-07-31 03:51:13.870:  ! BMBT --> RAD : Device status request
+2016-07-31 03:51:13.886:  68 04 FF 02 00 91
+2016-07-31 03:51:13.886:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:51:13.901:  68 03 18 01 72
+2016-07-31 03:51:13.901:  ! RAD  --> CDC : Device status request
+2016-07-31 03:51:14.011:  50 03 C8 01 9A
+2016-07-31 03:51:14.011:  ! MFL  --> TEL : Device status request
+2016-07-31 03:51:23.883:  F0 03 68 01 9A
+2016-07-31 03:51:23.883:  ! BMBT --> RAD : Device status request
+2016-07-31 03:51:23.898:  68 04 FF 02 00 91
+2016-07-31 03:51:23.898:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:51:23.976:  68 03 18 01 72
+2016-07-31 03:51:23.976:  ! RAD  --> CDC : Device status request
+2016-07-31 03:51:33.896:  F0 03 68 01 9A
+2016-07-31 03:51:33.896:  ! BMBT --> RAD : Device status request
+2016-07-31 03:51:33.911:  68 04 FF 02 00 91
+2016-07-31 03:51:33.911:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:51:34.067:  68 03 18 01 72
+2016-07-31 03:51:34.067:  ! RAD  --> CDC : Device status request
+2016-07-31 03:51:43.908:  F0 03 68 01 9A
+2016-07-31 03:51:43.908:  ! BMBT --> RAD : Device status request
+2016-07-31 03:51:43.924:  68 04 FF 02 00 91
+2016-07-31 03:51:43.924:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:51:44.158:  68 03 18 01 72
+2016-07-31 03:51:44.158:  ! RAD  --> CDC : Device status request
+2016-07-31 03:51:53.921:  F0 03 68 01 9A
+2016-07-31 03:51:53.921:  ! BMBT --> RAD : Device status request
+2016-07-31 03:51:53.921:  68 04 FF 02 00 91
+2016-07-31 03:51:53.921:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:51:54.249:  68 03 18 01 72
+2016-07-31 03:51:54.249:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:03.935:  F0 03 68 01 9A
+2016-07-31 03:52:03.935:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:03.951:  68 04 FF 02 00 91
+2016-07-31 03:52:03.951:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:04.340:  68 03 18 01 72
+2016-07-31 03:52:04.340:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:13.933:  F0 03 68 01 9A
+2016-07-31 03:52:13.933:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:13.949:  68 04 FF 02 00 91
+2016-07-31 03:52:13.949:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:14.432:  68 03 18 01 72
+2016-07-31 03:52:14.432:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:23.947:  F0 03 68 01 9A
+2016-07-31 03:52:23.947:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:23.963:  68 04 FF 02 00 91
+2016-07-31 03:52:23.963:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:24.524:  68 03 18 01 72
+2016-07-31 03:52:24.524:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:33.961:  F0 03 68 01 9A
+2016-07-31 03:52:33.961:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:33.977:  68 04 FF 02 00 91
+2016-07-31 03:52:33.977:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:34.600:  68 03 18 01 72
+2016-07-31 03:52:34.600:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:43.975:  F0 03 68 01 9A
+2016-07-31 03:52:43.975:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:43.990:  68 04 FF 02 00 91
+2016-07-31 03:52:43.990:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:44.692:  68 03 18 01 72
+2016-07-31 03:52:44.692:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:53.989:  F0 03 68 01 9A
+2016-07-31 03:52:53.989:  ! BMBT --> RAD : Device status request
+2016-07-31 03:52:54.004:  68 04 FF 02 00 91
+2016-07-31 03:52:54.004:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:52:54.784:  68 03 18 01 72
+2016-07-31 03:52:54.784:  ! RAD  --> CDC : Device status request
+2016-07-31 03:52:58.341:  D0 07 BF 5B 21 40 04 00 56
+2016-07-31 03:52:58.341:  ! LCM  --> GLO : Lamp status, Park Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:52:58.887:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:52:58.887:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:53:04.003:  F0 03 68 01 9A
+2016-07-31 03:53:04.003:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:04.019:  68 04 FF 02 00 91
+2016-07-31 03:53:04.019:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:04.331:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:53:04.331:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:53:04.346:  D0 05 BF 5C FF 00 C9
+2016-07-31 03:53:04.346:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-07-31 03:53:04.877:  68 03 18 01 72
+2016-07-31 03:53:04.877:  ! RAD  --> CDC : Device status request
+2016-07-31 03:53:07.872:  D0 07 BF 5B 20 40 04 00 57
+2016-07-31 03:53:07.872:  ! LCM  --> GLO : Lamp status, Indicator_Left Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:53:08.433:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:53:08.433:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:53:12.317:  D0 07 BF 5B C0 40 04 00 B7
+2016-07-31 03:53:12.317:  ! LCM  --> GLO : Lamp status, Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:53:12.879:  D0 07 BF 5B 80 40 00 00 F3
+2016-07-31 03:53:12.879:  ! LCM  --> GLO : Lamp status, Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:53:12.957:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:53:12.957:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:53:14.018:  F0 03 68 01 9A
+2016-07-31 03:53:14.018:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:14.018:  68 04 FF 02 00 91
+2016-07-31 03:53:14.018:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:14.049:  D0 07 BF 5B C0 40 04 00 B7
+2016-07-31 03:53:14.049:  ! LCM  --> GLO : Lamp status, Indicator_Right Indicator_sync Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:53:14.610:  D0 07 BF 5B 80 40 00 00 F3
+2016-07-31 03:53:14.610:  ! LCM  --> GLO : Lamp status, Faulty: Indicator_Right Indicator_Fast_Blink
+2016-07-31 03:53:14.688:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:53:14.688:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:53:14.969:  68 03 18 01 72
+2016-07-31 03:53:14.969:  ! RAD  --> CDC : Device status request
+2016-07-31 03:53:24.032:  F0 03 68 01 9A
+2016-07-31 03:53:24.032:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:24.032:  68 04 FF 02 00 91
+2016-07-31 03:53:24.032:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:25.062:  68 03 18 01 72
+2016-07-31 03:53:25.062:  ! RAD  --> CDC : Device status request
+2016-07-31 03:53:34.046:  F0 03 68 01 9A
+2016-07-31 03:53:34.046:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:34.046:  68 04 FF 02 00 91
+2016-07-31 03:53:34.046:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:35.154:  68 03 18 01 72
+2016-07-31 03:53:35.154:  ! RAD  --> CDC : Device status request
+2016-07-31 03:53:44.061:  F0 03 68 01 9A
+2016-07-31 03:53:44.061:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:44.061:  68 04 FF 02 00 91
+2016-07-31 03:53:44.061:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:45.246:  68 03 18 01 72
+2016-07-31 03:53:45.246:  ! RAD  --> CDC : Device status request
+2016-07-31 03:53:54.060:  F0 03 68 01 9A
+2016-07-31 03:53:54.060:  ! BMBT --> RAD : Device status request
+2016-07-31 03:53:54.091:  68 04 FF 02 00 91
+2016-07-31 03:53:54.091:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:53:55.323:  68 03 18 01 72
+2016-07-31 03:53:55.323:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:04.074:  F0 03 68 01 9A
+2016-07-31 03:54:04.074:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:04.090:  68 04 FF 02 00 91
+2016-07-31 03:54:04.090:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:05.416:  68 03 18 01 72
+2016-07-31 03:54:05.416:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:14.089:  F0 03 68 01 9A
+2016-07-31 03:54:14.089:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:14.120:  68 04 FF 02 00 91
+2016-07-31 03:54:14.120:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:15.509:  68 03 18 01 72
+2016-07-31 03:54:15.509:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:24.104:  F0 03 68 01 9A
+2016-07-31 03:54:24.104:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:24.119:  68 04 FF 02 00 91
+2016-07-31 03:54:24.119:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:25.601:  68 03 18 01 72
+2016-07-31 03:54:25.601:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:33.822:  80 0A BF 17 7C 0B 03 00 1F 00 00 49
+2016-07-31 03:54:33.822:  ! IKE  --> GLO : Odometer, 199,548 kms  [123,993 mls]
+2016-07-31 03:54:34.118:  F0 03 68 01 9A
+2016-07-31 03:54:34.118:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:34.134:  68 04 FF 02 00 91
+2016-07-31 03:54:34.134:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:35.694:  68 03 18 01 72
+2016-07-31 03:54:35.694:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:44.133:  F0 03 68 01 9A
+2016-07-31 03:54:44.133:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:44.149:  68 04 FF 02 00 91
+2016-07-31 03:54:44.149:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:45.786:  68 03 18 01 72
+2016-07-31 03:54:45.786:  ! RAD  --> CDC : Device status request
+2016-07-31 03:54:54.148:  F0 03 68 01 9A
+2016-07-31 03:54:54.148:  ! BMBT --> RAD : Device status request
+2016-07-31 03:54:54.163:  68 04 FF 02 00 91
+2016-07-31 03:54:54.163:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:54:55.879:  68 03 18 01 72
+2016-07-31 03:54:55.879:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:03.149:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:55:03.149:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:55:03.164:  D0 05 BF 5C EC 00 DA
+2016-07-31 03:55:03.164:  ! LCM  --> GLO : Light dimmer, 236
+2016-07-31 03:55:04.162:  F0 03 68 01 9A
+2016-07-31 03:55:04.162:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:04.162:  68 04 FF 02 00 91
+2016-07-31 03:55:04.162:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:04.708:  9A 04 BF 02 01 22
+2016-07-31 03:55:04.708:  ! HAC  --> GLO : Device status ready, after Reset
+2016-07-31 03:55:04.724:  80 04 BF 11 01 2B
+2016-07-31 03:55:04.724:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:55:04.740:  80 05 E7 2A 00 00 48
+2016-07-31 03:55:04.740:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-31 03:55:05.972:  68 03 18 01 72
+2016-07-31 03:55:05.972:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:09.201:  D0 07 BF 5B 03 00 00 00 30
+2016-07-31 03:55:09.201:  ! LCM  --> GLO : Lamp status, Park Low_Beam  All_OK
+2016-07-31 03:55:09.264:  80 04 BF 11 03 29
+2016-07-31 03:55:09.264:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-07-31 03:55:09.279:  D0 07 BF 5B 03 00 00 00 30
+2016-07-31 03:55:09.279:  ! LCM  --> GLO : Lamp status, Park Low_Beam  All_OK
+2016-07-31 03:55:09.295:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:09.295:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:09.310:  80 06 BF 19 17 58 00 6F
+2016-07-31 03:55:09.310:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 88°C [190°F]
+2016-07-31 03:55:09.326:  30 04 BF 51 00 DA
+2016-07-31 03:55:09.326:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-31 03:55:09.342:  00 04 BF 72 00 C9
+2016-07-31 03:55:09.342:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-31 03:55:09.373:  80 06 60 07 00 00 00 E1
+2016-07-31 03:55:09.373:  ! IKE  --> PDC : Gong status, Data="00 00 00"
+2016-07-31 03:55:09.576:  80 0A BF 13 01 00 00 02 00 00 40 65
+2016-07-31 03:55:09.576:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:09.872:  80 03 D0 53 00
+2016-07-31 03:55:09.872:  ! IKE  --> LCM : Vehicle data request
+2016-07-31 03:55:09.903:  D0 10 80 54 47 43 95 64 60 07 CB 00 0E 00 00 00 00 43
+2016-07-31 03:55:09.903:  ! LCM  --> IKE : Vehicle data status, VIN GC95646; Total dist 199,500 kms [123,964 mls]; SI-L 140 litres since last service; ; SI-T 0 days since last service
+2016-07-31 03:55:09.919:  80 0A BF 13 01 00 00 02 00 08 40 6D
+2016-07-31 03:55:09.919:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:10.293:  80 0A BF 13 01 00 00 02 00 00 40 65
+2016-07-31 03:55:10.293:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:10.324:  80 05 BF 18 00 00 22
+2016-07-31 03:55:10.324:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:10.543:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:10.543:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:10.699:  80 0A BF 13 01 00 00 02 00 08 40 6D
+2016-07-31 03:55:10.699:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:10.855:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:10.855:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:11.089:  80 0A BF 13 01 00 00 02 00 00 40 65
+2016-07-31 03:55:11.089:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:11.385:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:11.385:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:11.494:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:11.494:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:11.900:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:11.900:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:12.290:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:12.290:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:12.337:  80 05 BF 18 00 00 22
+2016-07-31 03:55:12.337:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:12.695:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:12.695:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:13.085:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:13.085:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:13.491:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:13.491:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:13.865:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:13.865:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:13.881:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:13.881:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:14.177:  F0 03 68 01 9A
+2016-07-31 03:55:14.177:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:14.193:  68 04 FF 02 00 91
+2016-07-31 03:55:14.193:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:14.287:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:14.287:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:14.333:  80 05 BF 18 00 00 22
+2016-07-31 03:55:14.333:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:14.677:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:14.677:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:15.082:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:15.082:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:15.472:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:15.472:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:15.878:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:15.878:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:16.065:  68 03 18 01 72
+2016-07-31 03:55:16.065:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:16.283:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:16.283:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:16.346:  80 05 BF 18 00 00 22
+2016-07-31 03:55:16.346:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:16.689:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:16.689:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:16.876:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:16.876:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:17.079:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:17.079:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:17.469:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:17.469:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:17.890:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:17.890:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:18.280:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:18.280:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:18.358:  80 05 BF 18 00 00 22
+2016-07-31 03:55:18.358:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:18.374:  80 06 BF 19 17 56 00 61
+2016-07-31 03:55:18.374:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 86°C [187°F]
+2016-07-31 03:55:18.686:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:18.686:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:19.076:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:19.076:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:19.466:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:19.466:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:19.871:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:19.871:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:19.887:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:19.887:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:20.292:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:20.292:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:20.355:  80 05 BF 18 00 00 22
+2016-07-31 03:55:20.355:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:20.682:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:20.682:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:21.088:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:21.088:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:21.494:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:21.494:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:21.884:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:21.884:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:22.305:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:22.305:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:22.367:  80 05 BF 18 00 00 22
+2016-07-31 03:55:22.367:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:22.695:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:22.695:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:22.882:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:55:22.882:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:55:23.100:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:23.100:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:23.506:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:23.506:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:23.896:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:23.896:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:24.192:  F0 03 68 01 9A
+2016-07-31 03:55:24.192:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:24.208:  68 04 FF 02 00 91
+2016-07-31 03:55:24.208:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:24.301:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:24.301:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:24.364:  80 05 BF 18 00 00 22
+2016-07-31 03:55:24.364:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:24.504:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:24.504:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:24.707:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:24.707:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:24.801:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:24.801:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:25.066:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:25.066:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:25.471:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:25.471:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:25.877:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:25.877:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:26.142:  68 03 18 01 72
+2016-07-31 03:55:26.142:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:26.283:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:26.283:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:26.361:  80 05 BF 18 00 00 22
+2016-07-31 03:55:26.361:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:26.673:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:26.673:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:27.078:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:27.078:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:27.484:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:27.484:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:27.811:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:27.811:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:27.874:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:27.874:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:28.279:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:28.279:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:28.357:  80 05 BF 18 00 00 22
+2016-07-31 03:55:28.357:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:28.373:  80 06 BF 19 17 56 00 61
+2016-07-31 03:55:28.373:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 86°C [187°F]
+2016-07-31 03:55:28.669:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:28.669:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:29.075:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:29.075:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:29.480:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:29.480:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:29.886:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:29.886:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:30.276:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:30.276:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:30.370:  80 05 BF 18 00 00 22
+2016-07-31 03:55:30.370:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:30.682:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:30.682:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:30.822:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:30.822:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:31.087:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:31.087:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:31.477:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:31.477:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:31.867:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:31.867:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:32.288:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:32.288:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:32.366:  80 05 BF 18 00 00 22
+2016-07-31 03:55:32.366:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:32.694:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:32.694:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:33.084:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:33.084:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:33.490:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:33.490:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:33.817:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:33.817:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:33.895:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:33.895:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:34.207:  F0 03 68 01 9A
+2016-07-31 03:55:34.207:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:34.223:  68 04 FF 02 00 91
+2016-07-31 03:55:34.223:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:34.301:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:34.301:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:34.379:  80 05 BF 18 00 00 22
+2016-07-31 03:55:34.379:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:34.691:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:34.691:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:35.096:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:35.096:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:35.486:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:35.486:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:35.892:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:35.892:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:36.235:  68 03 18 01 72
+2016-07-31 03:55:36.235:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:36.297:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:36.297:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:36.375:  80 05 BF 18 00 00 22
+2016-07-31 03:55:36.375:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:36.687:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:36.687:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:36.828:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:36.828:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:37.093:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:37.093:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:37.499:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:37.499:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:37.889:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:37.904:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:38.294:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:38.294:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:38.388:  80 05 BF 18 00 00 22
+2016-07-31 03:55:38.388:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:38.419:  80 06 BF 19 17 56 00 61
+2016-07-31 03:55:38.419:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 86°C [187°F]
+2016-07-31 03:55:38.684:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:38.684:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:39.074:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:39.074:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:39.495:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:39.495:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:39.839:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:39.839:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:39.901:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:39.901:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:40.291:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:40.291:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:40.385:  80 05 BF 18 00 00 22
+2016-07-31 03:55:40.385:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:40.681:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:40.681:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:41.086:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:41.086:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:41.492:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:41.492:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:41.898:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:41.898:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:42.303:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:42.303:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:42.397:  80 05 BF 18 00 00 22
+2016-07-31 03:55:42.397:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:42.693:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:42.693:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:42.849:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:42.849:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:43.099:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:43.099:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:43.504:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:43.504:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:43.894:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:43.894:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:44.222:  F0 03 68 01 9A
+2016-07-31 03:55:44.222:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:44.238:  68 04 FF 02 00 91
+2016-07-31 03:55:44.238:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:44.284:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:44.284:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:44.394:  80 05 BF 18 00 00 22
+2016-07-31 03:55:44.394:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:44.706:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:44.706:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:45.080:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:45.080:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:45.486:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:45.486:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:45.844:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:45.844:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:45.876:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:45.876:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:46.281:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:46.281:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:46.328:  68 03 18 01 72
+2016-07-31 03:55:46.328:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:46.390:  80 05 BF 18 00 00 22
+2016-07-31 03:55:46.390:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:46.687:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:46.687:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:47.077:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:47.077:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:47.482:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:47.482:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:47.872:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:47.872:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:48.278:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:48.278:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:48.403:  80 05 BF 18 00 00 22
+2016-07-31 03:55:48.403:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:48.434:  80 06 BF 19 17 57 00 60
+2016-07-31 03:55:48.434:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 87°C [189°F]
+2016-07-31 03:55:48.699:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:48.699:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:48.855:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:48.855:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:49.089:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:49.089:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:49.495:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:49.495:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:49.900:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:49.900:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:50.290:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:50.290:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:50.399:  80 05 BF 18 00 00 22
+2016-07-31 03:55:50.399:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:50.696:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:50.696:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:51.101:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:51.101:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:51.507:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:51.507:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:51.866:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:55:51.866:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:55:51.913:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:51.913:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:52.303:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:52.303:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:52.412:  80 05 BF 18 00 00 22
+2016-07-31 03:55:52.412:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:52.708:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:52.708:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:53.098:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:53.098:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:53.488:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:53.488:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:53.878:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:53.878:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:54.003:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:54.003:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:54.237:  F0 03 68 01 9A
+2016-07-31 03:55:54.237:  ! BMBT --> RAD : Device status request
+2016-07-31 03:55:54.252:  68 04 FF 02 00 91
+2016-07-31 03:55:54.252:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:55:54.284:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:54.284:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:54.408:  80 05 BF 18 00 00 22
+2016-07-31 03:55:54.408:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:54.642:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:54.642:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:54.674:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:54.674:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:55.079:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:55.079:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:55.298:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:55.298:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:55.485:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:55.485:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:55.875:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:55.875:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:55.937:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:55.937:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:56.296:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:56.296:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:56.421:  80 05 BF 18 00 00 22
+2016-07-31 03:55:56.421:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:56.436:  68 03 18 01 72
+2016-07-31 03:55:56.436:  ! RAD  --> CDC : Device status request
+2016-07-31 03:55:56.577:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:56.577:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:56.686:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:56.686:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:57.092:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:57.092:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:57.232:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:57.232:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:57.466:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:57.466:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:57.856:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:57.856:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:57.872:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:57.872:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:58.277:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:58.277:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:58.418:  80 05 BF 18 00 00 22
+2016-07-31 03:55:58.418:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:55:58.433:  80 06 BF 19 17 56 00 61
+2016-07-31 03:55:58.433:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 86°C [187°F]
+2016-07-31 03:55:58.496:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:58.496:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:58.683:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:58.683:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:59.104:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:59.104:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:59.135:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:59.135:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:59.494:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:55:59.494:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:55:59.790:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:55:59.790:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:55:59.899:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:55:59.899:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:00.305:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:00.305:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:00.414:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:56:00.414:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:56:00.430:  80 05 BF 18 00 00 22
+2016-07-31 03:56:00.430:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:56:00.695:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:00.695:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:01.069:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:56:01.069:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:56:01.101:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:01.101:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:01.506:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:01.506:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:01.709:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:56:01.709:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:56:01.896:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:01.896:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:02.302:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:02.302:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:02.349:  D0 07 BF 5B 67 40 04 00 10
+2016-07-31 03:56:02.349:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Indicator_Left Indicator_Right Indicator_sync Faulty: Indicator_Right
+2016-07-31 03:56:02.427:  80 05 BF 18 00 00 22
+2016-07-31 03:56:02.427:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:56:02.707:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:02.707:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:02.910:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:56:02.910:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:56:03.097:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:03.097:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:03.207:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:56:03.207:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:56:03.503:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:03.503:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:03.893:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:03.909:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:04.252:  F0 03 68 01 9A
+2016-07-31 03:56:04.252:  ! BMBT --> RAD : Device status request
+2016-07-31 03:56:04.267:  68 04 FF 02 00 91
+2016-07-31 03:56:04.267:  ! RAD  --> LOC : Device status ready, 
+2016-07-31 03:56:04.299:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:04.299:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:04.439:  80 05 BF 18 00 00 22
+2016-07-31 03:56:04.439:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:56:04.704:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:04.704:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:05.110:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:05.110:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:05.500:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:05.500:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:05.905:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:05.905:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:06.217:  D0 07 BF 5B 07 40 00 00 74
+2016-07-31 03:56:06.217:  ! LCM  --> GLO : Lamp status, Park Low_Beam High_Beam Faulty: Indicator_Right
+2016-07-31 03:56:06.311:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:06.311:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:06.436:  80 05 BF 18 00 00 22
+2016-07-31 03:56:06.436:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:56:06.514:  68 03 18 01 72
+2016-07-31 03:56:06.514:  ! RAD  --> CDC : Device status request
+2016-07-31 03:56:06.701:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:06.701:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:06.872:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:56:06.872:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:56:07.106:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:07.106:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:07.169:  D0 07 BF 5B 03 40 00 00 70
+2016-07-31 03:56:07.169:  ! LCM  --> GLO : Lamp status, Park Low_Beam Faulty: Indicator_Right
+2016-07-31 03:56:07.496:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:07.496:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:07.824:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:56:07.824:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:56:07.871:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:07.871:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:08.120:  D0 07 BF 5B 01 40 00 00 72
+2016-07-31 03:56:08.120:  ! LCM  --> GLO : Lamp status, Park Faulty: Indicator_Right
+2016-07-31 03:56:08.292:  80 0A BF 13 01 00 00 00 00 08 40 6F
+2016-07-31 03:56:08.292:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:08.432:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:56:08.432:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:56:08.448:  80 05 BF 18 00 00 22
+2016-07-31 03:56:08.448:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-31 03:56:08.464:  D0 05 BF 5C FF 00 C9
+2016-07-31 03:56:08.464:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-07-31 03:56:08.464:  80 06 BF 19 17 57 00 60
+2016-07-31 03:56:08.464:  ! IKE  --> GLO : Temperature, Outside 23°C [73°F], Coolant 87°C [189°F]
+2016-07-31 03:56:08.682:  80 0A BF 13 01 00 00 00 00 00 40 67
+2016-07-31 03:56:08.682:  ! IKE  --> GLO : IKE sensor status, Handbrake_On
+2016-07-31 03:56:08.729:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:56:08.729:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:56:08.885:  80 0A BF 13 00 00 00 00 00 00 40 66
+2016-07-31 03:56:08.885:  ! IKE  --> GLO : IKE sensor status, 
+2016-07-31 03:56:08.916:  80 04 BF 11 01 2B
+2016-07-31 03:56:08.916:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-31 03:56:08.932:  68 04 FF 36 AF 0A
+2016-07-31 03:56:08.932:  ! RAD  --> LOC : Audio_control, Source = Off
+2016-07-31 03:56:08.947:  80 0A BF 13 00 00 00 00 00 00 40 66
+2016-07-31 03:56:08.947:  ! IKE  --> GLO : IKE sensor status, 
+2016-07-31 03:56:08.978:  30 04 BF 51 04 DE
+2016-07-31 03:56:08.978:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-07-31 03:56:09.025:  80 04 BF 11 00 2A
+2016-07-31 03:56:09.025:  ! IKE  --> GLO : Ignition status, Off
+2016-07-31 03:56:09.088:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-07-31 03:56:09.088:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-07-31 03:56:09.088:  00 05 BF 7A 60 1F BF
+2016-07-31 03:56:09.088:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+2016-07-31 03:56:09.103:  30 04 BF 51 04 DE
+2016-07-31 03:56:09.103:  ! CCM  --> GLO : Checkcontrol sensors, Key_in_Ignition
+2016-07-31 03:56:09.119:  80 04 30 1B 00 AF
+2016-07-31 03:56:09.119:  ! IKE  --> CCM : IKE text status, 0 text messages acknowledged
+2016-07-31 03:56:11.740:  D0 07 BF 5B 00 40 00 00 73
+2016-07-31 03:56:11.740:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-31 03:56:19.009:  44 05 BF 74 04 01 8F
+2016-07-31 03:56:19.009:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_1
+2016-07-31 03:56:29.086:  00 05 BF 7A 20 1F FF
+2016-07-31 03:56:29.086:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+2016-07-31 03:56:55.886:  ! NavCoder logging stopped, NavCoder closed
+2016-07-31 03:56:55.886:  !

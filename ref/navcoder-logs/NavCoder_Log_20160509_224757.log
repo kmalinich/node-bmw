@@ -1,0 +1,66 @@
+2016-05-09 22:47:57.467:  !
+2016-05-09 22:47:57.467:  ! NavCoder v2.9.183.Beta [EN-US] [Multi-protocol] logging started
+2016-05-09 22:47:57.467:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-05-09 22:47:57.467:  ! [Debug Mode]
+2016-05-09 22:47:57.467:  ! [Multi-procotol enabled]
+2016-05-09 22:47:57.467:  ! [Procotol = d-bus]
+2016-05-09 22:48:00.321:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:00.384:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:00.399:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:05.485:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:05.547:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:05.563:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:10.648:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:10.711:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:10.726:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:15.812:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:15.874:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:15.890:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:20.975:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:21.038:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:21.053:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:26.139:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:26.201:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:26.217:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:31.318:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:31.380:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:31.427:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:36.528:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:36.590:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:36.637:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:41.754:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:41.816:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:41.863:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:46.964:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:47.026:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:47.073:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:52.190:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:52.252:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:52.299:  ! DIA  --> IKE : Read identity
+2016-05-09 22:48:57.416:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:48:57.478:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:48:57.525:  ! DIA  --> IKE : Read identity
+2016-05-09 22:49:00.021:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:49:00.068:  ! DIA  --> IKE : Read adjustment value, Block 01 Data="16 31"    [  1]
+2016-05-09 22:49:05.028:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:49:05.028:  ! DIA  --> IKE : Read adjustment value, Block 02 Data="09 05 10"    [    ]
+2016-05-09 22:49:05.075:  ! IKE  --> DIA : Diagnostic command not acknowledged
+2016-05-09 22:49:05.372:  ! DIA  --> IKE : Read identity
+2016-05-09 22:49:05.418:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:49:05.465:  ! DIA  --> IKE : Read identity
+2016-05-09 22:49:06.510:  !
+2016-05-09 22:49:06.620:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:49:06.651:  ! DIA  --> LCM : Read AIS, Block 02
+2016-05-09 22:49:07.010:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="02 47 43 95 64 60"    [ GC•d`]
+2016-05-09 22:49:07.056:  ! DIA  --> LCM : Read AIS, Block 02
+2016-05-09 22:49:07.212:  ! LCM  --> DIA : Diagnostic command acknowledged, Data="02 47 43 95 64 60"    [ GC•d`]
+2016-05-09 22:49:07.244:  ! DIA  --> GT  : Read coding data, Block 00, Offset 04, Length 07
+2016-05-09 22:49:07.602:  ! DIA  --> GT  : Read coding data, Block 00, Offset 04, Length 07
+2016-05-09 22:49:08.008:  ! DIA  --> GT  : Read coding data, Block 00, Offset 04, Length 07
+2016-05-09 22:49:08.367:  ! Scan completed
+2016-05-09 22:49:13.015:  ! Keep-alive fired (5.0s): requesting IKE identity...
+2016-05-09 22:49:13.078:  ! DIA  --> IKE : Read identity
+2016-05-09 22:49:13.483:  ! IKE  --> DIA : Diagnostic command acknowledged, Data="F6 94 21 98 25 12 09 15 27 06 10 21 04 46"    [ö”!˜%   '  ! F]
+2016-05-09 22:49:13.515:  ! DIA  --> IKE : Read identity
+2016-05-09 22:49:15.184:  ! NavCoder logging stopped, NavCoder closed
+2016-05-09 22:49:15.184:  !

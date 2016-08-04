@@ -1,0 +1,271 @@
+2016-07-27 18:44:59.264:  !
+2016-07-27 18:44:59.264:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-07-27 18:44:59.264:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-07-27 18:44:59.264:  ! [Debug Mode]
+2016-07-27 18:44:59.264:  ! [Procotol = Auto]
+2016-07-27 18:44:59.267:  ! Script: Setting Scripting state to Off
+2016-07-27 18:44:59.419:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-07-27 18:45:02.353:  ! Setting COM port parameters for COM2
+2016-07-27 18:45:02.396:  ! COM2 opened
+2016-07-27 18:45:02.548:  04 FF 02 91
+2016-07-27 18:45:02.548:  ! WARNING: Discarded 4 bytes: [04 FF 02 91]
+2016-07-27 18:45:02.554:  68 03 18 01 72
+2016-07-27 18:45:02.554:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:03.786:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:03.786:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:04.992:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:04.992:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:05.794:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:05.794:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:07.792:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:07.792:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:07.998:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:07.998:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:09.790:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:09.790:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:11.022:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:11.022:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:11.801:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:11.801:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:11.816:  80 06 BF 19 22 80 00 82
+2016-07-27 18:45:11.816:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:45:12.383:  F0 03 68 01 9A
+2016-07-27 18:45:12.383:  ! BMBT --> RAD : Device status request
+2016-07-27 18:45:12.394:  68 04 FF 02 00 91
+2016-07-27 18:45:12.394:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:45:12.641:  68 03 18 01 72
+2016-07-27 18:45:12.641:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:13.809:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:13.809:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:14.033:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:14.033:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:15.809:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:15.809:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:17.040:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:17.040:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:17.820:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:17.820:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:19.824:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:19.824:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:20.047:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:20.047:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:21.820:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:21.820:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:21.844:  80 06 BF 19 22 80 00 82
+2016-07-27 18:45:21.844:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:45:22.399:  F0 03 68 01 9A
+2016-07-27 18:45:22.399:  ! BMBT --> RAD : Device status request
+2016-07-27 18:45:22.411:  68 04 FF 02 00 91
+2016-07-27 18:45:22.411:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:45:22.734:  68 03 18 01 72
+2016-07-27 18:45:22.734:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:23.068:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:23.068:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:23.823:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:23.823:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:25.837:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:25.837:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:26.076:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:26.076:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:27.833:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:27.833:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:29.085:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:29.085:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:29.835:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:29.835:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:31.843:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:31.843:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:31.857:  80 06 BF 19 22 80 00 82
+2016-07-27 18:45:31.857:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:45:32.097:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:32.097:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:32.413:  F0 03 68 01 9A
+2016-07-27 18:45:32.413:  ! BMBT --> RAD : Device status request
+2016-07-27 18:45:32.425:  68 04 FF 02 00 91
+2016-07-27 18:45:32.425:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:45:32.826:  68 03 18 01 72
+2016-07-27 18:45:32.826:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:33.855:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:33.855:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:35.102:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:35.102:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:35.860:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:35.860:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:37.857:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:37.857:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:38.112:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:38.112:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:39.859:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:39.859:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:41.119:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:41.119:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:41.866:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:41.866:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:41.886:  80 06 BF 19 22 80 00 82
+2016-07-27 18:45:41.886:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:45:42.429:  F0 03 68 01 9A
+2016-07-27 18:45:42.429:  ! BMBT --> RAD : Device status request
+2016-07-27 18:45:42.441:  68 04 FF 02 00 91
+2016-07-27 18:45:42.441:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:45:42.919:  68 03 18 01 72
+2016-07-27 18:45:42.919:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:43.866:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:43.866:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:44.127:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:44.127:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:45.870:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:45.870:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:47.138:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:47.138:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:47.876:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:47.876:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:49.876:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:49.876:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:50.147:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:50.147:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:51.883:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:51.883:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:51.906:  80 06 BF 19 22 80 00 82
+2016-07-27 18:45:51.906:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:45:52.445:  F0 03 68 01 9A
+2016-07-27 18:45:52.445:  ! BMBT --> RAD : Device status request
+2016-07-27 18:45:52.457:  68 04 FF 02 00 91
+2016-07-27 18:45:52.457:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:45:53.012:  68 03 18 01 72
+2016-07-27 18:45:53.012:  ! RAD  --> CDC : Device status request
+2016-07-27 18:45:53.156:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:53.156:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:53.897:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:53.897:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:55.897:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:55.897:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:56.163:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:56.163:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:57.901:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:57.901:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:45:59.171:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:45:59.171:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:45:59.901:  80 05 BF 18 00 FF DD
+2016-07-27 18:45:59.901:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:01.899:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:01.899:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:01.911:  80 06 BF 19 22 80 00 82
+2016-07-27 18:46:01.911:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:46:02.180:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:02.180:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:02.462:  F0 03 68 01 9A
+2016-07-27 18:46:02.462:  ! BMBT --> RAD : Device status request
+2016-07-27 18:46:02.472:  68 04 FF 02 00 91
+2016-07-27 18:46:02.472:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:46:03.103:  68 03 18 01 72
+2016-07-27 18:46:03.103:  ! RAD  --> CDC : Device status request
+2016-07-27 18:46:03.913:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:03.913:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:05.196:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:05.196:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:05.920:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:05.920:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:07.913:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:07.913:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:08.211:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:08.211:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:09.918:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:09.918:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:11.221:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:11.221:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:11.929:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:11.929:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:11.951:  80 06 BF 19 22 80 00 82
+2016-07-27 18:46:11.951:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:46:12.473:  F0 03 68 01 9A
+2016-07-27 18:46:12.473:  ! BMBT --> RAD : Device status request
+2016-07-27 18:46:12.483:  68 04 FF 02 00 91
+2016-07-27 18:46:12.483:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:46:13.196:  68 03 18 01 72
+2016-07-27 18:46:13.196:  ! RAD  --> CDC : Device status request
+2016-07-27 18:46:13.937:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:13.937:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:14.232:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:14.232:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:15.937:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:15.937:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:17.241:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:17.241:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:17.936:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:17.936:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:19.943:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:19.943:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:20.249:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:20.249:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:21.946:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:21.946:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:21.962:  80 06 BF 19 22 80 00 82
+2016-07-27 18:46:21.962:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:46:22.487:  F0 03 68 01 9A
+2016-07-27 18:46:22.487:  ! BMBT --> RAD : Device status request
+2016-07-27 18:46:22.499:  68 04 FF 02 00 91
+2016-07-27 18:46:22.499:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:46:23.255:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:23.255:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:23.287:  68 03 18 01 72
+2016-07-27 18:46:23.287:  ! RAD  --> CDC : Device status request
+2016-07-27 18:46:23.958:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:23.958:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:25.953:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:25.953:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:26.266:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:26.266:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:27.958:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:27.958:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:29.272:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:29.272:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:29.962:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:29.962:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:31.964:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:31.964:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:31.976:  80 06 BF 19 22 80 00 82
+2016-07-27 18:46:31.976:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:46:32.280:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:32.280:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:32.501:  F0 03 68 01 9A
+2016-07-27 18:46:32.501:  ! BMBT --> RAD : Device status request
+2016-07-27 18:46:32.513:  68 04 FF 02 00 91
+2016-07-27 18:46:32.513:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:46:33.379:  68 03 18 01 72
+2016-07-27 18:46:33.379:  ! RAD  --> CDC : Device status request
+2016-07-27 18:46:33.976:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:33.976:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:35.290:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:35.290:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:35.974:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:35.974:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:37.979:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:37.979:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:38.296:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:38.296:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:39.984:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:39.984:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:41.305:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:41.305:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:41.987:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:41.987:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:41.998:  80 06 BF 19 22 80 00 82
+2016-07-27 18:46:41.998:  ! IKE  --> GLO : Temperature, Outside 34°C [93°F], Coolant -128°C [-198°F]
+2016-07-27 18:46:42.517:  F0 03 68 01 9A
+2016-07-27 18:46:42.517:  ! BMBT --> RAD : Device status request
+2016-07-27 18:46:42.526:  68 04 FF 02 00 91
+2016-07-27 18:46:42.527:  ! RAD  --> LOC : Device status ready, 
+2016-07-27 18:46:43.472:  68 03 18 01 72
+2016-07-27 18:46:43.472:  ! RAD  --> CDC : Device status request
+2016-07-27 18:46:43.997:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:43.997:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:44.317:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:44.317:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:45.992:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:45.992:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:46:47.322:  D0 07 BF 5B 00 40 00 00 73
+2016-07-27 18:46:47.322:  ! LCM  --> GLO : Lamp status, All_Off Faulty: Indicator_Right
+2016-07-27 18:46:47.992:  80 05 BF 18 00 FF DD
+2016-07-27 18:46:47.992:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 25,500 RPM
+2016-07-27 18:58:23.337:  ! NavCoder logging stopped, NavCoder closed
+2016-07-27 18:58:23.337:  !

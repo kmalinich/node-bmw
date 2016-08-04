@@ -1,0 +1,547 @@
+2016-07-24 21:33:11.683:  !
+2016-07-24 21:33:11.683:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-07-24 21:33:11.683:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-07-24 21:33:11.683:  ! [Debug Mode]
+2016-07-24 21:33:11.683:  ! [Procotol = Auto]
+2016-07-24 21:33:11.685:  ! Script: Setting Scripting state to Off
+2016-07-24 21:33:11.859:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-07-24 21:33:47.895:  3B 04 80 41 14 EA
+2016-07-24 21:33:47.895:  ! GT   --> IKE : On-board computer data request, Aux_Vent_On
+2016-07-24 21:33:51.873:  3B 04 80 41 13 ED
+2016-07-24 21:33:51.873:  ! GT   --> IKE : On-board computer data request, Aux_Vent_Off
+2016-07-24 21:34:18.986:  ! ERROR: Cmd_TransmitMsg_Click
+2016-07-24 21:34:18.986:  ! ERROR: Transmit Msg - Error - Operation valid only when the port is open
+2016-07-24 21:34:18.986:  ! ERROR: ibus Msg = 3B 04 80 41 13 ED
+2016-07-24 21:34:24.181:  3B 04 80 41 13 ED
+2016-07-24 21:34:24.181:  ! GT   --> IKE : On-board computer data request, Aux_Vent_Off
+2016-07-24 21:34:25.491:  ! ERROR: Cmd_TransmitMsg_Click
+2016-07-24 21:34:25.491:  ! ERROR: Transmit Msg - Error - Operation valid only when the port is open
+2016-07-24 21:34:25.491:  ! ERROR: ibus Msg = 3B 04 80 41 13 ED
+2016-07-24 21:34:31.061:  ! Setting COM port parameters for COM15
+2016-07-24 21:34:31.108:  ! COM15 opened
+2016-07-24 21:34:34.462:  3B 04 80 41 13 ED
+2016-07-24 21:34:34.462:  ! GT   --> IKE : On-board computer data request, Aux_Vent_Off
+2016-07-24 21:34:34.477:  80 04 BF 02 00 39
+2016-07-24 21:34:34.477:  ! IKE  --> GLO : Device status ready, 
+2016-07-24 21:34:34.555:  30 04 BF 51 00 DA
+2016-07-24 21:34:34.555:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:34:34.898:  80 04 BF 11 00 2A
+2016-07-24 21:34:34.898:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:34:34.914:  80 0A BF 13 00 00 40 00 00 00 40 26
+2016-07-24 21:34:34.914:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:34:34.930:  80 05 E7 2A 00 00 48
+2016-07-24 21:34:34.930:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:34:34.945:  00 04 BF 02 00 B9
+2016-07-24 21:34:34.945:  ! GM   --> GLO : Device status ready, 
+2016-07-24 21:34:34.961:  80 04 C0 27 00 63
+2016-07-24 21:34:34.961:  ! IKE  --> MID : MID display request, Data="00"
+2016-07-24 21:34:34.992:  80 0C E7 24 03 00 20 2B 20 39 36 A8 46 86
+2016-07-24 21:34:34.992:  ! IKE  --> ANZV: Update Text, Layout=Outside_Temp  Flags=  F0=" + 96°F"
+2016-07-24 21:34:35.008:  44 05 BF 74 04 03 8D
+2016-07-24 21:34:35.008:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:34:35.023:  C0 06 FF 20 00 00 00 19
+2016-07-24 21:34:35.023:  ! MID  --> LOC : Display status, _short
+2016-07-24 21:34:35.054:  80 0C E7 24 01 00 32 31 3A 33 33 20 20 77
+2016-07-24 21:34:35.054:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="21:33  "
+2016-07-24 21:34:35.070:  80 04 BF 11 00 2A
+2016-07-24 21:34:35.070:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:34:35.086:  80 0A BF 13 00 00 40 00 00 00 40 26
+2016-07-24 21:34:35.086:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:34:35.866:  5B 04 BF 82 01 63
+2016-07-24 21:34:35.866:  ! IHKA --> GLO : Cmd_0x82, Data="01"
+2016-07-24 21:34:41.310:  3B 04 80 41 14 EA
+2016-07-24 21:34:41.310:  ! GT   --> IKE : On-board computer data request, Aux_Vent_On
+2016-07-24 21:34:41.341:  80 05 E7 2A 00 00 48
+2016-07-24 21:34:41.341:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:34:41.388:  80 0A BF 13 00 00 48 00 00 00 40 2E
+2016-07-24 21:34:41.388:  ! IKE  --> GLO : IKE sensor status, Aux_Vent_On  Temp_F
+2016-07-24 21:34:41.404:  80 05 E7 2A 00 08 40
+2016-07-24 21:34:41.404:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:34:41.419:  80 06 BF 19 23 60 00 63
+2016-07-24 21:34:41.419:  ! IKE  --> GLO : Temperature, Outside 35°C [95°F], Coolant 96°C [205°F]
+2016-07-24 21:34:41.435:  80 04 C0 27 02 61
+2016-07-24 21:34:41.435:  ! IKE  --> MID : MID display request, Data="02"
+2016-07-24 21:34:41.450:  C0 06 FF 20 00 40 00 59
+2016-07-24 21:34:41.450:  ! MID  --> LOC : Display status, _short Show_BC_Menu
+2016-07-24 21:34:41.497:  80 0F C0 21 0F 20 2A 06 56 45 4E 54 20 4F 46 46 0B
+2016-07-24 21:34:41.497:  ! IKE  --> MID : Menu Text, Layout=0x0F:  Flags=CLS  F10=  Btn11"VENT OFF"
+2016-07-24 21:34:41.528:  C0 04 80 22 00 66
+2016-07-24 21:34:41.528:  ! MID  --> IKE : Text display confirmation, Menu Text: 1 text message acknowledged
+2016-07-24 21:35:00.873:  80 0C E7 24 01 00 32 31 3A 33 34 20 20 70
+2016-07-24 21:35:00.873:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="21:34  "
+2016-07-24 21:35:58.842:  3B 04 80 41 15 EB
+2016-07-24 21:35:58.842:  ! GT   --> IKE : On-board computer data request, End_Stellmode
+2016-07-24 21:35:59.560:  3B 04 80 41 15 EB
+2016-07-24 21:35:59.560:  ! GT   --> IKE : On-board computer data request, End_Stellmode
+2016-07-24 21:36:07.375:  3B 04 80 41 16 E8
+2016-07-24 21:36:07.375:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:08.046:  3B 04 80 41 16 E8
+2016-07-24 21:36:08.046:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:09.856:  80 04 BF 02 00 39
+2016-07-24 21:36:09.856:  ! IKE  --> GLO : Device status ready, 
+2016-07-24 21:36:09.934:  30 04 BF 51 00 DA
+2016-07-24 21:36:09.934:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:36:10.215:  80 04 BF 11 00 2A
+2016-07-24 21:36:10.215:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:36:10.230:  80 05 E7 2A 00 08 40
+2016-07-24 21:36:10.230:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:36:10.246:  00 04 BF 02 00 B9
+2016-07-24 21:36:10.246:  ! GM   --> GLO : Device status ready, 
+2016-07-24 21:36:10.261:  00 05 BF 7A 5B 40 DB
+2016-07-24 21:36:10.261:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr PgrDoorFr PgrDoorRr Bonnet   Ctrl_Locking: Unknown
+2016-07-24 21:36:10.277:  44 05 BF 74 04 03 8D
+2016-07-24 21:36:10.277:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:36:10.308:  80 04 BF 11 00 2A
+2016-07-24 21:36:10.308:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:36:10.324:  80 0A BF 13 00 00 48 00 00 00 40 2E
+2016-07-24 21:36:10.324:  ! IKE  --> GLO : IKE sensor status, Aux_Vent_On  Temp_F
+2016-07-24 21:36:10.339:  80 06 BF 19 23 5F 00 5C
+2016-07-24 21:36:10.339:  ! IKE  --> GLO : Temperature, Outside 35°C [95°F], Coolant 95°C [203°F]
+2016-07-24 21:36:13.444:  3B 04 80 41 16 E8
+2016-07-24 21:36:13.444:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:13.943:  3B 04 80 41 16 E8
+2016-07-24 21:36:13.943:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:14.130:  3B 04 80 41 16 E8
+2016-07-24 21:36:14.130:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:18.795:  3B 04 80 41 17 E9
+2016-07-24 21:36:18.795:  ! GT   --> IKE : On-board computer data request, OBC_Mode_17
+2016-07-24 21:36:19.185:  3B 04 80 41 17 E9
+2016-07-24 21:36:19.185:  ! GT   --> IKE : On-board computer data request, OBC_Mode_17
+2016-07-24 21:36:19.356:  3B 04 80 41 17 E9
+2016-07-24 21:36:19.356:  ! GT   --> IKE : On-board computer data request, OBC_Mode_17
+2016-07-24 21:36:19.512:  3B 04 80 41 17 E9
+2016-07-24 21:36:19.512:  ! GT   --> IKE : On-board computer data request, OBC_Mode_17
+2016-07-24 21:36:25.705:  3B 04 80 41 16 E8
+2016-07-24 21:36:25.705:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:26.548:  3B 04 80 41 16 E8
+2016-07-24 21:36:26.548:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:27.687:  3B 04 80 41 16 E8
+2016-07-24 21:36:27.687:  ! GT   --> IKE : On-board computer data request, Emergency_Disarm
+2016-07-24 21:36:31.477:  3B 04 80 41 15 EB
+2016-07-24 21:36:31.477:  ! GT   --> IKE : On-board computer data request, End_Stellmode
+2016-07-24 21:36:31.509:  80 0C E7 24 01 00 32 31 3A 33 35 20 20 71
+2016-07-24 21:36:31.509:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="21:35  "
+2016-07-24 21:36:31.524:  80 05 E7 2A 00 08 40
+2016-07-24 21:36:31.524:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:36:33.396:  3B 04 80 41 15 EB
+2016-07-24 21:36:33.396:  ! GT   --> IKE : On-board computer data request, End_Stellmode
+2016-07-24 21:36:33.427:  80 05 E7 2A 00 08 40
+2016-07-24 21:36:33.427:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:36:40.681:  3B 04 80 41 10 EE
+2016-07-24 21:36:40.681:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:41.274:  3B 04 80 41 10 EE
+2016-07-24 21:36:41.274:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:41.836:  3B 04 80 41 10 EE
+2016-07-24 21:36:41.836:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:42.007:  3B 04 80 41 10 EE
+2016-07-24 21:36:42.007:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:42.163:  3B 04 80 41 10 EE
+2016-07-24 21:36:42.163:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:43.302:  3B 04 80 41 10 EE
+2016-07-24 21:36:43.302:  ! GT   --> IKE : On-board computer data request, Timer_2
+2016-07-24 21:36:43.318:  80 05 E7 2A 00 08 40
+2016-07-24 21:36:43.318:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:36:49.667:  3B 04 80 41 18 E6
+2016-07-24 21:36:49.667:  ! GT   --> IKE : On-board computer data request, OBC_Mode_18
+2016-07-24 21:36:50.166:  3B 04 80 41 18 E6
+2016-07-24 21:36:50.166:  ! GT   --> IKE : On-board computer data request, OBC_Mode_18
+2016-07-24 21:36:50.322:  3B 04 80 41 18 E6
+2016-07-24 21:36:50.322:  ! GT   --> IKE : On-board computer data request, OBC_Mode_18
+2016-07-24 21:36:50.494:  3B 04 80 41 18 E6
+2016-07-24 21:36:50.494:  ! GT   --> IKE : On-board computer data request, OBC_Mode_18
+2016-07-24 21:36:51.586:  3B 04 80 41 18 E6
+2016-07-24 21:36:51.586:  ! GT   --> IKE : On-board computer data request, OBC_Mode_18
+2016-07-24 21:36:51.617:  80 05 E7 2A 00 08 40
+2016-07-24 21:36:51.617:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = On_blink
+2016-07-24 21:37:06.967:  3B 04 80 41 12 EC
+2016-07-24 21:37:06.967:  ! GT   --> IKE : On-board computer data request, Aux_Heating_On
+2016-07-24 21:37:07.014:  80 0A BF 13 00 00 44 00 00 00 40 22
+2016-07-24 21:37:07.014:  ! IKE  --> GLO : IKE sensor status, Aux_Heat_On  Temp_F
+2016-07-24 21:37:07.030:  80 05 E7 2A 00 20 68
+2016-07-24 21:37:07.030:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED =
+2016-07-24 21:37:07.045:  80 04 C0 27 00 63
+2016-07-24 21:37:07.061:  ! IKE  --> MID : MID display request, Data="00"
+2016-07-24 21:37:07.077:  00 04 BF 02 00 B9
+2016-07-24 21:37:07.077:  ! GM   --> GLO : Device status ready, 
+2016-07-24 21:37:07.092:  C0 06 FF 20 00 00 00 19
+2016-07-24 21:37:07.092:  ! MID  --> LOC : Display status, _short
+2016-07-24 21:37:07.123:  80 04 C0 27 02 61
+2016-07-24 21:37:07.123:  ! IKE  --> MID : MID display request, Data="02"
+2016-07-24 21:37:07.139:  C0 06 FF 20 00 40 00 59
+2016-07-24 21:37:07.139:  ! MID  --> LOC : Display status, _short Show_BC_Menu
+2016-07-24 21:37:07.404:  5B 04 BF 82 01 63
+2016-07-24 21:37:07.404:  ! IHKA --> GLO : Cmd_0x82, Data="01"
+2016-07-24 21:37:10.399:  5B 04 BF 82 03 61
+2016-07-24 21:37:10.399:  ! IHKA --> GLO : Cmd_0x82, Data="03"
+2016-07-24 21:37:10.462:  80 0A BF 13 00 00 40 00 00 00 40 26
+2016-07-24 21:37:10.462:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:37:10.477:  80 05 E7 2A 00 00 48
+2016-07-24 21:37:10.477:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:37:14.487:  3B 04 80 41 12 EC
+2016-07-24 21:37:14.487:  ! GT   --> IKE : On-board computer data request, Aux_Heating_On
+2016-07-24 21:37:14.565:  80 0A BF 13 00 00 44 00 00 00 40 22
+2016-07-24 21:37:14.565:  ! IKE  --> GLO : IKE sensor status, Aux_Heat_On  Temp_F
+2016-07-24 21:37:14.580:  80 05 E7 2A 00 20 68
+2016-07-24 21:37:14.580:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED =
+2016-07-24 21:37:14.596:  80 06 BF 19 23 5E 00 5D
+2016-07-24 21:37:14.596:  ! IKE  --> GLO : Temperature, Outside 35°C [95°F], Coolant 94°C [201°F]
+2016-07-24 21:37:59.072:  00 05 BF 7A 5B 00 9B
+2016-07-24 21:37:59.072:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr PgrDoorFr PgrDoorRr   Ctrl_Locking: Unknown
+2016-07-24 21:38:36.684:  00 05 BF 7A 53 00 93
+2016-07-24 21:38:36.684:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr PgrDoorFr   Ctrl_Locking: Unlocked
+2016-07-24 21:38:46.714:  44 05 BF 74 00 03 89
+2016-07-24 21:38:46.714:  ! EWS  --> GLO : Immobiliser status, No_key_detected Key_3
+2016-07-24 21:38:57.946:  44 05 BF 74 04 03 8D
+2016-07-24 21:38:57.946:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:39:04.030:  44 05 BF 74 00 03 89
+2016-07-24 21:39:04.030:  ! EWS  --> GLO : Immobiliser status, No_key_detected Key_3
+2016-07-24 21:39:06.246:  44 05 BF 74 04 03 8D
+2016-07-24 21:39:06.246:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:39:07.416:  44 05 BF 74 00 03 89
+2016-07-24 21:39:07.416:  ! EWS  --> GLO : Immobiliser status, No_key_detected Key_3
+2016-07-24 21:39:10.692:  00 05 BF 7A 51 00 91
+2016-07-24 21:39:10.692:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr   Ctrl_Locking: Unlocked
+2016-07-24 21:39:17.805:  00 05 BF 7A 50 00 90
+2016-07-24 21:39:17.805:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:39:24.935:  00 04 BF 72 00 C9
+2016-07-24 21:39:24.935:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:39:25.013:  00 04 BF 76 02 CF
+2016-07-24 21:39:25.013:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:39:25.059:  00 05 BF 7A 30 00 F0
+2016-07-24 21:39:25.059:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:39:25.403:  00 04 BF 76 00 CD
+2016-07-24 21:39:25.403:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:39:26.167:  00 05 BF 7A 30 00 F0
+2016-07-24 21:39:26.167:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:39:26.198:  44 05 BF 74 00 FF 75
+2016-07-24 21:39:26.198:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:39:27.321:  00 04 BF 72 00 C9
+2016-07-24 21:39:27.321:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:39:27.415:  00 04 BF 76 02 CF
+2016-07-24 21:39:27.415:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:39:28.538:  00 04 BF 76 00 CD
+2016-07-24 21:39:28.538:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:39:28.569:  00 05 BF 7A 10 00 D0
+2016-07-24 21:39:28.569:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:39:32.173:  00 04 BF 72 00 C9
+2016-07-24 21:39:32.173:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:39:33.405:  00 05 BF 7A 10 00 D0
+2016-07-24 21:39:33.405:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:39:40.332:  00 05 BF 7A 12 00 D2
+2016-07-24 21:39:40.332:  ! GM   --> GLO : Doors/flaps status, Open:  PgrDoorFr   Ctrl_Locking: Unlocked
+2016-07-24 21:39:40.394:  00 05 BF 7A 52 00 92
+2016-07-24 21:39:40.394:  ! GM   --> GLO : Doors/flaps status, Open:  PgrDoorFr   Ctrl_Locking: Unlocked
+2016-07-24 21:40:15.822:  5B 04 BF 82 03 61
+2016-07-24 21:40:15.822:  ! IHKA --> GLO : Cmd_0x82, Data="03"
+2016-07-24 21:40:15.885:  80 0A BF 13 00 00 40 00 00 00 41 27
+2016-07-24 21:40:15.885:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:40:15.900:  80 05 E7 2A 00 00 48
+2016-07-24 21:40:15.900:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:40:16.571:  00 05 BF 7A 50 00 90
+2016-07-24 21:40:16.571:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:40:28.692:  00 04 BF 76 02 CF
+2016-07-24 21:40:28.692:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:40:28.723:  00 04 BF 72 00 C9
+2016-07-24 21:40:28.723:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:40:28.770:  00 05 BF 7A 30 00 F0
+2016-07-24 21:40:28.770:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:40:29.145:  00 04 BF 76 00 CD
+2016-07-24 21:40:29.145:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:40:29.909:  00 05 BF 7A 30 00 F0
+2016-07-24 21:40:29.909:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:40:29.940:  44 05 BF 74 00 FF 75
+2016-07-24 21:40:29.940:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:40:33.762:  00 04 BF 72 00 C9
+2016-07-24 21:40:33.762:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:40:33.825:  00 04 BF 76 02 CF
+2016-07-24 21:40:33.825:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:40:34.963:  00 04 BF 76 00 CD
+2016-07-24 21:40:34.963:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:40:34.995:  00 05 BF 7A 10 00 D0
+2016-07-24 21:40:34.995:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:40:48.660:  00 04 BF 72 00 C9
+2016-07-24 21:40:48.660:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:40:49.908:  00 05 BF 7A 10 00 D0
+2016-07-24 21:40:49.908:  ! GM   --> GLO : Doors/flaps status, Open:    Ctrl_Locking: Unlocked
+2016-07-24 21:40:51.250:  00 05 BF 7A 10 02 D2
+2016-07-24 21:40:51.250:  ! GM   --> GLO : Doors/flaps status, Open:  WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:40:51.281:  00 05 BF 7A 10 03 D3
+2016-07-24 21:40:51.281:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:40:52.264:  00 05 BF 7A 10 0F DF
+2016-07-24 21:40:52.264:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
+2016-07-24 21:40:54.744:  00 05 BF 7A 10 1F CF
+2016-07-24 21:40:54.744:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:40:57.849:  00 04 BF 72 00 C9
+2016-07-24 21:40:57.849:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:40:57.864:  00 04 BF 76 02 CF
+2016-07-24 21:40:57.864:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:40:58.285:  00 04 BF 76 00 CD
+2016-07-24 21:40:58.285:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:40:59.034:  00 05 BF 7A 30 1F EF
+2016-07-24 21:40:59.034:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:40:59.065:  44 05 BF 74 00 FF 75
+2016-07-24 21:40:59.065:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:41:03.792:  00 04 BF 72 00 C9
+2016-07-24 21:41:03.792:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:41:03.823:  00 04 BF 76 02 CF
+2016-07-24 21:41:03.823:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:41:04.962:  00 04 BF 76 00 CD
+2016-07-24 21:41:04.962:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:41:04.978:  00 05 BF 7A 10 1F CF
+2016-07-24 21:41:04.978:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:41:10.921:  00 04 BF 76 02 CF
+2016-07-24 21:41:10.921:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:41:10.968:  00 04 BF 72 00 C9
+2016-07-24 21:41:10.968:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:41:11.343:  00 04 BF 76 00 CD
+2016-07-24 21:41:11.343:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:41:12.091:  00 05 BF 7A 30 1F EF
+2016-07-24 21:41:12.091:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:41:12.123:  44 05 BF 74 00 FF 75
+2016-07-24 21:41:12.123:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:41:16.584:  00 05 BF 7A 30 17 E7
+2016-07-24 21:41:16.584:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:41:16.896:  00 05 BF 7A 30 13 E3
+2016-07-24 21:41:16.896:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+2016-07-24 21:41:17.817:  00 05 BF 7A 30 03 F3
+2016-07-24 21:41:17.817:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:41:25.960:  00 04 BF 72 00 C9
+2016-07-24 21:41:25.960:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:41:25.991:  00 04 BF 76 02 CF
+2016-07-24 21:41:25.991:  ! GM   --> GLO : Crash Alarm, DB1=0x02
+2016-07-24 21:41:27.130:  00 04 BF 76 00 CD
+2016-07-24 21:41:27.130:  ! GM   --> GLO : Crash Alarm, No_Crash
+2016-07-24 21:41:27.161:  00 05 BF 7A 10 03 D3
+2016-07-24 21:41:27.161:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:41:28.237:  00 05 BF 7A 51 03 92
+2016-07-24 21:41:28.237:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:41:38.315:  00 05 BF 7A 50 03 93
+2016-07-24 21:41:38.315:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:41:58.314:  00 05 BF 7A 10 03 D3
+2016-07-24 21:41:58.314:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:42:14.647:  00 05 BF 7A 50 03 93
+2016-07-24 21:42:14.647:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:42:49.545:  44 05 BF 74 04 03 8D
+2016-07-24 21:42:49.545:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:42:50.855:  00 05 BF 7A 10 03 D3
+2016-07-24 21:42:50.855:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:42:50.886:  80 0C E7 24 01 00 32 31 3A 34 31 20 20 72
+2016-07-24 21:42:50.886:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="21:41  "
+2016-07-24 21:42:50.902:  80 04 BF 11 01 2B
+2016-07-24 21:42:50.902:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-24 21:42:50.917:  D0 07 BF 5B 00 00 00 00 33
+2016-07-24 21:42:50.917:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-07-24 21:42:50.949:  D0 05 BF 5C FF 00 C9
+2016-07-24 21:42:50.949:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-07-24 21:42:50.964:  30 04 BF 51 00 DA
+2016-07-24 21:42:50.964:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:42:50.995:  80 0A BF 13 00 00 40 00 00 00 41 27
+2016-07-24 21:42:50.995:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:42:50.995:  80 05 E7 2A 00 00 48
+2016-07-24 21:42:50.995:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:42:51.011:  00 04 BF 72 00 C9
+2016-07-24 21:42:51.011:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:42:51.042:  00 05 BF 7A 10 03 D3
+2016-07-24 21:42:51.042:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:42:51.042:  44 05 BF 74 05 03 8C
+2016-07-24 21:42:51.042:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Valid_key_detected Key_3
+2016-07-24 21:42:51.058:  C0 06 FF 20 00 B3 00 AA
+2016-07-24 21:42:51.058:  ! MID  --> LOC : Display status, _short Request_Initial_Text Request_Clock Show_AUDIO_Menu Show_AUDIO_Main Show_BC_Main
+2016-07-24 21:42:51.089:  C0 03 80 01 42
+2016-07-24 21:42:51.089:  ! MID  --> IKE : Device status request
+2016-07-24 21:42:51.105:  68 04 FF 02 01 90
+2016-07-24 21:42:51.105:  ! RAD  --> LOC : Device status ready, after Reset
+2016-07-24 21:42:51.105:  68 05 C0 23 00 20 AE
+2016-07-24 21:42:51.105:  ! RAD  --> MID : Display Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:42:51.136:  68 06 C0 21 00 00 20 AF
+2016-07-24 21:42:51.136:  ! RAD  --> MID : Menu Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:42:51.136:  C0 06 FF 20 00 B3 00 AA
+2016-07-24 21:42:51.136:  ! MID  --> LOC : Display status, _short Request_Initial_Text Request_Clock Show_AUDIO_Menu Show_AUDIO_Main Show_BC_Main
+2016-07-24 21:42:51.151:  68 05 C0 23 00 20 AE
+2016-07-24 21:42:51.151:  ! RAD  --> MID : Display Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:42:51.151:  68 06 C0 21 00 00 20 AF
+2016-07-24 21:42:51.151:  ! RAD  --> MID : Menu Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:42:51.183:  C0 04 68 22 00 8E
+2016-07-24 21:42:51.183:  ! MID  --> RAD : Text display confirmation, Menu Text: 1 text message acknowledged
+2016-07-24 21:42:51.198:  80 0E C0 23 01 20 03 32 31 3A 34 31 20 20 04 77
+2016-07-24 21:42:51.198:  ! IKE  --> MID : Display Text, Layout=Time  Flags=CLS  F0=   F3:"21:41  "   F4:"
+2016-07-24 21:42:51.214:  80 05 E7 2A 00 00 48
+2016-07-24 21:42:51.229:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:42:51.245:  C0 04 68 22 00 8E
+2016-07-24 21:42:51.245:  ! MID  --> RAD : Text display confirmation, Menu Text: 1 text message acknowledged
+2016-07-24 21:42:51.245:  80 04 BF 02 00 39
+2016-07-24 21:42:51.245:  ! IKE  --> GLO : Device status ready, 
+2016-07-24 21:42:51.276:  80 04 BF 11 01 2B
+2016-07-24 21:42:51.276:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-24 21:42:51.292:  80 05 E7 2A 00 00 48
+2016-07-24 21:42:51.292:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:42:51.323:  80 0E C0 23 01 20 03 32 31 3A 34 31 20 20 04 77
+2016-07-24 21:42:51.323:  ! IKE  --> MID : Display Text, Layout=Time  Flags=CLS  F0=   F3:"21:41  "   F4:"
+2016-07-24 21:42:51.339:  80 05 E7 2A 00 00 48
+2016-07-24 21:42:51.339:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:42:51.370:  80 0A BF 17 00 58 02 00 1E 20 00 46
+2016-07-24 21:42:51.370:  ! IKE  --> GLO : Odometer, 153,600 kms  [95,443 mls]
+2016-07-24 21:42:51.401:  68 05 18 38 00 00 4D
+2016-07-24 21:42:51.401:  ! RAD  --> CDC : CD_control, Status_Request
+2016-07-24 21:42:51.588:  A4 06 BF 70 03 00 05 6B
+2016-07-24 21:42:51.588:  ! AB   --> GLO : Remote control central locking status, Data="03 00 05"
+2016-07-24 21:42:52.197:  50 03 C8 01 9A
+2016-07-24 21:42:52.197:  ! MFL  --> TEL : Device status request
+2016-07-24 21:42:52.306:  68 03 18 01 72
+2016-07-24 21:42:52.306:  ! RAD  --> CDC : Device status request
+2016-07-24 21:42:52.805:  80 04 BF 11 00 2A
+2016-07-24 21:42:52.805:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:42:52.867:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-07-24 21:42:52.867:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-07-24 21:42:52.883:  C0 06 FF 20 00 00 00 19
+2016-07-24 21:42:52.883:  ! MID  --> LOC : Display status, _short
+2016-07-24 21:42:52.899:  30 04 BF 51 00 DA
+2016-07-24 21:42:52.899:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:42:52.914:  80 04 30 1B 00 AF
+2016-07-24 21:42:52.914:  ! IKE  --> CCM : IKE text status, 0 text messages acknowledged
+2016-07-24 21:42:53.398:  44 05 BF 74 01 03 88
+2016-07-24 21:42:53.398:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Key_3
+2016-07-24 21:43:02.727:  44 05 BF 74 00 FF 75
+2016-07-24 21:43:02.727:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:43:11.681:  44 05 BF 74 04 03 8D
+2016-07-24 21:43:11.681:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:43:15.394:  80 04 BF 11 01 2B
+2016-07-24 21:43:15.394:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-24 21:43:15.409:  80 0A BF 13 00 00 40 00 00 00 41 27
+2016-07-24 21:43:15.409:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:43:15.425:  D0 07 BF 5B 00 00 00 00 33
+2016-07-24 21:43:15.425:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-07-24 21:43:15.425:  D0 05 BF 5C FF 00 C9
+2016-07-24 21:43:15.425:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-07-24 21:43:15.456:  30 04 BF 51 00 DA
+2016-07-24 21:43:15.456:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:43:15.472:  80 05 E7 2A 00 00 48
+2016-07-24 21:43:15.472:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:43:15.503:  80 0C E7 24 01 00 32 31 3A 34 32 20 20 71
+2016-07-24 21:43:15.503:  ! IKE  --> ANZV: Update Text, Layout=Time  Flags=  F0="21:42  "
+2016-07-24 21:43:15.519:  00 04 BF 72 00 C9
+2016-07-24 21:43:15.519:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:43:15.534:  00 05 BF 7A 10 03 D3
+2016-07-24 21:43:15.534:  ! GM   --> GLO : Doors/flaps status, Open:  WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:43:15.581:  44 05 BF 74 05 03 8C
+2016-07-24 21:43:15.581:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Valid_key_detected Key_3
+2016-07-24 21:43:15.643:  C0 06 FF 20 00 B3 00 AA
+2016-07-24 21:43:15.643:  ! MID  --> LOC : Display status, _short Request_Initial_Text Request_Clock Show_AUDIO_Menu Show_AUDIO_Main Show_BC_Main
+2016-07-24 21:43:15.659:  C0 03 68 01 AA
+2016-07-24 21:43:15.659:  ! MID  --> RAD : Device status request
+2016-07-24 21:43:15.690:  80 0E C0 23 01 20 03 32 31 3A 34 32 20 20 04 74
+2016-07-24 21:43:15.690:  ! IKE  --> MID : Display Text, Layout=Time  Flags=CLS  F0=   F3:"21:42  "   F4:"
+2016-07-24 21:43:15.706:  80 05 E7 2A 00 00 48
+2016-07-24 21:43:15.706:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:43:15.706:  68 04 FF 02 01 90
+2016-07-24 21:43:15.706:  ! RAD  --> LOC : Device status ready, after Reset
+2016-07-24 21:43:15.721:  68 05 C0 23 00 20 AE
+2016-07-24 21:43:15.721:  ! RAD  --> MID : Display Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:43:15.737:  68 06 C0 21 00 00 20 AF
+2016-07-24 21:43:15.737:  ! RAD  --> MID : Menu Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:43:15.753:  80 04 BF 11 01 2B
+2016-07-24 21:43:15.753:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-24 21:43:15.768:  80 05 E7 2A 00 00 48
+2016-07-24 21:43:15.768:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:43:15.799:  C0 04 68 22 00 8E
+2016-07-24 21:43:15.799:  ! MID  --> RAD : Text display confirmation, Menu Text: 1 text message acknowledged
+2016-07-24 21:43:15.799:  C0 06 FF 20 00 B3 00 AA
+2016-07-24 21:43:15.799:  ! MID  --> LOC : Display status, _short Request_Initial_Text Request_Clock Show_AUDIO_Menu Show_AUDIO_Main Show_BC_Main
+2016-07-24 21:43:15.815:  68 05 C0 23 00 20 AE
+2016-07-24 21:43:15.815:  ! RAD  --> MID : Display Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:43:15.815:  68 06 C0 21 00 00 20 AF
+2016-07-24 21:43:15.815:  ! RAD  --> MID : Menu Text, Layout=0x00:  Flags=CLS  F0=
+2016-07-24 21:43:15.846:  80 0E C0 23 01 20 03 32 31 3A 34 32 20 20 04 74
+2016-07-24 21:43:15.846:  ! IKE  --> MID : Display Text, Layout=Time  Flags=CLS  F0=   F3:"21:42  "   F4:"
+2016-07-24 21:43:15.862:  C0 04 68 22 00 8E
+2016-07-24 21:43:15.862:  ! MID  --> RAD : Text display confirmation, Menu Text: 1 text message acknowledged
+2016-07-24 21:43:15.893:  80 05 E7 2A 00 00 48
+2016-07-24 21:43:15.893:  ! IKE  --> ANZV: On-board computer special indicators, Aux_Heating_LED = Off
+2016-07-24 21:43:16.018:  68 05 18 38 00 00 4D
+2016-07-24 21:43:16.018:  ! RAD  --> CDC : CD_control, Status_Request
+2016-07-24 21:43:16.096:  50 03 D0 5D DE
+2016-07-24 21:43:16.096:  ! MFL  --> LCM : Light dimmer status request
+2016-07-24 21:43:16.127:  D0 05 BF 5C FF 00 C9
+2016-07-24 21:43:16.127:  ! LCM  --> GLO : Light dimmer, 255 (max)
+2016-07-24 21:43:16.189:  A4 06 BF 70 03 00 05 6B
+2016-07-24 21:43:16.189:  ! AB   --> GLO : Remote control central locking status, Data="03 00 05"
+2016-07-24 21:43:16.579:  80 0A BF 17 00 58 02 00 1E 20 00 46
+2016-07-24 21:43:16.579:  ! IKE  --> GLO : Odometer, 153,600 kms  [95,443 mls]
+2016-07-24 21:43:16.813:  50 03 C8 01 9A
+2016-07-24 21:43:16.813:  ! MFL  --> TEL : Device status request
+2016-07-24 21:43:16.923:  68 03 18 01 72
+2016-07-24 21:43:16.923:  ! RAD  --> CDC : Device status request
+2016-07-24 21:43:17.422:  50 03 B0 01 E2
+2016-07-24 21:43:17.422:  ! MFL  --> SES : Device status request
+2016-07-24 21:43:18.139:  C0 03 C8 01 0A
+2016-07-24 21:43:18.139:  ! MID  --> TEL : Device status request
+2016-07-24 21:43:18.186:  80 04 BF 11 03 29
+2016-07-24 21:43:18.186:  ! IKE  --> GLO : Ignition status, Pos1_Acc Pos2_On
+2016-07-24 21:43:18.217:  80 0A BF 13 02 00 40 00 00 00 41 25
+2016-07-24 21:43:18.217:  ! IKE  --> GLO : IKE sensor status, Oil_Pressure_Low  Temp_F
+2016-07-24 21:43:18.249:  D0 07 BF 5B 00 00 00 00 33
+2016-07-24 21:43:18.249:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-07-24 21:43:18.264:  80 06 BF 19 23 5D 00 5E
+2016-07-24 21:43:18.264:  ! IKE  --> GLO : Temperature, Outside 35°C [95°F], Coolant 93°C [199°F]
+2016-07-24 21:43:18.280:  80 06 60 07 00 00 00 E1
+2016-07-24 21:43:18.280:  ! IKE  --> PDC : Gong status, Data="00 00 00"
+2016-07-24 21:43:18.311:  00 04 BF 72 00 C9
+2016-07-24 21:43:18.311:  ! GM   --> GLO : ChkCtrl Remote Central Locking, No_Button_Pressed
+2016-07-24 21:43:18.436:  80 03 D0 53 00
+2016-07-24 21:43:18.436:  ! IKE  --> LCM : Vehicle data request
+2016-07-24 21:43:18.467:  D0 10 80 54 47 4D 64 13 30 06 00 00 69 00 00 00 00 36
+2016-07-24 21:43:18.467:  ! LCM  --> IKE : Vehicle data status, VIN GM64133; Total dist 153,600 kms [95,443 mls]; SI-L 1050 litres since last service; ; SI-T 0 days since last service
+2016-07-24 21:43:18.529:  80 0A BF 13 02 B0 40 02 00 00 41 97
+2016-07-24 21:43:18.529:  ! IKE  --> GLO : IKE sensor status, Oil_Pressure_Low  Gear_P  Temp_F
+2016-07-24 21:43:18.732:  80 03 30 50 E3
+2016-07-24 21:43:18.732:  ! IKE  --> CCM : Checkcontrol sensor request
+2016-07-24 21:43:18.748:  30 04 BF 51 00 DA
+2016-07-24 21:43:18.748:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:43:18.873:  A4 06 BF 70 02 00 05 6A
+2016-07-24 21:43:18.873:  ! AB   --> GLO : Remote control central locking status, Data="02 00 05"
+2016-07-24 21:43:19.762:  A4 06 BF 70 00 00 15 78
+2016-07-24 21:43:19.762:  ! AB   --> GLO : Remote control central locking status, Data="00 00 15"
+2016-07-24 21:43:19.824:  80 05 BF 18 00 00 22
+2016-07-24 21:43:19.824:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-24 21:43:19.965:  50 03 B0 01 E2
+2016-07-24 21:43:19.965:  ! MFL  --> SES : Device status request
+2016-07-24 21:43:20.339:  80 0A BF 13 02 B0 40 00 00 00 41 95
+2016-07-24 21:43:20.339:  ! IKE  --> GLO : IKE sensor status, Oil_Pressure_Low  Gear_P  Temp_F
+2016-07-24 21:43:20.573:  50 03 C8 01 9A
+2016-07-24 21:43:20.573:  ! MFL  --> TEL : Device status request
+2016-07-24 21:43:21.228:  D0 07 BF 5B 00 00 00 00 33
+2016-07-24 21:43:21.228:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-07-24 21:43:21.837:  80 05 BF 18 00 00 22
+2016-07-24 21:43:21.837:  ! IKE  --> GLO : Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
+2016-07-24 21:43:22.726:  80 04 BF 11 01 2B
+2016-07-24 21:43:22.726:  ! IKE  --> GLO : Ignition status, Pos1_Acc
+2016-07-24 21:43:22.741:  80 0A BF 13 00 00 40 00 00 00 41 27
+2016-07-24 21:43:22.741:  ! IKE  --> GLO : IKE sensor status, Temp_F
+2016-07-24 21:43:22.819:  80 04 BF 11 00 2A
+2016-07-24 21:43:22.819:  ! IKE  --> GLO : Ignition status, Off
+2016-07-24 21:43:22.882:  30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
+2016-07-24 21:43:22.882:  ! CCM  --> IKE : IKE Text/Gong, "                    " Immediate Clear Gong_off Warning_symbol_off
+2016-07-24 21:43:22.913:  C0 06 FF 20 00 00 00 19
+2016-07-24 21:43:22.913:  ! MID  --> LOC : Display status, _short
+2016-07-24 21:43:22.913:  30 04 BF 51 00 DA
+2016-07-24 21:43:22.913:  ! CCM  --> GLO : Checkcontrol sensors, 
+2016-07-24 21:43:22.929:  80 04 30 1B 00 AF
+2016-07-24 21:43:22.929:  ! IKE  --> CCM : IKE text status, 0 text messages acknowledged
+2016-07-24 21:43:23.412:  44 05 BF 74 01 03 88
+2016-07-24 21:43:23.412:  ! EWS  --> GLO : Immobiliser status, Immobilisation_deactivated Key_3
+2016-07-24 21:43:24.239:  D0 07 BF 5B 00 00 00 00 33
+2016-07-24 21:43:24.239:  ! LCM  --> GLO : Lamp status, All_Off  All_OK
+2016-07-24 21:43:32.757:  44 05 BF 74 00 FF 75
+2016-07-24 21:43:32.757:  ! EWS  --> GLO : Immobiliser status, No_key_detected Vehicle_immobilised
+2016-07-24 21:44:03.567:  44 05 BF 74 04 03 8D
+2016-07-24 21:44:03.567:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:44:05.064:  44 05 BF 74 00 03 89
+2016-07-24 21:44:05.064:  ! EWS  --> GLO : Immobiliser status, No_key_detected Key_3
+2016-07-24 21:44:18.667:  00 05 BF 7A 11 03 D2
+2016-07-24 21:44:18.667:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:44:18.730:  00 05 BF 7A 51 03 92
+2016-07-24 21:44:18.730:  ! GM   --> GLO : Doors/flaps status, Open:  DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+2016-07-24 21:44:31.537:  44 05 BF 74 04 03 8D
+2016-07-24 21:44:31.537:  ! EWS  --> GLO : Immobiliser status, Valid_key_detected Key_3
+2016-07-24 21:44:32.957:  ! NavCoder logging stopped, NavCoder closed
+2016-07-24 21:44:32.957:  !

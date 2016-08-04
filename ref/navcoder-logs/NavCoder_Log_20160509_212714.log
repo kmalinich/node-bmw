@@ -1,0 +1,28 @@
+2016-05-09 21:27:14.332:  !
+2016-05-09 21:27:14.332:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-05-09 21:27:14.332:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-05-09 21:27:14.332:  ! [Debug Mode]
+2016-05-09 21:27:14.332:  ! [Procotol = Auto]
+2016-05-09 21:27:14.348:  ! Script: Setting Scripting state to Off
+2016-05-09 21:27:14.488:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-05-09 21:27:14.597:  ! ERROR: NavCoder.Form_Load
+2016-05-09 21:27:14.597:  ! ERROR: NavCoder - Error - No COM port available
+2016-05-09 21:27:16.360:  ! Update check started
+2016-05-09 21:27:16.375:  ! Retrieving Version Info file: NavCoderLatestVersion.txt
+2016-05-09 21:27:16.375:  ! File URL: http://www.navcoder.com/versioncheck/NavCoderLatestVersion.txt
+2016-05-09 21:27:16.375:  ! Doing silent update...
+2016-05-09 21:27:16.375:  ! Getting header...
+2016-05-09 21:27:16.375:  ! URL: http://www.navcoder.com/versioncheck/NavCoderLatestVersion.txt
+2016-05-09 21:27:16.656:  ! Got header, first line is: HTTP/1.1 200 OK
+2016-05-09 21:27:16.656:  ! Getting file size...
+2016-05-09 21:27:16.781:  ! Got file size: 73 bytes
+2016-05-09 21:27:16.781:  ! Downloading and saving to: C:\Program Files\NavCoder\NavCoderLatestVersion.txt
+2016-05-09 21:27:16.797:  ! Download complete OK
+2016-05-09 21:27:16.797:  ! Version File successfully downloaded
+2016-05-09 21:27:16.797:  ! Version Info File first line contents: [NavCoder,2,8,350,NavCoderSetup.exe,,2,9,183,NavCoderBetaSetup.exe,Beta ]
+2016-05-09 21:27:16.797:  ! Evaluating available versions: CurrentApp: 20090183, LatestRelease: 20080350, LatestBeta: 20090183
+2016-05-09 21:27:16.797:  ! Beta version is newer than Release version
+2016-05-09 21:27:16.797:  ! Server version same as current app
+2016-05-09 21:27:16.797:  ! Update cancelled
+2016-05-09 21:27:20.665:  ! NavCoder logging stopped, NavCoder closed
+2016-05-09 21:27:20.665:  !

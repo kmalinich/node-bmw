@@ -1,0 +1,11 @@
+2016-05-10 00:38:44.691:  !
+2016-05-10 00:38:44.691:  ! NavCoder v2.9.183.Beta [EN-US] [i/k-bus] logging started
+2016-05-10 00:38:44.691:  ! Running on Windows 7 Ultimate Edition, 32-bit (Service Pack 1)  [en-US]
+2016-05-10 00:38:44.691:  ! [Debug Mode]
+2016-05-10 00:38:44.691:  ! [Procotol = Auto]
+2016-05-10 00:38:44.707:  ! Script: Setting Scripting state to Off
+2016-05-10 00:38:44.832:  ! showBatteryVoltage: Nave not alive, exiting...
+2016-05-10 00:38:45.128:  ! Setting COM port parameters for COM1
+2016-05-10 00:38:45.316:  ! COM1 opened
+2016-05-10 00:40:20.810:  ! NavCoder logging stopped, NavCoder closed
+2016-05-10 00:40:20.810:  !

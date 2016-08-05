@@ -4,15 +4,17 @@
 	"description" : "NodeJS-powered BMW IBUS interface",
 	"main"        : "run.js",
 	"dependencies": {
-		"cli-color"      : "*",
-		"http"           : "*",
-		"httpdispatcher" : "*",
-		"log"            : "*",
-		"querystring"    : "*",
-		"serialport"     : "^3.1.2",
-		"url"            : "*",
-		"wait.for"       : "*",
-		"websocket.io"   : "*"
+		"cli-color"      : "1.1.0",
+		"domain"         : "0.0.1",
+		"fs"             : "0.0.2",
+		"http"           : "0.0.0",
+		"httpdispatcher" : "1.0.0",
+		"log"            : "1.4.0",
+		"querystring"    : "0.2.0",
+		"serialport"     : "4.0.1",
+		"url"            : "0.11.0",
+		"wait.for"       : "0.6.6",
+		"websocket.io"   : "0.2.1"
 	},
 	"devDependencies": {},
 	"scripts": {
@@ -31,5 +33,5 @@
 	"bugs"    : {
 		"url": "https://github.com/kmalinich/node-bmw/issues"
 	},
-	"homepage": "https://github.com/kmalinich/node-bmw#readme"
+	"homepage" : "https://github.com/kmalinich/node-bmw#readme"
 }

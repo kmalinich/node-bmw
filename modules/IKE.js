@@ -21,19 +21,21 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// exposed data
-	this.obc_get   = obc_get;
-	this.obc_reset = obc_reset;
+	this.ike_data  = ike_data;
 	this.ike_send  = ike_send;
 	this.ike_text  = ike_text;
-	this.ike_data  = ike_data;
+	this.obc_get   = obc_get;
+	this.obc_reset = obc_reset;
 
 	// Handle incoming commands
 	function ike_data(data) {
+		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE text string: \'%s\'', data['obc-text']);
 			ike_text(data['obc-text']);
 		}
 
+		// Refresh OBC data value
 		else if (typeof data['obc-get'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE OBC get: \'%s\'', data['obc-get']);
 			if (data['obc-get'] == 'all') {
@@ -44,6 +46,7 @@ var IKE = function(omnibus) {
 			}
 		}
 
+		// Reset OBC data value
 		else if (typeof data['obc-reset'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE OBC reset: \'%s\'', data['obc-reset']);
 
@@ -55,6 +58,7 @@ var IKE = function(omnibus) {
 			}
 		}
 
+		// Set OBC clock
 		else if (data.command == 'obc_clock') {
 			console.log('[IKE] ike_data(): calling obc_clock();');
 			obc_clock(data);
@@ -70,11 +74,13 @@ var IKE = function(omnibus) {
 			obc_gong(data['obc-gong']);
 		}
 
+		// Set cluster LCD backlight
 		else if (typeof data['ike-backlight'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE backlight: %s', data['ike-backlight']);
 			ike_backlight(data['ike-backlight']);
 		}
 
+		// Send fake ignition status 
 		else if (typeof data['ike-ignition'] !== 'undefined') {
 			console.log('[IKE] ike_data(): IKE ignition: %s', data['ike-ignition']);
 			ike_ignition(data['ike-ignition']);
@@ -85,13 +91,6 @@ var IKE = function(omnibus) {
 		}
 
 	}
-
-	// Refresh OBC HUD once every 2 seconds
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') {
-			hud_refresh();
-		}
-	}, 2000);
 
 	// ASCII to hex for cluster message
 	function ascii2hex(str) { 
@@ -115,6 +114,13 @@ var IKE = function(omnibus) {
 
 		return string;
 	}
+
+	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run') {
+			hud_refresh();
+		}
+	}, 2000);
 
 	// Refresh custom HUD
 	function hud_refresh() {

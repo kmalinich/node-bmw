@@ -123,7 +123,7 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 		}
 	}
 
-	log.debug('[ibus_protocol]','Buffered messages size: ', _self._buffer.length);
+	log.debug('[ibus_protocol]', 'Buffered messages size: ', _self._buffer.length);
 
 	_self._isProcessing = false;
 

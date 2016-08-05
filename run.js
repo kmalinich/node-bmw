@@ -20,6 +20,7 @@ var LCM = require('./modules/LCM.js');
 
 // WebSocket libraries
 var socket_server = require('./lib/socket-server.js');
+var api_server    = http.createServer(api_handler);
 
 // Everything connection handle
 var omnibus             = {};
@@ -34,85 +35,102 @@ omnibus.LCM             = new LCM(omnibus);
 // Data handler
 var data_handler_connection = new data_handler(omnibus);
 
-// Shutdown function
-function shutdown() {
-	// Terminate connection
-	omnibus.ibus_connection.shutdown(function() {
-		process.exit();
-	});
-}
+// Server ports
+var api_port       = 3001;
+var websocket_port = 3002;
 
 // IBUS data handler
 // Should be moved inside socket_server
 function on_ibus_data(data) {
-	socket_server.ibus_data(data);
+  socket_server.ibus_data(data);
 }
+
+// API handler function
+function api_handler(request, response) {
+	console.log('[api-handler] %s request: %s',request.method, request.url);
+	dispatcher.dispatch(request, response);
+}
+
+function start() {
+	// Start IBUS connection
+	omnibus.ibus_connection.startup();
+
+	// Start API server
+	api_server.listen(api_port, function() {
+		console.log('[api-server] Started, port %s', api_port);
+	});
+
+	// Start WebSocket server
+	socket_server.init(websocket_port, omnibus);
+}
+
+// Shutdown function
+function shutdown() {
+  console.log('[node-bmw] Closing all threads and exiting');
+
+  api_server.close(function() {
+    process.exit(function() {
+    });
+  });
+
+  // Close serial port if open, and exit process  
+  omnibus.ibus_connection.shutdown(function() {
+    process.exit();
+  });
+}
+
+
+// Port 3001 listener for POST requests to modules
+// This should be moved into it's own object
+
+// Status GET request
+dispatcher.onGet('/status', function(request, response) {
+  response.writeHead(200, {'Content-Type': 'application/json'});
+
+  response.end(JSON.stringify(omnibus.status));
+});
+
+// GM POST request
+dispatcher.onPost('/gm', function(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+
+  var post = query_string.parse(request.body);
+  omnibus.GM.gm_data(post);
+
+  response.end('Got POST message for GM\n');
+});
+
+// IKE POST request
+dispatcher.onPost('/ike', function(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+
+  var post = query_string.parse(request.body);
+  omnibus.IKE.ike_data(post);
+
+  response.end('Got POST message for IKE\n');
+});
+
+// LCM POST request
+dispatcher.onPost('/lcm', function(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+
+  var post = query_string.parse(request.body);
+  omnibus.LCM.lcm_data(post);
+
+  response.end('Got POST message for LCM\n');
+});
+
+// Error
+dispatcher.onError(function(request, response) {
+  console.error('[api-handler] Error: 404');
+  response.writeHead(404);
+  response.end();
+});
+
 
 // Events
 process.on('SIGINT', shutdown);
 omnibus.ibus_connection.on('data', on_ibus_data);
 
-// Start IBUS connection
-omnibus.ibus_connection.startup();
-
-// Start WebSocket server
-socket_server.init(3002, omnibus);
-
-// Port 3001 listener for POST requests to modules
-// This should be moved into it's own object
-
-// Vehicle status get request
-dispatcher.onGet('/status', function(request, response) {
-	console.log('[get-handler] /status');
-	response.writeHead(200, {'Content-Type': 'application/json'});
-
-	response.end(JSON.stringify(omnibus.status));
-});
-
-// GM POST request
-dispatcher.onPost('/gm', function(request, response) {
-	console.log('[post-handler] /gm');
-	response.writeHead(200, {'Content-Type': 'text/plain'});
-
-	var post = query_string.parse(request.body);
-	omnibus.GM.gm_data(post);
-
-	response.end('Got POST message for GM\n');
-});
-
-// IKE POST request
-dispatcher.onPost('/ike', function(request, response) {
-	console.log('[post-handler] /ike');
-	response.writeHead(200, {'Content-Type': 'text/plain'});
-
-	var post = query_string.parse(request.body);
-	omnibus.IKE.ike_data(post);
-
-	response.end('Got POST message for IKE\n');
-});
-
-// LCM POST request
-dispatcher.onPost('/lcm', function(request, response) {
-	console.log('[post-handler] /lcm');
-	response.writeHead(200, {'Content-Type': 'text/plain'});
-
-	var post = query_string.parse(request.body);
-	omnibus.LCM.lcm_data(post);
-
-	response.end('Got POST message for LCM\n');
-});
-
-// Error
-dispatcher.onError(function(req, res) {
-	console.error('Error: 404');
-	res.writeHead(404);
-	res.end();
-});
-
-// Create web server
-http.createServer(function (req, res) {
-	//console.log('%s Request: %s', req.method, req.url);
-	dispatcher.dispatch(req, res);
-}).listen(3001, '0.0.0.0');
-
-console.log('[run.js] Started API interface on port 3001');
+console.log('[node-bmw] Starting');
+start();

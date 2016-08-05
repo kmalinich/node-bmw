@@ -14,12 +14,11 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
-
 var GM = function(omnibus) {
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
+	// Exposed data
 	this.gm_cl             = gm_cl;
 	this.gm_data           = gm_data;
 	this.gm_get            = gm_get;
@@ -29,17 +28,15 @@ var GM = function(omnibus) {
 
 	// Handle incoming commands
 	function gm_data(data) {
-		console.log('[GM] gm_data()');
-
 		if (typeof data['gm-interior-light'] !== 'undefined') {
-			console.log('[GM] Interior light: \'%s\'', data['gm-interior-light']);
 			gm_interior_light(data['gm-interior-light']);
 		}
 
-		// Central locking
+		// Sort-of.. future-mode.. JSON command.. object? maybe.. 
 		else if (typeof data['gm-command'] !== 'undefined') {
 			console.log('[GM] command: \'%s\'', data['gm-command']);
 
+			// Central locking
 			if (data['gm-command'] == 'gm-cl') {
 				gm_cl(data['gm-command-action']);
 			}
@@ -54,8 +51,6 @@ var GM = function(omnibus) {
 
 		// Window control
 		else if (typeof data['gm-window'] !== 'undefined') {
-			console.log('gm_windows(\'%s\', \'%s\');', data['gm-window'], data['gm-window-action']);
-
 			gm_windows(data['gm-window'], data['gm-window-action']);
 		}
 
@@ -79,59 +74,64 @@ var GM = function(omnibus) {
     // Right rear
     switch (window) {
 
-      case 'roof':
-        switch (action) {
-          case 'dn':
-            msg = [0x03, 0x01, 0x01];
-            break;
-          case 'up':
-            msg = [0x03, 0x02, 0x01];
-            break;
-          case 'tt':
-            msg = [0x03, 0x00, 0x01];
-            break;
-        }
+			case 'roof':
+				switch (action) {
+					case 'dn':
+						msg = [0x03, 0x01, 0x01];
+						break;
+					case 'up':
+						msg = [0x03, 0x02, 0x01];
+						break;
+					case 'tt':
+						msg = [0x03, 0x00, 0x01];
+						break;
+				}
+				break;
 
-      case 'lf' :
-        switch (action) {
-          case 'dn':
-            msg = [0x01, 0x36, 0x01];
-            break;
-          case 'up':
-            msg = [0x01, 0x1A, 0x01];
-            break;
-        }
+			case 'lf' :
+				switch (action) {
+					case 'dn':
+						msg = [0x01, 0x36, 0x01];
+						break;
+					case 'up':
+						msg = [0x01, 0x1A, 0x01];
+						break;
+				}
+				break;
 
-      case 'rf' :
-        switch (action) {
-          case 'dn':
-            msg = [0x02, 0x20, 0x01];
-            break;
-          case 'up':
-            msg = [0x02, 0x22, 0x01];
-            break;
-        }
+			case 'rf' :
+				switch (action) {
+					case 'dn':
+						msg = [0x02, 0x20, 0x01];
+						break;
+					case 'up':
+						msg = [0x02, 0x22, 0x01];
+						break;
+				}
+				break;
 
-      case 'lr' :
-        switch (action) {
-          case 'dn':
-            msg = [0x00, 0x00, 0x01];
-            break;
-          case 'up':
-            msg = [0x42, 0x01];
-            break;
-        }
+			case 'lr' :
+				switch (action) {
+					case 'dn':
+						msg = [0x00, 0x00, 0x01];
+						break;
+					case 'up':
+						msg = [0x42, 0x01];
+						break;
+				}
+				break;
 
-      case 'rr' :
-        switch (action) {
-          case 'dn':
-            msg = [0x00, 0x03, 0x01];
-            break;
-          case 'up':
-            msg = [0x43, 0x01];
-            break;
-        }
-    }
+			case 'rr' :
+				switch (action) {
+					case 'dn':
+						msg = [0x00, 0x03, 0x01];
+						break;
+					case 'up':
+						msg = [0x43, 0x01];
+						break;
+				}
+				break;
+		}
 
     omnibus.GM.gm_send(msg);
   }
@@ -198,7 +198,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Sending packet \'%s\'', packet);
+		console.log('[GM] Setting IO status');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

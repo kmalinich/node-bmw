@@ -177,7 +177,7 @@ var GM = function(omnibus) {
 	function gm_get() {
 		var src = 0xF0; // BMBT
 		var dst = 0x00; // GM
-		var cmd = 0x79; // Set IO status 
+		var cmd = 0x79; // Get IO status 
 
 		var ibus_packet = {
 			src: src,
@@ -187,6 +187,7 @@ var GM = function(omnibus) {
 
 		// Send the message
 		console.log('[GM] Requesting doors/flaps status');
+		console.log(ibus_packet.msg);
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

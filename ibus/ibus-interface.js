@@ -129,7 +129,7 @@ var ibus_interface = function(device_path) {
       // else {
       // }
 
-      // console.log('[ibus-interface]', clc.white('Wrote to device:'), data_buffer, resp);
+      // console.log('[ibus-interface]', clc.red('Wrote to device:'), data_buffer, resp);
 
       serial_port.drain(function(error) {
         // log.debug(clc.white('Data drained'));

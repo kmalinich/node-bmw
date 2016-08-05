@@ -8,6 +8,16 @@
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
+			<h4>Status</h4>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<button class="btn btn-lg btn-warning btn-block" id="btn-gm-get-status" onclick="javascript:gm_get();">Get IO status</button>
+				</div>
+			</div>
+
+			<hr>
+
 			<h4>Central locking</h4>
 
 			<div class="row">

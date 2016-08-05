@@ -34,16 +34,10 @@ var GM = function(omnibus) {
 
 		// Sort-of.. future-mode.. JSON command.. object? maybe.. 
 		else if (typeof data['gm-command'] !== 'undefined') {
-			// Central locking
-			if (data['gm-command'] == 'gm-cl') {
-				gm_cl(data['gm-command-action']);
-			}
-			else if (data['gm-command'] == 'gm-get') {
-				gm_get();
-			}
-
-			else {
-				console.log('[GM] Unknown command');
+			switch (data['gm-command']) {
+				case 'gm-get' : gm_get();                            break; // Get IO status
+				case 'gm-cl'  : gm_cl(data['gm-command-action']);    break; // Central locking
+				default       : console.log('[GM] Unknown command'); break; // Dunno what I sent
 			}
 		}
 
@@ -182,12 +176,11 @@ var GM = function(omnibus) {
 		var ibus_packet = {
 			src: src,
 			dst: dst,
-			msg: new Buffer(cmd),
+			msg: new Buffer([cmd]),
 		}
 
 		// Send the message
 		console.log('[GM] Requesting doors/flaps status');
-		console.log(ibus_packet.msg);
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

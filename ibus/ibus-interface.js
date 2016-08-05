@@ -71,6 +71,7 @@ var ibus_interface = function(device_path) {
 
     // Open port if it is closed
     if (!serial_port.isOpen()) {
+			console.log('[ibus-interface] Opening port');
       serial_port.open();
     }
   }
@@ -81,6 +82,7 @@ var ibus_interface = function(device_path) {
 
     // Close port if it is open
     if (serial_port.isOpen()) {
+			console.log('[ibus-interface] Closing port');
       serial_port.close();
     }
 

@@ -193,15 +193,18 @@ function get_module_name(key) {
 	return 'Unknown Device' + ' - ' + key;
 };
 
-function gm_central_lock() {
-	console.log('gm_central_lock();');
+// Get IO status 
+function gm_get() {
+	console.log('gm_get();');
 
 	$.ajax({
 		url      : '/api/gm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'gm-command=gm_central_lock',
-		success  : function(return_data) {
+		data     : {
+			'gm-command' : 'gm-get',
+		},
+		success : function(return_data) {
 			console.log(return_data);
 		}
 	});
@@ -209,7 +212,7 @@ function gm_central_lock() {
 
 // Central locking/unlocking
 function gm_cl(action) {
-	console.log('gm_central_unlock(%s);', action);
+	console.log('gm_cl(%s);', action);
 
 	$.ajax({
 		url      : '/api/gm',
@@ -242,7 +245,7 @@ function gm_interior_light(value) {
 
 // GM window control
 function gm_windows(window, action) {
-	console.log('Putting \'%s\' window \'%s\'', window, action);
+	console.log('gm_windows(%s, %s);', window, action);
 
 	$.ajax({
 		url      : '/api/gm',

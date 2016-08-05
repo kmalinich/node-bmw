@@ -39,6 +39,9 @@ function blink1-ctl() {
 
 log "Run start."
 
+WIRED_LINK="$(ethtool eth0 | awk -F ': ' '/Link detected/ {print $2}')"
+log "Wired link: ${WIRED_LINK}"
+
 CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
 log "Current mode: ${CURRENT_MODE}"
 

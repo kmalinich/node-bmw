@@ -34,8 +34,6 @@ var GM = function(omnibus) {
 
 		// Sort-of.. future-mode.. JSON command.. object? maybe.. 
 		else if (typeof data['gm-command'] !== 'undefined') {
-			console.log('[GM] command: \'%s\'', data['gm-command']);
-
 			// Central locking
 			if (data['gm-command'] == 'gm-cl') {
 				gm_cl(data['gm-command-action']);
@@ -71,70 +69,48 @@ var GM = function(omnibus) {
 		// Left front
 		// Right front
 		// Left rear
-    // Right rear
-    switch (window) {
+		// Right rear
+		switch (window) {
 
 			case 'roof':
 				switch (action) {
-					case 'dn':
-						msg = [0x03, 0x01, 0x01];
-						break;
-					case 'up':
-						msg = [0x03, 0x02, 0x01];
-						break;
-					case 'tt':
-						msg = [0x03, 0x00, 0x01];
-						break;
+					case 'dn' : msg = [0x03, 0x01, 0x01]; break;
+					case 'up' : msg = [0x03, 0x02, 0x01]; break;
+					case 'tt' : msg = [0x03, 0x00, 0x01]; break;
 				}
 				break;
 
 			case 'lf' :
 				switch (action) {
-					case 'dn':
-						msg = [0x01, 0x36, 0x01];
-						break;
-					case 'up':
-						msg = [0x01, 0x1A, 0x01];
-						break;
+					case 'dn' : msg = [0x01, 0x36, 0x01]; break;
+					case 'up' : msg = [0x01, 0x1A, 0x01]; break;
 				}
 				break;
 
 			case 'rf' :
 				switch (action) {
-					case 'dn':
-						msg = [0x02, 0x20, 0x01];
-						break;
-					case 'up':
-						msg = [0x02, 0x22, 0x01];
-						break;
+					case 'dn' : msg = [0x02, 0x20, 0x01]; break;
+					case 'up' : msg = [0x02, 0x22, 0x01]; break;
 				}
 				break;
 
 			case 'lr' :
 				switch (action) {
-					case 'dn':
-						msg = [0x00, 0x00, 0x01];
-						break;
-					case 'up':
-						msg = [0x42, 0x01];
-						break;
+					case 'dn' : msg = [0x00, 0x00, 0x01]; break;
+					case 'up' : msg = [0x42, 0x01];       break;
 				}
 				break;
 
 			case 'rr' :
 				switch (action) {
-					case 'dn':
-						msg = [0x00, 0x03, 0x01];
-						break;
-					case 'up':
-						msg = [0x43, 0x01];
-						break;
+					case 'dn' : msg = [0x00, 0x03, 0x01]; break;
+					case 'up' : msg = [0x43, 0x01];       break;
 				}
 				break;
 		}
 
-    omnibus.GM.gm_send(msg);
-  }
+		omnibus.GM.gm_send(msg);
+	}
 
 	// Cluster/interior backlight 
 	function gm_interior_light(value) {
@@ -168,15 +144,9 @@ var GM = function(omnibus) {
 		// Unlock
 		// Lock
 		switch (action) {
-			case 'toggle':
-        msg = [0x97, 0x01];
-        break;
-			case 'lock':
-        msg = [0x03, 0x01];
-        break;
-			case 'unlock':
-        msg = [0x00, 0x0B];
-        break;
+			case 'toggle' : msg = [0x97, 0x01]; break;
+			case 'lock'   : msg = [0x03, 0x01]; break;
+			case 'unlock' : msg = [0x00, 0x0B]; break;
 		}
 
 		omnibus.GM.gm_send(msg);
@@ -198,7 +168,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Setting IO status');
+		console.log('[GM] Sending \'Set IO status\' packet');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

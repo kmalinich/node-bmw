@@ -24,66 +24,47 @@ var IKE = function(omnibus) {
 	this.ike_data  = ike_data;
 	this.ike_send  = ike_send;
 	this.ike_text  = ike_text;
-	this.obc_get   = obc_get;
-	this.obc_reset = obc_reset;
+	this.obc_data   = obc_data;
 
 	// Handle incoming commands
 	function ike_data(data) {
 		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE text string: \'%s\'', data['obc-text']);
 			ike_text(data['obc-text']);
-		}
-
-		// Refresh OBC data value
-		else if (typeof data['obc-get'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE OBC get: \'%s\'', data['obc-get']);
-			if (data['obc-get'] == 'all') {
-				obc_refresh();
-			}
-			else {
-				obc_get(data['obc-get']);
-			}
-		}
-
-		// Reset OBC data value
-		else if (typeof data['obc-reset'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE OBC reset: \'%s\'', data['obc-reset']);
-
-			if (data['obc-reset'] == 'all') {
-				obc_refresh();
-			}
-			else {
-				obc_reset(data['obc-reset']);
-			}
 		}
 
 		// Set OBC clock
 		else if (data.command == 'obc_clock') {
-			console.log('[IKE] ike_data(): calling obc_clock();');
 			obc_clock(data);
 		}
 
-		else if (typeof data['obc-time'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE OBC time: \'%s\'', data['obc-time']);
-			obc_time(data['obc-time']);
-		}
-
 		else if (typeof data['obc-gong'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE OBC gong: \'%s\'', data['obc-gong']);
 			obc_gong(data['obc-gong']);
 		}
 
 		// Set cluster LCD backlight
 		else if (typeof data['ike-backlight'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE backlight: %s', data['ike-backlight']);
 			ike_backlight(data['ike-backlight']);
 		}
 
 		// Send fake ignition status 
 		else if (typeof data['ike-ignition'] !== 'undefined') {
-			console.log('[IKE] ike_data(): IKE ignition: %s', data['ike-ignition']);
 			ike_ignition(data['ike-ignition']);
+		}
+
+		// Refresh OBC data value
+		else if (typeof data['obc-get'] !== 'undefined') {
+			if (data['obc-get'] == 'all') {
+				obc_refresh();
+			}
+			else {
+				obc_data('get', data['obc-get']);
+			}
+		}
+
+		// Reset OBC data value
+		else if (typeof data['obc-reset'] !== 'undefined') {
+			obc_data('reset', data['obc-reset']);
 		}
 
 		else {
@@ -137,142 +118,61 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC data
 	function obc_refresh() {
-		obc_get('auxheat1');
-		obc_get('auxheat2');
-		obc_get('cons1');
-		obc_get('cons2');
-		obc_get('date');
-		obc_get('distance');
-		obc_get('range');
-		obc_get('speedavg');
-		obc_get('speedlimit');
-		obc_get('stopwatch');
-		obc_get('temp_exterior');
-		obc_get('time');
-		obc_get('timer');
+		obc_data('get', 'auxheat1');
+		obc_data('get', 'auxheat2');
+		obc_data('get', 'cons1');
+		obc_data('get', 'cons2');
+		obc_data('get', 'date');
+		obc_data('get', 'distance');
+		obc_data('get', 'range');
+		obc_data('get', 'speedavg');
+		obc_data('get', 'speedlimit');
+		obc_data('get', 'stopwatch');
+		obc_data('get', 'temp_exterior');
+		obc_data('get', 'time');
+		obc_data('get', 'timer');
 	}
 
-	// OBC get
-	function obc_get(value) {
+	// OBC get/reset
+	function obc_data(action, value) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
+		var cmd = 0x41; // Get/reset OBC value
 
-		// Determine desired value to get 
-		if (value == 'time') {
-			var msg       = [0x41, 0x01, 0x01];
-			var obc_value = 'Time';
+		// Init action_id, value_id 
+		var action_id;
+		var value_id;
+
+		// Determine action_id from action argument 
+		switch (action) {
+			case 'get'       : action_id = 0x01; break;
+			case 'limit-off' : action_id = 0x08; break;
+			case 'limit-on'  : action_id = 0x04; break;
+			case 'limit-set' : action_id = 0x20; break;
+			case 'reset'     : action_id = 0x10; break;
 		}
 
-		else if (value == 'date') {
-			var msg       = [0x41, 0x02, 0x01];
-			var obc_value = 'Date';
+		// Determine value_id from value argument 
+		switch (value) {
+			case 'auxheat1'      : value_id = 0x0F; break;
+			case 'auxheat2'      : value_id = 0x10; break;
+			case 'cons1'         : value_id = 0x04; break;
+			case 'cons2'         : value_id = 0x05; break;
+			case 'date'          : value_id = 0x02; break;
+			case 'distance'      : value_id = 0x07; break;
+			case 'range'         : value_id = 0x06; break;
+			case 'speedavg'      : value_id = 0x0A; break;
+			case 'speedlimit'    : value_id = 0x09; break;
+			case 'stopwatch'     : value_id = 0x1A; break;
+			case 'temp_exterior' : value_id = 0x03; break;
+			case 'time'          : value_id = 0x01; break;
+			case 'timer'         : value_id = 0x0E; break;
 		}
 
-		else if (value == 'temp_exterior') {
-			var msg       = [0x41, 0x03, 0x01];
-			var obc_value = 'Exterior temp';
-		}
+		// Assemble message string
+		var msg = [cmd, value_id, action_id];
 
-		else if (value == 'cons1') {
-			var msg       = [0x41, 0x04, 0x01];
-			var obc_value = 'Average consumption 1';
-		}
-
-		else if (value == 'cons2') {
-			var msg       = [0x41, 0x05, 0x01];
-			var obc_value = 'Average consumption 2';
-		}
-
-		else if (value == 'range') {
-			var msg       = [0x41, 0x06, 0x01];
-			var obc_value = 'Range';
-		}
-
-		else if (value == 'distance') {
-			var msg       = [0x41, 0x07, 0x01];
-			var obc_value = 'Distance';
-		}
-
-		//else if (value == '') {
-		//	var msg       = [0x41, 0x08, 0x01];
-		//	var obc_value = '';
-		//}
-
-		else if (value == 'speedlimit') {
-			var msg       = [0x41, 0x09, 0x01];
-			var obc_value = 'Speed limit';
-		}
-
-		else if (value == 'speedavg') {
-			var msg       = [0x41, 0x0A, 0x01];
-			var obc_value = 'Average speed';
-		}
-
-		else if (value == 'timer') {
-			var msg       = [0x41, 0x0E, 0x01];
-			var obc_value = 'Timer';
-		}
-
-		else if (value == 'auxheat1') {
-			var msg       = [0x41, 0x0F, 0x01];
-			var obc_value = 'Aux heating timer 1';
-		}
-
-		else if (value == 'auxheat2') {
-			var msg       = [0x41, 0x10, 0x01];
-			var obc_value = 'Aux heating timer 2';
-		}
-
-		else if (value == 'stopwatch') {
-			var msg       = [0x41, 0x1A, 0x01];
-			var obc_value = 'Stopwatch';
-		}
-
-		console.log('[IKE] Getting OBC value %s', obc_value);
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// OBC reset
-	function obc_reset(value) {
-		var src = 0x3B; // GT
-		var dst = 0x80; // IKE
-
-		// Determine desired value to reset 
-		if (value == 'speedavg') {
-			var msg       = [0x41, 0x0A, 0x10];
-			var obc_value = 'Average speed';
-		}
-
-		else if (value == 'cons1') {
-			var msg       = [0x41, 0x04, 0x10];
-			var obc_value = 'Average consumption 1';
-		}
-
-		else if (value == 'cons2') {
-			var msg       = [0x41, 0x05, 0x10];
-			var obc_value = 'Average consumption 2';
-		}
-		else if (value == 'speedlimitoff') {
-			var msg       = [0x41, 0x09, 0x08];
-			var obc_value = 'Speed limit off';
-		}
-		else if (value == 'speedlimiton') {
-			var msg       = [0x41, 0x09, 0x04];
-			var obc_value = 'Speed limit on';
-		}
-		else if (value == 'speedlimit') {
-			var msg       = [0x41, 0x09, 0x20];
-			var obc_value = 'Speed limit';
-		}
-
-		console.log('[IKE] Setting/resetting OBC value %s', obc_value);
+		console.log('[IKE] Doing \'%s\' on OBC value \'%s\'', action, value);
 
 		var ibus_packet = {
 			src: src, 
@@ -287,14 +187,15 @@ var IKE = function(omnibus) {
 	function ike_backlight(value) {
 		var src = 0xD0; // LCM
 		var dst = 0xBF; // GLO 
+		var cmd = 0x5C; // Set LCD screen text
 
-		console.log('[IKE] Setting backlight to %s', value);
+		console.log('[IKE] Setting LCD screen backlight to %s', value);
 
 		// Convert the value to hex
 		value = value.toString(16);
 
 		// Will need to concat and push array for value
-		var msg = [0x5C, value, 0x00];
+		var msg = [cmd, value, 0x00];
 
 		var ibus_packet = {
 			src: src, 
@@ -310,25 +211,25 @@ var IKE = function(omnibus) {
 		var src = 0x80; // IKE 
 		var dst = 0xBF; // GLO 
 		var cmd = 0x11; // Ignition status
+
+		// Init status variable
 		var status;
 
 		console.log('[IKE] Claiming ignition is \'%s\'', value);
 
-		// Translate English to hex
-		if (value == 'off') {
-			status = 0x00;
-		}
-		// Accessory
-		else if (value == 'pos1') {
-			status = 0x01;
-		}
-		// Run
-		else if (value == 'pos2') {
-			status = 0x03;
-		}
-		// Start
-		else if (value == 'pos3') {
-			status = 0x07;
+		switch (value) {
+			case 'off':
+				status = 0x00;
+				break;
+			case 'pos1':
+				status = 0x01;
+				break;
+			case 'pos2':
+				status = 0x03;
+				break;
+			case 'pos3':
+				status = 0x07;
+				break;
 		}
 
 		var ibus_packet = {
@@ -345,7 +246,7 @@ var IKE = function(omnibus) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 
-		console.log('[IKE] Set OBC clock                                      = %s/%s/%s %s:%s', data.day, data.month, data.year, data.hour, data.minute);
+		console.log('[IKE] Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
 
 		var time_msg         = [0x40, 0x01, data.hour, data.minute];
 		var time_ibus_packet = {
@@ -394,8 +295,9 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
+	// Check control messages
 	function ike_text_urgent(message) {
-		var src = 0x30; // ??
+		var src = 0x30; // CCM 
 		var dst = 0x80; // IKE
 
 		var message_hex = [0x1A, 0x35, 0x00];
@@ -411,8 +313,9 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
+	// Check control messages
 	function ike_text_urgent_off() {
-		var src = 0x30; // ??
+		var src = 0x30; // CCM 
 		var dst = 0x80; // IKE
 
 		var message_hex = [0x1A, 0x30, 0x00];
@@ -434,7 +337,7 @@ var IKE = function(omnibus) {
 		string = string.ike_pad();
 
 		// Need to center and pad spaces out to 20 chars
-		console.log('[IKE] Sending text to IKE: "%s"', string);
+		console.log('[IKE] Sending text to IKE screen: \'%s\'', string);
 
 		var string_hex = [0x23, 0x50, 0x30, 0x07];
 		var string_hex = string_hex.concat(ascii2hex(string));
@@ -471,7 +374,7 @@ var IKE = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[IKE] Sending IKE packet.');
+		console.log('[IKE] Sending IKE packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

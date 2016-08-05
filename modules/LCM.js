@@ -30,15 +30,12 @@ var LCM = function(omnibus) {
 
 	// Handle incoming commands
 	function lcm_data(data) {
-		console.log('[LCM] lcm_data(%s);', data);
 		if (typeof data['lcm-get'] !== 'undefined') {
-			console.log('[LCM] lcm_data command: \'Get IO status\'');
 			lcm_get();
 		}
 
 		else {
 			// Dirty assumption
-			console.log('[LCM] Assuming lcm_bitmask_encode()');
 			lcm_bitmask_encode(data);
 		}
 	}
@@ -56,7 +53,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM] Sending \'Get IO status\' LCM packet.');
+		console.log('[LCM] Sending \'Get IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -76,7 +73,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM] Sending \'Set IO status\' LCM packet.');
+		console.log('[LCM] Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

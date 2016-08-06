@@ -107,8 +107,9 @@ var IKE = function(omnibus) {
 	function hud_refresh() {
 		console.log('[IKE] Refreshing OBC HUD');
 
-		obc_get('cons1');
-		obc_get('time');
+		// Request consumption 1 and time
+		obc_data('get', 'cons1');
+		obc_data('get', 'time');
 
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);

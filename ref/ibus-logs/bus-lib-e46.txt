@@ -2062,7 +2062,6 @@
 80 E7 24 1A 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text Layout=Interim_Time Flags= F0=" 0.0 SEC"
 80 E7 24 1A 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text: Layout=Interim_Time Flags= F0=" 0.0 SEC"
 80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = Off
-80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 80 E7 2A 00 02,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED =
 80 E7 2A 00 04,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = On
 80 E7 2A 00 08,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = On_blink
@@ -2194,10 +2193,10 @@ C8 3F A0 86 90 70 46 09 00 04 07 00 00 23 11,TEL --> DIA : Diagnostic command ac
 C8 3F A0 FF FF FF FF FF FF FF FF FF FF,TEL --> DIA : Diagnostic command acknowledged, Data="FF FF FF FF FF FF FF FF FF FF"
 C8 7F A9 0B 00 00 04,TEL --> NAV : Telephone data, Data="0B 00 00 04"
 C8 7F A9 31 00 00,TEL --> NAV: Telephone data Telematics_settings_request
-C8 E7 2B 00,TEL --> ANZV: Telephone indicators: All_off
-C8 E7 2B 03,TEL --> ANZV: Telephone indicators: Red_blink
+C8 E7 2B 00,TEL --> ANZV: Telephone indicators All_off
+C8 E7 2B 03,TEL --> ANZV: Telephone indicators Red_blink
 C8 E7 2C 90,TEL --> ANZV: Telephone status Phone_On
-C8 E7 A6 00 00,TEL --> ANZV: Special indicators: Request
+C8 E7 A6 00 00,TEL --> ANZV: Special indicators Request
 C8 FF 02 30,TEL --> LOC : Device status ready Assist_ready_after_Reset Bit5
 D0 3F A0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
 D0 3F A0 00 02 00 40 01 00 08 00 00 00 00 00 00 00 00 23 72 4E 21 90 01 00 0B 00 00 00 00 28 1F 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="00 02 00 40 01 00 08 00 00 00 00 00 00 00 00 23 72 4E 21 90 01 00 0B 00 00 00 00 28 1F 00 00 00"

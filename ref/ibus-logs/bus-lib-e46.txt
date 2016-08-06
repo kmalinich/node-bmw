@@ -296,51 +296,37 @@
 3B 80 01,GT --> IKE: Device status request
 3B 80 10,GT --> IKE: Ignition status request
 3B 80 14,GT --> IKE: Country coding status request
-3B 80 40 01 01 1A,GT --> IKE: On-board computer set data,: Set Time = 01:26
-3B 80 40 01 07 18,GT --> IKE: On-board computer set data,: Set Time = 07:24
+3B 80 40 01 01 1A,GT --> IKE: On-board computer set data: Set Time = 01:26
+3B 80 40 01 07 18,GT --> IKE: On-board computer set data: Set Time = 07:24
 3B 80 40 01 10 30,GT --> IKE: On-board computer set data: Set Time = 16:48
 3B 80 40 01 11 01,GT --> IKE: On-board computer set data: Set Time = 17:01
 3B 80 40 01 16 10,GT --> IKE: On-board computer set data: Set Time = 22:16
 3B 80 40 02 05 08 0B,GT --> IKE: On-board computer set data: Set Date = 05/08/11
-3B 80 40 02 0A 05 10,GT --> IKE: On-board computer set data,: Set Date = 10/05/16
+3B 80 40 02 0A 05 10,GT --> IKE: On-board computer set data: Set Date = 10/05/16
 3B 80 40 02 0F 0A 0B,GT --> IKE: On-board computer set data: Set Date = 15/10/11
 3B 80 40 02 16 08 0B,GT --> IKE: On-board computer set data: Set Date = 22/08/11
-3B 80 40 02 1F 07 10,GT --> IKE: On-board computer set data,: Set Date = 31/07/16
+3B 80 40 02 1F 07 10,GT --> IKE: On-board computer set data: Set Date = 31/07/16
 3B 80 41 00,GT --> IKE: On-board computer data request OBC_Mode_00
 3B 80 41 01 01,GT --> IKE: On-board computer data request Time: current value request
-3B 80 41 01 01,GT --> IKE: On-board computer data request: Time: current value request
 3B 80 41 01,GT --> IKE: On-board computer data request Time
 3B 80 41 02 01,GT --> IKE: On-board computer data request Date: current value request
-3B 80 41 02 01,GT --> IKE: On-board computer data request: Date: current value request
 3B 80 41 02,GT --> IKE: On-board computer data request Date
 3B 80 41 03 01,GT --> IKE: On-board computer data request Outside_Temp: current value request
-3B 80 41 03 01,GT --> IKE: On-board computer data request: Outside_Temp: current value request
 3B 80 41 03,GT --> IKE: On-board computer data request Outside_Temp
 3B 80 41 04 01,GT --> IKE: On-board computer data request Consumption_1: current value request
-3B 80 41 04 01,GT --> IKE: On-board computer data request: Consumption_1: current value request
 3B 80 41 04,GT --> IKE: On-board computer data request Consumption_1
 3B 80 41 05 01,GT --> IKE: On-board computer data request Consumption_2: current value request
-3B 80 41 05 01,GT --> IKE: On-board computer data request: Consumption_2: current value request
 3B 80 41 06 01,GT --> IKE: On-board computer data request Range: current value request
-3B 80 41 06 01,GT --> IKE: On-board computer data request: Range: current value request
 3B 80 41 07 01,GT --> IKE: On-board computer data request Distance: current value request
-3B 80 41 07 01,GT --> IKE: On-board computer data request: Distance: current value request
 3B 80 41 08 01,GT --> IKE: On-board computer data request Arrival: current value request
-3B 80 41 08 01,GT --> IKE: On-board computer data request: Arrival: current value request
 3B 80 41 09 01,GT --> IKE: On-board computer data request Limit: current value request
-3B 80 41 09 01,GT --> IKE: On-board computer data request: Limit: current value request
 3B 80 41 09 02,GT --> IKE: On-board computer data request Limit: status request
-3B 80 41 09 02,GT --> IKE: On-board computer data request: Limit: status request
 3B 80 41 0A 01,GT --> IKE: On-board computer data request Average_Speed: current value request
-3B 80 41 0A 01,GT --> IKE: On-board computer data request: Average_Speed: current value request
 3B 80 41 0D 02,GT --> IKE: On-board computer data request Code: status request
-3B 80 41 0D 02,GT --> IKE: On-board computer data request: Code: status request
-3B 80 41 0E 01,GT --> IKE: On-board computer data request: Stopwatch: current value request
+3B 80 41 0E 01,GT --> IKE: On-board computer data request Stopwatch: current value request
 3B 80 41 0E 03,GT --> IKE: On-board computer data request Stopwatch: current value request status request
 3B 80 41 0F 01,GT --> IKE: On-board computer data request Timer_1: current value request
-3B 80 41 0F 01,GT --> IKE: On-board computer data request: Timer_1: current value request
 3B 80 41 10 01,GT --> IKE: On-board computer data request Timer_2: current value request
-3B 80 41 10 01,GT --> IKE: On-board computer data request: Timer_2: current value request
 3B 80 41 10,GT --> IKE: On-board computer data request Timer_2
 3B 80 41 11,GT --> IKE: On-board computer data request Aux_Heating_Off
 3B 80 41 12,GT --> IKE: On-board computer data request Aux_Heating_On
@@ -351,7 +337,6 @@
 3B 80 41 17,GT --> IKE: On-board computer data request OBC_Mode_17
 3B 80 41 18,GT --> IKE: On-board computer data request OBC_Mode_18
 3B 80 41 1A 01,GT --> IKE: On-board computer data request Interim_Time: current value request
-3B 80 41 1A 01,GT --> IKE: On-board computer data request: Interim_Time: current value request
 3B 80 41 1B 03,GT --> IKE: On-board computer data request Aux_Heat/Vent: current value request status request
 3B BB 4F 02 00,GT --> NAJ: RGB control LCD_off GT
 3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT
@@ -795,7 +780,7 @@
 68 3B 46 04,RAD --> GT: LCD clear: Select menu off
 68 3B 46 08,RAD --> GT: LCD clear: Tone menu off
 68 3B 46 0C,RAD --> GT: LCD clear: Select menu off: Tone menu off
-68 3B 46 0E,RAD --> GT: LCD clear,: Radio display off: Select menu off: Tone menu off
+68 3B 46 0E,RAD --> GT: LCD clear: Radio display off: Select menu off: Tone menu off
 68 3B A5 60 01 00,RAD --> GT: Screen Text Layout=Menu FC2=0x01 Fld0,EndTx=""
 68 3B A5 62 01 00,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld0,EndTx=""
 68 3B A5 62 01 02 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,EndTx=""
@@ -2821,7 +2806,6 @@ D0 BF 5C EB 00,LCM --> GLO: Light dimmer 235
 D0 BF 5C EC 00,LCM --> GLO: Light dimmer 236
 D0 BF 5C ED 00,LCM --> GLO: Light dimmer 237
 D0 BF 5C FF 00,LCM --> GLO: Light dimmer 255 (max)
-D0 BF 5C FF 00,LCM --> GLO: Light dimmer: 255 (max)
 E8 00 58 00 00,RLS --> GM: Headlight wipe interval Data="00 00"
 E8 00 58 FF 7F,RLS --> GM: Headlight wipe interval Data="FF 7F"
 E8 00 75,RLS --> GM: Wiper status request
@@ -2839,9 +2823,12 @@ ED 80 41 01 01,VID --> IKE: On-board computer data request Time: current value r
 ED 80 41 02 01,VID --> IKE: On-board computer data request Date: current value request
 ED 80 41 1B 02,VID --> IKE: On-board computer data request Aux_Heat/Vent: status request
 ED F0 4A 90,VID --> BMBT: Cassette control State_unknown, Data="90"
+ED F0 4F 00 11,VID --> BMBT: RGB control LCD_off
 ED F0 4F 02 11,VID --> BMBT: RGB control LCD_off GT
+ED F0 4F 11 11,VID --> BMBT: RGB control LCD_on TV
 ED F0 4F 12 01,VID --> BMBT: RGB control LCD_on GT
 ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT
+ED F0 4F 14 11,VID --> BMBT: RGB control LCD_on NAVJ
 F0 00 79,BMBT --> GM: Doors/flaps status request
 F0 3B 02 30,BMBT --> GT: Device status ready Bit4 Bit5
 F0 3B 48 05,BMBT --> GT: BM Button BM_Knob_pressed

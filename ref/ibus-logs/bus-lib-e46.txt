@@ -292,7 +292,6 @@
 3B 68 4E 00 00,GT --> RAD: Audio source selection
 3B 6A 01,GT --> DSP: Device status request
 3B 6A 34 28,GT --> DSP: DSP equaliser button Data="28"
-3B 6A 34 28,GT --> DSP: DSP equaliser button, Data="28"
 3B 6A 34 28,GT --> DSP: DSP equalizer button Data="28"
 3B 80 01,GT --> IKE: Device status request
 3B 80 10,GT --> IKE: Ignition status request
@@ -354,23 +353,23 @@
 3B 80 41 1A 01,GT --> IKE: On-board computer data request Interim_Time: current value request
 3B 80 41 1A 01,GT --> IKE: On-board computer data request: Interim_Time: current value request
 3B 80 41 1B 03,GT --> IKE: On-board computer data request Aux_Heat/Vent: current value request status request
-3B BB 4F 02 00,GT --> NAJ: RGB control: LCD_off GT
-3B BB 4F 02,GT --> NAJ: RGB control: LCD_off GT
-3B BB 4F 02,GT --> NAJ: RGB control: LCD_off GT 
-3B BB 4F 12,GT --> NAJ: RGB control: LCD_on GT
-3B BB 4F 12,GT --> NAJ: RGB control: LCD_on GT 
+3B BB 4F 02 00,GT --> NAJ: RGB control LCD_off GT
+3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT
+3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT 
+3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT
+3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT 
 3B BF 02 40,GT --> GLO: Device status ready Bit6
 3B C8 01,GT --> TEL: Device status request
 3B C8 22 00,GT --> TEL: Text display confirmation: Menu Text: 1 text message acknowledged
 3B D0 5A,GT --> LCM: Lamp status request
 3B ED 01,GT --> VID: Device status request
 3B F0 01,GT --> BMBT: Device status request
-3B F0 4F 00,GT --> BMBT: RGB control: LCD_off
-3B F0 4F 02,GT --> BMBT: RGB control: LCD_off GT
-3B F0 4F 02,GT --> BMBT: RGB control: LCD_off GT 
-3B F0 4F 10,GT --> BMBT: RGB control: LCD_on
-3B F0 4F 12,GT --> BMBT: RGB control: LCD_on GT
-3B F0 4F 12,GT --> BMBT: RGB control: LCD_on GT 
+3B F0 4F 00,GT --> BMBT: RGB control LCD_off
+3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT
+3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT 
+3B F0 4F 10,GT --> BMBT: RGB control LCD_on
+3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT
+3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT 
 3B FF 20 02 0C,GT --> LOC: Display status TEL _short Show_TEL _Menu Show_TEL _Main
 3B FF 20 02 0C,GT --> LOC: Display status TEL_short Show_TEL_Menu Show_TEL_Main
 3F 00 00 00,DIA --> GM: Read identity Data="00"
@@ -636,21 +635,17 @@
 50 68 32 10,MFL --> RAD: Volume Control Decrease 1 step
 50 68 32 11,MFL --> RAD: Volume Control Increase 1 step
 50 68 3B 01,MFL --> RAD: Radio/Telephone control Search_Up_pressed
-50 68 3B 01,MFL --> RAD: Radio/Telephone control: Search_Up_pressed
 50 68 3B 08,MFL --> RAD: Radio/Telephone control Search_Down_pressed
 50 68 3B 21,MFL --> RAD: Radio/Telephone control Search_Up_released
-50 68 3B 21,MFL --> RAD: Radio/Telephone control: Search_Up_released
 50 68 3B 28,MFL --> RAD: Radio/Telephone control Search_Down_released
 50 B0 01,MFL --> SES: Device status request
 50 C8 01,MFL --> TEL: Device status request
 50 C8 3B 80,MFL --> TEL: Radio/Telephone control Send/End_pressed
-50 C8 3B 80,MFL --> TEL: Radio/Telephone control: Send/End_pressed
-50 C8 3B 90,MFL --> TEL: Radio/Telephone control: Send/End_pressed_long
+50 C8 3B 90,MFL --> TEL: Radio/Telephone control Send/End_pressed_long
 50 C8 3B A0,MFL --> TEL: Radio/Telephone control Send/End_released
-50 C8 3B A0,MFL --> TEL: Radio/Telephone control: Send/End_released
 50 D0 5D,MFL --> LCM: Light dimmer status request
-50 FF 3B 00,MFL --> LOC: Radio/Telephone control: No_buttons_pressed
-50 FF 3B 80,MFL --> LOC: Radio/Telephone control: Send/End_pressed
+50 FF 3B 00,MFL --> LOC: Radio/Telephone control No_buttons_pressed
+50 FF 3B 80,MFL --> LOC: Radio/Telephone control Send/End_pressed
 5B 00 71,IHKA --> GM: Rain sensor status
 5B 3F A0,IHKA --> DIA: Diagnostic command acknowledged
 5B 3F FF,IHKA --> DIA: Diagnostic command not acknowledged
@@ -711,9 +706,8 @@
 60 3F A0 86 90 40 23 01 03 01 01 43 99 14 13,PDC --> DIA: Diagnostic command acknowledged, Data="86 90 40 23 01 03 01 01 43 99 14 13"
 68 18 01,RAD --> CDC: Device status request
 68 18 38 00 00,RAD --> CDC: CD_control Status_Request
-68 18 38 00 00,RAD --> CDC: CD_control: Status_Request
 68 18 38 01 00,RAD --> CDC: CD_control Stop
-68 18 38 02 00,RAD --> CDC: CD_control: Pause
+68 18 38 02 00,RAD --> CDC: CD_control Pause
 68 18 38 03 00,RAD --> CDC: CD_control Play
 68 18 38 04 01,RAD --> CDC: CD_control Fast_Reverse
 68 18 38 06 02,RAD --> CDC: CD_control Scan
@@ -789,8 +783,8 @@
 68 3B 24 40 00 31 32 31 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1210"
 68 3B 24 40 00 31 32 32 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1220"
 68 3B 24 40 00 31 32 33 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1230"
-68 3B 36 62,RAD --> GT: Audio_control: Bass = +2
-68 3B 36 64,RAD --> GT: Audio_control: Bass = +4
+68 3B 36 62,RAD --> GT: Audio_control Bass = +2
+68 3B 36 64,RAD --> GT: Audio_control Bass = +4
 68 3B 37 04,RAD --> GT: Select Menu
 68 3B 37 14,RAD --> GT: Select Menu
 68 3B 37 44,RAD --> GT: Select Menu
@@ -839,22 +833,20 @@
 68 3F A0 88 37 59 47 42 00 24 09 07 99 17 40,RAD --> DIA: Diagnostic command acknowledged Data="88 37 59 47 42 00 24 09 07 99 17 40"
 68 3F FF,RAD --> DIA: Diagnostic command not acknowledged
 68 6A 01,RAD --> DSP: Device status request
-68 6A 32 10,RAD --> DSP: Volume Control: Decrease 1 step
+68 6A 32 10,RAD --> DSP: Volume Control Decrease 1 step
 68 6A 32 11,RAD --> DSP: Volume Control Increase 1 step
-68 6A 32 11,RAD --> DSP: Volume Control: Increase 1 step
 68 6A 32 21,RAD --> DSP: Volume Control Increase 2 steps
 68 6A 32 31,RAD --> DSP: Volume Control Increase 3 steps
-68 6A 32 31,RAD --> DSP: Volume Control: Increase 3 steps
-68 6A 36 30,RAD --> DSP: Audio_control: DSP_Function 0
-68 6A 36 40,RAD --> DSP: Audio_control: Balance = Center_0
-68 6A 36 62,RAD --> DSP: Audio_control: Bass = +2
-68 6A 36 64,RAD --> DSP: Audio_control: Bass = +4
-68 6A 36 80,RAD --> DSP: Audio_control: Fader = Center0
-68 6A 36 A1,RAD --> DSP: Audio_control: Source = Tuner/Tape
-68 6A 36 AF,RAD --> DSP: Audio_control: Source = Off
-68 6A 36 C2,RAD --> DSP: Audio_control: Treble = +2
-68 6A 36 E3,RAD --> DSP: Audio_control: DSP_Function 3
-68 76 38 00 00,RAD --> CDCD: CD_control: Status_Request
+68 6A 36 30,RAD --> DSP: Audio_control DSP_Function 0
+68 6A 36 40,RAD --> DSP: Audio_control Balance = Center_0
+68 6A 36 62,RAD --> DSP: Audio_control Bass = +2
+68 6A 36 64,RAD --> DSP: Audio_control Bass = +4
+68 6A 36 80,RAD --> DSP: Audio_control Fader = Center0
+68 6A 36 A1,RAD --> DSP: Audio_control Source = Tuner/Tape
+68 6A 36 AF,RAD --> DSP: Audio_control Source = Off
+68 6A 36 C2,RAD --> DSP: Audio_control Treble = +2
+68 6A 36 E3,RAD --> DSP: Audio_control DSP_Function 3
+68 76 38 00 00,RAD --> CDCD: CD_control Status_Request
 68 7F 02 01,RAD --> NAV: Device status ready after Reset after Reset
 68 7F A8 30 01 0A 00 00 00 30 A2 D2 04 19 BE,RAD --> NAV: TMC data: Type30: Group0Data="01 0A 00 00 00" Type30: GroupA: Data="A2 D2 04 19 BE"
 68 7F A8 30 01 0A F4 00 00,RAD --> NAV: TMC data: Type30: Group0Data="01 0A F4 00 00"
@@ -1291,15 +1283,12 @@
 68 C0 24 40 00 20 39 38 2E 35,RAD --> MID: Update Text Layout=DisplayText Flags= F0=" 98.5"
 68 C0 24 40 00 31 30 35 2E 31,RAD --> MID: Update Text Layout=DisplayText Flags= F0="105.1"
 68 F0 4A 00,RAD --> BMBT: Cassette control Power_Off
-68 F0 4A 00,RAD --> BMBT: Cassette control: Power_Off
 68 F0 4A 48,RAD --> BMBT: Cassette control State_unknown Data="48"
-68 F0 4A 48,RAD --> BMBT: Cassette control: State_unknown, Data="48"
-68 F0 4A 5A,RAD --> BMBT: Cassette control: State_unknown Data="5A"
+68 F0 4A 48,RAD --> BMBT: Cassette control State_unknown, Data="48"
+68 F0 4A 5A,RAD --> BMBT: Cassette control State_unknown Data="5A"
 68 F0 4A 90,RAD --> BMBT: Cassette control State_unknown Data="90"
-68 F0 4A 90,RAD --> BMBT: Cassette control: State_unknown Data="90"
-68 F0 4A 90,RAD --> BMBT: Cassette control: State_unknown, Data="90"
+68 F0 4A 90,RAD --> BMBT: Cassette control State_unknown, Data="90"
 68 F0 4A FF,RAD --> BMBT: Cassette control Power_On
-68 F0 4A FF,RAD --> BMBT: Cassette control: Power_On
 68 FF 02 00,RAD --> LOC: Device status ready
 68 FF 02 01,RAD --> LOC: Device status ready after Reset
 68 FF 23 40 20 07 2D 41 33 2D 20 08 46 4D 20 03 20 39 31 2E 31 04 20 20 20,RAD --> LOC: Display Text Layout=DisplayText Flags=CLS F0= F7:"-A3- " F8:"FM " F3:" 91.1" F4:""
@@ -1321,7 +1310,6 @@
 68 FF 36 80,RAD --> LOC: Audio_control Fader = Center0
 68 FF 36 A1,RAD --> LOC: Audio_control Source = Tuner/Tape
 68 FF 36 AF,RAD --> LOC: Audio_control Source = Off
-68 FF 36 AF,RAD --> LOC: Audio_control: Source = Off
 68 FF 36 C2,RAD --> LOC: Audio_control Treble = +2
 68 FF 36 C8,RAD --> LOC: Audio_control Treble = +8
 68 FF 36 CC,RAD --> LOC: Audio_control Treble = +12
@@ -2415,7 +2403,7 @@ A4 BF 70 03 00 1A,AB --> GLO: Remote control central locking status Data="03 00 
 AC BF 61 01,EHC --> GLO: Suspension control Data="01"
 AC BF 61 01,EHC --> GLO: Suspension control, Data="01"
 B0 50 02 30,SES --> MFL: Device status ready Bit4 Bit5
-B0 7F AA 00 40,SES --> NAV: Nav Control: Voice recognition active
+B0 7F AA 00 40,SES --> NAV: Nav Control Voice recognition active
 C0 68 01,MID --> RAD: Device status request
 C0 68 22 00,MID --> RAD: Text display confirmation Menu Text: 1 text message acknowledged
 C0 68 22 01,MID --> RAD: Text display confirmation Menu Text: 2 text messages acknowledged
@@ -2872,11 +2860,11 @@ ED 80 14,VID --> IKE: Country coding status request
 ED 80 41 01 01,VID --> IKE: On-board computer data request Time: current value request
 ED 80 41 02 01,VID --> IKE: On-board computer data request Date: current value request
 ED 80 41 1B 02,VID --> IKE: On-board computer data request Aux_Heat/Vent: status request
-ED F0 4A 90,VID --> BMBT: Cassette control: State_unknown, Data="90"
-ED F0 4F 02 11,VID --> BMBT: RGB control: LCD_off GT
-ED F0 4F 12 01,VID --> BMBT: RGB control: LCD_on GT
-ED F0 4F 12 11,VID --> BMBT: RGB control: LCD_on GT
-ED F0 4F 12 11,VID --> BMBT: RGB control: LCD_on GT 
+ED F0 4A 90,VID --> BMBT: Cassette control State_unknown, Data="90"
+ED F0 4F 02 11,VID --> BMBT: RGB control LCD_off GT
+ED F0 4F 12 01,VID --> BMBT: RGB control LCD_on GT
+ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT
+ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT 
 F0 00 79,BMBT --> GM: Doors/flaps status request
 F0 3B 02 30,BMBT --> GT: Device status ready Bit4 Bit5
 F0 3B 48 05,BMBT --> GT: BM Button BM_Knob_pressed
@@ -2894,9 +2882,7 @@ F0 3F A0 03,BMBT --> DIA: Diagnostic command acknowledged, Data="03"
 F0 3F A0 86 93 44 12 56 00 31 10 26 03 17 49 00 00 00 00,BMBT --> DIA: Diagnostic command acknowledged, Data="86 93 44 12 56 00 31 10 26 03 17 49 00 00 00 00"
 F0 68 01,BMBT --> RAD: Device status request
 F0 68 32 10,BMBT --> RAD: Volume Control Decrease 1 step
-F0 68 32 10,BMBT --> RAD: Volume Control: Decrease 1 step
 F0 68 32 11,BMBT --> RAD: Volume Control Increase 1 step
-F0 68 32 11,BMBT --> RAD: Volume Control: Increase 1 step
 F0 68 32 20,BMBT --> RAD: Volume Control Decrease 2 steps
 F0 68 32 21,BMBT --> RAD: Volume Control Increase 2 steps
 F0 68 32 30,BMBT --> RAD: Volume Control Decrease 3 steps

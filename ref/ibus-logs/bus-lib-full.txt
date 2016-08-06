@@ -269,8 +269,8 @@
 3B 03 80 14 AC,GT --> IKE: Country coding status request
 3B 03 D0 5A B2,GT --> LCM: Lamp status request
 3B 04 68 45 00 12,GT --> RAD: Radio status request, Data="00"
-3B 04 6A 34 28 49,GT --> DSP: DSP equaliser button, Data="28"
-3B 04 6A 34 28 49,GT --> DSP: DSP equalizer button, Data="28"
+3B 04 6A 34 28 49,GT --> DSP: DSP equaliser button Data="28"
+3B 04 6A 34 28 49,GT --> DSP: DSP equalizer button Data="28"
 3B 04 80 41 00 FE,GT --> IKE: On-board computer data request, OBC_Mode_00
 3B 04 80 41 01 FF,GT --> IKE: On-board computer data request, Time
 3B 04 80 41 02 FC,GT --> IKE: On-board computer data request, Date
@@ -285,14 +285,14 @@
 3B 04 80 41 16 E8,GT --> IKE: On-board computer data request, Emergency_Disarm
 3B 04 80 41 17 E9,GT --> IKE: On-board computer data request, OBC_Mode_17
 3B 04 80 41 18 E6,GT --> IKE: On-board computer data request, OBC_Mode_18
-3B 04 BB 4F 02 C9,GT --> NAJ: RGB control: LCD_off GT
-3B 04 BB 4F 02 C9,GT --> NAJ: RGB control: LCD_off GT  
-3B 04 BB 4F 12 D9,GT --> NAJ: RGB control: LCD_on GT
-3B 04 BB 4F 12 D9,GT --> NAJ: RGB control: LCD_on GT  
-3B 04 F0 4F 02 82,GT --> BMBT: RGB control: LCD_off GT
-3B 04 F0 4F 02 82,GT --> BMBT: RGB control: LCD_off GT  
-3B 04 F0 4F 12 92,GT --> BMBT: RGB control: LCD_on GT
-3B 04 F0 4F 12 92,GT --> BMBT: RGB control: LCD_on GT  
+3B 04 BB 4F 02 C9,GT --> NAJ: RGB control LCD_off GT
+3B 04 BB 4F 02 C9,GT --> NAJ: RGB control LCD_off GT  
+3B 04 BB 4F 12 D9,GT --> NAJ: RGB control LCD_on GT
+3B 04 BB 4F 12 D9,GT --> NAJ: RGB control LCD_on GT  
+3B 04 F0 4F 02 82,GT --> BMBT: RGB control LCD_off GT
+3B 04 F0 4F 02 82,GT --> BMBT: RGB control LCD_off GT  
+3B 04 F0 4F 12 92,GT --> BMBT: RGB control LCD_on GT
+3B 04 F0 4F 12 92,GT --> BMBT: RGB control LCD_on GT  
 3B 05 68 4E 00 00 18,GT --> RAD: Audio source selection
 3B 05 80 41 01 01 FF,GT --> IKE: On-board computer data request: Time: current value request
 3B 05 80 41 02 01 FC,GT --> IKE: On-board computer data request: Date: current value request
@@ -540,11 +540,11 @@
 50 04 68 3B 21 26,MFL --> RAD: Radio/Telephone control, Search_Up_released
 50 04 68 3B 28 2F,MFL --> RAD: Radio/Telephone control, Search_Down_released
 50 04 C8 3B 80 27,MFL --> TEL: Radio/Telephone control, Send/End_pressed
-50 04 C8 3B 80 27,MFL --> TEL: Radio/Telephone control: Send/End_pressed
-50 04 C8 3B 90 37,MFL --> TEL: Radio/Telephone control: Send/End_pressed_long
+50 04 C8 3B 80 27,MFL --> TEL: Radio/Telephone control Send/End_pressed
+50 04 C8 3B 90 37,MFL --> TEL: Radio/Telephone control Send/End_pressed_long
 50 04 C8 3B A0 07,MFL --> TEL: Radio/Telephone control, Send/End_released
-50 04 C8 3B A0 07,MFL --> TEL: Radio/Telephone control: Send/End_released
-50 04 FF 3B 80 10,MFL --> LOC: Radio/Telephone control: Send/End_pressed
+50 04 C8 3B A0 07,MFL --> TEL: Radio/Telephone control Send/End_released
+50 04 FF 3B 80 10,MFL --> LOC: Radio/Telephone control Send/End_pressed
 5B 03 00 71 29,IHKA --> GM: Rain sensor status
 5B 03 3F A0 C7,IHKA --> DIA: Diagnostic command acknowledged
 5B 03 3F FF 98,IHKA --> DIA: Diagnostic command not acknowledged
@@ -611,11 +611,11 @@
 68 04 6A 32 21 15,RAD --> DSP: Volume Control, Increase 2 steps
 68 04 6A 32 31 05,RAD --> DSP: Volume Control, Increase 3 steps
 68 04 F0 4A 00 D6,RAD --> BMBT: Cassette control, Power_Off
-68 04 F0 4A 00 D6,RAD --> BMBT: Cassette control: Power_Off
+68 04 F0 4A 00 D6,RAD --> BMBT: Cassette control Power_Off
 68 04 F0 4A 48 9E,RAD --> BMBT: Cassette control, State_unknown, Data="48"
-68 04 F0 4A 5A 8C,RAD --> BMBT: Cassette control: State_unknown, Data="5A"
+68 04 F0 4A 5A 8C,RAD --> BMBT: Cassette control State_unknown, Data="5A"
 68 04 F0 4A 90 46,RAD --> BMBT: Cassette control, State_unknown, Data="90"
-68 04 F0 4A 90 46,RAD --> BMBT: Cassette control: State_unknown, Data="90"
+68 04 F0 4A 90 46,RAD --> BMBT: Cassette control State_unknown, Data="90"
 68 04 F0 4A FF 29,RAD --> BMBT: Cassette control, Power_On
 68 04 FF 02 00 91,RAD --> LOC: Device status ready
 68 04 FF 02 01 90,RAD --> LOC: Device status ready, after Reset
@@ -634,7 +634,7 @@
 68 04 FF 36 CC 69,RAD --> LOC: Audio_control, Treble = +12
 68 04 FF 36 E1 44,RAD --> LOC: Audio_control, DSP_Function 1
 68 05 18 38 00 00 4D,RAD --> CDC: CD_control, Status_Request
-68 05 18 38 00 00 4D,RAD --> CDC: CD_control: Status_Request
+68 05 18 38 00 00 4D,RAD --> CDC: CD_control Status_Request
 68 05 18 38 01 00 4C,RAD --> CDC: CD_control, Stop
 68 05 18 38 03 00 4E,RAD --> CDC: CD_control, Play
 68 05 18 38 04 01 48,RAD --> CDC: CD_control, Fast_Reverse
@@ -916,10 +916,10 @@
 80 04 BF 11 07 2D,IKE --> GLO: Ignition status, Pos1_Acc Pos2_On Pos3_Start
 80 04 C0 27 00 63,IKE --> MID: MID display request, Data="00"
 80 04 C0 27 02 61,IKE --> MID: MID display request, Data="02"
-80 04 FF 57 01 2D,IKE --> LOC: Check Control button, CHECK_pressed
-80 04 FF 57 02 2E,IKE --> LOC: Check Control button, BC_pressed
-80 04 FF 57 41 6D,IKE --> LOC: Check Control button, CHECK_released
-80 04 FF 57 43 6F,IKE --> LOC: Check Control button, Button 3_released
+80 04 FF 57 01 2D,IKE --> LOC: Check Control button CHECK_pressed
+80 04 FF 57 02 2E,IKE --> LOC: Check Control button BC_pressed
+80 04 FF 57 41 6D,IKE --> LOC: Check Control button CHECK_released
+80 04 FF 57 43 6F,IKE --> LOC: Check Control button Button 3_released
 80 05 BF 18 00 00 22,IKE --> GLO: Speed/RPM, Speed 0 km/h  [0 mph], 0 RPM
 80 05 BF 18 00 00 22,IKE --> GLO: Speed/RPM: Speed 0 km/h, 0 RPM
 80 05 BF 18 00 04 26,IKE --> GLO: Speed/RPM, Speed 0 km/h  [0 mph], 400 RPM
@@ -2103,8 +2103,8 @@ ED 03 80 12 7C,VID --> IKE: IKE sensor status request
 ED 05 80 41 01 01 29,VID --> IKE: On-board computer data request: Time: current value request
 ED 05 80 41 02 01 2A,VID --> IKE: On-board computer data request: Date: current value request
 ED 05 80 41 1B 02 30,VID --> IKE: On-board computer data request: Aux_Heat/Vent: status request
-ED 05 F0 4F 12 11 54,VID --> BMBT: RGB control: LCD_on GT
-ED 05 F0 4F 12 11 54,VID --> BMBT: RGB control: LCD_on GT  
+ED 05 F0 4F 12 11 54,VID --> BMBT: RGB control LCD_on GT
+ED 05 F0 4F 12 11 54,VID --> BMBT: RGB control LCD_on GT  
 F0 03 00 79 8A,BMBT --> GM: Doors/flaps status request
 F0 03 68 01 9A,BMBT --> RAD: Device status request
 F0 03 80 10 63,BMBT --> IKE: Ignition status request

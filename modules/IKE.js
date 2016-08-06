@@ -134,41 +134,45 @@ var IKE = function(omnibus) {
 		obc_data('get', 'timer');
 	}
 
-	// OBC get/reset
+	// OBC data request 
 	function obc_data(action, value) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
-		var cmd = 0x41; // Get/reset OBC value
+		var cmd = 0x41; // OBC data request
 
 		// Init action_id, value_id 
 		var action_id;
 		var value_id;
 
-		// Determine action_id from action argument 
-		switch (action) {
-			case 'get'       : action_id = 0x01; break;
-			case 'limit-off' : action_id = 0x08; break;
-			case 'limit-on'  : action_id = 0x04; break;
-			case 'limit-set' : action_id = 0x20; break;
-			case 'reset'     : action_id = 0x10; break;
-		}
+    // Determine action_id from action argument 
+    switch (action) {
+      case 'get'        : action_id = 0x01; break; // Request current value
+      case 'get-status' : action_id = 0x02; break; // Request current status
+      case 'limit-on'   : action_id = 0x04; break;
+      case 'limit-off'  : action_id = 0x08; break;
+      case 'reset'      : action_id = 0x10; break;
+      case 'limit-set'  : action_id = 0x20; break;
+    }
 
-		// Determine value_id from value argument 
-		switch (value) {
-			case 'auxheat1'      : value_id = 0x0F; break;
-			case 'auxheat2'      : value_id = 0x10; break;
-			case 'cons1'         : value_id = 0x04; break;
-			case 'cons2'         : value_id = 0x05; break;
-			case 'date'          : value_id = 0x02; break;
-			case 'distance'      : value_id = 0x07; break;
-			case 'range'         : value_id = 0x06; break;
-			case 'speedavg'      : value_id = 0x0A; break;
-			case 'speedlimit'    : value_id = 0x09; break;
-			case 'stopwatch'     : value_id = 0x1A; break;
-			case 'temp_exterior' : value_id = 0x03; break;
-			case 'time'          : value_id = 0x01; break;
-			case 'timer'         : value_id = 0x0E; break;
-		}
+    // Determine value_id from value argument 
+    switch (value) {
+      case 'arrival'       : value_id = 0x08; break;
+      case 'auxheat1'      : value_id = 0x0F; break;
+      case 'auxheat2'      : value_id = 0x10; break;
+      case 'auxheatvent'   : value_id = 0x1B; break;
+      case 'code'          : value_id = 0x0D; break;
+      case 'cons1'         : value_id = 0x04; break;
+      case 'cons2'         : value_id = 0x05; break;
+      case 'date'          : value_id = 0x02; break;
+      case 'distance'      : value_id = 0x07; break;
+      case 'range'         : value_id = 0x06; break;
+      case 'speedavg'      : value_id = 0x0A; break;
+      case 'speedlimit'    : value_id = 0x09; break;
+      case 'stopwatch'     : value_id = 0x1A; break;
+      case 'temp_exterior' : value_id = 0x03; break;
+      case 'time'          : value_id = 0x01; break;
+      case 'timer'         : value_id = 0x0E; break;
+    }
 
 		// Assemble message string
 		var msg = [cmd, value_id, action_id];
@@ -218,20 +222,20 @@ var IKE = function(omnibus) {
 
 		console.log('[IKE] Claiming ignition is \'%s\'', value);
 
-		switch (value) {
-			case 'off':
-				status = 0x00;
-				break;
-			case 'pos1':
-				status = 0x01;
-				break;
-			case 'pos2':
-				status = 0x03;
-				break;
-			case 'pos3':
-				status = 0x07;
-				break;
-		}
+    switch (value) {
+      case 'off':
+        status = 0x00;
+        break;
+      case 'pos1':
+        status = 0x01;
+        break;
+      case 'pos2':
+        status = 0x03;
+        break;
+      case 'pos3':
+        status = 0x07;
+        break;
+    }
 
 		var ibus_packet = {
 			src: src, 

@@ -141,8 +141,8 @@
 00 E8 77 0C,GM --> RLS: Wiper status Data="0C"
 00 E8 77 0D,GM --> RLS: Wiper status Data="0D"
 00 E8 77 0E,GM --> RLS: Wiper status Data="0E"
-18 68 39 00 02 00 01 00 01 00,CDC --> RAD: CD_status: Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
-18 68 39 00 02 00 01 00 01 01,CDC --> RAD: CD_status: Stop Request=Pause CD=1 Track=1 CDs_Loaded=P1
+18 68 39 00 02 00 01 00 01 00,CDC --> RAD: CD_status Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
+18 68 39 00 02 00 01 00 01 01,CDC --> RAD: CD_status Stop Request=Pause CD=1 Track=1 CDs_Loaded=P1
 18 68 39 00 09 00 01 00 01 00,CDC --> RAD: CD_status Stop Request=Play CD=1 Track=0 CDs_Loaded=P1
 18 68 39 00 09 00 3F 00 01 00,CDC --> RAD: CD_status Stop Request=Play CD=1 Track=0 CDs_Loaded=P1,P2,P3,P4,P5,P6
 18 68 39 00 09 00 3F 00 01 01,CDC --> RAD: CD_status Stop Request=Play CD=1 Track=1 CDs_Loaded=P1,P2,P3,P4,P5,P6
@@ -277,25 +277,25 @@
 3B 80 40 02 0A 05 10,GT --> IKE: On-board computer set data,: Set Date = 10/05/16
 3B 80 40 02 1F 07 10,GT --> IKE: On-board computer set data,: Set Date = 31/07/16
 3B 80 41 00,GT --> IKE: On-board computer data request OBC_Mode_00
-3B 80 41 01 01,GT --> IKE: On-board computer data request: Time: current value request
+3B 80 41 01 01,GT --> IKE: On-board computer data request Time: current value request
 3B 80 41 01,GT --> IKE: On-board computer data request Time
-3B 80 41 02 01,GT --> IKE: On-board computer data request: Date: current value request
+3B 80 41 02 01,GT --> IKE: On-board computer data request Date: current value request
 3B 80 41 02,GT --> IKE: On-board computer data request Date
-3B 80 41 03 01,GT --> IKE: On-board computer data request: Outside_Temp: current value request
+3B 80 41 03 01,GT --> IKE: On-board computer data request Outside_Temp: current value request
 3B 80 41 03,GT --> IKE: On-board computer data request Outside_Temp
-3B 80 41 04 01,GT --> IKE: On-board computer data request: Consumption_1: current value request
+3B 80 41 04 01,GT --> IKE: On-board computer data request Consumption_1: current value request
 3B 80 41 04,GT --> IKE: On-board computer data request Consumption_1
-3B 80 41 05 01,GT --> IKE: On-board computer data request: Consumption_2: current value request
-3B 80 41 06 01,GT --> IKE: On-board computer data request: Range: current value request
-3B 80 41 07 01,GT --> IKE: On-board computer data request: Distance: current value request
-3B 80 41 08 01,GT --> IKE: On-board computer data request: Arrival: current value request
-3B 80 41 09 01,GT --> IKE: On-board computer data request: Limit: current value request
-3B 80 41 09 02,GT --> IKE: On-board computer data request: Limit: status request
-3B 80 41 0A 01,GT --> IKE: On-board computer data request: Average_Speed: current value request
-3B 80 41 0D 02,GT --> IKE: On-board computer data request: Code: status request
-3B 80 41 0E 03,GT --> IKE: On-board computer data request: Stopwatch: current value request: status request
-3B 80 41 0F 01,GT --> IKE: On-board computer data request: Timer_1: current value request
-3B 80 41 10 01,GT --> IKE: On-board computer data request: Timer_2: current value request
+3B 80 41 05 01,GT --> IKE: On-board computer data request Consumption_2: current value request
+3B 80 41 06 01,GT --> IKE: On-board computer data request Range: current value request
+3B 80 41 07 01,GT --> IKE: On-board computer data request Distance: current value request
+3B 80 41 08 01,GT --> IKE: On-board computer data request Arrival: current value request
+3B 80 41 09 01,GT --> IKE: On-board computer data request Limit: current value request
+3B 80 41 09 02,GT --> IKE: On-board computer data request Limit: status request
+3B 80 41 0A 01,GT --> IKE: On-board computer data request Average_Speed: current value request
+3B 80 41 0D 02,GT --> IKE: On-board computer data request Code: status request
+3B 80 41 0E 03,GT --> IKE: On-board computer data request Stopwatch: current value request status request
+3B 80 41 0F 01,GT --> IKE: On-board computer data request Timer_1: current value request
+3B 80 41 10 01,GT --> IKE: On-board computer data request Timer_2: current value request
 3B 80 41 10,GT --> IKE: On-board computer data request Timer_2
 3B 80 41 11,GT --> IKE: On-board computer data request Aux_Heating_Off
 3B 80 41 12,GT --> IKE: On-board computer data request Aux_Heating_On
@@ -305,8 +305,8 @@
 3B 80 41 16,GT --> IKE: On-board computer data request Emergency_Disarm
 3B 80 41 17,GT --> IKE: On-board computer data request OBC_Mode_17
 3B 80 41 18,GT --> IKE: On-board computer data request OBC_Mode_18
-3B 80 41 1A 01,GT --> IKE: On-board computer data request: Interim_Time: current value request
-3B 80 41 1B 03,GT --> IKE: On-board computer data request: Aux_Heat/Vent: current value request: status request
+3B 80 41 1A 01,GT --> IKE: On-board computer data request Interim_Time: current value request
+3B 80 41 1B 03,GT --> IKE: On-board computer data request Aux_Heat/Vent: current value request status request
 3B BB 4F 02,GT --> NAJ: RGB control: LCD_off GT
 3B BB 4F 02,GT --> NAJ: RGB control: LCD_off GT 
 3B BB 4F 12,GT --> NAJ: RGB control: LCD_on GT
@@ -316,8 +316,8 @@
 3B F0 4F 02,GT --> BMBT: RGB control: LCD_off GT 
 3B F0 4F 12,GT --> BMBT: RGB control: LCD_on GT
 3B F0 4F 12,GT --> BMBT: RGB control: LCD_on GT 
-3B FF 20 02 0C,GT --> LOC: Display status: TEL _short Show_TEL _Menu Show_TEL _Main
-3B FF 20 02 0C,GT --> LOC: Display status: TEL_short Show_TEL_Menu Show_TEL_Main
+3B FF 20 02 0C,GT --> LOC: Display status TEL _short Show_TEL _Menu Show_TEL _Main
+3B FF 20 02 0C,GT --> LOC: Display status TEL_short Show_TEL_Menu Show_TEL_Main
 3F 00 00 00,DIA --> GM: Read identity Data="00"
 3F 00 00 01,DIA --> GM: Read identity Data="01"
 3F 00 00 02,DIA --> GM: Read identity Data="02"
@@ -515,16 +515,14 @@
 44 80 16,EWS --> IKE: Odometer request
 44 BF 74 00 03,EWS --> GLO: Immobiliser status No_key_detected Key_3
 44 BF 74 00 FF,EWS --> GLO: Immobiliser status No_key_detected Vehicle_immobilised
-44 BF 74 00 FF,EWS --> GLO: Immobiliser status: No_key_detected Vehicle_immobilised
 44 BF 74 01 03,EWS --> GLO: Immobiliser status Immobilisation_deactivated Key_3
 44 BF 74 01 FF,EWS --> GLO: Immobiliser status Immobilisation_deactivated Vehicle_immobilised
-44 BF 74 01 FF,EWS --> GLO: Immobiliser status: Immobilisation_deactivated Vehicle_immobilised
 44 BF 74 04 01,EWS --> GLO: Immobiliser status Valid_key_detected Key_1
 44 BF 74 04 03,EWS --> GLO: Immobiliser status Valid_key_detected Key_3
-44 BF 74 04 04,EWS --> GLO: Immobiliser status: Valid_key_detected Key_4
+44 BF 74 04 04,EWS --> GLO: Immobiliser status Valid_key_detected Key_4
 44 BF 74 05 01,EWS --> GLO: Immobiliser status Immobilisation_deactivated Valid_key_detected Key_1
 44 BF 74 05 03,EWS --> GLO: Immobiliser status Immobilisation_deactivated Valid_key_detected Key_3
-44 BF 74 05 04,EWS --> GLO: Immobiliser status: Immobilisation_deactivated Valid_key_detected Key_4
+44 BF 74 05 04,EWS --> GLO: Immobiliser status Immobilisation_deactivated Valid_key_detected Key_4
 50 5B 3A 00,MFL --> IHKA: Recirculating air control AUC_released
 50 5B 3A 01,MFL --> IHKA: Recirculating air control AUC_pressed
 50 68 32 10,MFL --> RAD: Volume Control Decrease 1 step
@@ -895,7 +893,6 @@
 6A 3F A0 86 94 09 77 03 02 04 13 19 10 09 03,DSP --> DIA: Diagnostic command acknowledged Data="86 94 09 77 03 02 04 13 19 10 09 03"
 6A FF 02 01,DSP --> LOC: Device status ready after Reset
 80 30 1B 00,IKE --> CCM: IKE text status 0 text messages acknowledged
-80 30 1B 00,IKE --> CCM: IKE text status: 0 text messages acknowledged
 80 30 50,IKE --> CCM: Checkcontrol sensor request
 80 60 07 00 00 00,IKE --> PDC: Gong status Data="00 00 00"
 80 68 1B 01,IKE --> RAD: IKE text status 1 text message acknowledged
@@ -903,11 +900,8 @@
 80 BF 02 00,IKE --> GLO: Device status ready
 80 BF 02 01,IKE --> GLO: Device status ready after Reset
 80 BF 11 00,IKE --> GLO: Ignition status Off
-80 BF 11 00,IKE --> GLO: Ignition status: Off
 80 BF 11 01,IKE --> GLO: Ignition status Pos1_Acc
-80 BF 11 01,IKE --> GLO: Ignition status: Pos1_Acc
 80 BF 11 03,IKE --> GLO: Ignition status Pos1_Acc Pos2_On
-80 BF 11 03,IKE --> GLO: Ignition status: Pos1_Acc Pos2_On
 80 BF 11 07,IKE --> GLO: Ignition status Pos1_Acc Pos2_On Pos3_Start
 80 BF 13 00 00 00 00 00 00 00,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 00 0C,IKE --> GLO: IKE sensor status
@@ -920,7 +914,7 @@
 80 BF 13 00 00 00 00 00 00 3F,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 00 40,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 00 41,IKE --> GLO: IKE sensor status
-80 BF 13 00 00 00 00 00 00 43,IKE --> GLO: IKE sensor status:
+80 BF 13 00 00 00 00 00 00 43,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 08 00,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 08 0D,IKE --> GLO: IKE sensor status
 80 BF 13 00 00 00 00 00 08 0E,IKE --> GLO: IKE sensor status
@@ -1041,7 +1035,7 @@
 80 BF 13 02 00 00 00 00 00 0C,IKE --> GLO: IKE sensor status Oil_Pressure_Low
 80 BF 13 02 00 00 00 00 00 0D,IKE --> GLO: IKE sensor status Oil_Pressure_Low
 80 BF 13 02 00 00 00 00 00 41,IKE --> GLO: IKE sensor status Oil_Pressure_Low
-80 BF 13 02 00 00 00 00 00 43,IKE --> GLO: IKE sensor status: Oil_Pressure_Low
+80 BF 13 02 00 00 00 00 00 43,IKE --> GLO: IKE sensor status Oil_Pressure_Low
 80 BF 13 02 00 00 00 00 08 0C,IKE --> GLO: IKE sensor status Oil_Pressure_Low
 80 BF 13 02 00 00 00 00 08 0D,IKE --> GLO: IKE sensor status Oil_Pressure_Low
 80 BF 13 02 00 00 00 00 08 41,IKE --> GLO: IKE sensor status Oil_Pressure_Low
@@ -1054,7 +1048,7 @@
 80 BF 13 02 01 00 00 00 00 0D,IKE --> GLO: IKE sensor status Oil_Pressure_Low Motor_Running
 80 BF 13 02 01 00 00 00 08 0D,IKE --> GLO: IKE sensor status Oil_Pressure_Low Motor_Running
 80 BF 13 02 01 40 00 00 00 40,IKE --> GLO: IKE sensor status Oil_Pressure_Low Motor_Running Temp_F
-80 BF 13 02 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status: Oil_Pressure_Low Gear_P
+80 BF 13 02 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status Oil_Pressure_Low Gear_P
 80 BF 13 02 B0 40 00 00 00 40,IKE --> GLO: IKE sensor status Oil_Pressure_Low Gear_P Temp_F
 80 BF 13 02 B0 40 00 00 00 41,IKE --> GLO: IKE sensor status Oil_Pressure_Low Gear_P Temp_F
 80 BF 13 02 B0 40 02 00 00 40,IKE --> GLO: IKE sensor status Oil_Pressure_Low Gear_P Temp_F
@@ -1064,7 +1058,7 @@
 80 BF 13 03 00 00 00 00 00 0C,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 00 00 00 0D,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 00 00 00 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
-80 BF 13 03 00 00 00 00 00 43,IKE --> GLO: IKE sensor status: Handbrake_On Oil_Pressure_Low
+80 BF 13 03 00 00 00 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 00 00 08 0C,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 00 00 08 0D,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 00 00 08 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
@@ -1073,16 +1067,16 @@
 80 BF 13 03 00 00 02 00 00 3F,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 00 40,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 00 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
-80 BF 13 03 00 00 02 00 00 43,IKE --> GLO: IKE sensor status: Handbrake_On Oil_Pressure_Low
+80 BF 13 03 00 00 02 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 08 0C,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 08 0D,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 08 3F,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 08 40,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 08 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 00 00 02 00 80 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
-80 BF 13 03 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P
-80 BF 13 03 B0 00 02 00 00 43,IKE --> GLO: IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P
-80 BF 15 01 04 00 42,IKE --> GLO: Country coding status: Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=째C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
+80 BF 13 03 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
+80 BF 13 03 B0 00 02 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
+80 BF 15 01 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=째C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
 80 BF 15 02 F1 FA 05,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캜 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
 80 BF 15 02 F1 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캜 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 15 02 F1 FA 46,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캜 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
@@ -1090,273 +1084,272 @@
 80 BF 15 02 F7 7A 56,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캟 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캜 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=캜 AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 17 00 00 00 00 1F 00 00,IKE --> GLO: Odometer 0 kms [0 mls]
-80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153,600 kms [95,443 mls]
-80 BF 17 1F 30 02 C0 60 32 CC,IKE --> GLO: Odometer: 143,391 km
-80 BF 17 22 03 03 00 1C 00 00,IKE --> GLO: Odometer 197,410 kms [122,665 mls]
-80 BF 17 4E 02 03 00 1C 00 00,IKE --> GLO: Odometer 197,198 kms [122,533 mls]
-80 BF 17 7A 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,546 kms [123,992 mls]
-80 BF 17 7C 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,548 kms [123,993 mls]
-80 BF 17 92 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,570 kms [124,007 mls]
-80 BF 17 DC 05 03 00 1C 00 00,IKE --> GLO: Odometer 198,108 kms [123,099 mls]
-80 BF 17 DC 05 03 00 1F 00 00,IKE --> GLO: Odometer 198,108 kms [123,099 mls]
-80 BF 17 E2 FF 02 00 1C 00 00,IKE --> GLO: Odometer 196,578 kms [122,148 mls]
-80 BF 17 FA FE 02 00 1C 00 00,IKE --> GLO: Odometer 196,346 kms [122,004 mls]
-80 BF 18 00 00,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 0 RPM
-80 BF 18 00 00,IKE --> GLO: Speed/RPM: Speed 0 km/h 0 RPM
-80 BF 18 00 04,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 400 RPM
-80 BF 18 00 05,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 500 RPM
-80 BF 18 00 06,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 600 RPM
-80 BF 18 00 07,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 700 RPM
-80 BF 18 00 08,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 800 RPM
-80 BF 18 00 09,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 900 RPM
-80 BF 18 00 0A,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,000 RPM
-80 BF 18 00 0B,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,100 RPM
-80 BF 18 00 0C,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,200 RPM
-80 BF 18 00 0D,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,300 RPM
-80 BF 18 00 0E,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,400 RPM
-80 BF 18 00 0F,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,500 RPM
-80 BF 18 00 10,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,600 RPM
-80 BF 18 00 11,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,700 RPM
-80 BF 18 00 12,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 1,800 RPM
-80 BF 18 00 14,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph] 2,000 RPM
-80 BF 18 00 FF,IKE --> GLO: Speed/RPM Speed 0 km/h [0 mph],,500 RPM
-80 BF 18 01 07,IKE --> GLO: Speed/RPM Speed 2 km/h [1 mph] 700 RPM
-80 BF 18 01 08,IKE --> GLO: Speed/RPM Speed 2 km/h [1 mph] 800 RPM
-80 BF 18 02 09,IKE --> GLO: Speed/RPM Speed 4 km/h [2 mph] 900 RPM
-80 BF 18 2E 12,IKE --> GLO: Speed/RPM Speed 92 km/h [57 mph] 1,800 RPM
-80 BF 18 2F 12,IKE --> GLO: Speed/RPM Speed 94 km/h [58 mph] 1,800 RPM
-80 BF 18 30 13,IKE --> GLO: Speed/RPM Speed 96 km/h [60 mph] 1,900 RPM
-80 BF 18 31 13,IKE --> GLO: Speed/RPM Speed 98 km/h [61 mph] 1,900 RPM
-80 BF 18 32 13,IKE --> GLO: Speed/RPM Speed 100 km/h [62 mph] 1,900 RPM
-80 BF 18 33 13,IKE --> GLO: Speed/RPM Speed 102 km/h [63 mph] 1,900 RPM
-80 BF 18 33 14,IKE --> GLO: Speed/RPM Speed 102 km/h [63 mph] 2,000 RPM
-80 BF 18 34 14,IKE --> GLO: Speed/RPM Speed 104 km/h [65 mph] 2,000 RPM
-80 BF 18 35 14,IKE --> GLO: Speed/RPM Speed 106 km/h [66 mph] 2,000 RPM
-80 BF 18 37 15,IKE --> GLO: Speed/RPM Speed 110 km/h [68 mph] 2,100 RPM
-80 BF 18 39 16,IKE --> GLO: Speed/RPM Speed 114 km/h [71 mph] 2,200 RPM
-80 BF 18 3A 16,IKE --> GLO: Speed/RPM Speed 116 km/h [72 mph] 2,200 RPM
-80 BF 18 3B 17,IKE --> GLO: Speed/RPM Speed 118 km/h [73 mph] 2,300 RPM
-80 BF 18 3C 17,IKE --> GLO: Speed/RPM Speed 120 km/h [75 mph] 2,300 RPM
-80 BF 18 3D 17,IKE --> GLO: Speed/RPM Speed 122 km/h [76 mph] 2,300 RPM
-80 BF 18 3D 18,IKE --> GLO: Speed/RPM Speed 122 km/h [76 mph] 2,400 RPM
-80 BF 18 3E 18,IKE --> GLO: Speed/RPM Speed 124 km/h [77 mph] 2,400 RPM
-80 BF 18 3F 18,IKE --> GLO: Speed/RPM Speed 126 km/h [78 mph] 2,400 RPM
-80 BF 18 40 18,IKE --> GLO: Speed/RPM Speed 128 km/h [80 mph] 2,400 RPM
-80 BF 18 40 19,IKE --> GLO: Speed/RPM Speed 128 km/h [80 mph] 2,500 RPM
-80 BF 18 41 19,IKE --> GLO: Speed/RPM Speed 130 km/h [81 mph] 2,500 RPM
-80 BF 18 42 19,IKE --> GLO: Speed/RPM Speed 132 km/h [82 mph] 2,500 RPM
-80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17캜 [63캟] Coolant 38캜 [100캟]
-80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17캜 [63캟] Coolant 39캜 [102캟]
-80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17캜 [63캟] Coolant 40캜 [104캟]
+80 BF 17 00 00 00 00 1F 00 00,IKE --> GLO: Odometer 0 km
+80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153,600 km
+80 BF 17 1F 30 02 C0 60 32 CC,IKE --> GLO: Odometer 143,391 km
+80 BF 17 22 03 03 00 1C 00 00,IKE --> GLO: Odometer 197,410 km
+80 BF 17 4E 02 03 00 1C 00 00,IKE --> GLO: Odometer 197,198 km
+80 BF 17 7A 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,546 km
+80 BF 17 7C 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,548 km
+80 BF 17 92 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,570 km
+80 BF 17 DC 05 03 00 1C 00 00,IKE --> GLO: Odometer 198,108 km
+80 BF 17 DC 05 03 00 1F 00 00,IKE --> GLO: Odometer 198,108 km
+80 BF 17 E2 FF 02 00 1C 00 00,IKE --> GLO: Odometer 196,578 km
+80 BF 17 FA FE 02 00 1C 00 00,IKE --> GLO: Odometer 196,346 km
+80 BF 18 00 00,IKE --> GLO: Speed/RPM Speed 0 km/h 0 RPM
+80 BF 18 00 04,IKE --> GLO: Speed/RPM Speed 0 km/h 400 RPM
+80 BF 18 00 05,IKE --> GLO: Speed/RPM Speed 0 km/h 500 RPM
+80 BF 18 00 06,IKE --> GLO: Speed/RPM Speed 0 km/h 600 RPM
+80 BF 18 00 07,IKE --> GLO: Speed/RPM Speed 0 km/h 700 RPM
+80 BF 18 00 08,IKE --> GLO: Speed/RPM Speed 0 km/h 800 RPM
+80 BF 18 00 09,IKE --> GLO: Speed/RPM Speed 0 km/h 900 RPM
+80 BF 18 00 0A,IKE --> GLO: Speed/RPM Speed 0 km/h 1,000 RPM
+80 BF 18 00 0B,IKE --> GLO: Speed/RPM Speed 0 km/h 1,100 RPM
+80 BF 18 00 0C,IKE --> GLO: Speed/RPM Speed 0 km/h 1,200 RPM
+80 BF 18 00 0D,IKE --> GLO: Speed/RPM Speed 0 km/h 1,300 RPM
+80 BF 18 00 0E,IKE --> GLO: Speed/RPM Speed 0 km/h 1,400 RPM
+80 BF 18 00 0F,IKE --> GLO: Speed/RPM Speed 0 km/h 1,500 RPM
+80 BF 18 00 10,IKE --> GLO: Speed/RPM Speed 0 km/h 1,600 RPM
+80 BF 18 00 11,IKE --> GLO: Speed/RPM Speed 0 km/h 1,700 RPM
+80 BF 18 00 12,IKE --> GLO: Speed/RPM Speed 0 km/h 1,800 RPM
+80 BF 18 00 14,IKE --> GLO: Speed/RPM Speed 0 km/h 2,000 RPM
+80 BF 18 00 FF,IKE --> GLO: Speed/RPM Speed 0 km/h 500 RPM
+80 BF 18 01 07,IKE --> GLO: Speed/RPM Speed 2 km/h 700 RPM
+80 BF 18 01 08,IKE --> GLO: Speed/RPM Speed 2 km/h 800 RPM
+80 BF 18 02 09,IKE --> GLO: Speed/RPM Speed 4 km/h 900 RPM
+80 BF 18 2E 12,IKE --> GLO: Speed/RPM Speed 92 km/h 1,800 RPM
+80 BF 18 2F 12,IKE --> GLO: Speed/RPM Speed 94 km/h 1,800 RPM
+80 BF 18 30 13,IKE --> GLO: Speed/RPM Speed 96 km/h 1,900 RPM
+80 BF 18 31 13,IKE --> GLO: Speed/RPM Speed 98 km/h 1,900 RPM
+80 BF 18 32 13,IKE --> GLO: Speed/RPM Speed 100 km/h 1,900 RPM
+80 BF 18 33 13,IKE --> GLO: Speed/RPM Speed 102 km/h 1,900 RPM
+80 BF 18 33 14,IKE --> GLO: Speed/RPM Speed 102 km/h 2,000 RPM
+80 BF 18 34 14,IKE --> GLO: Speed/RPM Speed 104 km/h 2,000 RPM
+80 BF 18 35 14,IKE --> GLO: Speed/RPM Speed 106 km/h 2,000 RPM
+80 BF 18 37 15,IKE --> GLO: Speed/RPM Speed 110 km/h 2,100 RPM
+80 BF 18 39 16,IKE --> GLO: Speed/RPM Speed 114 km/h 2,200 RPM
+80 BF 18 3A 16,IKE --> GLO: Speed/RPM Speed 116 km/h 2,200 RPM
+80 BF 18 3B 17,IKE --> GLO: Speed/RPM Speed 118 km/h 2,300 RPM
+80 BF 18 3C 17,IKE --> GLO: Speed/RPM Speed 120 km/h 2,300 RPM
+80 BF 18 3D 17,IKE --> GLO: Speed/RPM Speed 122 km/h 2,300 RPM
+80 BF 18 3D 18,IKE --> GLO: Speed/RPM Speed 122 km/h 2,400 RPM
+80 BF 18 3E 18,IKE --> GLO: Speed/RPM Speed 124 km/h 2,400 RPM
+80 BF 18 3F 18,IKE --> GLO: Speed/RPM Speed 126 km/h 2,400 RPM
+80 BF 18 40 18,IKE --> GLO: Speed/RPM Speed 128 km/h 2,400 RPM
+80 BF 18 40 19,IKE --> GLO: Speed/RPM Speed 128 km/h 2,500 RPM
+80 BF 18 41 19,IKE --> GLO: Speed/RPM Speed 130 km/h 2,500 RPM
+80 BF 18 42 19,IKE --> GLO: Speed/RPM Speed 132 km/h 2,500 RPM
+80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17캜 Coolant 38캜
+80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17캜 Coolant 39캜
+80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17캜 Coolant 40캜
 80 BF 19 14 5E 00,IKE --> GLO: Temperature: Outside 20째C Coolant 94째C
 80 BF 19 14 5F 00,IKE --> GLO: Temperature: Outside 20째C Coolant 95째C
 80 BF 19 14 60 00,IKE --> GLO: Temperature: Outside 20째C Coolant 96째C
-80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 84캜 [183캟]
-80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 85캜 [185캟]
-80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 86캜 [187캟]
-80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 87캜 [189캟]
-80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 88캜 [190캟]
-80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 89캜 [192캟]
-80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23캜 [73캟] Coolant 90캜 [194캟]
-80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 35캜 [95캟]
-80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 36캜 [97캟]
-80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 37캜 [99캟]
-80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 38캜 [100캟]
-80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 39캜 [102캟]
-80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 40캜 [104캟]
-80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 42캜 [108캟]
-80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 46캜 [115캟]
-80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 49캜 [120캟]
-80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 50캜 [122캟]
-80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 52캜 [126캟]
-80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 54캜 [129캟]
-80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 57캜 [135캟]
-80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 58캜 [136캟]
-80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 60캜 [140캟]
-80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 61캜 [142캟]
-80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 62캜 [144캟]
-80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 63캜 [145캟]
-80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 64캜 [147캟]
-80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 65캜 [149캟]
-80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 66캜 [151캟]
-80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 67캜 [153캟]
-80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 68캜 [154캟]
-80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 69캜 [156캟]
-80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 70캜 [158캟]
-80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 71캜 [160캟]
-80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 72캜 [162캟]
-80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 73캜 [163캟]
-80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 74캜 [165캟]
-80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 75캜 [167캟]
-80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 76캜 [169캟]
-80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 77캜 [171캟]
-80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 79캜 [174캟]
-80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 80캜 [176캟]
-80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 82캜 [180캟]
-80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 83캜 [181캟]
-80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 85캜 [185캟]
-80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 89캜 [192캟]
-80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 90캜 [194캟]
-80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 91캜 [196캟]
-80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 92캜 [198캟]
-80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 93캜 [199캟]
-80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant 94캜 [201캟]
-80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24캜 [75캟] Coolant -128캜 [-198캟]
-80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25캜 [77캟] Coolant 67캜 [153캟]
-80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25캜 [77캟] Coolant 69캜 [156캟]
-80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 72캜 [162캟]
-80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 73캜 [163캟]
-80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 74캜 [165캟]
-80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 75캜 [167캟]
-80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 76캜 [169캟]
-80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 77캜 [171캟]
-80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 79캜 [174캟]
-80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 80캜 [176캟]
-80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 82캜 [180캟]
-80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 85캜 [185캟]
-80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 87캜 [189캟]
-80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 88캜 [190캟]
-80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 89캜 [192캟]
-80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 90캜 [194캟]
-80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 91캜 [196캟]
-80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 92캜 [198캟]
-80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26캜 [79캟] Coolant 94캜 [201캟]
-80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28캜 [82캟] Coolant 37캜 [99캟]
-80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 57캜 [135캟]
-80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 58캜 [136캟]
-80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 66캜 [151캟]
-80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 67캜 [153캟]
-80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 68캜 [154캟]
-80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 69캜 [156캟]
-80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 70캜 [158캟]
-80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 71캜 [160캟]
-80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 72캜 [162캟]
-80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 73캜 [163캟]
-80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 74캜 [165캟]
-80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 75캜 [167캟]
-80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 76캜 [169캟]
-80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 77캜 [171캟]
-80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 78캜 [172캟]
-80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 79캜 [174캟]
-80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 80캜 [176캟]
-80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 81캜 [178캟]
-80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 82캜 [180캟]
-80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 83캜 [181캟]
-80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 84캜 [183캟]
-80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29캜 [84캟] Coolant 85캜 [185캟]
-80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 57캜 [135캟]
-80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 58캜 [136캟]
-80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 59캜 [138캟]
-80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 62캜 [144캟]
-80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 63캜 [145캟]
-80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 64캜 [147캟]
-80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 67캜 [153캟]
-80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 68캜 [154캟]
-80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 69캜 [156캟]
-80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 70캜 [158캟]
-80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 71캜 [160캟]
-80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 72캜 [162캟]
-80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 75캜 [167캟]
-80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 76캜 [169캟]
-80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 77캜 [171캟]
-80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 78캜 [172캟]
-80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 79캜 [174캟]
-80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 80캜 [176캟]
-80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 81캜 [178캟]
-80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 82캜 [180캟]
-80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 83캜 [181캟]
-80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 84캜 [183캟]
-80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 85캜 [185캟]
-80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 86캜 [187캟]
-80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 87캜 [189캟]
-80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 88캜 [190캟]
-80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 89캜 [192캟]
-80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 90캜 [194캟]
-80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 91캜 [196캟]
-80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30캜 [86캟] Coolant 103캜 [217캟]
-80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31캜 [88캟] Coolant 81캜 [178캟]
-80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31캜 [88캟] Coolant 82캜 [180캟]
-80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31캜 [88캟] Coolant 98캜 [208캟]
-80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 81캜 [178캟]
-80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 82캜 [180캟]
-80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 83캜 [181캟]
-80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 84캜 [183캟]
-80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 85캜 [185캟]
-80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 95캜 [203캟]
-80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32캜 [90캟] Coolant 96캜 [205캟]
-80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 75캜 [167캟]
-80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 78캜 [172캟]
-80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 80캜 [176캟]
-80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 81캜 [178캟]
-80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 82캜 [180캟]
-80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 84캜 [183캟]
-80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 85캜 [185캟]
-80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 86캜 [187캟]
-80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 87캜 [189캟]
-80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 88캜 [190캟]
-80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 89캜 [192캟]
-80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 90캜 [194캟]
-80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 91캜 [196캟]
-80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 92캜 [198캟]
-80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 93캜 [199캟]
-80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 94캜 [201캟]
-80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 95캜 [203캟]
-80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33캜 [91캟] Coolant 96캜 [205캟]
-80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 76캜 [169캟]
-80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 77캜 [171캟]
-80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 78캜 [172캟]
-80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 79캜 [174캟]
-80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 80캜 [176캟]
-80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 81캜 [178캟]
-80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 82캜 [180캟]
-80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 83캜 [181캟]
-80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 84캜 [183캟]
-80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 86캜 [187캟]
-80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 87캜 [189캟]
-80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 93캜 [199캟]
-80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 94캜 [201캟]
-80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 95캜 [203캟]
-80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 96캜 [205캟]
-80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 97캜 [207캟]
-80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant 98캜 [208캟]
-80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34캜 [93캟] Coolant -128캜 [-198캟]
-80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 86캜 [187캟]
-80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 87캜 [189캟]
-80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 88캜 [190캟]
-80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 89캜 [192캟]
-80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 93캜 [199캟]
-80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 94캜 [201캟]
-80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 95캜 [203캟]
-80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 96캜 [205캟]
-80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 97캜 [207캟]
-80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 98캜 [208캟]
-80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 99캜 [210캟]
-80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35캜 [95캟] Coolant 100캜 [212캟]
-80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36캜 [97캟] Coolant 87캜 [189캟]
-80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36캜 [97캟] Coolant 88캜 [190캟]
-80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36캜 [97캟] Coolant 89캜 [192캟]
-80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36캜 [97캟] Coolant 90캜 [194캟]
-80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38캜 [100캟] Coolant 89캜 [192캟]
-80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39캜 [102캟] Coolant 87캜 [189캟]
-80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39캜 [102캟] Coolant 89캜 [192캟]
-80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40캜 [104캟] Coolant 88캜 [190캟]
-80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41캜 [106캟] Coolant 87캜 [189캟]
-80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41캜 [106캟] Coolant 88캜 [190캟]
-80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42캜 [108캟] Coolant 88캜 [190캟]
-80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43캜 [109캟] Coolant 87캜 [189캟]
-80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43캜 [109캟] Coolant 88캜 [190캟]
-80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46캜 [115캟] Coolant 91캜 [196캟]
-80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46캜 [115캟] Coolant 92캜 [198캟]
-80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46캜 [115캟] Coolant 93캜 [199캟]
-80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46캜 [115캟] Coolant 94캜 [201캟]
-80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47캜 [117캟] Coolant 92캜 [198캟]
-80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48캜 [118캟] Coolant 91캜 [196캟]
-80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48캜 [118캟] Coolant 92캜 [198캟]
-80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50캜 [122캟] Coolant 91캜 [196캟]
-80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50캜 [122캟] Coolant 109캜 [228캟]
-80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50캜 [122캟] Coolant 111캜 [232캟]
-80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40캜 [-40캟] Coolant -48캜 [-54캟]
+80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23캜 Coolant 84캜
+80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23캜 Coolant 85캜
+80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23캜 Coolant 86캜
+80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23캜 Coolant 87캜
+80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23캜 Coolant 88캜
+80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23캜 Coolant 89캜
+80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23캜 Coolant 90캜
+80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24캜 Coolant 35캜
+80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24캜 Coolant 36캜
+80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24캜 Coolant 37캜
+80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24캜 Coolant 38캜
+80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24캜 Coolant 39캜
+80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24캜 Coolant 40캜
+80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24캜 Coolant 42캜
+80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24캜 Coolant 46캜
+80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24캜 Coolant 49캜
+80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24캜 Coolant 50캜
+80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24캜 Coolant 52캜
+80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24캜 Coolant 54캜
+80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24캜 Coolant 57캜
+80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24캜 Coolant 58캜
+80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24캜 Coolant 60캜
+80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24캜 Coolant 61캜
+80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24캜 Coolant 62캜
+80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24캜 Coolant 63캜
+80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24캜 Coolant 64캜
+80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24캜 Coolant 65캜
+80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24캜 Coolant 66캜
+80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24캜 Coolant 67캜
+80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24캜 Coolant 68캜
+80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24캜 Coolant 69캜
+80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24캜 Coolant 70캜
+80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24캜 Coolant 71캜
+80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24캜 Coolant 72캜
+80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24캜 Coolant 73캜
+80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24캜 Coolant 74캜
+80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24캜 Coolant 75캜
+80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24캜 Coolant 76캜
+80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24캜 Coolant 77캜
+80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24캜 Coolant 79캜
+80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24캜 Coolant 80캜
+80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24캜 Coolant 82캜
+80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24캜 Coolant 83캜
+80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24캜 Coolant 85캜
+80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24캜 Coolant 89캜
+80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24캜 Coolant 90캜
+80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24캜 Coolant 91캜
+80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24캜 Coolant 92캜
+80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24캜 Coolant 93캜
+80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24캜 Coolant 94캜
+80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24캜 Coolant -128캜
+80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25캜 Coolant 67캜
+80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25캜 Coolant 69캜
+80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26캜 Coolant 72캜
+80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26캜 Coolant 73캜
+80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26캜 Coolant 74캜
+80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26캜 Coolant 75캜
+80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26캜 Coolant 76캜
+80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26캜 Coolant 77캜
+80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26캜 Coolant 79캜
+80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26캜 Coolant 80캜
+80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26캜 Coolant 82캜
+80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26캜 Coolant 85캜
+80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26캜 Coolant 87캜
+80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26캜 Coolant 88캜
+80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26캜 Coolant 89캜
+80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26캜 Coolant 90캜
+80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26캜 Coolant 91캜
+80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26캜 Coolant 92캜
+80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26캜 Coolant 94캜
+80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28캜 Coolant 37캜
+80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29캜 Coolant 57캜
+80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29캜 Coolant 58캜
+80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29캜 Coolant 66캜
+80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29캜 Coolant 67캜
+80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29캜 Coolant 68캜
+80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29캜 Coolant 69캜
+80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29캜 Coolant 70캜
+80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29캜 Coolant 71캜
+80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29캜 Coolant 72캜
+80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29캜 Coolant 73캜
+80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29캜 Coolant 74캜
+80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29캜 Coolant 75캜
+80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29캜 Coolant 76캜
+80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29캜 Coolant 77캜
+80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29캜 Coolant 78캜
+80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29캜 Coolant 79캜
+80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29캜 Coolant 80캜
+80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29캜 Coolant 81캜
+80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29캜 Coolant 82캜
+80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29캜 Coolant 83캜
+80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29캜 Coolant 84캜
+80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29캜 Coolant 85캜
+80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30캜 Coolant 57캜
+80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30캜 Coolant 58캜
+80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30캜 Coolant 59캜
+80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30캜 Coolant 62캜
+80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30캜 Coolant 63캜
+80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30캜 Coolant 64캜
+80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30캜 Coolant 67캜
+80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30캜 Coolant 68캜
+80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30캜 Coolant 69캜
+80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30캜 Coolant 70캜
+80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30캜 Coolant 71캜
+80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30캜 Coolant 72캜
+80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30캜 Coolant 75캜
+80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30캜 Coolant 76캜
+80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30캜 Coolant 77캜
+80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30캜 Coolant 78캜
+80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30캜 Coolant 79캜
+80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30캜 Coolant 80캜
+80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30캜 Coolant 81캜
+80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30캜 Coolant 82캜
+80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30캜 Coolant 83캜
+80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30캜 Coolant 84캜
+80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30캜 Coolant 85캜
+80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30캜 Coolant 86캜
+80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30캜 Coolant 87캜
+80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30캜 Coolant 88캜
+80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30캜 Coolant 89캜
+80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30캜 Coolant 90캜
+80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30캜 Coolant 91캜
+80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30캜 Coolant 103캜
+80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31캜 Coolant 81캜
+80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31캜 Coolant 82캜
+80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31캜 Coolant 98캜
+80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32캜 Coolant 81캜
+80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32캜 Coolant 82캜
+80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32캜 Coolant 83캜
+80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32캜 Coolant 84캜
+80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32캜 Coolant 85캜
+80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32캜 Coolant 95캜
+80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32캜 Coolant 96캜
+80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33캜 Coolant 75캜
+80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33캜 Coolant 78캜
+80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33캜 Coolant 80캜
+80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33캜 Coolant 81캜
+80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33캜 Coolant 82캜
+80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33캜 Coolant 84캜
+80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33캜 Coolant 85캜
+80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33캜 Coolant 86캜
+80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33캜 Coolant 87캜
+80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33캜 Coolant 88캜
+80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33캜 Coolant 89캜
+80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33캜 Coolant 90캜
+80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33캜 Coolant 91캜
+80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33캜 Coolant 92캜
+80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33캜 Coolant 93캜
+80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33캜 Coolant 94캜
+80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33캜 Coolant 95캜
+80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33캜 Coolant 96캜
+80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34캜 Coolant 76캜
+80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34캜 Coolant 77캜
+80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34캜 Coolant 78캜
+80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34캜 Coolant 79캜
+80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34캜 Coolant 80캜
+80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34캜 Coolant 81캜
+80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34캜 Coolant 82캜
+80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34캜 Coolant 83캜
+80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34캜 Coolant 84캜
+80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34캜 Coolant 86캜
+80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34캜 Coolant 87캜
+80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34캜 Coolant 93캜
+80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34캜 Coolant 94캜
+80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34캜 Coolant 95캜
+80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34캜 Coolant 96캜
+80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34캜 Coolant 97캜
+80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34캜 Coolant 98캜
+80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34캜 Coolant -128캜
+80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35캜 Coolant 86캜
+80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35캜 Coolant 87캜
+80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35캜 Coolant 88캜
+80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35캜 Coolant 89캜
+80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35캜 Coolant 93캜
+80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35캜 Coolant 94캜
+80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35캜 Coolant 95캜
+80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35캜 Coolant 96캜
+80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35캜 Coolant 97캜
+80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35캜 Coolant 98캜
+80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35캜 Coolant 99캜
+80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35캜 Coolant 100캜
+80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36캜 Coolant 87캜
+80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36캜 Coolant 88캜
+80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36캜 Coolant 89캜
+80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36캜 Coolant 90캜
+80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38캜 Coolant 89캜
+80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39캜 Coolant 87캜
+80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39캜 Coolant 89캜
+80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40캜 Coolant 88캜
+80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41캜 Coolant 87캜
+80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41캜 Coolant 88캜
+80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42캜 Coolant 88캜
+80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43캜 Coolant 87캜
+80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43캜 Coolant 88캜
+80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46캜 Coolant 91캜
+80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46캜 Coolant 92캜
+80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46캜 Coolant 93캜
+80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46캜 Coolant 94캜
+80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47캜 Coolant 92캜
+80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48캜 Coolant 91캜
+80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48캜 Coolant 92캜
+80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50캜 Coolant 91캜
+80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50캜 Coolant 109캜
+80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50캜 Coolant 111캜
+80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40캜 Coolant -48캜
 80 C0 21 01 00 0A 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="KM"
 80 C0 21 01 00 0A 4C 2F 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="L/KM"
 80 C0 21 01 20 06 06 53 50 45 45 44 06 4C 49 4D 49 54 05 4B 4D 05 53 45 54,IKE --> MID: Menu Text Layout=0x01: Flags= F6= Btn7"SPEED" Btn8"LIMIT" F5:"KM" F5:"SET"
@@ -1403,8 +1396,8 @@
 80 C0 27 00,IKE --> MID: MID display request Data="00"
 80 C0 27 02,IKE --> MID: MID display request Data="02"
 80 D0 53,IKE --> LCM: Vehicle data request
-80 D0 55 07 BD 00 00 00 00 00 00,IKE --> LCM: Service Interval Display Total dist 198,100 kms [123,094 mls]; SI-L 0 litres since last service; ; SI-T 0 days since last service
-80 D0 55 07 BD 40 00 00 00 00 00,IKE --> LCM: Service Interval Display Total dist 198,100 kms [123,094 mls]; SI-L 0 litres since last service; ; SI-T 0 days since last service
+80 D0 55 07 BD 00 00 00 00 00 00,IKE --> LCM: Service Interval Display Total dist 198,100 km; SI-L 0 litres since last service; ; SI-T 0 days since last service
+80 D0 55 07 BD 40 00 00 00 00 00,IKE --> LCM: Service Interval Display Total dist 198,100 km; SI-L 0 litres since last service; ; SI-T 0 days since last service
 80 D0 5D,IKE --> LCM: Light dimmer status request
 80 E7 24 01 00 20 31 3A 32 36 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0=" 1:26AM"
 80 E7 24 01 00 20 31 3A 32 37 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0=" 1:27AM"
@@ -1772,7 +1765,7 @@ C8 3B 23 00 20 41 43 54 49 56 41 54 45 20 50 48 4F 4E 45,TEL --> GT: Display Tex
 C8 3B 23 00 20 53 45 41 52 43 48 49 4E 47 2E 2E 2E,TEL --> GT: Display Text: Layout=0x00: Flags=CLS F0="SEARCHING..."
 C8 7F A9 31 00 00,TEL --> NAV: Telephone data Telematics_settings_request
 C8 E7 2B 00,TEL --> ANZV: Telephone indicators: All_off
-C8 E7 2C 90,TEL --> ANZV: Telephone status: Phone_On
+C8 E7 2C 90,TEL --> ANZV: Telephone status Phone_On
 C8 E7 A6 00 00,TEL --> ANZV: Special indicators: Request
 D0 3F A0 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
 D0 3F A0 00 02 00 40 01 00 08 00 00 00 00 00 00 00 00 23 72 4E 21 90 01 00 0B 00 00 00 00 28 1F 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="00 02 00 40 01 00 08 00 00 00 00 00 00 00 00 23 72 4E 21 90 01 00 0B 00 00 00 00 28 1F 00 00 00"
@@ -1862,7 +1855,6 @@ D0 80 54 4C 56 93 28 40 08 A2 41 E8 00 00 00 00,LCM --> IKE: Vehicle data status
 D0 BF 02 00,LCM --> GLO: Device status ready
 D0 BF 02 01,LCM --> GLO: Device status ready after Reset
 D0 BF 5B 00 00 00 00,LCM --> GLO: Lamp status All_Off All_OK
-D0 BF 5B 00 00 00 00,LCM --> GLO: Lamp status: All_Off All_OK
 D0 BF 5B 00 01 00 00,LCM --> GLO: Lamp status All_Off Faulty: Park
 D0 BF 5B 00 01 08 04,LCM --> GLO: Lamp status All_Off Tail Faulty: Park Tail_Right
 D0 BF 5B 00 01 08 0C,LCM --> GLO: Lamp status All_Off Tail Faulty: Park Tail_Right Tail_Left
@@ -2096,9 +2088,9 @@ E8 80 10,RLS --> IKE: Ignition status request
 E8 BF 02 01,RLS --> GLO: Device status ready after Reset
 ED 80 10,VID --> IKE: Ignition status request
 ED 80 12,VID --> IKE: IKE sensor status request
-ED 80 41 01 01,VID --> IKE: On-board computer data request: Time: current value request
-ED 80 41 02 01,VID --> IKE: On-board computer data request: Date: current value request
-ED 80 41 1B 02,VID --> IKE: On-board computer data request: Aux_Heat/Vent: status request
+ED 80 41 01 01,VID --> IKE: On-board computer data request Time: current value request
+ED 80 41 02 01,VID --> IKE: On-board computer data request Date: current value request
+ED 80 41 1B 02,VID --> IKE: On-board computer data request Aux_Heat/Vent: status request
 ED F0 4F 12 11,VID --> BMBT: RGB control: LCD_on GT
 ED F0 4F 12 11,VID --> BMBT: RGB control: LCD_on GT 
 F0 00 79,BMBT --> GM: Doors/flaps status request
@@ -2150,7 +2142,6 @@ F0 68 48 B1,BMBT --> RAD: BM Button FM_released
 F0 68 48 B2,BMBT --> RAD: BM Button TP_released
 F0 68 48 B3,BMBT --> RAD: BM Button DOLBY_released
 F0 68 4B 05,BMBT --> RAD: Cassette status No_Tape
-F0 68 4B 05,BMBT --> RAD: Cassette status: No_Tape
 F0 80 10,BMBT --> IKE: Ignition status request
 F0 BF 02 01,BMBT --> GLO: Device status ready after Reset
 F0 D0 5D,BMBT --> LCM: Light dimmer status request

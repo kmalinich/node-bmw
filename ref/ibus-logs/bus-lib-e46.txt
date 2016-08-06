@@ -276,11 +276,11 @@
 3B 3F A0 36 39 32 30 31 38 32 31 30 30 37 30 36 31 34 31 31 30 34 30 31 30 38 37 38 38 2E 31 30 38 30,GT --> DIA: Diagnostic command acknowledged, Data="36 39 32 30 31 38 32 31 30 30 37 30 36 31 34 31 31 30 34 30 31 30 38 37 38 38 2E 31 30 38 30"
 3B 3F FF,GT --> DIA: Diagnostic command not acknowledged
 3B 46 01,GT --> CID: Device status request
-3B 68 22 00 00,GT --> RAD: Text display confirmation: Screen Text: 1 text message acknowledged
-3B 68 22 00 01,GT --> RAD: Text display confirmation: Screen Text: 2 text messages acknowledged
-3B 68 22 00 06,GT --> RAD: Text display confirmation: Screen Text: 7 text messages acknowledged
-3B 68 22 04 FF,GT --> RAD: Text display confirmation: Menu Text: 5 text messages acknowledged
-3B 68 22 05 FF,GT --> RAD: Text display confirmation: Menu Text: 6 text messages acknowledged
+3B 68 22 00 00,GT --> RAD: Text display confirmation: Screen Text 1 text message acknowledged
+3B 68 22 00 01,GT --> RAD: Text display confirmation: Screen Text 2 text messages acknowledged
+3B 68 22 00 06,GT --> RAD: Text display confirmation: Screen Text 7 text messages acknowledged
+3B 68 22 04 FF,GT --> RAD: Text display confirmation: Menu Text 5 text messages acknowledged
+3B 68 22 05 FF,GT --> RAD: Text display confirmation: Menu Text 6 text messages acknowledged
 3B 68 31 60 00 02,GT --> RAD: Button Button_2_pressed
 3B 68 31 60 00 06,GT --> RAD: Button Button_6_pressed
 3B 68 31 60 00 42,GT --> RAD: Button Button_2_released
@@ -360,7 +360,7 @@
 3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT 
 3B BF 02 40,GT --> GLO: Device status ready Bit6
 3B C8 01,GT --> TEL: Device status request
-3B C8 22 00,GT --> TEL: Text display confirmation: Menu Text: 1 text message acknowledged
+3B C8 22 00,GT --> TEL: Text display confirmation: Menu Text 1 text message acknowledged
 3B D0 5A,GT --> LCM: Lamp status request
 3B ED 01,GT --> VID: Device status request
 3B F0 01,GT --> BMBT: Device status request
@@ -729,57 +729,57 @@
 68 3B 21 43 02 60,RAD --> GT: Menu Text Layout=0x43: Flags=CLS,PartTx F0=
 68 3B 21 43 22 60,RAD --> GT: Menu Text Layout=0x43: Flags=CLS,PartTx F0=
 68 3B 21 43 E0 60,RAD --> GT: Menu Text Layout=0x43: Flags=CLS,PartTx F0=
-68 3B 21 60 00 04 54 4D 43 3D 42 20 35 20 41 4B 54 20 20 20 06 06 06 06 06 06,RAD --> GT: Menu Text: Layout=Menu Flags= F4="TMC=B 5 AKT "
-68 3B 21 60 00 07 50 36 3A 20 45 4E 45 52 47 59 20 20 20 20 06 06 06,RAD --> GT: Menu Text: Layout=Menu Flags= F7="P6: ENERGY "
-68 3B 21 60 00 40 50 31 3A 20 47 4F 4E 47 20 20 20 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F0="P1: GONG "
-68 3B 21 60 00 40 54 50 20 20 20 20 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F0="TP "
-68 3B 21 60 00 41 50 32 3A 20 41 4E 54 45 4E 4E 45 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F1="P2: ANTENNE "
-68 3B 21 60 00 41 54 50 3D 4F 46 46 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F1="TP=OFF "
-68 3B 21 60 00 42 50 33 3A 20 42 41 59 45 52 4E 20 33 20 20 06 06 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F2="P3: BAYERN 3 "
-68 3B 21 60 00 42 54 50 2D 4D 69 6E 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F2="TP-Min "
-68 3B 21 60 00 43 52 44 53 20 20 20 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F3="RDS "
-68 3B 21 60 00 45 50 34 3A 20 43 41 52 49 56 41 52 49 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F5="P4: CARIVARI "
-68 3B 21 60 00 46 50 35 3A 20 52 41 44 49 4F 20 4E 31 20 20 06,RAD --> GT: Menu Text: Layout=Menu Flags=PartTx F6="P5: RADIO N1 "
+68 3B 21 60 00 04 54 4D 43 3D 42 20 35 20 41 4B 54 20 20 20 06 06 06 06 06 06,RAD --> GT: Menu Text Layout=Menu Flags= F4="TMC=B 5 AKT "
+68 3B 21 60 00 07 50 36 3A 20 45 4E 45 52 47 59 20 20 20 20 06 06 06,RAD --> GT: Menu Text Layout=Menu Flags= F7="P6: ENERGY "
+68 3B 21 60 00 40 50 31 3A 20 47 4F 4E 47 20 20 20 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F0="P1: GONG "
+68 3B 21 60 00 40 54 50 20 20 20 20 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F0="TP "
+68 3B 21 60 00 41 50 32 3A 20 41 4E 54 45 4E 4E 45 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F1="P2: ANTENNE "
+68 3B 21 60 00 41 54 50 3D 4F 46 46 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F1="TP=OFF "
+68 3B 21 60 00 42 50 33 3A 20 42 41 59 45 52 4E 20 33 20 20 06 06 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F2="P3: BAYERN 3 "
+68 3B 21 60 00 42 54 50 2D 4D 69 6E 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F2="TP-Min "
+68 3B 21 60 00 43 52 44 53 20 20 20 20 20 20 20 20 20 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F3="RDS "
+68 3B 21 60 00 45 50 34 3A 20 43 41 52 49 56 41 52 49 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F5="P4: CARIVARI "
+68 3B 21 60 00 46 50 35 3A 20 52 41 44 49 4F 20 4E 31 20 20 06,RAD --> GT: Menu Text Layout=Menu Flags=PartTx F6="P5: RADIO N1 "
 68 3B 23 00 20,RAD --> GT: Display Text Layout=0x00: Flags=CLS F0=
 68 3B 23 40 20 20 4E 4F 20 50 54 59,RAD --> GT: Display Text Layout=DisplayText Flags=CLS F0=" NO PTY"
 68 3B 23 40 20 41 4D 20 03 31 32 32 30 04 20 20 20,RAD --> GT: Display Text Layout=DisplayText Flags=CLS F0="AM " F3:"1220" F4:""
 68 3B 23 40 20 46 4D 20 03 20 39 39 2E 35 04 20 20 20,RAD --> GT: Display Text Layout=DisplayText Flags=CLS F0="FM " F3:" 99.5" F4:""
 68 3B 23 40 20 46 4D 20 03 31 30 37 2E 37 04 20 20 20,RAD --> GT: Display Text Layout=DisplayText Flags=CLS F0="FM " F3:"107.7" F4:""
 68 3B 23 40 20 4E 4F 20 54 41 50 45 20 20 20 20,RAD --> GT: Display Text Layout=DisplayText Flags=CLS F0="NO TAPE "
-68 3B 23 62 10 03 20 39 31 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.4" F4:" MHz "
-68 3B 23 62 10 03 20 39 31 2E 35 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.5" F4:" MHz "
-68 3B 23 62 10 03 20 39 31 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.6" F4:" MHz "
-68 3B 23 62 10 03 20 39 31 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.8" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.0" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.2" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.4" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.6" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 37 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.7" F4:" MHz "
-68 3B 23 62 10 03 20 39 32 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.8" F4:" MHz "
-68 3B 23 62 10 03 20 39 33 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.0" F4:" MHz "
-68 3B 23 62 10 03 20 39 33 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.2" F4:" MHz "
-68 3B 23 62 10 03 20 39 33 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.4" F4:" MHz "
-68 3B 23 62 10 03 20 39 33 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.6" F4:" MHz "
-68 3B 23 62 10 03 20 39 33 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.8" F4:" MHz "
-68 3B 23 62 10 03 20 39 34 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.0" F4:" MHz "
-68 3B 23 62 10 03 20 39 34 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.2" F4:" MHz "
-68 3B 23 62 10 03 20 39 34 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.4" F4:" MHz "
-68 3B 23 62 10 03 20 39 34 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.6" F4:" MHz "
-68 3B 23 62 10 03 20 39 34 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.8" F4:" MHz "
-68 3B 23 62 10 03 20 39 35 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.0" F4:" MHz "
-68 3B 23 62 10 03 20 39 35 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.2" F4:" MHz "
-68 3B 23 62 10 03 20 39 35 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.4" F4:" MHz "
-68 3B 23 62 10 03 20 39 35 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.6" F4:" MHz "
-68 3B 23 62 10 03 20 39 35 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.8" F4:" MHz "
-68 3B 23 62 10 03 20 39 36 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 96.0" F4:" MHz "
-68 3B 23 62 10 03 20 39 36 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0= F3:" 96.2" F4:" MHz "
-68 3B 23 62 10 20 47 4F 4E 47 20 20 20 20 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0=" GONG "
-68 3B 23 62 10 20 50 4F 50 20 4D 20 20 20 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0=" POP M "
-68 3B 23 62 10 42 41 59 45 52 4E 20 31 20 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0="BAYERN 1 "
-68 3B 23 62 10 42 41 59 45 52 4E 20 33 20 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0="BAYERN 3 "
-68 3B 23 62 10 52 41 44 49 4F 20 4E 31 20 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4 F0="RADIO N1 "
-68 3B 23 62 30 20 07 20 20 20 20 20 08 20 4E 44 52 20 32 20 20 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4,CLS F0="" F7:"" F8:" NDR 2 "
-68 3B 23 62 30 20 07 20 20 20 20 20 08 57 69 6C 6C 69 61 6D 73 20 20,RAD --> GT: Display Text: Layout=RadioDisplay Flags=Bit4,CLS F0="" F7:"" F8:"Williams "
+68 3B 23 62 10 03 20 39 31 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.4" F4:" MHz "
+68 3B 23 62 10 03 20 39 31 2E 35 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.5" F4:" MHz "
+68 3B 23 62 10 03 20 39 31 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.6" F4:" MHz "
+68 3B 23 62 10 03 20 39 31 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 91.8" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.0" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.2" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.4" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.6" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 37 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.7" F4:" MHz "
+68 3B 23 62 10 03 20 39 32 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 92.8" F4:" MHz "
+68 3B 23 62 10 03 20 39 33 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.0" F4:" MHz "
+68 3B 23 62 10 03 20 39 33 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.2" F4:" MHz "
+68 3B 23 62 10 03 20 39 33 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.4" F4:" MHz "
+68 3B 23 62 10 03 20 39 33 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.6" F4:" MHz "
+68 3B 23 62 10 03 20 39 33 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 93.8" F4:" MHz "
+68 3B 23 62 10 03 20 39 34 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.0" F4:" MHz "
+68 3B 23 62 10 03 20 39 34 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.2" F4:" MHz "
+68 3B 23 62 10 03 20 39 34 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.4" F4:" MHz "
+68 3B 23 62 10 03 20 39 34 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.6" F4:" MHz "
+68 3B 23 62 10 03 20 39 34 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 94.8" F4:" MHz "
+68 3B 23 62 10 03 20 39 35 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.0" F4:" MHz "
+68 3B 23 62 10 03 20 39 35 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.2" F4:" MHz "
+68 3B 23 62 10 03 20 39 35 2E 34 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.4" F4:" MHz "
+68 3B 23 62 10 03 20 39 35 2E 36 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.6" F4:" MHz "
+68 3B 23 62 10 03 20 39 35 2E 38 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 95.8" F4:" MHz "
+68 3B 23 62 10 03 20 39 36 2E 30 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 96.0" F4:" MHz "
+68 3B 23 62 10 03 20 39 36 2E 32 04 20 4D 48 7A 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0= F3:" 96.2" F4:" MHz "
+68 3B 23 62 10 20 47 4F 4E 47 20 20 20 20 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0=" GONG "
+68 3B 23 62 10 20 50 4F 50 20 4D 20 20 20 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0=" POP M "
+68 3B 23 62 10 42 41 59 45 52 4E 20 31 20 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0="BAYERN 1 "
+68 3B 23 62 10 42 41 59 45 52 4E 20 33 20 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0="BAYERN 3 "
+68 3B 23 62 10 52 41 44 49 4F 20 4E 31 20 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4 F0="RADIO N1 "
+68 3B 23 62 30 20 07 20 20 20 20 20 08 20 4E 44 52 20 32 20 20 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4,CLS F0="" F7:"" F8:" NDR 2 "
+68 3B 23 62 30 20 07 20 20 20 20 20 08 57 69 6C 6C 69 61 6D 73 20 20,RAD --> GT: Display Text Layout=RadioDisplay Flags=Bit4,CLS F0="" F7:"" F8:"Williams "
 68 3B 24 40 00 31 32 31 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1210"
 68 3B 24 40 00 31 32 32 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1220"
 68 3B 24 40 00 31 32 33 30,RAD --> GT: Update Text Layout=DisplayText Flags= F0="1230"
@@ -800,30 +800,30 @@
 68 3B 46 08,RAD --> GT: LCD clear: Tone menu off
 68 3B 46 0C,RAD --> GT: LCD clear: Select menu off: Tone menu off
 68 3B 46 0E,RAD --> GT: LCD clear,: Radio display off: Select menu off: Tone menu off
-68 3B A5 60 01 00,RAD --> GT: Screen Text: Layout=Menu FC2=0x01 Fld0,EndTx=""
-68 3B A5 62 01 00,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld0,EndTx=""
-68 3B A5 62 01 02 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,EndTx=""
-68 3B A5 62 01 02 20 50 20 33 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,EndTx=" P 3 "
-68 3B A5 62 01 02 20 50 20 34 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,EndTx=" P 4 "
-68 3B A5 62 01 03 20 52 45 47 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld3,EndTx=" REG "
-68 3B A5 62 01 04 20 54 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld4,EndTx=" T "
-68 3B A5 62 01 06 20 20 20 20 20 20 20 20 39 32 2E 39 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" 92.9 "
-68 3B A5 62 01 06 20 20 20 20 20 20 20 20 39 37 2E 31 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" 97.1 "
-68 3B A5 62 01 06 20 20 20 20 20 4C 4F 43 41 4C 2D 20 33 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" LOCAL- 3 "
-68 3B A5 62 01 07 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld7,EndTx=""
-68 3B A5 62 01 41 20 20 46 4D 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld1,PartTx=" FM "
-68 3B A5 62 01 42 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,PartTx=""
-68 3B A5 62 01 42 20 50 20 31 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 1 "
-68 3B A5 62 01 42 20 50 20 33 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 3 "
-68 3B A5 62 01 42 20 50 20 35 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 5 "
-68 3B A5 62 01 43 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld3,PartTx=""
-68 3B A5 62 01 43 20 20 49 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld3,PartTx=" I "
-68 3B A5 62 01 43 20 52 45 47 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld3,PartTx=" REG "
-68 3B A5 62 01 44 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld4,PartTx=""
-68 3B A5 62 01 45 20 20 52 44 53 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld5,PartTx=" RDS "
-68 3B A5 62 01 46 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,PartTx=""
-68 3B A5 62 01 46 20 20 20 20 20 20 20 20 39 31 2E 34 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,PartTx=" 91.4 "
-68 3B A5 62 01 46 20 20 20 20 20 20 20 20 39 37 2E 39 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text: Layout=RadioDisplay FC2=0x01 Fld6,PartTx=" 97.9 "
+68 3B A5 60 01 00,RAD --> GT: Screen Text Layout=Menu FC2=0x01 Fld0,EndTx=""
+68 3B A5 62 01 00,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld0,EndTx=""
+68 3B A5 62 01 02 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,EndTx=""
+68 3B A5 62 01 02 20 50 20 33 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,EndTx=" P 3 "
+68 3B A5 62 01 02 20 50 20 34 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,EndTx=" P 4 "
+68 3B A5 62 01 03 20 52 45 47 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld3,EndTx=" REG "
+68 3B A5 62 01 04 20 54 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld4,EndTx=" T "
+68 3B A5 62 01 06 20 20 20 20 20 20 20 20 39 32 2E 39 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" 92.9 "
+68 3B A5 62 01 06 20 20 20 20 20 20 20 20 39 37 2E 31 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" 97.1 "
+68 3B A5 62 01 06 20 20 20 20 20 4C 4F 43 41 4C 2D 20 33 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,EndTx=" LOCAL- 3 "
+68 3B A5 62 01 07 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld7,EndTx=""
+68 3B A5 62 01 41 20 20 46 4D 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld1,PartTx=" FM "
+68 3B A5 62 01 42 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,PartTx=""
+68 3B A5 62 01 42 20 50 20 31 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 1 "
+68 3B A5 62 01 42 20 50 20 33 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 3 "
+68 3B A5 62 01 42 20 50 20 35 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld2,PartTx=" P 5 "
+68 3B A5 62 01 43 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld3,PartTx=""
+68 3B A5 62 01 43 20 20 49 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld3,PartTx=" I "
+68 3B A5 62 01 43 20 52 45 47 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld3,PartTx=" REG "
+68 3B A5 62 01 44 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld4,PartTx=""
+68 3B A5 62 01 45 20 20 52 44 53 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld5,PartTx=" RDS "
+68 3B A5 62 01 46 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,PartTx=""
+68 3B A5 62 01 46 20 20 20 20 20 20 20 20 39 31 2E 34 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,PartTx=" 91.4 "
+68 3B A5 62 01 46 20 20 20 20 20 20 20 20 39 37 2E 39 20 20 20 20 20 20 20 20,RAD --> GT: Screen Text Layout=RadioDisplay FC2=0x01 Fld6,PartTx=" 97.9 "
 68 3F A0 01 00 85,RAD --> DIA: Diagnostic command acknowledged, Data="01 00 85"
 68 3F A0 01,RAD --> DIA: Diagnostic command acknowledged, Data="01"
 68 3F A0 42 00 24 68 99,RAD --> DIA: Diagnostic command acknowledged Data="42 00 24 68 99"
@@ -1178,7 +1178,7 @@
 68 C0 23 00 20,RAD --> MID: Display Text Layout=0x00: Flags=CLS F0=
 68 C0 23 00 40 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=0x00: Flags=PartTx F0="Prophets ST"
 68 C0 23 20 20 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=0x20: Flags=CLS F0="Prophets ST"
-68 C0 23 40 20 00 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0= F0:"rophets Sÿ"
+68 C0 23 40 20 00 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0= F0:"rophets S"
 68 C0 23 40 20 20 20 54 4F 50 20 34 30,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0=" TOP 40"
 68 C0 23 40 20 34 34 34 2D 34 34 34 34 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="444-4444 ST"
 68 C0 23 40 20 39 36 52 4F 43 4B 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="96ROCK ST"
@@ -1239,7 +1239,7 @@
 68 C0 23 40 20 50 6C 61 79 67 72 6F 75 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Playgrou ST"
 68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 00,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets S" F0:"
 68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets ST"
-68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets Sÿ"
+68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets S"
 68 C0 23 40 20 52 69 6F 20 20 20 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Rio ST"
 68 C0 23 40 20 53 65 78 20 41 6E 64 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Sex And ST"
 68 C0 23 40 20 53 6D 69 74 68 20 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Smith ST"
@@ -1374,42 +1374,42 @@
 7F 80 1F 40 21 38 25 00 10 20 11,NAV --> IKE: Time & date: UTC 21:38 25 October 2011
 7F B0 AF 04,NAV --> SES: Cmd_0xAF, Data="04"
 7F C8 02 40,NAV --> TEL: Device status ready Bit6
-7F C8 A2 00 00 54 20 42 40 00 13 25 41 00 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'42.4"N 13°25'41.0"E
-7F C8 A2 00 00 54 20 44 20 00 13 30 05 00 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'44.2"N 13°30'5.0"E
-7F C8 A2 00 00 54 20 55 10 00 13 27 44 90 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'55.1"N 13°27'44.9"E
-7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 25 00,NAV --> TEL: Current position: 54°20'55.6"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 26 00,NAV --> TEL: Current position: 54°20'55.6"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 27 00,NAV --> TEL: Current position: 54°20'55.6"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 28 00,NAV --> TEL: Current position: 54°20'55.6"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 70 00 13 27 44 70 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'55.7"N 13°27'44.7"E
-7F C8 A2 00 00 54 20 55 70 00 13 27 44 80 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'55.7"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 80 00 13 27 44 80 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'55.8"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 80 00 13 27 44 80 00 00 00 16 48 00,NAV --> TEL: Current position: 54°20'55.8"N 13°27'44.8"E
-7F C8 A2 00 00 54 20 55 90 00 13 27 45 20 00 00 00 16 57 00,NAV --> TEL: Current position: 54°20'55.9"N 13°27'45.2"E
-7F C8 A2 00 00 54 20 55 90 00 13 27 45 20 00 00 00 16 58 00,NAV --> TEL: Current position: 54°20'55.9"N 13°27'45.2"E
-7F C8 A2 00 00 54 20 57 00 00 13 27 40 10 00 00 00 00 00 00,NAV --> TEL: Current position: 54°20'57.0"N 13°27'40.1"E
-7F C8 A2 00 00 54 21 01 30 00 13 27 40 30 00 00 00 00 00 00,NAV --> TEL: Current position: 54°21'1.3"N 13°27'40.3"E
-7F C8 A2 00 00 54 21 01 30 00 13 27 40 30 00 00 00 22 16 00,NAV --> TEL: Current position: 54°21'1.3"N 13°27'40.3"E
-7F C8 A2 00 00 54 22 07 40 00 13 28 44 50 00 00 00 00 00 00,NAV --> TEL: Current position: 54°22'7.4"N 13°28'44.5"E
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 50 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:50:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 51 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:51:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 51 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:51:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 52 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:52:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 53 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:53:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 53 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:53:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 54 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:54:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 54 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 289m; UTC 17:54:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 46 32,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:46:32
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 47 02,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:47:02
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 47 32,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:47:32
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 48 02,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:48:02
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 48 32,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:48:32
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 49 02,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:49:02
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 49 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:49:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 50 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:50:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 52 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:52:31
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 55 01,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:55:01
-7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 55 31,NAV --> TEL: Current position: GPS fix; 49°34'2.1"N 10°59'31.0"E; Alt 290m; UTC 17:55:31
+7F C8 A2 00 00 54 20 42 40 00 13 25 41 00 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'42.4"N 1325'41.0"E
+7F C8 A2 00 00 54 20 44 20 00 13 30 05 00 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'44.2"N 1330'5.0"E
+7F C8 A2 00 00 54 20 55 10 00 13 27 44 90 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'55.1"N 1327'44.9"E
+7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 25 00,NAV --> TEL: Current position: 5420'55.6"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 26 00,NAV --> TEL: Current position: 5420'55.6"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 27 00,NAV --> TEL: Current position: 5420'55.6"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 60 00 13 27 44 80 00 00 00 23 28 00,NAV --> TEL: Current position: 5420'55.6"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 70 00 13 27 44 70 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'55.7"N 1327'44.7"E
+7F C8 A2 00 00 54 20 55 70 00 13 27 44 80 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'55.7"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 80 00 13 27 44 80 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'55.8"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 80 00 13 27 44 80 00 00 00 16 48 00,NAV --> TEL: Current position: 5420'55.8"N 1327'44.8"E
+7F C8 A2 00 00 54 20 55 90 00 13 27 45 20 00 00 00 16 57 00,NAV --> TEL: Current position: 5420'55.9"N 1327'45.2"E
+7F C8 A2 00 00 54 20 55 90 00 13 27 45 20 00 00 00 16 58 00,NAV --> TEL: Current position: 5420'55.9"N 1327'45.2"E
+7F C8 A2 00 00 54 20 57 00 00 13 27 40 10 00 00 00 00 00 00,NAV --> TEL: Current position: 5420'57.0"N 1327'40.1"E
+7F C8 A2 00 00 54 21 01 30 00 13 27 40 30 00 00 00 00 00 00,NAV --> TEL: Current position: 5421'1.3"N 1327'40.3"E
+7F C8 A2 00 00 54 21 01 30 00 13 27 40 30 00 00 00 22 16 00,NAV --> TEL: Current position: 5421'1.3"N 1327'40.3"E
+7F C8 A2 00 00 54 22 07 40 00 13 28 44 50 00 00 00 00 00 00,NAV --> TEL: Current position: 5422'7.4"N 1328'44.5"E
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 50 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:50:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 51 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:51:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 51 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:51:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 52 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:52:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 53 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:53:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 53 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:53:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 54 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:54:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 89 00 17 54 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 289m; UTC 17:54:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 46 32,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:46:32
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 47 02,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:47:02
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 47 32,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:47:32
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 48 02,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:48:02
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 48 32,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:48:32
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 49 02,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:49:02
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 49 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:49:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 50 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:50:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 52 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:52:31
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 55 01,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:55:01
+7F C8 A2 01 00 49 34 02 10 00 10 59 31 00 02 90 00 17 55 31,NAV --> TEL: Current position: GPS fix; 4934'2.1"N 1059'31.0"E; Alt 290m; UTC 17:55:31
 7F C8 A4 00 01 45 52 4C 41 4E 47 45 4E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00,NAV --> TEL: Current location: Town = ERLANGEN
 7F C8 A4 00 01 50 55 54 42 55 53 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00,NAV --> TEL: Current location: Town = PUTBUS
 7F C8 A4 00 02 3B 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00,NAV --> TEL: Current location: Street = ;
@@ -1639,16 +1639,16 @@
 80 BF 13 03 00 00 02 00 80 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
 80 BF 13 03 B0 00 02 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
-80 BF 15 00 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=DE_German Clock=24h OutTemp=°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
-80 BF 15 00 04 80 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=DE_German Clock=24h OutTemp=°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
-80 BF 15 01 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=Â°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
-80 BF 15 02 F1 FA 05,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
-80 BF 15 02 F1 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F1 FA 46,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F1 FA 47,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
-80 BF 15 02 F7 7A 56,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°F AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 00 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=DE_German Clock=24h OutTemp=C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
+80 BF 15 00 04 80 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=DE_German Clock=24h OutTemp=C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
+80 BF 15 01 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
+80 BF 15 02 F1 FA 05,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
+80 BF 15 02 F1 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F1 FA 46,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F1 FA 47,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
+80 BF 15 02 F7 7A 56,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=F AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 17 00 00 00 00 1F 00 00,IKE --> GLO: Odometer 0 km
 80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153,600 km
 80 BF 17 01 4A 03 80 1F 02 CC,IKE --> GLO: Odometer: 215.553 km
@@ -1715,252 +1715,252 @@
 80 BF 18 40 19,IKE --> GLO: Speed/RPM Speed 128 km/h 2,500 RPM
 80 BF 18 41 19,IKE --> GLO: Speed/RPM Speed 130 km/h 2,500 RPM
 80 BF 18 42 19,IKE --> GLO: Speed/RPM Speed 132 km/h 2,500 RPM
-80 BF 19 09 4B 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 75°C
-80 BF 19 09 4C 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 76°C
-80 BF 19 09 4E 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 78°C
-80 BF 19 09 4F 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 79°C
-80 BF 19 09 50 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 80°C
-80 BF 19 09 51 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 81°C
-80 BF 19 09 52 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 82°C
-80 BF 19 09 53 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 83°C
-80 BF 19 09 54 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 84°C
-80 BF 19 09 55 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 85°C
-80 BF 19 09 56 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 86°C
-80 BF 19 09 57 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 87°C
-80 BF 19 09 58 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 88°C
-80 BF 19 09 59 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 89°C
-80 BF 19 09 5A 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 90°C
-80 BF 19 09 5B 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 91°C
-80 BF 19 09 5C 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 92°C
-80 BF 19 09 5D 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 93°C
-80 BF 19 09 5E 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 94°C
-80 BF 19 09 5F 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 95°C
-80 BF 19 09 60 00,IKE --> GLO: Temperature: Outside 9°C, Coolant 96°C
-80 BF 19 0E 0D 00,IKE --> GLO: Temperature: Outside 14°C, Coolant 13°C
-80 BF 19 0E 0E 00,IKE --> GLO: Temperature: Outside 14°C, Coolant 14°C
-80 BF 19 0F 66 00,IKE --> GLO: Temperature: Outside 15°C, Coolant 102°C
-80 BF 19 0F 67 00,IKE --> GLO: Temperature: Outside 15°C, Coolant 103°C
-80 BF 19 0F 68 00,IKE --> GLO: Temperature: Outside 15°C, Coolant 104°C
-80 BF 19 10 44 00,IKE --> GLO: Temperature: Outside 16°C, Coolant 68°C
-80 BF 19 10 45 00,IKE --> GLO: Temperature: Outside 16°C, Coolant 69°C
-80 BF 19 10 46 00,IKE --> GLO: Temperature: Outside 16°C, Coolant 70°C
-80 BF 19 10 47 00,IKE --> GLO: Temperature: Outside 16°C, Coolant 71°C
-80 BF 19 10 48 00,IKE --> GLO: Temperature: Outside 16°C, Coolant 72°C
-80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17°C Coolant 38°C
-80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17°C Coolant 39°C
-80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17°C Coolant 40°C
-80 BF 19 14 27 00,IKE --> GLO: Temperature: Outside 20°C, Coolant 39°C
-80 BF 19 14 28 00,IKE --> GLO: Temperature: Outside 20°C, Coolant 40°C
-80 BF 19 14 29 00,IKE --> GLO: Temperature: Outside 20°C, Coolant 41°C
-80 BF 19 14 2A 00,IKE --> GLO: Temperature: Outside 20°C, Coolant 42°C
-80 BF 19 14 5E 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 94Â°C
-80 BF 19 14 5F 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 95Â°C
-80 BF 19 14 60 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 96Â°C
-80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23°C Coolant 84°C
-80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23°C Coolant 85°C
-80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23°C Coolant 86°C
-80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23°C Coolant 87°C
-80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23°C Coolant 88°C
-80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23°C Coolant 89°C
-80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23°C Coolant 90°C
-80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24°C Coolant 35°C
-80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24°C Coolant 36°C
-80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24°C Coolant 37°C
-80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24°C Coolant 38°C
-80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24°C Coolant 39°C
-80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24°C Coolant 40°C
-80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24°C Coolant 42°C
-80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24°C Coolant 46°C
-80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24°C Coolant 49°C
-80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24°C Coolant 50°C
-80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24°C Coolant 52°C
-80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24°C Coolant 54°C
-80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24°C Coolant 57°C
-80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24°C Coolant 58°C
-80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24°C Coolant 60°C
-80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24°C Coolant 61°C
-80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24°C Coolant 62°C
-80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24°C Coolant 63°C
-80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24°C Coolant 64°C
-80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24°C Coolant 65°C
-80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24°C Coolant 66°C
-80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24°C Coolant 67°C
-80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24°C Coolant 68°C
-80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24°C Coolant 69°C
-80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24°C Coolant 70°C
-80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24°C Coolant 71°C
-80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24°C Coolant 72°C
-80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24°C Coolant 73°C
-80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24°C Coolant 74°C
-80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24°C Coolant 75°C
-80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24°C Coolant 76°C
-80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24°C Coolant 77°C
-80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24°C Coolant 79°C
-80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24°C Coolant 80°C
-80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24°C Coolant 82°C
-80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24°C Coolant 83°C
-80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24°C Coolant 85°C
-80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24°C Coolant 89°C
-80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24°C Coolant 90°C
-80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24°C Coolant 91°C
-80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24°C Coolant 92°C
-80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24°C Coolant 93°C
-80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24°C Coolant 94°C
-80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24°C Coolant -128°C
-80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25°C Coolant 67°C
-80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25°C Coolant 69°C
-80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26°C Coolant 72°C
-80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26°C Coolant 73°C
-80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26°C Coolant 74°C
-80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26°C Coolant 75°C
-80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26°C Coolant 76°C
-80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26°C Coolant 77°C
-80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26°C Coolant 79°C
-80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26°C Coolant 80°C
-80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26°C Coolant 82°C
-80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26°C Coolant 85°C
-80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26°C Coolant 87°C
-80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26°C Coolant 88°C
-80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26°C Coolant 89°C
-80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26°C Coolant 90°C
-80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26°C Coolant 91°C
-80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26°C Coolant 92°C
-80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26°C Coolant 94°C
-80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28°C Coolant 37°C
-80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29°C Coolant 57°C
-80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29°C Coolant 58°C
-80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29°C Coolant 66°C
-80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29°C Coolant 67°C
-80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29°C Coolant 68°C
-80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29°C Coolant 69°C
-80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29°C Coolant 70°C
-80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29°C Coolant 71°C
-80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29°C Coolant 72°C
-80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29°C Coolant 73°C
-80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29°C Coolant 74°C
-80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29°C Coolant 75°C
-80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29°C Coolant 76°C
-80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29°C Coolant 77°C
-80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29°C Coolant 78°C
-80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29°C Coolant 79°C
-80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29°C Coolant 80°C
-80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29°C Coolant 81°C
-80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29°C Coolant 82°C
-80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29°C Coolant 83°C
-80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29°C Coolant 84°C
-80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29°C Coolant 85°C
-80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30°C Coolant 57°C
-80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30°C Coolant 58°C
-80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30°C Coolant 59°C
-80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30°C Coolant 62°C
-80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30°C Coolant 63°C
-80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30°C Coolant 64°C
-80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30°C Coolant 67°C
-80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30°C Coolant 68°C
-80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30°C Coolant 69°C
-80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30°C Coolant 70°C
-80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30°C Coolant 71°C
-80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30°C Coolant 72°C
-80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30°C Coolant 75°C
-80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30°C Coolant 76°C
-80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30°C Coolant 77°C
-80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30°C Coolant 78°C
-80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30°C Coolant 79°C
-80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30°C Coolant 80°C
-80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30°C Coolant 81°C
-80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30°C Coolant 82°C
-80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30°C Coolant 83°C
-80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30°C Coolant 84°C
-80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30°C Coolant 85°C
-80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30°C Coolant 86°C
-80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30°C Coolant 87°C
-80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30°C Coolant 88°C
-80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30°C Coolant 89°C
-80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30°C Coolant 90°C
-80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30°C Coolant 91°C
-80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30°C Coolant 103°C
-80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31°C Coolant 81°C
-80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31°C Coolant 82°C
-80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31°C Coolant 98°C
-80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32°C Coolant 81°C
-80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32°C Coolant 82°C
-80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32°C Coolant 83°C
-80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32°C Coolant 84°C
-80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32°C Coolant 85°C
-80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32°C Coolant 95°C
-80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32°C Coolant 96°C
-80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33°C Coolant 75°C
-80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33°C Coolant 78°C
-80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33°C Coolant 80°C
-80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33°C Coolant 81°C
-80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33°C Coolant 82°C
-80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33°C Coolant 84°C
-80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33°C Coolant 85°C
-80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33°C Coolant 86°C
-80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33°C Coolant 87°C
-80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33°C Coolant 88°C
-80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33°C Coolant 89°C
-80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33°C Coolant 90°C
-80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33°C Coolant 91°C
-80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33°C Coolant 92°C
-80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33°C Coolant 93°C
-80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33°C Coolant 94°C
-80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33°C Coolant 95°C
-80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33°C Coolant 96°C
-80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34°C Coolant 76°C
-80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34°C Coolant 77°C
-80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34°C Coolant 78°C
-80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34°C Coolant 79°C
-80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34°C Coolant 80°C
-80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34°C Coolant 81°C
-80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34°C Coolant 82°C
-80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34°C Coolant 83°C
-80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34°C Coolant 84°C
-80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34°C Coolant 86°C
-80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34°C Coolant 87°C
-80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34°C Coolant 93°C
-80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34°C Coolant 94°C
-80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34°C Coolant 95°C
-80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34°C Coolant 96°C
-80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34°C Coolant 97°C
-80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34°C Coolant 98°C
-80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34°C Coolant -128°C
-80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35°C Coolant 86°C
-80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35°C Coolant 87°C
-80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35°C Coolant 88°C
-80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35°C Coolant 89°C
-80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35°C Coolant 93°C
-80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35°C Coolant 94°C
-80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35°C Coolant 95°C
-80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35°C Coolant 96°C
-80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35°C Coolant 97°C
-80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35°C Coolant 98°C
-80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35°C Coolant 99°C
-80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35°C Coolant 100°C
-80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36°C Coolant 87°C
-80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36°C Coolant 88°C
-80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36°C Coolant 89°C
-80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36°C Coolant 90°C
-80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38°C Coolant 89°C
-80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39°C Coolant 87°C
-80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39°C Coolant 89°C
-80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40°C Coolant 88°C
-80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41°C Coolant 87°C
-80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41°C Coolant 88°C
-80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42°C Coolant 88°C
-80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43°C Coolant 87°C
-80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43°C Coolant 88°C
-80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46°C Coolant 91°C
-80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46°C Coolant 92°C
-80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46°C Coolant 93°C
-80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46°C Coolant 94°C
-80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47°C Coolant 92°C
-80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48°C Coolant 91°C
-80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48°C Coolant 92°C
-80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50°C Coolant 91°C
-80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50°C Coolant 109°C
-80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50°C Coolant 111°C
-80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40°C Coolant -48°C
+80 BF 19 09 4B 00,IKE --> GLO: Temperature: Outside 9C, Coolant 75C
+80 BF 19 09 4C 00,IKE --> GLO: Temperature: Outside 9C, Coolant 76C
+80 BF 19 09 4E 00,IKE --> GLO: Temperature: Outside 9C, Coolant 78C
+80 BF 19 09 4F 00,IKE --> GLO: Temperature: Outside 9C, Coolant 79C
+80 BF 19 09 50 00,IKE --> GLO: Temperature: Outside 9C, Coolant 80C
+80 BF 19 09 51 00,IKE --> GLO: Temperature: Outside 9C, Coolant 81C
+80 BF 19 09 52 00,IKE --> GLO: Temperature: Outside 9C, Coolant 82C
+80 BF 19 09 53 00,IKE --> GLO: Temperature: Outside 9C, Coolant 83C
+80 BF 19 09 54 00,IKE --> GLO: Temperature: Outside 9C, Coolant 84C
+80 BF 19 09 55 00,IKE --> GLO: Temperature: Outside 9C, Coolant 85C
+80 BF 19 09 56 00,IKE --> GLO: Temperature: Outside 9C, Coolant 86C
+80 BF 19 09 57 00,IKE --> GLO: Temperature: Outside 9C, Coolant 87C
+80 BF 19 09 58 00,IKE --> GLO: Temperature: Outside 9C, Coolant 88C
+80 BF 19 09 59 00,IKE --> GLO: Temperature: Outside 9C, Coolant 89C
+80 BF 19 09 5A 00,IKE --> GLO: Temperature: Outside 9C, Coolant 90C
+80 BF 19 09 5B 00,IKE --> GLO: Temperature: Outside 9C, Coolant 91C
+80 BF 19 09 5C 00,IKE --> GLO: Temperature: Outside 9C, Coolant 92C
+80 BF 19 09 5D 00,IKE --> GLO: Temperature: Outside 9C, Coolant 93C
+80 BF 19 09 5E 00,IKE --> GLO: Temperature: Outside 9C, Coolant 94C
+80 BF 19 09 5F 00,IKE --> GLO: Temperature: Outside 9C, Coolant 95C
+80 BF 19 09 60 00,IKE --> GLO: Temperature: Outside 9C, Coolant 96C
+80 BF 19 0E 0D 00,IKE --> GLO: Temperature: Outside 14C, Coolant 13C
+80 BF 19 0E 0E 00,IKE --> GLO: Temperature: Outside 14C, Coolant 14C
+80 BF 19 0F 66 00,IKE --> GLO: Temperature: Outside 15C, Coolant 102C
+80 BF 19 0F 67 00,IKE --> GLO: Temperature: Outside 15C, Coolant 103C
+80 BF 19 0F 68 00,IKE --> GLO: Temperature: Outside 15C, Coolant 104C
+80 BF 19 10 44 00,IKE --> GLO: Temperature: Outside 16C, Coolant 68C
+80 BF 19 10 45 00,IKE --> GLO: Temperature: Outside 16C, Coolant 69C
+80 BF 19 10 46 00,IKE --> GLO: Temperature: Outside 16C, Coolant 70C
+80 BF 19 10 47 00,IKE --> GLO: Temperature: Outside 16C, Coolant 71C
+80 BF 19 10 48 00,IKE --> GLO: Temperature: Outside 16C, Coolant 72C
+80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17C Coolant 38C
+80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17C Coolant 39C
+80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17C Coolant 40C
+80 BF 19 14 27 00,IKE --> GLO: Temperature: Outside 20C, Coolant 39C
+80 BF 19 14 28 00,IKE --> GLO: Temperature: Outside 20C, Coolant 40C
+80 BF 19 14 29 00,IKE --> GLO: Temperature: Outside 20C, Coolant 41C
+80 BF 19 14 2A 00,IKE --> GLO: Temperature: Outside 20C, Coolant 42C
+80 BF 19 14 5E 00,IKE --> GLO: Temperature: Outside 20C Coolant 94C
+80 BF 19 14 5F 00,IKE --> GLO: Temperature: Outside 20C Coolant 95C
+80 BF 19 14 60 00,IKE --> GLO: Temperature: Outside 20C Coolant 96C
+80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23C Coolant 84C
+80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23C Coolant 85C
+80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23C Coolant 86C
+80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23C Coolant 87C
+80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23C Coolant 88C
+80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23C Coolant 89C
+80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23C Coolant 90C
+80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24C Coolant 35C
+80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24C Coolant 36C
+80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24C Coolant 37C
+80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24C Coolant 38C
+80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24C Coolant 39C
+80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24C Coolant 40C
+80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24C Coolant 42C
+80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24C Coolant 46C
+80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24C Coolant 49C
+80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24C Coolant 50C
+80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24C Coolant 52C
+80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24C Coolant 54C
+80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24C Coolant 57C
+80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24C Coolant 58C
+80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24C Coolant 60C
+80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24C Coolant 61C
+80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24C Coolant 62C
+80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24C Coolant 63C
+80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24C Coolant 64C
+80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24C Coolant 65C
+80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24C Coolant 66C
+80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24C Coolant 67C
+80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24C Coolant 68C
+80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24C Coolant 69C
+80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24C Coolant 70C
+80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24C Coolant 71C
+80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24C Coolant 72C
+80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24C Coolant 73C
+80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24C Coolant 74C
+80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24C Coolant 75C
+80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24C Coolant 76C
+80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24C Coolant 77C
+80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24C Coolant 79C
+80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24C Coolant 80C
+80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24C Coolant 82C
+80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24C Coolant 83C
+80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24C Coolant 85C
+80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24C Coolant 89C
+80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24C Coolant 90C
+80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24C Coolant 91C
+80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24C Coolant 92C
+80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24C Coolant 93C
+80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24C Coolant 94C
+80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24C Coolant -128C
+80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25C Coolant 67C
+80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25C Coolant 69C
+80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26C Coolant 72C
+80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26C Coolant 73C
+80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26C Coolant 74C
+80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26C Coolant 75C
+80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26C Coolant 76C
+80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26C Coolant 77C
+80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26C Coolant 79C
+80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26C Coolant 80C
+80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26C Coolant 82C
+80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26C Coolant 85C
+80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26C Coolant 87C
+80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26C Coolant 88C
+80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26C Coolant 89C
+80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26C Coolant 90C
+80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26C Coolant 91C
+80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26C Coolant 92C
+80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26C Coolant 94C
+80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28C Coolant 37C
+80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29C Coolant 57C
+80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29C Coolant 58C
+80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29C Coolant 66C
+80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29C Coolant 67C
+80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29C Coolant 68C
+80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29C Coolant 69C
+80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29C Coolant 70C
+80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29C Coolant 71C
+80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29C Coolant 72C
+80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29C Coolant 73C
+80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29C Coolant 74C
+80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29C Coolant 75C
+80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29C Coolant 76C
+80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29C Coolant 77C
+80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29C Coolant 78C
+80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29C Coolant 79C
+80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29C Coolant 80C
+80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29C Coolant 81C
+80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29C Coolant 82C
+80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29C Coolant 83C
+80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29C Coolant 84C
+80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29C Coolant 85C
+80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30C Coolant 57C
+80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30C Coolant 58C
+80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30C Coolant 59C
+80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30C Coolant 62C
+80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30C Coolant 63C
+80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30C Coolant 64C
+80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30C Coolant 67C
+80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30C Coolant 68C
+80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30C Coolant 69C
+80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30C Coolant 70C
+80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30C Coolant 71C
+80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30C Coolant 72C
+80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30C Coolant 75C
+80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30C Coolant 76C
+80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30C Coolant 77C
+80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30C Coolant 78C
+80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30C Coolant 79C
+80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30C Coolant 80C
+80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30C Coolant 81C
+80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30C Coolant 82C
+80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30C Coolant 83C
+80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30C Coolant 84C
+80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30C Coolant 85C
+80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30C Coolant 86C
+80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30C Coolant 87C
+80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30C Coolant 88C
+80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30C Coolant 89C
+80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30C Coolant 90C
+80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30C Coolant 91C
+80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30C Coolant 103C
+80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31C Coolant 81C
+80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31C Coolant 82C
+80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31C Coolant 98C
+80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32C Coolant 81C
+80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32C Coolant 82C
+80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32C Coolant 83C
+80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32C Coolant 84C
+80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32C Coolant 85C
+80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32C Coolant 95C
+80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32C Coolant 96C
+80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33C Coolant 75C
+80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33C Coolant 78C
+80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33C Coolant 80C
+80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33C Coolant 81C
+80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33C Coolant 82C
+80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33C Coolant 84C
+80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33C Coolant 85C
+80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33C Coolant 86C
+80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33C Coolant 87C
+80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33C Coolant 88C
+80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33C Coolant 89C
+80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33C Coolant 90C
+80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33C Coolant 91C
+80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33C Coolant 92C
+80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33C Coolant 93C
+80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33C Coolant 94C
+80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33C Coolant 95C
+80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33C Coolant 96C
+80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34C Coolant 76C
+80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34C Coolant 77C
+80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34C Coolant 78C
+80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34C Coolant 79C
+80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34C Coolant 80C
+80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34C Coolant 81C
+80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34C Coolant 82C
+80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34C Coolant 83C
+80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34C Coolant 84C
+80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34C Coolant 86C
+80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34C Coolant 87C
+80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34C Coolant 93C
+80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34C Coolant 94C
+80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34C Coolant 95C
+80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34C Coolant 96C
+80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34C Coolant 97C
+80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34C Coolant 98C
+80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34C Coolant -128C
+80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35C Coolant 86C
+80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35C Coolant 87C
+80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35C Coolant 88C
+80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35C Coolant 89C
+80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35C Coolant 93C
+80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35C Coolant 94C
+80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35C Coolant 95C
+80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35C Coolant 96C
+80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35C Coolant 97C
+80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35C Coolant 98C
+80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35C Coolant 99C
+80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35C Coolant 100C
+80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36C Coolant 87C
+80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36C Coolant 88C
+80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36C Coolant 89C
+80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36C Coolant 90C
+80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38C Coolant 89C
+80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39C Coolant 87C
+80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39C Coolant 89C
+80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40C Coolant 88C
+80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41C Coolant 87C
+80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41C Coolant 88C
+80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42C Coolant 88C
+80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43C Coolant 87C
+80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43C Coolant 88C
+80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46C Coolant 91C
+80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46C Coolant 92C
+80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46C Coolant 93C
+80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46C Coolant 94C
+80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47C Coolant 92C
+80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48C Coolant 91C
+80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48C Coolant 92C
+80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50C Coolant 91C
+80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50C Coolant 109C
+80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50C Coolant 111C
+80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40C Coolant -48C
 80 C0 01,IKE --> MID: Device status request
 80 C0 21 01 00 0A 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="KM"
 80 C0 21 01 00 0A 4C 2F 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="L/KM"
@@ -2068,7 +2068,7 @@
 80 E7 24 01 00 20 37 3A 32 35 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0=" 7:25AM"
 80 E7 24 01 00 20 37 3A 32 36 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0=" 7:26AM"
 80 E7 24 01 00 20 37 3A 32 37 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0=" 7:27AM"
-80 E7 24 01 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="--:-- "
+80 E7 24 01 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="--:-- "
 80 E7 24 01 00 2D 2D 3A 2D 2D 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="--:--AM"
 80 E7 24 01 00 2D 2D 3A 2D 2D 50 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="--:--PM"
 80 E7 24 01 00 31 30 3A 31 31 50 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="10:11PM"
@@ -2076,10 +2076,10 @@
 80 E7 24 01 00 31 30 3A 31 33 50 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="10:13PM"
 80 E7 24 01 00 31 30 3A 31 34 50 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="10:14PM"
 80 E7 24 01 00 31 32 3A 35 38 41 4D,IKE --> ANZV: Update Text Layout=Time Flags= F0="12:58AM"
-80 E7 24 01 00 31 36 3A 34 38 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="16:48 "
-80 E7 24 01 00 31 36 3A 35 38 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="16:58 "
-80 E7 24 01 00 31 36 3A 35 39 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="16:59 "
-80 E7 24 01 00 31 37 3A 30 31 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="17:01 "
+80 E7 24 01 00 31 36 3A 34 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="16:48 "
+80 E7 24 01 00 31 36 3A 35 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="16:58 "
+80 E7 24 01 00 31 36 3A 35 39 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="16:59 "
+80 E7 24 01 00 31 37 3A 30 31 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="17:01 "
 80 E7 24 01 00 31 37 3A 34 39 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="17:49 "
 80 E7 24 01 00 31 37 3A 35 30 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="17:50 "
 80 E7 24 01 00 31 39 3A 33 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:38 "
@@ -2094,25 +2094,15 @@
 80 E7 24 01 00 31 39 3A 34 37 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:47 "
 80 E7 24 01 00 31 39 3A 34 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:48 "
 80 E7 24 01 00 31 39 3A 34 39 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:49 "
-80 E7 24 01 00 31 39 3A 34 39 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:49 "
 80 E7 24 01 00 31 39 3A 35 30 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:50 "
-80 E7 24 01 00 31 39 3A 35 30 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:50 "
 80 E7 24 01 00 31 39 3A 35 31 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:51 "
-80 E7 24 01 00 31 39 3A 35 31 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:51 "
 80 E7 24 01 00 31 39 3A 35 32 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:52 "
-80 E7 24 01 00 31 39 3A 35 32 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:52 "
 80 E7 24 01 00 31 39 3A 35 33 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:53 "
-80 E7 24 01 00 31 39 3A 35 33 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:53 "
 80 E7 24 01 00 31 39 3A 35 34 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:54 "
-80 E7 24 01 00 31 39 3A 35 34 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:54 "
 80 E7 24 01 00 31 39 3A 35 35 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:55 "
-80 E7 24 01 00 31 39 3A 35 35 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:55 "
 80 E7 24 01 00 31 39 3A 35 36 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:56 "
-80 E7 24 01 00 31 39 3A 35 36 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:56 "
 80 E7 24 01 00 31 39 3A 35 37 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:57 "
-80 E7 24 01 00 31 39 3A 35 37 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:57 "
 80 E7 24 01 00 31 39 3A 35 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:58 "
-80 E7 24 01 00 31 39 3A 35 38 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="19:58 "
 80 E7 24 01 00 31 39 3A 35 39 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="19:59 "
 80 E7 24 01 00 32 30 3A 30 30 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="20:00 "
 80 E7 24 01 00 32 30 3A 30 31 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="20:01 "
@@ -2211,103 +2201,98 @@
 80 E7 24 01 00 32 31 3A 33 35 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="21:35 "
 80 E7 24 01 00 32 31 3A 34 31 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="21:41 "
 80 E7 24 01 00 32 31 3A 34 32 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="21:42 "
-80 E7 24 01 00 32 32 3A 31 36 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="22:16 "
-80 E7 24 01 00 32 33 3A 32 36 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="23:26 "
-80 E7 24 01 00 32 33 3A 32 37 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="23:27 "
-80 E7 24 01 00 32 33 3A 32 38 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="23:28 "
-80 E7 24 01 00 32 33 3A 32 39 20 20,IKE --> ANZV: Update Text: Layout=Time Flags= F0="23:29 "
-80 E7 24 02 00 2D 2D 2E 2D 2D 2E 32 30 31 31,IKE --> ANZV: Update Text: Layout=Date Flags= F0="--.--.2011"
+80 E7 24 01 00 32 32 3A 31 36 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="22:16 "
+80 E7 24 01 00 32 33 3A 32 36 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="23:26 "
+80 E7 24 01 00 32 33 3A 32 37 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="23:27 "
+80 E7 24 01 00 32 33 3A 32 38 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="23:28 "
+80 E7 24 01 00 32 33 3A 32 39 20 20,IKE --> ANZV: Update Text Layout=Time Flags= F0="23:29 "
+80 E7 24 02 00 2D 2D 2E 2D 2D 2E 32 30 31 31,IKE --> ANZV: Update Text Layout=Date Flags= F0="--.--.2011"
 80 E7 24 02 00 2D 2D 2F 2D 2D 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="--/--/2016"
 80 E7 24 02 00 30 34 2E 30 35 2E 32 30 31 31,IKE --> ANZV: Update Text Layout=Date Flags= F0="04.05.2011"
-80 E7 24 02 00 30 35 2E 30 38 2E 32 30 31 31,IKE --> ANZV: Update Text: Layout=Date Flags= F0="05.08.2011"
+80 E7 24 02 00 30 35 2E 30 38 2E 32 30 31 31,IKE --> ANZV: Update Text Layout=Date Flags= F0="05.08.2011"
 80 E7 24 02 00 30 35 2F 31 30 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="05/10/2016"
 80 E7 24 02 00 30 36 2F 32 36 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="06/26/2016"
 80 E7 24 02 00 30 37 2F 33 31 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="07/31/2016"
-80 E7 24 02 00 31 35 2E 31 30 2E 32 30 31 31,IKE --> ANZV: Update Text: Layout=Date Flags= F0="15.10.2011"
-80 E7 24 02 00 32 32 2E 30 38 2E 32 30 31 31,IKE --> ANZV: Update Text: Layout=Date Flags= F0="22.08.2011"
-80 E7 24 03 00 20 2B 20 36 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 63°F"
-80 E7 24 03 00 20 2B 20 39 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 93°F"
-80 E7 24 03 00 20 2B 20 39 34 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 94°F"
-80 E7 24 03 00 20 2B 20 39 35 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 95°F"
-80 E7 24 03 00 20 2B 20 39 36 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 96°F"
-80 E7 24 03 00 20 2B 39 2E 35 A8 43,IKE --> ANZV: Update Text: Layout=Outside_Temp Flags= F0=" +9.5°C"
-80 E7 24 03 00 2B 32 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+20.5Â°C"
-80 E7 24 03 00 2B 32 33 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+23.5°C"
-80 E7 24 03 00 2B 32 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.0°C"
-80 E7 24 03 00 2B 32 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.5°C"
-80 E7 24 03 00 2B 32 35 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+25.0°C"
-80 E7 24 03 00 2B 32 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.0°C"
-80 E7 24 03 00 2B 32 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.5°C"
-80 E7 24 03 00 2B 33 30 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.0°C"
-80 E7 24 03 00 2B 33 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.5°C"
-80 E7 24 03 00 2B 33 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.0°C"
-80 E7 24 03 00 2B 33 31 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.5°C"
-80 E7 24 03 00 2B 33 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.0°C"
-80 E7 24 03 00 2B 33 32 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.5°C"
-80 E7 24 03 00 2B 33 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+33.0°C"
-80 E7 24 03 00 2B 33 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.0°C"
-80 E7 24 03 00 2B 33 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.5°C"
-80 E7 24 03 00 2B 33 35 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+35.5°C"
-80 E7 24 03 00 2B 33 36 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+36.5°C"
-80 E7 24 03 00 2B 33 37 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+37.0°C"
-80 E7 24 03 00 2B 33 38 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+38.0°C"
-80 E7 24 03 00 2B 33 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.0°C"
-80 E7 24 03 00 2B 33 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.5°C"
-80 E7 24 03 00 2B 34 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+40.5°C"
-80 E7 24 03 00 2B 34 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+41.0°C"
-80 E7 24 03 00 2B 34 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+42.0°C"
-80 E7 24 03 00 2B 34 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+43.0°C"
+80 E7 24 02 00 31 35 2E 31 30 2E 32 30 31 31,IKE --> ANZV: Update Text Layout=Date Flags= F0="15.10.2011"
+80 E7 24 02 00 32 32 2E 30 38 2E 32 30 31 31,IKE --> ANZV: Update Text Layout=Date Flags= F0="22.08.2011"
+80 E7 24 03 00 20 2B 20 36 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 63F"
+80 E7 24 03 00 20 2B 20 39 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 93F"
+80 E7 24 03 00 20 2B 20 39 34 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 94F"
+80 E7 24 03 00 20 2B 20 39 35 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 95F"
+80 E7 24 03 00 20 2B 20 39 36 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 96F"
+80 E7 24 03 00 20 2B 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" +9.5C"
+80 E7 24 03 00 2B 32 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+20.5C"
+80 E7 24 03 00 2B 32 33 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+23.5C"
+80 E7 24 03 00 2B 32 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.0C"
+80 E7 24 03 00 2B 32 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.5C"
+80 E7 24 03 00 2B 32 35 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+25.0C"
+80 E7 24 03 00 2B 32 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.0C"
+80 E7 24 03 00 2B 32 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.5C"
+80 E7 24 03 00 2B 33 30 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.0C"
+80 E7 24 03 00 2B 33 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.5C"
+80 E7 24 03 00 2B 33 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.0C"
+80 E7 24 03 00 2B 33 31 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.5C"
+80 E7 24 03 00 2B 33 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.0C"
+80 E7 24 03 00 2B 33 32 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.5C"
+80 E7 24 03 00 2B 33 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+33.0C"
+80 E7 24 03 00 2B 33 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.0C"
+80 E7 24 03 00 2B 33 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.5C"
+80 E7 24 03 00 2B 33 35 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+35.5C"
+80 E7 24 03 00 2B 33 36 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+36.5C"
+80 E7 24 03 00 2B 33 37 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+37.0C"
+80 E7 24 03 00 2B 33 38 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+38.0C"
+80 E7 24 03 00 2B 33 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.0C"
+80 E7 24 03 00 2B 33 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.5C"
+80 E7 24 03 00 2B 34 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+40.5C"
+80 E7 24 03 00 2B 34 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+41.0C"
+80 E7 24 03 00 2B 34 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+42.0C"
+80 E7 24 03 00 2B 34 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+43.0C"
 80 E7 24 04 00 2D 2D 2E 2D 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="--.- MPG "
 80 E7 24 04 00 31 34 2E 32 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.2 L/100"
-80 E7 24 04 00 31 34 2E 32 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="14.2 L/100"
-80 E7 24 04 00 31 34 2E 33 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="14.3 L/100"
-80 E7 24 04 00 31 34 2E 37 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="14.7 L/100"
-80 E7 24 04 00 31 34 2E 38 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="14.8 L/100"
-80 E7 24 04 00 31 34 2E 39 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="14.9 L/100"
-80 E7 24 04 00 31 35 2E 30 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="15.0 L/100"
-80 E7 24 04 00 31 35 2E 31 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_1 Flags= F0="15.1 L/100"
+80 E7 24 04 00 31 34 2E 33 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.3 L/100"
+80 E7 24 04 00 31 34 2E 37 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.7 L/100"
+80 E7 24 04 00 31 34 2E 38 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.8 L/100"
+80 E7 24 04 00 31 34 2E 39 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.9 L/100"
+80 E7 24 04 00 31 35 2E 30 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="15.0 L/100"
+80 E7 24 04 00 31 35 2E 31 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="15.1 L/100"
 80 E7 24 04 00 31 36 2E 30 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="16.0 MPG "
 80 E7 24 04 00 31 37 2E 30 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="17.0 MPG "
 80 E7 24 05 00 2D 2D 2E 2D 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="--.- MPG "
-80 E7 24 05 00 31 34 2E 32 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="14.2 L/100"
-80 E7 24 05 00 31 34 2E 33 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="14.3 L/100"
-80 E7 24 05 00 31 34 2E 37 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="14.7 L/100"
-80 E7 24 05 00 31 34 2E 38 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="14.8 L/100"
+80 E7 24 05 00 31 34 2E 32 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="14.2 L/100"
+80 E7 24 05 00 31 34 2E 33 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="14.3 L/100"
+80 E7 24 05 00 31 34 2E 37 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="14.7 L/100"
+80 E7 24 05 00 31 34 2E 38 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="14.8 L/100"
 80 E7 24 05 00 31 34 2E 39 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="14.9 L/100"
-80 E7 24 05 00 31 34 2E 39 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="14.9 L/100"
-80 E7 24 05 00 31 35 2E 30 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="15.0 L/100"
-80 E7 24 05 00 31 35 2E 31 20 4C 2F 31 30 30,IKE --> ANZV: Update Text: Layout=Consumption_2 Flags= F0="15.1 L/100"
+80 E7 24 05 00 31 35 2E 30 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="15.0 L/100"
+80 E7 24 05 00 31 35 2E 31 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="15.1 L/100"
 80 E7 24 05 00 31 36 2E 30 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="16.0 MPG "
 80 E7 24 05 00 31 37 2E 30 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_2 Flags= F0="17.0 MPG "
 80 E7 24 06 00 20 36 38 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0=" 68 MLS"
 80 E7 24 06 00 32 34 34 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="244 MLS"
 80 E7 24 06 00 32 34 35 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="245 MLS"
 80 E7 24 06 00 32 34 36 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="246 MLS"
-80 E7 24 06 00 32 35 35 20 4B 4D 20,IKE --> ANZV: Update Text: Layout=Range Flags= F0="255 KM "
+80 E7 24 06 00 32 35 35 20 4B 4D 20,IKE --> ANZV: Update Text Layout=Range Flags= F0="255 KM "
 80 E7 24 06 00 33 32 37 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="327 MLS"
 80 E7 24 06 00 33 32 38 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="328 MLS"
 80 E7 24 06 00 33 33 36 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Range Flags= F0="336 MLS"
 80 E7 24 06 00 35 35 36 20 4B 4D 20,IKE --> ANZV: Update Text Layout=Range Flags= F0="556 KM "
 80 E7 24 07 00 2D 2D 2D 2D 20 4B 4D 20,IKE --> ANZV: Update Text Layout=Distance Flags= F0="---- KM "
-80 E7 24 07 00 2D 2D 2D 2D 20 4B 4D 20,IKE --> ANZV: Update Text: Layout=Distance Flags= F0="---- KM "
 80 E7 24 07 00 2D 2D 2D 2D 20 4D 4C 53,IKE --> ANZV: Update Text Layout=Distance Flags= F0="---- MLS"
 80 E7 24 08 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text Layout=Arrival Flags= F0="--:-- "
-80 E7 24 08 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text: Layout=Arrival Flags= F0="--:-- "
-80 E7 24 08 00 31 33 3A 31 36 20 20,IKE --> ANZV: Update Text: Layout=Arrival Flags= F0="13:16 "
-80 E7 24 08 00 31 33 3A 31 37 20 20,IKE --> ANZV: Update Text: Layout=Arrival Flags= F0="13:17 "
+80 E7 24 08 00 31 33 3A 31 36 20 20,IKE --> ANZV: Update Text Layout=Arrival Flags= F0="13:16 "
+80 E7 24 08 00 31 33 3A 31 37 20 20,IKE --> ANZV: Update Text Layout=Arrival Flags= F0="13:17 "
 80 E7 24 09 00 2D 2D 2D 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Limit Flags= F0="--- KM/H"
-80 E7 24 09 00 2D 2D 2D 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Limit Flags= F0="--- KM/H"
 80 E7 24 0A 00 20 30 2E 30 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0=" 0.0 MPH "
 80 E7 24 0A 00 32 32 2E 37 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="22.7 MPH "
 80 E7 24 0A 00 32 32 2E 38 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="22.8 MPH "
-80 E7 24 0A 00 32 36 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.2 KM/H"
-80 E7 24 0A 00 32 36 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.3 KM/H"
-80 E7 24 0A 00 32 36 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.4 KM/H"
-80 E7 24 0A 00 32 36 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.5 KM/H"
-80 E7 24 0A 00 32 36 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.6 KM/H"
-80 E7 24 0A 00 32 36 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.7 KM/H"
-80 E7 24 0A 00 32 36 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.8 KM/H"
-80 E7 24 0A 00 32 36 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="26.9 KM/H"
+80 E7 24 0A 00 32 36 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.2 KM/H"
+80 E7 24 0A 00 32 36 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.3 KM/H"
+80 E7 24 0A 00 32 36 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.4 KM/H"
+80 E7 24 0A 00 32 36 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.5 KM/H"
+80 E7 24 0A 00 32 36 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.6 KM/H"
+80 E7 24 0A 00 32 36 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.7 KM/H"
+80 E7 24 0A 00 32 36 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.8 KM/H"
+80 E7 24 0A 00 32 36 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="26.9 KM/H"
 80 E7 24 0A 00 33 30 2E 35 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="30.5 MPH "
 80 E7 24 0A 00 33 30 2E 36 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="30.6 MPH "
 80 E7 24 0A 00 33 30 2E 37 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="30.7 MPH "
@@ -2315,58 +2300,55 @@
 80 E7 24 0A 00 33 30 2E 39 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="30.9 MPH "
 80 E7 24 0A 00 33 31 2E 30 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="31.0 MPH "
 80 E7 24 0A 00 33 31 2E 31 20 4D 50 48 20,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="31.1 MPH "
-80 E7 24 0A 00 33 35 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.3 KM/H"
-80 E7 24 0A 00 33 35 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.4 KM/H"
-80 E7 24 0A 00 33 35 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.5 KM/H"
-80 E7 24 0A 00 33 35 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.6 KM/H"
-80 E7 24 0A 00 33 35 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.7 KM/H"
-80 E7 24 0A 00 33 35 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.8 KM/H"
-80 E7 24 0A 00 33 35 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="35.9 KM/H"
-80 E7 24 0A 00 33 36 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.0 KM/H"
-80 E7 24 0A 00 33 36 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.1 KM/H"
-80 E7 24 0A 00 33 36 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.2 KM/H"
-80 E7 24 0A 00 33 36 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.3 KM/H"
-80 E7 24 0A 00 33 36 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.4 KM/H"
-80 E7 24 0A 00 33 36 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.5 KM/H"
-80 E7 24 0A 00 33 36 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.6 KM/H"
-80 E7 24 0A 00 33 36 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.7 KM/H"
-80 E7 24 0A 00 33 36 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.8 KM/H"
-80 E7 24 0A 00 33 36 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="36.9 KM/H"
-80 E7 24 0A 00 33 37 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.0 KM/H"
-80 E7 24 0A 00 33 37 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.1 KM/H"
-80 E7 24 0A 00 33 37 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.2 KM/H"
-80 E7 24 0A 00 33 37 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.3 KM/H"
-80 E7 24 0A 00 33 37 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.4 KM/H"
-80 E7 24 0A 00 33 37 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.5 KM/H"
-80 E7 24 0A 00 33 37 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.6 KM/H"
-80 E7 24 0A 00 33 37 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.7 KM/H"
-80 E7 24 0A 00 33 37 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.8 KM/H"
-80 E7 24 0A 00 33 37 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="37.9 KM/H"
-80 E7 24 0A 00 33 38 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.0 KM/H"
-80 E7 24 0A 00 33 38 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.1 KM/H"
-80 E7 24 0A 00 33 38 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.2 KM/H"
-80 E7 24 0A 00 33 38 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.3 KM/H"
-80 E7 24 0A 00 33 38 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.4 KM/H"
-80 E7 24 0A 00 33 38 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.5 KM/H"
-80 E7 24 0A 00 33 38 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.6 KM/H"
-80 E7 24 0A 00 33 38 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.7 KM/H"
-80 E7 24 0A 00 33 38 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.8 KM/H"
-80 E7 24 0A 00 33 38 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="38.9 KM/H"
-80 E7 24 0A 00 33 39 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="39.0 KM/H"
-80 E7 24 0A 00 33 39 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="39.1 KM/H"
-80 E7 24 0A 00 33 39 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text: Layout=Average_Speed Flags= F0="39.2 KM/H"
+80 E7 24 0A 00 33 35 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.3 KM/H"
+80 E7 24 0A 00 33 35 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.4 KM/H"
+80 E7 24 0A 00 33 35 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.5 KM/H"
+80 E7 24 0A 00 33 35 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.6 KM/H"
+80 E7 24 0A 00 33 35 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.7 KM/H"
+80 E7 24 0A 00 33 35 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.8 KM/H"
+80 E7 24 0A 00 33 35 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="35.9 KM/H"
+80 E7 24 0A 00 33 36 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.0 KM/H"
+80 E7 24 0A 00 33 36 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.1 KM/H"
+80 E7 24 0A 00 33 36 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.2 KM/H"
+80 E7 24 0A 00 33 36 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.3 KM/H"
+80 E7 24 0A 00 33 36 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.4 KM/H"
+80 E7 24 0A 00 33 36 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.5 KM/H"
+80 E7 24 0A 00 33 36 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.6 KM/H"
+80 E7 24 0A 00 33 36 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.7 KM/H"
+80 E7 24 0A 00 33 36 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.8 KM/H"
+80 E7 24 0A 00 33 36 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="36.9 KM/H"
+80 E7 24 0A 00 33 37 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.0 KM/H"
+80 E7 24 0A 00 33 37 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.1 KM/H"
+80 E7 24 0A 00 33 37 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.2 KM/H"
+80 E7 24 0A 00 33 37 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.3 KM/H"
+80 E7 24 0A 00 33 37 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.4 KM/H"
+80 E7 24 0A 00 33 37 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.5 KM/H"
+80 E7 24 0A 00 33 37 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.6 KM/H"
+80 E7 24 0A 00 33 37 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.7 KM/H"
+80 E7 24 0A 00 33 37 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.8 KM/H"
+80 E7 24 0A 00 33 37 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="37.9 KM/H"
+80 E7 24 0A 00 33 38 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.0 KM/H"
+80 E7 24 0A 00 33 38 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.1 KM/H"
+80 E7 24 0A 00 33 38 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.2 KM/H"
+80 E7 24 0A 00 33 38 2E 33 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.3 KM/H"
+80 E7 24 0A 00 33 38 2E 34 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.4 KM/H"
+80 E7 24 0A 00 33 38 2E 35 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.5 KM/H"
+80 E7 24 0A 00 33 38 2E 36 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.6 KM/H"
+80 E7 24 0A 00 33 38 2E 37 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.7 KM/H"
+80 E7 24 0A 00 33 38 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.8 KM/H"
+80 E7 24 0A 00 33 38 2E 39 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="38.9 KM/H"
+80 E7 24 0A 00 33 39 2E 30 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="39.0 KM/H"
+80 E7 24 0A 00 33 39 2E 31 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="39.1 KM/H"
+80 E7 24 0A 00 33 39 2E 32 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="39.2 KM/H"
 80 E7 24 0A 00 34 33 2E 38 20 4B 4D 2F 48,IKE --> ANZV: Update Text Layout=Average_Speed Flags= F0="43.8 KM/H"
 80 E7 24 0D 00 2D 2D 2D 2D,IKE --> ANZV: Update Text Layout=Code Flags= F0="----"
-80 E7 24 0E 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text: Layout=Stopwatch Flags= F0=" 0.0 SEC"
+80 E7 24 0E 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text Layout=Stopwatch Flags= F0=" 0.0 SEC"
 80 E7 24 0E 00 20 31 2E 37 20 20 53 45 43,IKE --> ANZV: Update Text Layout=Stopwatch Flags= F0=" 1.7 SEC"
 80 E7 24 0F 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text Layout=Timer_1 Flags= F0="--:-- "
-80 E7 24 0F 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text: Layout=Timer_1 Flags= F0="--:-- "
 80 E7 24 0F 00 2D 2D 3A 2D 2D 50 4D,IKE --> ANZV: Update Text Layout=Timer_1 Flags= F0="--:--PM"
 80 E7 24 10 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text Layout=Timer_2 Flags= F0="--:-- "
-80 E7 24 10 00 2D 2D 3A 2D 2D 20 20,IKE --> ANZV: Update Text: Layout=Timer_2 Flags= F0="--:-- "
 80 E7 24 10 00 2D 2D 3A 2D 2D 50 4D,IKE --> ANZV: Update Text Layout=Timer_2 Flags= F0="--:--PM"
 80 E7 24 1A 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text Layout=Interim_Time Flags= F0=" 0.0 SEC"
-80 E7 24 1A 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text: Layout=Interim_Time Flags= F0=" 0.0 SEC"
 80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = Off
 80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 80 E7 2A 00 02,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED =
@@ -2405,10 +2387,10 @@ AC BF 61 01,EHC --> GLO: Suspension control, Data="01"
 B0 50 02 30,SES --> MFL: Device status ready Bit4 Bit5
 B0 7F AA 00 40,SES --> NAV: Nav Control Voice recognition active
 C0 68 01,MID --> RAD: Device status request
-C0 68 22 00,MID --> RAD: Text display confirmation Menu Text: 1 text message acknowledged
-C0 68 22 01,MID --> RAD: Text display confirmation Menu Text: 2 text messages acknowledged
-C0 68 22 02,MID --> RAD: Text display confirmation Menu Text: 3 text messages acknowledged
-C0 68 22 0E,MID --> RAD: Text display confirmation Menu Text: 15 text messages acknowledged
+C0 68 22 00,MID --> RAD: Text display confirmation Menu Text 1 text message acknowledged
+C0 68 22 01,MID --> RAD: Text display confirmation Menu Text 2 text messages acknowledged
+C0 68 22 02,MID --> RAD: Text display confirmation Menu Text 3 text messages acknowledged
+C0 68 22 0E,MID --> RAD: Text display confirmation Menu Text 15 text messages acknowledged
 C0 68 31 00 00 01,MID --> RAD: Button Button_1_pressed
 C0 68 31 00 00 03,MID --> RAD: Button Button_3_pressed
 C0 68 31 00 00 03,MID --> RAD: Button TP_MUTE_pressed
@@ -2489,8 +2471,8 @@ C0 68 32 21,MID --> RAD: Volume Control Increase 2 steps
 C0 68 32 30,MID --> RAD: Volume Control Decrease 3 steps
 C0 68 32 31,MID --> RAD: Volume Control Increase 3 steps
 C0 80 01,MID --> IKE: Device status request
-C0 80 22 00,MID --> IKE: Text display confirmation Menu Text: 1 text message acknowledged
-C0 80 22 01,MID --> IKE: Text display confirmation Menu Text: 2 text messages acknowledged
+C0 80 22 00,MID --> IKE: Text display confirmation Menu Text 1 text message acknowledged
+C0 80 22 01,MID --> IKE: Text display confirmation Menu Text 2 text messages acknowledged
 C0 80 31 01 20 00,MID --> IKE: Button Button_0_pressed
 C0 80 31 01 20 40,MID --> IKE: Button Button_0_released
 C0 C8 01,MID --> TEL: Device status request
@@ -2504,10 +2486,10 @@ C0 FF 20 20 B0 00,MID --> LOC: Display status Audio_On/Off_short Show_AUDIO_Menu
 C0 FF 20 20 B2 00,MID --> LOC: Display status Audio_On/Off_short Request_Clock Show_AUDIO_Menu Show_AUDIO_Main Show_BC_Main
 C0 FF 20 20 E0 C0,MID --> LOC: Display status Audio_On/Off_short Show_AUDIO_Main Show_BC_Menu Show_BC_Main
 C8 3B 02 30,TEL --> GT: Device status ready Assist_ready_after_Reset Bit5
-C8 3B 21 F0 09 20,TEL --> GT: Menu Text: Layout=0xF0: Flags=CLS F0=
-C8 3B 23 00 20 41 43 54 49 56 41 54 45 20 50 48 4F 4E 45,TEL --> GT: Display Text: Layout=0x00: Flags=CLS F0="ACTIVATE PHONE"
-C8 3B 23 00 20 53 45 41 52 43 48 49 4E 47 2E 2E 2E,TEL --> GT: Display Text: Layout=0x00: Flags=CLS F0="SEARCHING..."
-C8 3B A5 F0 01 20 54 45 4C 45 46 4F 4E 20 41 4B 54 49 56 49 45 52 45 4E,TEL --> GT: Screen Text: Layout=0xF0: FC2=0x01 Fld0,CLS,EndTx="TELEFON AKTIVIEREN"
+C8 3B 21 F0 09 20,TEL --> GT: Menu Text Layout=0xF0: Flags=CLS F0=
+C8 3B 23 00 20 41 43 54 49 56 41 54 45 20 50 48 4F 4E 45,TEL --> GT: Display Text Layout=0x00: Flags=CLS F0="ACTIVATE PHONE"
+C8 3B 23 00 20 53 45 41 52 43 48 49 4E 47 2E 2E 2E,TEL --> GT: Display Text Layout=0x00: Flags=CLS F0="SEARCHING..."
+C8 3B A5 F0 01 20 54 45 4C 45 46 4F 4E 20 41 4B 54 49 56 49 45 52 45 4E,TEL --> GT: Screen Text Layout=0xF0: FC2=0x01 Fld0,CLS,EndTx="TELEFON AKTIVIEREN"
 C8 3F A0 00,TEL --> DIA: Diagnostic command acknowledged, Data="00"
 C8 3F A0 86 90 70 46 09 00 04 07 00 00 23 11,TEL --> DIA: Diagnostic command acknowledged, Data="86 90 70 46 09 00 04 07 00 00 23 11"
 C8 3F A0 86 93 49 61 08 03 15 13 36 03 57 55,TEL --> DIA: Diagnostic command acknowledged, Data="86 93 49 61 08 03 15 13 36 03 57 55"

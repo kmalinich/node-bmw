@@ -146,33 +146,31 @@
 											</label>
 										</div>
 
-										<!--
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
-												Left inner tail
+												Left inner standing 
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_right" name="output_standing_inner_rear_right">
-												Right inner tail
+												Right inner standing
 											</label>
 										</div>
-										-->
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
-												Left CELIS
+												Left outer standing 
 											</label>
 										</div>
 
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_right" name="output_standing_rear_right">
-												Right CELIS
+												Right outer standing
 											</label>
 										</div>
 
@@ -190,15 +188,6 @@
 											</label>
 										</div>
 
-										<!--
-										<div class="checkbox">
-											<label>
-												<input type="checkbox" id="output_license_rear_left" name="output_license_rear_left">
-												Left license plate
-											</label>
-										</div>
-										-->
-
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_reverse_rear_left" name="output_reverse_rear_left">
@@ -215,12 +204,26 @@
 
 										<div class="checkbox">
 											<label>
+												<input type="checkbox" id="output_license_rear_left" name="output_license_rear_left">
+												Left license plate
+											</label>
+										</div>
+
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
+												Right license plate
+											</label>
+										</div>
+
+										<!--
+										<div class="checkbox">
+											<label>
 												<input type="checkbox" id="output_fog_rear_left" name="output_fog_rear_left">
 												Left fog
 											</label>
 										</div>
 
-										<!--
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_fog_rear_right" name="output_fog_rear_right">
@@ -235,13 +238,6 @@
 											</label>
 										</div>
 										-->
-
-										<div class="checkbox">
-											<label>
-												<input type="checkbox" id="output_license_rear_right" name="output_license_rear_right">
-												License plate
-											</label>
-										</div>
 
 									</div>
 								</div>

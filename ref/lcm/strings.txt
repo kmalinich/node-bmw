@@ -13,23 +13,23 @@ cmd: 0x0C // Set IO status
 00 00 00 00 00 00 00 00 40 E4 FF 00 : sleep mode
 00 00 00 00 00 00 00 02 00 E4 FF 00 : rear right turn signal
 00 00 00 00 00 00 00 04 00 E4 FF 00 : left fog lamp
-00 00 00 00 00 00 00 08 00 E4 FF 00 : inner rear right side light
-00 00 00 00 00 00 00 10 00 E4 FF 00 : rear right side light
+00 00 00 00 00 00 00 08 00 E4 FF 00 : rear right inner standing light
+00 00 00 00 00 00 00 10 00 E4 FF 00 : rear right outer standing light
 00 00 00 00 00 00 00 40 00 E4 FF 00 : front left turn signal
 00 00 00 00 00 00 00 80 00 E4 FF 00 : right reverse
 00 00 00 00 00 00 01 06 XX XX XX XX : FOG LIGHTS
 00 00 00 00 00 00 02 00 00 E4 FF 00 : vertical headlights aim control
 00 00 00 00 00 00 04 00 00 E4 FF 00 : right license plate light
-00 00 00 00 00 00 08 00 00 E4 FF 00 : rear left side light
+00 00 00 00 00 00 08 00 00 E4 FF 00 : rear left outer standing light
 00 00 00 00 00 00 08 06 XX XX XX XX : RIGHT BRAKE LIGHT DIM
 00 00 00 00 00 00 10 00 00 E4 FF 00 : middle brake light
-00 00 00 00 00 00 20 00 00 E4 FF 00 : right front side light
-00 00 00 00 00 00 20 06 XX XX XX XX : LEFT SIDE MARKER + LEFT REAR FLASHER (STAY LIT)
+00 00 00 00 00 00 20 00 00 E4 FF 00 : right front standing light
+00 00 00 00 00 00 20 06 XX XX XX XX : LEFT SIDE MARKER + LEFT REAR TURN (STAY LIT)
 00 00 00 00 00 00 40 00 00 E4 FF 00 : front right turn signal
 00 00 00 00 00 00 80 00 00 E4 FF 00 : rear left turn signal
-00 00 00 00 00 00 80 06 XX XX XX XX : RIGHT SIDE MARKER + RIGHT REAR FASHER (STAY LIT)
-00 00 00 00 00 01 00 00 00 E4 FF 00 : front left side light
-00 00 00 00 00 02 00 00 00 E4 FF 00 : inner rear left side light
+00 00 00 00 00 00 80 06 XX XX XX XX : RIGHT SIDE MARKER + RIGHT REAR TURN (STAY LIT)
+00 00 00 00 00 01 00 00 00 E4 FF 00 : front left standing light
+00 00 00 00 00 02 00 00 00 E4 FF 00 : rear left inner standing light
 00 00 00 00 00 02 00 06 XX XX XX XX : RIGHT LOW BEAM (XENON)
 00 00 00 00 00 04 00 00 00 E4 FF 00 : left fog light
 00 00 00 00 00 04 00 06 XX XX XX XX : LEFT LOW BEAM (XENON)
@@ -48,9 +48,9 @@ cmd: 0x0C // Set IO status
 00 00 00 00 10 00 00 00 00 E4 FF 00 : right brake light
 00 00 00 00 10 00 00 06 XX XX XX XX : RIGHT BRAKE LIGHT
 00 00 00 00 20 00 00 00 00 E4 FF 00 : right high beam
-00 00 00 00 20 00 00 06 XX XX XX XX : FRONT LEFT FLASHER (STAY LIT)
+00 00 00 00 20 00 00 06 XX XX XX XX : FRONT LEFT TURN (STAY LIT)
 00 00 00 00 40 00 00 00 00 E4 FF 00 : left high beam
-00 00 00 00 40 00 00 06 XX XX XX XX : FRONT RIGHT FLASHER (STAY LIT)
+00 00 00 00 40 00 00 06 XX XX XX XX : FRONT RIGHT TURN (STAY LIT)
 00 00 00 01 00 00 00 00 00 E4 FF 00 : input air suspension (armoured car)
 00 00 00 02 00 00 00 00 00 E4 FF 00 : input hold up alarm
 00 00 00 04 00 00 00 00 00 E4 FF 00 : input washer fluid level
@@ -65,7 +65,7 @@ cmd: 0x0C // Set IO status
 00 00 02 00 00 00 00 00 00 E4 FF 00 : high beam switch
 00 00 04 00 00 00 00 00 00 E4 FF 00 : fog lights switch
 00 00 10 00 00 00 00 00 00 E4 FF 00 : fog lamps switch
-00 00 20 00 00 00 00 00 00 E4 FF 00 : side lights switch
+00 00 20 00 00 00 00 00 00 E4 FF 00 : standing lights switch
 00 00 40 00 00 00 00 00 00 E4 FF 00 : switch right turn
 00 00 80 00 00 00 00 00 00 E4 FF 00 : switch left turn
 00 00 80 00 00 00 00 06 XX XX XX XX : BOTH HIGH BEAMS + IN-DASH INDICATOR

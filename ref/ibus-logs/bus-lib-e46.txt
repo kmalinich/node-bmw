@@ -355,9 +355,7 @@
 3B 80 41 1B 03,GT --> IKE: On-board computer data request Aux_Heat/Vent: current value request status request
 3B BB 4F 02 00,GT --> NAJ: RGB control LCD_off GT
 3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT
-3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT 
 3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT
-3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT 
 3B BF 02 40,GT --> GLO: Device status ready Bit6
 3B C8 01,GT --> TEL: Device status request
 3B C8 22 00,GT --> TEL: Text display confirmation: Menu Text 1 text message acknowledged
@@ -366,10 +364,8 @@
 3B F0 01,GT --> BMBT: Device status request
 3B F0 4F 00,GT --> BMBT: RGB control LCD_off
 3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT
-3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT 
 3B F0 4F 10,GT --> BMBT: RGB control LCD_on
 3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT
-3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT 
 3B FF 20 02 0C,GT --> LOC: Display status TEL _short Show_TEL _Menu Show_TEL _Main
 3B FF 20 02 0C,GT --> LOC: Display status TEL_short Show_TEL_Menu Show_TEL_Main
 3F 00 00 00,DIA --> GM: Read identity Data="00"
@@ -2846,7 +2842,6 @@ ED F0 4A 90,VID --> BMBT: Cassette control State_unknown, Data="90"
 ED F0 4F 02 11,VID --> BMBT: RGB control LCD_off GT
 ED F0 4F 12 01,VID --> BMBT: RGB control LCD_on GT
 ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT
-ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT 
 F0 00 79,BMBT --> GM: Doors/flaps status request
 F0 3B 02 30,BMBT --> GT: Device status ready Bit4 Bit5
 F0 3B 48 05,BMBT --> GT: BM Button BM_Knob_pressed

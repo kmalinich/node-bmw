@@ -308,14 +308,10 @@
 3B 80 41 1A 01,GT --> IKE: On-board computer data request Interim_Time: current value request
 3B 80 41 1B 03,GT --> IKE: On-board computer data request Aux_Heat/Vent: current value request status request
 3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT
-3B BB 4F 02,GT --> NAJ: RGB control LCD_off GT 
 3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT
-3B BB 4F 12,GT --> NAJ: RGB control LCD_on GT 
 3B D0 5A,GT --> LCM: Lamp status request
 3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT
-3B F0 4F 02,GT --> BMBT: RGB control LCD_off GT 
 3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT
-3B F0 4F 12,GT --> BMBT: RGB control LCD_on GT 
 3B FF 20 02 0C,GT --> LOC: Display status TEL _short Show_TEL _Menu Show_TEL _Main
 3B FF 20 02 0C,GT --> LOC: Display status TEL_short Show_TEL_Menu Show_TEL_Main
 3F 00 00 00,DIA --> GM: Read identity Data="00"
@@ -2085,7 +2081,6 @@ ED 80 41 01 01,VID --> IKE: On-board computer data request Time: current value r
 ED 80 41 02 01,VID --> IKE: On-board computer data request Date: current value request
 ED 80 41 1B 02,VID --> IKE: On-board computer data request Aux_Heat/Vent: status request
 ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT
-ED F0 4F 12 11,VID --> BMBT: RGB control LCD_on GT 
 F0 00 79,BMBT --> GM: Doors/flaps status request
 F0 3B 48 05,BMBT --> GT: BM Button: BM_Knob_pressed
 F0 3B 48 85,BMBT --> GT: BM Button: BM_Knob_released

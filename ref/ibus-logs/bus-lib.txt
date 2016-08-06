@@ -750,7 +750,7 @@
 68 C0 23 00 20,RAD --> MID: Display Text Layout=0x00: Flags=CLS F0=
 68 C0 23 00 40 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=0x00: Flags=PartTx F0="Prophets ST"
 68 C0 23 20 20 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=0x20: Flags=CLS F0="Prophets ST"
-68 C0 23 40 20 00 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0= F0:"rophets Sÿ"
+68 C0 23 40 20 00 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0= F0:"rophets S"
 68 C0 23 40 20 20 20 54 4F 50 20 34 30,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0=" TOP 40"
 68 C0 23 40 20 34 34 34 2D 34 34 34 34 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="444-4444 ST"
 68 C0 23 40 20 39 36 52 4F 43 4B 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="96ROCK ST"
@@ -811,7 +811,7 @@
 68 C0 23 40 20 50 6C 61 79 67 72 6F 75 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Playgrou ST"
 68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 00,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets S" F0:"
 68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets ST"
-68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets Sÿ"
+68 C0 23 40 20 50 72 6F 70 68 65 74 73 20 53 FF,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Prophets S"
 68 C0 23 40 20 52 69 6F 20 20 20 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Rio ST"
 68 C0 23 40 20 53 65 78 20 41 6E 64 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Sex And ST"
 68 C0 23 40 20 53 6D 69 74 68 20 20 20 20 53 54,RAD --> MID: Display Text Layout=DisplayText Flags=CLS F0="Smith ST"
@@ -1070,14 +1070,14 @@
 80 BF 13 03 00 00 02 00 80 41,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low
 80 BF 13 03 B0 00 00 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
 80 BF 13 03 B0 00 02 00 00 43,IKE --> GLO: IKE sensor status Handbrake_On Oil_Pressure_Low Gear_P
-80 BF 15 01 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=Â°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
-80 BF 15 02 F1 FA 05,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
-80 BF 15 02 F1 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F1 FA 46,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F1 FA 47,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
-80 BF 15 02 F7 7A 56,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°F AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
-80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 01 04 00 42,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
+80 BF 15 02 F1 FA 05,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
+80 BF 15 02 F1 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F1 FA 46,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F1 FA 47,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Diesel
+80 BF 15 02 F7 7A 56,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=F AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
+80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 17 00 00 00 00 1F 00 00,IKE --> GLO: Odometer 0 km
 80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153,600 km
 80 BF 17 1F 30 02 C0 60 32 CC,IKE --> GLO: Odometer 143,391 km
@@ -1133,217 +1133,217 @@
 80 BF 18 40 19,IKE --> GLO: Speed/RPM Speed 128 km/h 2,500 RPM
 80 BF 18 41 19,IKE --> GLO: Speed/RPM Speed 130 km/h 2,500 RPM
 80 BF 18 42 19,IKE --> GLO: Speed/RPM Speed 132 km/h 2,500 RPM
-80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17°C Coolant 38°C
-80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17°C Coolant 39°C
-80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17°C Coolant 40°C
-80 BF 19 14 5E 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 94Â°C
-80 BF 19 14 5F 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 95Â°C
-80 BF 19 14 60 00,IKE --> GLO: Temperature: Outside 20Â°C Coolant 96Â°C
-80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23°C Coolant 84°C
-80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23°C Coolant 85°C
-80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23°C Coolant 86°C
-80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23°C Coolant 87°C
-80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23°C Coolant 88°C
-80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23°C Coolant 89°C
-80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23°C Coolant 90°C
-80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24°C Coolant 35°C
-80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24°C Coolant 36°C
-80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24°C Coolant 37°C
-80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24°C Coolant 38°C
-80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24°C Coolant 39°C
-80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24°C Coolant 40°C
-80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24°C Coolant 42°C
-80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24°C Coolant 46°C
-80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24°C Coolant 49°C
-80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24°C Coolant 50°C
-80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24°C Coolant 52°C
-80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24°C Coolant 54°C
-80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24°C Coolant 57°C
-80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24°C Coolant 58°C
-80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24°C Coolant 60°C
-80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24°C Coolant 61°C
-80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24°C Coolant 62°C
-80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24°C Coolant 63°C
-80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24°C Coolant 64°C
-80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24°C Coolant 65°C
-80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24°C Coolant 66°C
-80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24°C Coolant 67°C
-80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24°C Coolant 68°C
-80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24°C Coolant 69°C
-80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24°C Coolant 70°C
-80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24°C Coolant 71°C
-80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24°C Coolant 72°C
-80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24°C Coolant 73°C
-80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24°C Coolant 74°C
-80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24°C Coolant 75°C
-80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24°C Coolant 76°C
-80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24°C Coolant 77°C
-80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24°C Coolant 79°C
-80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24°C Coolant 80°C
-80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24°C Coolant 82°C
-80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24°C Coolant 83°C
-80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24°C Coolant 85°C
-80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24°C Coolant 89°C
-80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24°C Coolant 90°C
-80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24°C Coolant 91°C
-80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24°C Coolant 92°C
-80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24°C Coolant 93°C
-80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24°C Coolant 94°C
-80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24°C Coolant -128°C
-80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25°C Coolant 67°C
-80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25°C Coolant 69°C
-80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26°C Coolant 72°C
-80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26°C Coolant 73°C
-80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26°C Coolant 74°C
-80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26°C Coolant 75°C
-80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26°C Coolant 76°C
-80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26°C Coolant 77°C
-80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26°C Coolant 79°C
-80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26°C Coolant 80°C
-80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26°C Coolant 82°C
-80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26°C Coolant 85°C
-80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26°C Coolant 87°C
-80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26°C Coolant 88°C
-80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26°C Coolant 89°C
-80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26°C Coolant 90°C
-80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26°C Coolant 91°C
-80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26°C Coolant 92°C
-80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26°C Coolant 94°C
-80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28°C Coolant 37°C
-80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29°C Coolant 57°C
-80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29°C Coolant 58°C
-80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29°C Coolant 66°C
-80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29°C Coolant 67°C
-80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29°C Coolant 68°C
-80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29°C Coolant 69°C
-80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29°C Coolant 70°C
-80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29°C Coolant 71°C
-80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29°C Coolant 72°C
-80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29°C Coolant 73°C
-80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29°C Coolant 74°C
-80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29°C Coolant 75°C
-80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29°C Coolant 76°C
-80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29°C Coolant 77°C
-80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29°C Coolant 78°C
-80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29°C Coolant 79°C
-80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29°C Coolant 80°C
-80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29°C Coolant 81°C
-80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29°C Coolant 82°C
-80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29°C Coolant 83°C
-80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29°C Coolant 84°C
-80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29°C Coolant 85°C
-80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30°C Coolant 57°C
-80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30°C Coolant 58°C
-80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30°C Coolant 59°C
-80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30°C Coolant 62°C
-80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30°C Coolant 63°C
-80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30°C Coolant 64°C
-80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30°C Coolant 67°C
-80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30°C Coolant 68°C
-80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30°C Coolant 69°C
-80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30°C Coolant 70°C
-80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30°C Coolant 71°C
-80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30°C Coolant 72°C
-80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30°C Coolant 75°C
-80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30°C Coolant 76°C
-80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30°C Coolant 77°C
-80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30°C Coolant 78°C
-80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30°C Coolant 79°C
-80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30°C Coolant 80°C
-80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30°C Coolant 81°C
-80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30°C Coolant 82°C
-80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30°C Coolant 83°C
-80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30°C Coolant 84°C
-80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30°C Coolant 85°C
-80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30°C Coolant 86°C
-80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30°C Coolant 87°C
-80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30°C Coolant 88°C
-80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30°C Coolant 89°C
-80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30°C Coolant 90°C
-80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30°C Coolant 91°C
-80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30°C Coolant 103°C
-80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31°C Coolant 81°C
-80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31°C Coolant 82°C
-80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31°C Coolant 98°C
-80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32°C Coolant 81°C
-80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32°C Coolant 82°C
-80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32°C Coolant 83°C
-80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32°C Coolant 84°C
-80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32°C Coolant 85°C
-80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32°C Coolant 95°C
-80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32°C Coolant 96°C
-80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33°C Coolant 75°C
-80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33°C Coolant 78°C
-80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33°C Coolant 80°C
-80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33°C Coolant 81°C
-80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33°C Coolant 82°C
-80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33°C Coolant 84°C
-80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33°C Coolant 85°C
-80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33°C Coolant 86°C
-80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33°C Coolant 87°C
-80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33°C Coolant 88°C
-80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33°C Coolant 89°C
-80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33°C Coolant 90°C
-80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33°C Coolant 91°C
-80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33°C Coolant 92°C
-80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33°C Coolant 93°C
-80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33°C Coolant 94°C
-80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33°C Coolant 95°C
-80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33°C Coolant 96°C
-80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34°C Coolant 76°C
-80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34°C Coolant 77°C
-80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34°C Coolant 78°C
-80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34°C Coolant 79°C
-80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34°C Coolant 80°C
-80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34°C Coolant 81°C
-80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34°C Coolant 82°C
-80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34°C Coolant 83°C
-80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34°C Coolant 84°C
-80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34°C Coolant 86°C
-80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34°C Coolant 87°C
-80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34°C Coolant 93°C
-80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34°C Coolant 94°C
-80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34°C Coolant 95°C
-80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34°C Coolant 96°C
-80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34°C Coolant 97°C
-80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34°C Coolant 98°C
-80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34°C Coolant -128°C
-80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35°C Coolant 86°C
-80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35°C Coolant 87°C
-80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35°C Coolant 88°C
-80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35°C Coolant 89°C
-80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35°C Coolant 93°C
-80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35°C Coolant 94°C
-80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35°C Coolant 95°C
-80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35°C Coolant 96°C
-80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35°C Coolant 97°C
-80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35°C Coolant 98°C
-80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35°C Coolant 99°C
-80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35°C Coolant 100°C
-80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36°C Coolant 87°C
-80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36°C Coolant 88°C
-80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36°C Coolant 89°C
-80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36°C Coolant 90°C
-80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38°C Coolant 89°C
-80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39°C Coolant 87°C
-80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39°C Coolant 89°C
-80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40°C Coolant 88°C
-80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41°C Coolant 87°C
-80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41°C Coolant 88°C
-80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42°C Coolant 88°C
-80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43°C Coolant 87°C
-80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43°C Coolant 88°C
-80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46°C Coolant 91°C
-80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46°C Coolant 92°C
-80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46°C Coolant 93°C
-80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46°C Coolant 94°C
-80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47°C Coolant 92°C
-80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48°C Coolant 91°C
-80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48°C Coolant 92°C
-80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50°C Coolant 91°C
-80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50°C Coolant 109°C
-80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50°C Coolant 111°C
-80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40°C Coolant -48°C
+80 BF 19 11 26 00,IKE --> GLO: Temperature Outside 17C Coolant 38C
+80 BF 19 11 27 00,IKE --> GLO: Temperature Outside 17C Coolant 39C
+80 BF 19 11 28 00,IKE --> GLO: Temperature Outside 17C Coolant 40C
+80 BF 19 14 5E 00,IKE --> GLO: Temperature: Outside 20C Coolant 94C
+80 BF 19 14 5F 00,IKE --> GLO: Temperature: Outside 20C Coolant 95C
+80 BF 19 14 60 00,IKE --> GLO: Temperature: Outside 20C Coolant 96C
+80 BF 19 17 54 00,IKE --> GLO: Temperature Outside 23C Coolant 84C
+80 BF 19 17 55 00,IKE --> GLO: Temperature Outside 23C Coolant 85C
+80 BF 19 17 56 00,IKE --> GLO: Temperature Outside 23C Coolant 86C
+80 BF 19 17 57 00,IKE --> GLO: Temperature Outside 23C Coolant 87C
+80 BF 19 17 58 00,IKE --> GLO: Temperature Outside 23C Coolant 88C
+80 BF 19 17 59 00,IKE --> GLO: Temperature Outside 23C Coolant 89C
+80 BF 19 17 5A 00,IKE --> GLO: Temperature Outside 23C Coolant 90C
+80 BF 19 18 23 00,IKE --> GLO: Temperature Outside 24C Coolant 35C
+80 BF 19 18 24 00,IKE --> GLO: Temperature Outside 24C Coolant 36C
+80 BF 19 18 25 00,IKE --> GLO: Temperature Outside 24C Coolant 37C
+80 BF 19 18 26 00,IKE --> GLO: Temperature Outside 24C Coolant 38C
+80 BF 19 18 27 00,IKE --> GLO: Temperature Outside 24C Coolant 39C
+80 BF 19 18 28 00,IKE --> GLO: Temperature Outside 24C Coolant 40C
+80 BF 19 18 2A 00,IKE --> GLO: Temperature Outside 24C Coolant 42C
+80 BF 19 18 2E 00,IKE --> GLO: Temperature Outside 24C Coolant 46C
+80 BF 19 18 31 00,IKE --> GLO: Temperature Outside 24C Coolant 49C
+80 BF 19 18 32 00,IKE --> GLO: Temperature Outside 24C Coolant 50C
+80 BF 19 18 34 00,IKE --> GLO: Temperature Outside 24C Coolant 52C
+80 BF 19 18 36 00,IKE --> GLO: Temperature Outside 24C Coolant 54C
+80 BF 19 18 39 00,IKE --> GLO: Temperature Outside 24C Coolant 57C
+80 BF 19 18 3A 00,IKE --> GLO: Temperature Outside 24C Coolant 58C
+80 BF 19 18 3C 00,IKE --> GLO: Temperature Outside 24C Coolant 60C
+80 BF 19 18 3D 00,IKE --> GLO: Temperature Outside 24C Coolant 61C
+80 BF 19 18 3E 00,IKE --> GLO: Temperature Outside 24C Coolant 62C
+80 BF 19 18 3F 00,IKE --> GLO: Temperature Outside 24C Coolant 63C
+80 BF 19 18 40 00,IKE --> GLO: Temperature Outside 24C Coolant 64C
+80 BF 19 18 41 00,IKE --> GLO: Temperature Outside 24C Coolant 65C
+80 BF 19 18 42 00,IKE --> GLO: Temperature Outside 24C Coolant 66C
+80 BF 19 18 43 00,IKE --> GLO: Temperature Outside 24C Coolant 67C
+80 BF 19 18 44 00,IKE --> GLO: Temperature Outside 24C Coolant 68C
+80 BF 19 18 45 00,IKE --> GLO: Temperature Outside 24C Coolant 69C
+80 BF 19 18 46 00,IKE --> GLO: Temperature Outside 24C Coolant 70C
+80 BF 19 18 47 00,IKE --> GLO: Temperature Outside 24C Coolant 71C
+80 BF 19 18 48 00,IKE --> GLO: Temperature Outside 24C Coolant 72C
+80 BF 19 18 49 00,IKE --> GLO: Temperature Outside 24C Coolant 73C
+80 BF 19 18 4A 00,IKE --> GLO: Temperature Outside 24C Coolant 74C
+80 BF 19 18 4B 00,IKE --> GLO: Temperature Outside 24C Coolant 75C
+80 BF 19 18 4C 00,IKE --> GLO: Temperature Outside 24C Coolant 76C
+80 BF 19 18 4D 00,IKE --> GLO: Temperature Outside 24C Coolant 77C
+80 BF 19 18 4F 00,IKE --> GLO: Temperature Outside 24C Coolant 79C
+80 BF 19 18 50 00,IKE --> GLO: Temperature Outside 24C Coolant 80C
+80 BF 19 18 52 00,IKE --> GLO: Temperature Outside 24C Coolant 82C
+80 BF 19 18 53 00,IKE --> GLO: Temperature Outside 24C Coolant 83C
+80 BF 19 18 55 00,IKE --> GLO: Temperature Outside 24C Coolant 85C
+80 BF 19 18 59 00,IKE --> GLO: Temperature Outside 24C Coolant 89C
+80 BF 19 18 5A 00,IKE --> GLO: Temperature Outside 24C Coolant 90C
+80 BF 19 18 5B 00,IKE --> GLO: Temperature Outside 24C Coolant 91C
+80 BF 19 18 5C 00,IKE --> GLO: Temperature Outside 24C Coolant 92C
+80 BF 19 18 5D 00,IKE --> GLO: Temperature Outside 24C Coolant 93C
+80 BF 19 18 5E 00,IKE --> GLO: Temperature Outside 24C Coolant 94C
+80 BF 19 18 80 00,IKE --> GLO: Temperature Outside 24C Coolant -128C
+80 BF 19 19 43 00,IKE --> GLO: Temperature Outside 25C Coolant 67C
+80 BF 19 19 45 00,IKE --> GLO: Temperature Outside 25C Coolant 69C
+80 BF 19 1A 48 00,IKE --> GLO: Temperature Outside 26C Coolant 72C
+80 BF 19 1A 49 00,IKE --> GLO: Temperature Outside 26C Coolant 73C
+80 BF 19 1A 4A 00,IKE --> GLO: Temperature Outside 26C Coolant 74C
+80 BF 19 1A 4B 00,IKE --> GLO: Temperature Outside 26C Coolant 75C
+80 BF 19 1A 4C 00,IKE --> GLO: Temperature Outside 26C Coolant 76C
+80 BF 19 1A 4D 00,IKE --> GLO: Temperature Outside 26C Coolant 77C
+80 BF 19 1A 4F 00,IKE --> GLO: Temperature Outside 26C Coolant 79C
+80 BF 19 1A 50 00,IKE --> GLO: Temperature Outside 26C Coolant 80C
+80 BF 19 1A 52 00,IKE --> GLO: Temperature Outside 26C Coolant 82C
+80 BF 19 1A 55 00,IKE --> GLO: Temperature Outside 26C Coolant 85C
+80 BF 19 1A 57 00,IKE --> GLO: Temperature Outside 26C Coolant 87C
+80 BF 19 1A 58 00,IKE --> GLO: Temperature Outside 26C Coolant 88C
+80 BF 19 1A 59 00,IKE --> GLO: Temperature Outside 26C Coolant 89C
+80 BF 19 1A 5A 00,IKE --> GLO: Temperature Outside 26C Coolant 90C
+80 BF 19 1A 5B 00,IKE --> GLO: Temperature Outside 26C Coolant 91C
+80 BF 19 1A 5C 00,IKE --> GLO: Temperature Outside 26C Coolant 92C
+80 BF 19 1A 5E 00,IKE --> GLO: Temperature Outside 26C Coolant 94C
+80 BF 19 1C 25 00,IKE --> GLO: Temperature Outside 28C Coolant 37C
+80 BF 19 1D 39 00,IKE --> GLO: Temperature Outside 29C Coolant 57C
+80 BF 19 1D 3A 00,IKE --> GLO: Temperature Outside 29C Coolant 58C
+80 BF 19 1D 42 00,IKE --> GLO: Temperature Outside 29C Coolant 66C
+80 BF 19 1D 43 00,IKE --> GLO: Temperature Outside 29C Coolant 67C
+80 BF 19 1D 44 00,IKE --> GLO: Temperature Outside 29C Coolant 68C
+80 BF 19 1D 45 00,IKE --> GLO: Temperature Outside 29C Coolant 69C
+80 BF 19 1D 46 00,IKE --> GLO: Temperature Outside 29C Coolant 70C
+80 BF 19 1D 47 00,IKE --> GLO: Temperature Outside 29C Coolant 71C
+80 BF 19 1D 48 00,IKE --> GLO: Temperature Outside 29C Coolant 72C
+80 BF 19 1D 49 00,IKE --> GLO: Temperature Outside 29C Coolant 73C
+80 BF 19 1D 4A 00,IKE --> GLO: Temperature Outside 29C Coolant 74C
+80 BF 19 1D 4B 00,IKE --> GLO: Temperature Outside 29C Coolant 75C
+80 BF 19 1D 4C 00,IKE --> GLO: Temperature Outside 29C Coolant 76C
+80 BF 19 1D 4D 00,IKE --> GLO: Temperature Outside 29C Coolant 77C
+80 BF 19 1D 4E 00,IKE --> GLO: Temperature Outside 29C Coolant 78C
+80 BF 19 1D 4F 00,IKE --> GLO: Temperature Outside 29C Coolant 79C
+80 BF 19 1D 50 00,IKE --> GLO: Temperature Outside 29C Coolant 80C
+80 BF 19 1D 51 00,IKE --> GLO: Temperature Outside 29C Coolant 81C
+80 BF 19 1D 52 00,IKE --> GLO: Temperature Outside 29C Coolant 82C
+80 BF 19 1D 53 00,IKE --> GLO: Temperature Outside 29C Coolant 83C
+80 BF 19 1D 54 00,IKE --> GLO: Temperature Outside 29C Coolant 84C
+80 BF 19 1D 55 00,IKE --> GLO: Temperature Outside 29C Coolant 85C
+80 BF 19 1E 39 00,IKE --> GLO: Temperature Outside 30C Coolant 57C
+80 BF 19 1E 3A 00,IKE --> GLO: Temperature Outside 30C Coolant 58C
+80 BF 19 1E 3B 00,IKE --> GLO: Temperature Outside 30C Coolant 59C
+80 BF 19 1E 3E 00,IKE --> GLO: Temperature Outside 30C Coolant 62C
+80 BF 19 1E 3F 00,IKE --> GLO: Temperature Outside 30C Coolant 63C
+80 BF 19 1E 40 00,IKE --> GLO: Temperature Outside 30C Coolant 64C
+80 BF 19 1E 43 00,IKE --> GLO: Temperature Outside 30C Coolant 67C
+80 BF 19 1E 44 00,IKE --> GLO: Temperature Outside 30C Coolant 68C
+80 BF 19 1E 45 00,IKE --> GLO: Temperature Outside 30C Coolant 69C
+80 BF 19 1E 46 00,IKE --> GLO: Temperature Outside 30C Coolant 70C
+80 BF 19 1E 47 00,IKE --> GLO: Temperature Outside 30C Coolant 71C
+80 BF 19 1E 48 00,IKE --> GLO: Temperature Outside 30C Coolant 72C
+80 BF 19 1E 4B 00,IKE --> GLO: Temperature Outside 30C Coolant 75C
+80 BF 19 1E 4C 00,IKE --> GLO: Temperature Outside 30C Coolant 76C
+80 BF 19 1E 4D 00,IKE --> GLO: Temperature Outside 30C Coolant 77C
+80 BF 19 1E 4E 00,IKE --> GLO: Temperature Outside 30C Coolant 78C
+80 BF 19 1E 4F 00,IKE --> GLO: Temperature Outside 30C Coolant 79C
+80 BF 19 1E 50 00,IKE --> GLO: Temperature Outside 30C Coolant 80C
+80 BF 19 1E 51 00,IKE --> GLO: Temperature Outside 30C Coolant 81C
+80 BF 19 1E 52 00,IKE --> GLO: Temperature Outside 30C Coolant 82C
+80 BF 19 1E 53 00,IKE --> GLO: Temperature Outside 30C Coolant 83C
+80 BF 19 1E 54 00,IKE --> GLO: Temperature Outside 30C Coolant 84C
+80 BF 19 1E 55 00,IKE --> GLO: Temperature Outside 30C Coolant 85C
+80 BF 19 1E 56 00,IKE --> GLO: Temperature Outside 30C Coolant 86C
+80 BF 19 1E 57 00,IKE --> GLO: Temperature Outside 30C Coolant 87C
+80 BF 19 1E 58 00,IKE --> GLO: Temperature Outside 30C Coolant 88C
+80 BF 19 1E 59 00,IKE --> GLO: Temperature Outside 30C Coolant 89C
+80 BF 19 1E 5A 00,IKE --> GLO: Temperature Outside 30C Coolant 90C
+80 BF 19 1E 5B 00,IKE --> GLO: Temperature Outside 30C Coolant 91C
+80 BF 19 1E 67 00,IKE --> GLO: Temperature Outside 30C Coolant 103C
+80 BF 19 1F 51 00,IKE --> GLO: Temperature Outside 31C Coolant 81C
+80 BF 19 1F 52 00,IKE --> GLO: Temperature Outside 31C Coolant 82C
+80 BF 19 1F 62 00,IKE --> GLO: Temperature Outside 31C Coolant 98C
+80 BF 19 20 51 00,IKE --> GLO: Temperature Outside 32C Coolant 81C
+80 BF 19 20 52 00,IKE --> GLO: Temperature Outside 32C Coolant 82C
+80 BF 19 20 53 00,IKE --> GLO: Temperature Outside 32C Coolant 83C
+80 BF 19 20 54 00,IKE --> GLO: Temperature Outside 32C Coolant 84C
+80 BF 19 20 55 00,IKE --> GLO: Temperature Outside 32C Coolant 85C
+80 BF 19 20 5F 00,IKE --> GLO: Temperature Outside 32C Coolant 95C
+80 BF 19 20 60 00,IKE --> GLO: Temperature Outside 32C Coolant 96C
+80 BF 19 21 4B 00,IKE --> GLO: Temperature Outside 33C Coolant 75C
+80 BF 19 21 4E 00,IKE --> GLO: Temperature Outside 33C Coolant 78C
+80 BF 19 21 50 00,IKE --> GLO: Temperature Outside 33C Coolant 80C
+80 BF 19 21 51 00,IKE --> GLO: Temperature Outside 33C Coolant 81C
+80 BF 19 21 52 00,IKE --> GLO: Temperature Outside 33C Coolant 82C
+80 BF 19 21 54 00,IKE --> GLO: Temperature Outside 33C Coolant 84C
+80 BF 19 21 55 00,IKE --> GLO: Temperature Outside 33C Coolant 85C
+80 BF 19 21 56 00,IKE --> GLO: Temperature Outside 33C Coolant 86C
+80 BF 19 21 57 00,IKE --> GLO: Temperature Outside 33C Coolant 87C
+80 BF 19 21 58 00,IKE --> GLO: Temperature Outside 33C Coolant 88C
+80 BF 19 21 59 00,IKE --> GLO: Temperature Outside 33C Coolant 89C
+80 BF 19 21 5A 00,IKE --> GLO: Temperature Outside 33C Coolant 90C
+80 BF 19 21 5B 00,IKE --> GLO: Temperature Outside 33C Coolant 91C
+80 BF 19 21 5C 00,IKE --> GLO: Temperature Outside 33C Coolant 92C
+80 BF 19 21 5D 00,IKE --> GLO: Temperature Outside 33C Coolant 93C
+80 BF 19 21 5E 00,IKE --> GLO: Temperature Outside 33C Coolant 94C
+80 BF 19 21 5F 00,IKE --> GLO: Temperature Outside 33C Coolant 95C
+80 BF 19 21 60 00,IKE --> GLO: Temperature Outside 33C Coolant 96C
+80 BF 19 22 4C 00,IKE --> GLO: Temperature Outside 34C Coolant 76C
+80 BF 19 22 4D 00,IKE --> GLO: Temperature Outside 34C Coolant 77C
+80 BF 19 22 4E 00,IKE --> GLO: Temperature Outside 34C Coolant 78C
+80 BF 19 22 4F 00,IKE --> GLO: Temperature Outside 34C Coolant 79C
+80 BF 19 22 50 00,IKE --> GLO: Temperature Outside 34C Coolant 80C
+80 BF 19 22 51 00,IKE --> GLO: Temperature Outside 34C Coolant 81C
+80 BF 19 22 52 00,IKE --> GLO: Temperature Outside 34C Coolant 82C
+80 BF 19 22 53 00,IKE --> GLO: Temperature Outside 34C Coolant 83C
+80 BF 19 22 54 00,IKE --> GLO: Temperature Outside 34C Coolant 84C
+80 BF 19 22 56 00,IKE --> GLO: Temperature Outside 34C Coolant 86C
+80 BF 19 22 57 00,IKE --> GLO: Temperature Outside 34C Coolant 87C
+80 BF 19 22 5D 00,IKE --> GLO: Temperature Outside 34C Coolant 93C
+80 BF 19 22 5E 00,IKE --> GLO: Temperature Outside 34C Coolant 94C
+80 BF 19 22 5F 00,IKE --> GLO: Temperature Outside 34C Coolant 95C
+80 BF 19 22 60 00,IKE --> GLO: Temperature Outside 34C Coolant 96C
+80 BF 19 22 61 00,IKE --> GLO: Temperature Outside 34C Coolant 97C
+80 BF 19 22 62 00,IKE --> GLO: Temperature Outside 34C Coolant 98C
+80 BF 19 22 80 00,IKE --> GLO: Temperature Outside 34C Coolant -128C
+80 BF 19 23 56 00,IKE --> GLO: Temperature Outside 35C Coolant 86C
+80 BF 19 23 57 00,IKE --> GLO: Temperature Outside 35C Coolant 87C
+80 BF 19 23 58 00,IKE --> GLO: Temperature Outside 35C Coolant 88C
+80 BF 19 23 59 00,IKE --> GLO: Temperature Outside 35C Coolant 89C
+80 BF 19 23 5D 00,IKE --> GLO: Temperature Outside 35C Coolant 93C
+80 BF 19 23 5E 00,IKE --> GLO: Temperature Outside 35C Coolant 94C
+80 BF 19 23 5F 00,IKE --> GLO: Temperature Outside 35C Coolant 95C
+80 BF 19 23 60 00,IKE --> GLO: Temperature Outside 35C Coolant 96C
+80 BF 19 23 61 00,IKE --> GLO: Temperature Outside 35C Coolant 97C
+80 BF 19 23 62 00,IKE --> GLO: Temperature Outside 35C Coolant 98C
+80 BF 19 23 63 00,IKE --> GLO: Temperature Outside 35C Coolant 99C
+80 BF 19 23 64 00,IKE --> GLO: Temperature Outside 35C Coolant 100C
+80 BF 19 24 57 00,IKE --> GLO: Temperature Outside 36C Coolant 87C
+80 BF 19 24 58 00,IKE --> GLO: Temperature Outside 36C Coolant 88C
+80 BF 19 24 59 00,IKE --> GLO: Temperature Outside 36C Coolant 89C
+80 BF 19 24 5A 00,IKE --> GLO: Temperature Outside 36C Coolant 90C
+80 BF 19 26 59 00,IKE --> GLO: Temperature Outside 38C Coolant 89C
+80 BF 19 27 57 00,IKE --> GLO: Temperature Outside 39C Coolant 87C
+80 BF 19 27 59 00,IKE --> GLO: Temperature Outside 39C Coolant 89C
+80 BF 19 28 58 00,IKE --> GLO: Temperature Outside 40C Coolant 88C
+80 BF 19 29 57 00,IKE --> GLO: Temperature Outside 41C Coolant 87C
+80 BF 19 29 58 00,IKE --> GLO: Temperature Outside 41C Coolant 88C
+80 BF 19 2A 58 00,IKE --> GLO: Temperature Outside 42C Coolant 88C
+80 BF 19 2B 57 00,IKE --> GLO: Temperature Outside 43C Coolant 87C
+80 BF 19 2B 58 00,IKE --> GLO: Temperature Outside 43C Coolant 88C
+80 BF 19 2E 5B 00,IKE --> GLO: Temperature Outside 46C Coolant 91C
+80 BF 19 2E 5C 00,IKE --> GLO: Temperature Outside 46C Coolant 92C
+80 BF 19 2E 5D 00,IKE --> GLO: Temperature Outside 46C Coolant 93C
+80 BF 19 2E 5E 00,IKE --> GLO: Temperature Outside 46C Coolant 94C
+80 BF 19 2F 5C 00,IKE --> GLO: Temperature Outside 47C Coolant 92C
+80 BF 19 30 5B 00,IKE --> GLO: Temperature Outside 48C Coolant 91C
+80 BF 19 30 5C 00,IKE --> GLO: Temperature Outside 48C Coolant 92C
+80 BF 19 32 5B 00,IKE --> GLO: Temperature Outside 50C Coolant 91C
+80 BF 19 32 6D 00,IKE --> GLO: Temperature Outside 50C Coolant 109C
+80 BF 19 32 6F 00,IKE --> GLO: Temperature Outside 50C Coolant 111C
+80 BF 19 D8 D0 00,IKE --> GLO: Temperature Outside -40C Coolant -48C
 80 C0 21 01 00 0A 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="KM"
 80 C0 21 01 00 0A 4C 2F 4B 4D,IKE --> MID: Menu Text Layout=0x01: Flags= F10="L/KM"
 80 C0 21 01 20 06 06 53 50 45 45 44 06 4C 49 4D 49 54 05 4B 4D 05 53 45 54,IKE --> MID: Menu Text Layout=0x01: Flags= F6= Btn7"SPEED" Btn8"LIMIT" F5:"KM" F5:"SET"
@@ -1582,37 +1582,37 @@
 80 E7 24 02 00 30 35 2F 31 30 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="05/10/2016"
 80 E7 24 02 00 30 36 2F 32 36 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="06/26/2016"
 80 E7 24 02 00 30 37 2F 33 31 2F 32 30 31 36,IKE --> ANZV: Update Text Layout=Date Flags= F0="07/31/2016"
-80 E7 24 03 00 20 2B 20 36 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 63°F"
-80 E7 24 03 00 20 2B 20 39 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 93°F"
-80 E7 24 03 00 20 2B 20 39 34 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 94°F"
-80 E7 24 03 00 20 2B 20 39 35 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 95°F"
-80 E7 24 03 00 20 2B 20 39 36 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 96°F"
-80 E7 24 03 00 2B 32 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+20.5Â°C"
-80 E7 24 03 00 2B 32 33 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+23.5°C"
-80 E7 24 03 00 2B 32 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.0°C"
-80 E7 24 03 00 2B 32 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.5°C"
-80 E7 24 03 00 2B 32 35 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+25.0°C"
-80 E7 24 03 00 2B 32 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.0°C"
-80 E7 24 03 00 2B 32 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.5°C"
-80 E7 24 03 00 2B 33 30 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.0°C"
-80 E7 24 03 00 2B 33 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.5°C"
-80 E7 24 03 00 2B 33 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.0°C"
-80 E7 24 03 00 2B 33 31 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.5°C"
-80 E7 24 03 00 2B 33 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.0°C"
-80 E7 24 03 00 2B 33 32 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.5°C"
-80 E7 24 03 00 2B 33 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+33.0°C"
-80 E7 24 03 00 2B 33 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.0°C"
-80 E7 24 03 00 2B 33 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.5°C"
-80 E7 24 03 00 2B 33 35 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+35.5°C"
-80 E7 24 03 00 2B 33 36 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+36.5°C"
-80 E7 24 03 00 2B 33 37 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+37.0°C"
-80 E7 24 03 00 2B 33 38 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+38.0°C"
-80 E7 24 03 00 2B 33 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.0°C"
-80 E7 24 03 00 2B 33 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.5°C"
-80 E7 24 03 00 2B 34 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+40.5°C"
-80 E7 24 03 00 2B 34 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+41.0°C"
-80 E7 24 03 00 2B 34 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+42.0°C"
-80 E7 24 03 00 2B 34 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+43.0°C"
+80 E7 24 03 00 20 2B 20 36 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 63F"
+80 E7 24 03 00 20 2B 20 39 33 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 93F"
+80 E7 24 03 00 20 2B 20 39 34 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 94F"
+80 E7 24 03 00 20 2B 20 39 35 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 95F"
+80 E7 24 03 00 20 2B 20 39 36 A8 46,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0=" + 96F"
+80 E7 24 03 00 2B 32 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+20.5C"
+80 E7 24 03 00 2B 32 33 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+23.5C"
+80 E7 24 03 00 2B 32 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.0C"
+80 E7 24 03 00 2B 32 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+24.5C"
+80 E7 24 03 00 2B 32 35 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+25.0C"
+80 E7 24 03 00 2B 32 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.0C"
+80 E7 24 03 00 2B 32 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+29.5C"
+80 E7 24 03 00 2B 33 30 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.0C"
+80 E7 24 03 00 2B 33 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+30.5C"
+80 E7 24 03 00 2B 33 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.0C"
+80 E7 24 03 00 2B 33 31 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+31.5C"
+80 E7 24 03 00 2B 33 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.0C"
+80 E7 24 03 00 2B 33 32 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+32.5C"
+80 E7 24 03 00 2B 33 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+33.0C"
+80 E7 24 03 00 2B 33 34 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.0C"
+80 E7 24 03 00 2B 33 34 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+34.5C"
+80 E7 24 03 00 2B 33 35 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+35.5C"
+80 E7 24 03 00 2B 33 36 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+36.5C"
+80 E7 24 03 00 2B 33 37 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+37.0C"
+80 E7 24 03 00 2B 33 38 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+38.0C"
+80 E7 24 03 00 2B 33 39 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.0C"
+80 E7 24 03 00 2B 33 39 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+39.5C"
+80 E7 24 03 00 2B 34 30 2E 35 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+40.5C"
+80 E7 24 03 00 2B 34 31 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+41.0C"
+80 E7 24 03 00 2B 34 32 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+42.0C"
+80 E7 24 03 00 2B 34 33 2E 30 A8 43,IKE --> ANZV: Update Text Layout=Outside_Temp Flags= F0="+43.0C"
 80 E7 24 04 00 2D 2D 2E 2D 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="--.- MPG "
 80 E7 24 04 00 31 34 2E 32 20 4C 2F 31 30 30,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="14.2 L/100"
 80 E7 24 04 00 31 36 2E 30 20 4D 50 47 20 20,IKE --> ANZV: Update Text Layout=Consumption_1 Flags= F0="16.0 MPG "

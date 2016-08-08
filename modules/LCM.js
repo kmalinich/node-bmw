@@ -47,6 +47,9 @@ var LCM = function(omnibus) {
 	function comfort_turn(action) {
     console.log('[LCM] Comfort turn signal - \'%s\'', action);
 
+		// Set status variable
+		omnibus.status.lights.turn_comfort = true;
+
     switch (action) {
       case 'left':
         var lcm_object = { switch_turn_left: true };
@@ -59,7 +62,12 @@ var LCM = function(omnibus) {
     }
 
     // Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
-    setTimeout(function() { reset(); }, 2500);
+    setTimeout(function() {
+			reset();
+
+			// Set status variable
+			omnibus.status.lights.turn_comfort = false;
+		}, 2500);
 	}
 
   // Welcome lights on unlocking/locking

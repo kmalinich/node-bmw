@@ -226,61 +226,64 @@ var data_handler = function(omnibus) {
         var turn_left_on  = bit_test(msg[1], bit_5); 
         var turn_right_on = bit_test(msg[1], bit_6);
 
-        // If
-        //
-        // left signal is now on, and
-        // right signal is now off, and
-        // left signal was previously off:
-        //
-        // Set turn_left_depress_time timestamp
-        if (turn_left_on && !turn_right_on && omnibus.status.lights.turn_left == false) {
-          omnibus.status.lights.turn_left_depress_time = Date.now();
-        }
+				// If comfort turn is not currently engaged
+				if (omnibus.status.lights.comfort_turn == false) {
+					// If
+					//
+					// left signal is now on, and
+					// right signal is now off, and
+					// left signal was previously off:
+					//
+					// Set turn_left_depress_time timestamp
+					if (turn_left_on && !turn_right_on && omnibus.status.lights.turn_left == false) {
+						omnibus.status.lights.turn_left_depress_time = Date.now();
+					}
 
-        // If
-        //
-        // left signal is now off, and
-        // right signal is now on, and
-        // right signal was previously off:
-        //
-        // Set turn_right_depress_time timestamp
-        if (!turn_left_on && turn_right_on && omnibus.status.lights.turn_right == false) {
-          omnibus.status.lights.turn_right_depress_time = Date.now();
-        }
+					// If
+					//
+					// left signal is now off, and
+					// right signal is now on, and
+					// right signal was previously off:
+					//
+					// Set turn_right_depress_time timestamp
+					if (!turn_left_on && turn_right_on && omnibus.status.lights.turn_right == false) {
+						omnibus.status.lights.turn_right_depress_time = Date.now();
+					}
 
-        // If left signal is now off and right signal is now off
-        if (!turn_left_on && !turn_right_on) {
+					// If left signal is now off and right signal is now off
+					if (!turn_left_on && !turn_right_on) {
 
-          // If left signal was previously on
-          if (omnibus.status.lights.turn_left == true) {
-            // Set turn_left_release_time timestamp
-            omnibus.status.lights.turn_left_release_time = Date.now();
+						// If left signal was previously on
+						if (omnibus.status.lights.turn_left == true) {
+							// Set turn_left_release_time timestamp
+							omnibus.status.lights.turn_left_release_time = Date.now();
 
-            // Calculate time difference between initial on and off
-            var turn_left_depress_elapsed = omnibus.status.lights.turn_left_release_time-omnibus.status.lights.turn_left_depress_time;
+							// Calculate time difference between initial on and off
+							var turn_left_depress_elapsed = omnibus.status.lights.turn_left_release_time-omnibus.status.lights.turn_left_depress_time;
 
-            // If the time difference is less than 1000ms, fire comfort turn signal
-            if (turn_left_depress_elapsed < 1000) {
-              console.log('[data-handler] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
-              omnibus.LCM.comfort_turn('left');
-            }
-          }
+							// If the time difference is less than 1000ms, fire comfort turn signal
+							if (turn_left_depress_elapsed < 1000) {
+								console.log('[data-handler] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+								omnibus.LCM.comfort_turn('left');
+							}
+						}
 
-          // If right signal was previously on
-          if (omnibus.status.lights.turn_right == true) {
-            // Set turn_right_release_time timestamp
-            omnibus.status.lights.turn_right_release_time = Date.now();
+						// If right signal was previously on
+						if (omnibus.status.lights.turn_right == true) {
+							// Set turn_right_release_time timestamp
+							omnibus.status.lights.turn_right_release_time = Date.now();
 
-            // Calculate time difference between initial on and off
-            var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_left_depress_time;
+							// Calculate time difference between initial on and off
+							var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_left_depress_time;
 
-            // If the time difference is less than 1000ms, fire comfort turn signal
-            if (turn_right_depress_elapsed < 1000) {
-              console.log('[data-handler] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
-              omnibus.LCM.comfort_turn('right');
-            }
-          }
-        }
+							// If the time difference is less than 1000ms, fire comfort turn signal
+							if (turn_right_depress_elapsed < 1000) {
+								console.log('[data-handler] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+								omnibus.LCM.comfort_turn('right');
+							}
+						}
+					}
+				}
 
         // Afterwards, set the status in omnibus.status.lights as usual
         if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }

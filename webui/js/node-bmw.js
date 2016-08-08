@@ -390,7 +390,8 @@ function status() {
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
-			console.log(return_data);
+			console.log(return_data.lights.turn_left);
+			console.log(return_data.lights.turn_sync);
 
 			// Clean up page
 			clean_class_all();

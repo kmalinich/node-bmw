@@ -180,8 +180,8 @@ var data_handler = function(omnibus) {
         var command = 'Light status';
 
         // Clear object first
-        omnibus.status.lights : {
-          all_off         : true,
+        omnibus.status.lights = {
+          all_off         : false,
           brake           : false,
           fog_front       : false,
           fog_rear        : false,
@@ -198,7 +198,7 @@ var data_handler = function(omnibus) {
           turn_right      : false,
           turn_sync       : false,
           faulty : {
-            all_ok              : true,
+            all_ok              : false,
             brake_left          : false,
             brake_right         : false,
             fog_front           : false,

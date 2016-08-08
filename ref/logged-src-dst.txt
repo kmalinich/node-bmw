@@ -1,4 +1,4 @@
-AB   --> GLO 
+ABG   --> GLO 
 BMBT --> GLO 
 BMBT --> GM  
 BMBT --> GT  

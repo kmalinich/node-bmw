@@ -1661,15 +1661,15 @@
 80 FF 57 41,IKE --> LOC: Check Control button CHECK_released
 80 FF 57 43,IKE --> LOC: Check Control button Button 3_released
 9A BF 02 01,HAC --> GLO: Device status ready after Reset
-A4 BF 70 00 00 14,AB --> GLO: Remote control central locking status Data="00 00 14"
-A4 BF 70 00 00 15,AB --> GLO: Remote control central locking status Data="00 00 15"
-A4 BF 70 00 00 1A,AB --> GLO: Remote control central locking status Data="00 00 1A"
-A4 BF 70 01 00 1A,AB --> GLO: Remote control central locking status Data="01 00 1A"
-A4 BF 70 02 00 05,AB --> GLO: Remote control central locking status Data="02 00 05"
-A4 BF 70 02 00 0A,AB --> GLO: Remote control central locking status Data="02 00 0A"
-A4 BF 70 03 00 05,AB --> GLO: Remote control central locking status Data="03 00 05"
-A4 BF 70 03 00 0A,AB --> GLO: Remote control central locking status Data="03 00 0A"
-A4 BF 70 03 00 1A,AB --> GLO: Remote control central locking status Data="03 00 1A"
+A4 BF 70 00 00 14,ABG --> GLO: Remote control central locking status Data="00 00 14"
+A4 BF 70 00 00 15,ABG --> GLO: Remote control central locking status Data="00 00 15"
+A4 BF 70 00 00 1A,ABG --> GLO: Remote control central locking status Data="00 00 1A"
+A4 BF 70 01 00 1A,ABG --> GLO: Remote control central locking status Data="01 00 1A"
+A4 BF 70 02 00 05,ABG --> GLO: Remote control central locking status Data="02 00 05"
+A4 BF 70 02 00 0A,ABG --> GLO: Remote control central locking status Data="02 00 0A"
+A4 BF 70 03 00 05,ABG --> GLO: Remote control central locking status Data="03 00 05"
+A4 BF 70 03 00 0A,ABG --> GLO: Remote control central locking status Data="03 00 0A"
+A4 BF 70 03 00 1A,ABG --> GLO: Remote control central locking status Data="03 00 1A"
 AC BF 61 01,EHC --> GLO: Suspension control Data="01"
 C0 68 01,MID --> RAD: Device status request
 C0 68 22 00,MID --> RAD: Text display confirmation Menu Text: 1 text message acknowledged
@@ -1821,7 +1821,7 @@ D0 3F A0 12 FF FF FF FF F1 03 F8 F1 1F FF 0F FC C7 0F FC FF 7F 00 FF 0F 1C FF FF
 D0 3F A0 12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
-D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
+D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C ABG FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C ABG FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
@@ -1832,7 +1832,7 @@ D0 3F A0 C1 C0 00 20 00 00 00 00 00 A6 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00
 D0 3F A0 FF FF FF 62 05 20 14 00 17 03 06 51,LCM --> DIA: Diagnostic command acknowledged Data="FF FF FF 62 05 20 14 00 17 03 06 51"
 D0 3F A0,LCM --> DIA: Diagnostic command acknowledged
 D0 3F A2,LCM --> DIA: Diagnostic command rejected
-D0 80 54 47 43 95 64 60 07 AB 00 92 00 00 00 00,LCM --> IKE: Vehicle data status VIN GC95646; Total dist 196,300 kms SI-L 1460 litres since last service; SI-T 0 days since last service
+D0 80 54 47 43 95 64 60 07 ABG 00 92 00 00 00 00,LCM --> IKE: Vehicle data status VIN GC95646; Total dist 196,300 kms SI-L 1460 litres since last service; SI-T 0 days since last service
 D0 80 54 47 43 95 64 60 07 AD 00 96 00 00 00 00,LCM --> IKE: Vehicle data status VIN GC95646; Total dist 196,500 kms SI-L 1500 litres since last service; SI-T 0 days since last service
 D0 80 54 47 43 95 64 60 07 B4 00 A3 00 00 00 00,LCM --> IKE: Vehicle data status VIN GC95646; Total dist 197,200 kms SI-L 1630 litres since last service; SI-T 0 days since last service
 D0 80 54 47 43 95 64 60 07 BD 00 00 00 00 00 00,LCM --> IKE: Vehicle data status VIN GC95646; Total dist 198,100 kms SI-L 0 litres since last service; SI-T 0 days since last service
@@ -2019,7 +2019,7 @@ D0 BF 5C A3 00,LCM --> GLO: Light dimmer 163
 D0 BF 5C A6 00,LCM --> GLO: Light dimmer 166
 D0 BF 5C A8 00,LCM --> GLO: Light dimmer 168
 D0 BF 5C AA 00,LCM --> GLO: Light dimmer 170
-D0 BF 5C AB 00,LCM --> GLO: Light dimmer 171
+D0 BF 5C ABG 00,LCM --> GLO: Light dimmer 171
 D0 BF 5C AC 00,LCM --> GLO: Light dimmer 172
 D0 BF 5C AD 00,LCM --> GLO: Light dimmer 173
 D0 BF 5C AE 00,LCM --> GLO: Light dimmer 174

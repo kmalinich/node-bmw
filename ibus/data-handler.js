@@ -529,6 +529,11 @@ var data_handler = function(omnibus) {
 
 			console.log('[%s->%s] %s: %s->%s', src, dst, command, button, action);
 		}
+
+		else {
+			var command = 'unknown';
+			console.log('[%s->%s] %s', src, dst, command);
+		}
 	}
 }
 

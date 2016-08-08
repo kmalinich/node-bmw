@@ -597,7 +597,7 @@
 5B 05 80 83 D8 B0 35,IHKA --> IKE: Air conditioning compressor status, On
 5B 05 80 83 D8 B8 3D,IHKA --> IKE: Air conditioning compressor status, On
 68 03 18 01 72,RAD --> CDC: Device status request
-68 03 3F FF AB,RAD --> DIA: Diagnostic command not acknowledged
+68 03 3F FF ABG,RAD --> DIA: Diagnostic command not acknowledged
 68 03 6A 01 00,RAD --> DSP: Device status request
 68 03 80 14 FF,RAD --> IKE: Country coding status request
 68 04 3B 37 44 24,RAD --> GT: Select Menu
@@ -701,7 +701,7 @@
 68 10 3B 23 40 20 4E 4F 20 54 41 50 45 20 20 20 20 21,RAD --> GT: Display Text, Layout=DisplayText  Flags=CLS  F0="NO TAPE    "
 68 10 C0 23 00 20 2F 2F 2F 2F 2F 2F 2F 2F 2F 2F 2F 94,RAD --> MID: Display Text, Layout=0x00:  Flags=CLS  F0="///////////"
 68 10 C0 23 00 20 2F 72 6F 70 68 65 74 73 20 53 54 D4,RAD --> MID: Display Text, Layout=0x00:  Flags=CLS  F0="/rophets ST"
-68 10 C0 23 00 20 50 72 6F 70 68 65 74 73 20 53 54 AB,RAD --> MID: Display Text, Layout=0x00:  Flags=CLS  F0="Prophets ST"
+68 10 C0 23 00 20 50 72 6F 70 68 65 74 73 20 53 54 ABG,RAD --> MID: Display Text, Layout=0x00:  Flags=CLS  F0="Prophets ST"
 68 10 C0 23 00 40 50 72 6F 70 68 65 74 73 20 53 54 CB,RAD --> MID: Display Text, Layout=0x00:  Flags=PartTx  F0="Prophets ST"
 68 10 C0 23 20 20 50 72 6F 70 68 65 74 73 20 53 54 8B,RAD --> MID: Display Text, Layout=0x20:  Flags=CLS  F0="Prophets ST"
 68 10 C0 23 40 20 00 72 6F 70 68 65 74 73 20 53 FF 10,RAD --> MID: Display Text, Layout=DisplayText  Flags=CLS  F0=   F0:"rophets S"
@@ -820,7 +820,7 @@
 68 18 C0 21 00 15 60 2F 2F 2F 2F 2F 2F 2F 2F 01 2F 2F 2F 2F 2F 2F 2F 2F 05 E0,RAD --> MID: Menu Text, Layout=0x00:  Flags=CLS,PartTx  F0="////////"  F1:"////////"  F5:
 68 18 C0 21 00 15 60 2F 2F 2F 2F 2F 2F 2F 2F 05 2F 2F 2F 2F 2F 2F 2F 2F 05 E4,RAD --> MID: Menu Text, Layout=0x00:  Flags=CLS,PartTx  F0="////////"  F5:"////////"  F5:
 68 19 C0 21 00 00 06 46 4D 05 41 4D 05 20 05 52 4E 44 05 53 43 05 43 44 2F 54 80,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:" "  F5:"RND"  F5:"SC"  F5:"CD/T"
-68 19 FF 23 40 20 07 2D 41 33 2D 20 08 46 4D 20 03 20 39 31 2E 31 04 20 20 20 AB,RAD --> LOC: Display Text, Layout=DisplayText  Flags=CLS  F0=   F7:"-A3- "   F8:"FM "   F3:" 91.1"   F4:"   "
+68 19 FF 23 40 20 07 2D 41 33 2D 20 08 46 4D 20 03 20 39 31 2E 31 04 20 20 20 ABG,RAD --> LOC: Display Text, Layout=DisplayText  Flags=CLS  F0=   F7:"-A3- "   F8:"FM "   F3:" 91.1"   F4:"   "
 68 19 FF 23 40 30 07 2D 41 34 2D 20 08 46 4D 20 03 20 39 39 2E 35 04 20 20 20 B0,RAD --> LOC: Display Text, Layout=DisplayText  Flags=Bit4,CLS  F0=   F7:"-A4- "   F8:"FM "   F3:" 99.5"   F4:"   "
 68 1A C0 21 00 15 20 2F 2F 2F 2F 05 2F 2F 2F 2F 05 2F 2F 2F 2F 05 2F 2F 2F 2F 05 A6,RAD --> MID: Menu Text, Layout=0x00:  Flags=CLS  F0="////"  F5:"////"  F5:"////"  F5:"////"  F5:
 68 1C C0 21 00 10 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 54 D5,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD/T"
@@ -836,7 +836,7 @@
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 2F 2F 2F 2F AC,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"////"
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 00 84,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD/"  F0:
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 20 A4,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD/ "
-68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 2F AB,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD//"
+68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 2F ABG,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD//"
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 05 43 44 2F 54 D0,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC"  F5:"CD/T"
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 05 53 43 2F 2F 2F 2F 2F 86,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS"  F5:"SC/////"
 68 1C C0 21 00 15 06 46 4D 05 41 4D 05 50 54 59 05 20 52 44 53 2F 2F 2F 2F 2F 2F 2F 2F BC,RAD --> MID: Menu Text, Layout=0x00:  Flags=  F6="FM"  F5:"AM"  F5:"PTY"  F5:" RDS////////"
@@ -1679,15 +1679,15 @@
 80 1E C0 21 01 20 40 06 31 43 4F 4E 53 55 4D 32 06 52 41 4E 47 45 06 44 49 53 54 20 41 52 52 26,IKE --> MID: Menu Text, Layout=0x01:  Flags=PartTx  F0=  Btn1"1CONSUM2"  Btn2"RANGE"  Btn3"DIST ARR"
 80 1E C0 21 01 20 60 06 31 43 4F 4E 53 55 4D 32 06 52 41 4E 47 45 06 44 49 53 54 20 41 52 52 06,IKE --> MID: Menu Text, Layout=0x01:  Flags=CLS,PartTx  F0=  Btn1"1CONSUM2"  Btn2"RANGE"  Btn3"DIST ARR"
 9A 04 BF 02 01 22,HAC --> GLO: Device status ready, after Reset
-A4 06 BF 70 00 00 14 79,AB --> GLO: Remote control central locking status, Data="00 00 14"
-A4 06 BF 70 00 00 15 78,AB --> GLO: Remote control central locking status, Data="00 00 15"
-A4 06 BF 70 00 00 1A 77,AB --> GLO: Remote control central locking status, Data="00 00 1A"
-A4 06 BF 70 01 00 1A 76,AB --> GLO: Remote control central locking status, Data="01 00 1A"
-A4 06 BF 70 02 00 05 6A,AB --> GLO: Remote control central locking status, Data="02 00 05"
-A4 06 BF 70 02 00 0A 65,AB --> GLO: Remote control central locking status, Data="02 00 0A"
-A4 06 BF 70 03 00 05 6B,AB --> GLO: Remote control central locking status, Data="03 00 05"
-A4 06 BF 70 03 00 0A 64,AB --> GLO: Remote control central locking status, Data="03 00 0A"
-A4 06 BF 70 03 00 1A 74,AB --> GLO: Remote control central locking status, Data="03 00 1A"
+A4 06 BF 70 00 00 14 79,ABG --> GLO: Remote control central locking status, Data="00 00 14"
+A4 06 BF 70 00 00 15 78,ABG --> GLO: Remote control central locking status, Data="00 00 15"
+A4 06 BF 70 00 00 1A 77,ABG --> GLO: Remote control central locking status, Data="00 00 1A"
+A4 06 BF 70 01 00 1A 76,ABG --> GLO: Remote control central locking status, Data="01 00 1A"
+A4 06 BF 70 02 00 05 6A,ABG --> GLO: Remote control central locking status, Data="02 00 05"
+A4 06 BF 70 02 00 0A 65,ABG --> GLO: Remote control central locking status, Data="02 00 0A"
+A4 06 BF 70 03 00 05 6B,ABG --> GLO: Remote control central locking status, Data="03 00 05"
+A4 06 BF 70 03 00 0A 64,ABG --> GLO: Remote control central locking status, Data="03 00 0A"
+A4 06 BF 70 03 00 1A 74,ABG --> GLO: Remote control central locking status, Data="03 00 1A"
 AC 04 BF 61 01 77,EHC --> GLO: Suspension control, Data="01"
 C0 03 68 01 AA,MID --> RAD: Device status request
 C0 03 80 01 42,MID --> IKE: Device status request
@@ -1881,7 +1881,7 @@ D0 05 BF 5C A3 00 95,LCM --> GLO: Light dimmer, 163
 D0 05 BF 5C A6 00 90,LCM --> GLO: Light dimmer, 166
 D0 05 BF 5C A8 00 9E,LCM --> GLO: Light dimmer, 168
 D0 05 BF 5C AA 00 9C,LCM --> GLO: Light dimmer, 170
-D0 05 BF 5C AB 00 9D,LCM --> GLO: Light dimmer, 171
+D0 05 BF 5C ABG 00 9D,LCM --> GLO: Light dimmer, 171
 D0 05 BF 5C AC 00 9A,LCM --> GLO: Light dimmer, 172
 D0 05 BF 5C AD 00 9B,LCM --> GLO: Light dimmer, 173
 D0 05 BF 5C AE 00 98,LCM --> GLO: Light dimmer, 174
@@ -2012,7 +2012,7 @@ D0 09 3F A0 02 47 43 95 64 60 D1,LCM --> DIA: Diagnostic command acknowledged, D
 D0 0F 3F A0 08 38 62 08 00 18 13 00 18 99 09 41 D8,LCM --> DIA: Diagnostic command acknowledged, Data="08 38 62 08 00 18 13 00 18 99 09 41"    [ 8b       A]
 D0 0F 3F A0 08 38 62 08 01 18 13 00 16 00 09 41 4E,LCM --> DIA: Diagnostic command acknowledged, Data="08 38 62 08 01 18 13 00 16 00 09 41"    [ 8b        A]
 D0 0F 3F A0 FF FF FF 62 05 20 14 00 17 03 06 51 AF,LCM --> DIA: Diagnostic command acknowledged, Data="FF FF FF 62 05 20 14 00 17 03 06 51"    [b       Q]
-D0 10 80 54 47 43 95 64 60 07 AB 00 92 00 00 00 00 BF,LCM --> IKE: Vehicle data status, VIN GC95646; Total dist 196,300 kms [121,975 mls]; SI-L 1460 litres since last service; ; SI-T 0 days since last service
+D0 10 80 54 47 43 95 64 60 07 ABG 00 92 00 00 00 00 BF,LCM --> IKE: Vehicle data status, VIN GC95646; Total dist 196,300 kms [121,975 mls]; SI-L 1460 litres since last service; ; SI-T 0 days since last service
 D0 10 80 54 47 43 95 64 60 07 AD 00 96 00 00 00 00 BD,LCM --> IKE: Vehicle data status, VIN GC95646; Total dist 196,500 kms [122,099 mls]; SI-L 1500 litres since last service; ; SI-T 0 days since last service
 D0 10 80 54 47 43 95 64 60 07 B4 00 A3 00 00 00 00 91,LCM --> IKE: Vehicle data status, VIN GC95646; Total dist 197,200 kms [122,534 mls]; SI-L 1630 litres since last service; ; SI-T 0 days since last service
 D0 10 80 54 47 43 95 64 60 07 BD 00 00 00 00 00 00 3B,LCM --> IKE: Vehicle data status, VIN GC95646; Total dist 198,100 kms [123,094 mls]; SI-L 0 litres since last service; ; SI-T 0 days since last service
@@ -2081,7 +2081,7 @@ D0 23 3F A0 12 FF FF FF FF F1 03 F8 F1 1F FF 0F FC C7 0F FC FF 7F 00 FF 0F 1C FF
 D0 23 3F A0 12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00 72,LCM --> DIA: Diagnostic command acknowledged, Data="12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00"    [  8     #E   ]
 D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 21,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]
 D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE DD,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                       ]
-D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 61,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]
+D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C ABG FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 61,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C ABG FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]
 D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 67,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]
 D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 78,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]
 D0 23 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE 2E,LCM --> DIA: Diagnostic command acknowledged, Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"    [                      ]

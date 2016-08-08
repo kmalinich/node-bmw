@@ -34,10 +34,44 @@ var data_handler = function(omnibus) {
 		var src = omnibus.bus_modules.get_module_name(data.src);
 		var msg = data.msg;
 
+		// BMBT
+		if (src == 'BMBT') {
+			var command; 
+
+			// Device status
+			if (msg[0] == 0x02) {
+
+				if      (msg[1] == 0x00) { command = 'device status: ready'; }
+				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
+			}
+
+			else if (msg[0] == 0x10) {
+				command = 'ignition status request';
+			}
+
+			else if (msg[0] == 0x79) {
+				command = 'door/flap status request'; 
+			}
+
+			else {
+				var command = new Buffer(msg);
+			}
+
+			console.log('[%s->%s]', src, dst, command);
+		}
+
 		// GM
-		if (src == 'GM') {
+		else if (src == 'GM') {
+			// Device status
+			if (msg[0] == 0x02) {
+				var command; 
+
+				if      (msg[1] == 0x00) { command = 'device status: ready'; }
+				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
+			}
+
 			// Key fob message
-			if (msg[0] == 0x72) {
+			else if (msg[0] == 0x72) {
 				var command = 'key fob status';
 				omnibus.GM.key_fob_status_decode(msg);
 			}
@@ -49,10 +83,10 @@ var data_handler = function(omnibus) {
 			}
 
 			else {
-				var command = 'unknown';
+				var command = new Buffer(msg);
 			}
 
-			console.log('[%s->%s] %s', src, dst, command);
+			console.log('[%s->%s]', src, dst, command);
 		}
 
 		// EWS
@@ -69,14 +103,28 @@ var data_handler = function(omnibus) {
 				var command = 'inserted';
 				var data    = 'key 1';
 			}
+			
+			else if (msg[0] == 0xA0) {
+				var command = 'diagnostic command';
+				var data    = 'acknowledged';
+			}
+
+			else if (msg[0] == 0xA2) {
+				var command = 'diagnostic command';
+				var data    = 'rejected';
+			}
+
+			else if (msg[0] == 0xFF) {
+				var command = 'diagnostic command';
+				var data    = 'not acknowledged';
+			}
 
 			else {
 				var command = 'unknown';
-				//var data    = 'unknown';
 				var data    = new Buffer(msg);
 			}
 
-			console.log('[%s->%s] %s: %s', src, dst, command, data);
+			console.log('[%s->%s] %s:', src, dst, command, data);
 		}
 
 		// CCM
@@ -93,10 +141,10 @@ var data_handler = function(omnibus) {
 
 			else {
 				var command = 'unknown';
-				var data    = 'unknown';
+				var data    = new Buffer(msg);
 			}
 
-			console.log('[%s->%s] %s: %s', src, dst, command, data);
+			console.log('[%s->%s] %s:', src, dst, command, data);
 		}
 
 		// RAD
@@ -131,9 +179,22 @@ var data_handler = function(omnibus) {
 
 		// LCM
 		else if (src == 'LCM') {
-			if (msg[0] == 0xA0 && typeof msg[1] !== 'undefined') {
+			// Device status
+			if (msg[0] == 0x02) {
+				var command; 
+
+				if      (msg[1] == 0x00) { command = 'device status: ready'; }
+				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
+			}
+
+			else if (msg[0] == 0xA0 && typeof msg[1] !== 'undefined') {
 				var command = 'current IO status';
 				omnibus.LCM.io_status_decode(msg);
+			}
+
+			else if(msg[0] == 0x54) {
+				var command = 'vehicle data status';
+				// omnibus.LCM.vehicle_data_status_decode(msg);
 			}
 
 			else if(msg[0] == 0x5B) {
@@ -153,9 +214,47 @@ var data_handler = function(omnibus) {
 			console.log('[%s->%s] %s', src, dst, command);
 		}
 
+		// IHKA
+		else if (src == 'IHKA') {
+			if      (msg[0] == 0x10) { var command = 'ignition status request';   }
+			else if (msg[0] == 0x12) { var command = 'IKE sensor status request'; }
+			else if (msg[0] == 0x1D) { var command = 'temperature request';       }
+			else if (msg[0] == 0x71) { var command = 'rain sensor status';        }
+
+			else if (msg[0] == 0xA0) {
+				var command = 'diagnostic command';
+				var data    = 'acknowledged';
+			}
+
+			else if (msg[0] == 0xA2) {
+				var command = 'diagnostic command';
+				var data    = 'rejected';
+			}
+
+			else if (msg[0] == 0xFF) {
+				var command = 'diagnostic command';
+				var data    = 'not acknowledged';
+			}
+
+			else {
+				var command = 'unknown';
+				var data    = new Buffer(msg);
+			}
+
+			console.log('[%s->%s]', src, dst, command);
+		}
+
 		// IKE
 		else if (src == 'IKE') {
-			if (msg[0] == 0x11) {
+			// Device status
+			if (msg[0] == 0x02) {
+				var command; 
+
+				if      (msg[1] == 0x00) { command = 'device status: ready'; }
+				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
+			}
+
+			else if (msg[0] == 0x11) {
 				var command = 'ignition status';
 
 				if      (msg[1] == 0x00) { omnibus.status.vehicle.ignition = 'off';       }
@@ -479,10 +578,10 @@ var data_handler = function(omnibus) {
 			}
 
 			else {
-				var command = 'unknown';
+				var command = new Buffer(msg);
 			}
 
-			console.log('[%s->%s] %s', src, dst, command);
+			console.log('[%s->%s]', src, dst, command);
 		}
 
 		// MFL
@@ -558,8 +657,11 @@ var data_handler = function(omnibus) {
 		}
 
 		else {
-			var command = 'unknown';
-			console.log('[%s->%s] %s', src, dst, command);
+			// Filter diagnostic commands from log output
+			if (src != 'DIA') {
+				var command = 'unknown';
+				console.log('[%s->%s] %s', src, dst, command);
+			}
 		}
 	}
 }

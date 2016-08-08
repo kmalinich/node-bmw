@@ -57,7 +57,7 @@ var GM = function(omnibus) {
 			var button = 'no button pressed';
 		}
 
-		console.log('[GM] Received %s: %s', command, button);
+		console.log('[GM] %s: %s', command, button);
 	}
 
 	// [0x7A] Decode a door/flap status message from the GM and act upon the results

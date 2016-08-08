@@ -72,7 +72,8 @@ var data_handler = function(omnibus) {
 
 			else {
 				var command = 'unknown';
-				var data    = 'unknown';
+				//var data    = 'unknown';
+				var data    = new Buffer(msg);
 			}
 
 			console.log('[%s->%s] %s: %s', src, dst, command, data);

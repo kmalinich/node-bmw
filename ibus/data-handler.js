@@ -261,7 +261,7 @@ var data_handler = function(omnibus) {
 					omnibus.status.lights.turn_left = true;
 				}
 				else {
-					if (omnibus.status.lights.turn_left == true) {
+					if (omnibus.status.lights.turn_left == true && omnibus.status.lights.turn_right == false) {
 						var turn_left_release_time = Date.now();
 						var turn_left_pressed_time = turn_left_release_time-omnibus.status.lights.turn_left_time;
 
@@ -293,7 +293,7 @@ var data_handler = function(omnibus) {
 					omnibus.status.lights.turn_right = true;
 				}
 				else {
-					if (omnibus.status.lights.turn_right == true) {
+					if (omnibus.status.lights.turn_right == true && omnibus.status.lights.turn_left == false) {
 						var turn_right_release_time = Date.now();
 						var turn_right_pressed_time = turn_right_release_time-omnibus.status.lights.turn_right_time;
 

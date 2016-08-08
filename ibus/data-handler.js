@@ -226,8 +226,6 @@ var data_handler = function(omnibus) {
         if (bit_test(msg[1], bit_2))  { omnibus.status.lights.highbeam       = true; }
         if (bit_test(msg[1], bit_3))  { omnibus.status.lights.fog_front      = true; }
         if (bit_test(msg[1], bit_4))  { omnibus.status.lights.fog_rear       = true; }
-        if (bit_test(msg[1], bit_5))  { omnibus.status.lights.turn_left      = true; }
-        if (bit_test(msg[1], bit_6))  { omnibus.status.lights.turn_right     = true; }
         if (bit_test(msg[1], bit_7))  { omnibus.status.lights.turn_fast      = true; }
 
         // Faulty
@@ -243,7 +241,6 @@ var data_handler = function(omnibus) {
 
         // Lights on
 				if (bit_test(msg[3], bit_1)) { omnibus.status.lights.brake           = true; }
-				if (bit_test(msg[3], bit_2)) { omnibus.status.lights.turn_sync       = true; }
 				if (bit_test(msg[3], bit_3)) { omnibus.status.lights.standing_rear   = true; }
 				if (bit_test(msg[3], bit_4)) { omnibus.status.lights.trailer         = true; }
 				if (bit_test(msg[3], bit_5)) { omnibus.status.lights.reverse         = true; }
@@ -257,6 +254,22 @@ var data_handler = function(omnibus) {
 				if (bit_test(msg[4], bit_3)) { omnibus.status.lights.faulty.standing_rear_left  = true; }
 				if (bit_test(msg[4], bit_4)) { omnibus.status.lights.faulty.lowbeam_right       = true; }
 				if (bit_test(msg[4], bit_5)) { omnibus.status.lights.faulty.lowbeam_left        = true; }
+
+				// Comfort turn signal handling
+				if (bit_test(msg[1], bit_5)) {
+					omnibus.status.lights.turn_left      = true;
+					omnibus.status.lights.turn_left_time = Date.now();
+				}
+
+				if (bit_test(msg[1], bit_6)) {
+					omnibus.status.lights.turn_right      = true;
+					omnibus.status.lights.turn_right_time = Date.now(); 
+				}
+
+				if (bit_test(msg[3], bit_2)) { omnibus.status.lights.turn_sync      = true; }
+
+
+
 
 				console.log('[data-handler] GLO->LCM: Received light status');
 			}

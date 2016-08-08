@@ -22,11 +22,14 @@ var LCM = function(omnibus) {
 	// Exposed data
 	this.bit_set            = bit_set;
 	this.bit_test           = bit_test;
+	this.comfort_turn       = comfort_turn;
 	this.lcm_bitmask_decode = lcm_bitmask_decode;
 	this.lcm_bitmask_encode = lcm_bitmask_encode;
 	this.lcm_data           = lcm_data;
 	this.lcm_get            = lcm_get;
 	this.lcm_set            = lcm_set;
+	this.reset              = reset;
+	this.welcome_lights     = welcome_lights;
 
 	// Handle incoming commands
 	function lcm_data(data) {
@@ -39,6 +42,54 @@ var LCM = function(omnibus) {
 			lcm_bitmask_encode(data);
 		}
 	}
+
+  // Comfort turn signal handling
+	function comfort_turn(action) {
+    console.log('[LCM] Comfort turn signal - \'%s\'', action);
+
+    switch (action) {
+      case 'left':
+        var lcm_object = { switch_turn_left: true };
+        lcm_bitmask_encode(lcm_object);
+        break;
+      case 'right':
+        var lcm_object = { switch_turn_right: true };
+        lcm_bitmask_encode(lcm_object);
+        break;
+    }
+
+    // Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
+    setTimeout(function() { reset(); }, 2500);
+	}
+
+  // Welcome lights on unlocking/locking
+  function welcome_lights(action) {
+    console.log('[LCM] Welcome lights - \'%s\'', action);
+
+    switch (action) {
+      case 'on' :
+        var lcm_object = {
+          output_standing_front_left  : true,
+          output_standing_front_right : true,
+          output_standing_rear_right  : true,
+          output_standing_rear_left   : true,
+          output_license_rear_right   : true,
+        };
+
+        lcm_bitmask_encode(lcm_object);
+        break;
+      case 'off':
+        reset();
+        break;
+    }
+  }
+
+  function reset() {
+    console.log('[LCM] Resetting');
+    var lcm_object = {};
+    lcm_bitmask_encode(lcm_object);
+  }
+
 
 	// Get LCM IO status
 	function lcm_get() {

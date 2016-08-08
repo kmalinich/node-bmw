@@ -39,16 +39,20 @@ var data_handler = function(omnibus) {
 			// Key fob message
 			if (msg[0] == 0x72) {
 				var command = 'key fob status';
-				console.log('[data-handler] %s -> %s: Received %s: %s', src, dst, command);
 				omnibus.GM.key_fob_status_decode(msg);
 			}
 
 			// Current door/flap status
 			else if (msg[0] == 0x7A) {
-				var command = 'Current door/flap status';
-				console.log('[data-handler] %s -> %s: Received %s', src, dst, command);
+				var command = 'current door/flap status';
 				omnibus.GM.door_flap_status_decode(msg);
 			}
+
+			else {
+				var command = 'unknown';
+			}
+
+			console.log('[data-handler] %s->%s: %s', src, dst, command);
 		}
 
 		// EWS
@@ -71,18 +75,18 @@ var data_handler = function(omnibus) {
 				var data    = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s: %s', src, dst, command, data);
+			console.log('[data-handler] %s->%s: %s: %s', src, dst, command, data);
 		}
 
 		// CCM
 		else if (src == 'CCM') {
 			if (msg[0] == 0x51) {
 				var command = 'check control sensors';
-				var data    = 'not sure yet.'
+				var data    = 'unknown'
 			}     
 
 			else if (msg[0] == 0x1a) {
-				var command = 'urgent text';
+				var command = 'check control message';
 				var data    = ''+msg+'';
 			}
 
@@ -91,7 +95,7 @@ var data_handler = function(omnibus) {
 				var data    = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s: %s', src, dst, command, data);
+			console.log('[data-handler] %s->%s: %s: %s', src, dst, command, data);
 		}
 
 		// RAD
@@ -99,7 +103,7 @@ var data_handler = function(omnibus) {
 			// CD changer emulation handling
 			if (dst == 'CDC') {
 				if (msg[0] == 0x01) {
-					var command = 'Device status request';
+					var command = 'device status request';
 
 					// Do CDC->LOC Device status ready
 					omnibus.CDC.send_device_status_ready();
@@ -121,7 +125,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s', src, dst, command);
+			console.log('[data-handler] %s->%s: %s', src, dst, command);
 		}
 
 		// LCM
@@ -132,12 +136,12 @@ var data_handler = function(omnibus) {
 			}
 
 			else if(msg[0] == 0x5B) {
-				var command = 'Light status';
+				var command = 'light status';
 				omnibus.LCM.light_status_decode(msg);
 			}
 
 			else if(msg[0] == 0x5C) {
-				var command = 'Light dimmer status';
+				var command = 'light dimmer status';
 				omnibus.status.lights.dimmer = msg[1];
 			}
 
@@ -145,7 +149,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s', src, dst, command);
+			console.log('[data-handler] %s->%s: %s', src, dst, command);
 		}
 
 		// IKE
@@ -477,7 +481,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s', src, dst, command);
+			console.log('[data-handler] %s->%s: %s', src, dst, command);
 		}
 
 		// MFL
@@ -523,7 +527,7 @@ var data_handler = function(omnibus) {
 				var action  = 'unknown';
 			}
 
-			console.log('[data-handler] %s -> %s: Received %s: %s->%s', src, dst, command, button, action);
+			console.log('[data-handler] %s->%s: %s: %s->%s', src, dst, command, button, action);
 		}
 	}
 }

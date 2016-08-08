@@ -91,7 +91,6 @@ var data_handler = function(omnibus) {
 
 				// This is correct, in a sense... Not a good sense, but in a sense.
 				if (bit_test(msg[1], 0x20)) { omnibus.status.vehicle.locked      = true; } else { omnibus.status.vehicle.locked      = false; }
-				// if (bit_test(msg[1], 0x10)) { omnibus.status.vehicle.locked      = false; } else { omnibus.status.vehicle.locked      = true;  }
                                                                                                                                       
 				if (bit_test(msg[2], 0x01)) { omnibus.status.windows.front_left  = true; } else { omnibus.status.windows.front_left  = false; }
 				if (bit_test(msg[2], 0x02)) { omnibus.status.windows.front_right = true; } else { omnibus.status.windows.front_right = false; }
@@ -175,6 +174,91 @@ var data_handler = function(omnibus) {
 			else if(msg[0] == 0x5C) {
 				var command = 'Light dimmer status';
 				console.log('[data-handler] LCM --> GLO : Light dimmer: %s', msg[1]);
+			}
+
+			else if(msg[0] == 0x5B) {
+        var command = 'Light status';
+
+        // Clear object first
+        omnibus.status.lights : {
+          all_off         : true,
+          brake           : false,
+          fog_front       : false,
+          fog_rear        : false,
+          hazard          : false,
+          highbeam        : false,
+          lowbeam         : false,
+          reverse         : false,
+          standing_front  : false,
+          standing_rear   : false,
+          trailer         : false,
+          trailer_reverse : false,
+          turn_fast       : false,
+          turn_left       : false,
+          turn_right      : false,
+          turn_sync       : false,
+          faulty : {
+            all_ok              : true,
+            brake_left          : false,
+            brake_right         : false,
+            fog_front           : false,
+            fog_rear            : false,
+            hazard              : false,
+            highbeam            : false,
+            license_plate       : false,
+            lowbeam_left        : false,
+            lowbeam_right       : false,
+            reverse             : false,
+            standing_front      : false,
+            standing_rear_left  : false,
+            standing_rear_right : false,
+            trailer             : false,
+            turn_fast           : false,
+            turn_left           : false,
+            turn_right          : false,
+          },
+        };
+
+        // Lights on
+        if (bit_test(msg[1] == 0x00)) { omnibus.status.lights.all_off        = true; }
+        if (bit_test(msg[1], bit_0))  { omnibus.status.lights.standing_front = true; }
+        if (bit_test(msg[1], bit_1))  { omnibus.status.lights.lowbeam        = true; }
+        if (bit_test(msg[1], bit_2))  { omnibus.status.lights.highbeam       = true; }
+        if (bit_test(msg[1], bit_3))  { omnibus.status.lights.fog_front      = true; }
+        if (bit_test(msg[1], bit_4))  { omnibus.status.lights.fog_rear       = true; }
+        if (bit_test(msg[1], bit_5))  { omnibus.status.lights.turn_left      = true; }
+        if (bit_test(msg[1], bit_6))  { omnibus.status.lights.turn_right     = true; }
+        if (bit_test(msg[1], bit_7))  { omnibus.status.lights.turn_fast      = true; }
+
+        // Faulty
+				if (bit_test(msg[2] == 0x00)) { omnibus.status.lights.faulty.all_ok         = true; }
+				if (bit_test(msg[2], bit_0))  { omnibus.status.lights.faulty.standing_front = true; }
+				if (bit_test(msg[2], bit_1))  { omnibus.status.lights.faulty.lowbeam        = true; }
+				if (bit_test(msg[2], bit_2))  { omnibus.status.lights.faulty.highbeam       = true; }
+				if (bit_test(msg[2], bit_3))  { omnibus.status.lights.faulty.fog_front      = true; }
+				if (bit_test(msg[2], bit_4))  { omnibus.status.lights.faulty.fog_rear       = true; }
+				if (bit_test(msg[2], bit_5))  { omnibus.status.lights.faulty.turn_left      = true; }
+				if (bit_test(msg[2], bit_6))  { omnibus.status.lights.faulty.turn_right     = true; }
+				if (bit_test(msg[2], bit_7))  { omnibus.status.lights.faulty.license_plate  = true; }
+
+        // Lights on
+				if (bit_test(msg[3], bit_1)) { omnibus.status.lights.brake           = true; }
+				if (bit_test(msg[3], bit_2)) { omnibus.status.lights.turn_sync       = true; }
+				if (bit_test(msg[3], bit_3)) { omnibus.status.lights.standing_rear   = true; }
+				if (bit_test(msg[3], bit_4)) { omnibus.status.lights.trailer         = true; }
+				if (bit_test(msg[3], bit_5)) { omnibus.status.lights.reverse         = true; }
+				if (bit_test(msg[3], bit_6)) { omnibus.status.lights.trailer_reverse = true; }
+				if (bit_test(msg[3], bit_7)) { omnibus.status.lights.hazard          = true; }
+
+        // Faulty
+				if (bit_test(msg[4], bit_0)) { omnibus.status.lights.faulty.brake_right         = true; }
+				if (bit_test(msg[4], bit_1)) { omnibus.status.lights.faulty.brake_left          = true; }
+				if (bit_test(msg[4], bit_2)) { omnibus.status.lights.faulty.standing_rear_right = true; }
+				if (bit_test(msg[4], bit_3)) { omnibus.status.lights.faulty.standing_rear_left  = true; }
+				if (bit_test(msg[4], bit_4)) { omnibus.status.lights.faulty.lowbeam_right       = true; }
+				if (bit_test(msg[4], bit_5)) { omnibus.status.lights.faulty.lowbeam_left        = true; }
+
+				console.log('[data-handler] GLO->LCM: Received light status');
 			}
 		}
 

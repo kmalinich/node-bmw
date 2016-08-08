@@ -391,7 +391,8 @@ function status() {
 		dataType : 'json',
 		success  : function(return_data) {
 			console.log(return_data.lights.turn_left);
-			console.log(return_data.lights.turn_sync);
+			console.log(return_data.lights.turn_left_time);
+			console.log(return_data.lights.comfort_turn);
 
 			// Clean up page
 			clean_class_all();

@@ -179,45 +179,38 @@ var data_handler = function(omnibus) {
 			else if(msg[0] == 0x5B) {
         var command = 'Light status';
 
-        // Clear object first
-        omnibus.status.lights = {
-          all_off         : false,
-          brake           : false,
-          fog_front       : false,
-          fog_rear        : false,
-          hazard          : false,
-          highbeam        : false,
-          lowbeam         : false,
-          reverse         : false,
-          standing_front  : false,
-          standing_rear   : false,
-          trailer         : false,
-          trailer_reverse : false,
-          turn_fast       : false,
-          turn_left       : false,
-          turn_right      : false,
-          turn_sync       : false,
-          faulty : {
-            all_ok              : false,
-            brake_left          : false,
-            brake_right         : false,
-            fog_front           : false,
-            fog_rear            : false,
-            hazard              : false,
-            highbeam            : false,
-            license_plate       : false,
-            lowbeam_left        : false,
-            lowbeam_right       : false,
-            reverse             : false,
-            standing_front      : false,
-            standing_rear_left  : false,
-            standing_rear_right : false,
-            trailer             : false,
-            turn_fast           : false,
-            turn_left           : false,
-            turn_right          : false,
-          },
-        };
+				// Clear object first
+				omnibus.status.lights.all_off                    = false;
+				omnibus.status.lights.brake                      = false;
+				omnibus.status.lights.fog_front                  = false;
+				omnibus.status.lights.fog_rear                   = false;
+				omnibus.status.lights.hazard                     = false;
+				omnibus.status.lights.highbeam                   = false;
+				omnibus.status.lights.lowbeam                    = false;
+				omnibus.status.lights.reverse                    = false;
+				omnibus.status.lights.standing_front             = false;
+				omnibus.status.lights.standing_rear              = false;
+				omnibus.status.lights.trailer                    = false;
+				omnibus.status.lights.trailer_reverse            = false;
+				omnibus.status.lights.turn_sync                  = false;
+				omnibus.status.lights_faulty.all_ok              = false;
+				omnibus.status.lights_faulty.brake_left          = false;
+				omnibus.status.lights_faulty.brake_right         = false;
+				omnibus.status.lights_faulty.fog_front           = false;
+				omnibus.status.lights_faulty.fog_rear            = false;
+				omnibus.status.lights_faulty.hazard              = false;
+				omnibus.status.lights_faulty.highbeam            = false;
+				omnibus.status.lights_faulty.license_plate       = false;
+				omnibus.status.lights_faulty.lowbeam_left        = false;
+				omnibus.status.lights_faulty.lowbeam_right       = false;
+				omnibus.status.lights_faulty.reverse             = false;
+				omnibus.status.lights_faulty.standing_front      = false;
+				omnibus.status.lights_faulty.standing_rear_left  = false;
+				omnibus.status.lights_faulty.standing_rear_right = false;
+				omnibus.status.lights_faulty.trailer             = false;
+				omnibus.status.lights_faulty.turn_fast           = false;
+				omnibus.status.lights_faulty.turn_left           = false;
+				omnibus.status.lights_faulty.turn_right          = false;
 
         // Lights on
         if (bit_test(msg[1] == 0x00)) { omnibus.status.lights.all_off        = true; }
@@ -255,16 +248,74 @@ var data_handler = function(omnibus) {
 				if (bit_test(msg[4], bit_4)) { omnibus.status.lights.faulty.lowbeam_right       = true; }
 				if (bit_test(msg[4], bit_5)) { omnibus.status.lights.faulty.lowbeam_left        = true; }
 
-				// Comfort turn signal handling
+				/*
+				 * Comfort turn signal handling
+				 */
+
+				// Left
 				if (bit_test(msg[1], bit_5)) {
-					omnibus.status.lights.turn_left      = true;
-					omnibus.status.lights.turn_left_time = Date.now();
+					if (omnibus.status.lights.turn_left == false) {
+						omnibus.status.lights.turn_left_time = Date.now();
+					}
+
+					omnibus.status.lights.turn_left = true;
+				}
+				else {
+					if (omnibus.status.lights.turn_left == true) {
+						var turn_left_release_time = Date.now();
+						var turn_left_pressed_time = turn_left_release_time-omnibus.status.lights.turn_left_time;
+
+						if (turn_left_pressed_time < 1000) {
+							console.log('LEFT TIME: %s. FIRING LEFT COMFORT BLINK', turn_left_pressed_time);
+
+							var lcm_object = { switch_turn_left : true };
+							omnibus.LCM.lcm_bitmask_encode(lcm_object);
+
+							// Turn off comfort turn signal
+							setTimeout(function() {
+								var lcm_object = {};
+								console.log('DISABLING LEFT COMFORT BLINK!');
+								omnibus.LCM.lcm_bitmask_encode(lcm_object);
+							}, 2500);
+
+						}
+					}
+
+					omnibus.status.lights.turn_left = false;
 				}
 
+				// Right 
 				if (bit_test(msg[1], bit_6)) {
-					omnibus.status.lights.turn_right      = true;
-					omnibus.status.lights.turn_right_time = Date.now(); 
+					if (omnibus.status.lights.turn_right == false) {
+						omnibus.status.lights.turn_right_time = Date.now();
+					}
+
+					omnibus.status.lights.turn_right = true;
 				}
+				else {
+					if (omnibus.status.lights.turn_right == true) {
+						var turn_right_release_time = Date.now();
+						var turn_right_pressed_time = turn_right_release_time-omnibus.status.lights.turn_right_time;
+
+						if (turn_right_pressed_time < 1000) {
+							console.log('RIGHT TIME: %s. FIRING RIGHT COMFORT BLINK', turn_right_pressed_time);
+
+							var lcm_object = { switch_turn_right : true };
+							omnibus.LCM.lcm_bitmask_encode(lcm_object);
+
+							// Turn off comfort turn signal
+							setTimeout(function() {
+								var lcm_object = {};
+								console.log('DISABLING RIGHT COMFORT BLINK!');
+								omnibus.LCM.lcm_bitmask_encode(lcm_object);
+							}, 2500);
+
+						}
+					}
+
+					omnibus.status.lights.turn_right = false;
+				}
+
 
 				if (bit_test(msg[3], bit_2)) { omnibus.status.lights.turn_sync      = true; }
 

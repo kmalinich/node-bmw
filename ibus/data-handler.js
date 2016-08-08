@@ -52,7 +52,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s', src, dst, command);
+			console.log('[%s->%s] %s', src, dst, command);
 		}
 
 		// EWS
@@ -75,7 +75,7 @@ var data_handler = function(omnibus) {
 				var data    = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s: %s', src, dst, command, data);
+			console.log('[%s->%s] %s: %s', src, dst, command, data);
 		}
 
 		// CCM
@@ -95,7 +95,7 @@ var data_handler = function(omnibus) {
 				var data    = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s: %s', src, dst, command, data);
+			console.log('[%s->%s] %s: %s', src, dst, command, data);
 		}
 
 		// RAD
@@ -125,7 +125,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s', src, dst, command);
+			console.log('[%s->%s] %s', src, dst, command);
 		}
 
 		// LCM
@@ -149,7 +149,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s', src, dst, command);
+			console.log('[%s->%s] %s', src, dst, command);
 		}
 
 		// IKE
@@ -481,7 +481,7 @@ var data_handler = function(omnibus) {
 				var command = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s', src, dst, command);
+			console.log('[%s->%s] %s', src, dst, command);
 		}
 
 		// MFL
@@ -527,7 +527,7 @@ var data_handler = function(omnibus) {
 				var action  = 'unknown';
 			}
 
-			console.log('[data-handler] %s->%s: %s: %s->%s', src, dst, command, button, action);
+			console.log('[%s->%s] %s: %s->%s', src, dst, command, button, action);
 		}
 	}
 }

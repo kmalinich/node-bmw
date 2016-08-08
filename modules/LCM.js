@@ -80,7 +80,10 @@ var LCM = function(omnibus) {
 		var turn_right_on = bit_test(message[1], bit_6);
 
 		// If comfort turn is not currently engaged
-		if (omnibus.status.lights.comfort_turn == false) {
+		if (omnibus.status.lights.turn_comfort == true) {
+			console.log('[LCM] Comfort turn signal currently engaged');
+		}
+		else {
 			// If
 			//
 			// left signal is now on, and
@@ -127,7 +130,7 @@ var LCM = function(omnibus) {
 					omnibus.status.lights.turn_right_release_time = Date.now();
 
 					// Calculate time difference between initial on and off
-					var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_left_depress_time;
+					var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_right_depress_time;
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
@@ -137,6 +140,7 @@ var LCM = function(omnibus) {
 				}
 			}
 		}
+
 
 		// Afterwards, set the status in omnibus.status.lights as usual
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }

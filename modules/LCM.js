@@ -20,16 +20,130 @@ var LCM = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.bit_set            = bit_set;
-	this.bit_test           = bit_test;
-	this.comfort_turn       = comfort_turn;
-	this.lcm_bitmask_decode = lcm_bitmask_decode;
-	this.lcm_bitmask_encode = lcm_bitmask_encode;
-	this.lcm_data           = lcm_data;
-	this.lcm_get            = lcm_get;
-	this.lcm_set            = lcm_set;
-	this.reset              = reset;
-	this.welcome_lights     = welcome_lights;
+	this.bit_set             = bit_set;
+	this.bit_test            = bit_test;
+	this.comfort_turn        = comfort_turn;
+	this.io_status_decode    = io_status_decode;
+	this.io_status_encode    = io_status_encode;
+	this.lcm_data            = lcm_data;
+	this.lcm_get             = lcm_get;
+	this.lcm_set             = lcm_set;
+	this.light_status_decode = light_status_decode;
+	this.reset               = reset;
+	this.welcome_lights      = welcome_lights;
+
+	// [0x5B] Decode a light status message from the LCM and act upon the results
+	function light_status_decode(message) {
+		// Lights on
+		if (message[1] == 0x00)          { omnibus.status.lights.all_off        = true; } else { omnibus.status.lights.all_off        = false; }
+		if (bit_test(message[1], bit_0)) { omnibus.status.lights.standing_front = true; } else { omnibus.status.lights.standing_front = false; }
+		if (bit_test(message[1], bit_1)) { omnibus.status.lights.lowbeam        = true; } else { omnibus.status.lights.lowbeam        = false; }
+		if (bit_test(message[1], bit_2)) { omnibus.status.lights.highbeam       = true; } else { omnibus.status.lights.highbeam       = false; }
+		if (bit_test(message[1], bit_3)) { omnibus.status.lights.fog_front      = true; } else { omnibus.status.lights.fog_front      = false; }
+		if (bit_test(message[1], bit_4)) { omnibus.status.lights.fog_rear       = true; } else { omnibus.status.lights.fog_rear       = false; }
+		if (bit_test(message[1], bit_7)) { omnibus.status.lights.turn_fast      = true; } else { omnibus.status.lights.turn_fast      = false; }
+
+		// Faulty
+		if (message[2] == 0x00)          { omnibus.status.lights.faulty.all_ok         = true; } else { omnibus.status.lights.faulty.all_ok         = false; }
+		if (bit_test(message[2], bit_0)) { omnibus.status.lights.faulty.standing_front = true; } else { omnibus.status.lights.faulty.standing_front = false; }
+		if (bit_test(message[2], bit_1)) { omnibus.status.lights.faulty.lowbeam        = true; } else { omnibus.status.lights.faulty.lowbeam        = false; }
+		if (bit_test(message[2], bit_2)) { omnibus.status.lights.faulty.highbeam       = true; } else { omnibus.status.lights.faulty.highbeam       = false; }
+		if (bit_test(message[2], bit_3)) { omnibus.status.lights.faulty.fog_front      = true; } else { omnibus.status.lights.faulty.fog_front      = false; }
+		if (bit_test(message[2], bit_4)) { omnibus.status.lights.faulty.fog_rear       = true; } else { omnibus.status.lights.faulty.fog_rear       = false; }
+		if (bit_test(message[2], bit_5)) { omnibus.status.lights.faulty.turn_left      = true; } else { omnibus.status.lights.faulty.turn_left      = false; }
+		if (bit_test(message[2], bit_6)) { omnibus.status.lights.faulty.turn_right     = true; } else { omnibus.status.lights.faulty.turn_right     = false; }
+		if (bit_test(message[2], bit_7)) { omnibus.status.lights.faulty.license_plate  = true; } else { omnibus.status.lights.faulty.license_plate  = false; }
+
+		// Lights on
+		if (bit_test(message[3], bit_1)) { omnibus.status.lights.brake           = true; } else { omnibus.status.lights.brake           = false; }
+		if (bit_test(message[3], bit_2)) { omnibus.status.lights.turn_sync       = true; } else { omnibus.status.lights.turn_sync       = false; }
+		if (bit_test(message[3], bit_3)) { omnibus.status.lights.standing_rear   = true; } else { omnibus.status.lights.standing_rear   = false; }
+		if (bit_test(message[3], bit_4)) { omnibus.status.lights.trailer         = true; } else { omnibus.status.lights.trailer         = false; }
+		if (bit_test(message[3], bit_5)) { omnibus.status.lights.reverse         = true; } else { omnibus.status.lights.reverse         = false; }
+		if (bit_test(message[3], bit_6)) { omnibus.status.lights.trailer_reverse = true; } else { omnibus.status.lights.trailer_reverse = false; }
+		if (bit_test(message[3], bit_7)) { omnibus.status.lights.hazard          = true; } else { omnibus.status.lights.hazard          = false; }
+
+		// Faulty
+		if (bit_test(message[4], bit_0)) { omnibus.status.lights.faulty.brake_right         = true; } else { omnibus.status.lights.faulty.brake_right         = false; }
+		if (bit_test(message[4], bit_1)) { omnibus.status.lights.faulty.brake_left          = true; } else { omnibus.status.lights.faulty.brake_left          = false; }
+		if (bit_test(message[4], bit_2)) { omnibus.status.lights.faulty.standing_rear_right = true; } else { omnibus.status.lights.faulty.standing_rear_right = false; }
+		if (bit_test(message[4], bit_3)) { omnibus.status.lights.faulty.standing_rear_left  = true; } else { omnibus.status.lights.faulty.standing_rear_left  = false; }
+		if (bit_test(message[4], bit_4)) { omnibus.status.lights.faulty.lowbeam_right       = true; } else { omnibus.status.lights.faulty.lowbeam_right       = false; }
+		if (bit_test(message[4], bit_5)) { omnibus.status.lights.faulty.lowbeam_left        = true; } else { omnibus.status.lights.faulty.lowbeam_left        = false; }
+
+		/*
+		 * Comfort turn signal handling
+		 */
+
+		// Store status in temporary variables
+		var turn_left_on  = bit_test(message[1], bit_5); 
+		var turn_right_on = bit_test(message[1], bit_6);
+
+		// If comfort turn is not currently engaged
+		if (omnibus.status.lights.comfort_turn == false) {
+			// If
+			//
+			// left signal is now on, and
+			// right signal is now off, and
+			// left signal was previously off:
+			//
+			// Set turn_left_depress_time timestamp
+			if (turn_left_on && !turn_right_on && omnibus.status.lights.turn_left == false) {
+				omnibus.status.lights.turn_left_depress_time = Date.now();
+			}
+
+			// If
+			//
+			// left signal is now off, and
+			// right signal is now on, and
+			// right signal was previously off:
+			//
+			// Set turn_right_depress_time timestamp
+			if (!turn_left_on && turn_right_on && omnibus.status.lights.turn_right == false) {
+				omnibus.status.lights.turn_right_depress_time = Date.now();
+			}
+
+			// If left signal is now off and right signal is now off
+			if (!turn_left_on && !turn_right_on) {
+
+				// If left signal was previously on
+				if (omnibus.status.lights.turn_left == true) {
+					// Set turn_left_release_time timestamp
+					omnibus.status.lights.turn_left_release_time = Date.now();
+
+					// Calculate time difference between initial on and off
+					var turn_left_depress_elapsed = omnibus.status.lights.turn_left_release_time-omnibus.status.lights.turn_left_depress_time;
+
+					// If the time difference is less than 1000ms, fire comfort turn signal
+					if (turn_left_depress_elapsed < 1000) {
+						console.log('[LCM] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+						comfort_turn('left');
+					}
+				}
+
+				// If right signal was previously on
+				if (omnibus.status.lights.turn_right == true) {
+					// Set turn_right_release_time timestamp
+					omnibus.status.lights.turn_right_release_time = Date.now();
+
+					// Calculate time difference between initial on and off
+					var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_left_depress_time;
+
+					// If the time difference is less than 1000ms, fire comfort turn signal
+					if (turn_right_depress_elapsed < 1000) {
+						console.log('[LCM] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+						comfort_turn('right');
+					}
+				}
+			}
+		}
+
+		// Afterwards, set the status in omnibus.status.lights as usual
+		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
+		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
+
+		console.log('[LCM] Decoded light status message');
+	}
 
 	// Handle incoming commands
 	function lcm_data(data) {
@@ -39,30 +153,30 @@ var LCM = function(omnibus) {
 
 		else {
 			// Dirty assumption
-			lcm_bitmask_encode(data);
+			io_status_encode(data);
 		}
 	}
 
-  // Comfort turn signal handling
+	// Comfort turn signal handling
 	function comfort_turn(action) {
-    console.log('[LCM] Comfort turn signal - \'%s\'', action);
+		console.log('[LCM] Comfort turn signal - \'%s\'', action);
 
 		// Set status variable
 		omnibus.status.lights.turn_comfort = true;
 
-    switch (action) {
-      case 'left':
-        var lcm_object = { switch_turn_left: true };
-        lcm_bitmask_encode(lcm_object);
-        break;
-      case 'right':
-        var lcm_object = { switch_turn_right: true };
-        lcm_bitmask_encode(lcm_object);
-        break;
-    }
+		switch (action) {
+			case 'left':
+				var lcm_object = { switch_turn_left: true };
+				io_status_encode(lcm_object);
+				break;
+			case 'right':
+				var lcm_object = { switch_turn_right: true };
+				io_status_encode(lcm_object);
+				break;
+		}
 
-    // Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
-    setTimeout(function() {
+		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
+		setTimeout(function() {
 			reset();
 
 			// Set status variable
@@ -70,33 +184,33 @@ var LCM = function(omnibus) {
 		}, 2500);
 	}
 
-  // Welcome lights on unlocking/locking
-  function welcome_lights(action) {
-    console.log('[LCM] Welcome lights - \'%s\'', action);
+	// Welcome lights on unlocking/locking
+	function welcome_lights(action) {
+		console.log('[LCM] Welcome lights - \'%s\'', action);
 
-    switch (action) {
-      case 'on' :
-        var lcm_object = {
-          output_standing_front_left  : true,
-          output_standing_front_right : true,
-          output_standing_rear_right  : true,
-          output_standing_rear_left   : true,
-          output_license_rear_right   : true,
-        };
+		switch (action) {
+			case 'on' :
+				var lcm_object = {
+					output_standing_front_left  : true,
+					output_standing_front_right : true,
+					output_standing_rear_right  : true,
+					output_standing_rear_left   : true,
+					output_license_rear_right   : true,
+				};
 
-        lcm_bitmask_encode(lcm_object);
-        break;
-      case 'off':
-        reset();
-        break;
-    }
-  }
+				io_status_encode(lcm_object);
+				break;
+			case 'off':
+				reset();
+				break;
+		}
+	}
 
-  function reset() {
-    console.log('[LCM] Resetting');
-    var lcm_object = {};
-    lcm_bitmask_encode(lcm_object);
-  }
+	function reset() {
+		console.log('[LCM] Resetting');
+		var lcm_object = {};
+		io_status_encode(lcm_object);
+	}
 
 
 	// Get LCM IO status
@@ -153,7 +267,7 @@ var LCM = function(omnibus) {
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values
-	function lcm_bitmask_encode(array) {
+	function io_status_encode(array) {
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -269,12 +383,12 @@ var LCM = function(omnibus) {
 			bitmask_11,
 		];
 
-		// console.log('[LCM] lcm_bitmask_encode() output: %s', output);
+		// console.log('[LCM] io_status_encode() output: %s', output);
 		lcm_set(output);
 	}
 
 	// Decode the LCM bitmask string and output an array of true/false values
-	function lcm_bitmask_decode(array) {
+	function io_status_decode(array) {
 		var bitmask_0  = array[1];
 		var bitmask_1  = array[2];
 		var bitmask_2  = array[3];

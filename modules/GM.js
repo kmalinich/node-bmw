@@ -19,12 +19,69 @@ var GM = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.gm_cl             = gm_cl;
-	this.gm_data           = gm_data;
-	this.gm_get            = gm_get;
-	this.gm_interior_light = gm_interior_light;
-	this.gm_send           = gm_send;
-	this.gm_windows        = gm_windows;
+	this.door_flap_status_decode = door_flap_status_decode;
+	this.gm_cl                   = gm_cl;
+	this.gm_data                 = gm_data;
+	this.gm_get                  = gm_get;
+	this.gm_interior_light       = gm_interior_light;
+	this.gm_send                 = gm_send;
+	this.gm_windows              = gm_windows;
+	this.key_fob_status_decode   = key_fob_status_decode;
+
+	// [0x72] Decode a key fob message from the GM and act upon the results 
+	function key_fob_status_decode(message) {
+		var command = 'key fob status';
+
+		if (message[1] == 0x10) {
+			var button = 'lock button depressed';
+
+			console.log('[GM] Deactivating welcome lights');
+			omnibus.LCM.welcome_lights('off');
+		}
+
+		else if (bit_test(message[1], 0x20)) {
+			var button = 'unlock button depressed';
+
+			console.log('[GM] Activating welcome lights');
+			omnibus.LCM.welcome_lights('on');
+		}
+
+		else if (bit_test(message[1], 0x40)) {
+			var button = 'trunk button depressed';
+
+			console.log('[GM] Activating welcome lights');
+			omnibus.LCM.welcome_lights('on');
+		}
+
+		else if (message[1] == 0x00) {
+			var button = 'no button pressed';
+		}
+
+		console.log('[GM] Received %s: %s', command, button);
+	}
+
+	// [0x7A] Decode a door/flap status message from the GM and act upon the results
+	function door_flap_status_decode(message) {
+		// Set status from message by decrypting bitmask
+		if (bit_test(message[1], 0x01)) { omnibus.status.flaps.front_left    = true; } else { omnibus.status.flaps.front_left    = false; }
+		if (bit_test(message[1], 0x02)) { omnibus.status.flaps.front_right   = true; } else { omnibus.status.flaps.front_right   = false; }
+		if (bit_test(message[1], 0x04)) { omnibus.status.flaps.rear_left     = true; } else { omnibus.status.flaps.rear_left     = false; }
+		if (bit_test(message[1], 0x08)) { omnibus.status.flaps.rear_right    = true; } else { omnibus.status.flaps.rear_right    = false; }
+		if (bit_test(message[1], 0x40)) { omnibus.status.lights.interior     = true; } else { omnibus.status.lights.interior     = false; }
+
+		// This is correct, in a sense... Not a good sense, but in a sense.
+		if (bit_test(message[1], 0x20)) { omnibus.status.vehicle.locked      = true; } else { omnibus.status.vehicle.locked      = false; }
+
+		if (bit_test(message[2], 0x01)) { omnibus.status.windows.front_left  = true; } else { omnibus.status.windows.front_left  = false; }
+		if (bit_test(message[2], 0x02)) { omnibus.status.windows.front_right = true; } else { omnibus.status.windows.front_right = false; }
+		if (bit_test(message[2], 0x04)) { omnibus.status.windows.rear_left   = true; } else { omnibus.status.windows.rear_left   = false; }
+		if (bit_test(message[2], 0x08)) { omnibus.status.windows.rear_right  = true; } else { omnibus.status.windows.rear_right  = false; }
+		if (bit_test(message[2], 0x10)) { omnibus.status.windows.roof        = true; } else { omnibus.status.windows.roof        = false; }
+		if (bit_test(message[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
+		if (bit_test(message[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
+
+		console.log('[GM] Decoded door/flap status message');
+	}
 
 	// Handle incoming commands
 	function gm_data(data) {

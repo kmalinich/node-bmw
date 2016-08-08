@@ -486,10 +486,34 @@ var data_handler = function(omnibus) {
 
 		// MFL
 		else if (src == 'MFL') {
-			if (msg[0] == 0x3B) {
+			if (msg[0] == 0x32) {
+				var command = 'button action';
+				var button  = 'volume';
+				var action;
+
+				// Needs to be finished
+				if      (msg[1] == 0x10) { action = 'decrease 1 step';  }
+				else if (msg[1] == 0x11) { action = 'increase 1 step'; }
+			}
+
+			else if (msg[0] == 0x3A) {
+				var command = 'button action';
+				var button  = 'recirculation';
+				var action;
+
+				// Bitmask:
+				// 0x00 = released
+				// 0x08 = pressed
+
+				if      (msg[1] == 0x00) { action = 'released';  }
+				else if (msg[1] == 0x01) { action = 'depressed'; }
+			}
+
+			else if (msg[0] == 0x3B) {
 				var command = 'button action';
 
 				// Bitmask:
+				// 0x00 = no buttons pressed
 				// 0x01 = right
 				// 0x08 = left
 				// 0x10 = long depress
@@ -514,12 +538,14 @@ var data_handler = function(omnibus) {
 				}
 
 			}
-
-			else if (msg[0] == 0x01) {
-				var command = 'button action';
-				var button  = 'r/t';
-				var action  = 'depress';
-			}
+			// Nope..
+			// 50 B0 01,MFL --> SES: Device status request
+			// 50 C8 01,MFL --> TEL: Device status request
+			// else if (msg[0] == 0x01) {
+			// 	var command = 'button action';
+			// 	var button  = 'r/t';
+			// 	var action  = 'depress';
+			// }
 
 			else {
 				var command = 'unknown';

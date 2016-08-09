@@ -33,7 +33,6 @@ var LCM = function(omnibus) {
 	this.parse_data          = parse_data;
 	this.reset               = reset;
 	this.welcome_lights      = welcome_lights;
-	this.vehicle_data_decode = vehicle_data_decode;
 
 
 	// Parse data sent by real LCM module

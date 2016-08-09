@@ -32,7 +32,7 @@ omnibus.CDC             = new CDC(omnibus);
 omnibus.GM              = new GM(omnibus);
 omnibus.IKE             = new IKE(omnibus);
 omnibus.LCM             = new LCM(omnibus);
-omnibus.system_bus      = dbus.createConnection();
+omnibus.system_bus      = dbus.systemBus();
 
 // Data handler
 var data_handler_connection = new data_handler(omnibus);

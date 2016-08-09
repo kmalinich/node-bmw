@@ -642,7 +642,7 @@ var data_handler = function(omnibus) {
 				if (button == 'left' && action == 'depress') {
 					console.log('[MFL] Sending previous track command over system bus');
 
-					omnibus.system_bus.message({
+					omnibus.system_bus.invoke({
 						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
 						destination : 'org.bluez',
 						'interface' : 'org.bluez.MediaPlayer1',
@@ -654,7 +654,7 @@ var data_handler = function(omnibus) {
 				else if (button == 'right' && action == 'depress') {
 					console.log('[MFL] Sending next track command over system bus');
 
-					omnibus.system_bus.message({
+					omnibus.system_bus.invoke({
 						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
 						destination : 'org.bluez',
 						'interface' : 'org.bluez.MediaPlayer1',

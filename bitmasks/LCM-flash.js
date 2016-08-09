@@ -1,21 +1,8 @@
 #!/usr/bin/env node
 
-// Color terminal output
-var clc = require('cli-color');
+// Libraries 
+var clc  = require('cli-color');
 var wait = require('wait.for');
-
-// Libraries
-var ibus_interface = require('../ibus-interface.js');
-var bus_modules   = require('../bus-modules.js');
-
-// Serial device path
-var device = '/dev/tty.SLAB_USBtoUART';
-
-// IBUS connection handle
-var ibus_connection = new ibus_interface(device);
-
-// Run shutdown() on SIGINT
-process.on('SIGINT', shutdown);
 
 // Bitmasks in hex
 var bit_0 = 0x01;
@@ -32,26 +19,6 @@ var hazard  = bit_1;
 var beam_lo = bit_2;
 var fade    = bit_3;
 var beam_hi = bit_4;
-
-
-// Startup function
-function startup() {
-	// Open serial port
-	ibus_connection.startup();
-}
-
-// Shutdown function
-function shutdown() {
-	// Terminate connection
-	ibus_connection.shutdown(function() {
-		process.exit();
-	});
-}
-
-// Send IBUS message
-function ibus_send(ibus_packet) {
-	ibus_connection.send_message(ibus_packet);
-}
 
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
@@ -105,14 +72,6 @@ function offoff() {
 		var src = 0x00; // GM
 		var dst = 0xBF; // GLO
 		var msg = new Buffer([0x76, hex]);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: msg,
-		}
-
-		ibus_connection.send_message(ibus_packet);
 }
 
 function bit_sample(dsc, hex, callback) {
@@ -142,7 +101,6 @@ function bit_sample(dsc, hex, callback) {
 			msg: msg,
 		}
 
-		ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
 	}, 2000);
 }
@@ -171,13 +129,11 @@ function do_sample() {
 	// var result = wait.for(bit_sample, 'IKE     ', 0x01);
 }
 
-startup();
-
 function go() {
 	wait.launchFiber(do_sample);
 }
 
-ibus_connection.on('port_open', go);
+go();
 
 // lcm_flash_bitmask_decode(0x32);
 // lcm_flash_bitmask_decode(0x72);

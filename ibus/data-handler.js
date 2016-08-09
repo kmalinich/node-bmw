@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var dbus = require('dbus-native');
+
 // Ultimately some of this could be moved inside the module functions, after the modules themselves are cleaned up...
 
 var data_handler = function(omnibus) {
@@ -643,18 +645,20 @@ var data_handler = function(omnibus) {
 					omnibus.system_bus.message({
 						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
 						destination : 'org.bluez',
-						'interface' : 'org.bluez.MediaPlayer1.Previous',
+						'interface' : 'org.bluez.MediaPlayer1',
+						member      : 'Previous',
 						type        : dbus.messageType.methodCall
 					});
 				}
 
-				else if (button == 'left' && action == 'depress') {
+				else if (button == 'right' && action == 'depress') {
 					console.log('[MFL] Sending next track command over system bus');
 
 					omnibus.system_bus.message({
 						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
 						destination : 'org.bluez',
-						'interface' : 'org.bluez.MediaPlayer1.Next',
+						'interface' : 'org.bluez.MediaPlayer1',
+						member      : 'Next',
 						type        : dbus.messageType.methodCall
 					});
 				}

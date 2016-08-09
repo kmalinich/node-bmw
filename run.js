@@ -119,7 +119,7 @@ dispatcher.onPost('/lcm', function(request, response) {
   var post = query_string.parse(request.body);
   omnibus.LCM.lcm_data(post);
 
-  response.end('Got POST message for LCM\n');
+	response.end('Got POST message for LCM\n');
 });
 
 // Error

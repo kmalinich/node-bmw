@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var dbus_interface = require('./dbus/dbus-interface.js');
-var bus_modules    = require('./lib/bus-modules.js');
+var dbus_interface = require('./dbus-interface.js');
+var bus_modules    = require('../lib/bus-modules.js');
 
 // data
 var dbus_connection = new dbus_interface();

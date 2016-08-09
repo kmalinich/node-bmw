@@ -86,7 +86,7 @@ var LCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[LCM] Sent %s:', command, data);
+		console.log('[LCM]  Sent %s:', command, data);
 	}
 
 
@@ -139,7 +139,7 @@ var LCM = function(omnibus) {
 
 		// If comfort turn is not currently engaged
 		if (omnibus.status.lights.turn_comfort == true) {
-			console.log('[LCM] Comfort turn signal currently engaged');
+			console.log('[LCM]  Comfort turn signal currently engaged');
 		}
 		else {
 			// If
@@ -177,7 +177,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_left_depress_elapsed < 1000) {
-						console.log('[LCM] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+						console.log('[LCM]  Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
 						comfort_turn('left');
 					}
 				}
@@ -192,7 +192,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
-						console.log('[LCM] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+						console.log('[LCM]  Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
 						comfort_turn('right');
 					}
 				}
@@ -204,7 +204,7 @@ var LCM = function(omnibus) {
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
 
-		console.log('[LCM] Decoded light status message');
+		console.log('[LCM]  Decoded light status message');
 	}
 
 	// Handle incoming commands
@@ -221,7 +221,7 @@ var LCM = function(omnibus) {
 
 	// Comfort turn signal handling
 	function comfort_turn(action) {
-		console.log('[LCM] Comfort turn signal - \'%s\'', action);
+		console.log('[LCM]  Comfort turn signal - \'%s\'', action);
 
 		// Set status variable
 		omnibus.status.lights.turn_comfort = true;
@@ -248,7 +248,7 @@ var LCM = function(omnibus) {
 
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
-		console.log('[LCM] Welcome lights - \'%s\'', action);
+		console.log('[LCM]  Welcome lights - \'%s\'', action);
 
 		switch (action) {
 			case 'on' :
@@ -269,7 +269,7 @@ var LCM = function(omnibus) {
 	}
 
 	function reset() {
-		console.log('[LCM] Resetting');
+		console.log('[LCM]  Resetting');
 		var lcm_object = {};
 		io_status_encode(lcm_object);
 	}
@@ -288,7 +288,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM] Sending \'Get IO status\' packet');
+		console.log('[LCM]  Sending \'Get IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -308,7 +308,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM] Sending \'Set IO status\' packet');
+		console.log('[LCM]  Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -445,7 +445,7 @@ var LCM = function(omnibus) {
 			bitmask_11,
 		];
 
-		// console.log('[LCM] io_status_encode() output: %s', output);
+		// console.log('[LCM]  io_status_encode() output: %s', output);
 		lcm_set(output);
 	}
 

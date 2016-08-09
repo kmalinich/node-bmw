@@ -89,7 +89,7 @@ var MFL = function(omnibus) {
 			}
 
 			if (button == 'left' && action == 'depress') {
-				console.log('[MFL] Sending previous track command over system bus');
+				console.log('[MFL]  Sending previous track command over system bus');
 
 				// Send previous track command to BlueZ
 				omnibus.system_bus.invoke({
@@ -102,7 +102,7 @@ var MFL = function(omnibus) {
 			}
 
 			else if (button == 'right' && action == 'depress') {
-				console.log('[MFL] Sending next track command over system bus');
+				console.log('[MFL]  Sending next track command over system bus');
 
 				// Send next track command to BlueZ
 				omnibus.system_bus.invoke({
@@ -130,7 +130,7 @@ var MFL = function(omnibus) {
 			action  = new Buffer(message);
 		}
 
-		console.log('[MFL] Sent %s: %s', command, button, action);
+		console.log('[MFL]  Sent %s: %s', command, button, action);
 	}
 }
 

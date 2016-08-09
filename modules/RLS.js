@@ -67,7 +67,7 @@ var RLS = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[RLS] Sent %s:', command, data);
+		console.log('[RLS]  Sent %s:', command, data);
 	}
 }
 

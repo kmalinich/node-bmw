@@ -67,7 +67,7 @@ var TEL = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[TEL] Sent %s:', command, data);
+		console.log('[TEL]  Sent %s:', command, data);
 	}
 }
 

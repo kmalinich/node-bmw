@@ -39,7 +39,7 @@ var RAD = function(omnibus) {
 
   // Turn on/off/flash the RAD LED by encoding a bitmask from an input object
   function led(object) {
-    console.log('[RAD] Encoding \'RAD LED\' packet');
+    console.log('[RAD]  Encoding \'RAD LED\' packet');
 
     // Bitmask
     // 0x00 = all off
@@ -74,7 +74,7 @@ var RAD = function(omnibus) {
     }
 
     // Send the message
-    console.log('[RAD] Sending \'RAD LED\' packet');
+    console.log('[RAD]  Sending \'RAD LED\' packet');
     omnibus.ibus_connection.send_message(ibus_packet);
   }
 
@@ -135,7 +135,7 @@ var RAD = function(omnibus) {
       data    = new Buffer(message);
     }
 
-    console.log('[RAD] Sent %s:', command, data);
+    console.log('[RAD]  Sent %s:', command, data);
   }
 }
 

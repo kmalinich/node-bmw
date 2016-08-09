@@ -67,7 +67,7 @@ var SHD = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[SHD] Sent %s:', command, data);
+		console.log('[SHD]  Sent %s:', command, data);
 	}
 }
 

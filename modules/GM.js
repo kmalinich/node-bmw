@@ -66,11 +66,12 @@ var GM = function(omnibus) {
 				door_flap_status_decode(message);
 				break;
 			default:
-				command = new Buffer(message);
+				command = 'unknown';
+				data    = new Buffer(message);
 				break;
 		}
 
-		console.log('[GM] Sent %s', command);
+		console.log('[GM]   Sent %s:', command, data);
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results 
@@ -81,21 +82,21 @@ var GM = function(omnibus) {
 		if (message[1] == 0x10) {
 			button = 'lock button depressed';
 
-			console.log('[GM] Deactivating welcome lights');
+			console.log('[GM]   Deactivating welcome lights');
 			omnibus.LCM.welcome_lights('off');
 		}
 
 		else if (bit_test(message[1], 0x20)) {
 			button = 'unlock button depressed';
 
-			console.log('[GM] Activating welcome lights');
+			console.log('[GM]   Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
 		else if (bit_test(message[1], 0x40)) {
 			button = 'trunk button depressed';
 
-			console.log('[GM] Activating welcome lights');
+			console.log('[GM]   Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
@@ -103,7 +104,7 @@ var GM = function(omnibus) {
 			button = 'no button pressed';
 		}
 
-		console.log('[GM] %s', button);
+		console.log('[GM]   key fob status: %s', button);
 	}
 
 	// [0x7A] Decode a door/flap status message from the GM and act upon the results
@@ -126,7 +127,7 @@ var GM = function(omnibus) {
 		if (bit_test(message[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
 		if (bit_test(message[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
 
-		console.log('[GM] Decoded door/flap status message');
+		console.log('[GM]   Decoded door/flap status message');
 	}
 
 	// Handle incoming commands from API
@@ -140,7 +141,7 @@ var GM = function(omnibus) {
 			switch (data['gm-command']) {
 				case 'gm-get' : gm_get();                            break; // Get IO status
 				case 'gm-cl'  : gm_cl(data['gm-command-action']);    break; // Central locking
-				default       : console.log('[GM] Unknown command'); break; // Dunno what I sent
+				default       : console.log('[GM]   Unknown command'); break; // Dunno what I sent
 			}
 		}
 
@@ -150,13 +151,13 @@ var GM = function(omnibus) {
 		}
 
 		else {
-			console.log('[GM] Unknown data: \'%s\'', data);
+			console.log('[GM]   Unknown data: \'%s\'', data);
 		}
 	}
 
 	// GM window control
 	function gm_windows(window, action) {
-		console.log('[GM] Window control: \'%s\', \'%s\'', window, action);
+		console.log('[GM]   Window control: \'%s\', \'%s\'', window, action);
 
 		// Init message variable
 		var msg;
@@ -210,7 +211,7 @@ var GM = function(omnibus) {
 
 	// Cluster/interior backlight 
 	function gm_interior_light(value) {
-		console.log('[GM] Setting interior light to %s', value);
+		console.log('[GM]   Set interior light to %s', value);
 
 		// Convert the value to hex
 		value = value.toString(16);
@@ -222,7 +223,7 @@ var GM = function(omnibus) {
 
 	// Central locking
 	function gm_cl(action) {
-		console.log('[GM] Central locking: \'%s\'', action);
+		console.log('[GM]   Central locking: \'%s\'', action);
 		// Hex:
 		// 01 3A 01 : LF unlock (CL)
 		// 01 39 01 : LF lock (CL)
@@ -264,7 +265,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Sending \'Set IO status\' packet');
+		console.log('[GM]   Sending \'Set IO status\' packet');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
@@ -282,7 +283,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Requesting door/flap status');
+		console.log('[GM]   Requesting door/flap status');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

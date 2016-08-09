@@ -69,7 +69,7 @@ var CDC = function(omnibus) {
       data    = new Buffer(message);
     }
 
-    console.log('[CDC] Sent %s:', command, data);
+    console.log('[CDC]  Sent %s:', command, data);
   }
 
   // CDC->LOC Device status ready

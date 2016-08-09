@@ -67,7 +67,7 @@ var DSP = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[DSP] Sent %s:', command, data);
+		console.log('[DSP]  Sent %s:', command, data);
 	}
 }
 

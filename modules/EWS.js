@@ -37,70 +37,114 @@ var EWS = function(omnibus) {
 		var command;
 		var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
+		switch (message[0]) {
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
+			case 0x02: // Broadcast: device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						data    = 'ready';
+						break;
+
+					case 0x01:
+						command = 'device status';
+						data    = 'ready after reset';
+						break;
+				}
+				break;
+
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
+
+			case 0x74: // Broadcast: immobiliser status
+				command = 'immobiliser status';
+
+				// Init variables
+				var data_1;
+				var data_2;
+
+				// Bitmask for message[1]
+				// 0x00 = no key detected
+				// 0x01 = immobilisation deactivated
+				// 0x04 = valid key detected
+
+				// Key detected/vehicle immobilised
+				switch (message[1]) {
+					case 0x00:
+						data_1 = 'no key detected';
+						break;
+					case 0x01:
+						data_1 = 'immobilisation deactivated';
+						break;
+					case 0x04:
+						data_1 = 'valid key detected'; 
+						break;
+					default:
+						data_1 = new Buffer([message[1]]);
+						break;
+				}
+
+				// Key #/Vehicle immobilised
+				switch (message[2]) {
+					case 0x01:
+						data_2 = 'key 1';
+						break;
+					case 0x02:
+						data_2 = 'key 2';
+						break;
+					case 0x03:
+						data_2 = 'key 3';
+						break;
+					case 0x04:
+						data_2 = 'key 4';
+						break;
+					case 0x05:
+						data_2 = 'key 5';
+						break;
+					case 0x06:
+						data_2 = 'key 6';
+						break;
+					case 0xFF:
+						data_2 = 'immobilised';
+						break;
+					default:
+						data_1 = new Buffer([message[1]]);
+						break;
+				}
+
+				// Assemble string
+				data = data_1+' '+data_2;
+				break;
+
+			case 0xA0: // Broadcast: diagnostic command acknowledged
+				command = 'diagnostic command';
+				data    = 'acknowledged';
+				break;
+
+			case 0xA2: // Broadcast: diagnostic command rejected
+				command = 'diagnostic command';
+				data    = 'rejected';
+				break;
+
+			case 0xFF: // Broadcast: diagnostic command not acknowledged
+				command = 'diagnostic command';
+				data    = 'not acknowledged';
+				break;
+
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
+
+			default:
+				command = 'unknown';
+				data    = new Buffer(message);
+				break;
 		}
 
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
-
-		// Key event 
-		else if (message[0] == 0x74) {
-			command = 'key event';
-
-			if (message[1] == 0x00 && message[2] == 0xFF) {
-				data = 'removed key';
-			}
-
-			else if (message[1] == 0x04 && message[2] == 0x01) {
-				data = 'inserted key 1';
-			}
-
-			else {
-				data = 'unknown';
-			}
-		}
-
-		// Diagnostic command replies
-		else if (message[0] == 0xA0) {
-			command = 'diagnostic command';
-			data    = 'acknowledged';
-		}
-
-		else if (message[0] == 0xA2) {
-			command = 'diagnostic command';
-			data    = 'rejected';
-		}
-
-		else if (message[0] == 0xFF) {
-			command = 'diagnostic command';
-			data    = 'not acknowledged';
-		}
-
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
-
-		else {
-			command = 'unknown';
-			data    = new Buffer(message);
-		}
-
-		console.log('[EWS] Sent %s:', command, data);
+		console.log('[EWS]  Sent %s:', command, data);
 	}
 }
 

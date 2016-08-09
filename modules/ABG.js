@@ -67,7 +67,7 @@ var ABG = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[ABG] Sent %s:', command, data);
+		console.log('[ABG]  Sent %s:', command, data);
 	}
 }
 

@@ -67,7 +67,7 @@ var MID = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[MID] Sent %s:', command, data);
+		console.log('[MID]  Sent %s:', command, data);
 	}
 }
 

@@ -75,7 +75,7 @@ var CCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[CCM] Sent %s:', command, data);
+		console.log('[CCM]  Sent %s:', command, data);
 	}
 }
 

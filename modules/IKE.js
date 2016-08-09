@@ -61,7 +61,7 @@ var IKE = function(omnibus) {
 
       // If key is now in 'off' or 'acc' and ignition status was previously 'run' and the doors are locked
       if ((message[1] == 0x00 || message[1]) == 0x01 && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
-				console.log('[IKE] Unlocking doors');
+				console.log('[IKE]  Unlocking doors');
         // Send message to GM to toggle door locks
         omnibus.GM.gm_cl('toggle');
       }
@@ -453,7 +453,7 @@ var IKE = function(omnibus) {
       data    = new Buffer(message);
     }
 
-    console.log('[IKE] Sent %s:', command, data);
+    console.log('[IKE]  Sent %s:', command, data);
   }
 
   // Handle incoming commands from API
@@ -498,7 +498,7 @@ var IKE = function(omnibus) {
     }
 
     else {
-      console.log('[IKE] ike_data(): Unknown command');
+      console.log('[IKE]  ike_data(): Unknown command');
     }
 
   }
@@ -535,7 +535,7 @@ var IKE = function(omnibus) {
 
   // Refresh custom HUD
   function hud_refresh() {
-    console.log('[IKE] Refreshing OBC HUD');
+    console.log('[IKE]  Refreshing OBC HUD');
 
     // Request consumption 1 and time
     obc_data('get', 'cons1');
@@ -607,7 +607,7 @@ var IKE = function(omnibus) {
     // Assemble message string
     var msg = [cmd, value_id, action_id];
 
-    console.log('[IKE] Doing \'%s\' on OBC value \'%s\'', action, value);
+    console.log('[IKE]  Doing \'%s\' on OBC value \'%s\'', action, value);
 
     var ibus_packet = {
       src: src, 
@@ -624,7 +624,7 @@ var IKE = function(omnibus) {
     var dst = 0xBF; // GLO 
     var cmd = 0x5C; // Set LCD screen text
 
-    console.log('[IKE] Setting LCD screen backlight to %s', value);
+    console.log('[IKE]  Setting LCD screen backlight to %s', value);
 
     // Convert the value to hex
     value = value.toString(16);
@@ -650,7 +650,7 @@ var IKE = function(omnibus) {
     // Init status variable
     var status;
 
-    console.log('[IKE] Claiming ignition is \'%s\'', value);
+    console.log('[IKE]  Claiming ignition is \'%s\'', value);
 
     switch (value) {
       case 'off':
@@ -681,7 +681,7 @@ var IKE = function(omnibus) {
     var src = 0x3B; // GT
     var dst = 0x80; // IKE
 
-    console.log('[IKE] Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
+    console.log('[IKE]  Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
 
     var time_msg         = [0x40, 0x01, data.hour, data.minute];
     var time_ibus_packet = {
@@ -719,7 +719,7 @@ var IKE = function(omnibus) {
       var obc_value = '2';
     }
 
-    console.log('[IKE] OBC gong %s', obc_value);
+    console.log('[IKE]  OBC gong %s', obc_value);
 
     var ibus_packet = {
       src: src, 
@@ -772,7 +772,7 @@ var IKE = function(omnibus) {
     string = string.ike_pad();
 
     // Need to center and pad spaces out to 20 chars
-    console.log('[IKE] Sending text to IKE screen: \'%s\'', string);
+    console.log('[IKE]  Sending text to IKE screen: \'%s\'', string);
 
     var string_hex = [0x23, 0x50, 0x30, 0x07];
     var string_hex = string_hex.concat(ascii2hex(string));
@@ -789,7 +789,7 @@ var IKE = function(omnibus) {
 
   // Loop to update text in the cluster
   function ike_text_loop() {
-    console.log('[IKE] text loop');
+    console.log('[IKE]  text loop');
     console.log(omnibus.status);
   }
 
@@ -809,7 +809,7 @@ var IKE = function(omnibus) {
     }
 
     // Send the message
-    console.log('[IKE] Sending IKE packet');
+    console.log('[IKE]  Sending IKE packet');
     omnibus.ibus_connection.send_message(ibus_packet);
   }
 

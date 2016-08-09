@@ -2,17 +2,18 @@
 
 // npm libraries
 var clc  = require('cli-color');
+var dbus = require('dbus-native');
 var wait = require('wait.for');
 
 // Bitmasks in hex
-var bit_0 = 0x01;
-var bit_1 = 0x02;
-var bit_2 = 0x04;
-var bit_3 = 0x08;
-var bit_4 = 0x10;
-var bit_5 = 0x20;
-var bit_6 = 0x40;
-var bit_7 = 0x80;
+var bit_0 = 0x01; // 1
+var bit_1 = 0x02; // 2
+var bit_2 = 0x04; // 4
+var bit_3 = 0x08; // 8
+var bit_4 = 0x10; // 16
+var bit_5 = 0x20; // 32
+var bit_6 = 0x40; // 64
+var bit_7 = 0x80; // 128
 
 var LCM = function(omnibus) {
 
@@ -29,8 +30,74 @@ var LCM = function(omnibus) {
 	this.lcm_get             = lcm_get;
 	this.lcm_set             = lcm_set;
 	this.light_status_decode = light_status_decode;
+	this.parse_data          = parse_data;
 	this.reset               = reset;
 	this.welcome_lights      = welcome_lights;
+	this.vehicle_data_decode = vehicle_data_decode;
+
+
+	// Parse data sent by real LCM module
+	function parse_data(message) {
+		// Init variables
+		var command;
+		var data;
+
+		// Device status
+		if (message[0] == 0x02) {
+			if (message[1] == 0x00) {
+				command = 'device status';
+				data    = 'ready';
+			}
+
+			else if (message[1] == 0x01) {
+				command = 'device status';
+				data    = 'ready after reset';
+			}
+		}
+
+		// Ignition status request
+		else if (message[0] == 0x10) {
+			command = 'request';
+			data    = 'ignition status';
+		}
+
+		// Door/flap status request
+		else if (message[0] == 0x79) {
+			command = 'request';
+			data    = 'door/flap status';
+		}
+
+		else if (message[0] == 0xA0 && typeof message[1] !== 'undefined') {
+			command = 'current IO status';
+			omnibus.LCM.io_status_decode(message);
+		}
+
+		else if(message[0] == 0x54) {
+			command = 'broadcast';
+			data    = 'vehicle data';
+			// vehicle_data_decode(message);
+		}
+
+		else if(message[0] == 0x5B) {
+			command = 'broadcast';
+			data    = 'light status';
+			light_status_decode(message);
+		}
+
+		else if(message[0] == 0x5C) {
+			command = 'broadcast';
+			data    = 'light dimmer status';
+			omnibus.status.lights.dimmer = message[1];
+		}
+
+		else {
+			command = 'unknown';
+			data    = new Buffer(message);
+		}
+
+		console.log('[LCM] Sent %s:', command, data);
+	}
+
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
 	function light_status_decode(message) {

@@ -17,47 +17,79 @@ var bit_7 = 0x80; // 128
 
 // Test number for bitmask
 function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
+  if ((num & bit) != 0) { return true; }
+  else { return false; }
 }
 
 
 var RAD = function(omnibus) {
 
-	// Self reference
-	var _self = this;
+  // Self reference
+  var _self = this;
 
-	// Exposed data
-	this.parse_data = parse_data;
+  // Exposed data
+  this.parse_data = parse_data;
 
 
-	// Parse data sent by real RAD module
-	function parse_data(message) {
-		// Init variables
-		var command;
+  // Parse data sent by real RAD module
+  function parse_data(packet) {
+    // Init variables
+    var dst     = omnibus.bus_modules.get_module_name(data.dst);
+    var src     = omnibus.bus_modules.get_module_name(data.src);
+    var message = data.message;
+    var command;
+    var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if      (message[1] == 0x00) { command = 'device status: ready'; }
-			else if (message[1] == 0x01) { command = 'device status: ready after reset'; }
-		}
+    // Device status
+    if (message[0] == 0x02) {
+      if (message[1] == 0x00) {
+        command = 'device status';
+        data    = 'ready';
+      }
 
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'ignition status request';
-		}
+      else if (message[1] == 0x01) {
+        command = 'device status';
+        data    = 'ready after reset';
+      }
+    }
 
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'door/flap status request';
-		}
+    // Ignition status request
+    else if (message[0] == 0x10) {
+      command = 'request';
+      data    = 'ignition status';
+    }
 
-		else {
-			command = new Buffer(message);
-		}	
+    // Door/flap status request
+    else if (message[0] == 0x79) {
+      command = 'request';
+      data    = 'door/flap status';
+    }
 
-		console.log('[RAD] Sent %s', command);
-	}
+    // CD changer emulation handling
+    else if (dst == 'CDC' && message[0] == 0x01) {
+			command = 'request'
+      command = '[CDC] device status';
+
+      // Do CDC->LOC Device status ready
+      omnibus.CDC.send_device_status_ready();
+    }
+
+    else if(dst == 'CDC' && message[0] == 0x38 && message[1] == 0x00 && message[2] == 0x00) {
+			command = 'request'
+      data    = '[CDC] CD control status';
+			
+
+      // Do CDC->LOC CD status play
+      omnibus.CDC.send_cd_status_play();
+    }
+
+    else {
+      command = 'unknown';                                                                    
+      data    = new Buffer(message);
+    }
+
+    console.log('[RAD] Sent %s:', command, data);
+  }
 }
 
 module.exports = RAD;

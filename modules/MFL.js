@@ -127,10 +127,10 @@ var MFL = function(omnibus) {
 		else {
 			command = 'unknown';
 			button  = 'unknown';
-			action  = 'unknown';
+			action  = new Buffer(message);
 		}
 
-		console.log('[MFL] Sent %s: %s->%s', command, button, action);
+		console.log('[MFL] Sent %s: %s', command, button, action);
 	}
 }
 

@@ -35,28 +35,73 @@ var IHKA = function(omnibus) {
 	function parse_data(message) {
 		// Init variables
 		var command;
+		var data;
 
 		// Device status
 		if (message[0] == 0x02) {
-			if      (message[1] == 0x00) { command = 'device status: ready'; }
-			else if (message[1] == 0x01) { command = 'device status: ready after reset'; }
+			if (message[1] == 0x00) {
+				command = 'device status';
+				data    = 'ready';
+			}
+
+			else if (message[1] == 0x01) {
+				command = 'device status';
+				data    = 'ready after reset';
+			}
 		}
 
-		// Ignition status request
+		// Request: ignition status
 		else if (message[0] == 0x10) {
-			command = 'ignition status request';
+			command = 'request';
+			data    = 'ignition status';
+		}
+
+		// Request: temperature
+		else if (message[0] == 0x12) {
+			command = 'request';
+			data    = 'IKE sensor status';
+		}
+
+		// Request: temperature
+		else if (message[0] == 0x1D) {
+			command = 'request';
+			data    = 'temperature';
+		}
+
+		// Request: rain sensor status
+		else if (message[0] == 0x71) {
+			command = 'request';
+			data    = 'rain sensor status';
 		}
 
 		// Door/flap status request
 		else if (message[0] == 0x79) {
-			command = 'door/flap status request';
+			command = 'request';
+			data    = 'door/flap status';
+		}
+
+		// Diagnostic command replies
+		else if (message[0] == 0xA0) {
+			command = 'diagnostic command';
+			data    = 'acknowledged';
+		}
+
+		else if (message[0] == 0xA2) {
+			command = 'diagnostic command';
+			data    = 'rejected';
+		}
+
+		else if (message[0] == 0xFF) {
+			command = 'diagnostic command';
+			data    = 'not acknowledged';
 		}
 
 		else {
-			command = new Buffer(message);
-		}	
+			command = 'unknown';                                                                    
+			data    = new Buffer(message);
+		}
 
-		console.log('[IHKA] Sent %s', command);
+		console.log('[IHKA] Sent %s:', command, data);
 	}
 }
 

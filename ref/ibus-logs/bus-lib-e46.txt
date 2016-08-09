@@ -1631,32 +1631,32 @@
 80 BF 15 02 F9 FA 06,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 15 02 FD FA 04,IKE --> GLO: Country coding status Ntwk=E38/E39 Lang=US_English Clock=12h OutTemp=C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Consump=mpg Motor=Petrol
 80 BF 17 00 00 00 00 1F 00 00,IKE --> GLO: Odometer 0 km
-80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153,600 km
-80 BF 17 01 4A 03 80 1F 02 CC,IKE --> GLO: Odometer: 215.553 km
-80 BF 17 14 B5 02 00 1F 32 CC,IKE --> GLO: Odometer: 177.428 km
-80 BF 17 1F 30 02 C0 60 32 CC,IKE --> GLO: Odometer 143,391 km
-80 BF 17 22 03 03 00 1C 00 00,IKE --> GLO: Odometer 197,410 km
-80 BF 17 49 4C 03 80 1F 02 CC,IKE --> GLO: Odometer: 216.137 km
-80 BF 17 4E 02 03 00 1C 00 00,IKE --> GLO: Odometer 197,198 km
-80 BF 17 53 5D 03 80 1E 02 CC,IKE --> GLO: Odometer: 220,499 km
-80 BF 17 7A 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,546 km
-80 BF 17 7B 51 03 80 1F 02 CC,IKE --> GLO: Odometer: 217.467 km
-80 BF 17 7C 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,548 km
-80 BF 17 92 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199,570 km
-80 BF 17 A0 4E 03 80 1F 02 CC,IKE --> GLO: Odometer: 216.736 km
-80 BF 17 D4 58 03 80 1E 02 CC,IKE --> GLO: Odometer: 219.348 km
-80 BF 17 DC 05 03 00 1C 00 00,IKE --> GLO: Odometer 198,108 km
-80 BF 17 DC 05 03 00 1F 00 00,IKE --> GLO: Odometer 198,108 km
-80 BF 17 E0 49 03 80 1F 02 CC,IKE --> GLO: Odometer: 215.520 km
-80 BF 17 E2 FF 02 00 1C 00 00,IKE --> GLO: Odometer 196,578 km
-80 BF 17 FA FE 02 00 1C 00 00,IKE --> GLO: Odometer 196,346 km
+80 BF 17 00 58 02 00 1E 20 00,IKE --> GLO: Odometer 153600 km
+80 BF 17 01 4A 03 80 1F 02 CC,IKE --> GLO: Odometer 215553 km
+80 BF 17 14 B5 02 00 1F 32 CC,IKE --> GLO: Odometer 177428 km
+80 BF 17 1F 30 02 C0 60 32 CC,IKE --> GLO: Odometer 143391 km
+80 BF 17 22 03 03 00 1C 00 00,IKE --> GLO: Odometer 197410 km
+80 BF 17 49 4C 03 80 1F 02 CC,IKE --> GLO: Odometer 216137 km
+80 BF 17 4E 02 03 00 1C 00 00,IKE --> GLO: Odometer 197198 km
+80 BF 17 53 5D 03 80 1E 02 CC,IKE --> GLO: Odometer 220499 km
+80 BF 17 7A 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199546 km
+80 BF 17 7B 51 03 80 1F 02 CC,IKE --> GLO: Odometer 217467 km
+80 BF 17 7C 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199548 km
+80 BF 17 92 0B 03 00 1F 00 00,IKE --> GLO: Odometer 199570 km
+80 BF 17 A0 4E 03 80 1F 02 CC,IKE --> GLO: Odometer 216736 km
+80 BF 17 D4 58 03 80 1E 02 CC,IKE --> GLO: Odometer 219348 km
+80 BF 17 DC 05 03 00 1C 00 00,IKE --> GLO: Odometer 198108 km
+80 BF 17 DC 05 03 00 1F 00 00,IKE --> GLO: Odometer 198108 km
+80 BF 17 E0 49 03 80 1F 02 CC,IKE --> GLO: Odometer 215520 km
+80 BF 17 E2 FF 02 00 1C 00 00,IKE --> GLO: Odometer 196578 km
+80 BF 17 FA FE 02 00 1C 00 00,IKE --> GLO: Odometer 196346 km
 80 BF 18 00 00,IKE --> GLO: Speed/RPM Speed 0 km/h 0 RPM
-80 BF 18 00 00,IKE --> GLO: Speed/RPM: Speed 0 km/h, 0 RPM
+80 BF 18 00 00,IKE --> GLO: Speed/RPM Speed 0 km/h, 0 RPM
 80 BF 18 00 04,IKE --> GLO: Speed/RPM Speed 0 km/h 400 RPM
 80 BF 18 00 05,IKE --> GLO: Speed/RPM Speed 0 km/h 500 RPM
-80 BF 18 00 05,IKE --> GLO: Speed/RPM: Speed 0 km/h, 500 RPM
+80 BF 18 00 05,IKE --> GLO: Speed/RPM Speed 0 km/h, 500 RPM
 80 BF 18 00 06,IKE --> GLO: Speed/RPM Speed 0 km/h 600 RPM
-80 BF 18 00 06,IKE --> GLO: Speed/RPM: Speed 0 km/h, 600 RPM
+80 BF 18 00 06,IKE --> GLO: Speed/RPM Speed 0 km/h, 600 RPM
 80 BF 18 00 07,IKE --> GLO: Speed/RPM Speed 0 km/h 700 RPM
 80 BF 18 00 08,IKE --> GLO: Speed/RPM Speed 0 km/h 800 RPM
 80 BF 18 00 09,IKE --> GLO: Speed/RPM Speed 0 km/h 900 RPM

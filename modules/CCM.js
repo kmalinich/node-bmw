@@ -35,28 +35,49 @@ var CCM = function(omnibus) {
 	function parse_data(message) {
 		// Init variables
 		var command;
+		var data;
 
 		// Device status
 		if (message[0] == 0x02) {
-			if      (message[1] == 0x00) { command = 'device status: ready'; }
-			else if (message[1] == 0x01) { command = 'device status: ready after reset'; }
+			if (message[1] == 0x00) {
+				command = 'device status';
+				data    = 'ready';
+			}
+
+			else if (message[1] == 0x01) {
+				command = 'device status';
+				data    = 'ready after reset';
+			}
 		}
 
 		// Ignition status request
 		else if (message[0] == 0x10) {
-			command = 'ignition status request';
+			command = 'request';
+			data    = 'ignition status';
 		}
 
 		// Door/flap status request
 		else if (message[0] == 0x79) {
-			command = 'door/flap status request';
+			command = 'request';
+			data    = 'door/flap status';
+		}
+
+		if (msg[0] == 0x51) {
+			command = 'check control sensors';
+			data    = 'unknown';
+		}
+
+		else if (msg[0] == 0x1a) {
+			command = 'check control message';
+			data    = ''+msg+'';
 		}
 
 		else {
-			command = new Buffer(message);
-		}	
+			command = 'unknown';
+			data    = new Buffer(msg);
+		}
 
-		console.log('[CCM] Sent %s', command);
+		console.log('[CCM] Sent %s:', command, data);
 	}
 }
 

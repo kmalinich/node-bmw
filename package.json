@@ -5,6 +5,7 @@
 	"main"        : "run.js",
 	"dependencies": {
 		"cli-color"      : "1.1.0",
+		"dbus-native"    : "0.2.0",
 		"domain"         : "0.0.1",
 		"fs"             : "0.0.2",
 		"http"           : "0.0.0",

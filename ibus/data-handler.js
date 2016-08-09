@@ -637,6 +637,28 @@ var data_handler = function(omnibus) {
 					action = 'depress';
 				}
 
+				if (button == 'left' && action == 'depress') {
+					console.log('[MFL] Sending previous track command over system bus');
+
+					omnibus.system_bus.message({
+						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+						destination : 'org.bluez',
+						'interface' : 'org.bluez.MediaPlayer1.Previous',
+						type        : dbus.messageType.methodCall
+					});
+				}
+
+				else if (button == 'left' && action == 'depress') {
+					console.log('[MFL] Sending next track command over system bus');
+
+					omnibus.system_bus.message({
+						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+						destination : 'org.bluez',
+						'interface' : 'org.bluez.MediaPlayer1.Next',
+						type        : dbus.messageType.methodCall
+					});
+				}
+
 			}
 			// Nope..
 			// 50 B0 01,MFL --> SES: Device status request

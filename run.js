@@ -7,6 +7,7 @@ var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');
 var wait         = require('wait.for');
+var dbus         = require('dbus-native');
 
 // IBUS libraries
 var ibus_interface = require('./ibus/ibus-interface.js');
@@ -31,6 +32,7 @@ omnibus.CDC             = new CDC(omnibus);
 omnibus.GM              = new GM(omnibus);
 omnibus.IKE             = new IKE(omnibus);
 omnibus.LCM             = new LCM(omnibus);
+omnibus.system_bus      = dbus.createConnection();
 
 // Data handler
 var data_handler_connection = new data_handler(omnibus);

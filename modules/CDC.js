@@ -14,15 +14,21 @@ var bit_5 = 0x20;
 var bit_6 = 0x40;
 var bit_7 = 0x80;
 
+// Test number for bitmask
+function bit_test(num, bit) {
+	if ((num & bit) != 0) { return true; }
+	else { return false; }
+}
 
 var CDC = function(omnibus) {
 
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
+	// Exposed data
 	this.send_device_status_ready = send_device_status_ready;
 	this.send_cd_status_play      = send_cd_status_play;
+
 
 	// CDC->RAD Device status ready
 	function send_device_status_ready() {

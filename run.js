@@ -14,10 +14,27 @@ var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
 
 // Module libraries
-var CDC = require('./modules/CDC.js');
-var GM  = require('./modules/GM.js');
-var IKE = require('./modules/IKE.js');
-var LCM = require('./modules/LCM.js');
+var ABG  = require('./modules/ABG.js');
+var ANZV = require('./modules/ANZV.js');
+var BMBT = require('./modules/BMBT.js');
+var CCM  = require('./modules/CCM.js');
+var CDC  = require('./modules/CDC.js');
+var DSP  = require('./modules/DSP.js');
+var EWS  = require('./modules/EWS.js');
+var GM   = require('./modules/GM.js');
+var GT   = require('./modules/GT.js');
+var HAC  = require('./modules/HAC.js');
+var IHKA = require('./modules/IHKA.js');
+var IKE  = require('./modules/IKE.js');
+var LCM  = require('./modules/LCM.js');
+var MFL  = require('./modules/MFL.js');
+var MID  = require('./modules/MID.js');
+var PDC  = require('./modules/PDC.js');
+var RAD  = require('./modules/RAD.js');
+var RLS  = require('./modules/RLS.js');
+var SES  = require('./modules/SES.js');
+var SHD  = require('./modules/SHD.js');
+var TEL  = require('./modules/TEL.js');
 
 // WebSocket libraries
 var socket_server = require('./lib/socket-server.js');
@@ -28,10 +45,27 @@ var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js'); // Vehicle status object
 omnibus.ibus_connection = new ibus_interface();       // IBUS connection handle
+omnibus.ABG             = new ABG(omnibus);
+omnibus.ANZV            = new ANZV(omnibus);
+omnibus.BMBT            = new BMBT(omnibus);
+omnibus.CCM             = new CCM(omnibus);
 omnibus.CDC             = new CDC(omnibus);
+omnibus.DSP             = new DSP(omnibus);
+omnibus.EWS             = new EWS(omnibus);
 omnibus.GM              = new GM(omnibus);
+omnibus.GT              = new GT(omnibus);
+omnibus.HAC             = new HAC(omnibus);
+omnibus.IHKA            = new IHKA(omnibus);
 omnibus.IKE             = new IKE(omnibus);
 omnibus.LCM             = new LCM(omnibus);
+omnibus.MFL             = new MFL(omnibus);
+omnibus.MID             = new MID(omnibus);
+omnibus.PDC             = new PDC(omnibus);
+omnibus.RAD             = new RAD(omnibus);
+omnibus.RLS             = new RLS(omnibus);
+omnibus.SES             = new SES(omnibus);
+omnibus.SHD             = new SHD(omnibus);
+omnibus.TEL             = new TEL(omnibus);
 omnibus.system_bus      = dbus.systemBus();
 
 // Data handler

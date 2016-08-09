@@ -14,6 +14,12 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
+// Test number for bitmask
+function bit_test(num, bit) {
+	if ((num & bit) != 0) { return true; }
+	else { return false; }
+}
+
 var GM = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -27,34 +33,69 @@ var GM = function(omnibus) {
 	this.gm_send                 = gm_send;
 	this.gm_windows              = gm_windows;
 	this.key_fob_status_decode   = key_fob_status_decode;
+	this.parse_data              = parse_data;
+
+	// Parse data sent by real GM module
+	function parse_data(message) {
+		// Init variables
+		var action;
+		var button;
+		var command;
+
+		// Device status
+		if (message[0] == 0x02) {
+			if      (message[1] == 0x00) { command = 'device status: ready'; }
+			else if (message[1] == 0x01) { command = 'device status: ready after reset'; }
+		}
+
+		// Key fob message
+		else if (message[0] == 0x72) {
+			command = 'key fob status';
+			key_fob_status_decode(message);
+		}
+
+		// Current door/flap status
+		else if (message[0] == 0x7A) {
+			command = 'current door/flap status';
+			door_flap_status_decode(message);
+		}
+
+		else {
+			command = new Buffer(message);
+		}
+
+		console.log('[GM] Sent %s', command);
+	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results 
 	function key_fob_status_decode(message) {
+		// Init variables
+		var button;
 		var command = 'key fob status';
 
 		if (message[1] == 0x10) {
-			var button = 'lock button depressed';
+			button = 'lock button depressed';
 
 			console.log('[GM] Deactivating welcome lights');
 			omnibus.LCM.welcome_lights('off');
 		}
 
 		else if (bit_test(message[1], 0x20)) {
-			var button = 'unlock button depressed';
+			button = 'unlock button depressed';
 
 			console.log('[GM] Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
 		else if (bit_test(message[1], 0x40)) {
-			var button = 'trunk button depressed';
+			button = 'trunk button depressed';
 
 			console.log('[GM] Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
 		else if (message[1] == 0x00) {
-			var button = 'no button pressed';
+			button = 'no button pressed';
 		}
 
 		console.log('[GM] %s: %s', command, button);
@@ -83,7 +124,7 @@ var GM = function(omnibus) {
 		console.log('[GM] Decoded door/flap status message');
 	}
 
-	// Handle incoming commands
+	// Handle incoming commands from API
 	function gm_data(data) {
 		if (typeof data['gm-interior-light'] !== 'undefined') {
 			gm_interior_light(data['gm-interior-light']);

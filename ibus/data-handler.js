@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-var dbus = require('dbus-native');
-
 // Ultimately some of this could be moved inside the module functions, after the modules themselves are cleaned up...
 
 var data_handler = function(omnibus) {
@@ -38,57 +36,18 @@ var data_handler = function(omnibus) {
 
 		// BMBT
 		if (src == 'BMBT') {
-			var command; 
+			console.log('[%s->%s]', src, dst);
 
-			// Device status
-			if (msg[0] == 0x02) {
-
-				if      (msg[1] == 0x00) { command = 'device status: ready'; }
-				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
-			}
-
-			else if (msg[0] == 0x10) {
-				command = 'ignition status request';
-			}
-
-			else if (msg[0] == 0x79) {
-				command = 'door/flap status request'; 
-			}
-
-			else {
-				var command = new Buffer(msg);
-			}
-
-			console.log('[%s->%s]', src, dst, command);
+			// Send to BMBT module to parse
+			omnibus.BMBT.parse_data(msg);
 		}
 
 		// GM
 		else if (src == 'GM') {
-			// Device status
-			if (msg[0] == 0x02) {
-				var command; 
+			console.log('[%s->%s]', src, dst);
 
-				if      (msg[1] == 0x00) { command = 'device status: ready'; }
-				else if (msg[1] == 0x01) { command = 'device status: ready after reset'; }
-			}
-
-			// Key fob message
-			else if (msg[0] == 0x72) {
-				var command = 'key fob status';
-				omnibus.GM.key_fob_status_decode(msg);
-			}
-
-			// Current door/flap status
-			else if (msg[0] == 0x7A) {
-				var command = 'current door/flap status';
-				omnibus.GM.door_flap_status_decode(msg);
-			}
-
-			else {
-				var command = new Buffer(msg);
-			}
-
-			console.log('[%s->%s]', src, dst, command);
+			// Send to GM module to parse
+			omnibus.GM.parse_data(msg);
 		}
 
 		// EWS
@@ -105,7 +64,7 @@ var data_handler = function(omnibus) {
 				var command = 'inserted';
 				var data    = 'key 1';
 			}
-			
+
 			else if (msg[0] == 0xA0) {
 				var command = 'diagnostic command';
 				var data    = 'acknowledged';
@@ -588,104 +547,16 @@ var data_handler = function(omnibus) {
 
 		// MFL
 		else if (src == 'MFL') {
-			if (msg[0] == 0x32) {
-				var command = 'button action';
-				var button  = 'volume';
-				var action;
+			console.log('[%s->%s]', src, dst);
 
-				// Needs to be finished
-				if      (msg[1] == 0x10) { action = 'decrease 1 step';  }
-				else if (msg[1] == 0x11) { action = 'increase 1 step'; }
-			}
-
-			else if (msg[0] == 0x3A) {
-				var command = 'button action';
-				var button  = 'recirculation';
-				var action;
-
-				// Bitmask:
-				// 0x00 = released
-				// 0x08 = pressed
-
-				if      (msg[1] == 0x00) { action = 'released';  }
-				else if (msg[1] == 0x01) { action = 'depressed'; }
-			}
-
-			else if (msg[0] == 0x3B) {
-				var command = 'button action';
-
-				// Bitmask:
-				// 0x00 = no buttons pressed
-				// 0x01 = right
-				// 0x08 = left
-				// 0x10 = long depress
-				// 0x20 = release
-				// 0x80 = send/end
-
-				// Detect button
-				var button;
-				if      (bit_test(msg[1], bit_0)) { button = 'right';    }
-				else if (bit_test(msg[1], bit_3)) { button = 'left';     }
-				else if (bit_test(msg[1], bit_7)) { button = 'send/end'; }
-				else {
-					var button = 'unknown';
-				}
-
-				// Detect action
-				var action;
-				if      (bit_test(msg[1], bit_4)) { action = 'long depress'; }
-				else if (bit_test(msg[1], bit_5)) { action = 'release';      }
-				else {
-					action = 'depress';
-				}
-
-				if (button == 'left' && action == 'depress') {
-					console.log('[MFL] Sending previous track command over system bus');
-
-					omnibus.system_bus.invoke({
-						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-						destination : 'org.bluez',
-						'interface' : 'org.bluez.MediaPlayer1',
-						member      : 'Previous',
-						type        : dbus.messageType.methodCall
-					});
-				}
-
-				else if (button == 'right' && action == 'depress') {
-					console.log('[MFL] Sending next track command over system bus');
-
-					omnibus.system_bus.invoke({
-						path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-						destination : 'org.bluez',
-						'interface' : 'org.bluez.MediaPlayer1',
-						member      : 'Next',
-						type        : dbus.messageType.methodCall
-					});
-				}
-
-			}
-			// Nope..
-			// 50 B0 01,MFL --> SES: Device status request
-			// 50 C8 01,MFL --> TEL: Device status request
-			// else if (msg[0] == 0x01) {
-			// 	var command = 'button action';
-			// 	var button  = 'r/t';
-			// 	var action  = 'depress';
-			// }
-
-			else {
-				var command = 'unknown';
-				var button  = 'unknown';
-				var action  = 'unknown';
-			}
-
-			console.log('[%s->%s] %s: %s->%s', src, dst, command, button, action);
+			// Send to MFL module to parse
+			omnibus.MFL.parse_data(msg);
 		}
 
 		else {
 			// Filter diagnostic commands from log output
 			if (src != 'DIA') {
-				var command = 'unknown';
+				command = 'unknown';
 				console.log('[%s->%s] %s', src, dst, command);
 			}
 		}

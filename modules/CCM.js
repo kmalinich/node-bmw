@@ -37,44 +37,42 @@ var CCM = function(omnibus) {
 		var command;
 		var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
+		switch (message[0]) {
+			case 0x02: // Broadcast: device status
+				if (message[1] == 0x00) {
+					command = 'device status';
+					data    = 'ready';
+				}
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
-		}
-
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
-
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
-
-		if (message[0] == 0x51) {
-			command = 'check control sensors';
-			data    = 'unknown';
-		}
-
-		else if (message[0] == 0x1a) {
-			command = 'check control message';
-			data    = ''+message+'';
-		}
-
-		else {
-			command = 'unknown';
-			data    = new Buffer(message);
+				else if (message[1] == 0x01) {
+					command = 'device status';
+					data    = 'ready after reset';
+				}
+				break;
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
+			case 0x1A: // Broadcast: check control message 
+				command = 'check control message';
+				data    = ''+message+'';
+				break;
+			case 0x51: // Broadcast: check control sensors
+				command = 'check control sensors';
+				data    = 'unknown';
+				break;
+			case 0x79: // Request: immobiliser status
+				command = 'request';
+				data    = 'immobiliser status';
+				break;
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
+			default:
+				command = 'unknown';
+				data    = new Buffer(message);
+				break;
 		}
 
 		console.log('[CCM] Sent %s:', command, data);

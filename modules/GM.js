@@ -163,7 +163,6 @@ var GM = function(omnibus) {
 		// Left rear
 		// Right rear
 		switch (window) {
-
 			case 'roof':
 				switch (action) {
 					case 'dn' : msg = [0x03, 0x01, 0x01]; break;
@@ -236,9 +235,9 @@ var GM = function(omnibus) {
 		// Unlock
 		// Lock
 		switch (action) {
-			case 'toggle' : msg = [0x97, 0x01]; break;
+			case 'toggle' : msg = [0x00, 0x0B]; break;
 			case 'lock'   : msg = [0x03, 0x01]; break;
-			case 'unlock' : msg = [0x00, 0x0B]; break;
+			case 'unlock' : msg = [0x97, 0x01]; break;
 		}
 
 		omnibus.GM.gm_send(msg);

@@ -28,10 +28,11 @@ var IKE = function(omnibus) {
   var _self = this;
 
   // exposed data
-  this.ike_data  = ike_data;
-  this.ike_send  = ike_send;
-  this.ike_text  = ike_text;
+  this.ike_data   = ike_data;
+  this.ike_send   = ike_send;
+  this.ike_text   = ike_text;
   this.obc_data   = obc_data;
+  this.parse_data = parse_data;
 
   // Parse data sent by real IKE module
   function parse_data(message) {
@@ -54,18 +55,32 @@ var IKE = function(omnibus) {
 
     // Broadcast ignition status
     else if (message[0] == 0x11) {
+      /*
+       * Unlock doors when ignition is in acc/off after being in run
+       */
+
+      // If key is now in 'off' or 'acc' and ignition status was previously 'run' and the doors are locked
+      if ((message[1] == 0x00 || message[1]) == 0x03 && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
+        // Send message to GM to toggle door locks
+        omnibus.GM.gm_cl('toggle');
+      }
+
       if (message[1] == 0x00) {
         omnibus.status.vehicle.ignition = 'off';
       }
+
       else if (message[1] == 0x01) {
         omnibus.status.vehicle.ignition = 'accessory';
       }
+
       else if (message[1] == 0x03) {
         omnibus.status.vehicle.ignition = 'run';
       }
+
       else if (message[1] == 0x07) {
         omnibus.status.vehicle.ignition = 'start';
       }
+
       else {
         omnibus.status.vehicle.ignition = 'unknown';
       }

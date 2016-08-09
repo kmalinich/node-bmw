@@ -42,26 +42,32 @@ var GM = function(omnibus) {
 		var button;
 		var command;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if      (message[1] == 0x00) { command = 'device status: ready'; }
-			else if (message[1] == 0x01) { command = 'device status: ready after reset'; }
-		}
-
-		// Key fob message
-		else if (message[0] == 0x72) {
-			command = 'key fob status';
-			key_fob_status_decode(message);
-		}
-
-		// Current door/flap status
-		else if (message[0] == 0x7A) {
-			command = 'current door/flap status';
-			door_flap_status_decode(message);
-		}
-
-		else {
-			command = new Buffer(message);
+		switch (message[0]) {
+			case 0x02: // Broadcast: device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						data    = 'ready';
+						break;
+					case 0x01:
+						command = 'device status';
+						data    = 'ready after reset';
+						break;
+				}
+				break;
+			case 0x72: // Broadcast: key fob status
+				command = 'broadcast';
+				data    = 'key fob status';
+				key_fob_status_decode(message);
+				break;
+			case 0x7A: // Broadcast: door/flap status
+				command = 'broadcast';
+				data    = 'door/flap status';
+				door_flap_status_decode(message);
+				break;
+			default:
+				command = new Buffer(message);
+				break;
 		}
 
 		console.log('[GM] Sent %s', command);
@@ -71,7 +77,6 @@ var GM = function(omnibus) {
 	function key_fob_status_decode(message) {
 		// Init variables
 		var button;
-		var command = 'key fob status';
 
 		if (message[1] == 0x10) {
 			button = 'lock button depressed';
@@ -98,7 +103,7 @@ var GM = function(omnibus) {
 			button = 'no button pressed';
 		}
 
-		console.log('[GM] %s: %s', command, button);
+		console.log('[GM] %s', button);
 	}
 
 	// [0x7A] Decode a door/flap status message from the GM and act upon the results
@@ -264,11 +269,11 @@ var GM = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
-	// Request doors/flaps status from GM
+	// Request door/flap status from GM
 	function gm_get() {
 		var src = 0xF0; // BMBT
 		var dst = 0x00; // GM
-		var cmd = 0x79; // Get IO status 
+		var cmd = 0x79; // Get door/flap status 
 
 		var ibus_packet = {
 			src: src,
@@ -277,7 +282,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM] Requesting doors/flaps status');
+		console.log('[GM] Requesting door/flap status');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

@@ -1,17 +1,17 @@
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 00 04 BF 72 16 DF
 GM --> GLO : ChkCtrl Remote Central Locking: Lock_Pressed
 00 04 BF 76 02 CF
 GM --> GLO : Crash Alarm: DB1=0x02
 00 05 BF 7A 30 08 F8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 3F 06 00 0C 01 39 01 0C
 DIA --> GM : Set IO status, Data="01 39 01" [ 9 ]
 00 04 BF 76 00 CD
 GM --> GLO : Crash Alarm: No_Crash
 00 05 BF 7A 30 08 F8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 44 05 BF 74 00 FF 75
 EWS --> GLO : Immobiliser status: No_key_detected Vehicle_immobilised
 3F 06 00 0C 02 39 01 0F
@@ -29,7 +29,7 @@ IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 00 04 BF 72 26 EF
 GM --> GLO : ChkCtrl Remote Central Locking: Unlock_Pressed
 F0 03 00 79 8A
-BMBT --> GM : Doors/flaps status request
+BMBT --> GM : door/flap status request
 F0 03 D0 5D 7E
 BMBT --> LCM : Light dimmer status request
 D0 05 BF 5C FF 00 C9
@@ -37,7 +37,7 @@ LCM --> GLO : Light dimmer: 255 (max)
 00 04 BF 76 00 CD
 GM --> GLO : Crash Alarm: No_Crash
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 80 04 BF 11 00 2A
 IKE --> GLO : Ignition status: Off
 80 0A BF 13 00 00 00 00 00 00 43 65
@@ -45,11 +45,11 @@ IKE --> GLO : IKE sensor status:
 80 06 BF 19 14 5E 00 6A
 IKE --> GLO : Temperature: Outside 20°C, Coolant 94°C
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 3B 05 68 4E 00 00 18
 GT --> RAD : Audio source selection
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 30 06 44 73 00 00 80 81
 CCM --> EWS : Immobiliser status request, Data="00 00 80"
 ED 05 80 41 1B 02 30
@@ -69,7 +69,7 @@ CDC --> RAD : CD_status: Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
 18 0A 68 39 00 02 00 01 00 01 00 41
 CDC --> RAD : CD_status: Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
 00 05 BF 7A 51 08 99
-GM --> GLO : Doors/flaps status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
 00 04 BF 72 06 CF
 GM --> GLO : ChkCtrl Remote Central Locking: No_Button_Pressed
 ED 05 80 41 01 01 29
@@ -197,7 +197,7 @@ IKE --> ANZV: Update Text: Layout=Timer_1 Flags= F0="--:-- "
 80 0C E7 24 10 00 2D 2D 3A 2D 2D 20 20 65
 IKE --> ANZV: Update Text: Layout=Timer_2 Flags= F0="--:-- "
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 3B 05 80 41 1B 03 E7
 GT --> IKE : On-board computer data request: Aux_Heat/Vent: current value request: status request
 80 05 E7 2A 00 00 48
@@ -241,11 +241,11 @@ IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 50 04 C8 3B 80 27
 MFL --> TEL : Radio/Telephone control: Send/End_pressed
 00 05 BF 7A 10 08 D8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 00 04 BF 72 06 CF
 GM --> GLO : ChkCtrl Remote Central Locking: No_Button_Pressed
 00 05 BF 7A 10 08 D8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 ED 05 F0 4F 12 11 54
 VID --> BMBT: RGB control: LCD_on GT
 A4 06 BF 70 03 00 0A 64
@@ -555,7 +555,7 @@ CCM --> GLO : Checkcontrol sensors: Key_in_Ignition
 30 19 80 1A 30 00 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 83
 CCM --> IKE : IKE Text/Gong: " " Immediate Clear Gong_off Warning_symbol_off
 00 05 BF 7A 10 08 D8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 ED 05 80 41 1B 02 30
 VID --> IKE : On-board computer data request: Aux_Heat/Vent: status request
 80 04 30 1B 00 AF
@@ -577,11 +577,11 @@ LCM --> GLO : Lamp status: All_Off All_OK
 18 0A 68 39 00 02 00 01 00 01 01 40
 CDC --> RAD : CD_status: Stop Request=Pause CD=1 Track=1 CDs_Loaded=P1
 00 05 BF 7A 11 08 D9
-GM --> GLO : Doors/flaps status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
 00 05 BF 7A 51 08 99
-GM --> GLO : Doors/flaps status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 18 03 80 16 8D
 CDC --> IKE : Odometer request
 80 0A BF 17 1F 30 02 C0 60 32 CC 51
@@ -591,8 +591,8 @@ EWS --> GLO : Immobiliser status: No_key_detected Vehicle_immobilised
 00 04 BF 72 26 EF
 GM --> GLO : ChkCtrl Remote Central Locking: Unlock_Pressed
 00 05 BF 7A 50 08 98
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
 00 05 BF 7A 50 28 B8
-GM --> GLO : Doors/flaps status: Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
+GM --> GLO : door/flap status: Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
 00 04 BF 72 06 CF
 GM --> GLO : ChkCtrl Remote Central Locking: No_Button_Pressed

@@ -1,7 +1,7 @@
 00 BF 72 06,GM --> GLO : ChkCtrl Remote Central Locking: No_Button_Pressed
-00 BF 7A 10 02,GM --> GLO : Doors/flaps status: Open: WndwPgr Ctrl_Locking: Unlocked
-00 BF 7A 50 02,GM --> GLO : Doors/flaps status: Open: WndwPgr Ctrl_Locking: Unlocked
-00 BF 7A 53 5F,GM --> GLO : Doors/flaps status: Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Bonnet Ctrl_Locking: Unlocked
+00 BF 7A 10 02,GM --> GLO : door/flap status: Open: WndwPgr Ctrl_Locking: Unlocked
+00 BF 7A 50 02,GM --> GLO : door/flap status: Open: WndwPgr Ctrl_Locking: Unlocked
+00 BF 7A 53 5F,GM --> GLO : door/flap status: Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Bonnet Ctrl_Locking: Unlocked
 18 68 39 01 0C 00 14 00 05 01,CDC --> RAD : CD_status: Pause CD=5 Track=1 CDs_Loaded=P3,P5
 18 FF 02 00,CDC --> LOC : Device status ready
 30 44 73 00 00 80,CCM --> EWS : Immobiliser status request, Data="00 00 80"

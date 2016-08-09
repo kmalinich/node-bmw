@@ -3,12 +3,12 @@
 00 04 BF 72 26 EF,GM     --> GLO  : ChkCtrl Remote Central Locking: Unlock_Pressed
 00 04 BF 76 00 CD,GM     --> GLO  : Crash Alarm: No_Crash
 00 04 BF 76 02 CF,GM     --> GLO  : Crash Alarm: DB1=0x02
-00 05 BF 7A 10 08 D8,GM     --> GLO  : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 11 08 D9,GM     --> GLO  : Doors/flaps status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 30 08 F8,GM     --> GLO  : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 50 08 98,GM     --> GLO  : Doors/flaps status: Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 50 28 B8,GM     --> GLO  : Doors/flaps status: Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
-00 05 BF 7A 51 08 99,GM     --> GLO  : Doors/flaps status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 10 08 D8,GM     --> GLO  : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 11 08 D9,GM     --> GLO  : door/flap status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 30 08 F8,GM     --> GLO  : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 50 08 98,GM     --> GLO  : door/flap status: Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 50 28 B8,GM     --> GLO  : door/flap status: Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
+00 05 BF 7A 51 08 99,GM     --> GLO  : door/flap status: Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
 18 03 80 16 8D,CDC  --> IKE  : Odometer request
 18 0A 68 39 00 02 00 01 00 01 00 41,CDC  --> RAD  : CD_status: Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
 18 0A 68 39 00 02 00 01 00 01 01 40,CDC  --> RAD  : CD_status: Stop Request=Pause CD=1 Track=1 CDs_Loaded=P1
@@ -122,7 +122,7 @@ ED 05 80 41 01 01 29,VID  --> IKE  : On-board computer data request: Time: curre
 ED 05 80 41 02 01 2A,VID  --> IKE  : On-board computer data request: Date: current value request
 ED 05 80 41 1B 02 30,VID  --> IKE  : On-board computer data request: Aux_Heat/Vent: status request
 ED 05 F0 4F 12 11 54,VID  --> BMBT: RGB control: LCD_on GT  
-F0 03 00 79 8A,BMBT --> GM   : Doors/flaps status request
+F0 03 00 79 8A,BMBT --> GM   : door/flap status request
 F0 03 D0 5D 7E,BMBT --> LCM  : Light dimmer status request
 F0 04 3B 48 05 82,BMBT --> GT   : BM Button: BM_Knob_pressed
 F0 04 3B 48 85 02,BMBT --> GT   : BM Button: BM_Knob_released

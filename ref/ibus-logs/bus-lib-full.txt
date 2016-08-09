@@ -28,109 +28,109 @@
 00 05 08 7D 00 30 40,GM --> SHD: Sunroof control, Unlock DB2=0x30
 00 05 08 7D 00 50 20,GM --> SHD: Sunroof control, Unlock DB2=0x50
 00 05 08 7D 00 70 00,GM --> SHD: Sunroof control, Unlock DB2=0x70
-00 05 BF 7A 10 00 D0,GM --> GLO: Doors/flaps status, Open:  Ctrl_Locking: Unlocked
-00 05 BF 7A 10 01 D1,GM --> GLO: Doors/flaps status, Open: WndwDvr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 02 D2,GM --> GLO: Doors/flaps status, Open: WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 03 D3,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 05 D5,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 06 D6,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 08 D8,GM --> GLO: Doors/flaps status, Open: WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 08 D8,GM --> GLO: Doors/flaps status, Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 10 0A DA,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 0B DB,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 0E DE,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 0F DF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 13 C3,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 1A CA,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 1E CE,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 1F CF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 10 20 F0,GM --> GLO: Doors/flaps status, Open: Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 00 D1,GM --> GLO: Doors/flaps status, Open: DvrDoorFr   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 03 D2,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 05 D4,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 08 D9,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 11 10 C1,GM --> GLO: Doors/flaps status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 1F CE,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 11 20 F1,GM --> GLO: Doors/flaps status, Open: DvrDoorFr Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 12 00 D2,GM --> GLO: Doors/flaps status, Open: PgrDoorFr   Ctrl_Locking: Unlocked
-00 05 BF 7A 12 1F CD,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 12 3F ED,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 13 1F CC,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 13 3F EC,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 14 00 D4,GM --> GLO: Doors/flaps status, Open: DvrDoorRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 18 00 D8,GM --> GLO: Doors/flaps status, Open: PgrDoorRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 00 E0,GM --> GLO: Doors/flaps status, Open:  Ctrl_Locking: Unknown
-00 05 BF 7A 20 04 E4,GM --> GLO: Doors/flaps status, Open: WndwDvrRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 05 E5,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwDvrRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 0C EC,GM --> GLO: Doors/flaps status, Open: WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 0E EE,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 0F EF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
-00 05 BF 7A 20 1F FF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 21 1F FE,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 22 1F FD,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 30 00 F0,GM --> GLO: Doors/flaps status, Open:  Ctrl_Locking: Unlocked
-00 05 BF 7A 30 02 F2,GM --> GLO: Doors/flaps status, Open: WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 03 F3,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 08 F8,GM --> GLO: Doors/flaps status, Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 30 12 E2,GM --> GLO: Doors/flaps status, Open: WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 13 E3,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 16 E6,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 17 E7,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 1F EF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 30 20 D0,GM --> GLO: Doors/flaps status, Open: Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 33 3F CC,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 00 90,GM --> GLO: Doors/flaps status, Open:  Ctrl_Locking: Unlocked
-00 05 BF 7A 50 03 93,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 08 98,GM --> GLO: Doors/flaps status, Open: WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 50 0F 9F,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 13 83,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 1E 8E,GM --> GLO: Doors/flaps status, Open: WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 1F 8F,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 20 B0,GM --> GLO: Doors/flaps status, Open: Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 50 28 B8,GM --> GLO: Doors/flaps status, Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
-00 05 BF 7A 51 00 91,GM --> GLO: Doors/flaps status, Open: DvrDoorFr   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 03 92,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 05 94,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 08 99,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
-00 05 BF 7A 51 10 81,GM --> GLO: Doors/flaps status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 11 80,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 12 83,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 13 82,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 1A 8B,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 1B 8A,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 1E 8F,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 1F 8E,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 51 20 B1,GM --> GLO: Doors/flaps status, Open: DvrDoorFr Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 00 92,GM --> GLO: Doors/flaps status, Open: PgrDoorFr   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 15 87,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 1D 8F,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 1E 8C,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 1F 8D,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 3E AC,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 52 3F AD,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 00 93,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 05 96,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 15 86,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 1F 8C,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 3F AC,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 53 40 D3,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr Bonnet   Ctrl_Locking: Unlocked
-00 05 BF 7A 54 00 94,GM --> GLO: Doors/flaps status, Open: DvrDoorRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 54 04 90,GM --> GLO: Doors/flaps status, Open: DvrDoorRr WndwDvrRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 55 00 95,GM --> GLO: Doors/flaps status, Open: DvrDoorFr DvrDoorRr   Ctrl_Locking: Unlocked
-00 05 BF 7A 55 20 B5,GM --> GLO: Doors/flaps status, Open: DvrDoorFr DvrDoorRr Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 58 00 98,GM --> GLO: Doors/flaps status, Open: PgrDoorRr   Ctrl_Locking: Unknown
-00 05 BF 7A 5B 00 9B,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr PgrDoorRr   Ctrl_Locking: Unknown
-00 05 BF 7A 5B 40 DB,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr PgrDoorRr Bonnet   Ctrl_Locking: Unknown
-00 05 BF 7A 60 1F BF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 61 1F BE,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 62 1F BD,GM --> GLO: Doors/flaps status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
-00 05 BF 7A 70 03 B3,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
-00 05 BF 7A 70 1F AF,GM --> GLO: Doors/flaps status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 70 20 90,GM --> GLO: Doors/flaps status, Open: Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 71 10 A1,GM --> GLO: Doors/flaps status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 71 1F AE,GM --> GLO: Doors/flaps status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
-00 05 BF 7A 73 3F 8C,GM --> GLO: Doors/flaps status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
-00 05 BF 7A 90 20 70,GM --> GLO: Doors/flaps status, Open: Byte1_Bit7 Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 00 D0,GM --> GLO: door/flap status, Open:  Ctrl_Locking: Unlocked
+00 05 BF 7A 10 01 D1,GM --> GLO: door/flap status, Open: WndwDvr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 02 D2,GM --> GLO: door/flap status, Open: WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 03 D3,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 05 D5,GM --> GLO: door/flap status, Open: WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 06 D6,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 08 D8,GM --> GLO: door/flap status, Open: WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 08 D8,GM --> GLO: door/flap status, Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 10 0A DA,GM --> GLO: door/flap status, Open: WndwPgr WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 0B DB,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 0E DE,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 0F DF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 13 C3,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 1A CA,GM --> GLO: door/flap status, Open: WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 1E CE,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 1F CF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 10 20 F0,GM --> GLO: door/flap status, Open: Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 00 D1,GM --> GLO: door/flap status, Open: DvrDoorFr   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 03 D2,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 05 D4,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 08 D9,GM --> GLO: door/flap status, Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 11 10 C1,GM --> GLO: door/flap status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 1F CE,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 11 20 F1,GM --> GLO: door/flap status, Open: DvrDoorFr Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 12 00 D2,GM --> GLO: door/flap status, Open: PgrDoorFr   Ctrl_Locking: Unlocked
+00 05 BF 7A 12 1F CD,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 12 3F ED,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 13 1F CC,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 13 3F EC,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 14 00 D4,GM --> GLO: door/flap status, Open: DvrDoorRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 18 00 D8,GM --> GLO: door/flap status, Open: PgrDoorRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 00 E0,GM --> GLO: door/flap status, Open:  Ctrl_Locking: Unknown
+00 05 BF 7A 20 04 E4,GM --> GLO: door/flap status, Open: WndwDvrRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 05 E5,GM --> GLO: door/flap status, Open: WndwDvr WndwDvrRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 0C EC,GM --> GLO: door/flap status, Open: WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 0E EE,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 0F EF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unknown
+00 05 BF 7A 20 1F FF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 21 1F FE,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 22 1F FD,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 30 00 F0,GM --> GLO: door/flap status, Open:  Ctrl_Locking: Unlocked
+00 05 BF 7A 30 02 F2,GM --> GLO: door/flap status, Open: WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 03 F3,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 08 F8,GM --> GLO: door/flap status, Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 30 12 E2,GM --> GLO: door/flap status, Open: WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 13 E3,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 16 E6,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 17 E7,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 1F EF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 30 20 D0,GM --> GLO: door/flap status, Open: Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 33 3F CC,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 00 90,GM --> GLO: door/flap status, Open:  Ctrl_Locking: Unlocked
+00 05 BF 7A 50 03 93,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 08 98,GM --> GLO: door/flap status, Open: WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 50 0F 9F,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 13 83,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 1E 8E,GM --> GLO: door/flap status, Open: WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 1F 8F,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 20 B0,GM --> GLO: door/flap status, Open: Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 50 28 B8,GM --> GLO: door/flap status, Open: WndwPgrRr Boot Ctrl_Locking: Unlocked
+00 05 BF 7A 51 00 91,GM --> GLO: door/flap status, Open: DvrDoorFr   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 03 92,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 05 94,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 08 99,GM --> GLO: door/flap status, Open: DvrDoorFr WndwPgrRr Ctrl_Locking: Unlocked
+00 05 BF 7A 51 10 81,GM --> GLO: door/flap status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 11 80,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 12 83,GM --> GLO: door/flap status, Open: DvrDoorFr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 13 82,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 1A 8B,GM --> GLO: door/flap status, Open: DvrDoorFr WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 1B 8A,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 1E 8F,GM --> GLO: door/flap status, Open: DvrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 1F 8E,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 51 20 B1,GM --> GLO: door/flap status, Open: DvrDoorFr Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 00 92,GM --> GLO: door/flap status, Open: PgrDoorFr   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 15 87,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 1D 8F,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 1E 8C,GM --> GLO: door/flap status, Open: PgrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 1F 8D,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 3E AC,GM --> GLO: door/flap status, Open: PgrDoorFr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 52 3F AD,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 00 93,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 05 96,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 15 86,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwDvrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 1F 8C,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 3F AC,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 53 40 D3,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr Bonnet   Ctrl_Locking: Unlocked
+00 05 BF 7A 54 00 94,GM --> GLO: door/flap status, Open: DvrDoorRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 54 04 90,GM --> GLO: door/flap status, Open: DvrDoorRr WndwDvrRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 55 00 95,GM --> GLO: door/flap status, Open: DvrDoorFr DvrDoorRr   Ctrl_Locking: Unlocked
+00 05 BF 7A 55 20 B5,GM --> GLO: door/flap status, Open: DvrDoorFr DvrDoorRr Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 58 00 98,GM --> GLO: door/flap status, Open: PgrDoorRr   Ctrl_Locking: Unknown
+00 05 BF 7A 5B 00 9B,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr PgrDoorRr   Ctrl_Locking: Unknown
+00 05 BF 7A 5B 40 DB,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr PgrDoorRr Bonnet   Ctrl_Locking: Unknown
+00 05 BF 7A 60 1F BF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 61 1F BE,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 62 1F BD,GM --> GLO: door/flap status, Open: PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unknown
+00 05 BF 7A 70 03 B3,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr   Ctrl_Locking: Unlocked
+00 05 BF 7A 70 1F AF,GM --> GLO: door/flap status, Open: WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 70 20 90,GM --> GLO: door/flap status, Open: Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 71 10 A1,GM --> GLO: door/flap status, Open: DvrDoorFr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 71 1F AE,GM --> GLO: door/flap status, Open: DvrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof   Ctrl_Locking: Unlocked
+00 05 BF 7A 73 3F 8C,GM --> GLO: door/flap status, Open: DvrDoorFr PgrDoorFr WndwDvr WndwPgr WndwDvrRr WndwPgrRr Sunroof Boot   Ctrl_Locking: Unlocked
+00 05 BF 7A 90 20 70,GM --> GLO: door/flap status, Open: Byte1_Bit7 Boot   Ctrl_Locking: Unlocked
 00 06 44 73 00 00 80 B1,GM --> EWS: Immobiliser status request, Data="00 00 80"
 00 07 3F A0 04 02 C8 21 77,GM --> DIA: Diagnostic command acknowledged, Data="04 02 C8 21"    [  !]
 00 08 40 6F 80 0A BF 13 01 00,GM --> FBZV: Cmd_0x6F, Data="80 0A BF 13 01"
@@ -236,7 +236,7 @@
 18 0A 68 39 10 09 02 01 00 03 02 58,CDC --> RAD: CD_status, Mode16_Function_09  Request=Play  CD=3  Track=2  CDs_Loaded=P1  Errors=HIGH_TEMP
 18 0A 68 39 20 09 02 01 00 03 02 68,CDC --> RAD: CD_status, Mode32_Function_09  Request=Play  CD=3  Track=2  CDs_Loaded=P1  Errors=HIGH_TEMP
 18 0A 68 39 40 09 02 01 00 03 02 08,CDC --> RAD: CD_status, Mode64_Function_09  Request=Play  CD=3  Track=2  CDs_Loaded=P1  Errors=HIGH_TEMP
-30 03 00 79 4A,CCM --> GM: Doors/flaps status request
+30 03 00 79 4A,CCM --> GM: door/flap status request
 30 03 80 10 A3,CCM --> IKE: Ignition status request
 30 03 80 12 A1,CCM --> IKE: IKE sensor status request
 30 03 80 14 A7,CCM --> IKE: Country coding status request
@@ -2100,7 +2100,7 @@ ED 05 80 41 01 01 29,VID --> IKE: On-board computer data request: Time: current 
 ED 05 80 41 02 01 2A,VID --> IKE: On-board computer data request: Date: current value request
 ED 05 80 41 1B 02 30,VID --> IKE: On-board computer data request: Aux_Heat/Vent: status request
 ED 05 F0 4F 12 11 54,VID --> BMBT: RGB control LCD_on GT
-F0 03 00 79 8A,BMBT --> GM: Doors/flaps status request
+F0 03 00 79 8A,BMBT --> GM: door/flap status request
 F0 03 68 01 9A,BMBT --> RAD: Device status request
 F0 03 80 10 63,BMBT --> IKE: Ignition status request
 F0 03 D0 5D 7E,BMBT --> LCM: Light dimmer status request

@@ -61,7 +61,7 @@ var CCM = function(omnibus) {
 				command = 'check control sensors';
 				data    = 'unknown';
 				break;
-			case 0x79: // Request: immobiliser status
+			case 0x73: // Request: immobiliser status
 				command = 'request';
 				data    = 'immobiliser status';
 				break;

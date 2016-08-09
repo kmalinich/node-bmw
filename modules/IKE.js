@@ -71,18 +71,46 @@ var IKE = function(omnibus) {
 
       else if (message[1] == 0x01) {
         omnibus.status.vehicle.ignition = 'accessory';
+				
+				// Turn on solid yellow RAD LED
+				var led_object = {
+					solid_yellow : true,
+				}
+
+				omnibus.RAD.led(led_object);
       }
 
       else if (message[1] == 0x03) {
         omnibus.status.vehicle.ignition = 'run';
+				// Turn on solid green RAD LED
+				var led_object = {
+					solid_green : true,
+				}
+
+				omnibus.RAD.led(led_object);
       }
 
       else if (message[1] == 0x07) {
         omnibus.status.vehicle.ignition = 'start';
+
+				// Turn on flashing red/yellow RAD LED
+				var led_object = {
+					flashing_red    : true,
+					flashing_yellow : true,
+				}
+
+				omnibus.RAD.led(led_object);
       }
 
       else {
         omnibus.status.vehicle.ignition = 'unknown';
+
+				// Turn on flashing red RAD LED
+				var led_object = {
+					flashing_red    : true,
+				}
+
+				omnibus.RAD.led(led_object);
       }
 
       command = 'broadcast';

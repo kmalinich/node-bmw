@@ -21,6 +21,12 @@ function bit_test(num, bit) {
   else { return false; }
 }
 
+// Set a bit in a bitmask
+function bit_set(num, bit) {
+  num |= bit;
+  return num;
+}
+
 
 var RAD = function(omnibus) {
 
@@ -28,8 +34,49 @@ var RAD = function(omnibus) {
   var _self = this;
 
   // Exposed data
+  this.led        = led;
   this.parse_data = parse_data;
 
+  // Turn on/off/flash the RAD LED by encoding a bitmask from an input object
+  function led(object) {
+    console.log('[RAD] Encoding \'RAD LED\' packet');
+
+    // Bitmask
+    // 0x00 = all off
+    // 0x01 = solid red
+    // 0x02 = flash red
+    // 0x04 = solid yellow
+    // 0x08 = flash yellow
+    // 0x10 = solid green
+    // 0x20 = flash green
+
+    // Initialize output byte
+    var byte = 0x00;
+
+    if (object.solid_red)    { byte = bit_set(byte, bit_0); }
+    if (object.flash_red)    { byte = bit_set(byte, bit_1); }
+    if (object.solid_yellow) { byte = bit_set(byte, bit_2); }
+    if (object.flash_yellow) { byte = bit_set(byte, bit_3); }
+    if (object.solid_green)  { byte = bit_set(byte, bit_4); }
+    if (object.flash_green)  { byte = bit_set(byte, bit_5); }
+
+    // Assemble strings
+    var src     = 0xC8; // TEL
+    var dst     = 0xE7; // OBC
+    var command = 0x2B; // Turn on radio LED
+    var packet  = [command, byte];
+
+    // Send message
+    var ibus_packet = {
+      src: src,
+      dst: dst,
+      msg: new Buffer(packet),
+    }
+
+    // Send the message
+    console.log('[RAD] Sending \'RAD LED\' packet');
+    omnibus.ibus_connection.send_message(ibus_packet);
+  }
 
   // Parse data sent by real RAD module
   function parse_data(packet) {
@@ -67,7 +114,7 @@ var RAD = function(omnibus) {
 
     // CD changer emulation handling
     else if (dst == 'CDC' && message[0] == 0x01) {
-			command = 'request'
+      command = 'request'
       command = '[CDC] device status';
 
       // Do CDC->LOC Device status ready
@@ -75,9 +122,9 @@ var RAD = function(omnibus) {
     }
 
     else if(dst == 'CDC' && message[0] == 0x38 && message[1] == 0x00 && message[2] == 0x00) {
-			command = 'request'
+      command = 'request'
       data    = '[CDC] CD control status';
-			
+
 
       // Do CDC->LOC CD status play
       omnibus.CDC.send_cd_status_play();

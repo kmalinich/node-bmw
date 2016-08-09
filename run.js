@@ -78,7 +78,7 @@ var websocket_port = 3002;
 // IBUS data handler
 // Should be moved inside socket_server
 function on_ibus_data(data) {
-  socket_server.ibus_data(data);
+	socket_server.ibus_data(data);
 }
 
 // API handler function
@@ -102,17 +102,17 @@ function start() {
 
 // Shutdown function
 function shutdown() {
-  console.log('[node-bmw] Closing all threads and exiting');
+	console.log('[node-bmw] Closing all threads and exiting');
 
-  api_server.close(function() {
-    process.exit(function() {
-    });
-  });
+	api_server.close(function() {
+		process.exit(function() {
+		});
+	});
 
-  // Close serial port if open, and exit process  
-  omnibus.ibus_connection.shutdown(function() {
-    process.exit();
-  });
+	// Close serial port if open, and exit process  
+	omnibus.ibus_connection.shutdown(function() {
+		process.exit();
+	});
 }
 
 
@@ -121,46 +121,46 @@ function shutdown() {
 
 // Status GET request
 dispatcher.onGet('/status', function(request, response) {
-  response.writeHead(200, {'Content-Type': 'application/json'});
+	response.writeHead(200, {'Content-Type': 'application/json'});
 
-  response.end(JSON.stringify(omnibus.status));
+	response.end(JSON.stringify(omnibus.status));
 });
 
 // GM POST request
 dispatcher.onPost('/gm', function(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
+	response.writeHead(200, {'Content-Type': 'text/plain'});
 
-  var post = query_string.parse(request.body);
-  omnibus.GM.gm_data(post);
+	var post = query_string.parse(request.body);
+	omnibus.GM.gm_data(post);
 
-  response.end('Got POST message for GM\n');
+	response.end('Got POST message for GM\n');
 });
 
 // IKE POST request
 dispatcher.onPost('/ike', function(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
+	response.writeHead(200, {'Content-Type': 'text/plain'});
 
-  var post = query_string.parse(request.body);
-  omnibus.IKE.ike_data(post);
+	var post = query_string.parse(request.body);
+	omnibus.IKE.ike_data(post);
 
-  response.end('Got POST message for IKE\n');
+	response.end('Got POST message for IKE\n');
 });
 
 // LCM POST request
 dispatcher.onPost('/lcm', function(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
+	response.writeHead(200, {'Content-Type': 'text/plain'});
 
-  var post = query_string.parse(request.body);
-  omnibus.LCM.lcm_data(post);
+	var post = query_string.parse(request.body);
+	omnibus.LCM.lcm_data(post);
 
 	response.end('Got POST message for LCM\n');
 });
 
 // Error
 dispatcher.onError(function(request, response) {
-  console.error('[api-handler] Error: 404');
-  response.writeHead(404);
-  response.end();
+	console.error('[api-handler] Error: 404');
+	response.writeHead(404);
+	response.end();
 });
 
 

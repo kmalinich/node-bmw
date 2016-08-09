@@ -64,7 +64,7 @@ var MID = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[MID] Sent %s:', command, data);

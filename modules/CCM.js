@@ -62,19 +62,19 @@ var CCM = function(omnibus) {
 			data    = 'door/flap status';
 		}
 
-		if (msg[0] == 0x51) {
+		if (message[0] == 0x51) {
 			command = 'check control sensors';
 			data    = 'unknown';
 		}
 
-		else if (msg[0] == 0x1a) {
+		else if (message[0] == 0x1a) {
 			command = 'check control message';
-			data    = ''+msg+'';
+			data    = ''+message+'';
 		}
 
 		else {
 			command = 'unknown';
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[CCM] Sent %s:', command, data);

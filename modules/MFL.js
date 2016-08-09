@@ -28,7 +28,7 @@ var MFL = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_pata = parse_data;
+	this.parse_data = parse_data;
 
 
 	// Parse data sent by real MFL module

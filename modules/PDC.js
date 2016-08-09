@@ -64,7 +64,7 @@ var PDC = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[PDC] Sent %s:', command, data);

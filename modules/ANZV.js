@@ -64,7 +64,7 @@ var ANZV = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[ANZV] Sent %s:', command, data);

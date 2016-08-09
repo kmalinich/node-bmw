@@ -66,7 +66,7 @@ var CDC = function(omnibus) {
 
     else {
       command = 'unknown';                                                                    
-      data    = new Buffer(msg);
+      data    = new Buffer(message);
     }
 
     console.log('[CDC] Sent %s:', command, data);

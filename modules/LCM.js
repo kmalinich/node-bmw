@@ -41,57 +41,49 @@ var LCM = function(omnibus) {
 		var command;
 		var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
+		switch (message[0]) {
+			case 0x02: // Broadcast: device status
+				if (message[1] == 0x00) {
+					command = 'device status';
+					data    = 'ready';
+				}
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
-		}
-
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
-
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
-
-		else if (message[0] == 0xA0 && typeof message[1] !== 'undefined') {
-			command = 'current IO status';
-			omnibus.LCM.io_status_decode(message);
-		}
-
-		else if(message[0] == 0x54) {
-			command = 'broadcast';
-			data    = 'vehicle data';
-			// vehicle_data_decode(message);
-		}
-
-		else if(message[0] == 0x5B) {
-			command = 'broadcast';
-			data    = 'light status';
-			light_status_decode(message);
-		}
-
-		else if(message[0] == 0x5C) {
-			command = 'broadcast';
-			data    = 'light dimmer status';
-			omnibus.status.lights.dimmer = message[1];
-		}
-
-		else {
-			command = 'unknown';
-			data    = new Buffer(message);
+				else if (message[1] == 0x01) {
+					command = 'device status';
+					data    = 'ready after reset';
+				}
+				break;
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
+			case 0x54: // Broadcast: vehicle data
+				command = 'broadcast';
+				data    = 'vehicle data';
+				// vehicle_data_decode(message);
+				break;
+			case 0x5B: // Broadcast: light status
+				command = 'broadcast';
+				data    = 'light status';
+				light_status_decode(message);
+				break;
+			case 0x5C: // Broadcast: light dimmer status
+				command = 'broadcast';
+				data    = 'light dimmer status';
+				omnibus.status.lights.dimmer = message[1];
+				break;
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
+			case 0xA0: 
+				command = 'current IO status';
+				omnibus.LCM.io_status_decode(message);
+				break;
+			default:
+				command = 'unknown';
+				data    = new Buffer(message);
+				break;
 		}
 
 		console.log('[LCM] Sent %s:', command, data);

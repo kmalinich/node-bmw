@@ -81,9 +81,9 @@ var RAD = function(omnibus) {
   // Parse data sent by real RAD module
   function parse_data(packet) {
     // Init variables
-    var dst     = omnibus.bus_modules.get_module_name(data.dst);
-    var src     = omnibus.bus_modules.get_module_name(data.src);
-    var message = data.message;
+    var dst     = omnibus.bus_modules.get_module_name(packet.dst);
+    var src     = omnibus.bus_modules.get_module_name(packet.src);
+    var message = packet.msg;
     var command;
     var data;
 

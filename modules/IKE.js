@@ -60,7 +60,8 @@ var IKE = function(omnibus) {
        */
 
       // If key is now in 'off' or 'acc' and ignition status was previously 'run' and the doors are locked
-      if ((message[1] == 0x00 || message[1]) == 0x03 && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
+      if ((message[1] == 0x00 || message[1]) == 0x01 && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
+				console.log('[IKE] Unlocking doors');
         // Send message to GM to toggle door locks
         omnibus.GM.gm_cl('toggle');
       }

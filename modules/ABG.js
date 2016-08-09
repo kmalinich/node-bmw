@@ -64,7 +64,7 @@ var ABG = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[ABG] Sent %s:', command, data);

@@ -64,7 +64,7 @@ var BMBT = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[BMBT] Sent %s:', command, data);

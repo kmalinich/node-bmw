@@ -64,7 +64,7 @@ var GT = function(omnibus) {
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(msg);
+			data    = new Buffer(message);
 		}
 
 		console.log('[GT] Sent %s:', command, data);

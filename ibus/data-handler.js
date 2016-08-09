@@ -17,13 +17,9 @@ var data_handler = function(omnibus) {
 		var src     = omnibus.bus_modules.get_module_name(data.src);
 		var message = data.msg;
 
-		if (message.length == 0) {
+		if (message.length != 0) {
 			// Log output
-			console.log('[%s->%s] Zero length', src, dst);
-		}
-		else {
-			// Log output
-			console.log('[%s->%s]', src, dst);
+			// console.log('[%s->%s]', src, dst);
 
 			// Send message to code module to parse
 			switch (src) {

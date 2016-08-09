@@ -20,7 +20,7 @@ function log() {
 # Control blink(1)
 function blink1-ctl() {
 	killall -9 blink1-tool > /dev/null 2>&1
-	
+
 	case "${1}" in
 		scan)
 			blink1-tool --red           -t 0 --chase=0,1,9  > /dev/null 2>&1 &
@@ -101,13 +101,6 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 		rm -f  ${NET_INFS} 
 		ln -fs ${NET_INFS}-client ${NET_INFS} 
 
-		log "Stopping hostapd."
-		systemctl stop hostapd > /dev/null 2>&1
-		sleep 1
-		log "Stopping dnsmasq."
-		systemctl stop dnsmasq > /dev/null 2>&1
-		sleep 1
-
 		# Turn blink(1) yellow
 		blink1-ctl config
 
@@ -117,6 +110,22 @@ if [[ "${SSID_TOTAL}" != "0" ]]; then
 		ifup   ${WIFI_NIC} > /dev/null 2>&1
 	else
 		log "Staying in CLIENT mode."
+	fi
+
+	# Stop hostapd and dnsmasq if they are running
+	HOSTAPD_STATUS="$(systemctl status hostapd > /dev/null 2>&1; echo ${?})"
+	DNSMASQ_STATUS="$(systemctl status dnsmasq > /dev/null 2>&1; echo ${?})"
+
+	if [[ "${HOSTAPD_STATUS}" != "3" ]]; then
+		log "Stopping hostapd."
+		systemctl stop hostapd > /dev/null 2>&1
+		sleep 1
+	fi
+
+	if [[ "${DNSMASQ_STATUS}" != "3" ]]; then
+		log "Stopping dnsmasq."
+		systemctl stop dnsmasq > /dev/null 2>&1
+		sleep 1
 	fi
 
 	# Turn blink(1) blue
@@ -145,14 +154,24 @@ else
 		ifdown ${WIFI_NIC} > /dev/null 2>&1
 		sleep 1
 		ifup   ${WIFI_NIC} > /dev/null 2>&1
+	else
+		log "Staying in AP mode."
+	fi
 
+	# Start hostapd and dnsmasq if they are stopped
+	HOSTAPD_STATUS="$(systemctl status hostapd > /dev/null 2>&1; echo ${?})"
+	DNSMASQ_STATUS="$(systemctl status dnsmasq > /dev/null 2>&1; echo ${?})"
+
+	if [[ "${HOSTAPD_STATUS}" != "0" ]]; then
 		log "Starting hostapd."
 		systemctl start hostapd > /dev/null 2>&1
 		sleep 1
+	fi
+
+	if [[ "${DNSMASQ_STATUS}" != "0" ]]; then
 		log "Starting dnsmasq."
 		systemctl start dnsmasq > /dev/null 2>&1
-	else
-		log "Staying in AP mode."
+		sleep 1
 	fi
 
 	# Turn blink(1) green

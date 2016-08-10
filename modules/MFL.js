@@ -174,7 +174,7 @@ var MFL = function(omnibus) {
         else if (button == 'send/end' && action == 'long depress') { control_bt('play');     }
         break;
 
-      case default:
+      default:
         command = 'unknown';
         button  = 'unknown';
         action  = new Buffer(message);

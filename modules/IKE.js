@@ -163,7 +163,7 @@ var IKE = function(omnibus) {
 					omnibus.status.vehicle.ignition = 'accessory';
 
 					// Turn on solid yellow RAD LED
-					var led_object = { solid_yellow : true }
+					var led_object = { solid_yellow : true };
 					omnibus.RAD.led(led_object);
 					break;
 
@@ -171,7 +171,7 @@ var IKE = function(omnibus) {
 					omnibus.status.vehicle.ignition = 'run';
 
 					// Turn on solid green RAD LED
-					var led_object = { solid_green : true }
+					var led_object = { solid_green : true };
 					omnibus.RAD.led(led_object);
 					break;
 
@@ -179,15 +179,15 @@ var IKE = function(omnibus) {
 					omnibus.status.vehicle.ignition = 'start';
 
 					// Turn on flashing red/yellow RAD LED
-					var led_object = { flashing_red : true, flashing_yellow : true }
+					var led_object = { flashing_red : true, flashing_yellow : true };
 					omnibus.RAD.led(led_object);
 					break;
 
-				case default:
+				default:
 					omnibus.status.vehicle.ignition = 'unknown';
 
 					// Turn on flashing red RAD LED
-					var led_object = { flashing_red : true }
+					var led_object = { flashing_red : true };
 					omnibus.RAD.led(led_object);
 					break;
 			}

@@ -17,112 +17,112 @@ var bit_7 = 0x80; // 128
 
 // Test number for bitmask
 function bit_test(num, bit) {
-  if ((num & bit) != 0) { return true; }
-  else { return false; }
+	if ((num & bit) != 0) { return true; }
+	else { return false; }
 }
 
 
 var DSP = function(omnibus) {
 
-  // Self reference
-  var _self = this;
+	// Self reference
+	var _self = this;
 
-  // Exposed data
-  this.parse_data               = parse_data;
-  this.send_cd_status_play      = send_cd_status_play;
-  this.send_device_status_ready = send_device_status_ready;
+	// Exposed data
+	this.parse_data               = parse_data;
+	this.send_cd_status_play      = send_cd_status_play;
+	this.send_device_status_ready = send_device_status_ready;
 
-  // Parse data sent by real BMBT module
-  function parse_data(message) {
-    // Init variables
-    var command;
-    var data;
+	// Parse data sent by real BMBT module
+	function parse_data(message) {
+		// Init variables
+		var command;
+		var data;
 
-    switch (message[0]) {
-      case 0x01: // Request: device status
-        command = 'request';
-        data    = 'device status';
-        break;
+		switch (message[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				data    = 'device status';
+				break;
 
-      case 0x02: // Device status
-        switch (message[1]) {
-          case 0x00:
-            command = 'device status';
-            data    = 'ready';
-            break;
+			case 0x02: // Device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						data    = 'ready';
+						break;
 
-          case 0x01:
-            command = 'device status';
-            data    = 'ready after reset';
-            break;
-        }
-        break;
+					case 0x01:
+						command = 'device status';
+						data    = 'ready after reset';
+						break;
+				}
+				break;
 
-      case 0x10: // Request: ignition status
-        command = 'request';
-        data    = 'ignition status';
-        break;
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
 
-      case 0x35: // Broadcast: car memory
-        command = 'broadcast';
-        data    = 'car memory';
-        break;
+			case 0x35: // Broadcast: car memory
+				command = 'broadcast';
+				data    = 'car memory';
+				break;
 
-      case 0x79: // Request: door/flap status
-        command = 'request';
-        data    = 'door/flap status';
-        break;
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
 
-      default:
-        command = 'unknown';
-        data    = new Buffer(message);
-        break;
-    }
+			default:
+				command = 'unknown';
+				data    = new Buffer(message);
+				break;
+		}
 
-    console.log('[DSP]  Sent %s:', command, data);
-  }
+		console.log('[DSP]  Sent %s:', command, data);
+	}
 
-  // DSP->LOC Device status ready
-  function send_device_status_ready() {
-    // Init variables
-    var command = 'device status';
-    var data    = 'ready';
+	// DSP->LOC Device status ready
+	function send_device_status_ready() {
+		// Init variables
+		var command = 'device status';
+		var data    = 'ready';
 
-    var src = 0x18; // DSP
-    var dst = 0xFF; // LOC
-    var msg = [0x02, 0x01];
+		var src = 0x18; // DSP
+		var dst = 0xFF; // LOC
+		var msg = [0x02, 0x01];
 
-    var ibus_packet = {
-      src: src,
-      dst: dst,
-      msg: new Buffer(msg),
-    }
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
 
-    omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 
-    console.log('[DSP->LOC] Sent %s:', command, data);
-  }
+		console.log('[DSP->LOC] Sent %s:', command, data);
+	}
 
-  // DSP->RAD CD status playing
-  function send_cd_status_play() {
-    // Init variables
-    var command = 'CD status';
-    var data    = 'playing';
+	// DSP->RAD CD status playing
+	function send_cd_status_play() {
+		// Init variables
+		var command = 'CD status';
+		var data    = 'playing';
 
-    var src = 0x18; // DSP
-    var dst = 0x68; // RAD
-    var msg = [0x39, 0x02, 0x09, 0x00, 0x01, 0x00, 0x01, 0x00];
+		var src = 0x18; // DSP
+		var dst = 0x68; // RAD
+		var msg = [0x39, 0x02, 0x09, 0x00, 0x01, 0x00, 0x01, 0x00];
 
-    var ibus_packet = {
-      src: src,
-      dst: dst,
-      msg: new Buffer(msg),
-    }
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
 
-    omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus_connection.send_message(ibus_packet);
 
-    console.log('[DSP->LOC] Sent %s:', command, data);
-  }
+		console.log('[DSP->LOC] Sent %s:', command, data);
+	}
 }
 
 module.exports = DSP;

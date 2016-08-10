@@ -1,1 +1,1 @@
-bootstrap-3.3.6.min.js
+bootstrap-3.3.7.min.js

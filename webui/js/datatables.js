@@ -1,1 +1,1 @@
-datatables-1.10.11.min.js
+datatables-1.10.12.min.js

@@ -55,10 +55,10 @@ function bit_sample(dsc, hex) {
 
 function bmbt_bitmask_decode(value) {
 
-  // Determine button
+	// Determine button
 
 
-  // Determine action
+	// Determine action
 	if (bit_test(value, hold)) {
 		var action = clc.yellow('hold');
 	}

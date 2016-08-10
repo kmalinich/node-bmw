@@ -52,26 +52,26 @@ function lcm_flash_bitmask_decode(value) {
 }
 
 function offoff() {
-		var bit_0_test = bit_test(hex, bit_0);
-		var bit_1_test = bit_test(hex, bit_1);
-		var bit_2_test = bit_test(hex, bit_2);
-		var bit_3_test = bit_test(hex, bit_3);
-		var bit_4_test = bit_test(hex, bit_4);
-		var bit_5_test = bit_test(hex, bit_5);
-		var bit_6_test = bit_test(hex, bit_6);
-		var bit_7_test = bit_test(hex, bit_7);
-		var dsc ='superoff';
-		var hex = 0x00;
+	var bit_0_test = bit_test(hex, bit_0);
+	var bit_1_test = bit_test(hex, bit_1);
+	var bit_2_test = bit_test(hex, bit_2);
+	var bit_3_test = bit_test(hex, bit_3);
+	var bit_4_test = bit_test(hex, bit_4);
+	var bit_5_test = bit_test(hex, bit_5);
+	var bit_6_test = bit_test(hex, bit_6);
+	var bit_7_test = bit_test(hex, bit_7);
+	var dsc ='superoff';
+	var hex = 0x00;
 
-		var string = dsc+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test;
-		string     = string.replace(/true/g,  clc.green('TRU'));
-		string     = string.replace(/false/g, clc.red('FAL'));
+	var string = dsc+'|'+clc.yellow(pad(hex, 3))+'|'+bit_0_test+'|'+bit_1_test+'|'+bit_2_test+'|'+bit_3_test+'|'+bit_4_test+'|'+bit_5_test+'|'+bit_6_test+'|'+bit_7_test;
+	string     = string.replace(/true/g,  clc.green('TRU'));
+	string     = string.replace(/false/g, clc.red('FAL'));
 
-		console.log(string);
+	console.log(string);
 
-		var src = 0x00; // GM
-		var dst = 0xBF; // GLO
-		var msg = new Buffer([0x76, hex]);
+	var src = 0x00; // GM
+	var dst = 0xBF; // GLO
+	var msg = new Buffer([0x76, hex]);
 }
 
 function bit_sample(dsc, hex, callback) {

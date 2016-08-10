@@ -629,6 +629,17 @@ function status_refresh_on() {
 	}, 2000);
 }
 
+// Convert a string to hex
+function str2hex(str) {
+	var hex = '';
+
+	for(var i=0; i<str.length; i++) {
+		hex += ''+str.charCodeAt(i).toString(16);
+	}
+
+	return hex;
+}
+
 // Live IBUS data websocket
 function ws_ibus() {
 	var loc = window.location, ws_uri;
@@ -645,35 +656,44 @@ function ws_ibus() {
 	console.log('WebSocket URI:', ws_uri);
 
 	// Open WebSocket
-	var socket  = new WebSocket(ws_uri);
+	var socket = new WebSocket(ws_uri);
 
 	// Assemble and send data from form below table
 	$('#ws-ibus-send').click(function() {
 		var data_send = {};
-		data_send.src = $('#ws-ibus-src').val();
-		data_send.dst = $('#ws-ibus-dst').val();
-		data_send.msg = $('#ws-ibus-msg').val();
-		data_send     = JSON.stringify(data_send);
+		// Parse incoming data
+		data_send.src = parseInt($('#ws-ibus-src').val(), 16);
+		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16);
+
+		// Create the message array by removing whitespaces and splitting by comma
+		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');
+
+		// Format the message
+		var msg_array = [];
+		for (var i = 0; i < data_send.msg.length; i++) {
+			// Convert it to hexadecimal
+			msg_array.push(parseInt(data_send.msg[i], 16));
+		}
+		data_send.msg = msg_array;
+
+		data_send = JSON.stringify(data_send);
 
 		console.log(data_send);
 		socket.send(data_send);
 	});
 
 	socket.onopen = function() {
-		// socket.send('hello from the client');
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
 	};
 
 	socket.onmessage = function(message) {
-		// If anybody sees this .. it's rudimentary for now
-
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
 		var data = JSON.parse(message.data);
 
 		// Parse out said blob
-		var src = data.src.toUpperCase()+' ('+get_module_name(data.src)+')';
+		var src = get_module_name(data.src);
 		var len = data.len;
-		var dst = data.dst.toUpperCase()+' ('+get_module_name(data.dst)+')';
+		var dst = get_module_name(data.dst);
 		var msg = data.msg.data;
 
 		var msg_fmt = '';
@@ -682,6 +702,7 @@ function ws_ibus() {
 		for (var i = 0; i < msg.length; i++) {
 			// Convert it to hexadecimal
 			msg_fmt += msg[i].toString(16).toUpperCase();
+
 			// If we're not formatting the last entry in the array, add a space, too
 			if (i != msg.length) {
 				msg_fmt += ' ';

@@ -42,13 +42,13 @@ function control_bt(action) {
         path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
         destination : 'org.bluez',
         'interface' : 'org.bluez.Device1',
-        member      : 'Connect',
+        member      : 'Disconnect',
         type        : dbus.messageType.methodCall
       });
 			break;
 
-    case 'pause':
-      // Send previous track command to BlueZ
+		case 'pause':
+			// Send pause command to BlueZ
       omnibus.system_bus.invoke({
         path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
         destination : 'org.bluez',
@@ -59,7 +59,7 @@ function control_bt(action) {
       break;
 
     case 'play':
-      // Send previous track command to BlueZ
+      // Send play command to BlueZ
       omnibus.system_bus.invoke({
         path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
         destination : 'org.bluez',

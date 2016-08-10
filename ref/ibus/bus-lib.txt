@@ -858,7 +858,7 @@
 68 7F A8 30 03 42 43 56 00 30 84 99 91 89 2F 30 A4 59 BB AC 88 30 84 02 80 00 00 30 28 49 47 2F D0,RAD --> NAV: TMC data: Type30: Group0Data="03 42 43 56 00" Type30: Group8_TMC_Data: User_Msg,Multi_Grp,First_Grp Loc=35119 Evnt=401 Dir=Neg Extnt=3 ConIndex=4 Type30: GroupA: Data="A4 59 BB AC 88" Type30: Group8_TMC_Data: User_Msg,Multi_Grp ConIndex=4 Type30: Group2: Data="28 49 47 2F D0"
 68 7F A8 30 03 46 0C 00 00,RAD --> NAV: TMC data: Type30: Group0Data="03 46 0C 00 00"
 68 7F A8 30 03 4E 93 28 00 30 A8 0A DF 87 21,RAD --> NAV: TMC data: Type30: Group0Data="03 4E 93 28 00" Type30: GroupA: Data="A8 0A DF 87 21"
-68 7F A8 30 03 51 51 ABG D2,RAD --> NAV: TMC data: Type30: Group0Data="03 51 51 ABG D2"
+68 7F A8 30 03 51 51 AB D2,RAD --> NAV: TMC data: Type30: Group0Data="03 51 51 AB D2"
 68 7F A8 30 03 51 51 CC C0 30 03 04 00 00 00,RAD --> NAV: TMC data: Type30: Group0Data="03 51 51 CC C0" Type30: Group0Data="03 04 00 00 00"
 68 7F A8 30 03 58 FD E9 F8,RAD --> NAV: TMC data: Type30: Group0Data="03 58 FD E9 F8"
 68 7F A8 30 03 68 E3 E9 57,RAD --> NAV: TMC data: Type30: Group0Data="03 68 E3 E9 57"
@@ -1303,10 +1303,10 @@
 6A FF 02 00,DSP --> LOC: Device status ready
 6A FF 02 01,DSP --> LOC: Device status ready after Reset
 6A FF 02 01,DSP --> LOC: Device status ready after Reset after Reset
-70 BF 62 00 00,RDC --> GLO: RDC status, Data="00 00"
+70 BF 62 00 00,RDC --> GLO: RDC status Data="00 00"
 7F 3F A0 00 00,NAV --> DIA: Diagnostic command acknowledged, Data="00 00"
 7F 3F A0 36 39 32 30 31 38 32 31 30 30 37 30 36 31 34 31 31 30 34 30 31 30 38 37 38 38 2E 31 30 38 30,NAV --> DIA: Diagnostic command acknowledged, Data="36 39 32 30 31 38 32 31 30 30 37 30 36 31 34 31 31 30 34 30 31 30 38 37 38 38 2E 31 30 38 30"
-7F 43 ABG 21,NAV --> GTF: Remote control status, Data="21"
+7F 43 AB 21,NAV --> GTF: Remote control status Data="21"
 7F 68 A7 10,NAV --> RAD: TMC status request, Update_Class=10
 7F 68 A7 30,NAV --> RAD: TMC status request, Update_Class=30
 7F 68 A7 31 00,NAV --> RAD: TMC status request, Update_Class=31
@@ -1419,7 +1419,6 @@
 80 30 50,IKE --> CCM: Checkcontrol sensor request
 80 47 01,IKE --> FMBT: Device status request
 80 60 07 00 00 00,IKE --> PDC: Gong status Data="00 00 00"
-80 60 07 00 00 00,IKE --> PDC: Gong status, Data="00 00 00"
 80 68 01,IKE --> RAD: Device status request
 80 68 1B 01,IKE --> RAD: IKE text status 1 text message acknowledged
 80 68 1B 02,IKE --> RAD: IKE text status 2 text messages acknowledged
@@ -2331,7 +2330,6 @@
 80 E7 24 10 00 2D 2D 3A 2D 2D 50 4D,IKE --> ANZV: Update Text Layout=Timer_2 Flags= F0="--:--PM"
 80 E7 24 1A 00 20 30 2E 30 20 20 53 45 43,IKE --> ANZV: Update Text Layout=Interim_Time Flags= F0=" 0.0 SEC"
 80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = Off
-80 E7 2A 00 00,IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 80 E7 2A 00 02,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED =
 80 E7 2A 00 04,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = On
 80 E7 2A 00 08,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED = On_blink
@@ -2342,26 +2340,20 @@
 80 E7 2A 00 60,IKE --> ANZV: On-board computer special indicators Aux_Heating_LED =
 80 EA 01,IKE --> DSPC: Device status request
 80 FF 57 01,IKE --> LOC: Check Control button CHECK_pressed
-80 FF 57 01,IKE --> LOC: Check Control button: CHECK_pressed
 80 FF 57 02,IKE --> LOC: Check Control button BC_pressed
-80 FF 57 02,IKE --> LOC: Check Control button: BC_pressed
 80 FF 57 41,IKE --> LOC: Check Control button CHECK_released
-80 FF 57 41,IKE --> LOC: Check Control button: CHECK_released
 80 FF 57 43,IKE --> LOC: Check Control button Button 3_released
 9A BF 02 01,HAC --> GLO: Device status ready after Reset
 A4 BF 70 00 00 14,ABG --> GLO: Remote control central locking status Data="00 00 14"
 A4 BF 70 00 00 15,ABG --> GLO: Remote control central locking status Data="00 00 15"
 A4 BF 70 00 00 1A,ABG --> GLO: Remote control central locking status Data="00 00 1A"
-A4 BF 70 00 00 1A,ABG --> GLO: Remote control central locking status, Data="00 00 1A"
 A4 BF 70 01 00 1A,ABG --> GLO: Remote control central locking status Data="01 00 1A"
 A4 BF 70 02 00 05,ABG --> GLO: Remote control central locking status Data="02 00 05"
 A4 BF 70 02 00 0A,ABG --> GLO: Remote control central locking status Data="02 00 0A"
-A4 BF 70 02 00 0A,ABG --> GLO: Remote control central locking status, Data="02 00 0A"
-A4 BF 70 02 00 3A,ABG --> GLO: Remote control central locking status, Data="02 00 3A"
-A4 BF 70 02 00 3F,ABG --> GLO: Remote control central locking status, Data="02 00 3F"
+A4 BF 70 02 00 3A,ABG --> GLO: Remote control central locking status Data="02 00 3A"
+A4 BF 70 02 00 3F,ABG --> GLO: Remote control central locking status Data="02 00 3F"
 A4 BF 70 03 00 05,ABG --> GLO: Remote control central locking status Data="03 00 05"
 A4 BF 70 03 00 0A,ABG --> GLO: Remote control central locking status Data="03 00 0A"
-A4 BF 70 03 00 0A,ABG --> GLO: Remote control central locking status, Data="03 00 0A"
 A4 BF 70 03 00 1A,ABG --> GLO: Remote control central locking status Data="03 00 1A"
 AC BF 61 01,EHC --> GLO: Suspension control Data="01"
 AC BF 61 01,EHC --> GLO: Suspension control, Data="01"
@@ -2555,7 +2547,7 @@ D0 3F A0 12 FF FF FF FF F1 03 F8 F1 1F FF 0F FC C7 0F FC FF 7F 00 FF 0F 1C FF FF
 D0 3F A0 12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00,LCM --> DIA: Diagnostic command acknowledged Data="12 FF FF FF FF FF 03 38 80 FF FF 0F FC C7 8F FF F8 7F 00 FF 0F 1C FF FF FF FF 01 23 45 00 00 00"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A7 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C 17 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
-D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C ABG FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
+D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AB FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C AD FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C B2 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
 D0 3F A0 C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE,LCM --> DIA: Diagnostic command acknowledged Data="C1 C0 00 00 00 00 00 00 00 A8 00 00 8A 00 8C E4 FF 00 08 00 00 00 00 00 00 00 00 00 00 FF FF FE"
@@ -2755,7 +2747,7 @@ D0 BF 5C A3 00,LCM --> GLO: Light dimmer 163
 D0 BF 5C A6 00,LCM --> GLO: Light dimmer 166
 D0 BF 5C A8 00,LCM --> GLO: Light dimmer 168
 D0 BF 5C AA 00,LCM --> GLO: Light dimmer 170
-D0 BF 5C ABG 00,LCM --> GLO: Light dimmer 171
+D0 BF 5C AB 00,LCM --> GLO: Light dimmer 171
 D0 BF 5C AC 00,LCM --> GLO: Light dimmer 172
 D0 BF 5C AD 00,LCM --> GLO: Light dimmer 173
 D0 BF 5C AE 00,LCM --> GLO: Light dimmer 174

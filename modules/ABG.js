@@ -37,34 +37,40 @@ var ABG = function(omnibus) {
 		var command;
 		var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
+		switch (message[0]) {
+			case 0x02: // Device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						data    = 'ready';
+						break;
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
-		}
+					case 0x01:
+						command = 'device status';
+						data    = 'ready after reset';
+						break;
+				}
+				break;
 
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
 
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
+			case 0x70: // Broadcast: Remote control central locking status
+				command = 'broadcast';
+				data    = 'remote control central locking status';
+				break;
 
-		else {
-			command = 'unknown';                                                                    
-			data    = new Buffer(message);
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
+
+			default:
+				command = 'unknown';                                                                    
+				data    = new Buffer(message);
+				break;
 		}
 
 		console.log('[ABG]  Sent %s:', command, data);

@@ -37,34 +37,55 @@ var BMBT = function(omnibus) {
 		var command;
 		var data;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
+		switch (message[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				data    = 'device status';
+				break;
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
-		}
+			case 0x02: // Device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						data    = 'ready';
+						break;
 
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
+					case 0x01:
+						command = 'device status';
+						data    = 'ready after reset';
+						break;
+				}
+				break;
 
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
+			case 0x10: // Request: ignition status
+				command = 'request';
+				data    = 'ignition status';
+				break;
 
-		else {
-			command = 'unknown';                                                                    
-			data    = new Buffer(message);
+			case 0x47: // Broadcast: BM status
+				command = 'broadcast';
+				data    = 'BM status';
+				break;
+
+			case 0x47: // Broadcast: BM button
+				command = 'broadcast';
+				data    = 'BM button';
+				break;
+
+			case 0x5D: // Request: light dimmer status
+				command = 'request';
+				data    = 'light dimmer status';
+				break;
+
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				data    = 'door/flap status';
+				break;
+
+			default:
+				command = 'unknown';                                                                    
+				data    = new Buffer(message);
+				break;
 		}
 
 		console.log('[BMBT] Sent %s:', command, data);

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 // npm libraries
-var clc  = require('cli-color');
-var dbus = require('dbus-native');
-var wait = require('wait.for');
+var clc     = require('cli-color');
+var convert = require('node-unit-conversion');
+var dbus    = require('dbus-native');
+var wait    = require('wait.for');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -239,8 +240,8 @@ var IKE = function(omnibus) {
 			omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
 			omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
 
-			omnibus.status.temperature.exterior_f = parseFloat(((message[1]*9)/5)+32).toFixed(2);
-			omnibus.status.temperature.coolant_f  = parseFloat(((message[2]*9)/5)+32).toFixed(2);
+			omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
+			omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
 		}
 
 		else if (message[0] == 0x18) {
@@ -252,7 +253,7 @@ var IKE = function(omnibus) {
 			omnibus.status.engine.speed      = parseFloat(message[2]*100).toFixed(2);
 
 			// Convert values and round to 2 decimals
-			omnibus.status.vehicle.speed_mph = parseFloat((message[1]*2)*0.621371192237334).toFixed(2);
+			omnibus.status.vehicle.speed_mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
 		}
 
 		// OBC values broadcast
@@ -317,16 +318,17 @@ var IKE = function(omnibus) {
 				}
 
 				// Update omnibus.status variables
-				if (string_temp_exterior_unit == 'c') {
-					omnibus.status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
-					omnibus.status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value*9)/5)+32).toFixed(2);
-					omnibus.status.coding.unit_temp    = 'c';
-				}
-
-				else {
-					omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
-					omnibus.status.obc.temp_exterior_f = parseFloat(((string_temp_exterior_value-32)*(5/9))).toFixed(2);
-					omnibus.status.coding.unit_temp    = 'f';
+				switch (string_temp_exterior_unit) {
+					case 'c':
+						omnibus.status.coding.unit_temp    = 'c';
+						omnibus.status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
+						omnibus.status.obc.temp_exterior_f = convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit').toFixed(2);
+						break;
+					case 'f':
+						omnibus.status.coding.unit_temp    = 'f';
+						omnibus.status.obc.temp_exterior_c = convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius').toFixed(2);
+						omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
+						break;
 				}
 			}
 
@@ -402,11 +404,11 @@ var IKE = function(omnibus) {
 					omnibus.status.coding.unit_distance = 'mi';
 					// Update omnibus.status variables
 					omnibus.status.obc.range_mi = parseFloat(string_range).toFixed(2);
-					omnibus.status.obc.range_km = parseFloat(string_range*1.60934).toFixed(2);
+					omnibus.status.obc.range_km = convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2);
 				}
 				else if (string_range_unit == 'km') {
 					omnibus.status.coding.unit_distance = 'km';
-					omnibus.status.obc.range_mi = parseFloat(string_range*0.621371).toFixed(2);
+					omnibus.status.obc.range_mi = convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2);
 					omnibus.status.obc.range_km = parseFloat(string_range).toFixed(2);
 				}
 			}
@@ -456,13 +458,13 @@ var IKE = function(omnibus) {
 					omnibus.status.coding.unit_speed = 'kmh';
 					// Update omnibus.status variables
 					omnibus.status.obc.speedavg_kmh = string_speedavg.toFixed(2);
-					omnibus.status.obc.speedavg_mph = (string_speedavg*0.621371).toFixed(2);
+					omnibus.status.obc.speedavg_mph = convert(string_speedavg).from('kilometre').to('us mile').toFixed(2);
 				}
 
 				else if (string_speedavg_unit == 'm') {
 					omnibus.status.coding.unit_speed = 'mph';
 					// Update omnibus.status variables
-					omnibus.status.obc.speedavg_kmh = (string_speedavg*1.60934).toFixed(2);
+					omnibus.status.obc.speedavg_kmh = convert(string_speedavg).from('us mile').to('kilometre').toFixed(2);
 					omnibus.status.obc.speedavg_mph = string_speedavg.toFixed(2);
 				}
 			}

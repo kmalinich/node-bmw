@@ -55,7 +55,7 @@ var IKE = function(omnibus) {
 					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
 					destination : 'org.bluez',
 					'interface' : 'org.bluez.Device1',
-					member      : 'Disonnect',
+					member      : 'Disconnect',
 					type        : dbus.messageType.methodCall
 				});
 				break;

@@ -21,10 +21,32 @@ function bit_test(num, bit) {
   else { return false; }
 }
 
-
+// This should be in it's own module...
 // Send commands over Linux DBus to control A2DP connected device
-function control_avrcp(action) {
+function control_bt(action) {
   switch (action) {
+		case 'connect':
+      // Send connect command to BlueZ
+      omnibus.system_bus.invoke({
+        path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
+        destination : 'org.bluez',
+        'interface' : 'org.bluez.Device1',
+        member      : 'Connect',
+        type        : dbus.messageType.methodCall
+      });
+			break;
+
+		case 'disconnect':
+      // Send disconnect command to BlueZ
+      omnibus.system_bus.invoke({
+        path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
+        destination : 'org.bluez',
+        'interface' : 'org.bluez.Device1',
+        member      : 'Connect',
+        type        : dbus.messageType.methodCall
+      });
+			break;
+
     case 'pause':
       // Send previous track command to BlueZ
       omnibus.system_bus.invoke({
@@ -146,10 +168,10 @@ var MFL = function(omnibus) {
         else                                  { action = 'depress';      }
 
         // Perform media control based on pressed key
-        if      (button == 'left'     && action == 'depress')      { control_avrcp('previous'); }
-        else if (button == 'right'    && action == 'depress')      { control_avrcp('next');     }
-        else if (button == 'send/end' && action == 'depress')      { control_avrcp('pause');    } // Think about it...
-        else if (button == 'send/end' && action == 'long depress') { control_avrcp('play');     }
+        if      (button == 'left'     && action == 'depress')      { control_bt('previous'); }
+        else if (button == 'right'    && action == 'depress')      { control_bt('next');     }
+        else if (button == 'send/end' && action == 'depress')      { control_bt('pause');    } // Think about it...
+        else if (button == 'send/end' && action == 'long depress') { control_bt('play');     }
         break;
 
       case default:

@@ -66,24 +66,17 @@ omnibus.RLS             = new RLS(omnibus);
 omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
-omnibus.data_handler    = new data_handler(omnibus);
+omnibus.data_handler    = new data_handler(omnibus); // Data handler
 omnibus.system_bus      = dbus.systemBus();
-
-// Data handler
 
 // Server ports
 var api_port       = 3001;
 var websocket_port = 3002;
 
-// IBUS data handler
-// Should be moved inside socket_server
-function on_ibus_data(data) {
-	socket_server.ibus_data(data);
-}
 
 // API handler function
 function api_handler(request, response) {
-	console.log('[api-handler] %s request: %s',request.method, request.url);
+	console.log('[api-handler] %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 
@@ -166,7 +159,6 @@ dispatcher.onError(function(request, response) {
 
 // Events
 process.on('SIGINT', shutdown);
-omnibus.ibus_connection.on('data', on_ibus_data);
 
 console.log('[node-bmw] Starting');
 start();

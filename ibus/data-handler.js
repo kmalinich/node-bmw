@@ -44,6 +44,7 @@ var data_handler = function(omnibus) {
 				case 'SES'  : omnibus.SES.parse_data(message);  break;
 				case 'SHD'  : omnibus.SHD.parse_data(message);  break;
 				case 'TEL'  : omnibus.TEL.parse_data(message);  break;
+				default     : console.log('[%s->%s] No handler', src, dst, message);
 			}
 		}
 	}

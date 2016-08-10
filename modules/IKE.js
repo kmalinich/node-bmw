@@ -25,10 +25,10 @@ function bit_test(num, bit) {
 
 var IKE = function(omnibus) {
 
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
+	// Exposed data
 	this.ike_data   = ike_data;
 	this.ike_send   = ike_send;
 	this.ike_text   = ike_text;

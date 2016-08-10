@@ -56,6 +56,18 @@ var RLS = function(omnibus) {
 			data    = 'ignition status';
 		}
 
+		// Broadcast: headlight wipe interval 
+		else if (message[0] == 0x58) {
+			command = 'broadcast';
+			data    = 'headlight wipe interval status';
+		}
+
+		// Request: wiper status
+		else if (message[0] == 0x75) {
+			command = 'request';
+			data    = 'wiper status';
+		}
+
 		// Door/flap status request
 		else if (message[0] == 0x79) {
 			command = 'request';

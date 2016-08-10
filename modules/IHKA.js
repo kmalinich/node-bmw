@@ -80,6 +80,12 @@ var IHKA = function(omnibus) {
 			data    = 'door/flap status';
 		}
 
+		// AC compressor status 
+		else if (message[0] == 0x83) {
+			command = 'broadcast';
+			data    = 'AC compressor status';
+		}
+
 		// Diagnostic command replies
 		else if (message[0] == 0xA0) {
 			command = 'diagnostic command';

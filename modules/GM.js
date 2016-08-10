@@ -60,6 +60,14 @@ var GM = function(omnibus) {
 				data    = 'key fob status';
 				key_fob_status_decode(message);
 				break;
+			case 0x76: // Broadcast: crash alarm
+				command = 'broadcast';
+				data    = 'crash alarm';
+				break;
+			case 0x78: // Broadcast: seat memory data
+				command = 'broadcast';
+				data    = 'seat memory data';
+				break;
 			case 0x7A: // Broadcast: door/flap status
 				command = 'broadcast';
 				data    = 'door/flap status';

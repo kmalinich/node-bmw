@@ -50,6 +50,12 @@ var TEL = function(omnibus) {
 			}
 		}
 
+		// Broadcast: indicator status 
+		else if (message[0] == 0x2B) {
+			command = 'broadcast';
+			data    = 'indicator status';
+		}
+
 		// Ignition status request
 		else if (message[0] == 0x10) {
 			command = 'request';

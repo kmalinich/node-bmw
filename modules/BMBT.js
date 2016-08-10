@@ -62,6 +62,11 @@ var BMBT = function(omnibus) {
 				data    = 'ignition status';
 				break;
 
+			case 0x32: // Broadcast: volume control
+				command = 'broadcast';
+				data    = 'volume control';
+				break;
+
 			case 0x47: // Broadcast: BM status
 				command = 'broadcast';
 				data    = 'BM status';

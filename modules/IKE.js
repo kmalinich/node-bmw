@@ -227,23 +227,19 @@ var IKE = function(omnibus) {
 			}
 		}
 
+		// Broadcast country coding data 
+		else if (message[0] == 0x15) {
+			command = 'broadcast';
+			data    = 'country coding data';
+		}
+
+		// Odometer
 		else if (message[0] == 0x17) {
 			command = 'broadcast';
 			data    = 'odometer value';
 		}
 
-		else if (message[0] == 0x19) {
-			command = 'broadcast';
-			data    = 'temperature values';
-
-			// Update external and engine coolant temp variables
-			omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
-			omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
-
-			omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
-			omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
-		}
-
+		// Vehicle speed and RPM
 		else if (message[0] == 0x18) {
 			command = 'broadcast';
 			data    = 'current speed and RPM';
@@ -254,6 +250,19 @@ var IKE = function(omnibus) {
 
 			// Convert values and round to 2 decimals
 			omnibus.status.vehicle.speed_mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
+		}
+
+		// Coolant temp and external temp
+		else if (message[0] == 0x19) {
+			command = 'broadcast';
+			data    = 'temperature values';
+
+			// Update external and engine coolant temp variables
+			omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
+			omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
+
+			omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
+			omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
 		}
 
 		// OBC values broadcast

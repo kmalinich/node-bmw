@@ -32,41 +32,56 @@ var CDC = function(omnibus) {
   this.send_cd_status_play      = send_cd_status_play;
   this.send_device_status_ready = send_device_status_ready;
 
-
-  // Parse data sent by real CDC module
+  // Parse data sent by real BMBT module
   function parse_data(message) {
     // Init variables
     var command;
     var data;
 
-    // Device status
-    if (message[0] == 0x02) {
-      if (message[1] == 0x00) {
-        command = 'device status';
-        data    = 'ready';
-      }
+    switch (message[0]) {
+      case 0x01: // Request: device status
+        command = 'request';
+        data    = 'device status';
+        break;
 
-      else if (message[1] == 0x01) {
-        command = 'device status';
-        data    = 'ready after reset';
-      }
-    }
+      case 0x02: // Device status
+        switch (message[1]) {
+          case 0x00:
+            command = 'device status';
+            data    = 'ready';
+            break;
 
-    // Ignition status request
-    else if (message[0] == 0x10) {
-      command = 'request';
-      data    = 'ignition status';
-    }
+          case 0x01:
+            command = 'device status';
+            data    = 'ready after reset';
+            break;
+        }
+        break;
 
-    // Door/flap status request
-    else if (message[0] == 0x79) {
-      command = 'request';
-      data    = 'door/flap status';
-    }
+      case 0x10: // Request: ignition status
+        command = 'request';
+        data    = 'ignition status';
+        break;
 
-    else {
-      command = 'unknown';                                                                    
-      data    = new Buffer(message);
+      case 0x16: // Request: odometer
+        command = 'request';
+        data    = 'odometer';
+        break;
+
+      case 0x39: // Broadcast: CD status
+       	command = 'broadcast';
+        data    = 'CD status';
+        break;
+
+      case 0x79: // Request: door/flap status
+        command = 'request';
+        data    = 'door/flap status';
+        break;
+
+      default:
+        command = 'unknown';
+        data    = new Buffer(message);
+        break;
     }
 
     console.log('[CDC]  Sent %s:', command, data);

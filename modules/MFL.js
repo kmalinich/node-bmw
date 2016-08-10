@@ -21,79 +21,6 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-// This should be in it's own module...
-// Send commands over Linux DBus to control A2DP connected device
-function control_bt(action) {
-	switch (action) {
-		case 'connect':
-			// Send connect command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.Device1',
-				member      : 'Connect',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-
-		case 'disconnect':
-			// Send disconnect command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.Device1',
-				member      : 'Disconnect',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-
-		case 'pause':
-			// Send pause command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.MediaPlayer1',
-				member      : 'Pause',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-
-		case 'play':
-			// Send play command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.MediaPlayer1',
-				member      : 'Play',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-
-		case 'previous':
-			// Send previous track command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.MediaPlayer1',
-				member      : 'Previous',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-
-		case 'next':
-			// Send next track command to BlueZ
-			omnibus.system_bus.invoke({
-				path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
-				destination : 'org.bluez',
-				'interface' : 'org.bluez.MediaPlayer1',
-				member      : 'Next',
-				type        : dbus.messageType.methodCall
-			});
-			break;
-	}
-
-	console.log('[MFL]  Sending \'%s\' command over system bus', action);
-}
 
 var MFL = function(omnibus) {
 
@@ -102,6 +29,81 @@ var MFL = function(omnibus) {
 
 	// Exposed data
 	this.parse_data = parse_data;
+
+
+	// This should be in it's own module...
+	// Send commands over Linux DBus to control A2DP connected device
+	function control_bt(action) {
+		switch (action) {
+			case 'connect':
+				// Send connect command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.Device1',
+					member      : 'Connect',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+
+			case 'disconnect':
+				// Send disconnect command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.Device1',
+					member      : 'Disconnect',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+
+			case 'pause':
+				// Send pause command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.MediaPlayer1',
+					member      : 'Pause',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+
+			case 'play':
+				// Send play command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.MediaPlayer1',
+					member      : 'Play',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+
+			case 'previous':
+				// Send previous track command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.MediaPlayer1',
+					member      : 'Previous',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+
+			case 'next':
+				// Send next track command to BlueZ
+				omnibus.system_bus.invoke({
+					path        : '/org/bluez/hci0/dev_EC_88_92_5E_5D_36/player0',
+					destination : 'org.bluez',
+					'interface' : 'org.bluez.MediaPlayer1',
+					member      : 'Next',
+					type        : dbus.messageType.methodCall
+				});
+				break;
+		}
+
+		console.log('[MFL]  Sending \'%s\' command over system bus', action);
+	}
 
 
 	// Parse data sent by real MFL module
@@ -115,11 +117,6 @@ var MFL = function(omnibus) {
 		// 50 C8 01,MFL --> TEL: Device status request
 
 		switch (message[0]) {
-			case 0x01: // Request: device status
-				command = 'request';
-				button  = 'device status';
-				break;
-
 			case 0x32: // Volume buttons
 				command = 'button action';
 				button  = 'volume';
@@ -177,11 +174,6 @@ var MFL = function(omnibus) {
 				else if (button == 'right'    && action == 'depress')      { control_bt('next');     }
 				else if (button == 'send/end' && action == 'depress')      { control_bt('pause');    } // Think about it...
 				else if (button == 'send/end' && action == 'long depress') { control_bt('play');     }
-				break;
-
-			case 0x5D: // Request: light dimmer status
-				command = 'request';
-				button  = 'light dimmer status';
 				break;
 
 			default:

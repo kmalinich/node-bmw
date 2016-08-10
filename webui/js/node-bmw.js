@@ -662,8 +662,8 @@ function ws_ibus() {
 	$('#ws-ibus-send').click(function() {
 		var data_send = {};
 		// Parse incoming data
-		data_send.src = parseInt($('#ws-ibus-src').val(), 16);
-		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16);
+		data_send.src = parseInt($('#ws-ibus-src').val(), 16).toString(16);
+		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16).toString(16);
 
 		// Create the message array by removing whitespaces and splitting by comma
 		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');

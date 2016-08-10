@@ -66,10 +66,10 @@ omnibus.RLS             = new RLS(omnibus);
 omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
+omnibus.data_handler    = new data_handler(omnibus);
 omnibus.system_bus      = dbus.systemBus();
 
 // Data handler
-var data_handler_connection = new data_handler(omnibus);
 
 // Server ports
 var api_port       = 3001;

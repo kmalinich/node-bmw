@@ -31,68 +31,108 @@ var DSPC = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_data               = parse_data;
+	this.parse_in                 = parse_in;
+	this.parse_out                = parse_out;
 	this.send_device_status_ready = send_device_status_ready;
 
-	// Parse data sent by real BMBT module
-	function parse_data(message) {
+	// Parse value to DSPC module
+	function parse_in(data) {
 		// Init variables
 		var command;
-		var data;
+		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x01: // Request: device status
 				command = 'request';
-				data    = 'device status';
+				value   = 'device status';
+
+				// Send the ready packet since this module doesn't actually exist
+				send_device_status_ready(data.src);
+				break;
+
+			case 0x02: // Device status
+				switch (data.msg[1]) {
+					case 0x00:
+						command = 'device status';
+						value   = 'ready';
+						break;
+
+					case 0x01:
+						command = 'device status';
+						value   = 'ready after reset';
+						break;
+				}
+				break;
+
+			default:
+				command = 'unknown';
+				value   = new Buffer(data.msg);
+				break;
+		}
+
+		console.log('[%s->%s] Received %s:', data.src_name, data.dst_name, command, value);
+	}
+
+	// Parse data from DSPC module
+	function parse_out(data) {
+		// Init variables
+		var command;
+		var value;
+
+		switch (data.msg[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				value   = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
 				send_device_status_ready();
 				break;
 
 			case 0x02: // Device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						command = 'device status';
-						data    = 'ready';
+						value   = 'ready';
 						break;
 
 					case 0x01:
 						command = 'device status';
-						data    = 'ready after reset';
+						value   = 'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x10: // Request: ignition status
 				command = 'request';
-				data    = 'ignition status';
+				value   = 'ignition status';
 				break;
 
 			case 0x35: // Broadcast: car memory
 				command = 'broadcast';
-				data    = 'car memory';
+				value   = 'car memory';
 				break;
 
 			case 0x79: // Request: door/flap status
 				command = 'request';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				break;
 
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(data.msg);
 				break;
 		}
 
-		console.log('[DSPC] Sent %s:', command, data);
+		console.log('[%s->%s] Sent %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// DSPC->GLO Device status ready
-	function send_device_status_ready() {
+	function send_device_status_ready(source) {
 		// Init variables
-		var command = 'device status';
-		var src     = 0xEA; // DSPC
-		var dst     = 0xBF; // GLO
+		var source_name = omnibus.bus_modules.get_module_name(source);
+		var command     = 'device status';
+		var src         = 0xEA;   // DSPC
+		var dst         = source; // Whoever sent it
     var data;
     var msg;
 
@@ -115,7 +155,7 @@ var DSPC = function(omnibus) {
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 
-		console.log('[DSPC->GLO] Sent %s:', command, data);
+		console.log('[DSPC->%s] Sent %s:', source_name, command, data);
 	}
 }
 

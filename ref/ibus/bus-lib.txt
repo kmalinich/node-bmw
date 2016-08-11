@@ -290,7 +290,6 @@
 3B 68 45 91,GT --> RAD: Radio status request Data="91"
 3B 68 4E 00 00,GT --> RAD: Audio source selection
 3B 6A 01,GT --> DSP: Device status request
-3B 6A 34 28,GT --> DSP: DSP equaliser button Data="28"
 3B 6A 34 28,GT --> DSP: DSP equalizer button Data="28"
 3B 80 01,GT --> IKE: Device status request
 3B 80 10,GT --> IKE: Ignition status request

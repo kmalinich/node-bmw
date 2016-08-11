@@ -814,7 +814,7 @@
 68 6A 36 C2,RAD,DSP,Audio_control Treble = +2
 68 6A 36 E3,RAD,DSP,Audio_control DSP_Function 3
 68 76 38 00 00,RAD,CDCD,CD_control Status_Request
-68 7F 02 01,RAD,NAV,Device status ready after Reset after Reset
+68 7F 02 01,RAD,NAV,Device status ready after reset
 68 7F A8 30 01 0A 00 00 00 30 A2 D2 04 19 BE,RAD,NAV,TMC data Type30 Group0Data="01 0A 00 00 00" Type30 GroupA Data="A2 D2 04 19 BE"
 68 7F A8 30 01 0A F4 00 00,RAD,NAV,TMC data Type30 Group0Data="01 0A F4 00 00"
 68 7F A8 30 01 0A F5 8F C0 30 82 58 D7 6B 06,RAD,NAV,TMC data Type30 Group0Data="01 0A F5 8F C0" Type30 Group8_TMC_Data User_Msg+Multi_Grp ConIndex=2
@@ -1035,7 +1035,7 @@
 68 80 23 40 30,RAD,IKE,Display Text Layout=DisplayText Flags=Bit4+CLS F0=
 68 80 23 C0 20,RAD,IKE,Display Text Layout=0xC0 Flags=CLS F0=
 68 BF 02 00,RAD,GLO,Device status ready
-68 BF 02 01,RAD,GLO,Device status ready after Reset after Reset
+68 BF 02 01,RAD,GLO,Device status ready after reset
 68 C0 00 20 00 03 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Cmd_0x00 Data="20 00 03 2F 2F 2F 2F 2F 2F 2F 2F"
 68 C0 00 20 20 03 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Cmd_0x00 Data="20 20 03 2F 2F 2F 2F 2F 2F 2F 2F"
 68 C0 20 00 15 60 2F 2F 2F 05 2F 2F 2F 06 2F 2F 2F 05 2F 2F 2F 05 2F 2F 2F 05 2F 2F 2F,RAD,MID,Display status _short Request_Initial_Text Show_TEL_Menu Show_AUDIO_Menu
@@ -1409,7 +1409,7 @@
 80 A0 01,IKE,FID,Device status request
 80 BF 02 00,IKE,GLO,Device status ready
 80 BF 02 01,IKE,GLO,Device status ready after Reset
-80 BF 02 01,IKE,GLO,Device status ready after Reset after Reset
+80 BF 02 01,IKE,GLO,Device status ready after reset
 80 BF 11 00,IKE,GLO,Ignition status Off
 80 BF 11 01,IKE,GLO,Ignition status Pos1_Acc
 80 BF 11 03,IKE,GLO,Ignition status Pos1_Acc Pos2_On
@@ -2446,7 +2446,7 @@ C8 7F 01,TEL,NAV,Device status request
 C8 7F A9 0B 00 00 04,TEL,NAV,Telephone data Data="0B 00 00 04"
 C8 7F A9 31 00 00,TEL,NAV,Telephone data Telematics_settings_request
 C8 B0 01,TEL,SES,Device status request
-C8 BF 02 31,TEL,GLO,Device status ready after Reset after Reset Assist_ready_after_Reset Bit5
+C8 BF 02 31,TEL,GLO,Device status ready after reset Assist_ready_after_Reset Bit5
 C8 E7 2B 00,TEL,ANZV,Telephone indicators All_off
 C8 E7 2B 03,TEL,ANZV,Telephone indicators Red_blink
 C8 E7 2C 90,TEL,ANZV,Telephone status Phone_On

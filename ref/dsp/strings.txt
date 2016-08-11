@@ -60,7 +60,7 @@ DSP modes = {
 68 6A 32 E1,RAD --> DSP: Volume +14
 68 6A 32 F0,RAD --> DSP: Volume -15
 68 6A 32 F1,RAD --> DSP: Volume +15
-68 6A 34 08,RAD --> DSP: DSP equalizer button Data="" // Get memory?
+68 6A 34 08,RAD --> DSP: Get DSP memory
 68 6A 34 09,RAD --> DSP: DSP equalizer button Data="" // concert hall
 68 6A 34 0A,RAD --> DSP: DSP equalizer button Data="" // jazz club
 68 6A 34 0B,RAD --> DSP: DSP equalizer button Data="" // cathedral
@@ -91,7 +91,7 @@ DSP modes = {
 6A 68 35 05 01 23 08 22 42 61 82 A5 C8,DSP --> RAD: Read DSP memory
 
 68 6A 36 30,RAD --> DSP: Audio_control DSP_Function 0
-68 6A 36 40,RAD --> DSP: Audio_control Balance = 0
+68 6A 36 40,RAD --> DSP: Audio_control Balance = Center
 68 6A 36 41,RAD --> DSP: Audio_control Balance = Left 1
 68 6A 36 42,RAD --> DSP: Audio_control Balance = Left 2
 68 6A 36 43,RAD --> DSP: Audio_control Balance = Left 3

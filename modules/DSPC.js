@@ -25,7 +25,7 @@ function bit_test(num, bit) {
 }
 
 
-var DSP = function(omnibus) {
+var DSPC = function(omnibus) {
 
 	// Self reference
 	var _self = this;
@@ -44,6 +44,9 @@ var DSP = function(omnibus) {
 			case 0x01: // Request: device status
 				command = 'request';
 				data    = 'device status';
+
+				// Send the ready packet since this module doesn't actually exist
+				send_device_status_ready();
 				break;
 
 			case 0x02: // Device status
@@ -81,14 +84,14 @@ var DSP = function(omnibus) {
 				break;
 		}
 
-		console.log('[DSP]  Sent %s:', command, data);
+		console.log('[DSPC] Sent %s:', command, data);
 	}
 
-	// DSP->GLO Device status ready
+	// DSPC->GLO Device status ready
 	function send_device_status_ready() {
 		// Init variables
 		var command = 'device status';
-		var src     = 0x6A; // DSP
+		var src     = 0xEA; // DSPC
 		var dst     = 0xBF; // GLO
     var data;
     var msg;
@@ -112,8 +115,8 @@ var DSP = function(omnibus) {
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 
-		console.log('[DSP->GLO] Sent %s:', command, data);
+		console.log('[DSPC->GLO] Sent %s:', command, data);
 	}
 }
 
-module.exports = DSP;
+module.exports = DSPC;

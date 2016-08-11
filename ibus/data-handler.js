@@ -29,6 +29,7 @@ var data_handler = function(omnibus) {
 				case 'CCM'  : omnibus.CCM.parse_data(message);  break;
 				case 'CDC'  : omnibus.CDC.parse_data(message);  break;
 				case 'DSP'  : omnibus.DSP.parse_data(message);  break;
+				case 'DSPC' : omnibus.DSPC.parse_data(message); break;
 				case 'EWS'  : omnibus.EWS.parse_data(message);  break;
 				case 'GM'   : omnibus.GM.parse_data(message);   break;
 				case 'GT'   : omnibus.GT.parse_data(message);   break;
@@ -38,6 +39,7 @@ var data_handler = function(omnibus) {
 				case 'LCM'  : omnibus.LCM.parse_data(message);  break;
 				case 'MFL'  : omnibus.MFL.parse_data(message);  break;
 				case 'MID'  : omnibus.MID.parse_data(message);  break;
+				case 'NAV'  : omnibus.NAV.parse_data(message);  break;
 				case 'PDC'  : omnibus.PDC.parse_data(message);  break;
 				case 'RAD'  : omnibus.RAD.parse_data(data);     break;
 				case 'RLS'  : omnibus.RLS.parse_data(message);  break;

@@ -20,6 +20,13 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
+// Set a bit in a bitmask
+function bit_set(num, bit) {
+	num |= bit;
+	return num;
+}
+
+
 var GM = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -304,12 +311,6 @@ var GM = function(omnibus) {
 		else {
 			return false;
 		}
-	}
-
-	// Set a bit in a bitmask
-	function bit_set(num, bit) {
-		num |= bit;
-		return num;
 	}
 
 	// Encode the GM bitmask string from an input of true/false values

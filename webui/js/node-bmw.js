@@ -411,10 +411,6 @@ function status() {
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
-			console.log(return_data.lights.turn_left);
-			console.log(return_data.lights.turn_left_time);
-			console.log(return_data.lights.comfort_turn);
-
 			// Clean up page
 			clean_class_all();
 
@@ -436,8 +432,8 @@ function status() {
 			 */
 
 			// Units
-			$('#temperature-coolant-unit').text(return_data.coding.unit_temp).toUpperCase();
-			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp).toUpperCase();
+			$('#temperature-coolant-unit').text(return_data.coding.unit_temp.toUpperCase());
+			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp.toUpperCase());
 
 			if (return_data.coding.unit_temp == 'c') { 
 				$('#temperature-coolant').text(return_data.temperature.coolant_c);
@@ -502,9 +498,9 @@ function status() {
 			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Central locking locked'); } else { $('#vehicle-locked').text('Central locking unlocked'); }
 
 			// Current, average, and limit speed
-			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed).toUpperCase();
-			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed).toUpperCase();
-			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed).toUpperCase();
+			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed.toUpperCase());
+			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed.toUpperCase());
+			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed.toUpperCase());
 
 			if (return_data.coding.unit_speed == 'kmh') {
 				$('#vehicle-speed' ).text(return_data.vehicle.speed_kmh);

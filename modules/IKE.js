@@ -349,6 +349,7 @@ var IKE = function(omnibus) {
 			}
 
 			else if (message[1] == 0x07) { // Distance
+				command = 'OBC value';
 				data    = 'distance remaining';
 
 				// Parse value

@@ -56,6 +56,12 @@ var GT = function(omnibus) {
 			data    = 'ignition status';
 		}
 
+		// OBC value request
+		else if (message[0] == 0x41) {
+			command = 'request';
+			data    = 'OBC value';
+		}
+
 		// Door/flap status request
 		else if (message[0] == 0x79) {
 			command = 'request';

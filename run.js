@@ -85,8 +85,8 @@ function api_handler(request, response) {
 }
 
 function start() {
-	// Start IBUS connection
-	omnibus.ibus_connection.startup();
+	// Start BT autoconfig
+	omnibus.BT.autoconfig();
 
 	// Start API server
 	api_server.listen(api_port, function() {
@@ -95,6 +95,9 @@ function start() {
 
 	// Start WebSocket server
 	socket_server.init(websocket_port, omnibus);
+
+	// Start IBUS connection
+	omnibus.ibus_connection.startup();
 }
 
 // Shutdown function

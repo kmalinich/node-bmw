@@ -80,7 +80,7 @@ var websocket_port = 3002;
 
 // API handler function
 function api_handler(request, response) {
-	console.log('[api-handler] %s request: %s', request.method, request.url);
+	console.log('[API]  %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 
@@ -90,7 +90,7 @@ function start() {
 
 	// Start API server
 	api_server.listen(api_port, function() {
-		console.log('[api-server] Started, port %s', api_port);
+		console.log('[API]  Started, port %s', api_port);
 	});
 
 	// Start WebSocket server
@@ -102,7 +102,7 @@ function start() {
 
 // Shutdown function
 function shutdown() {
-	console.log('[node-bmw] Closing all threads and exiting');
+	console.log('[NBMW] Closing all threads and exiting');
 
 	api_server.close(function() {
 		process.exit(function() {
@@ -158,7 +158,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 
 // Error
 dispatcher.onError(function(request, response) {
-	console.error('[api-handler] Error: 404');
+	console.error('[API]  Error: 404');
 	response.writeHead(404);
 	response.end();
 });
@@ -167,5 +167,5 @@ dispatcher.onError(function(request, response) {
 // Events
 process.on('SIGINT', shutdown);
 
-console.log('[node-bmw] Starting');
+console.log('[NBMW] Starting');
 start();

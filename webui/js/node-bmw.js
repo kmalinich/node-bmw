@@ -436,18 +436,16 @@ function status() {
 			 */
 
 			// Units
-			$('#temperature-coolant-unit').text(return_data.coding.unit_temp);
-			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp);
+			$('#temperature-coolant-unit').text(return_data.coding.unit_temp).toUpperCase();
+			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp).toUpperCase();
 
 			if (return_data.coding.unit_temp == 'c') { 
-				// Coolant temperature
 				$('#temperature-coolant').text(return_data.temperature.coolant_c);
-				// Exterior temperature
-				$('#obc-temp-exterior').text(return_data.obc.temp_exterior_c);
+				$('#obc-temp-exterior').text(return_data.obc.temperature.exterior_c);
 			}
 			else if (return_data.coding.unit_temp == 'f') {
 				$('#temperature-coolant').text(return_data.temperature.coolant_f);
-				$('#obc-temp-exterior'  ).text(return_data.obc.temp_exterior_f);
+				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior_f);
 			}
 
 			/*
@@ -504,9 +502,9 @@ function status() {
 			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Central locking locked'); } else { $('#vehicle-locked').text('Central locking unlocked'); }
 
 			// Current, average, and limit speed
-			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed);
-			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed);
-			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed);
+			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed).toUpperCase();
+			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed).toUpperCase();
+			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed).toUpperCase();
 
 			if (return_data.coding.unit_speed == 'kmh') {
 				$('#vehicle-speed' ).text(return_data.vehicle.speed_kmh);
@@ -585,7 +583,10 @@ function status_refresh_on() {
 	$('#icon-refresh').addClass('fa-spin');
 	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:status_refresh_off();');
 
-	// Pulse clamps 15, 30A, 30B
+	// Refresh browser view
+	status();
+
+	// Pulse clamps 15, 30A, 30B, once
 	$.ajax({
 		url      : '/api/lcm',
 		type     : 'POST',
@@ -608,7 +609,7 @@ function status_refresh_on() {
 				console.log(return_data);
 			}
 		});
-	}, 3000);
+	}, 10000);
 
 	gm_refresh = setInterval(function() {
 		// Data refresh from GM
@@ -621,12 +622,12 @@ function status_refresh_on() {
 				console.log(return_data);
 			}
 		});
-	}, 3000);
+	}, 5000);
 
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();
-	}, 2000);
+	}, 1000);
 }
 
 // Convert a string to hex

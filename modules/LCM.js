@@ -295,7 +295,7 @@ var LCM = function(omnibus) {
 	// Send message to LCM
 	function lcm_set(packet) {
 		var src = 0x3F; // DIA
-		var dst = 0xBF; // GLO
+		var dst = 0xD0; // LCM
 		var cmd = 0x0C; // Set IO status 
 
 		// Add the command to the beginning of the LCM hex array
@@ -596,7 +596,9 @@ var LCM = function(omnibus) {
 		// output_fog_rear_trailer          : output_fog_rear_trailer,
 
 		//return output;
-		console.log(output);
+		// console.log(output);
+
+		console.log('[LCM]  Decoded current IO status');
 	}
 
 	// All the possible values to send to the LCM

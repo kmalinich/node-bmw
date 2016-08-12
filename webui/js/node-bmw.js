@@ -411,6 +411,8 @@ function status() {
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
+			console.log(return_data);
+
 			// Clean up page
 			clean_class_all();
 

@@ -7,11 +7,13 @@ var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');
 var wait         = require('wait.for');
-var dbus         = require('dbus-native');
 
 // IBUS libraries
 var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
+
+// Other custom libraries
+var BT = require('./lib/BT.js');
 
 // Module libraries
 var ABG  = require('./modules/ABG.js');
@@ -41,6 +43,7 @@ var TEL  = require('./modules/TEL.js');
 var socket_server = require('./lib/socket-server.js');
 var api_server    = http.createServer(api_handler);
 
+
 // Everything connection handle
 var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
@@ -49,6 +52,7 @@ omnibus.ibus_connection = new ibus_interface();       // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
 omnibus.BMBT            = new BMBT(omnibus);
+omnibus.BT              = new BT(omnibus);
 omnibus.CCM             = new CCM(omnibus);
 omnibus.CDC             = new CDC(omnibus);
 omnibus.DSP             = new DSP(omnibus);
@@ -69,12 +73,10 @@ omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
 omnibus.data_handler    = new data_handler(omnibus); // Data handler
-omnibus.system_bus      = dbus.systemBus();
 
 // Server ports
 var api_port       = 3001;
 var websocket_port = 3002;
-
 
 // API handler function
 function api_handler(request, response) {

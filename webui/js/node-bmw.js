@@ -439,7 +439,7 @@ function status() {
 
 			if (return_data.coding.unit_temp == 'c') { 
 				$('#temperature-coolant').text(return_data.temperature.coolant_c);
-				$('#obc-temp-exterior').text(return_data.obc.temperature.exterior_c);
+				$('#obc-temp-exterior').text(return_data.temperature.exterior_c);
 			}
 			else if (return_data.coding.unit_temp == 'f') {
 				$('#temperature-coolant').text(return_data.temperature.coolant_f);

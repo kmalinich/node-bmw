@@ -4,7 +4,6 @@ util.inherits(ibus_protocol, Transform);
 
 var Log = require('log');
 var log = new Log('info');
-var clc = require('cli-color');
 
 function ibus_protocol(options) {
 	options = options || {};

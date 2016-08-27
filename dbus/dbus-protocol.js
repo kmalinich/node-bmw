@@ -4,7 +4,6 @@ util.inherits(dbus_protocol, Transform);
 
 var Log = require('log');
 var log = new Log('info');
-var clc = require('cli-color');
 
 function dbus_protocol(options) {
 	options = options || {};

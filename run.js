@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 // npm libraries
-var clc          = require('cli-color');
 var dispatcher   = require('httpdispatcher');
 var http         = require('http');
 var query_string = require('querystring');

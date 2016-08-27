@@ -1,5 +1,4 @@
 var serialport    = require('serialport');
-var clc           = require('cli-color');
 var util          = require('util');
 var event_emitter = require('events');
 var ibus_protocol = require('./ibus-protocol.js');

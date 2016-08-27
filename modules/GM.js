@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 // npm libraries
-var clc  = require('cli-color');
 var wait = require('wait.for');
 
 // Bitmasks in hex

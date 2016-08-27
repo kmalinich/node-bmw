@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 // npm libraries
-var clc  = require('cli-color');
 var dbus = require('dbus-native');
 var wait = require('wait.for');
 

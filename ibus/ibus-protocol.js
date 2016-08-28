@@ -21,12 +21,12 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 	var _self = this;
 
 	if(_self._isProcessing === true) {
-		log.error('[ibus_protocol]', clc.red('Error. This _transform function should NOT be running..'));
+		log.error('[ibus_protocol] Error. This _transform function should NOT be running..');
 	}
 
 	_self._isProcessing = true;
 
-	log.debug('[ibus_protocol]', clc.white('Processing: '), _self._processId);
+	log.debug('[ibus_protocol] Processing: ', _self._processId);
 	log.debug('[ibus_protocol]', 'Current buffer: ', _self._buffer);
 	log.debug('[ibus_protocol]', 'Current chunk: ', chunk);
 
@@ -110,7 +110,7 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 			// Push the remaining chunk from the end of the last valid Message
 			_self._buffer = cchunk.slice(endOfLastMessage);
 
-			log.debug('[ibus_protocol]',clc.yellow('Sliced data: '), endOfLastMessage, _self._buffer);
+			log.debug('[ibus_protocol] Sliced data: ', endOfLastMessage, _self._buffer);
 		}
 		else {
 			// Push the entire chunk

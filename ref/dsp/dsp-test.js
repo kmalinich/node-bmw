@@ -6,7 +6,6 @@ function bit_test(num, bit) {
   else { return false; }
 }
 
-
 var data_1;
 var data_2;
 var data_3;

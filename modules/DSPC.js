@@ -46,7 +46,8 @@ var DSPC = function(omnibus) {
 				value   = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
-				send_device_status_ready('0xBF');
+				send_device_status_ready(data.src);
+				console.log('SRC \'%s\' DST \'%s\'', data.src, data.dst);
 				break;
 
 			case 0x02: // Device status

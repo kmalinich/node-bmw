@@ -20,7 +20,6 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-
 var EWS = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -63,8 +62,8 @@ var EWS = function(omnibus) {
 				command = 'immobiliser status';
 
 				// Init variables
-				var data_1;
-				var data_2;
+				var value_1;
+				var value_2;
 
 				// Bitmask for message[1]
 				// 0x00 = no key detected
@@ -74,49 +73,49 @@ var EWS = function(omnibus) {
 				// Key detected/vehicle immobilised
 				switch (message[1]) {
 					case 0x00:
-						data_1 = 'no key detected';
+						value_1 = 'no key detected';
 						break;
 					case 0x01:
-						data_1 = 'immobilisation deactivated';
+						value_1 = 'immobilisation deactivated';
 						break;
 					case 0x04:
-						data_1 = 'valid key detected'; 
+						value_1 = 'valid key detected'; 
 						break;
 					default:
-						data_1 = new Buffer([message[1]]);
+						value_1 = new Buffer([message[1]]);
 						break;
 				}
 
 				// Key #/Vehicle immobilised
 				switch (message[2]) {
 					case 0x01:
-						data_2 = 'key 1';
+						value_2 = 'key 1';
 						break;
 					case 0x02:
-						data_2 = 'key 2';
+						value_2 = 'key 2';
 						break;
 					case 0x03:
-						data_2 = 'key 3';
+						value_2 = 'key 3';
 						break;
 					case 0x04:
-						data_2 = 'key 4';
+						value_2 = 'key 4';
 						break;
 					case 0x05:
-						data_2 = 'key 5';
+						value_2 = 'key 5';
 						break;
 					case 0x06:
-						data_2 = 'key 6';
+						value_2 = 'key 6';
 						break;
 					case 0xFF:
-						data_2 = 'immobilised';
+						value_2 = 'immobilised';
 						break;
 					default:
-						data_1 = new Buffer([message[1]]);
+						value_1 = new Buffer([message[1]]);
 						break;
 				}
 
 				// Assemble string
-				data = data_1+' '+data_2;
+				value = value_1+' '+value_2;
 				break;
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged

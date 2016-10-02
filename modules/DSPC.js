@@ -47,7 +47,6 @@ var DSPC = function(omnibus) {
 
 				// Send the ready packet since this module doesn't actually exist
 				send_device_status_ready(data.src);
-				console.log('SRC \'%s\' DST \'%s\'', data.src, data.dst);
 				break;
 
 			case 0x02: // Device status
@@ -120,16 +119,16 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] Sent %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// DSPC->GLO Device status ready
-	function send_device_status_ready(source) {
+	function send_device_status_ready(dst) {
 		// Init variables
-		var source_name = omnibus.bus_modules.get_module_name(source);
-		var command     = 'device status';
-		var src         = 0xEA;   // DSPC
-		var dst         = source; // Whoever sent it
+		var src      = 0xEA; // DSPC
+		var src_name = omnibus.bus_modules.get_module_name(src);
+		var dst_name = omnibus.bus_modules.get_module_name(dst);
+		var command  = 'device status';
     var data;
     var msg;
 
@@ -150,9 +149,9 @@ var DSPC = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		console.log('[%s->%s] %s:', src_name, dst_name, command, data);
 
-		console.log('[DSPC->%s] Sent %s:', source_name, command, data);
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 }
 

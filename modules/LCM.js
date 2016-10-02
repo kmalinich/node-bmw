@@ -212,7 +212,7 @@ var LCM = function(omnibus) {
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
 
-		console.log('[NBMW] Decoded light status message');
+		console.log('[node-bmw] Decoded light status message');
 	}
 
 	// Handle incoming commands
@@ -606,7 +606,7 @@ var LCM = function(omnibus) {
 		//return output;
 		// console.log(output);
 
-		console.log('[NBMW] Decoded current IO status');
+		console.log('[node-bmw] Decoded current IO status');
 	}
 
 	// All the possible values to send to the LCM

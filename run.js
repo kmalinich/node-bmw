@@ -101,7 +101,7 @@ function start() {
 
 // Shutdown function
 function shutdown() {
-	console.log('[NBMW] Closing all threads and exiting');
+	console.log('[node-bmw] Closing all threads and exiting');
 
 	api_server.close(function() {
 		process.exit(function() {
@@ -166,5 +166,5 @@ dispatcher.onError(function(request, response) {
 // Events
 process.on('SIGINT', shutdown);
 
-console.log('[NBMW] Starting');
+console.log('[node-bmw] Starting');
 start();

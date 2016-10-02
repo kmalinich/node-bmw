@@ -323,7 +323,7 @@ var GM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[GM]   Requesting door/flap status');
+		console.log('[NBMW] Requesting door/flap status');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

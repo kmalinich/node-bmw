@@ -47,76 +47,71 @@ var GM = function(omnibus) {
 		var src      = data.src;
 		var dst      = data.dst;
     var message  = data.msg;
-		var src_name = omnibus.bus_modules.get_module_name(src);
-		var dst_name = omnibus.bus_modules.get_module_name(dst);
+
 		var action;
 		var button;
 		var command;
-
-		console.log('GM :::: src_name      = \'%s\'', src_name);
-		console.log('GM :::: dst_name      = \'%s\'', dst_name);
-		console.log('GM :::: data.src_name = \'%s\'', data.src_name);
-		console.log('GM :::: data.dst_name = \'%s\'', data.dst_name);
+		var value;
 
 		switch (message[0]) {
 			case 0x02: // Broadcast: device status
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';
-						data    = 'ready';
+						value   = 'ready';
 						break;
 
 					case 0x01:
 						command = 'device status';
-						data    = 'ready after reset';
+						value   = 'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x72: // Broadcast: key fob status
 				command = 'broadcast';
-				data    = 'key fob status';
+				value   = 'key fob status';
 				key_fob_status_decode(message);
 				break;
 
 			case 0x76: // Broadcast: crash alarm
 				command = 'broadcast';
-				data    = 'crash alarm';
+				value   = 'crash alarm';
 				break;
 
 			case 0x78: // Broadcast: seat memory data
 				command = 'broadcast';
-				data    = 'seat memory data';
+				value   = 'seat memory data';
 				break;
 
 			case 0x7A: // Broadcast: door/flap status
 				command = 'broadcast';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				door_flap_status_decode(message);
 				break;
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged
 				command = 'diagnostic command';
-				data    = 'acknowledged';
+				value   = 'acknowledged';
 				break;
 
 			case 0xA2: // Broadcast: diagnostic command rejected
 				command = 'diagnostic command';
-				data    = 'rejected';
+				value   = 'rejected';
 				break;
 
 			case 0xFF: // Broadcast: diagnostic command not acknowledged
 				command = 'diagnostic command';
-				data    = 'not acknowledged';
+				value   = 'not acknowledged';
 				break;
 
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(message);
 				break;
 		}
 
-		console.log('[GM]   Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results 

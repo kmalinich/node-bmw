@@ -82,7 +82,7 @@ var CCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%4s->%4s] %s:', data.src_name, data.dst_name, command, value);
 	}
 }
 

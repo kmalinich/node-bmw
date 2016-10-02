@@ -68,7 +68,7 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] Received %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%4s->%4s] Received %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Parse data sent from DSPC module
@@ -118,7 +118,7 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%4s->%4s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// DSPC->GLO Device status ready
@@ -148,7 +148,7 @@ var DSPC = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		console.log('[%s->%s] %s:', src_name, dst_name, command, data);
+		console.log('[%4s->%4s] %s:', src_name, dst_name, command, data);
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

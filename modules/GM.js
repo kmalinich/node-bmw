@@ -25,7 +25,6 @@ function bit_set(num, bit) {
 	return num;
 }
 
-
 var GM = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -111,7 +110,7 @@ var GM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%4s->%4s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results 

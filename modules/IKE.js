@@ -472,7 +472,7 @@ var IKE = function(omnibus) {
 			value   = new Buffer(message);
 		}
 
-		console.log('[%4s->%4s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Handle incoming commands from API

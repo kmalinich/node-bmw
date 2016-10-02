@@ -22,15 +22,19 @@ var data_handler = function(omnibus) {
 
 			// Send message to code module to parse
 			switch (data.src_name) {
+				// New model
+				case 'DSPC' : omnibus.DSPC.parse_out(data); break;
+				case 'GM'   : omnibus.GM.parse_out(data);   break;
+				case 'RAD'  : omnibus.RAD.parse_data(data); break;
+
+				// Old model
 				case 'ABG'  : omnibus.ABG.parse_data(data.msg);  break;
 				case 'ANZV' : omnibus.ANZV.parse_data(data.msg); break;
 				case 'BMBT' : omnibus.BMBT.parse_data(data.msg); break;
 				case 'CCM'  : omnibus.CCM.parse_data(data.msg);  break;
 				case 'CDC'  : omnibus.CDC.parse_data(data.msg);  break;
 				case 'DSP'  : omnibus.DSP.parse_data(data.msg);  break;
-				case 'DSPC' : omnibus.DSPC.parse_out(data);      break;
 				case 'EWS'  : omnibus.EWS.parse_data(data.msg);  break;
-				case 'GM'   : omnibus.GM.parse_data(data);       break;
 				case 'GT'   : omnibus.GT.parse_data(data.msg);   break;
 				case 'HAC'  : omnibus.HAC.parse_data(data.msg);  break;
 				case 'IHKA' : omnibus.IHKA.parse_data(data.msg); break;
@@ -40,7 +44,6 @@ var data_handler = function(omnibus) {
 				case 'MID'  : omnibus.MID.parse_data(data.msg);  break;
 				case 'NAV'  : omnibus.NAV.parse_data(data.msg);  break;
 				case 'PDC'  : omnibus.PDC.parse_data(data.msg);  break;
-				case 'RAD'  : omnibus.RAD.parse_data(data);      break;
 				case 'RLS'  : omnibus.RLS.parse_data(data.msg);  break;
 				case 'SES'  : omnibus.SES.parse_data(data.msg);  break;
 				case 'SHD'  : omnibus.SHD.parse_data(data.msg);  break;

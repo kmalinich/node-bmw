@@ -28,13 +28,12 @@ function bit_set(num, bit) {
 
 
 var RAD = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
 	// Exposed data
 	this.led        = led;
-	this.parse_data = parse_data;
+	this.parse_out = parse_out;
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
 	function led(object) {
@@ -77,8 +76,8 @@ var RAD = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
-	// Parse data sent by real RAD module
-	function parse_data(packet) {
+	// Parse data sent from RAD module
+	function parse_out(packet) {
 		// Init variables
 		var dst     = omnibus.bus_modules.get_module_name(packet.dst);
 		var src     = omnibus.bus_modules.get_module_name(packet.src);

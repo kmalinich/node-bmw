@@ -53,6 +53,11 @@ var GM = function(omnibus) {
 		var button;
 		var command;
 
+		console.log('GM :::: src_name      = \'%s\'', src_name);
+		console.log('GM :::: dst_name      = \'%s\'', dst_name);
+		console.log('GM :::: data.src_name = \'%s\'', data.src_name);
+		console.log('GM :::: data.dst_name = \'%s\'', data.dst_name);
+
 		switch (message[0]) {
 			case 0x02: // Broadcast: device status
 				switch (message[1]) {

@@ -24,16 +24,15 @@ var data_handler = function(omnibus) {
 			switch (data.src_name) {
 				// New model
 				case 'BMBT' : omnibus.BMBT.parse_out(data); break;
-				case 'DSPC' : omnibus.DSPC.parse_out(data); break;
-				case 'GM'   : omnibus.GM.parse_out(data);   break;
-				case 'RAD'  : omnibus.RAD.parse_out(data);  break;
-				case 'IKE'  : omnibus.IKE.parse_out(data);  break;
-
 				case 'CCM'  : omnibus.CCM.parse_out(data);  break;
-				case 'IHKA' : omnibus.IHKA.parse_out(data); break;
-				case 'LCM'  : omnibus.LCM.parse_out(data);  break;
 				case 'DSP'  : omnibus.DSP.parse_out(data);  break;
+				case 'DSPC' : omnibus.DSPC.parse_out(data); break;
 				case 'EWS'  : omnibus.EWS.parse_out(data);  break;
+				case 'GM'   : omnibus.GM.parse_out(data);   break;
+				case 'IHKA' : omnibus.IHKA.parse_out(data); break;
+				case 'IKE'  : omnibus.IKE.parse_out(data);  break;
+				case 'LCM'  : omnibus.LCM.parse_out(data);  break;
+				case 'RAD'  : omnibus.RAD.parse_out(data);  break;
 
 				// Old model
 				case 'ABG'  : omnibus.ABG.parse_data(data.msg);  break;

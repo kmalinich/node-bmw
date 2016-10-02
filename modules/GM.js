@@ -166,7 +166,7 @@ var GM = function(omnibus) {
 		if (bit_test(message[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
 		if (bit_test(message[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
 
-		console.log('[node-bmw] Decoded door/flap status message');
+		console.log('[node-bmw] decoded door/flap status message');
 	}
 
 	// Handle incoming commands from API

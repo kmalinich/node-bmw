@@ -23,7 +23,6 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-
 var DSPC = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -68,7 +67,7 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] Received %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Parse data sent from DSPC module

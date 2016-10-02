@@ -39,12 +39,12 @@ var ibus_interface = function(device_path) {
 
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[BUSI] Port error: %s', error);
+		console.error('[INTF] Port error: %s', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[BUSI] Port open [%s]', device);
+		console.log('[INTF] Port open [%s]', device);
 
 		parser = new ibus_protocol();
 		parser.on('message', on_message);
@@ -54,34 +54,34 @@ var ibus_interface = function(device_path) {
 
 	// On port close
 	serial_port.on('close', function() {
-		console.log('[BUSI] Port closed [%s]', device);
+		console.log('[INTF] Port closed [%s]', device);
 		parser = null;
 	});
 
 	// On data RX
 	serial_port.on('data', function(data) {
-		// log.debug('[BUSI] Data on port: ', data);
+		// log.debug('[INTF] Data on port: ', data);
 		last_activity_time = process.hrtime();
 	});
 
 	// Open serial port
 	function startup() {
-		console.log('[BUSI] Starting');
+		console.log('[INTF] Starting');
 
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
-			console.log('[BUSI] Opening port');
+			console.log('[INTF] Opening port');
 			serial_port.open();
 		}
 	}
 
 	// Close serial port
 	function shutdown(callback) {
-		console.log('[BUSI] Ending');
+		console.log('[INTF] Ending');
 
 		// Close port if it is open
 		if (serial_port.isOpen()) {
-			console.log('[BUSI] Closing port');
+			console.log('[INTF] Closing port');
 			serial_port.close();
 		}
 
@@ -119,16 +119,16 @@ var ibus_interface = function(device_path) {
 		// Process 1 message
 		var data_buffer = queue.pop();
 
-		// log.debug(clc.blue('[BUSI] Write queue length: '), queue.length);
+		// log.debug(clc.blue('[INTF] Write queue length: '), queue.length);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			// if (error) {
-			//   log.error('[BUSI] Failed to write: ' + error);
+			//   log.error('[INTF] Failed to write: ' + error);
 			// }
 			// else {
 			// }
 
-			// console.log('[BUSI]', clc.red('Wrote to device:'), data_buffer, resp);
+			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
 				// log.debug(clc.white('Data drained'));
@@ -146,7 +146,7 @@ var ibus_interface = function(device_path) {
 	}
 
 	function on_message(msg) {
-		// log.debug('[BUSI] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
+		// log.debug('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
 		_self.emit('data', msg);
 	}
 
@@ -155,10 +155,10 @@ var ibus_interface = function(device_path) {
 
 		// console.log('[send_message] Src :', bus_modules.get_module_name(msg.src.toString(16)));
 		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
-		// log.debug('[BUSI] Send message: ', data_buffer);
+		// log.debug('[INTF] Send message: ', data_buffer);
 
 		if (queue.length > 1000) {
-			// log.warning('[BUSI] Queue too large, dropping message..', data_buffer);
+			// log.warning('[INTF] Queue too large, dropping message..', data_buffer);
 			return;
 		}
 

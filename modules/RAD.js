@@ -99,47 +99,48 @@ var RAD = function(omnibus) {
 
 		console.log('[node-bmw] Sent %s:', command, data);
 	}
-}
 
-// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
-function led(object) {
-	console.log('[node-bmw] Encoding \'RAD LED\' packet');
+	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
+	function led(object) {
+		console.log('[node-bmw] Encoding \'RAD LED\' packet');
 
-	// Bitmask
-	// 0x00 = all off
-	// 0x01 = solid red
-	// 0x02 = flash red
-	// 0x04 = solid yellow
-	// 0x08 = flash yellow
-	// 0x10 = solid green
-	// 0x20 = flash green
+		// Bitmask
+		// 0x00 = all off
+		// 0x01 = solid red
+		// 0x02 = flash red
+		// 0x04 = solid yellow
+		// 0x08 = flash yellow
+		// 0x10 = solid green
+		// 0x20 = flash green
 
-	// Initialize output byte
-	var byte = 0x00;
+		// Initialize output byte
+		var byte = 0x00;
 
-	if (object.solid_red)    { byte = bit_set(byte, bit_0); }
-	if (object.flash_red)    { byte = bit_set(byte, bit_1); }
-	if (object.solid_yellow) { byte = bit_set(byte, bit_2); }
-	if (object.flash_yellow) { byte = bit_set(byte, bit_3); }
-	if (object.solid_green)  { byte = bit_set(byte, bit_4); }
-	if (object.flash_green)  { byte = bit_set(byte, bit_5); }
+		if (object.solid_red)    { byte = bit_set(byte, bit_0); }
+		if (object.flash_red)    { byte = bit_set(byte, bit_1); }
+		if (object.solid_yellow) { byte = bit_set(byte, bit_2); }
+		if (object.flash_yellow) { byte = bit_set(byte, bit_3); }
+		if (object.solid_green)  { byte = bit_set(byte, bit_4); }
+		if (object.flash_green)  { byte = bit_set(byte, bit_5); }
 
-	// Assemble strings
-	var src     = 0xC8; // TEL
-	var dst     = 0xE7; // OBC
-	var command = 0x2B; // Turn on radio LED
-	var packet  = [command, byte];
+		// Assemble strings
+		var src     = 0xC8; // TEL
+		var dst     = 0xE7; // OBC
+		var command = 0x2B; // Turn on radio LED
+		var packet  = [command, byte];
 
-	// Send message
-	var ibus_packet = {
-		src: src,
-		dst: dst,
-		msg: new Buffer(packet),
+		// Send message
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(packet),
+		}
+
+		// Send the message
+		console.log('[node-bmw] Sending \'RAD LED\' packet');
+
+		omnibus.ibus_connection.send_message(ibus_packet);
 	}
-
-	// Send the message
-	console.log('[node-bmw] Sending \'RAD LED\' packet');
-	omnibus.ibus_connection.send_message(ibus_packet);
 }
 
 module.exports = RAD;

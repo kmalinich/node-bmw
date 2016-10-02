@@ -27,86 +27,89 @@ var IHKA = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_data = parse_data;
+	this.parse_out = parse_out;
 
-
-	// Parse data sent by real IHKA module
-	function parse_data(message) {
+	// Parse data sent from IHKA module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		// Device status
 		if (message[0] == 0x02) {
 			if (message[1] == 0x00) {
 				command = 'device status';
-				data    = 'ready';
+				value   = 'ready';
 			}
 
 			else if (message[1] == 0x01) {
 				command = 'device status';
-				data    = 'ready after reset';
+				value   = 'ready after reset';
 			}
 		}
 
 		// Request: ignition status
 		else if (message[0] == 0x10) {
 			command = 'request';
-			data    = 'ignition status';
+			value   = 'ignition status';
 		}
 
 		// Request: temperature
 		else if (message[0] == 0x12) {
 			command = 'request';
-			data    = 'IKE sensor status';
+			value   = 'IKE sensor status';
 		}
 
 		// Request: temperature
 		else if (message[0] == 0x1D) {
 			command = 'request';
-			data    = 'temperature';
+			value   = 'temperature';
 		}
 
 		// Request: rain sensor status
 		else if (message[0] == 0x71) {
 			command = 'request';
-			data    = 'rain sensor status';
+			value   = 'rain sensor status';
 		}
 
 		// Door/flap status request
 		else if (message[0] == 0x79) {
 			command = 'request';
-			data    = 'door/flap status';
+			value   = 'door/flap status';
 		}
 
 		// AC compressor status 
 		else if (message[0] == 0x83) {
 			command = 'broadcast';
-			data    = 'AC compressor status';
+			value   = 'AC compressor status';
 		}
 
 		// Diagnostic command replies
 		else if (message[0] == 0xA0) {
 			command = 'diagnostic command';
-			data    = 'acknowledged';
+			value   = 'acknowledged';
 		}
 
 		else if (message[0] == 0xA2) {
 			command = 'diagnostic command';
-			data    = 'rejected';
+			value   = 'rejected';
 		}
 
 		else if (message[0] == 0xFF) {
 			command = 'diagnostic command';
-			data    = 'not acknowledged';
+			value   = 'not acknowledged';
 		}
 
 		else {
 			command = 'unknown';                                                                    
-			data    = new Buffer(message);
+			value   = new Buffer(message);
 		}
 
-		console.log('[IHKA] Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 }
 

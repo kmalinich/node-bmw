@@ -30,7 +30,7 @@ var ABG = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real ABG module
+	// Parse data sent from ABG module
 	function parse_data(message) {
 		// Init variables
 		var command;

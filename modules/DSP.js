@@ -29,57 +29,61 @@ var DSP = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_data               = parse_data;
+	this.parse_out                = parse_out;
 	this.send_device_status_ready = send_device_status_ready;
 
-	// Parse data sent by real BMBT module
-	function parse_data(message) {
+	// Parse data sent from BMBT module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		switch (message[0]) {
 			case 0x01: // Request: device status
 				command = 'request';
-				data    = 'device status';
+				value   = 'device status';
 				break;
 
 			case 0x02: // Device status
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';
-						data    = 'ready';
+						value   = 'ready';
 						break;
 
 					case 0x01:
 						command = 'device status';
-						data    = 'ready after reset';
+						value   = 'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x10: // Request: ignition status
 				command = 'request';
-				data    = 'ignition status';
+				value   = 'ignition status';
 				break;
 
 			case 0x35: // Broadcast: car memory
 				command = 'broadcast';
-				data    = 'car memory';
+				value   = 'car memory';
 				break;
 
 			case 0x79: // Request: door/flap status
 				command = 'request';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				break;
 
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(message);
 				break;
 		}
 
-		console.log('[DSP]  Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// DSP->GLO Device status ready

@@ -30,7 +30,7 @@ var RLS = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real RLS module
+	// Parse data sent from RLS module
 	function parse_data(message) {
 		// Init variables
 		var command;

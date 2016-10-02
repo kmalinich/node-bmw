@@ -30,7 +30,7 @@ var PDC = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real PDC module
+	// Parse data sent from PDC module
 	function parse_data(message) {
 		// Init variables
 		var command;

@@ -15,7 +15,6 @@ var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
 var LCM = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
@@ -29,63 +28,73 @@ var LCM = function(omnibus) {
 	this.lcm_get             = lcm_get;
 	this.lcm_set             = lcm_set;
 	this.light_status_decode = light_status_decode;
-	this.parse_data          = parse_data;
+	this.parse_out          = parse_out;
 	this.reset               = reset;
 	this.welcome_lights      = welcome_lights;
 
-
-	// Parse data sent by real LCM module
-	function parse_data(message) {
+	// Parse data sent from LCM module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		switch (message[0]) {
 			case 0x02: // Broadcast: device status
 				if (message[1] == 0x00) {
 					command = 'device status';
-					data    = 'ready';
+					value   = 'ready';
 				}
 
 				else if (message[1] == 0x01) {
 					command = 'device status';
-					data    = 'ready after reset';
+					value   = 'ready after reset';
 				}
 				break;
+	
 			case 0x10: // Request: ignition status
 				command = 'request';
-				data    = 'ignition status';
+				value   = 'ignition status';
 				break;
+	
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
-				data    = 'vehicle data';
+				value   = 'vehicle data';
 				// vehicle_data_decode(message);
 				break;
+	
 			case 0x5B: // Broadcast: light status
 				command = 'broadcast';
-				data    = 'light status';
+				value   = 'light status';
 				light_status_decode(message);
 				break;
+	
 			case 0x5C: // Broadcast: light dimmer status
 				command = 'broadcast';
-				data    = 'light dimmer status';
+				value   = 'light dimmer status';
 				omnibus.status.lights.dimmer = message[1];
 				break;
+	
 			case 0x79: // Request: door/flap status
 				command = 'request';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				break;
+	
 			case 0xA0: 
 				command = 'current IO status';
 				omnibus.LCM.io_status_decode(message);
 				break;
+	
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(message);
 				break;
 		}
 
-		console.log('[LCM]  Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 

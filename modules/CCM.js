@@ -22,59 +22,67 @@ function bit_test(num, bit) {
 
 
 var CCM = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
 	// Exposed data
-	this.parse_data = parse_data;
+	this.parse_out = parse_out;
 
-
-	// Parse data sent by real CCM module
-	function parse_data(message) {
+	// Parse data sent from CCM module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		switch (message[0]) {
 			case 0x02: // Broadcast: device status
 				if (message[1] == 0x00) {
 					command = 'device status';
-					data    = 'ready';
+					value   = 'ready';
 				}
 
 				else if (message[1] == 0x01) {
 					command = 'device status';
-					data    = 'ready after reset';
+					value   = 'ready after reset';
 				}
 				break;
+
 			case 0x10: // Request: ignition status
 				command = 'request';
-				data    = 'ignition status';
+				value   = 'ignition status';
 				break;
+
 			case 0x1A: // Broadcast: check control message 
 				command = 'check control message';
-				data    = ''+message+'';
+				value   = ''+message+'';
 				break;
+
 			case 0x51: // Broadcast: check control sensors
 				command = 'check control sensors';
-				data    = 'unknown';
+				value   = 'unknown';
 				break;
+
 			case 0x73: // Request: immobiliser status
 				command = 'request';
-				data    = 'immobiliser status';
+				value   = 'immobiliser status';
 				break;
+
 			case 0x79: // Request: door/flap status
 				command = 'request';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				break;
+
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(message);
 				break;
 		}
 
-		console.log('[CCM]  Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 }
 

@@ -64,7 +64,7 @@ var NAV = function(omnibus) {
 	// 7F 80 1F 40 21 37 25 00 10 20 11,NAV --> IKE Time & date UTC 21:37 25 October 2011
 	// 7F 80 1F 40 21 38 25 00 10 20 11,NAV --> IKE Time & date UTC 21:38 25 October 2011
 
-	// Parse data sent by real NAV module
+	// Parse data sent from NAV module
 	function parse_data(message) {
 		// Init variables
 		var command;

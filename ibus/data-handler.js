@@ -27,19 +27,20 @@ var data_handler = function(omnibus) {
 				case 'DSPC' : omnibus.DSPC.parse_out(data); break;
 				case 'GM'   : omnibus.GM.parse_out(data);   break;
 				case 'RAD'  : omnibus.RAD.parse_out(data);  break;
+				case 'IKE'  : omnibus.IKE.parse_out(data);  break;
+
+				case 'CCM'  : omnibus.CCM.parse_out(data);  break;
+				case 'IHKA' : omnibus.IHKA.parse_out(data); break;
+				case 'LCM'  : omnibus.LCM.parse_out(data);  break;
+				case 'DSP'  : omnibus.DSP.parse_out(data);  break;
+				case 'EWS'  : omnibus.EWS.parse_out(data);  break;
 
 				// Old model
 				case 'ABG'  : omnibus.ABG.parse_data(data.msg);  break;
 				case 'ANZV' : omnibus.ANZV.parse_data(data.msg); break;
-				case 'CCM'  : omnibus.CCM.parse_data(data.msg);  break;
 				case 'CDC'  : omnibus.CDC.parse_data(data.msg);  break;
-				case 'DSP'  : omnibus.DSP.parse_data(data.msg);  break;
-				case 'EWS'  : omnibus.EWS.parse_data(data.msg);  break;
 				case 'GT'   : omnibus.GT.parse_data(data.msg);   break;
 				case 'HAC'  : omnibus.HAC.parse_data(data.msg);  break;
-				case 'IHKA' : omnibus.IHKA.parse_data(data.msg); break;
-				case 'IKE'  : omnibus.IKE.parse_data(data.msg);  break;
-				case 'LCM'  : omnibus.LCM.parse_data(data.msg);  break;
 				case 'MFL'  : omnibus.MFL.parse_data(data.msg);  break;
 				case 'MID'  : omnibus.MID.parse_data(data.msg);  break;
 				case 'NAV'  : omnibus.NAV.parse_data(data.msg);  break;

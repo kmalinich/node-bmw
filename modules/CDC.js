@@ -31,7 +31,7 @@ var CDC = function(omnibus) {
 	this.send_cd_status_play      = send_cd_status_play;
 	this.send_device_status_ready = send_device_status_ready;
 
-	// Parse data sent by real BMBT module
+	// Parse data sent from BMBT module
 	function parse_data(message) {
 		// Init variables
 		var command;

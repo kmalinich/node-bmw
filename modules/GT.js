@@ -30,7 +30,7 @@ var GT = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real GT module
+	// Parse data sent from GT module
 	function parse_data(message) {
 		// Init variables
 		var command;

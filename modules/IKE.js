@@ -32,25 +32,29 @@ var IKE = function(omnibus) {
 	this.ike_send   = ike_send;
 	this.ike_text   = ike_text;
 	this.obc_data   = obc_data;
-	this.parse_data = parse_data;
+	this.parse_out  = parse_out;
 
-	// Parse data sent by real IKE module
-	function parse_data(message) {
+	// Parse data sent from real IKE module
+	function parse_out(data) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		// Broadcast device status
 		if (message[0] == 0x02) {
 			switch (message[1]) {
 				case 0x00:
 					command = 'device status';
-					data    = 'ready';
+					value   = 'ready';
 					break;
 
 				case 0x01:
 					command = 'device status';
-					data    = 'ready after reset';
+					value   = 'ready after reset';
 					break;
 			}
 		}
@@ -119,13 +123,13 @@ var IKE = function(omnibus) {
 			}
 
 			command = 'broadcast';
-			data    = 'ignition status: '+omnibus.status.vehicle.ignition;
+			value   = 'ignition status: '+omnibus.status.vehicle.ignition;
 		}
 
 		// Broadcast IKE sensor status
 		else if (message[0] == 0x13) {
 			command = 'broadcast';
-			data    = 'IKE sensor status';
+			value   = 'IKE sensor status';
 
 			// This is a bitmask
 			// message[1]:
@@ -152,22 +156,22 @@ var IKE = function(omnibus) {
 			}
 		}
 
-		// Broadcast country coding data 
+		// Broadcast country coding value
 		else if (message[0] == 0x15) {
 			command = 'broadcast';
-			data    = 'country coding data';
+			value   = 'country coding data';
 		}
 
 		// Odometer
 		else if (message[0] == 0x17) {
 			command = 'broadcast';
-			data    = 'odometer value';
+			value   = 'odometer value';
 		}
 
 		// Vehicle speed and RPM
 		else if (message[0] == 0x18) {
 			command = 'broadcast';
-			data    = 'current speed and RPM';
+			value   = 'current speed and RPM';
 
 			// Update vehicle and engine speed variables
 			omnibus.status.vehicle.speed_kmh = parseFloat(message[1]*2).toFixed(2);
@@ -180,7 +184,7 @@ var IKE = function(omnibus) {
 		// Coolant temp and external temp
 		else if (message[0] == 0x19) {
 			command = 'broadcast';
-			data    = 'temperature values';
+			value   = 'temperature values';
 
 			// Update external and engine coolant temp variables
 			omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
@@ -194,7 +198,7 @@ var IKE = function(omnibus) {
 		else if (message[0] == 0x24) {
 			if (message[1] == 0x01) { // Time
 				command = 'OBC value';
-				data    = 'time';
+				value   = 'time';
 
 				// Parse unit 
 				string_time_unit = new Buffer([message[8], message[9]]);
@@ -218,7 +222,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x02) { // Date
 				command = 'OBC value';
-				data    = 'date';
+				value   = 'date';
 
 				// Parse value
 				string_date = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
@@ -230,7 +234,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x03) { // Exterior temp
 				command = 'OBC value';
-				data    = 'exterior temp';
+				value   = 'exterior temp';
 
 				// Parse unit
 				string_temp_exterior_unit = new Buffer([message[9]]);
@@ -268,7 +272,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x04) { // Consumption 1
 				command = 'OBC value';
-				data    = 'consumption 1';
+				value   = 'consumption 1';
 
 				// Parse unit
 				string_consumption_1_unit = new Buffer([message[8]]);
@@ -298,7 +302,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x05) { // Consumption 2
 				command = 'OBC value';
-				data    = 'consumption 2';
+				value   = 'consumption 2';
 
 				// Parse unit
 				string_consumption_2_unit = new Buffer([message[8]]);
@@ -325,7 +329,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x06) { // Range
 				command = 'OBC value';
-				data    = 'range to empty';
+				value   = 'range to empty';
 
 				// Parse value
 				string_range = new Buffer([message[3], message[4], message[5], message[6]]);
@@ -349,7 +353,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x07) { // Distance
 				command = 'OBC value';
-				data    = 'distance remaining';
+				value   = 'distance remaining';
 
 				// Parse value
 				string_distance = new Buffer([message[3], message[4], message[5], message[6]]);
@@ -361,12 +365,12 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x08) { // --:--
 				command = 'OBC value';
-				data    = 'clock?';
+				value   = 'clock?';
 			}
 
 			else if (message[1] == 0x09) { // Limit
 				command = 'OBC value';
-				data    = 'speed limit';
+				value   = 'speed limit';
 
 				// Parse value
 				string_speedlimit = new Buffer([message[3], message[4], message[5]]);
@@ -378,7 +382,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x0A) { // Avg. speed
 				command = 'OBC value';
-				data    = 'average speed';
+				value   = 'average speed';
 
 				// Parse unit
 				string_speedavg_unit = new Buffer([message[8]]);
@@ -388,7 +392,7 @@ var IKE = function(omnibus) {
 				string_speedavg = new Buffer([message[3], message[4], message[5], message[6]]);
 				string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
 
-				// Convert values appropriately based on coding data units
+				// Convert values appropriately based on coding valueunits
 				if (string_speedavg_unit == 'k') {
 					omnibus.status.coding.unit_speed = 'kmh';
 					// Update omnibus.status variables
@@ -406,7 +410,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x0E) { // Timer
 				command = 'OBC value';
-				data    = 'timer';
+				value   = 'timer';
 
 				// Parse value
 				string_timer = new Buffer([message[3], message[4], message[5], message[6]]);
@@ -418,7 +422,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x0F) { // Aux heat timer 1
 				command = 'OBC value';
-				data    = 'aux heat timer 1';
+				value   = 'aux heat timer 1';
 
 				// Parse value
 				string_aux_heat_timer_1 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
@@ -430,7 +434,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x10) { // Aux heat timer 2
 				command = 'OBC value';
-				data    = 'aux heat timer 2';
+				value   = 'aux heat timer 2';
 
 				// Parse value
 				string_aux_heat_timer_2 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
@@ -442,7 +446,7 @@ var IKE = function(omnibus) {
 
 			else if (message[1] == 0x1A) { // Stopwatch
 				command = 'OBC value';
-				data    = 'stopwatch';
+				value   = 'stopwatch';
 
 				// Parse value
 				string_stopwatch = new Buffer([message[3], message[4], message[5], message[6]]);
@@ -454,21 +458,21 @@ var IKE = function(omnibus) {
 
 			else {
 				command = 'OBC value';
-				data    = 'unknown';
+				value   = 'unknown';
 			}
 		}
 
 		else if (message[0] == 0x57) {
 			command = 'button';
-			data     = 'BC';
+			value    = 'BC';
 		}
 
 		else {
 			command = 'unknown';
-			data    = new Buffer(message);
+			value   = new Buffer(message);
 		}
 
-		console.log('[IKE]  Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Handle incoming commands from API

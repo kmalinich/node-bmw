@@ -30,7 +30,7 @@ var TEL = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real TEL module
+	// Parse data sent from TEL module
 	function parse_data(message) {
 		// Init variables
 		var command;

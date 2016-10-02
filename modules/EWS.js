@@ -22,19 +22,21 @@ function bit_test(num, bit) {
 
 
 var EWS = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
 	// Exposed data
-	this.parse_data = parse_data;
+	this.parse_out = parse_out;
 
-
-	// Parse data sent by real EWS module
-	function parse_data(message) {
+	// Parse data sent from EWS module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var command;
-		var data;
+		var value;
 
 		switch (message[0]) {
 
@@ -42,19 +44,19 @@ var EWS = function(omnibus) {
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';
-						data    = 'ready';
+						value   = 'ready';
 						break;
 
 					case 0x01:
 						command = 'device status';
-						data    = 'ready after reset';
+						value   = 'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x10: // Request: ignition status
 				command = 'request';
-				data    = 'ignition status';
+				value   = 'ignition status';
 				break;
 
 			case 0x74: // Broadcast: immobiliser status
@@ -119,31 +121,31 @@ var EWS = function(omnibus) {
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged
 				command = 'diagnostic command';
-				data    = 'acknowledged';
+				value   = 'acknowledged';
 				break;
 
 			case 0xA2: // Broadcast: diagnostic command rejected
 				command = 'diagnostic command';
-				data    = 'rejected';
+				value   = 'rejected';
 				break;
 
 			case 0xFF: // Broadcast: diagnostic command not acknowledged
 				command = 'diagnostic command';
-				data    = 'not acknowledged';
+				value   = 'not acknowledged';
 				break;
 
 			case 0x79: // Request: door/flap status
 				command = 'request';
-				data    = 'door/flap status';
+				value   = 'door/flap status';
 				break;
 
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				value   = new Buffer(message);
 				break;
 		}
 
-		console.log('[EWS]  Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 }
 

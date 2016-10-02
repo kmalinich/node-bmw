@@ -30,7 +30,7 @@ var MID = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real MID module
+	// Parse data sent from MID module
 	function parse_data(message) {
 		// Init variables
 		var command;

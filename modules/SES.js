@@ -30,7 +30,7 @@ var SES = function(omnibus) {
 	this.parse_data = parse_data;
 
 
-	// Parse data sent by real SES module
+	// Parse data sent from SES module
 	function parse_data(message) {
 		// Init variables
 		var command;

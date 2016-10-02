@@ -59,26 +59,28 @@ var IKE = function(omnibus) {
 				break;
 
 			case 0x11: // ignition status
+				command = 'ignition status';
+
 				/*
 				 * Unlock doors when ignition is in acc/off after being in run
 				 */
 
 				// If key is now in 'off' or 'accessory' and ignition status was previously 'run' and the doors are locked
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
-					console.log('[IKE]  Unlocking doors');
+					console.log('[node-bmw] Unlocking doors');
 					// Send message to GM to toggle door locks
 					omnibus.GM.gm_cl('toggle');
 				}
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
-					console.log('[IKE]  Disconnecting from bluetooth device');
+					console.log('[node-bmw] Disconnecting from bluetooth device');
 					omnibus.BT.command('disconnect');
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
-					console.log('[IKE]  Connecting to bluetooth device');
+					console.log('[node-bmw] Connecting to bluetooth device');
 					omnibus.BT.command('connect');
 				}
 
@@ -120,8 +122,7 @@ var IKE = function(omnibus) {
 						break;
 				}
 
-				command = 'ignition status:';
-				value   = omnibus.status.vehicle.ignition;
+				value = omnibus.status.vehicle.ignition;
 				break;
 
 			case 0x13: // IKE sensor status
@@ -202,8 +203,7 @@ var IKE = function(omnibus) {
 			case 0x24: // OBC values broadcast
 				switch (message[1]) {
 					case 0x01: // Time
-						command = 'OBC value';
-						value   = 'time';
+						command = 'OBC time';
 
 						// Parse unit 
 						string_time_unit = new Buffer([message[8], message[9]]);
@@ -223,23 +223,23 @@ var IKE = function(omnibus) {
 
 						// Update omnibus.status variables
 						omnibus.status.obc.time = string_time; 
+						value                   = omnibus.status.obc.time;
 						break;
 
 					case 0x02: // Date
-						command = 'OBC value';
-						value   = 'date';
+						command = 'OBC date';
 
 						// Parse value
 						string_date = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
 						string_date = string_date.toString().trim();
 
 						// Update omnibus.status variables
-						omnibus.status.obc.date = string_date; 
+						omnibus.status.obc.date = string_date;
+						value                   = omnibus.status.obc.date;
 						break;
 
 					case 0x03: // Exterior temp
-						command = 'OBC value';
-						value   = 'exterior temp';
+						command = 'OBC exterior temperature';
 
 						// Parse unit
 						string_temp_exterior_unit = new Buffer([message[9]]);
@@ -273,11 +273,12 @@ var IKE = function(omnibus) {
 								omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
 								break;
 						}
+
+            value = omnibus.status.obc.temp_exterior_c;
 						break;
 
 					case 0x04: // Consumption 1
-						command = 'OBC value';
-						value   = 'consumption 1';
+						command = 'OBC consumption 1';
 
 						// Parse unit
 						string_consumption_1_unit = new Buffer([message[8]]);
@@ -305,11 +306,12 @@ var IKE = function(omnibus) {
 						// Update omnibus.status variables
 						omnibus.status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
 						omnibus.status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
+
+            value = omnibus.status.obc.consumption_1_mpg;
 						break;
 
 					case 0x05: // Consumption 2
-						command = 'OBC value';
-						value   = 'consumption 2';
+						command = 'OBC consumption 2';
 
 						// Parse unit
 						string_consumption_2_unit = new Buffer([message[8]]);
@@ -332,11 +334,12 @@ var IKE = function(omnibus) {
 						// Update omnibus.status variables
 						omnibus.status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
 						omnibus.status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
+
+            value = omnibus.status.obc.consumption_2_mpg;
 						break;
 
 					case 0x06: // Range
-						command = 'OBC value';
-						value   = 'range to empty';
+						command = 'OBC range to empty';
 
 						// Parse value
 						string_range = new Buffer([message[3], message[4], message[5], message[6]]);
@@ -359,40 +362,41 @@ var IKE = function(omnibus) {
 								omnibus.status.obc.range_km = parseFloat(string_range).toFixed(2);
 								break;
 						}
+
+            value = omnibus.status.obc.range_mi;
 						break;
 
 					case 0x07: // Distance
-						command = 'OBC value';
-						value   = 'distance remaining';
+						command = 'OBC distance remaining';
 
 						// Parse value
 						string_distance = new Buffer([message[3], message[4], message[5], message[6]]);
 						string_distance = string_distance.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
-						omnibus.status.obc.distance = string_distance; 
+						omnibus.status.obc.distance = string_distance;
+						value                       = omnibus.status.obc.distance;
 						break;
 
 					case 0x08: // --:--
-						command = 'OBC value';
-						value   = 'clock?';
+						command = 'OBC clock';
+						value   = 'decoding not implemented';
 						break;
 
 					case 0x09: // Limit
-						command = 'OBC value';
-						value   = 'speed limit';
+						command = 'OBC speed limit';
 
 						// Parse value
 						string_speedlimit = new Buffer([message[3], message[4], message[5]]);
 						string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
 						// Update omnibus.status variables
-						omnibus.status.obc.speedlimit = string_speedlimit.toFixed(2); 
+						omnibus.status.obc.speedlimit = string_speedlimit.toFixed(2);
+						value                         = omnibus.status.obc.speedlimit;
 						break;
 
-					case 0x0A: // Avg. speed
-						command = 'OBC value';
-						value   = 'average speed';
+					case 0x0A: // average speed
+						command = 'OBC average speed';
 
 						// Parse unit
 						string_speedavg_unit = new Buffer([message[8]]);
@@ -418,59 +422,61 @@ var IKE = function(omnibus) {
 								omnibus.status.obc.speedavg_mph = string_speedavg.toFixed(2);
 								break;
 						}
+
+            value = omnibus.status.obc.speedavg_mph;
 						break;
 
 					case 0x0E: // Timer
-						command = 'OBC value';
-						value   = 'timer';
+						command = 'OBC timer';
 
 						// Parse value
 						string_timer = new Buffer([message[3], message[4], message[5], message[6]]);
 						string_timer = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
-						omnibus.status.obc.timer = string_timer; 
+						omnibus.status.obc.timer = string_timer;
+						value                    = omnibus.status.obc.timer;
 						break;
 
 					case 0x0F: // Aux heat timer 1
-						command = 'OBC value';
-						value   = 'aux heat timer 1';
+						command = 'OBC aux heat timer 1';
 
 						// Parse value
 						string_aux_heat_timer_1 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
-						omnibus.status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
+						omnibus.status.obc.aux_heat_timer_1 = string_aux_heat_timer_1;
+						value                               = omnibus.status.obc.aux_heat_timer_1;
 						break;
 
 					case 0x10: // Aux heat timer 2
-						command = 'OBC value';
-						value   = 'aux heat timer 2';
+						command = 'OBC aux heat timer 2';
 
 						// Parse value
 						string_aux_heat_timer_2 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
-						omnibus.status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
+						omnibus.status.obc.aux_heat_timer_2 = string_aux_heat_timer_2;
+						value                               = omnibus.status.obc.aux_heat_timer_2;
 						break;
 
 					case 0x1A: // Stopwatch
-						command = 'OBC value';
-						value   = 'stopwatch';
+						command = 'OBC stopwatch';
 
 						// Parse value
 						string_stopwatch = new Buffer([message[3], message[4], message[5], message[6]]);
 						string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
-						omnibus.status.obc.stopwatch = string_stopwatch; 
+						omnibus.status.obc.stopwatch = string_stopwatch;
+						value                        = omnibus.status.obc.stopwatch;
 						break;
 
 					default:
-						command = 'OBC value';
-						value   = 'unknown';
+						command = 'OBC unknown value';
+						value   = new Buffer(message);
 						break;
 				}
 
@@ -530,7 +536,7 @@ var IKE = function(omnibus) {
 		}
 
 		else {
-			console.log('[IKE]  ike_data(): Unknown command');
+			console.log('[node-bmw] ike_data(): Unknown command');
 		}
 
 	}
@@ -567,7 +573,7 @@ var IKE = function(omnibus) {
 
 	// Refresh custom HUD
 	function hud_refresh() {
-		console.log('[IKE]  Refreshing OBC HUD');
+		console.log('[node-bmw] Refreshing OBC HUD');
 
 		// Request consumption 1 and time
 		obc_data('get', 'cons1');
@@ -581,6 +587,8 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC data
 	function obc_refresh() {
+    console.log('[node-bmw] Refreshing all OBC data');
+
 		obc_data('get', 'auxheat1');
 		obc_data('get', 'auxheat2');
 		obc_data('get', 'cons1');
@@ -639,7 +647,7 @@ var IKE = function(omnibus) {
 		// Assemble message string
 		var msg = [cmd, value_id, action_id];
 
-		console.log('[IKE]  Doing \'%s\' on OBC value \'%s\'', action, value);
+		console.log('[node-bmw]  Doing \'%s\' on OBC value \'%s\'', action, value);
 
 		var ibus_packet = {
 			src: src, 
@@ -656,7 +664,7 @@ var IKE = function(omnibus) {
 		var dst = 0xBF; // GLO 
 		var cmd = 0x5C; // Set LCD screen text
 
-		console.log('[IKE]  Setting LCD screen backlight to %s', value);
+		console.log('[node-bmw] Setting LCD screen backlight to %s', value);
 
 		// Convert the value to hex
 		value = value.toString(16);
@@ -682,7 +690,7 @@ var IKE = function(omnibus) {
 		// Init status variable
 		var status;
 
-		console.log('[IKE]  Claiming ignition is \'%s\'', value);
+		console.log('[node-bmw] Claiming ignition is \'%s\'', value);
 
 		switch (value) {
 			case 'off':
@@ -713,7 +721,7 @@ var IKE = function(omnibus) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 
-		console.log('[IKE]  Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
+		console.log('[node-bmw] Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
 
 		var time_msg         = [0x40, 0x01, data.hour, data.minute];
 		var time_ibus_packet = {
@@ -751,7 +759,7 @@ var IKE = function(omnibus) {
 			var obc_value = '2';
 		}
 
-		console.log('[IKE]  OBC gong %s', obc_value);
+		console.log('[node-bmw] OBC gong %s', obc_value);
 
 		var ibus_packet = {
 			src: src, 
@@ -804,7 +812,7 @@ var IKE = function(omnibus) {
 		string = string.ike_pad();
 
 		// Need to center and pad spaces out to 20 chars
-		console.log('[IKE]  Sending text to IKE screen: \'%s\'', string);
+		console.log('[node-bmw] Sending text to IKE screen: \'%s\'', string);
 
 		var string_hex = [0x23, 0x50, 0x30, 0x07];
 		var string_hex = string_hex.concat(ascii2hex(string));
@@ -821,7 +829,7 @@ var IKE = function(omnibus) {
 
 	// Loop to update text in the cluster
 	function ike_text_loop() {
-		console.log('[IKE]  text loop');
+		console.log('[node-bmw] text loop');
 		console.log(omnibus.status);
 	}
 
@@ -841,7 +849,7 @@ var IKE = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[IKE]  Sending IKE packet');
+		console.log('[node-bmw] Sending IKE packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

@@ -39,11 +39,16 @@ var GM = function(omnibus) {
 	this.gm_send                 = gm_send;
 	this.gm_windows              = gm_windows;
 	this.key_fob_status_decode   = key_fob_status_decode;
-	this.parse_data              = parse_data;
+	this.parse_out              = parse_out;
 
-	// Parse data sent by real GM module
-	function parse_data(message) {
+	// Parse data sent from GM module
+	function parse_out(message) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+    var message  = data.msg;
+		var src_name = omnibus.bus_modules.get_module_name(src);
+		var dst_name = omnibus.bus_modules.get_module_name(dst);
 		var action;
 		var button;
 		var command;

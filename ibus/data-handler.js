@@ -30,7 +30,7 @@ var data_handler = function(omnibus) {
 				case 'DSP'  : omnibus.DSP.parse_data(data.msg);  break;
 				case 'DSPC' : omnibus.DSPC.parse_out(data);      break;
 				case 'EWS'  : omnibus.EWS.parse_data(data.msg);  break;
-				case 'GM'   : omnibus.GM.parse_data(data.msg);   break;
+				case 'GM'   : omnibus.GM.parse_data(data);       break;
 				case 'GT'   : omnibus.GT.parse_data(data.msg);   break;
 				case 'HAC'  : omnibus.HAC.parse_data(data.msg);  break;
 				case 'IHKA' : omnibus.IHKA.parse_data(data.msg); break;
@@ -45,7 +45,7 @@ var data_handler = function(omnibus) {
 				case 'SES'  : omnibus.SES.parse_data(data.msg);  break;
 				case 'SHD'  : omnibus.SHD.parse_data(data.msg);  break;
 				case 'TEL'  : omnibus.TEL.parse_data(data.msg);  break;
-				case 'DIA'  : console.log('[%s->%s] Diag command', data.src_name, data.dst_name, data.msg); break;
+				case 'DIA'  : console.log('[%s->%s] Diag command',      data.src_name, data.dst_name, data.msg); break;
 				default     : console.log('[%s->%s] No source handler', data.src_name, data.dst_name, data.msg);
 			}
 

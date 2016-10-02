@@ -25,7 +25,6 @@ function bit_test(num, bit) {
 
 
 var DSP = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 

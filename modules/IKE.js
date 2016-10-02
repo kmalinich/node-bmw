@@ -185,665 +185,665 @@ var IKE = function(omnibus) {
 
 				// Convert values and round to 2 decimals
 				omnibus.status.vehicle.speed_mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
-		}
-
-	case 0x19: // Coolant temp and external temp
-		command = 'broadcast';
-		value   = 'temperature values';
-
-		// Update external and engine coolant temp variables
-		omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
-		omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
-
-		omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
-		omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
-		break;
-
-	case 0x24: // OBC values broadcast
-		switch (message[1]) {
-			case 0x01: // Time
-				command = 'OBC value';
-				value   = 'time';
-
-				// Parse unit 
-				string_time_unit = new Buffer([message[8], message[9]]);
-				string_time_unit = string_time_unit.toString().trim().toLowerCase();
-
-				// Detect 12h or 24h time and parse value
-				if (string_time_unit == 'am' || string_time_unit == 'pm') {
-					omnibus.status.coding.unit_time = '12h';
-					string_time = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
-				}
-				else {
-					omnibus.status.coding.unit_time = '24h';
-					string_time = new Buffer([message[3], message[4], message[5], message[6], message[7]]);
-				}
-
-				string_time = string_time.toString().trim().toLowerCase();
-
-				// Update omnibus.status variables
-				omnibus.status.obc.time = string_time; 
 				break;
 
-			case 0x02: // Date
-				command = 'OBC value';
-				value   = 'date';
+			case 0x19: // Coolant temp and external temp
+				command = 'broadcast';
+				value   = 'temperature values';
 
-				// Parse value
-				string_date = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
-				string_date = string_date.toString().trim();
+				// Update external and engine coolant temp variables
+				omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
+				omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
 
-				// Update omnibus.status variables
-				omnibus.status.obc.date = string_date; 
+				omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
+				omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
 				break;
 
-			case 0x03: // Exterior temp
-				command = 'OBC value';
-				value   = 'exterior temp';
+			case 0x24: // OBC values broadcast
+				switch (message[1]) {
+					case 0x01: // Time
+						command = 'OBC value';
+						value   = 'time';
 
-				// Parse unit
-				string_temp_exterior_unit = new Buffer([message[9]]);
-				string_temp_exterior_unit = string_temp_exterior_unit.toString().trim().toLowerCase();
+						// Parse unit 
+						string_time_unit = new Buffer([message[8], message[9]]);
+						string_time_unit = string_time_unit.toString().trim().toLowerCase();
 
-				// Parse if it is +/-
-				string_temp_exterior_negative = new Buffer([message[9]]);
-				string_temp_exterior_negative = string_temp_exterior_negative.toString().trim().toLowerCase();
+						// Detect 12h or 24h time and parse value
+						if (string_time_unit == 'am' || string_time_unit == 'pm') {
+							omnibus.status.coding.unit_time = '12h';
+							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						}
+						else {
+							omnibus.status.coding.unit_time = '24h';
+							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7]]);
+						}
 
-				// Parse value
-				if (string_temp_exterior_negative == '-') {
-					string_temp_exterior_value = new Buffer(message[3], [message[4], message[5], message[6], message[7]]);
-					string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
-				}
+						string_time = string_time.toString().trim().toLowerCase();
 
-				else {
-					string_temp_exterior_value = new Buffer([message[4], message[5], message[6], message[7]]);
-					string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
-				}
-
-				// Update omnibus.status variables
-				switch (string_temp_exterior_unit) {
-					case 'c':
-						omnibus.status.coding.unit_temp    = 'c';
-						omnibus.status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
-						omnibus.status.obc.temp_exterior_f = convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit').toFixed(2);
+						// Update omnibus.status variables
+						omnibus.status.obc.time = string_time; 
 						break;
-					case 'f':
-						omnibus.status.coding.unit_temp    = 'f';
-						omnibus.status.obc.temp_exterior_c = convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius').toFixed(2);
-						omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
+
+					case 0x02: // Date
+						command = 'OBC value';
+						value   = 'date';
+
+						// Parse value
+						string_date = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
+						string_date = string_date.toString().trim();
+
+						// Update omnibus.status variables
+						omnibus.status.obc.date = string_date; 
 						break;
-				}
-				break;
 
-			case 0x04: // Consumption 1
-				command = 'OBC value';
-				value   = 'consumption 1';
+					case 0x03: // Exterior temp
+						command = 'OBC value';
+						value   = 'exterior temp';
 
-				// Parse unit
-				string_consumption_1_unit = new Buffer([message[8]]);
-				string_consumption_1_unit = string_consumption_1_unit.toString().trim().toLowerCase();
+						// Parse unit
+						string_temp_exterior_unit = new Buffer([message[9]]);
+						string_temp_exterior_unit = string_temp_exterior_unit.toString().trim().toLowerCase();
 
-				// Parse value
-				string_consumption_1 = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_consumption_1 = parseFloat(string_consumption_1.toString().trim().toLowerCase());
+						// Parse if it is +/-
+						string_temp_exterior_negative = new Buffer([message[9]]);
+						string_temp_exterior_negative = string_temp_exterior_negative.toString().trim().toLowerCase();
 
-				// Perform appropriate conversions between units
-				switch (string_consumption_1_unit) {
-					case 'm':
-						omnibus.status.coding.unit_cons = 'mpg';
-						string_consumption_1_mpg        = string_consumption_1;
-						string_consumption_1_l100       = 235.21/string_consumption_1;
+						// Parse value
+						if (string_temp_exterior_negative == '-') {
+							string_temp_exterior_value = new Buffer(message[3], [message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
+						}
+
+						else {
+							string_temp_exterior_value = new Buffer([message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
+						}
+
+						// Update omnibus.status variables
+						switch (string_temp_exterior_unit) {
+							case 'c':
+								omnibus.status.coding.unit_temp    = 'c';
+								omnibus.status.obc.temp_exterior_c = parseFloat(string_temp_exterior_value).toFixed(2);
+								omnibus.status.obc.temp_exterior_f = convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit').toFixed(2);
+								break;
+							case 'f':
+								omnibus.status.coding.unit_temp    = 'f';
+								omnibus.status.obc.temp_exterior_c = convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius').toFixed(2);
+								omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
+								break;
+						}
+						break;
+
+					case 0x04: // Consumption 1
+						command = 'OBC value';
+						value   = 'consumption 1';
+
+						// Parse unit
+						string_consumption_1_unit = new Buffer([message[8]]);
+						string_consumption_1_unit = string_consumption_1_unit.toString().trim().toLowerCase();
+
+						// Parse value
+						string_consumption_1 = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_consumption_1 = parseFloat(string_consumption_1.toString().trim().toLowerCase());
+
+						// Perform appropriate conversions between units
+						switch (string_consumption_1_unit) {
+							case 'm':
+								omnibus.status.coding.unit_cons = 'mpg';
+								string_consumption_1_mpg        = string_consumption_1;
+								string_consumption_1_l100       = 235.21/string_consumption_1;
+								break;
+
+							default:
+								omnibus.status.coding.unit_cons = 'l100';
+								string_consumption_1_mpg        = 235.21/string_consumption_1;
+								string_consumption_1_l100       = string_consumption_1;
+								break;
+						}
+
+						// Update omnibus.status variables
+						omnibus.status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
+						omnibus.status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
+						break;
+
+					case 0x05: // Consumption 2
+						command = 'OBC value';
+						value   = 'consumption 2';
+
+						// Parse unit
+						string_consumption_2_unit = new Buffer([message[8]]);
+						string_consumption_2_unit = string_consumption_2_unit.toString().trim().toLowerCase();
+
+						// Parse value
+						string_consumption_2 = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_consumption_2 = parseFloat(string_consumption_2.toString().trim().toLowerCase());
+
+						// Perform appropriate conversions between units and round to 2 decimals
+						if (string_consumption_2_unit == 'm') {
+							string_consumption_2_mpg  = string_consumption_2;
+							string_consumption_2_l100 = 235.215/string_consumption_2;
+						}
+						else {
+							string_consumption_2_mpg  = 235.215/string_consumption_2;
+							string_consumption_2_l100 = string_consumption_2;
+						}
+
+						// Update omnibus.status variables
+						omnibus.status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
+						omnibus.status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
+						break;
+
+					case 0x06: // Range
+						command = 'OBC value';
+						value   = 'range to empty';
+
+						// Parse value
+						string_range = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_range = string_range.toString().trim();
+
+						string_range_unit = new Buffer([message[7], message[8]]);
+						string_range_unit = string_range_unit.toString().trim().toLowerCase();
+
+						switch (string_range_unit) {
+							case 'ml':
+								omnibus.status.coding.unit_distance = 'mi';
+								// Update omnibus.status variables
+								omnibus.status.obc.range_mi = parseFloat(string_range).toFixed(2);
+								omnibus.status.obc.range_km = convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2);
+								break;
+
+							case 'km':
+								omnibus.status.coding.unit_distance = 'km';
+								omnibus.status.obc.range_mi = convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2);
+								omnibus.status.obc.range_km = parseFloat(string_range).toFixed(2);
+								break;
+						}
+						break;
+
+					case 0x07: // Distance
+						command = 'OBC value';
+						value   = 'distance remaining';
+
+						// Parse value
+						string_distance = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_distance     = string_distance.toString().trim().toLowerCase();
+
+						// Update omnibus.status variables
+						omnibus.status.obc.distance = string_distance; 
+						break;
+
+					case 0x08: // --:--
+						command = 'OBC value';
+						value   = 'clock?';
+						break;
+
+					case 0x09: // Limit
+						command = 'OBC value';
+						value   = 'speed limit';
+
+						// Parse value
+						string_speedlimit = new Buffer([message[3], message[4], message[5]]);
+						string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
+
+						// Update omnibus.status variables
+						omnibus.status.obc.speedlimit = string_speedlimit.toFixed(2); 
+						break;
+
+					case 0x0A: // Avg. speed
+						command = 'OBC value';
+						value   = 'average speed';
+
+						// Parse unit
+						string_speedavg_unit = new Buffer([message[8]]);
+						string_speedavg_unit = string_speedavg_unit.toString().trim().toLowerCase();
+
+						// Parse value
+						string_speedavg = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
+
+						// Convert values appropriately based on coding valueunits
+						switch(string_speedavg_unit) {
+							case 'k':
+								omnibus.status.coding.unit_speed = 'kmh';
+								// Update omnibus.status variables
+								omnibus.status.obc.speedavg_kmh = string_speedavg.toFixed(2);
+								omnibus.status.obc.speedavg_mph = convert(string_speedavg).from('kilometre').to('us mile').toFixed(2);
+								break;
+
+							case 'm':
+								omnibus.status.coding.unit_speed = 'mph';
+								// Update omnibus.status variables
+								omnibus.status.obc.speedavg_kmh = convert(string_speedavg).from('us mile').to('kilometre').toFixed(2);
+								omnibus.status.obc.speedavg_mph = string_speedavg.toFixed(2);
+								break;
+						}
+						break;
+
+					case 0x0E: // Timer
+						command = 'OBC value';
+						value   = 'timer';
+
+						// Parse value
+						string_timer = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_timer = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
+
+						// Update omnibus.status variables
+						omnibus.status.obc.timer = string_timer; 
+						break;
+
+					case 0x0F: // Aux heat timer 1
+						command = 'OBC value';
+						value   = 'aux heat timer 1';
+
+						// Parse value
+						string_aux_heat_timer_1 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
+
+						// Update omnibus.status variables
+						omnibus.status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
+						break;
+
+					case 0x10: // Aux heat timer 2
+						command = 'OBC value';
+						value   = 'aux heat timer 2';
+
+						// Parse value
+						string_aux_heat_timer_2 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
+
+						// Update omnibus.status variables
+						omnibus.status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
+						break;
+
+					case 0x1A: // Stopwatch
+						command = 'OBC value';
+						value   = 'stopwatch';
+
+						// Parse value
+						string_stopwatch = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
+
+						// Update omnibus.status variables
+						omnibus.status.obc.stopwatch = string_stopwatch; 
 						break;
 
 					default:
-						omnibus.status.coding.unit_cons = 'l100';
-						string_consumption_1_mpg        = 235.21/string_consumption_1;
-						string_consumption_1_l100       = string_consumption_1;
+						command = 'OBC value';
+						value   = 'unknown';
 						break;
 				}
 
-				// Update omnibus.status variables
-				omnibus.status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
-				omnibus.status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
-				break;
-
-			case 0x05: // Consumption 2
-				command = 'OBC value';
-				value   = 'consumption 2';
-
-				// Parse unit
-				string_consumption_2_unit = new Buffer([message[8]]);
-				string_consumption_2_unit = string_consumption_2_unit.toString().trim().toLowerCase();
-
-				// Parse value
-				string_consumption_2 = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_consumption_2 = parseFloat(string_consumption_2.toString().trim().toLowerCase());
-
-				// Perform appropriate conversions between units and round to 2 decimals
-				if (string_consumption_2_unit == 'm') {
-					string_consumption_2_mpg  = string_consumption_2;
-					string_consumption_2_l100 = 235.215/string_consumption_2;
-				}
-				else {
-					string_consumption_2_mpg  = 235.215/string_consumption_2;
-					string_consumption_2_l100 = string_consumption_2;
-				}
-
-				// Update omnibus.status variables
-				omnibus.status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
-				omnibus.status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
-				break;
-
-			case 0x06: // Range
-				command = 'OBC value';
-				value   = 'range to empty';
-
-				// Parse value
-				string_range = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_range = string_range.toString().trim();
-
-				string_range_unit = new Buffer([message[7], message[8]]);
-				string_range_unit = string_range_unit.toString().trim().toLowerCase();
-
-				switch (string_range_unit) {
-					case 'ml':
-						omnibus.status.coding.unit_distance = 'mi';
-						// Update omnibus.status variables
-						omnibus.status.obc.range_mi = parseFloat(string_range).toFixed(2);
-						omnibus.status.obc.range_km = convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2);
-						break;
-
-					case 'km':
-						omnibus.status.coding.unit_distance = 'km';
-						omnibus.status.obc.range_mi = convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2);
-						omnibus.status.obc.range_km = parseFloat(string_range).toFixed(2);
-						break;
-				}
-				break;
-
-			case 0x07: // Distance
-				command = 'OBC value';
-				value   = 'distance remaining';
-
-				// Parse value
-				string_distance = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_distance     = string_distance.toString().trim().toLowerCase();
-
-				// Update omnibus.status variables
-				omnibus.status.obc.distance = string_distance; 
-				break;
-
-			case 0x08: // --:--
-				command = 'OBC value';
-				value   = 'clock?';
-				break;
-
-			case 0x09: // Limit
-				command = 'OBC value';
-				value   = 'speed limit';
-
-				// Parse value
-				string_speedlimit = new Buffer([message[3], message[4], message[5]]);
-				string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
-
-				// Update omnibus.status variables
-				omnibus.status.obc.speedlimit = string_speedlimit.toFixed(2); 
-				break;
-
-			case 0x0A: // Avg. speed
-				command = 'OBC value';
-				value   = 'average speed';
-
-				// Parse unit
-				string_speedavg_unit = new Buffer([message[8]]);
-				string_speedavg_unit = string_speedavg_unit.toString().trim().toLowerCase();
-
-				// Parse value
-				string_speedavg = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
-
-				// Convert values appropriately based on coding valueunits
-				switch(string_speedavg_unit) {
-					case 'k':
-						omnibus.status.coding.unit_speed = 'kmh';
-						// Update omnibus.status variables
-						omnibus.status.obc.speedavg_kmh = string_speedavg.toFixed(2);
-						omnibus.status.obc.speedavg_mph = convert(string_speedavg).from('kilometre').to('us mile').toFixed(2);
-						break;
-
-					case 'm':
-						omnibus.status.coding.unit_speed = 'mph';
-						// Update omnibus.status variables
-						omnibus.status.obc.speedavg_kmh = convert(string_speedavg).from('us mile').to('kilometre').toFixed(2);
-						omnibus.status.obc.speedavg_mph = string_speedavg.toFixed(2);
-						break;
-				}
-				break;
-
-			case 0x0E: // Timer
-				command = 'OBC value';
-				value   = 'timer';
-
-				// Parse value
-				string_timer = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_timer = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
-
-				// Update omnibus.status variables
-				omnibus.status.obc.timer = string_timer; 
-				break;
-
-			case 0x0F: // Aux heat timer 1
-				command = 'OBC value';
-				value   = 'aux heat timer 1';
-
-				// Parse value
-				string_aux_heat_timer_1 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
-				string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
-
-				// Update omnibus.status variables
-				omnibus.status.obc.aux_heat_timer_1 = string_aux_heat_timer_1; 
-				break;
-
-			case 0x10: // Aux heat timer 2
-				command = 'OBC value';
-				value   = 'aux heat timer 2';
-
-				// Parse value
-				string_aux_heat_timer_2 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
-				string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
-
-				// Update omnibus.status variables
-				omnibus.status.obc.aux_heat_timer_2 = string_aux_heat_timer_2; 
-				break;
-
-			case 0x1A: // Stopwatch
-				command = 'OBC value';
-				value   = 'stopwatch';
-
-				// Parse value
-				string_stopwatch = new Buffer([message[3], message[4], message[5], message[6]]);
-				string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
-
-				// Update omnibus.status variables
-				omnibus.status.obc.stopwatch = string_stopwatch; 
+			case 0x57: // BC button in cluster
+				command = 'button';
+				value   = 'BC';
 				break;
 
 			default:
-				command = 'OBC value';
-				value   = 'unknown';
+				command = 'unknown';
+				value   = new Buffer(message);
 				break;
+
+				console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 		}
 
-	case 0x57:
-		command = 'button';
-		value    = 'BC';
-		break;
-
-	default:
-		command = 'unknown';
-		value   = new Buffer(message);
-		break;
-
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
-	}
-
-	// Handle incoming commands from API
-	function ike_data(data) {
-		// Display text string in cluster
-		if (typeof data['obc-text'] !== 'undefined') {
-			ike_text(data['obc-text']);
-		}
-
-		// Set OBC clock
-		else if (data.command == 'obc_clock') {
-			obc_clock(data);
-		}
-
-		else if (typeof data['obc-gong'] !== 'undefined') {
-			obc_gong(data['obc-gong']);
-		}
-
-		// Set cluster LCD backlight
-		else if (typeof data['ike-backlight'] !== 'undefined') {
-			ike_backlight(data['ike-backlight']);
-		}
-
-		// Send fake ignition status 
-		else if (typeof data['ike-ignition'] !== 'undefined') {
-			ike_ignition(data['ike-ignition']);
-		}
-
-		// Refresh OBC data value
-		else if (typeof data['obc-get'] !== 'undefined') {
-			if (data['obc-get'] == 'all') {
-				obc_refresh();
+		// Handle incoming commands from API
+		function ike_data(data) {
+			// Display text string in cluster
+			if (typeof data['obc-text'] !== 'undefined') {
+				ike_text(data['obc-text']);
 			}
+
+			// Set OBC clock
+			else if (data.command == 'obc_clock') {
+				obc_clock(data);
+			}
+
+			else if (typeof data['obc-gong'] !== 'undefined') {
+				obc_gong(data['obc-gong']);
+			}
+
+			// Set cluster LCD backlight
+			else if (typeof data['ike-backlight'] !== 'undefined') {
+				ike_backlight(data['ike-backlight']);
+			}
+
+			// Send fake ignition status 
+			else if (typeof data['ike-ignition'] !== 'undefined') {
+				ike_ignition(data['ike-ignition']);
+			}
+
+			// Refresh OBC data value
+			else if (typeof data['obc-get'] !== 'undefined') {
+				if (data['obc-get'] == 'all') {
+					obc_refresh();
+				}
+				else {
+					obc_data('get', data['obc-get']);
+				}
+			}
+
+			// Reset OBC data value
+			else if (typeof data['obc-reset'] !== 'undefined') {
+				obc_data('reset', data['obc-reset']);
+			}
+
 			else {
-				obc_data('get', data['obc-get']);
+				console.log('[IKE]  ike_data(): Unknown command');
 			}
+
 		}
 
-		// Reset OBC data value
-		else if (typeof data['obc-reset'] !== 'undefined') {
-			obc_data('reset', data['obc-reset']);
+		// ASCII to hex for cluster message
+		function ascii2hex(str) { 
+			var array = [];
+
+			for (var n = 0, l = str.length; n < l; n ++) {
+				var hex = str.charCodeAt(n);
+				array.push(hex);
+			}
+
+			return array;
 		}
 
-		else {
-			console.log('[IKE]  ike_data(): Unknown command');
+		// Pad string for IKE text screen length (20 characters)
+		String.prototype.ike_pad = function() {
+			var string = this;
+
+			while (string.length < 20) {
+				string = string + ' ';
+			}
+
+			return string;
+		}
+
+		// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
+		setInterval(function() {
+			if (omnibus.status.vehicle.ignition == 'run') {
+				hud_refresh();
+			}
+		}, 2000);
+
+		// Refresh custom HUD
+		function hud_refresh() {
+			console.log('[IKE]  Refreshing OBC HUD');
+
+			// Request consumption 1 and time
+			obc_data('get', 'cons1');
+			obc_data('get', 'time');
+
+			var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
+			var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
+
+			ike_text(omnibus.status.obc.time+' C:'+cons1+' T:'+ctmp);
+		}
+
+		// Refresh OBC data
+		function obc_refresh() {
+			obc_data('get', 'auxheat1');
+			obc_data('get', 'auxheat2');
+			obc_data('get', 'cons1');
+			obc_data('get', 'cons2');
+			obc_data('get', 'date');
+			obc_data('get', 'distance');
+			obc_data('get', 'range');
+			obc_data('get', 'speedavg');
+			obc_data('get', 'speedlimit');
+			obc_data('get', 'stopwatch');
+			obc_data('get', 'temp_exterior');
+			obc_data('get', 'time');
+			obc_data('get', 'timer');
+		}
+
+		// OBC data request 
+		function obc_data(action, value) {
+			var src = 0x3B; // GT
+			var dst = 0x80; // IKE
+			var cmd = 0x41; // OBC data request
+
+			// Init action_id, value_id 
+			var action_id;
+			var value_id;
+
+			// Determine action_id from action argument 
+			switch (action) {
+				case 'get'        : action_id = 0x01; break; // Request current value
+				case 'get-status' : action_id = 0x02; break; // Request current status
+				case 'limit-on'   : action_id = 0x04; break;
+				case 'limit-off'  : action_id = 0x08; break;
+				case 'reset'      : action_id = 0x10; break;
+				case 'limit-set'  : action_id = 0x20; break;
+			}
+
+			// Determine value_id from value argument 
+			switch (value) {
+				case 'arrival'       : value_id = 0x08; break;
+				case 'auxheat1'      : value_id = 0x0F; break;
+				case 'auxheat2'      : value_id = 0x10; break;
+				case 'auxheatvent'   : value_id = 0x1B; break;
+				case 'code'          : value_id = 0x0D; break;
+				case 'cons1'         : value_id = 0x04; break;
+				case 'cons2'         : value_id = 0x05; break;
+				case 'date'          : value_id = 0x02; break;
+				case 'distance'      : value_id = 0x07; break;
+				case 'range'         : value_id = 0x06; break;
+				case 'speedavg'      : value_id = 0x0A; break;
+				case 'speedlimit'    : value_id = 0x09; break;
+				case 'stopwatch'     : value_id = 0x1A; break;
+				case 'temp_exterior' : value_id = 0x03; break;
+				case 'time'          : value_id = 0x01; break;
+				case 'timer'         : value_id = 0x0E; break;
+			}
+
+			// Assemble message string
+			var msg = [cmd, value_id, action_id];
+
+			console.log('[IKE]  Doing \'%s\' on OBC value \'%s\'', action, value);
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(msg),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// Cluster/interior backlight 
+		function ike_backlight(value) {
+			var src = 0xD0; // LCM
+			var dst = 0xBF; // GLO 
+			var cmd = 0x5C; // Set LCD screen text
+
+			console.log('[IKE]  Setting LCD screen backlight to %s', value);
+
+			// Convert the value to hex
+			value = value.toString(16);
+
+			// Will need to concat and push array for value
+			var msg = [cmd, value, 0x00];
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(msg),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// Pretend to be IKE saying the car is on
+		function ike_ignition(value) {
+			var src = 0x80; // IKE 
+			var dst = 0xBF; // GLO 
+			var cmd = 0x11; // Ignition status
+
+			// Init status variable
+			var status;
+
+			console.log('[IKE]  Claiming ignition is \'%s\'', value);
+
+			switch (value) {
+				case 'off':
+					status = 0x00;
+					break;
+				case 'pos1':
+					status = 0x01;
+					break;
+				case 'pos2':
+					status = 0x03;
+					break;
+				case 'pos3':
+					status = 0x07;
+					break;
+			}
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer([cmd, status]),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// OBC set clock
+		function obc_clock(data) {
+			var src = 0x3B; // GT
+			var dst = 0x80; // IKE
+
+			console.log('[IKE]  Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
+
+			var time_msg         = [0x40, 0x01, data.hour, data.minute];
+			var time_ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(time_msg),
+			}
+
+			omnibus.ibus_connection.send_message(time_ibus_packet);
+
+			var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
+			var date_ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(date_msg),
+			}
+
+			omnibus.ibus_connection.send_message(date_ibus_packet);
+		}
+
+		// OBC gong
+		// Doesn't work right now
+		function obc_gong(value) {
+			var src = 0x68; // RAD
+			var dst = 0x80; // IKE
+
+			// Determine desired value to gong 
+			if (value == '1') {
+				var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
+				var obc_value = '1';
+			}
+
+			else if (value == '2') {
+				var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
+				var obc_value = '2';
+			}
+
+			console.log('[IKE]  OBC gong %s', obc_value);
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(msg),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// Check control messages
+		function ike_text_urgent(message) {
+			var src = 0x30; // CCM 
+			var dst = 0x80; // IKE
+
+			var message_hex = [0x1A, 0x35, 0x00];
+			var message_hex = message_hex.concat(ascii2hex(message));
+			// var message_hex = message_hex.concat(0x04);
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(message_hex),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// Check control messages
+		function ike_text_urgent_off() {
+			var src = 0x30; // CCM 
+			var dst = 0x80; // IKE
+
+			var message_hex = [0x1A, 0x30, 0x00];
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(message_hex),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// IKE cluster text send message
+		function ike_text(string) {
+			var src = 0x68; // RAD
+			var dst = 0x80; // IKE
+
+			string = string.ike_pad();
+
+			// Need to center and pad spaces out to 20 chars
+			console.log('[IKE]  Sending text to IKE screen: \'%s\'', string);
+
+			var string_hex = [0x23, 0x50, 0x30, 0x07];
+			var string_hex = string_hex.concat(ascii2hex(string));
+			var string_hex = string_hex.concat(0x04);
+
+			var ibus_packet = {
+				src: src, 
+				dst: dst,
+				msg: new Buffer(string_hex),
+			}
+
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}
+
+		// Loop to update text in the cluster
+		function ike_text_loop() {
+			console.log('[IKE]  text loop');
+			console.log(omnibus.status);
+		}
+
+		// Send message to IKE
+		function ike_send(packet) {
+			var src = 0x3F; // DIA
+			var dst = 0xBF; // GLO
+			var cmd = 0x0C; // Set IO status 
+
+			// Add the command to the beginning of the IKE hex array
+			packet.unshift(cmd);
+
+			var ibus_packet = {
+				src: src,
+				dst: dst,
+				msg: new Buffer(packet),
+			}
+
+			// Send the message
+			console.log('[IKE]  Sending IKE packet');
+			omnibus.ibus_connection.send_message(ibus_packet);
 		}
 
 	}
 
-	// ASCII to hex for cluster message
-	function ascii2hex(str) { 
-		var array = [];
-
-		for (var n = 0, l = str.length; n < l; n ++) {
-			var hex = str.charCodeAt(n);
-			array.push(hex);
-		}
-
-		return array;
-	}
-
-	// Pad string for IKE text screen length (20 characters)
-	String.prototype.ike_pad = function() {
-		var string = this;
-
-		while (string.length < 20) {
-			string = string + ' ';
-		}
-
-		return string;
-	}
-
-	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') {
-			hud_refresh();
-		}
-	}, 2000);
-
-	// Refresh custom HUD
-	function hud_refresh() {
-		console.log('[IKE]  Refreshing OBC HUD');
-
-		// Request consumption 1 and time
-		obc_data('get', 'cons1');
-		obc_data('get', 'time');
-
-		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
-		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
-
-		ike_text(omnibus.status.obc.time+' C:'+cons1+' T:'+ctmp);
-	}
-
-	// Refresh OBC data
-	function obc_refresh() {
-		obc_data('get', 'auxheat1');
-		obc_data('get', 'auxheat2');
-		obc_data('get', 'cons1');
-		obc_data('get', 'cons2');
-		obc_data('get', 'date');
-		obc_data('get', 'distance');
-		obc_data('get', 'range');
-		obc_data('get', 'speedavg');
-		obc_data('get', 'speedlimit');
-		obc_data('get', 'stopwatch');
-		obc_data('get', 'temp_exterior');
-		obc_data('get', 'time');
-		obc_data('get', 'timer');
-	}
-
-	// OBC data request 
-	function obc_data(action, value) {
-		var src = 0x3B; // GT
-		var dst = 0x80; // IKE
-		var cmd = 0x41; // OBC data request
-
-		// Init action_id, value_id 
-		var action_id;
-		var value_id;
-
-		// Determine action_id from action argument 
-		switch (action) {
-			case 'get'        : action_id = 0x01; break; // Request current value
-			case 'get-status' : action_id = 0x02; break; // Request current status
-			case 'limit-on'   : action_id = 0x04; break;
-			case 'limit-off'  : action_id = 0x08; break;
-			case 'reset'      : action_id = 0x10; break;
-			case 'limit-set'  : action_id = 0x20; break;
-		}
-
-		// Determine value_id from value argument 
-		switch (value) {
-			case 'arrival'       : value_id = 0x08; break;
-			case 'auxheat1'      : value_id = 0x0F; break;
-			case 'auxheat2'      : value_id = 0x10; break;
-			case 'auxheatvent'   : value_id = 0x1B; break;
-			case 'code'          : value_id = 0x0D; break;
-			case 'cons1'         : value_id = 0x04; break;
-			case 'cons2'         : value_id = 0x05; break;
-			case 'date'          : value_id = 0x02; break;
-			case 'distance'      : value_id = 0x07; break;
-			case 'range'         : value_id = 0x06; break;
-			case 'speedavg'      : value_id = 0x0A; break;
-			case 'speedlimit'    : value_id = 0x09; break;
-			case 'stopwatch'     : value_id = 0x1A; break;
-			case 'temp_exterior' : value_id = 0x03; break;
-			case 'time'          : value_id = 0x01; break;
-			case 'timer'         : value_id = 0x0E; break;
-		}
-
-		// Assemble message string
-		var msg = [cmd, value_id, action_id];
-
-		console.log('[IKE]  Doing \'%s\' on OBC value \'%s\'', action, value);
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Cluster/interior backlight 
-	function ike_backlight(value) {
-		var src = 0xD0; // LCM
-		var dst = 0xBF; // GLO 
-		var cmd = 0x5C; // Set LCD screen text
-
-		console.log('[IKE]  Setting LCD screen backlight to %s', value);
-
-		// Convert the value to hex
-		value = value.toString(16);
-
-		// Will need to concat and push array for value
-		var msg = [cmd, value, 0x00];
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Pretend to be IKE saying the car is on
-	function ike_ignition(value) {
-		var src = 0x80; // IKE 
-		var dst = 0xBF; // GLO 
-		var cmd = 0x11; // Ignition status
-
-		// Init status variable
-		var status;
-
-		console.log('[IKE]  Claiming ignition is \'%s\'', value);
-
-		switch (value) {
-			case 'off':
-				status = 0x00;
-				break;
-			case 'pos1':
-				status = 0x01;
-				break;
-			case 'pos2':
-				status = 0x03;
-				break;
-			case 'pos3':
-				status = 0x07;
-				break;
-		}
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer([cmd, status]),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// OBC set clock
-	function obc_clock(data) {
-		var src = 0x3B; // GT
-		var dst = 0x80; // IKE
-
-		console.log('[IKE]  Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
-
-		var time_msg         = [0x40, 0x01, data.hour, data.minute];
-		var time_ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(time_msg),
-		}
-
-		omnibus.ibus_connection.send_message(time_ibus_packet);
-
-		var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
-		var date_ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(date_msg),
-		}
-
-		omnibus.ibus_connection.send_message(date_ibus_packet);
-	}
-
-	// OBC gong
-	// Doesn't work right now
-	function obc_gong(value) {
-		var src = 0x68; // RAD
-		var dst = 0x80; // IKE
-
-		// Determine desired value to gong 
-		if (value == '1') {
-			var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
-			var obc_value = '1';
-		}
-
-		else if (value == '2') {
-			var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
-			var obc_value = '2';
-		}
-
-		console.log('[IKE]  OBC gong %s', obc_value);
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Check control messages
-	function ike_text_urgent(message) {
-		var src = 0x30; // CCM 
-		var dst = 0x80; // IKE
-
-		var message_hex = [0x1A, 0x35, 0x00];
-		var message_hex = message_hex.concat(ascii2hex(message));
-		// var message_hex = message_hex.concat(0x04);
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(message_hex),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Check control messages
-	function ike_text_urgent_off() {
-		var src = 0x30; // CCM 
-		var dst = 0x80; // IKE
-
-		var message_hex = [0x1A, 0x30, 0x00];
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(message_hex),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// IKE cluster text send message
-	function ike_text(string) {
-		var src = 0x68; // RAD
-		var dst = 0x80; // IKE
-
-		string = string.ike_pad();
-
-		// Need to center and pad spaces out to 20 chars
-		console.log('[IKE]  Sending text to IKE screen: \'%s\'', string);
-
-		var string_hex = [0x23, 0x50, 0x30, 0x07];
-		var string_hex = string_hex.concat(ascii2hex(string));
-		var string_hex = string_hex.concat(0x04);
-
-		var ibus_packet = {
-			src: src, 
-			dst: dst,
-			msg: new Buffer(string_hex),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Loop to update text in the cluster
-	function ike_text_loop() {
-		console.log('[IKE]  text loop');
-		console.log(omnibus.status);
-	}
-
-	// Send message to IKE
-	function ike_send(packet) {
-		var src = 0x3F; // DIA
-		var dst = 0xBF; // GLO
-		var cmd = 0x0C; // Set IO status 
-
-		// Add the command to the beginning of the IKE hex array
-		packet.unshift(cmd);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
-		console.log('[IKE]  Sending IKE packet');
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-}
-
-module.exports = IKE;
+	module.exports = IKE;

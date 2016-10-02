@@ -34,7 +34,7 @@ var DSPC = function(omnibus) {
 	this.parse_out                = parse_out;
 	this.send_device_status_ready = send_device_status_ready;
 
-	// Parse value to DSPC module
+	// Parse data sent to DSPC module
 	function parse_in(data) {
 		// Init variables
 		var command;
@@ -72,7 +72,7 @@ var DSPC = function(omnibus) {
 		console.log('[%s->%s] Received %s:', data.src_name, data.dst_name, command, value);
 	}
 
-	// Parse data from DSPC module
+	// Parse data sent from DSPC module
 	function parse_out(data) {
 		// Init variables
 		var command;
@@ -82,9 +82,6 @@ var DSPC = function(omnibus) {
 			case 0x01: // Request: device status
 				command = 'request';
 				value   = 'device status';
-
-				// Send the ready packet since this module doesn't actually exist
-				send_device_status_ready(data.src);
 				break;
 
 			case 0x02: // Device status

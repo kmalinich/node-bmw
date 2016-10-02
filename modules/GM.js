@@ -55,6 +55,7 @@ var GM = function(omnibus) {
 						command = 'device status';
 						data    = 'ready';
 						break;
+
 					case 0x01:
 						command = 'device status';
 						data    = 'ready after reset';

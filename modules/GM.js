@@ -53,7 +53,7 @@ var GM = function(omnibus) {
 		var value;
 
 		switch (message[0]) {
-			case 0x02: // Broadcast: device status
+			case 0x02: // device status
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';
@@ -67,39 +67,39 @@ var GM = function(omnibus) {
 				}
 				break;
 
-			case 0x72: // Broadcast: key fob status
+			case 0x72: // key fob status
 				command = 'broadcast';
 				value   = 'key fob status';
 				key_fob_status_decode(message);
 				break;
 
-			case 0x76: // Broadcast: crash alarm
+			case 0x76: // crash alarm
 				command = 'broadcast';
 				value   = 'crash alarm';
 				break;
 
-			case 0x78: // Broadcast: seat memory data
+			case 0x78: // seat memory data
 				command = 'broadcast';
 				value   = 'seat memory data';
 				break;
 
-			case 0x7A: // Broadcast: door/flap status
+			case 0x7A: // door/flap status
 				command = 'broadcast';
 				value   = 'door/flap status';
 				door_flap_status_decode(message);
 				break;
 
-			case 0xA0: // Broadcast: diagnostic command acknowledged
+			case 0xA0: // diagnostic command acknowledged
 				command = 'diagnostic command';
 				value   = 'acknowledged';
 				break;
 
-			case 0xA2: // Broadcast: diagnostic command rejected
+			case 0xA2: // diagnostic command rejected
 				command = 'diagnostic command';
 				value   = 'rejected';
 				break;
 
-			case 0xFF: // Broadcast: diagnostic command not acknowledged
+			case 0xFF: // diagnostic command not acknowledged
 				command = 'diagnostic command';
 				value   = 'not acknowledged';
 				break;

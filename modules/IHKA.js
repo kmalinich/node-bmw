@@ -30,7 +30,7 @@ var IHKA = function(omnibus) {
 	this.parse_out = parse_out;
 
 	// Parse data sent from IHKA module
-	function parse_out(message) {
+	function parse_out(data) {
 		// Init variables
 		var src      = data.src;
 		var dst      = data.dst;

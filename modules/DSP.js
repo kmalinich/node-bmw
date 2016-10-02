@@ -33,7 +33,7 @@ var DSP = function(omnibus) {
 	this.send_device_status_ready = send_device_status_ready;
 
 	// Parse data sent from BMBT module
-	function parse_out(message) {
+	function parse_out(data) {
 		// Init variables
 		var src      = data.src;
 		var dst      = data.dst;

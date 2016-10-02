@@ -33,7 +33,7 @@ var LCM = function(omnibus) {
 	this.welcome_lights      = welcome_lights;
 
 	// Parse data sent from LCM module
-	function parse_out(message) {
+	function parse_out(data) {
 		// Init variables
 		var src      = data.src;
 		var dst      = data.dst;

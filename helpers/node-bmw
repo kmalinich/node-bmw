@@ -75,7 +75,11 @@ update() {
 		# Loop and update npm dependencies
 		for DEP in ${NPM_DEPS[@]}; do
 			log "Updating '${DEP}'"
-			npm -g install ${DEP}
+			if [[ "${DEP}" == "serialport" ]]; then
+				npm -g install --unsafe-perm ${DEP}
+			else
+				npm -g install ${DEP}
+			fi
 		done
 
 		restart

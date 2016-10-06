@@ -1,9 +1,27 @@
 {
-	"name"        : "node-bmw",
-	"version"     : "0.0.1",
-	"description" : "NodeJS-powered BMW IBUS interface",
-	"main"        : "run.js",
-	"dependencies": {
+	"name"            : "node-bmw",
+	"version"         : "0.0.1",
+	"description"     : "NodeJS-powered BMW IBUS interface",
+	"main"            : "run.js",
+	"devDependencies" : {},
+	"author"          : "kdm <kennygprs@gmail.com>",
+	"license"         : "ISC",
+	"homepage"        : "https://github.com/kmalinich/node-bmw#readme",
+	"scripts"         : {
+		"test" : "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository" : {
+		"type" : "git",
+		"url"  : "git+https://github.com/kmalinich/node-bmw.git"
+	},
+	"keywords" : [
+		"bmw",
+		"ibus"
+	],
+	"bugs" : {
+		"url" : "https://github.com/kmalinich/node-bmw/issues"
+	},
+	"dependencies" : {
 		"cli-color"            : "1.1.0",
 		"dbus-native"          : "0.2.0",
 		"domain"               : "0.0.1",
@@ -18,23 +36,5 @@
 		"url"                  : "0.11.0",
 		"wait.for"             : "0.6.6",
 		"websocket.io"         : "0.2.1"
-	},
-	"devDependencies": {},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kmalinich/node-bmw.git"
-	},
-	"keywords": [
-		"bmw",
-		"ibus"
-	],
-	"author"  : "kdm <kennygprs@gmail.com>",
-	"license" : "ISC",
-	"bugs"    : {
-		"url": "https://github.com/kmalinich/node-bmw/issues"
-	},
-	"homepage" : "https://github.com/kmalinich/node-bmw#readme"
+	}
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // Libraries
-var clc            = require('cli-color');
-var wait           = require('wait.for');
+var clc  = require('cli-color');
+var wait = require('wait.for');
 
 // Bitmasks in hex
 var bit_0 = 0x01;

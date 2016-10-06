@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
 
+
+#### Variables ==start ####
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:/sbin:/bin:/usr/sbin:/usr/bin:/usr/bin/X11:/usr/games"
 UNIT="node-bmw"
 APP_DIR="/usr/local/${UNIT}"
 OLD_PWD="${PWD}"
 
+#### Variables ==final ####
+
+
+#### Functions ==start ####
+
+log() {
+	logger -s -t "${UNIT}" "${1}"
+}
+
 sleep_msg() {
-	echo "Sleeping."
+	log "Sleeping."
 	sleep 1
 }
 
@@ -23,14 +36,14 @@ restart() {
 }
 
 stop() {
-	echo "Stopping ${UNIT}."
+	log "Stopping ${UNIT}."
 	systemctl stop ${UNIT}
 	sleep_msg
 	status
 }
 
 start() {
-	echo "Starting ${UNIT}."
+	log "Starting ${UNIT}."
 	systemctl start ${UNIT}
 	sleep_msg
 	status
@@ -45,18 +58,32 @@ update() {
 	GIT_LOG="$(git log HEAD..origin/${GIT_BRANCH} --oneline)"
 
 	if [[ -z "${GIT_LOG}" ]]; then
-		echo "No ${UNIT} update needed"
+		log "No ${UNIT} update needed"
 	else
-		echo "${UNIT} update available!"
+		log "${UNIT} update available!"
 
-		echo "Downloading ${UNIT} update"
+		log "Downloading ${UNIT} update"
 		git fetch
 		git pull
+
+		log "Performing npm global update"
+		npm -g update
+
+		NPM_DEPS=($(grep -A 20 dependencies ${APP_DIR}/package.json | awk -F '"' '/".*.".*:*.".*."/ {print $2}'))
+		log "Updating npm dependencies: '${NPM_DEPS[@]}'"
+
+		# Loop and update npm dependencies
+		for DEP in ${NPM_DEPS[@]}; do
+			log "Updating '${DEP}'"
+			npm -g install ${DEP}
+		done
 
 		restart
 	fi
 
 	cd "${OLD_PWD}"
 }
+
+#### Functions ==final ####
 
 [[ ${1} ]] && ${1} || status

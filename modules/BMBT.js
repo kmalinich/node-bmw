@@ -26,7 +26,8 @@ var BMBT = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_out = parse_out;
+	this.parse_out            = parse_out;
+	this.send_cassette_status = send_cassette_status;
 
 	// Parse data sent from real BMBT module
 	function parse_out(data) {
@@ -96,6 +97,25 @@ var BMBT = function(omnibus) {
 
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
-}
+
+	function send_cassette_status() {
+		// Assemble strings
+		var src     = 0xF0; // BMBT
+		var dst     = 0x68; // RAD
+		var command = 0x4B; // Cassette status
+		var packet  = [command, 0x05]; // No tape
+
+		// Send message
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(packet),
+		}
+
+		// Send the message
+		console.log('[BMBT->RAD] Sending cassette status: no-tape');
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
 
 module.exports = BMBT;

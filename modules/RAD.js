@@ -88,27 +88,9 @@ var RAD = function(omnibus) {
 
 			case 0x4a: // Cassette status
 				command = 'cassette status';
-				value   = 'sort-of request';
+				value   = 'request';
 
-				// Temporary
-				// Assemble strings
-				var src     = 0xF0; // BMBT
-				var dst     = 0x68; // RAD
-				var command = 0x4B; // Cassette status
-				var packet  = [command, 0x05]; // No tape
-
-				// Send message
-				var ibus_packet = {
-					src: src,
-					dst: dst,
-					msg: new Buffer(packet),
-				}
-
-				// Send the message
-				console.log('[node-bmw] Sending \'no-tape\' packet');
-
-				omnibus.ibus_connection.send_message(ibus_packet);
-
+				omnibus.BMBT.send_cassette_status;
 				break;
 
 			case 0x79: // Door/flap status request

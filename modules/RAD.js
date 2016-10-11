@@ -34,7 +34,7 @@ var RAD = function(omnibus) {
 	this.led       = led;
 	this.parse_out = parse_out;
 
-	// Parse valuesent from RAD module
+	// Parse data sent from RAD module
 	function parse_out(data) {
 		// Init variables
 		var src     = data.src;
@@ -86,6 +86,31 @@ var RAD = function(omnibus) {
 				}
 				break;
 
+			case 0x4a: // Cassette status
+				command = 'cassette status';
+				value   = 'sort-of request';
+
+				// Temporary
+				// Assemble strings
+				var src     = 0xF0; // BMBT
+				var dst     = 0x68; // RAD
+				var command = 0x4B; // Cassette status
+				var packet  = [command, 0x05]; // No tape
+
+				// Send message
+				var ibus_packet = {
+					src: src,
+					dst: dst,
+					msg: new Buffer(packet),
+				}
+
+				// Send the message
+				console.log('[node-bmw] Sending \'no-tape\' packet');
+
+				omnibus.ibus_connection.send_message(ibus_packet);
+
+				break;
+
 			case 0x79: // Door/flap status request
 				command = 'request';
 				value   = 'door/flap status';
@@ -97,7 +122,7 @@ var RAD = function(omnibus) {
 				break;
 		}
 
-		console.log('[node-bmw] Sent %s:', command, data);
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object

@@ -93,10 +93,10 @@ var MFL = function(omnibus) {
 				else                                  { action = 'depress';      }
 
 				// Perform media control based on pressed key
-				if      (button == 'left'     && action == 'depress')      { omnibus.BT.command('previous'); }
-				else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
-				else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...
-				else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
+				// if      (button == 'left'     && action == 'depress')      { omnibus.BT.command('previous'); }
+				// else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
+				// else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...
+				// else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
 				break;
 
 			default:

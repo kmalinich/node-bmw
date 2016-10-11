@@ -12,7 +12,7 @@ var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
 
 // Other custom libraries
-var BT = require('./lib/BT.js');
+// var BT = require('./lib/BT.js');
 
 // Module libraries
 var ABG  = require('./modules/ABG.js');
@@ -51,7 +51,7 @@ omnibus.ibus_connection = new ibus_interface();       // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
 omnibus.BMBT            = new BMBT(omnibus);
-omnibus.BT              = new BT(omnibus);
+//omnibus.BT              = new BT(omnibus);
 omnibus.CCM             = new CCM(omnibus);
 omnibus.CDC             = new CDC(omnibus);
 omnibus.DSP             = new DSP(omnibus);
@@ -85,7 +85,7 @@ function api_handler(request, response) {
 
 function start() {
 	// Start BT autoconfig
-	omnibus.BT.autoconfig();
+	//omnibus.BT.autoconfig();
 
 	// Start API server
 	api_server.listen(api_port, function() {

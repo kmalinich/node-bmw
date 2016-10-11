@@ -73,16 +73,16 @@ var IKE = function(omnibus) {
 				}
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
-				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
-					console.log('[node-bmw] Disconnecting from bluetooth device');
-					omnibus.BT.command('disconnect');
-				}
+				// if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
+				// 	console.log('[node-bmw] Disconnecting from bluetooth device');
+				// 	omnibus.BT.command('disconnect');
+				// }
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
-					console.log('[node-bmw] Connecting to bluetooth device');
-					omnibus.BT.command('connect');
-				}
+				// if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
+				// 	console.log('[node-bmw] Connecting to bluetooth device');
+				// 	omnibus.BT.command('connect');
+				// }
 
 				switch (message[1]) { // ignition status value
 					case 0x00:
@@ -91,34 +91,18 @@ var IKE = function(omnibus) {
 
 					case 0x01:
 						omnibus.status.vehicle.ignition = 'accessory';
-
-						// Turn on solid yellow RAD LED
-						var led_object = { solid_yellow : true };
-						omnibus.RAD.led(led_object);
 						break;
 
 					case 0x03:
 						omnibus.status.vehicle.ignition = 'run';
-
-						// Turn on solid green RAD LED
-						var led_object = { solid_green : true };
-						omnibus.RAD.led(led_object);
 						break;
 
 					case 0x07:
 						omnibus.status.vehicle.ignition = 'start';
-
-						// Turn on flashing red/yellow RAD LED
-						var led_object = { flashing_red : true, flashing_yellow : true };
-						omnibus.RAD.led(led_object);
 						break;
 
 					default:
 						omnibus.status.vehicle.ignition = 'unknown';
-
-						// Turn on flashing red RAD LED
-						var led_object = { flashing_red : true };
-						omnibus.RAD.led(led_object);
 						break;
 				}
 
@@ -134,17 +118,9 @@ var IKE = function(omnibus) {
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
 					omnibus.status.vehicle.handbrake = true;
-
-					// Turn on solid red RAD LED
-					var led_object = { solid_red : true };
-					omnibus.RAD.led(led_object);
 				}
 				else {
 					omnibus.status.vehicle.handbrake = false;
-
-					// Turn on flashing red RAD LED
-					var led_object = { flashing_red : true };
-					omnibus.RAD.led(led_object);
 				}
 
 				// message[2]:
@@ -566,9 +542,9 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
 	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') {
-			hud_refresh();
-		}
+		//if (omnibus.status.vehicle.ignition == 'run') {
+		//	hud_refresh();
+		//}
 	}, 2000);
 
 	// Refresh custom HUD

@@ -250,7 +250,7 @@ var IKE = function(omnibus) {
 								break;
 						}
 
-            value = omnibus.status.obc.temp_exterior_c;
+						value = omnibus.status.obc.temp_exterior_c;
 						break;
 
 					case 0x04: // Consumption 1
@@ -283,7 +283,7 @@ var IKE = function(omnibus) {
 						omnibus.status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2); 
 						omnibus.status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
 
-            value = omnibus.status.obc.consumption_1_mpg;
+						value = omnibus.status.obc.consumption_1_mpg;
 						break;
 
 					case 0x05: // Consumption 2
@@ -311,7 +311,7 @@ var IKE = function(omnibus) {
 						omnibus.status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2); 
 						omnibus.status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
 
-            value = omnibus.status.obc.consumption_2_mpg;
+						value = omnibus.status.obc.consumption_2_mpg;
 						break;
 
 					case 0x06: // Range
@@ -339,7 +339,7 @@ var IKE = function(omnibus) {
 								break;
 						}
 
-            value = omnibus.status.obc.range_mi;
+						value = omnibus.status.obc.range_mi;
 						break;
 
 					case 0x07: // Distance
@@ -399,7 +399,7 @@ var IKE = function(omnibus) {
 								break;
 						}
 
-            value = omnibus.status.obc.speedavg_mph;
+						value = omnibus.status.obc.speedavg_mph;
 						break;
 
 					case 0x0E: // Timer
@@ -542,9 +542,9 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
 	setInterval(function() {
-		//if (omnibus.status.vehicle.ignition == 'run') {
-		//	hud_refresh();
-		//}
+		if (omnibus.status.vehicle.ignition == 'run') {
+			hud_refresh();
+		}
 	}, 2000);
 
 	// Refresh custom HUD
@@ -563,7 +563,7 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC data
 	function obc_refresh() {
-    console.log('[node-bmw] Refreshing all OBC data');
+		console.log('[node-bmw] Refreshing all OBC data');
 
 		obc_data('get', 'auxheat1');
 		obc_data('get', 'auxheat2');
@@ -783,7 +783,7 @@ var IKE = function(omnibus) {
 	// IKE cluster text send message
 	function ike_text(string) {
 		var src = 0x68; // RAD
-		var dst = 0x80; // IKE
+		var dst = 0xBF; // GLO
 
 		string = string.ike_pad();
 
@@ -801,12 +801,6 @@ var IKE = function(omnibus) {
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Loop to update text in the cluster
-	function ike_text_loop() {
-		console.log('[node-bmw] text loop');
-		console.log(omnibus.status);
 	}
 
 	// Send message to IKE

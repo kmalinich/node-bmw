@@ -76,6 +76,11 @@ var RAD = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x23: // Update display text
+				command = 'update';
+				value   = 'display text';
+				break;
+
 			case 0x38: // CD control status request
 				if (data.dst_name == 'CDC') {
 					command = 'request'

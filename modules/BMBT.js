@@ -26,12 +26,12 @@ function bit_set(num, bit) {
 	return num;
 }
 
-// Reset bit
-var reset = true;
-
 var BMBT = function(omnibus) {
 	// Self reference
 	var _self = this;
+
+	// Reset bit
+	var reset = true;
 
 	// Exposed data
 	this.parse_in             = parse_in;
@@ -39,6 +39,14 @@ var BMBT = function(omnibus) {
 	this.send_button          = send_button;
 	this.send_cassette_status = send_cassette_status;
 	this.send_device_status   = send_device_status;
+	this.request_rad_status   = request_rad_status;
+
+	// Request RAD status every 10 seconds
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+			request_rad_status();
+		}
+	}, 10000);
 
 	// Parse data sent to BMBT module
 	function parse_in(data) {
@@ -73,10 +81,11 @@ var BMBT = function(omnibus) {
 				}
 				break;
 
-			case 0x4a: // Cassette status
-				command = 'cassette status';
-				value   = 'request';
+			case 0x4a: // Cassette control
+				command = 'cassette control';
+				value   = message[1];
 
+				send_device_status();
 				send_cassette_status();
 				break;
 
@@ -163,6 +172,26 @@ var BMBT = function(omnibus) {
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
+	// Request status from RAD module
+	function request_rad_status() {
+		// Init variables
+		var command = 'request device status';
+		var src     = 0xF0; // BMBT
+		var dst     = 0x68; // RAD
+
+		var msg = [0x01];
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+
+		// console.log('[BMBT->RAD] Sent %s:', command);
+	}
+
 	// Send ready or ready after reset
 	function send_device_status() {
 		// Init variables
@@ -175,13 +204,13 @@ var BMBT = function(omnibus) {
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (reset == true) {
+			data  = 'ready after reset';
 			reset = false;
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			msg   = [0x02, 0x01];
 		}
 		else {
-			data = 'ready after reset';
-			msg  = [0x02, 0x01];
+			data  = 'ready';
+			msg   = [0x02, 0x00];
 		}
 
 		var ibus_packet = {
@@ -256,7 +285,7 @@ var BMBT = function(omnibus) {
 		// Send the down message
 		omnibus.ibus_connection.send_message(ibus_packet);
 
-		// Prepare and send the up message after 500ms
+		// Prepare and send the up message after 150ms
 		setTimeout(function() {	
 			console.log('[BMBT->RAD] Sending button up: %s', button);
 
@@ -269,7 +298,7 @@ var BMBT = function(omnibus) {
 
 			// Send the up message
 			omnibus.ibus_connection.send_message(ibus_packet);
-		}, 500);
+		}, 150);
 	}
 }
 

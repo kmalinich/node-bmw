@@ -20,21 +20,25 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-
 var MFL = function(omnibus) {
 
 	// Self reference
 	var _self = this;
 
 	// Exposed data
-	this.parse_data = parse_data;
+	this.parse_out = parse_out;
 
 	// Parse data sent from MFL module
-	function parse_data(message) {
+	function parse_out(data) {
 		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
 		var action;
 		var button;
 		var command;
+		var value;
 
 		// 50 B0 01,MFL --> SES: Device status request
 		// 50 C8 01,MFL --> TEL: Device status request
@@ -117,7 +121,9 @@ var MFL = function(omnibus) {
 				break;
 		}
 
-		console.log('[MFL]  Sent %s: %s', command, button, action);
+		value = button+' '+action;
+
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 }
 

@@ -32,6 +32,7 @@ var data_handler = function(omnibus) {
 				case 'IHKA' : omnibus.IHKA.parse_out(data); break;
 				case 'IKE'  : omnibus.IKE.parse_out(data);  break;
 				case 'LCM'  : omnibus.LCM.parse_out(data);  break;
+				case 'MFL'  : omnibus.MFL.parse_out(data);  break;
 				case 'RAD'  : omnibus.RAD.parse_out(data);  break;
 
 				// Old model
@@ -40,7 +41,6 @@ var data_handler = function(omnibus) {
 				case 'CDC'  : omnibus.CDC.parse_data(data.msg);  break;
 				case 'GT'   : omnibus.GT.parse_data(data.msg);   break;
 				case 'HAC'  : omnibus.HAC.parse_data(data.msg);  break;
-				case 'MFL'  : omnibus.MFL.parse_data(data.msg);  break;
 				case 'MID'  : omnibus.MID.parse_data(data.msg);  break;
 				case 'NAV'  : omnibus.NAV.parse_data(data.msg);  break;
 				case 'PDC'  : omnibus.PDC.parse_data(data.msg);  break;

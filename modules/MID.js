@@ -133,13 +133,13 @@ var MID = function(omnibus) {
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (reset == true) {
+			data  = 'ready after reset';
 			reset = false;
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			msg   = [0x02, 0x01];
 		}
 		else {
-			data = 'ready after reset';
-			msg  = [0x02, 0x01];
+			data  = 'ready';
+			msg   = [0x02, 0x00];
 		}
 
 		var ibus_packet = {

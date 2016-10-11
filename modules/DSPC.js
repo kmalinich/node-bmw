@@ -14,9 +14,6 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
-// Reset bit
-var reset = true;
-
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
@@ -26,6 +23,9 @@ function bit_test(num, bit) {
 var DSPC = function(omnibus) {
 	// Self reference
 	var _self = this;
+
+	// Reset bit
+	var reset = true;
 
 	// Exposed data
 	this.parse_in           = parse_in;
@@ -133,13 +133,13 @@ var DSPC = function(omnibus) {
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (reset == true) {
+			data  = 'ready after reset';
 			reset = false;
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			msg   = [0x02, 0x01];
 		}
 		else {
-			data = 'ready after reset';
-			msg  = [0x02, 0x01];
+			data  = 'ready';
+			msg   = [0x02, 0x00];
 		}
 
 		var ibus_packet = {

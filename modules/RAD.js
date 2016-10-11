@@ -30,6 +30,9 @@ var RAD = function(omnibus) {
 	// Self reference
 	var _self = this;
 
+	// Marker bit for emulated BMBT power button
+	ready_to_power_on = false;
+
 	// Exposed data
 	this.led       = led;
 	this.parse_out = parse_out;
@@ -52,7 +55,7 @@ var RAD = function(omnibus) {
 					value   = 'CD changer';
 
 					// Do CDC->LOC Device status ready
-					//omnibus.CDC.send_device_status();
+					omnibus.CDC.send_device_status();
 				}
 				break;
 
@@ -64,13 +67,9 @@ var RAD = function(omnibus) {
 						break;
 
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
-
-						// Send BMBT power button
-						setTimeout(function() {
-							omnibus.BMBT.send_button('power');
-						}, 500);
+						command           = 'device status';
+						value             = 'ready after reset';
+						ready_to_power_on = true;
 						break;
 				}
 				break;
@@ -109,14 +108,16 @@ var RAD = function(omnibus) {
 				command = 'audio control';
 
 				switch (message[1]) {
-					case 0xaf:
+					case 0xAF:
 						value = 'off';
+						if (ready_to_power_on == true) {
+							ready_to_power_on = false;
 
-						setTimeout(function () {
-							if (omnibus.status.vehicle.ignition != 'off') {
+							// Send BMBT power button
+							setTimeout(function() {
 								omnibus.BMBT.send_button('power');
-							}
-						}, 1000);
+							}, 2000);
+						}
 						break;
 
 					case 0xa1:
@@ -134,14 +135,29 @@ var RAD = function(omnibus) {
 					command = 'request'
 					value   = 'CD control status';
 
-					// Do CDC->LOC CD status play
-					//omnibus.CDC.send_cd_status_play();
+					// Do CDC->LOC CD status stop
+					omnibus.CDC.send_cd_status_stop();
 				}
 				break;
 
-			case 0x4a: // Cassette status
-				command = 'cassette status';
+			case 0x4A: // Cassette control
+				command = 'cassette control';
+				value   =  message[1];
+				break;
+
+			case 0x46: // LCD control 
+				command = 'LCD control';
 				value   = 'request';
+
+				switch (message[1]) {
+					case 0x0E:
+						value = 'off';
+						break;
+
+					default:
+						value = message[1];
+						break;
+				}
 				break;
 
 			case 0x79: // Door/flap status request

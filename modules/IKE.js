@@ -84,11 +84,6 @@ var IKE = function(omnibus) {
 					console.log('[node-bmw] Trigger: power-on state');
 					//console.log('[node-bmw] Connecting to bluetooth device');
 					//omnibus.BT.command('connect');
-
-					// Send BMBT power button after 500ms
-					//setTimeout(function() {
-					//	omnibus.BMBT.send_button('power');
-					//}, 500);
 				}
 
 				switch (message[1]) { // ignition status value

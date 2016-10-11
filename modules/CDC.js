@@ -14,9 +14,6 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
-// Reset bit
-var reset = true;
-
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
@@ -27,9 +24,13 @@ var CDC = function(omnibus) {
 	// Self reference
 	var _self = this;
 
+	// Reset bit
+	var reset = true;
+
 	// Exposed data
 	this.parse_data          = parse_data;
 	this.send_cd_status_play = send_cd_status_play;
+	this.send_cd_status_stop = send_cd_status_stop;
 	this.send_device_status  = send_device_status;
 
 	// Parse data sent from CDC module
@@ -99,14 +100,35 @@ var CDC = function(omnibus) {
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (reset == true) {
+			data  = 'ready after reset';
 			reset = false;
+			msg   = [0x02, 0x01];
+		}
+		else {
 			data  = 'ready';
 			msg   = [0x02, 0x00];
 		}
-		else {
-			data = 'ready after reset';
-			msg  = [0x02, 0x01];
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
 		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+
+		console.log('[CDC->LOC] Sent %s:', command, data);
+	}
+
+	// CDC->RAD CD status stopped
+	function send_cd_status_stop() {
+		// Init variables
+		var command = 'CD status';
+		var data    = 'stopped';
+
+		var src = 0x18; // CDC
+		var dst = 0x68; // RAD
+		var msg = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
 
 		var ibus_packet = {
 			src: src,

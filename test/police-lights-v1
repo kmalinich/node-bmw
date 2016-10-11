@@ -17,27 +17,27 @@ RRL="output_reverse_rear_left=true"
 RRR="output_reverse_rear_right=true"
 
 while true; do
-	curl "${BASE}" "${TRL}&${SFR}&${TFR}"
+	curl "${BASE}" -d "${TRL}&${SFR}&${TFR}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRL}&${SFR}&${TFR}"
+	curl "${BASE}" -d "${TRL}&${SFR}&${TFR}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRL}&${SFL}&${BRL}&${TFR}"
+	curl "${BASE}" -d "${TRL}&${SFL}&${BRL}&${TFR}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRL}&${SFL}&${BRR}&${TFR}"
+	curl "${BASE}" -d "${TRL}&${SFL}&${BRR}&${TFR}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRR}&${SFR}&${SORL}&${TFL}"
+	curl "${BASE}" -d "${TRR}&${SFR}&${SORL}&${TFL}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRR}&${SFR}&${SORR}&${TFL}"
+	curl "${BASE}" -d "${TRR}&${SFR}&${SORR}&${TFL}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRR}&${SFL}&${RRL}&${TFL}"
+	curl "${BASE}" -d "${TRR}&${SFL}&${RRL}&${TFL}"
 	sleep ${SLEEP}
 
-	curl "${BASE}" "${TRR}&${SFL}&${RRR}&${TFL}"
+	curl "${BASE}" -d "${TRR}&${SFL}&${RRR}&${TFL}"
 	sleep ${SLEEP}
 done

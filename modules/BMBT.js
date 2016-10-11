@@ -20,6 +20,12 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
+// Set a bit in a bitmask
+function bit_set(num, bit) {
+	num |= bit;
+	return num;
+}
+
 // Reset bit
 var reset = true;
 
@@ -178,7 +184,7 @@ var BMBT = function(omnibus) {
 
 	// Say we have no tape in the player
 	function send_cassette_status() {
-		// Assemble strings
+		// Init variables
 		var src     = 0xF0; // BMBT
 		var dst     = 0x68; // RAD
 		var command = 0x4B; // Cassette status
@@ -195,6 +201,36 @@ var BMBT = function(omnibus) {
 		console.log('[BMBT->RAD] Sending cassette status: no-tape');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	// Emulate button presses
+	function send_button(button) {
+		// Init variables
+		var src = 0xF0; // BMBT
+		var dst = 0x68; // RAD
+
+		var button_base = 0x00;
+		var button_down;
+		var button_hold;
+		var button_up;
+
+		// Switch statement to determine button, then encode bitmask
+		switch (button) {
+			case 'power':
+				// Get base value of button
+				button_base = bit_set(button_base, bit_1);
+				button_base = bit_set(button_base, bit_2);
+
+				// Generate down, hold, and up values
+				button_down = bit_set(button_base, bit_2);
+				button_hold = bit_set(button_base, bit_2);
+				button_up   = bit_set(button_base, bit_2);
+
+				break;
+
+			case default:
+				break
+		}		
 	}
 }
 

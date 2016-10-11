@@ -85,6 +85,8 @@ bit_sample('6   dn', 0x03);
 bit_sample('tne dn', 0x04);
 bit_sample('nav dn', 0x05);
 bit_sample('pwr dn', 0x06);
+bit_sample('pwr hd', 0x46);
+bit_sample('pwr up', 0x86);
 bit_sample('fan dn', 0x07);
 bit_sample('phn dn', 0x08);
 bit_sample('<   dn', 0x10);

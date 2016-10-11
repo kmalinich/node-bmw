@@ -3,6 +3,8 @@
 BASE="http://localhost:3001/lcm?"
 SLEEP="0.03"
 
+HFL="output_highbeam_front_left=true"
+HFR="output_highbeam_front_right=true"
 SFL="output_standing_front_left=true"
 SFR="output_standing_front_right=true"
 TFR="output_turn_front_right=true"
@@ -17,27 +19,37 @@ RRL="output_reverse_rear_left=true"
 RRR="output_reverse_rear_right=true"
 
 while true; do
-	curl "${BASE}" -d "${TRL}&${SFR}&${TFR}"
-	sleep ${SLEEP}
+	curl "${BASE}" -d "${HFR}&${RRR}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${HFR}&${TRL}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${HFR}&${RRR}&${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRR}&${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRR}&${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${TRR}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRL}&${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRL}&${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
 
-	curl "${BASE}" -d "${TRL}&${SFR}&${TFR}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRL}&${SFL}&${BRL}&${TFR}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRL}&${SFL}&${BRR}&${TFR}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRR}&${SFR}&${SORL}&${TFL}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRR}&${SFR}&${SORR}&${TFL}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRR}&${SFL}&${RRL}&${TFL}"
-	sleep ${SLEEP}
-
-	curl "${BASE}" -d "${TRR}&${SFL}&${RRR}&${TFL}"
-	sleep ${SLEEP}
+	curl "${BASE}" -d "${HFL}&${RRR}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${HFL}&${TRL}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${HFL}&${RRR}&${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRR}&${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRL}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${TRR}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRL}&${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${RRL}&${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
 done

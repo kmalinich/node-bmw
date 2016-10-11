@@ -14,22 +14,23 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
+// Reset bit
+var reset = true;
+
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
 	else { return false; }
 }
 
-
 var CDC = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
 	// Exposed data
-	this.parse_data               = parse_data;
-	this.send_cd_status_play      = send_cd_status_play;
-	this.send_device_status_ready = send_device_status_ready;
+	this.parse_data          = parse_data;
+	this.send_cd_status_play = send_cd_status_play;
+	this.send_device_status  = send_device_status;
 
 	// Parse data sent from BMBT module
 	function parse_data(message) {
@@ -87,14 +88,25 @@ var CDC = function(omnibus) {
 	}
 
 	// CDC->LOC Device status ready
-	function send_device_status_ready() {
+	function send_device_status() {
 		// Init variables
 		var command = 'device status';
-		var data    = 'ready';
+		var src     = 0x18; // CDC
+		var dst     = 0xFF; // LOC
 
-		var src = 0x18; // CDC
-		var dst = 0xFF; // LOC
-		var msg = [0x02, 0x01];
+    var data;
+    var msg;
+
+		// Handle 'ready' vs. 'ready after reset'
+		if (reset == true) {
+			reset = false;
+			data  = 'ready';
+			msg   = [0x02, 0x00];
+		}
+		else {
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
+		}
 
 		var ibus_packet = {
 			src: src,

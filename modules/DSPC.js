@@ -28,9 +28,9 @@ var DSPC = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_in                 = parse_in;
-	this.parse_out                = parse_out;
-	this.send_device_status_ready = send_device_status_ready;
+	this.parse_in           = parse_in;
+	this.parse_out          = parse_out;
+	this.send_device_status = send_device_status;
 
 	// Parse data sent to DSPC module
 	function parse_in(data) {
@@ -44,7 +44,7 @@ var DSPC = function(omnibus) {
 				value   = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
-				send_device_status_ready(data.src);
+				send_device_status(data.src);
 				break;
 
 			case 0x02: // Device status
@@ -121,7 +121,7 @@ var DSPC = function(omnibus) {
 	}
 
 	// DSPC->GLO Device status ready
-	function send_device_status_ready(dst) {
+	function send_device_status(dst) {
 		// Init variables
 		var src      = 0xEA; // DSPC
 		var src_name = omnibus.bus_modules.get_module_name(src);

@@ -29,8 +29,8 @@ var DSP = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.parse_out                = parse_out;
-	this.send_device_status_ready = send_device_status_ready;
+	this.parse_out          = parse_out;
+	this.send_device_status = send_device_status;
 
 	// Parse data sent from BMBT module
 	function parse_out(data) {
@@ -87,7 +87,7 @@ var DSP = function(omnibus) {
 	}
 
 	// DSP->GLO Device status ready
-	function send_device_status_ready() {
+	function send_device_status() {
 		// Init variables
 		var command = 'device status';
 		var src     = 0x6A; // DSP

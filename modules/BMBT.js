@@ -20,16 +20,62 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
+// Reset bit
+var reset = true;
 
 var BMBT = function(omnibus) {
 	// Self reference
 	var _self = this;
 
 	// Exposed data
+	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
 	this.send_cassette_status = send_cassette_status;
+	this.send_device_status   = send_device_status;
 
-	// Parse data sent from real BMBT module
+	// Parse data sent to BMBT module
+	function parse_in(data) {
+		// Init variables
+		var src      = data.src;
+		var dst      = data.dst;
+		var message  = data.msg;
+
+		var command;
+		var value;
+
+		switch (message[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				value   = 'device status';
+
+				// Send the ready packet since this module doesn't actually exist
+				send_device_status();
+				break;
+
+			case 0x02: // Device status
+				switch (message[1]) {
+					case 0x00:
+						command = 'device status';
+						value   = 'ready';
+						break;
+
+					case 0x01:
+						command = 'device status';
+						value   = 'ready after reset';
+						break;
+				}
+				break;
+
+			default:
+				command = 'unknown';
+				value   = new Buffer(data.msg);
+				break;
+		}
+
+		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+	}
+
+	// Parse data sent from BMBT module
 	function parse_out(data) {
 		// Init variables
 		var src      = data.src;
@@ -98,6 +144,39 @@ var BMBT = function(omnibus) {
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
+	// Send ready or ready after reset
+	function send_device_status() {
+		// Init variables
+		var command = 'device status';
+		var src     = 0xF0; // BMBT
+		var dst     = 0xBF; // GLO
+
+		var data;
+		var msg;
+
+		// Handle 'ready' vs. 'ready after reset'
+		if (reset == true) {
+			reset = false;
+			data  = 'ready';
+			msg   = [0x02, 0x00];
+		}
+		else {
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
+		}
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+
+		console.log('[BMBT->GLO] Sent %s:', command, data);
+	}
+
+	// Say we have no tape in the player
 	function send_cassette_status() {
 		// Assemble strings
 		var src     = 0xF0; // BMBT
@@ -117,5 +196,6 @@ var BMBT = function(omnibus) {
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
+}
 
 module.exports = BMBT;

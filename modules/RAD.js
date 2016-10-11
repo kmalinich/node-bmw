@@ -52,7 +52,7 @@ var RAD = function(omnibus) {
 					value   = 'CD changer';
 
 					// Do CDC->LOC Device status ready
-					omnibus.CDC.send_device_status_ready();
+					omnibus.CDC.send_device_status();
 				}
 				break;
 

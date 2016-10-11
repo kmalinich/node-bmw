@@ -54,6 +54,7 @@ var data_handler = function(omnibus) {
 			}
 
 			switch (data.dst_name) {
+				case 'BMBT' : omnibus.BMBT.parse_in(data); break;
 				case 'DSPC' : omnibus.DSPC.parse_in(data); break;
 			}
 		}

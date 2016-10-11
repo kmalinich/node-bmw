@@ -36,6 +36,7 @@ var BMBT = function(omnibus) {
 	// Exposed data
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
+	this.send_button          = send_button;
 	this.send_cassette_status = send_cassette_status;
 	this.send_device_status   = send_device_status;
 
@@ -206,31 +207,57 @@ var BMBT = function(omnibus) {
 	// Emulate button presses
 	function send_button(button) {
 		// Init variables
-		var src = 0xF0; // BMBT
-		var dst = 0x68; // RAD
+		var src     = 0xF0; // BMBT
+		var dst     = 0x68; // RAD
+		var command = 0x48; // Button action
 
-		var button_base = 0x00;
-		var button_down;
+		var button_down = 0x00;
 		var button_hold;
 		var button_up;
 
 		// Switch statement to determine button, then encode bitmask
 		switch (button) {
 			case 'power':
-				// Get base value of button
-				button_base = bit_set(button_base, bit_1);
-				button_base = bit_set(button_base, bit_2);
+				// Get down value of button
+				button_down = bit_set(button_down, bit_1);
+				button_down = bit_set(button_down, bit_2);
 
-				// Generate down, hold, and up values
-				button_down = bit_set(button_base, bit_2);
-				button_hold = bit_set(button_base, bit_2);
-				button_up   = bit_set(button_base, bit_2);
+				// Generate hold and up values
+				button_hold = bit_set(button_down, bit_6);
+				button_up   = bit_set(button_down, bit_7);
 
 				break;
-
-			case default:
-				break
 		}		
+
+		console.log('[BMBT->RAD] Sending button down: %s', button);
+
+		var packet_down = [command, button_down];
+		var packet_up   = [command, button_up];
+
+		// Send message
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(packet_down),
+		}
+
+		// Send the down message
+		omnibus.ibus_connection.send_message(ibus_packet);
+
+		// Prepare and send the up message after 500ms
+		setTimeout(function() {	
+			console.log('[BMBT->RAD] Sending button up: %s', button);
+
+			// Send message
+			var ibus_packet = {
+				src: src,
+				dst: dst,
+				msg: new Buffer(packet_up),
+			}
+
+			// Send the up message
+			omnibus.ibus_connection.send_message(ibus_packet);
+		}, 500);
 	}
 }
 

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+BASE="http://localhost:3001/lcm?"
+SLEEP="0.03"
+
+SFL="output_standing_front_left=true"
+SFR="output_standing_front_right=true"
+TFR="output_turn_front_right=true"
+TFL="output_turn_front_left=true"
+TRL="output_turn_rear_left=true"
+TRR="output_turn_rear_right=true"
+SORL="output_standing_rear_left=true"
+SORR="output_standing_rear_right=true"
+BRL="output_brake_rear_left=true"
+BRR="output_brake_rear_right=true"
+RRL="output_reverse_rear_left=true"
+RRR="output_reverse_rear_right=true"
+
+while true; do
+	curl "${BASE}" "${TRL}&${SFR}&${TFR}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRL}&${SFR}&${TFR}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRL}&${SFL}&${BRL}&${TFR}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRL}&${SFL}&${BRR}&${TFR}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRR}&${SFR}&${SORL}&${TFL}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRR}&${SFR}&${SORR}&${TFL}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRR}&${SFL}&${RRL}&${TFL}"
+	sleep ${SLEEP}
+
+	curl "${BASE}" "${TRR}&${SFL}&${RRR}&${TFL}"
+	sleep ${SLEEP}
+done

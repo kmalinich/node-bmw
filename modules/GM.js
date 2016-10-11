@@ -38,7 +38,7 @@ var GM = function(omnibus) {
 	this.gm_send                 = gm_send;
 	this.gm_windows              = gm_windows;
 	this.key_fob_status_decode   = key_fob_status_decode;
-	this.parse_out              = parse_out;
+	this.parse_out               = parse_out;
 
 	// Parse data sent from GM module
 	function parse_out(data) {
@@ -76,6 +76,28 @@ var GM = function(omnibus) {
 			case 0x76: // crash alarm
 				command = 'broadcast';
 				value   = 'crash alarm';
+				break;
+
+			case 0x77: // Wiper status 
+				command = 'wiper status';
+
+				switch (message[1]) {
+					case 0x0c:
+						value = 'off';
+						break;
+
+					case 0x0d:
+						value = 'low/auto';
+						break;
+
+					case 0x0e:
+						value = 'medium';
+						break;
+
+					case 0x0f:
+						value = 'high';
+						break;
+				}
 				break;
 
 			case 0x78: // seat memory data

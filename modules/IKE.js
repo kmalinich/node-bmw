@@ -73,16 +73,23 @@ var IKE = function(omnibus) {
 				}
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
-				// if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
-				// 	console.log('[node-bmw] Disconnecting from bluetooth device');
-				// 	omnibus.BT.command('disconnect');
-				// }
+				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
+					console.log('[node-bmw] Trigger: power-off state');
+					//console.log('[node-bmw] Disconnecting from bluetooth device');
+					//omnibus.BT.command('disconnect');
+				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				// if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
-				// 	console.log('[node-bmw] Connecting to bluetooth device');
-				// 	omnibus.BT.command('connect');
-				// }
+				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
+					console.log('[node-bmw] Trigger: power-on state');
+					//console.log('[node-bmw] Connecting to bluetooth device');
+					//omnibus.BT.command('connect');
+
+					// Send BMBT power button after 500ms
+					//setTimeout(function() {
+					//	omnibus.BMBT.send_button('power');
+					//}, 500);
+				}
 
 				switch (message[1]) { // ignition status value
 					case 0x00:
@@ -149,7 +156,7 @@ var IKE = function(omnibus) {
 
 			case 0x17: // Odometer
 				command = 'broadcast';
-				value   = 'odometer value';
+				value   = 'odometer';
 				break;
 
 			case 0x18: // Vehicle speed and RPM
@@ -541,11 +548,11 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') {
-			hud_refresh();
-		}
-	}, 2000);
+	// setInterval(function() {
+	// 	if (omnibus.status.vehicle.ignition == 'run') {
+	// 		hud_refresh();
+	// 	}
+	// }, 2000);
 
 	// Refresh custom HUD
 	function hud_refresh() {

@@ -40,6 +40,12 @@ var MFL = function(omnibus) {
 		// 50 C8 01,MFL --> TEL: Device status request
 
 		switch (message[0]) {
+			case 0x01: // Device status request
+				command = 'request';
+				button  = 'device status';
+				action  = '';
+				break;
+
 			case 0x32: // Volume buttons
 				command = 'button action';
 				button  = 'volume';
@@ -54,7 +60,7 @@ var MFL = function(omnibus) {
 				}
 				break;
 
-			case 0x3A: // Recirculation buton
+			case 0x3a: // Recirculation buton
 				command = 'button action';
 				button  = 'recirculation';
 
@@ -69,8 +75,7 @@ var MFL = function(omnibus) {
 
 				break;
 
-				// Media control buttons
-			case 0x3B: // Media control buttons
+			case 0x3b: // Media control buttons
 				command = 'button action';
 
 				// Bitmask:
@@ -97,6 +102,12 @@ var MFL = function(omnibus) {
 				// else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
 				// else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...
 				// else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
+				break;
+
+			case 0x5d:
+				command = 'request';
+				button  = 'light dimmer';
+				action  = '';
 				break;
 
 			default:

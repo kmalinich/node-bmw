@@ -52,12 +52,11 @@ var RAD = function(omnibus) {
 					value   = 'CD changer';
 
 					// Do CDC->LOC Device status ready
-					omnibus.CDC.send_device_status();
+					//omnibus.CDC.send_device_status();
 				}
 				break;
 
-			case 0x02: // device status
-
+			case 0x02: // Device status
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';
@@ -67,6 +66,11 @@ var RAD = function(omnibus) {
 					case 0x01:
 						command = 'device status';
 						value   = 'ready after reset';
+
+						// Send BMBT power button
+						setTimeout(function() {
+							omnibus.BMBT.send_button('power');
+						}, 500);
 						break;
 				}
 				break;
@@ -76,26 +80,68 @@ var RAD = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x14: // Country coding request
+				command = 'request';
+				value   = 'country coding';
+				break;
+
+			case 0x16: // Odometer request
+				command = 'request';
+				value   = 'odometer';
+				break;
+
+			case 0x21: // Update menu text
+				command = 'update';
+				value   = 'menu text';
+				break;
+
 			case 0x23: // Update display text
 				command = 'update';
 				value   = 'display text';
 				break;
 
+			case 0x32: // Volume control
+				command = 'volume control';
+				value   = message[1];
+				break;
+
+			case 0x36: // Audio control (i.e. source)
+				command = 'audio control';
+
+				switch (message[1]) {
+					case 0xaf:
+						value = 'off';
+
+						setTimeout(function () {
+							if (omnibus.status.vehicle.ignition != 'off') {
+								omnibus.BMBT.send_button('power');
+							}
+						}, 1000);
+						break;
+
+					case 0xa1:
+						value = 'tuner/tape';
+						break;
+
+					default:
+						value = message[1];
+						break;
+				}
+				break;
+
 			case 0x38: // CD control status request
 				if (data.dst_name == 'CDC') {
 					command = 'request'
-					value   = '[CDC] CD control status';
+					value   = 'CD control status';
 
 					// Do CDC->LOC CD status play
-					omnibus.CDC.send_cd_status_play();
+					//omnibus.CDC.send_cd_status_play();
 				}
 				break;
 
 			case 0x4a: // Cassette status
 				command = 'cassette status';
 				value   = 'request';
-
-				omnibus.BMBT.send_cassette_status;
 				break;
 
 			case 0x79: // Door/flap status request

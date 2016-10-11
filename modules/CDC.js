@@ -32,7 +32,7 @@ var CDC = function(omnibus) {
 	this.send_cd_status_play = send_cd_status_play;
 	this.send_device_status  = send_device_status;
 
-	// Parse data sent from BMBT module
+	// Parse data sent from CDC module
 	function parse_data(message) {
 		// Init variables
 		var command;
@@ -84,7 +84,7 @@ var CDC = function(omnibus) {
 				break;
 		}
 
-		console.log('[CDC]  Sent %s:', command, data);
+		console.log('[CDC->???] Sent %s:', command, data);
 	}
 
 	// CDC->LOC Device status ready

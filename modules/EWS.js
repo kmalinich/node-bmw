@@ -58,6 +58,16 @@ var EWS = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x14: // Country coding request
+				command = 'request';
+				value   = 'country coding';
+				break;
+
+			case 0x16: // Odometer request
+				command = 'request';
+				value   = 'odometer';
+				break;
+
 			case 0x74: // Broadcast: immobiliser status
 				command = 'immobiliser status';
 

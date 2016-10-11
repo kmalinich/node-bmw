@@ -73,13 +73,20 @@ var BMBT = function(omnibus) {
 				}
 				break;
 
+			case 0x4a: // Cassette status
+				command = 'cassette status';
+				value   = 'request';
+
+				send_cassette_status();
+				break;
+
 			default:
 				command = 'unknown';
 				value   = new Buffer(data.msg);
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s<-%s] %s:', data.dst_name, data.src_name, command, value);
 	}
 
 	// Parse data sent from BMBT module
@@ -122,17 +129,22 @@ var BMBT = function(omnibus) {
 				value   = 'volume control';
 				break;
 
+			case 0x4b: // Cassette status
+				command = 'cassette status';
+				value   = 'no tape';
+				break;
+
 			case 0x47: // Broadcast: BM status
 				command = 'broadcast';
 				value   = 'BM status';
 				break;
 
-			case 0x47: // Broadcast: BM button
+			case 0x48: // Broadcast: BM button
 				command = 'broadcast';
 				value   = 'BM button';
 				break;
 
-			case 0x5D: // Request: light dimmer status
+			case 0x5d: // Request: light dimmer status
 				command = 'request';
 				value   = 'light dimmer status';
 				break;
@@ -199,7 +211,7 @@ var BMBT = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[BMBT->RAD] Sending cassette status: no-tape');
+		console.log('[BMBT->RAD] Sending cassette status: no tape');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

@@ -46,7 +46,6 @@ var ibus_interface = function(device_path) {
 		parser = new ibus_protocol();
 		parser.on('message', on_message);
 		serial_port.pipe(parser);
-		watch_for_empty_bus(process_write_queue);
 	});
 
 	// On port close
@@ -56,10 +55,9 @@ var ibus_interface = function(device_path) {
 	});
 
 	// On data RX
-	serial_port.on('data', function(data) {
-		// console.log('[INTF] Data on port: ', data);
-		last_activity_time = process.hrtime();
-	});
+	//serial_port.on('data', function(data) {
+	//	 console.log('[INTF] Data on port: ', data);
+	//});
 
 	// Open serial port
 	function startup() {
@@ -85,59 +83,6 @@ var ibus_interface = function(device_path) {
 		callback();
 	}
 
-	function get_ht_diff_time(time) {
-		// ts = [seconds, nanoseconds]
-		var ts = process.hrtime(time);
-
-		// Convert seconds to miliseconds and nanoseconds to miliseconds as well
-		return (ts[0] * 1000) + (ts[1] / 1000000);
-	};
-
-	function watch_for_empty_bus(workerFn) {        
-		if (get_ht_diff_time(last_activity_time) >= 20) {
-			workerFn(function success() {
-				// Operation is ready, resume looking for an empty bus
-				setImmediate(watch_for_empty_bus, workerFn);
-			});
-		}
-		else {
-			// Keep looking for an empty bus
-			setImmediate(watch_for_empty_bus, workerFn);
-		}
-	}
-
-	function process_write_queue(ready) {
-		// noop on empty queue
-		if (queue.length <= 0) {
-			ready();
-			return;
-		}
-
-		// Process 1 message
-		var data_buffer = queue.pop();
-
-		// console.log(clc.blue('[INTF] Write queue length: '), queue.length);
-
-		serial_port.write(data_buffer, function(error, resp) {
-			if (error) {
-			  console.log('[INTF] Failed to write: ' + error);
-			}
-			// else {
-			// }
-
-			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
-
-			serial_port.drain(function(error) {
-				// console.log(clc.white('Data drained'));
-				// This counts as an activity, so mark it
-				last_activity_time = process.hrtime();
-				ready();
-			});
-
-			_self.emit('message_sent');
-		});
-	}
-
 	function get_interface() {
 		return serial_port;
 	}
@@ -154,12 +99,19 @@ var ibus_interface = function(device_path) {
 		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
 		// console.log('[INTF] Send message: ', data_buffer);
 
-		if (queue.length > 1000) {
-			console.log('[INTF] Queue too large, dropping message..', data_buffer);
-			return;
-		}
+		serial_port.write(data_buffer, function(error, resp) {
+			if (error) {
+			  console.log('[INTF] Failed to write: ' + error);
+			}
 
-		queue.unshift(data_buffer);
+			console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+
+			serial_port.drain(function(error) {
+				// console.log(clc.white('Data drained'));
+			});
+
+			_self.emit('message_sent');
+		});
 	}
 
 };

@@ -1,7 +1,7 @@
 #!/bin/bash - 
 
-BASE="http://localhost:8080/lcm?"
-SLEEP="0.05"
+BASE="http://localhost:3001/lcm?"
+SLEEP="0.5"
 
 ARRAY_LIGHTS_REAR=(
 output_license_rear_right

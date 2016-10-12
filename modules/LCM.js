@@ -325,11 +325,13 @@ var LCM = function(omnibus) {
 		switch (action) {
 			case 'on' :
 				var lcm_object = {
+					output_fog_front_left       : true,
+					output_fog_front_right      : true,
+					output_license_rear_right   : true,
 					output_standing_front_left  : true,
 					output_standing_front_right : true,
-					output_standing_rear_right  : true,
 					output_standing_rear_left   : true,
-					output_license_rear_right   : true,
+					output_standing_rear_right  : true,
 				};
 
 				io_status_encode(lcm_object);

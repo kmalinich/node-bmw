@@ -116,7 +116,7 @@ var ibus_interface = function(device_path) {
 		// Process 1 message
 		var data_buffer = queue.pop();
 
-		console.log(clc.blue('[INTF] Write queue length: '), queue.length);
+		// console.log(clc.blue('[INTF] Write queue length: '), queue.length);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
@@ -125,7 +125,7 @@ var ibus_interface = function(device_path) {
 			// else {
 			// }
 
-			console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
 				// console.log(clc.white('Data drained'));

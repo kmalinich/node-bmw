@@ -1,7 +1,7 @@
 #!/bin/bash - 
 
 BASE="http://localhost:3001/lcm?"
-SLEEP="0.03"
+SLEEP="0.01"
 
 SFL="output_standing_front_left=true"
 SFR="output_standing_front_right=true"

@@ -12,7 +12,6 @@
 // 20:18 nauticalDusk
 // 20:50 night
 
-var suncalc = require('suncalc');
 
 var current_time = new Date();
 var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);

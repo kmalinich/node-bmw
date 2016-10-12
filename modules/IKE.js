@@ -75,6 +75,10 @@ var IKE = function(omnibus) {
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
 					console.log('[node-bmw] Trigger: power-off state');
+
+					// Stop auto lights
+					omnibus.LCM.auto_lights('off');
+
 					//console.log('[node-bmw] Disconnecting from bluetooth device');
 					//omnibus.BT.command('disconnect');
 				}
@@ -82,6 +86,10 @@ var IKE = function(omnibus) {
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
+
+					// Start auto lights
+					omnibus.LCM.auto_lights('on');
+
 					//console.log('[node-bmw] Connecting to bluetooth device');
 					//omnibus.BT.command('connect');
 				}

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 // npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
+var dbus    = require('dbus-native');
+var suncalc = require('suncalc');
+var wait    = require('wait.for');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -14,11 +15,14 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
+var auto_lights_interval;
+
 var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
 
 	// Exposed data
+	this.auto_lights         = auto_lights;
 	this.bit_set             = bit_set;
 	this.bit_test            = bit_test;
 	this.comfort_turn        = comfort_turn;
@@ -28,7 +32,7 @@ var LCM = function(omnibus) {
 	this.lcm_get             = lcm_get;
 	this.lcm_set             = lcm_set;
 	this.light_status_decode = light_status_decode;
-	this.parse_out          = parse_out;
+	this.parse_out           = parse_out;
 	this.reset               = reset;
 	this.welcome_lights      = welcome_lights;
 
@@ -54,40 +58,40 @@ var LCM = function(omnibus) {
 					value   = 'ready after reset';
 				}
 				break;
-	
+
 			case 0x10: // Request: ignition status
 				command = 'request';
 				value   = 'ignition status';
 				break;
-	
+
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
 				value   = 'vehicle data';
 				// vehicle_data_decode(message);
 				break;
-	
+
 			case 0x5B: // Broadcast: light status
 				command = 'broadcast';
 				value   = 'light status';
 				light_status_decode(message);
 				break;
-	
+
 			case 0x5C: // Broadcast: light dimmer status
 				command = 'broadcast';
 				value   = 'light dimmer status';
 				omnibus.status.lights.dimmer = message[1];
 				break;
-	
+
 			case 0x79: // Request: door/flap status
 				command = 'request';
 				value   = 'door/flap status';
 				break;
-	
+
 			case 0xA0: 
 				command = 'current IO status';
 				omnibus.LCM.io_status_decode(message);
 				break;
-	
+
 			default:
 				command = 'unknown';
 				value   = new Buffer(message);
@@ -146,7 +150,7 @@ var LCM = function(omnibus) {
 		var turn_right_on = bit_test(message[1], bit_6);
 
 		// If comfort turn is not currently engaged
-		if (omnibus.status.lights.turn_comfort == true) {
+		if (omnibus.status.lights.turn_comfort_left == true || omnibus.status.lights.turn_comfort_right == true) {
 			console.log('[LCM]  Comfort turn signal currently engaged');
 		}
 		else {
@@ -227,30 +231,123 @@ var LCM = function(omnibus) {
 		}
 	}
 
+	// Automatic lights handling 
+	function auto_lights(light_switch) {
+		switch (light_switch) {
+			case 'off':
+				console.log('[node-bmw] turning off automatic lights');
+				clearInterval(auto_lights_interval);
+				reset();
+				break;
+			case 'on':
+				console.log('[node-bmw] turning on automatic lights');
+
+				// Send one through to prime the pumps
+				auto_lights_process();
+
+				// Process/send LCM data on 10 second interval
+				// LCM diag command timeout is 15 seconds
+				auto_lights_interval = setInterval(function() {
+					auto_lights_process();
+				}, 10000);
+				break;
+		}
+	}
+
+	function auto_lights_process() {
+			// Init variables
+			var lcm_object;
+			var light_status;
+			var position;
+
+			var current_time = new Date();
+			var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
+
+			var lights_on  = sun_times.sunsetStart;
+			var lights_off = sun_times.sunriseEnd;
+
+			if (current_time > lights_on) {
+				light_status = true;
+			}
+			else {
+				light_status = false;
+			}
+
+			console.log('[LCM]  Automatic lights - \'%s\'', light_status);
+
+			switch (light_status) {
+				case false:
+					lcm_object = {
+						switch_standing   : true,
+						switch_turn_left  : omnibus.status.lights.turn_comfort_left,
+						switch_turn_right : omnibus.status.lights.turn_comfort_right,
+					};
+
+					// Set status variables
+					omnibus.status.lights.auto_standing = true;
+					omnibus.status.lights.auto_lowbeam  = false;
+					break;
+				case true:
+					lcm_object = {
+						switch_lowbeam_2  : true,
+						switch_turn_left  : omnibus.status.lights.turn_comfort_left,
+						switch_turn_right : omnibus.status.lights.turn_comfort_right,
+					};
+
+					// Set status variables
+					omnibus.status.lights.auto_standing = false;
+					omnibus.status.lights.auto_lowbeam  = true;
+					break;
+			}
+
+			io_status_encode(lcm_object);
+	}
+
 	// Comfort turn signal handling
 	function comfort_turn(action) {
 		console.log('[LCM]  Comfort turn signal - \'%s\'', action);
 
-		// Set status variable
-		omnibus.status.lights.turn_comfort = true;
-
 		switch (action) {
 			case 'left':
-				var lcm_object = { switch_turn_left: true };
-				io_status_encode(lcm_object);
+				// Set status variables
+				omnibus.status.lights.turn_comfort_left  = true;
+				omnibus.status.lights.turn_comfort_right = false;
+
+				var lcm_object = {
+					switch_turn_left : true,
+					switch_standing  : omnibus.status.lights.auto_standing,
+					switch_lowbeam_2 : omnibus.status.lights.auto_lowbeam,
+				};
 				break;
 			case 'right':
-				var lcm_object = { switch_turn_right: true };
-				io_status_encode(lcm_object);
+				// Set status variables
+				omnibus.status.lights.turn_comfort_left  = false;
+				omnibus.status.lights.turn_comfort_right = true;
+
+				var lcm_object = {
+					switch_turn_right : true,
+					switch_standing   : omnibus.status.lights.auto_standing,
+					switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
+				};
 				break;
 		}
 
+		io_status_encode(lcm_object);
+
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(function() {
-			reset();
+			var lcm_object = {
+				switch_turn_left  : false,
+				switch_turn_right : false,
+				switch_standing   : omnibus.status.lights.auto_standing,
+				switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
+			};
 
-			// Set status variable
-			omnibus.status.lights.turn_comfort = false;
+			io_status_encode(lcm_object);
+
+			// Set status variables
+			omnibus.status.lights.turn_comfort_left  = false;
+			omnibus.status.lights.turn_comfort_right = false;
 		}, 2500);
 	}
 
@@ -281,7 +378,6 @@ var LCM = function(omnibus) {
 		var lcm_object = {};
 		io_status_encode(lcm_object);
 	}
-
 
 	// Get LCM IO status
 	function lcm_get() {

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var data_handler = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
@@ -18,7 +17,7 @@ var data_handler = function(omnibus) {
 
 		if (data.msg != 0) {
 			// Log output
-			// console.log('[%s->%s]', src, dst);
+			// console.log('[%s->%s] ', data.src_name, data.dst_name, data.msg);
 
 			// Send message to code module to parse
 			switch (data.src_name) {

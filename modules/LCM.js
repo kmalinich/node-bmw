@@ -233,14 +233,27 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling 
 	function auto_lights(light_switch) {
+		// If the handbrake is on, just disable the lights
+		if (omnibus.status.vehicle.handbrake == true) {
+			console.log('[node-bmw] Handbrake on - disabling automatic lights');
+			light_switch = 'off';
+		}
+
 		switch (light_switch) {
 			case 'off':
-				console.log('[node-bmw] turning off automatic lights');
 				clearInterval(auto_lights_interval);
+
+				// Set status variables
+				omnibus.status.lights.auto_lights   = false;
+				omnibus.status.lights.auto_standing = false;
+				omnibus.status.lights.auto_lowbeam  = false;
 				reset();
+
+				console.log('[node-bmw] Automatic lights disabled');
 				break;
 			case 'on':
-				console.log('[node-bmw] turning on automatic lights');
+				// Set status variables
+				omnibus.status.lights.auto_lights = true;
 
 				// Send one through to prime the pumps
 				auto_lights_process();
@@ -250,57 +263,31 @@ var LCM = function(omnibus) {
 				auto_lights_interval = setInterval(function() {
 					auto_lights_process();
 				}, 10000);
+
+				console.log('[node-bmw] Automatic lights enabled');
 				break;
 		}
 	}
 
+	// Logic based on location and time of day, determine if the low beams should be on
 	function auto_lights_process() {
 			// Init variables
-			var lcm_object;
-			var light_status;
-			var position;
-
 			var current_time = new Date();
 			var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
-
-			var lights_on  = sun_times.sunsetStart;
-			var lights_off = sun_times.sunriseEnd;
+			var lights_on    = sun_times.sunsetStart;
+			var lights_off   = sun_times.sunriseEnd;
 
 			if (current_time > lights_on) {
-				light_status = true;
+				omnibus.status.lights.auto_standing = true;
+				omnibus.status.lights.auto_lowbeam  = false;
 			}
 			else {
-				light_status = false;
+				omnibus.status.lights.auto_standing = false;
+				omnibus.status.lights.auto_lowbeam  = true;
 			}
 
-			console.log('[LCM]  Automatic lights - \'%s\'', light_status);
-
-			switch (light_status) {
-				case false:
-					lcm_object = {
-						switch_standing   : true,
-						switch_turn_left  : omnibus.status.lights.turn_comfort_left,
-						switch_turn_right : omnibus.status.lights.turn_comfort_right,
-					};
-
-					// Set status variables
-					omnibus.status.lights.auto_standing = true;
-					omnibus.status.lights.auto_lowbeam  = false;
-					break;
-				case true:
-					lcm_object = {
-						switch_lowbeam_2  : true,
-						switch_turn_left  : omnibus.status.lights.turn_comfort_left,
-						switch_turn_right : omnibus.status.lights.turn_comfort_right,
-					};
-
-					// Set status variables
-					omnibus.status.lights.auto_standing = false;
-					omnibus.status.lights.auto_lowbeam  = true;
-					break;
-			}
-
-			io_status_encode(lcm_object);
+			console.log('[LCM]  Automatic lights processed');
+			reset();
 	}
 
 	// Comfort turn signal handling
@@ -312,42 +299,22 @@ var LCM = function(omnibus) {
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = true;
 				omnibus.status.lights.turn_comfort_right = false;
-
-				var lcm_object = {
-					switch_turn_left : true,
-					switch_standing  : omnibus.status.lights.auto_standing,
-					switch_lowbeam_2 : omnibus.status.lights.auto_lowbeam,
-				};
 				break;
 			case 'right':
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = false;
 				omnibus.status.lights.turn_comfort_right = true;
-
-				var lcm_object = {
-					switch_turn_right : true,
-					switch_standing   : omnibus.status.lights.auto_standing,
-					switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
-				};
 				break;
 		}
 
-		io_status_encode(lcm_object);
+		reset();
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(function() {
-			var lcm_object = {
-				switch_turn_left  : false,
-				switch_turn_right : false,
-				switch_standing   : omnibus.status.lights.auto_standing,
-				switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
-			};
-
-			io_status_encode(lcm_object);
-
 			// Set status variables
 			omnibus.status.lights.turn_comfort_left  = false;
 			omnibus.status.lights.turn_comfort_right = false;
+			reset();
 		}, 2500);
 	}
 
@@ -375,7 +342,13 @@ var LCM = function(omnibus) {
 
 	function reset() {
 		console.log('[LCM]  Resetting');
-		var lcm_object = {};
+		var lcm_object = {
+			switch_standing   : omnibus.status.lights.auto_standing,
+			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
+			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
+			switch_turn_right : omnibus.status.lights.turn_comfort_right,
+		};
+
 		io_status_encode(lcm_object);
 	}
 

@@ -1,14 +1,11 @@
-var serialport    = require('serialport');
-var util          = require('util');
+var bus_modules   = require('../lib/bus-modules.js');
+var clc           = require('cli-color');
 var event_emitter = require('events');
 var ibus_protocol = require('./ibus-protocol.js');
-var bus_modules   = require('../lib/bus-modules.js');
-
-var Log           = require('log');
-var log           = new Log('info');
+var serialport    = require('serialport');
+var util          = require('util');
 
 var ibus_interface = function(device_path) {
-
 	// self reference
 	var _self = this;
 
@@ -60,7 +57,7 @@ var ibus_interface = function(device_path) {
 
 	// On data RX
 	serial_port.on('data', function(data) {
-		// log.debug('[INTF] Data on port: ', data);
+		// console.log('[INTF] Data on port: ', data);
 		last_activity_time = process.hrtime();
 	});
 
@@ -119,19 +116,19 @@ var ibus_interface = function(device_path) {
 		// Process 1 message
 		var data_buffer = queue.pop();
 
-		// log.debug(clc.blue('[INTF] Write queue length: '), queue.length);
+		console.log(clc.blue('[INTF] Write queue length: '), queue.length);
 
 		serial_port.write(data_buffer, function(error, resp) {
-			// if (error) {
-			//   log.error('[INTF] Failed to write: ' + error);
-			// }
+			if (error) {
+			  console.log('[INTF] Failed to write: ' + error);
+			}
 			// else {
 			// }
 
-			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+			console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
-				// log.debug(clc.white('Data drained'));
+				// console.log(clc.white('Data drained'));
 				// This counts as an activity, so mark it
 				last_activity_time = process.hrtime();
 				ready();
@@ -146,7 +143,7 @@ var ibus_interface = function(device_path) {
 	}
 
 	function on_message(msg) {
-		// log.debug('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
+		// console.log('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
 		_self.emit('data', msg);
 	}
 
@@ -155,10 +152,10 @@ var ibus_interface = function(device_path) {
 
 		// console.log('[send_message] Src :', bus_modules.get_module_name(msg.src.toString(16)));
 		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
-		// log.debug('[INTF] Send message: ', data_buffer);
+		// console.log('[INTF] Send message: ', data_buffer);
 
 		if (queue.length > 1000) {
-			// log.warning('[INTF] Queue too large, dropping message..', data_buffer);
+			console.log('[INTF] Queue too large, dropping message..', data_buffer);
 			return;
 		}
 

@@ -26,11 +26,12 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.ike_data   = ike_data;
-	this.ike_send   = ike_send;
-	this.ike_text   = ike_text;
-	this.obc_data   = obc_data;
-	this.parse_out  = parse_out;
+	this.ike_data     = ike_data;
+	this.ike_send     = ike_send;
+	this.ike_text     = ike_text;
+	this.obc_data     = obc_data;
+	this.parse_out    = parse_out;
+	this.request_data = request_data;
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -87,8 +88,13 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
 
-					// Start auto lights
-					omnibus.LCM.auto_lights('on');
+					// Request sensor status
+					request_data();
+
+					// Start auto lights if the handbrake is off
+					if (omnibus.status.vehicle.handbrake == false) {
+						omnibus.LCM.auto_lights('on');
+					}
 
 					//console.log('[node-bmw] Connecting to bluetooth device');
 					//omnibus.BT.command('connect');
@@ -128,9 +134,13 @@ var IKE = function(omnibus) {
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
 					omnibus.status.vehicle.handbrake = true;
+					omnibus.LCM.auto_lights('off');
+					console.log('[node-bmw] Handbrake on');
 				}
 				else {
 					omnibus.status.vehicle.handbrake = false;
+					omnibus.LCM.auto_lights('on');
+					console.log('[node-bmw] Handbrake off');
 				}
 
 				// message[2]:
@@ -662,6 +672,23 @@ var IKE = function(omnibus) {
 			src: src, 
 			dst: dst,
 			msg: new Buffer(msg),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
+
+	// Request data from the IKE
+	function request_data() {
+		var src = 0xED; // VID 
+		var dst = 0x80; // IKE 
+		var cmd = 0x12; // IKE sensor status
+
+		console.log('[node-bmw] Requesting IKE sensor status');
+
+		var ibus_packet = {
+			src: src, 
+			dst: dst,
+			msg: new Buffer([cmd]),
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);

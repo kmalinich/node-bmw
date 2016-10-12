@@ -2,6 +2,7 @@
 12       :: VID ---> IKE : IKE sensor status request
 14       :: RAD ---> IKE : Country coding status request
 16       :: CDC ---> IKE : Odometer request
+1D C5    :: IHKA --> IKE : Temperature request
 41 01 01 :: VID ---> IKE : OBC request: Time: current value request
 41 01 01 :: GT ----> IKE : OBC request: Time: current value request
 41 02 01 :: VID ---> IKE : OBC request: Date: current value request
@@ -22,4 +23,3 @@
 41 1A 01 :: GT ----> IKE : OBC request: Interim_Time: current value request
 41 1B 02 :: VID ---> IKE : OBC request: Aux_Heat/Vent: status request
 41 1B 03 :: GT ----> IKE : OBC request: Aux_Heat/Vent: current value request: status request
-1D C5    :: IHKA --> IKE : Temperature request

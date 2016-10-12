@@ -19,7 +19,12 @@ function on_signal_int() {
 function on_ibus_data(data) {
 	var module_src = bus_modules.get_module_name(data.src);
 	var module_dst = bus_modules.get_module_name(data.dst);
-	console.log('[ibus-reader] %s, %s,', module_src, module_dst, data.msg);
+	if (data.src == 0x00 && data.dst == 0x00) {
+		console.log(data);
+	}
+	else {
+		console.log('[ibus-reader] %s, %s,', data.src, data.dst, data.msg);
+	}
 }
 
 function init() {
@@ -42,4 +47,4 @@ function doibus() {
 }
 
 
-setInterval(doibus, 1000);
+//setInterval(doibus, 1000);

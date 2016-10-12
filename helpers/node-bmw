@@ -52,7 +52,7 @@ start() {
 update() {
 	cd ${APP_DIR}
 
-	GIT_BRANCH="$(git branch | sed 's/^*\ //g')"
+	GIT_BRANCH="$(git branch | grep '*' | sed 's/^*\ //g')"
 	git fetch origin ${GIT_BRANCH} > /dev/null 2>&1
 
 	GIT_LOG="$(git log HEAD..origin/${GIT_BRANCH} --oneline)"

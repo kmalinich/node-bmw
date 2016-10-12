@@ -241,30 +241,34 @@ var LCM = function(omnibus) {
 
 		switch (light_switch) {
 			case 'off':
-				clearInterval(auto_lights_interval);
+				if (omnibus.status.lights.auto_lights == true) {
+					clearInterval(auto_lights_interval);
 
-				// Set status variables
-				omnibus.status.lights.auto_lights   = false;
-				omnibus.status.lights.auto_standing = false;
-				omnibus.status.lights.auto_lowbeam  = false;
-				reset();
+					// Set status variables
+					omnibus.status.lights.auto_lights   = false;
+					omnibus.status.lights.auto_standing = false;
+					omnibus.status.lights.auto_lowbeam  = false;
+					reset();
 
-				console.log('[node-bmw] Automatic lights disabled');
+					console.log('[node-bmw] Automatic lights disabled');
+				}
 				break;
 			case 'on':
-				// Set status variables
-				omnibus.status.lights.auto_lights = true;
+				if (omnibus.status.lights.auto_lights == false) {
+					// Set status variables
+					omnibus.status.lights.auto_lights = true;
 
-				// Send one through to prime the pumps
-				auto_lights_process();
-
-				// Process/send LCM data on 10 second interval
-				// LCM diag command timeout is 15 seconds
-				auto_lights_interval = setInterval(function() {
+					// Send one through to prime the pumps
 					auto_lights_process();
-				}, 10000);
 
-				console.log('[node-bmw] Automatic lights enabled');
+					// Process/send LCM data on 10 second interval
+					// LCM diag command timeout is 15 seconds
+					auto_lights_interval = setInterval(function() {
+						auto_lights_process();
+					}, 10000);
+
+					console.log('[node-bmw] Automatic lights enabled');
+				}
 				break;
 		}
 	}

@@ -561,11 +561,10 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
-	// setInterval(function() {
-	// 	if (omnibus.status.vehicle.ignition == 'run') {
-	// 		hud_refresh();
-	// 	}
-	// }, 2000);
+	if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+	}, 5000);
 
 	// Refresh custom HUD
 	function hud_refresh() {

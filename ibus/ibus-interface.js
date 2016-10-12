@@ -101,10 +101,10 @@ var ibus_interface = function(device_path) {
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
-			  console.log('[INTF] Failed to write: ' + error);
+				console.log('[INTF] Failed to write: ' + error);
 			}
 
-			console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+			//console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
 				// console.log(clc.white('Data drained'));

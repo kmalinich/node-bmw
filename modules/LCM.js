@@ -234,10 +234,10 @@ var LCM = function(omnibus) {
 	// Automatic lights handling 
 	function auto_lights(light_switch) {
 		// If the handbrake is on or the car is off, just disable the lights
-		if (omnibus.status.vehicle.handbrake == true || omnibus.status.vehicle.ignition == 'off') {
-			console.log('[node-bmw] Handbrake on or vehicle off - disabling automatic lights');
-			light_switch = 'off';
-		}
+		// if (omnibus.status.vehicle.handbrake == true || omnibus.status.vehicle.ignition == 'off') {
+		// 	console.log('[node-bmw] Handbrake on or vehicle off - disabling automatic lights');
+		// 	light_switch = 'off';
+		// }
 
 		switch (light_switch) {
 			case 'off':
@@ -278,19 +278,24 @@ var LCM = function(omnibus) {
 			// Init variables
 			var current_time = new Date();
 			var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
-			var lights_on    = sun_times.sunsetStart;
-			var lights_off   = sun_times.sunriseEnd;
+			var lights_on    = sun_times.sunsetStart.getTime();
+			var lights_off   = sun_times.sunriseEnd.getTime();
 
-			if (current_time > lights_on) {
+			if (current_time > lights_off) {
+				omnibus.status.lights.auto_lowbeam  = true;
+				omnibus.status.lights.auto_standing = false;
+			}
+			else {
 				omnibus.status.lights.auto_standing = true;
 				omnibus.status.lights.auto_lowbeam  = false;
 			}
-			else {
-				omnibus.status.lights.auto_standing = false;
-				omnibus.status.lights.auto_lowbeam  = true;
+
+			if (current_time < lights_on) {
+				omnibus.status.lights.auto_lowbeam  = false;
+				omnibus.status.lights.auto_standing = true;
 			}
 
-			console.log('[LCM]  Automatic lights processed');
+			console.log('[LCM]  Automatic lights processed; standing: %s, lowbeam: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam);
 			reset();
 	}
 

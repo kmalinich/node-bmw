@@ -233,9 +233,9 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling 
 	function auto_lights(light_switch) {
-		// If the handbrake is on, just disable the lights
-		if (omnibus.status.vehicle.handbrake == true) {
-			console.log('[node-bmw] Handbrake on - disabling automatic lights');
+		// If the handbrake is on or the car is off, just disable the lights
+		if (omnibus.status.vehicle.handbrake == true || omnibus.status.vehicle.ignition == 'off') {
+			console.log('[node-bmw] Handbrake on or vehicle off - disabling automatic lights');
 			light_switch = 'off';
 		}
 

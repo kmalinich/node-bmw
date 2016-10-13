@@ -254,7 +254,7 @@ var LCM = function(omnibus) {
 				}
 				break;
 			case 'on':
-				if (omnibus.status.lights.auto_lights == false) {
+				if (omnibus.status.lights.auto_lights == false && omnibus.status.vehicle.ignition != 'off') {
 					// Set status variables
 					omnibus.status.lights.auto_lights = true;
 

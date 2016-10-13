@@ -64,8 +64,6 @@ function decode_dsp(data) {
   console.log('5KHz      : %s/10', band[5]);
   console.log('12KHz     : %s/10', band[6]);
   console.log('----------------');
-
-  console.log(data);
 }
 
 function encode_dsp(data) {
@@ -97,7 +95,7 @@ data_7 = [0x35, 0x04, 0x01, 0x23, 0x03, 0x27, 0x48, 0x67, 0x8A, 0xA9, 0xC8];
 // decode_dsp(data_3);
 // decode_dsp(data_4);
 // decode_dsp(data_5);
-decode_dsp(data_6);
+//decode_dsp(data_6);
 
 var dsp_data = {
   memory    : 2,
@@ -105,12 +103,27 @@ var dsp_data = {
   room_size : 0,
   band      : {
     0 : 10,
-    1 : 7,
+    1 : 3,
     2 : 2,
-    3 : -7,
+    3 : -5,
     4 : -3,
-    5 : 6,
+    5 : 7,
     6 : 10,
+  },
+}
+
+var dsp_data = {
+  memory    : 2,
+  reverb    : 0,
+  room_size : 0,
+  band      : {
+    0 : 0,
+    1 : 0,
+    2 : 0,
+    3 : 0,
+    4 : 0,
+    5 : 0,
+    6 : 0,
   },
 }
 

@@ -341,6 +341,8 @@ var LCM = function(omnibus) {
 					output_standing_front_right : true,
 					output_standing_rear_left   : true,
 					output_standing_rear_right  : true,
+					output_turn_front_left      : true,
+					output_turn_front_right     : true,
 				};
 
 				io_status_encode(lcm_object);

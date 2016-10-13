@@ -68,7 +68,7 @@ else
 
 	# Execute custom iwlist scan
 	log "Scanning for known APs."
-	iwlist ${WIFI_NIC} scan | grep -oE 'ESSID:".*."|level=.*.dBm' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/level=-//g' -e 's/\ dBm//g' > ${IWLIST_OUTPUT}
+	iwlist ${WIFI_NIC} scan | grep -oE 'ESSID:".*."|Quality=..' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/Quality=//g' > ${IWLIST_OUTPUT}
 
 	ODD="1"
 	while read LINE; do
@@ -79,8 +79,8 @@ else
 			SSID="${LINE}"
 			ODD="1"
 
-			# Only output SSIDs with greater than -50 dBm
-			if [[ "${SIGNAL}" -le "50" ]]; then
+			# Only output SSIDs with quality greater than 40
+			if [[ "${SIGNAL}" -ge "40" ]]; then
 				echo "${SSID}" >> ${SSID_AVAILABLE_LIST}
 			fi
 		fi

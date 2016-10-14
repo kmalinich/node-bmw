@@ -275,28 +275,39 @@ var LCM = function(omnibus) {
 
 	// Logic based on location and time of day, determine if the low beams should be on
 	function auto_lights_process() {
-			// Init variables
-			var current_time = new Date();
-			var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
-			var lights_on    = sun_times.sunsetStart.getTime();
-			var lights_off   = sun_times.sunriseEnd.getTime();
+		// Init variables
+		var lights_reason;
+		var current_time = new Date();
+		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
+		var lights_on    = new Date(sun_times.sunsetStart.getTime());
+		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
 
-			if (current_time > lights_off) {
-				omnibus.status.lights.auto_lowbeam  = true;
-				omnibus.status.lights.auto_standing = false;
-			}
-			else {
-				omnibus.status.lights.auto_standing = true;
-				omnibus.status.lights.auto_lowbeam  = false;
-			}
+		console.log('current_time : %s', current_time);
+		console.log('lights_on    : %s', lights_on);
+		console.log('lights_off   : %s', lights_off);
+		if (current_time < lights_off) {
+			lights_reason = 'before lights off';
+			omnibus.status.lights.auto_lowbeam  = true;
+			omnibus.status.lights.auto_standing = false;
+		}
+		else if (current_time > lights_off && current_time < lights_on) {
+			lights_reason = 'after lights off, before lights on';
+			omnibus.status.lights.auto_lowbeam  = false;
+			omnibus.status.lights.auto_standing = true;
+		}
+		else if (current_time > lights_on) {
+			lights_reason = 'after lights on';
+			omnibus.status.lights.auto_lowbeam  = true;
+			omnibus.status.lights.auto_standing = false;
+		}
+		else {
+			lights_reason = 'unknown time of day, engaging failsafe';
+			omnibus.status.lights.auto_standing = false;
+			omnibus.status.lights.auto_lowbeam  = true;
+		}
 
-			if (current_time < lights_on) {
-				omnibus.status.lights.auto_lowbeam  = false;
-				omnibus.status.lights.auto_standing = true;
-			}
-
-			console.log('[LCM]  Automatic lights processed; standing: %s, lowbeam: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam);
-			reset();
+		console.log('[LCM]  Automatic lights processed. Reason: %s. standing: %s, lowbeam: %s', lights_reason, omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam);
+		reset();
 	}
 
 	// Comfort turn signal handling

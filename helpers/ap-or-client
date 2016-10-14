@@ -22,20 +22,20 @@ function log()
 # Control blink(1)
 function blink1-ctl()
 {
-	killall -9 blink1-tool > /dev/null 2>&1
+	killall -9 blink1-tool &> /dev/null
 
 	case "${1}" in
 		scan)
-			blink1-tool --red           -t 0 --chase=0,1,9  > /dev/null 2>&1 &
+			blink1-tool --red           -t 0 --chase=0,1,9  &> /dev/null &
 			;;
 		config) # Orange
-			blink1-tool --rgb=255,130,0 -t 0 --chase=0,1,12 > /dev/null 2>&1 &
+			blink1-tool --rgb=255,130,0 -t 0 --chase=0,1,12 &> /dev/null &
 			;;
 		ap)
-			blink1-tool --green         -t 0 --chase=0,1,24 > /dev/null 2>&1 &
+			blink1-tool --green         -t 0 --chase=0,1,24 &> /dev/null &
 			;;
 		client)
-			blink1-tool --blue          -t 0 --chase=0,1,24 > /dev/null 2>&1 &
+			blink1-tool --blue          -t 0 --chase=0,1,24 &> /dev/null &
 			;;
 	esac
 }
@@ -48,6 +48,9 @@ if [[ ! -s "${CONF_FILE}" ]]; then
 	cp ${SAVED_CONF_FILE} ${CONF_FILE}
 fi
 
+# Check status of a couple things
+HOSTAPD_STATUS="$(systemctl status hostapd &> /dev/null; echo ${?})"
+DNSMASQ_STATUS="$(systemctl status dnsmasq &> /dev/null; echo ${?})"
 WIRED_LINK="$(ethtool eth0 | awk -F ': ' '/Link detected/ {print $2}')"
 log "Wired link: ${WIRED_LINK}"
 
@@ -68,19 +71,21 @@ else
 
 	# Execute custom iwlist scan
 	log "Scanning for known APs."
-	iwlist ${WIFI_NIC} scan | grep -oE 'ESSID:".*."|level=.*.dBm' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/level=-//g' -e 's/\ dBm//g' > ${IWLIST_OUTPUT}
+	iwlist ${WIFI_NIC} scan | grep -oE 'ESSID:".*."|Quality=..' | sed -e 's/ESSID://g' -e 's/"//g' -e 's/Quality=//g' > ${IWLIST_OUTPUT}
 
 	ODD="1"
 	while read LINE; do
 		if [[ "${ODD}" == "1" ]]; then
 			ODD="0"
-			SIGNAL="${LINE}"
+			QUALITY="${LINE}"
 		else
 			SSID="${LINE}"
 			ODD="1"
 
-			# Only output SSIDs with greater than -50 dBm
-			if [[ "${SIGNAL}" -le "50" ]]; then
+			echo "SSID: ${SSID} QUALITY: ${QUALITY}"
+
+			# Only output SSIDs with quality greater than 40
+			if [[ "${QUALITY}" -ge "40" ]]; then
 				echo "${SSID}" >> ${SSID_AVAILABLE_LIST}
 			fi
 		fi
@@ -120,26 +125,23 @@ else
 			blink1-ctl config
 
 			log "Cycling ${WIFI_NIC}."
-			ifdown ${WIFI_NIC} > /dev/null 2>&1
+			ifdown ${WIFI_NIC} &> /dev/null
 			sleep 1
-			ifup   ${WIFI_NIC} > /dev/null 2>&1
+			ifup   ${WIFI_NIC} &> /dev/null
 		else
 			log "Staying in CLIENT mode."
 		fi
 
 		# Stop hostapd and dnsmasq if they are running
-		HOSTAPD_STATUS="$(systemctl status hostapd > /dev/null 2>&1; echo ${?})"
-		DNSMASQ_STATUS="$(systemctl status dnsmasq > /dev/null 2>&1; echo ${?})"
-
 		if [[ "${HOSTAPD_STATUS}" != "3" ]]; then
 			log "Stopping hostapd."
-			systemctl stop hostapd > /dev/null 2>&1
+			systemctl stop hostapd &> /dev/null
 			sleep 1
 		fi
 
 		if [[ "${DNSMASQ_STATUS}" != "3" ]]; then
 			log "Stopping dnsmasq."
-			systemctl stop dnsmasq > /dev/null 2>&1
+			systemctl stop dnsmasq &> /dev/null
 			sleep 1
 		fi
 
@@ -166,26 +168,23 @@ else
 			blink1-ctl config
 
 			log "Cycling ${WIFI_NIC}."
-			ifdown ${WIFI_NIC} > /dev/null 2>&1
+			ifdown ${WIFI_NIC} &> /dev/null
 			sleep 1
-			ifup   ${WIFI_NIC} > /dev/null 2>&1
+			ifup   ${WIFI_NIC} &> /dev/null
 		else
 			log "Staying in AP mode."
 		fi
 
 		# Start hostapd and dnsmasq if they are stopped
-		HOSTAPD_STATUS="$(systemctl status hostapd > /dev/null 2>&1; echo ${?})"
-		DNSMASQ_STATUS="$(systemctl status dnsmasq > /dev/null 2>&1; echo ${?})"
-
 		if [[ "${HOSTAPD_STATUS}" != "0" ]]; then
 			log "Starting hostapd."
-			systemctl start hostapd > /dev/null 2>&1
+			systemctl start hostapd &> /dev/null
 			sleep 1
 		fi
 
 		if [[ "${DNSMASQ_STATUS}" != "0" ]]; then
 			log "Starting dnsmasq."
-			systemctl start dnsmasq > /dev/null 2>&1
+			systemctl start dnsmasq &> /dev/null
 			sleep 1
 		fi
 

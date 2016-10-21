@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 BASE="http://localhost:3001/lcm?"
-SLEEP="0.03"
+SLEEP="0.01"
 
-HFL="output_highbeam_front_left=true"
-HFR="output_highbeam_front_right=true"
+#HFL="output_highbeam_front_left=true"
+#HFR="output_highbeam_front_right=true"
+HFL=""
+HFR=""
 SFL="output_standing_front_left=true"
 SFR="output_standing_front_right=true"
 TFR="output_turn_front_right=true"

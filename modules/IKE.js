@@ -79,62 +79,36 @@ var IKE = function(omnibus) {
 			case 0x11: // ignition status
 				command = 'ignition status';
 
-				/*
-				 * Unlock doors when ignition is in acc/off after being in run
-				 */
-
-				// If key is now in 'off' or 'accessory' and ignition status was previously 'run' and the doors are locked
-				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run' && omnibus.status.vehicle.locked == true) {
-					console.log('[node-bmw] Unlocking doors');
-					// Send message to GM to toggle door locks
-					omnibus.GM.gm_cl('toggle');
+				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
+				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
+					// If the doors are locked
+					if (omnibus.status.vehicle.locked == true) {
+						console.log('[node-bmw] Unlocking doors');
+						// Send message to GM to toggle door locks
+						omnibus.GM.gm_cl('toggle');
+					}
 				}
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
 					console.log('[node-bmw] Trigger: power-off state');
-
 					// Stop auto lights
 					omnibus.LCM.auto_lights('off');
-
-					//console.log('[node-bmw] Disconnecting from bluetooth device');
-					//omnibus.BT.command('disconnect');
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
-
-					// Request sensor status
-					// request('sensor');
-
 					// Start auto lights
 					omnibus.LCM.auto_lights('on');
-
-					//console.log('[node-bmw] Connecting to bluetooth device');
-					//omnibus.BT.command('connect');
 				}
 
 				switch (message[1]) { // Ignition status value
-					case 0x00:
-						omnibus.status.vehicle.ignition = 'off';
-						break;
-
-					case 0x01:
-						omnibus.status.vehicle.ignition = 'accessory';
-						break;
-
-					case 0x03:
-						omnibus.status.vehicle.ignition = 'run';
-						break;
-
-					case 0x07:
-						omnibus.status.vehicle.ignition = 'start';
-						break;
-
-					default:
-						omnibus.status.vehicle.ignition = 'unknown';
-						break;
+					case 0x00 : omnibus.status.vehicle.ignition = 'off'      ; break;
+					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
+					case 0x03 : omnibus.status.vehicle.ignition = 'run'      ; break;
+					case 0x07 : omnibus.status.vehicle.ignition = 'start'    ; break;
+					default   : omnibus.status.vehicle.ignition = 'unknown'  ; break;
 				}
 
 				value = omnibus.status.vehicle.ignition;
@@ -149,12 +123,10 @@ var IKE = function(omnibus) {
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
 					omnibus.status.vehicle.handbrake = true;
-					omnibus.LCM.auto_lights('off');
 					console.log('[node-bmw] Handbrake on');
 				}
 				else {
 					omnibus.status.vehicle.handbrake = false;
-					omnibus.LCM.auto_lights('on');
 					console.log('[node-bmw] Handbrake off');
 				}
 

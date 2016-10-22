@@ -42,6 +42,9 @@ var BMBT = function(omnibus) {
 	this.request_rad_status   = request_rad_status;
 
 	// Request RAD status every 10 seconds
+	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+		request_rad_status();
+	}
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			request_rad_status();
@@ -49,6 +52,9 @@ var BMBT = function(omnibus) {
 	}, 10000);
 
 	// Send device status every 5 seconds
+	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+		request_rad_status();
+	}
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			request_rad_status();

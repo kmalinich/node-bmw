@@ -19,7 +19,7 @@ log() {
 
 sleep_msg() {
 	log "Sleeping."
-	sleep 1
+	#sleep 1
 }
 
 status() {

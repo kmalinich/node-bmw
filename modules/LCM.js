@@ -233,6 +233,8 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling 
 	function auto_lights(light_switch) {
+		console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
+
 		switch (light_switch) {
 			case 'off':
 				if (omnibus.status.lights.auto_lights == true) {
@@ -248,7 +250,7 @@ var LCM = function(omnibus) {
 				}
 				break;
 			case 'on':
-				if (omnibus.status.lights.auto_lights == false && omnibus.status.vehicle.ignition != 'off') {
+				if (omnibus.status.lights.auto_lights == false) {
 					// Set status variables
 					omnibus.status.lights.auto_lights = true;
 
@@ -275,6 +277,10 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
+
+		// Ask IKE for ignition status and sensor status (includes handbrake)
+		omnibus.IKE.request('sensor');
+		omnibus.IKE.request('ignition');
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);
@@ -307,6 +313,8 @@ var LCM = function(omnibus) {
 			lights_reason = 'vehicle off';
 			omnibus.status.lights.auto_standing = false;
 			omnibus.status.lights.auto_lowbeam  = false;
+			// Turn off auto lights if they haven't been turned off already
+			auto_lights('off');
 		}
 
 		// Check handbrae status
@@ -316,13 +324,13 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.auto_lowbeam  = false;
 		}
 
-		console.log('[LCM]  Automatic lights processed. Reason: %s. standing: %s, lowbeam: %s', lights_reason, omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam);
+		console.log('[node-bmw] Auto lights processed. standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
 		reset();
 	}
 
 	// Comfort turn signal handling
 	function comfort_turn(action) {
-		console.log('[LCM]  Comfort turn signal - \'%s\'', action);
+		console.log('[node-bmw] Comfort turn signal - \'%s\'', action);
 
 		switch (action) {
 			case 'left':

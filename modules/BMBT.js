@@ -48,6 +48,13 @@ var BMBT = function(omnibus) {
 		}
 	}, 10000);
 
+	// Send device status every 5 seconds
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+			request_rad_status();
+		}
+	}, 5000);
+
 	// Parse data sent to BMBT module
 	function parse_in(data) {
 		// Init variables
@@ -85,7 +92,6 @@ var BMBT = function(omnibus) {
 				command = 'cassette control';
 				value   = message[1];
 
-				send_device_status();
 				send_cassette_status();
 				break;
 

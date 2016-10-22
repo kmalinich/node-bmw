@@ -46,8 +46,8 @@ var api_server    = http.createServer(api_handler);
 // Everything connection handle
 var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
-omnibus.status          = require('./lib/status.js'); // Vehicle status object
-omnibus.ibus_connection = new ibus_interface();       // IBUS connection handle
+omnibus.status          = require('./lib/status.js');  // Vehicle status object
+omnibus.ibus_connection = new ibus_interface(omnibus); // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
 omnibus.BMBT            = new BMBT(omnibus);

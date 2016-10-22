@@ -26,12 +26,29 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.ike_data     = ike_data;
-	this.ike_send     = ike_send;
-	this.ike_text     = ike_text;
-	this.obc_data     = obc_data;
-	this.parse_out    = parse_out;
-	this.request_data = request_data;
+	this.ike_data  = ike_data;
+	this.ike_send  = ike_send;
+	this.ike_text  = ike_text;
+	this.obc_data  = obc_data;
+	this.parse_out = parse_out;
+	this.request   = request;
+
+	// Pad string for IKE text screen length (20 characters)
+	String.prototype.ike_pad = function() {
+		var string = this;
+
+		while (string.length < 20) {
+			string = string + ' ';
+		}
+
+		return string;
+	}
+
+	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
+	if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+	}, 5000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -89,18 +106,16 @@ var IKE = function(omnibus) {
 					console.log('[node-bmw] Trigger: power-on state');
 
 					// Request sensor status
-					request_data();
+					// request('sensor');
 
-					// Start auto lights if the handbrake is off
-					if (omnibus.status.vehicle.handbrake == false) {
-						omnibus.LCM.auto_lights('on');
-					}
+					// Start auto lights
+					omnibus.LCM.auto_lights('on');
 
 					//console.log('[node-bmw] Connecting to bluetooth device');
 					//omnibus.BT.command('connect');
 				}
 
-				switch (message[1]) { // ignition status value
+				switch (message[1]) { // Ignition status value
 					case 0x00:
 						omnibus.status.vehicle.ignition = 'off';
 						break;
@@ -549,23 +564,6 @@ var IKE = function(omnibus) {
 		return array;
 	}
 
-	// Pad string for IKE text screen length (20 characters)
-	String.prototype.ike_pad = function() {
-		var string = this;
-
-		while (string.length < 20) {
-			string = string + ' ';
-		}
-
-		return string;
-	}
-
-	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
-	if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	}, 5000);
-
 	// Refresh custom HUD
 	function hud_refresh() {
 		console.log('[node-bmw] Refreshing OBC HUD');
@@ -676,13 +674,31 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
-	// Request data from the IKE
-	function request_data() {
-		var src = 0xED; // VID 
-		var dst = 0x80; // IKE 
-		var cmd = 0x12; // IKE sensor status
+	// Request various things from IKE
+	function request(value) {
+		var src = 0x00; // GM
+		var dst = 0x80; // IKE
+		var cmd;
 
-		console.log('[node-bmw] Requesting IKE sensor status');
+		console.log('[node-bmw] Requesting \'%s\' from IKE', value);
+
+		switch (value) {
+			case 'ignition':
+				cmd = 0x10;
+				break;
+			case 'sensor':
+				cmd = 0x12;
+				break;
+			case 'coding':
+				cmd = 0x14;
+				break;
+			case 'odometer':
+				cmd = 0x16;
+				break;
+			case 'temperature':
+				cmd = [0x1D, 0xC5];
+				break;
+		}
 
 		var ibus_packet = {
 			src: src, 

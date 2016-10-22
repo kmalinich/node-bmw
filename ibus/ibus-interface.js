@@ -5,7 +5,7 @@ var ibus_protocol = require('./ibus-protocol.js');
 var serialport    = require('serialport');
 var util          = require('util');
 
-var ibus_interface = function(device_path) {
+var ibus_interface = function(omnibus) {
 	// self reference
 	var _self = this;
 
@@ -16,11 +16,10 @@ var ibus_interface = function(device_path) {
 	this.send_message  = send_message;
 
 	// local data
-	var device             = '/dev/ttyUSB0';
-	var last_activity_time = process.hrtime();
 	var parser;
-	var queue              = [];
-	var serial_port        = new serialport(device, {
+	var device      = '/dev/ttyUSB0';
+	var queue       = [];
+	var serial_port = new serialport(device, {
 		autoOpen : false,
 		baudRate : 9600,
 		dataBits : 8,
@@ -46,6 +45,9 @@ var ibus_interface = function(device_path) {
 		parser = new ibus_protocol();
 		parser.on('message', on_message);
 		serial_port.pipe(parser);
+
+		// Request ignition status
+		omnibus.IKE.request('ignition');	
 	});
 
 	// On port close

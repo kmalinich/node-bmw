@@ -67,6 +67,31 @@ var GM = function(omnibus) {
 				}
 				break;
 
+			case 0x10: // Ignition status
+				command = 'request';
+				value   = 'ignition status';
+				break;
+
+			case 0x12: // IKE sensor status
+				command = 'request';
+				value   = 'IKE sensor status';
+				break;
+
+			case 0x14: // Coding
+				command = 'request';
+				value   = 'country coding data';
+				break;
+
+			case 0x16: // Odometer
+				command = 'request';
+				value   = 'odometer';
+				break;
+
+			case 0x1D: // Temperature status
+				command = 'request';
+				value   = 'current temperature';
+				break;
+
 			case 0x72: // key fob status
 				command = 'broadcast';
 				value   = 'key fob status';

@@ -237,17 +237,15 @@ var LCM = function(omnibus) {
 
 		switch (light_switch) {
 			case 'off':
-				if (omnibus.status.lights.auto_lights == true) {
-					clearInterval(auto_lights_interval);
+				clearInterval(auto_lights_interval);
 
-					// Set status variables
-					omnibus.status.lights.auto_lights   = false;
-					omnibus.status.lights.auto_standing = false;
-					omnibus.status.lights.auto_lowbeam  = false;
-					reset();
+				// Set status variables
+				omnibus.status.lights.auto_lights   = false;
+				omnibus.status.lights.auto_standing = false;
+				omnibus.status.lights.auto_lowbeam  = false;
+				reset();
 
-					console.log('[node-bmw] Automatic lights disabled');
-				}
+				console.log('[node-bmw] Automatic lights disabled');
 				break;
 			case 'on':
 				if (omnibus.status.lights.auto_lights == false) {
@@ -322,6 +320,8 @@ var LCM = function(omnibus) {
 			lights_reason = 'handbrake on';
 			omnibus.status.lights.auto_standing = false;
 			omnibus.status.lights.auto_lowbeam  = false;
+			// Turn off auto lights if they haven't been turned off already
+			auto_lights('off');
 		}
 
 		console.log('[node-bmw] Auto lights processed. standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);

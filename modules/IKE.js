@@ -122,10 +122,22 @@ var IKE = function(omnibus) {
 				// message[1]:
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
+					// If the handbrake was previously off
+					if (omnibus.status.vehicle.handbrake == false) {
+						// Stop auto lights
+						omnibus.LCM.auto_lights('off');
+					}
+
 					omnibus.status.vehicle.handbrake = true;
 					console.log('[node-bmw] Handbrake on');
 				}
 				else {
+					// If the handbrake was previously on
+					if (omnibus.status.vehicle.handbrake == true) {
+						// Start auto lights
+						omnibus.LCM.auto_lights('on');
+					}
+
 					omnibus.status.vehicle.handbrake = false;
 					console.log('[node-bmw] Handbrake off');
 				}
@@ -648,7 +660,7 @@ var IKE = function(omnibus) {
 
 	// Request various things from IKE
 	function request(value) {
-		var src = 0x00; // GM
+		var src = 0xED; // VID
 		var dst = 0x80; // IKE
 		var cmd;
 
@@ -662,12 +674,15 @@ var IKE = function(omnibus) {
 				cmd = 0x12;
 				break;
 			case 'coding':
+				src = 0x68; // RAD 
 				cmd = 0x14;
 				break;
 			case 'odometer':
+				src = 0x44; // EWS 
 				cmd = 0x16;
 				break;
 			case 'temperature':
+				src = 0x5B; // IHKA 
 				cmd = [0x1D, 0xC5];
 				break;
 		}

@@ -48,8 +48,9 @@ var data_handler = function(omnibus) {
 				case 'SHD'  : omnibus.SHD.parse_data(data.msg);  break;
 				case 'TEL'  : omnibus.TEL.parse_data(data.msg);  break;
 
-				case 'DIA'  : console.log('[%s->%s] command:',      data.src_name, data.dst_name, data.msg); break;
-				default     : console.log('[%s->%s] No source handler', data.src_name, data.dst_name, data.msg);
+				// Diag/default
+				case 'DIA'  : console.log('[%s->%s] command:',          data.src_name, data.dst_name, data.msg); break;
+				default     : console.log('[%s->%s] No source handler', data.src_name, data.dst_name, data.msg); break;
 			}
 
 			switch (data.dst_name) {

@@ -306,6 +306,13 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.auto_lowbeam  = true;
 		}
 
+		// Check handbrae status
+		if (omnibus.status.vehicle.handbrake == true) {
+			lights_reason = 'handbrake on';
+			omnibus.status.lights.auto_standing = false;
+			omnibus.status.lights.auto_lowbeam  = false;
+		}
+
 		// Check ignition status
 		if (omnibus.status.vehicle.ignition == 'off') {
 			lights_reason = 'vehicle off';
@@ -315,16 +322,7 @@ var LCM = function(omnibus) {
 			auto_lights('off');
 		}
 
-		// Check handbrae status
-		if (omnibus.status.vehicle.handbrake == true) {
-			lights_reason = 'handbrake on';
-			omnibus.status.lights.auto_standing = false;
-			omnibus.status.lights.auto_lowbeam  = false;
-			// Turn off auto lights if they haven't been turned off already
-			auto_lights('off');
-		}
-
-		console.log('[node-bmw] Auto lights processed. standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
+		console.log('[node-bmw] Auto lights: standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
 		reset();
 	}
 

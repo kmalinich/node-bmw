@@ -384,6 +384,7 @@ var LCM = function(omnibus) {
 		console.log('[LCM]  Resetting');
 		var lcm_object = {
 			switch_standing   : omnibus.status.lights.auto_standing,
+			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
 			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
 			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
 			switch_turn_right : omnibus.status.lights.turn_comfort_right,

@@ -55,7 +55,7 @@ var RLS = function(omnibus) {
 			data    = 'ignition status';
 		}
 
-		// Broadcast: headlight wipe interval 
+		// Broadcast: headlight wipe interval
 		else if (message[0] == 0x58) {
 			command = 'broadcast';
 			data    = 'headlight wipe interval status';
@@ -74,7 +74,7 @@ var RLS = function(omnibus) {
 		}
 
 		else {
-			command = 'unknown';                                                                    
+			command = 'unknown';
 			data    = new Buffer(message);
 		}
 

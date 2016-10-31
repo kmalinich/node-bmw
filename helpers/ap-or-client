@@ -63,7 +63,7 @@ else
 	CURRENT_MODE=$(awk -F '=' '/CURRENT_MODE/ {print $2}' ${CONF_FILE})
 	log "Current mode: ${CURRENT_MODE}"
 
-	awk -F '=' '/ssid/ {print $2}' ${WPA_CONF_CLIENT} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST} 
+	awk -F '=' '/ssid/ {print $2}' ${WPA_CONF_CLIENT} | sed "s/'//g" | sed 's/"//g' > ${SSID_LIST}
 	SSID_TOTAL=$(cat ${SSID_LIST} | wc -l)
 
 	# Turn blink(1) red
@@ -95,7 +95,7 @@ else
 		SCAN_RESULT="${?}"
 		SSID_TOTAL=$((SSID_TOTAL-SCAN_RESULT))
 		#echo "[${SSID}] SCAN_RESULT: ${SCAN_RESULT} | SSID_TOTAL: ${SSID_TOTAL}"
-	done < ${SSID_LIST} 
+	done < ${SSID_LIST}
 
 	# Delete temp files
 	rm -f ${SSID_LIST}
@@ -116,8 +116,8 @@ else
 			echo "CURRENT_MODE=CLIENT" > ${CONF_FILE}
 
 			log "Changing ${NET_INFS} config."
-			rm -f  ${NET_INFS} 
-			ln -fs ${NET_INFS}-client ${NET_INFS} 
+			rm -f  ${NET_INFS}
+			ln -fs ${NET_INFS}-client ${NET_INFS}
 
 			# Turn blink(1) yellow
 			blink1-ctl config

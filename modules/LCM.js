@@ -15,8 +15,6 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
-var auto_lights_interval;
-
 var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -87,7 +85,7 @@ var LCM = function(omnibus) {
 				value   = 'door/flap status';
 				break;
 
-			case 0xA0: 
+			case 0xA0:
 				command = 'current IO status';
 				omnibus.LCM.io_status_decode(message);
 				break;
@@ -146,7 +144,7 @@ var LCM = function(omnibus) {
 		 */
 
 		// Store status in temporary variables
-		var turn_left_on  = bit_test(message[1], bit_5); 
+		var turn_left_on  = bit_test(message[1], bit_5);
 		var turn_right_on = bit_test(message[1], bit_6);
 
 		// If comfort turn is not currently engaged
@@ -211,7 +209,6 @@ var LCM = function(omnibus) {
 			}
 		}
 
-
 		// Afterwards, set the status in omnibus.status.lights as usual
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
@@ -231,13 +228,13 @@ var LCM = function(omnibus) {
 		}
 	}
 
-	// Automatic lights handling 
+	// Automatic lights handling
 	function auto_lights(light_switch) {
 		console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
 
 		switch (light_switch) {
 			case 'off':
-				clearInterval(auto_lights_interval);
+				clearInterval(omnibus.status.lights.auto_lights_interval);
 
 				// Set status variables
 				omnibus.status.lights.auto_lights   = false;
@@ -257,7 +254,7 @@ var LCM = function(omnibus) {
 
 					// Process/send LCM data on 10 second interval
 					// LCM diag command timeout is 15 seconds
-					auto_lights_interval = setInterval(function() {
+					omnibus.status.lights.auto_lights_interval = setInterval(function() {
 						auto_lights_process();
 					}, 10000);
 
@@ -275,6 +272,8 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
+				
+		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
 		// Ask IKE for ignition status and sensor status (includes handbrake)
 		omnibus.IKE.request('sensor');
@@ -306,20 +305,11 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.auto_lowbeam  = true;
 		}
 
-		// Check handbrae status
+		// Check handbrake status
 		if (omnibus.status.vehicle.handbrake == true) {
 			lights_reason = 'handbrake on';
 			omnibus.status.lights.auto_standing = false;
 			omnibus.status.lights.auto_lowbeam  = false;
-		}
-
-		// Check ignition status
-		if (omnibus.status.vehicle.ignition == 'off') {
-			lights_reason = 'vehicle off';
-			omnibus.status.lights.auto_standing = false;
-			omnibus.status.lights.auto_lowbeam  = false;
-			// Turn off auto lights if they haven't been turned off already
-			auto_lights('off');
 		}
 
 		console.log('[node-bmw] Auto lights: standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
@@ -396,7 +386,7 @@ var LCM = function(omnibus) {
 	function lcm_get() {
 		var src = 0x3F; // DIA
 		var dst = 0xD0; // GLO
-		var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status 
+		var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
 
 		var ibus_packet = {
 			src: src,
@@ -413,7 +403,7 @@ var LCM = function(omnibus) {
 	function lcm_set(packet) {
 		var src = 0x3F; // DIA
 		var dst = 0xD0; // LCM
-		var cmd = 0x0C; // Set IO status 
+		var cmd = 0x0C; // Set IO status
 
 		// Add the command to the beginning of the LCM hex array
 		packet.unshift(cmd);
@@ -530,7 +520,7 @@ var LCM = function(omnibus) {
 		// array.output_fog_rear_right
 		// array.output_fog_rear_trailer
 
-		// ?? 
+		// ??
 		// if(array.) { bitmask_0 = bit_set(bitmask_0, bit_3) ; }
 		// if(array.) { bitmask_0 = bit_set(bitmask_0, bit_5) ; }
 		// if(array.) { bitmask_1 = bit_set(bitmask_1, bit_3) ; }

@@ -125,8 +125,8 @@ var DSPC = function(omnibus) {
 		// Init variables
 		var src      = 0xEA; // DSPC
 		var dst      = 0xBF; // GLO
-		var src_name = 'DSPC'; 
-		var dst_name = 'GLO'; 
+		var src_name = 'DSPC';
+		var dst_name = 'GLO';
 		var command  = 'device status';
     var data;
     var msg;

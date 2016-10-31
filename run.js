@@ -108,7 +108,7 @@ function shutdown() {
 		});
 	});
 
-	// Close serial port if open, and exit process  
+	// Close serial port if open, and exit process
 	omnibus.ibus_connection.shutdown(function() {
 		process.exit();
 	});

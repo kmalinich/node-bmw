@@ -89,7 +89,7 @@ var EWS = function(omnibus) {
 						value_1 = 'immobilisation deactivated';
 						break;
 					case 0x04:
-						value_1 = 'valid key detected'; 
+						value_1 = 'valid key detected';
 						break;
 					default:
 						value_1 = new Buffer([message[1]]);

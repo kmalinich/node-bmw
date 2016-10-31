@@ -58,6 +58,15 @@ var DSP = function(omnibus) {
 					case 0x01:
 						command = 'device status';
 						value   = 'ready after reset';
+
+						// Set value to okay powering on via BMBT
+						omnibus.status.audio.dsp_ready = true;
+						console.log('[node-bmw] omnibus.status.audio.dsp_ready: \'%s\'', omnibus.status.audio.dsp_ready);
+
+						// Attempt to send BMBT power button
+						setTimeout(function() {
+							omnibus.BMBT.power_on_if_ready();
+						}, 2000);
 						break;
 				}
 				break;

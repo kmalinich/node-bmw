@@ -49,7 +49,7 @@ var TEL = function(omnibus) {
 			}
 		}
 
-		// Broadcast: indicator status 
+		// Broadcast: indicator status
 		else if (message[0] == 0x2B) {
 			command = 'broadcast';
 			data    = 'indicator status';
@@ -68,7 +68,7 @@ var TEL = function(omnibus) {
 		}
 
 		else {
-			command = 'unknown';                                                                    
+			command = 'unknown';
 			data    = new Buffer(message);
 		}
 

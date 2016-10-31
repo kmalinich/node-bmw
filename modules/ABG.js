@@ -67,7 +67,7 @@ var ABG = function(omnibus) {
 				break;
 
 			default:
-				command = 'unknown';                                                                    
+				command = 'unknown';
 				data    = new Buffer(message);
 				break;
 		}

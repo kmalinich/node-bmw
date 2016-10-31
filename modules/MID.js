@@ -125,8 +125,8 @@ var MID = function(omnibus) {
 		// Init variables
 		var src      = 0xC0; // MID
 		var dst      = 0xBF; // GLO
-		var src_name = 'MID'; 
-		var dst_name = 'GLO'; 
+		var src_name = 'MID';
+		var dst_name = 'GLO';
 		var command  = 'device status';
     var data;
     var msg;

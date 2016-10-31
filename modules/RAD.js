@@ -30,9 +30,6 @@ var RAD = function(omnibus) {
 	// Self reference
 	var _self = this;
 
-	// Marker bit for emulated BMBT power button
-	ready_to_power_on = false;
-
 	// Exposed data
 	this.led       = led;
 	this.parse_out = parse_out;
@@ -64,12 +61,18 @@ var RAD = function(omnibus) {
 					case 0x00:
 						command = 'device status';
 						value   = 'ready';
+						omnibus.status.audio.rad_ready = true;
 						break;
 
 					case 0x01:
-						command           = 'device status';
-						value             = 'ready after reset';
-						ready_to_power_on = true;
+						command = 'device status';
+						value   = 'ready after reset';
+						omnibus.status.audio.rad_ready = true;
+
+						// Attempt to send BMBT power button
+						setTimeout(function() {
+							omnibus.BMBT.power_on_if_ready();
+						}, 2000);
 						break;
 				}
 				break;
@@ -110,22 +113,17 @@ var RAD = function(omnibus) {
 				switch (message[1]) {
 					case 0xAF:
 						value = 'off';
-						if (ready_to_power_on == true) {
-							ready_to_power_on = false;
-
-							// Send BMBT power button
-							setTimeout(function() {
-								omnibus.BMBT.send_button('power');
-							}, 2000);
-						}
+						omnibus.status.audio.audio_control = value;
 						break;
 
 					case 0xa1:
 						value = 'tuner/tape';
+						omnibus.status.audio.audio_control = value;
 						break;
 
 					default:
 						value = message[1];
+						omnibus.status.audio.audio_control = value;
 						break;
 				}
 				break;
@@ -145,7 +143,7 @@ var RAD = function(omnibus) {
 				value   =  message[1];
 				break;
 
-			case 0x46: // LCD control 
+			case 0x46: // LCD control
 				command = 'LCD control';
 				value   = 'request';
 
@@ -166,7 +164,7 @@ var RAD = function(omnibus) {
 				break;
 
 			default:
-				command = 'unknown';                                                                    
+				command = 'unknown';
 				value   = new Buffer(message);
 				break;
 		}

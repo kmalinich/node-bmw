@@ -103,7 +103,7 @@ var GM = function(omnibus) {
 				value   = 'crash alarm';
 				break;
 
-			case 0x77: // Wiper status 
+			case 0x77: // Wiper status
 				command = 'wiper status';
 
 				switch (message[1]) {
@@ -160,7 +160,7 @@ var GM = function(omnibus) {
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
-	// [0x72] Decode a key fob message from the GM and act upon the results 
+	// [0x72] Decode a key fob message from the GM and act upon the results
 	function key_fob_status_decode(message) {
 		// Init variables
 		var button;
@@ -222,7 +222,7 @@ var GM = function(omnibus) {
 			gm_interior_light(data['gm-interior-light']);
 		}
 
-		// Sort-of.. future-mode.. JSON command.. object? maybe.. 
+		// Sort-of.. future-mode.. JSON command.. object? maybe..
 		else if (typeof data['gm-command'] !== 'undefined') {
 			switch (data['gm-command']) {
 				case 'gm-get' : gm_get();                            break; // Get IO status
@@ -295,7 +295,7 @@ var GM = function(omnibus) {
 		omnibus.GM.gm_send(msg);
 	}
 
-	// Cluster/interior backlight 
+	// Cluster/interior backlight
 	function gm_interior_light(value) {
 		console.log('[GM]   Set interior light to %s', value);
 
@@ -339,7 +339,7 @@ var GM = function(omnibus) {
 	function gm_send(packet) {
 		var src = 0x3F; // DIA
 		var dst = 0x00; // GM
-		var cmd = 0x0C; // Set IO status 
+		var cmd = 0x0C; // Set IO status
 
 		// Add the command code (cmd) to the beginning of the message hex array
 		packet.unshift(cmd);
@@ -360,7 +360,7 @@ var GM = function(omnibus) {
 	function gm_get() {
 		var src = 0xF0; // BMBT
 		var dst = 0x00; // GM
-		var cmd = 0x79; // Get door/flap status 
+		var cmd = 0x79; // Get door/flap status
 
 		var ibus_packet = {
 			src: src,

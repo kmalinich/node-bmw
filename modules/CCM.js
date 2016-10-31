@@ -56,7 +56,7 @@ var CCM = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
-			case 0x1A: // Broadcast: check control message 
+			case 0x1A: // Broadcast: check control message
 				command = 'check control message';
 				value   = ''+message+'';
 				break;

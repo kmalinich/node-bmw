@@ -82,7 +82,7 @@ var IHKA = function(omnibus) {
 			value   = 'door/flap status';
 		}
 
-		// AC compressor status 
+		// AC compressor status
 		else if (message[0] == 0x83) {
 			command = 'broadcast';
 			value   = 'AC compressor status';
@@ -105,7 +105,7 @@ var IHKA = function(omnibus) {
 		}
 
 		else {
-			command = 'unknown';                                                                    
+			command = 'unknown';
 			value   = new Buffer(message);
 		}
 

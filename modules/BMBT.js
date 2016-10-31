@@ -36,10 +36,11 @@ var BMBT = function(omnibus) {
 	// Exposed data
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
+	this.power_on_if_ready    = power_on_if_ready;
+	this.request_rad_status   = request_rad_status;
 	this.send_button          = send_button;
 	this.send_cassette_status = send_cassette_status;
 	this.send_device_status   = send_device_status;
-	this.request_rad_status   = request_rad_status;
 
 	// Request RAD status every 10 seconds
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
@@ -51,15 +52,33 @@ var BMBT = function(omnibus) {
 		}
 	}, 10000);
 
-	// Send device status every 5 seconds
+	// Send device status every 10 seconds
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-		request_rad_status();
+		send_device_status();
 	}
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-			request_rad_status();
+			send_device_status();
 		}
-	}, 5000);
+	}, 10000);
+
+	// Send the power on button command if needed/ready
+	function power_on_if_ready() {
+		console.log('[node-bmw] BMBT.power_on_if_ready(): evaluating');
+		console.log('[node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
+		console.log('[node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
+		console.log('[node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
+		console.log('[node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
+
+		if (
+			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&
+			omnibus.status.audio.audio_control == 'off' &&
+			omnibus.status.audio.dsp_ready == true &&
+			omnibus.status.audio.rad_ready == true
+		) {
+			send_button('power');
+		}
+	}
 
 	// Parse data sent to BMBT module
 	function parse_in(data) {
@@ -113,9 +132,9 @@ var BMBT = function(omnibus) {
 	// Parse data sent from BMBT module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src;
-		var dst      = data.dst;
-		var message  = data.msg;
+		var src     = data.src;
+		var dst     = data.dst;
+		var message = data.msg;
 
 		var command;
 		var value;
@@ -176,7 +195,7 @@ var BMBT = function(omnibus) {
 				break;
 
 			default:
-				command = 'unknown';                                                                    
+				command = 'unknown';
 				value   = new Buffer(message);
 				break;
 		}

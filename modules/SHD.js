@@ -62,7 +62,7 @@ var SHD = function(omnibus) {
 		}
 
 		else {
-			command = 'unknown';                                                                    
+			command = 'unknown';
 			data    = new Buffer(message);
 		}
 

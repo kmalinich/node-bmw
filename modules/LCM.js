@@ -351,15 +351,17 @@ var LCM = function(omnibus) {
 		switch (action) {
 			case 'on' :
 				var lcm_object = {
-					output_fog_front_left       : true,
-					output_fog_front_right      : true,
-					output_license_rear_right   : true,
-					output_standing_front_left  : true,
-					output_standing_front_right : true,
-					output_standing_rear_left   : true,
-					output_standing_rear_right  : true,
-					output_turn_front_left      : false,
-					output_turn_front_right     : false,
+					output_fog_front_left            : true,
+					output_fog_front_right           : true,
+					output_license_rear_right        : true,
+					output_standing_front_left       : true,
+					output_standing_front_right      : true,
+					output_standing_inner_rear_left  : true,
+					output_standing_inner_rear_right : true,
+					output_standing_rear_left        : true,
+					output_standing_rear_right       : true,
+					output_turn_front_left           : true,
+					output_turn_front_right          : true,
 				};
 
 				io_status_encode(lcm_object);

@@ -299,7 +299,7 @@ var GM = function(omnibus) {
 		// Will need to concat and push array for value
 		var msg = [0x10, 0x05, value];
 		omnibus.GM.gm_send(msg);
-	}	
+	}
 
 	// Central locking
 	function gm_cl(action) {

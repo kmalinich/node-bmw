@@ -287,7 +287,7 @@ var LCM = function(omnibus) {
 		if (current_time < lights_off) {
 			lights_reason = 'before lights off';
 			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = false;
+			omnibus.status.lights.auto_standing = true;
 		}
 		else if (current_time > lights_off && current_time < lights_on) {
 			lights_reason = 'after lights off, before lights on';
@@ -297,7 +297,7 @@ var LCM = function(omnibus) {
 		else if (current_time > lights_on) {
 			lights_reason = 'after lights on';
 			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = false;
+			omnibus.status.lights.auto_standing = true;
 		}
 		else {
 			lights_reason = 'unknown time of day, engaging failsafe';
@@ -374,10 +374,13 @@ var LCM = function(omnibus) {
 		console.log('[LCM]  Resetting');
 		var lcm_object = {
 			switch_standing   : omnibus.status.lights.auto_standing,
+			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
 			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
 			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
 			switch_turn_right : omnibus.status.lights.turn_comfort_right,
 		};
+
+		console.log(lcm_object);
 
 		io_status_encode(lcm_object);
 	}

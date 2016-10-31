@@ -272,7 +272,7 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
-				
+
 		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
 		// Ask IKE for ignition status and sensor status (includes handbrake)
@@ -346,29 +346,160 @@ var LCM = function(omnibus) {
 
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
-		console.log('[LCM]  Welcome lights - \'%s\'', action);
+		var lcm_object;
+		console.log('[node-bmw] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
 
 		switch (action) {
 			case 'on' :
-				var lcm_object = {
-					output_fog_front_left            : true,
-					output_fog_front_right           : true,
-					output_license_rear_right        : true,
-					output_standing_front_left       : true,
-					output_standing_front_right      : true,
-					output_standing_inner_rear_left  : true,
-					output_standing_inner_rear_right : true,
-					output_standing_rear_left        : true,
-					output_standing_rear_right       : true,
-					output_turn_front_left           : true,
-					output_turn_front_right          : true,
-				};
+				omnibus.status.lights.welcome_lights = true;
+
+				if (omnibus.status.lights.welcome_lights_level == 0) {
+					omnibus.status.lights.welcome_lights_level = 1;
+					lcm_object = {
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 1) {
+					omnibus.status.lights.welcome_lights_level = 2;
+					lcm_object = {
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 2) {
+					omnibus.status.lights.welcome_lights_level = 3;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 3) {
+					omnibus.status.lights.welcome_lights_level = 4;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 4) {
+					omnibus.status.lights.welcome_lights_level = 5;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 5) {
+					omnibus.status.lights.welcome_lights_level = 6;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 6) {
+					omnibus.status.lights.welcome_lights_level = 0;
+					lcm_object = {
+						output_brake_rear_left           : true,
+						output_brake_rear_middle         : true,
+						output_brake_rear_right          : true,
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+						output_turn_rear_left            : true,
+						output_turn_rear_right           : true,
+					};
+				}
 
 				io_status_encode(lcm_object);
 				break;
 			case 'off':
+				omnibus.status.lights.welcome_lights       = false;
+				omnibus.status.lights.welcome_lights_level = 0;
 				reset();
 				break;
+		}
+
+		// Clear welcome lights variables after 15 seconds
+		if (omnibus.status.lights.welcome_lights == true) {
+			setTimeout(function() {
+				omnibus.status.lights.welcome_lights       = false;
+				omnibus.status.lights.welcome_lights_level = 0;
+			}, 15000);
 		}
 	}
 

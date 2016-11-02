@@ -110,32 +110,10 @@ var MFL = function(omnibus) {
 				// else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
 
 				// Kodi version
-				if (button == 'left' && action == 'depress') {
-					omnibus.kodi('ip6-localhost', 9090).then(function(connection) {
-						var active_players = connection.Player.GetActivePlayers();
-						console.log(active_players);
-						var active_player_id = active_players[0].playerid;
-						console.log(active_player_id);
-						connection.Player.GoTo({
-							'playerid' : active_player_id,
-							'to'       : 'previous',
-						});
-					});
-				}
-
-				else if (button == 'right' && action == 'depress') {
-					omnibus.kodi('ip6-localhost', 9090).then(function(connection) {
-						connection.Player.GoTo('next');
-					});
-				}
-
-				else if (button == 'send/end' && action == 'depress') {  // Think about it...
-					omnibus.kodi('ip6-localhost', 9090).then(function(connection) {
-						connection.Player.PlayPause();
-					});
-				}
-
-				//else if (button == 'send/end' && action == 'long depress') { ('play');     }
+				if      (button == 'left'     && action == 'depress')      { omnibus.kodi.command('previous'); }
+				else if (button == 'right'    && action == 'depress')      { omnibus.kodi.command('next');     }
+				else if (button == 'send/end' && action == 'depress')      { omnibus.kodi.command('pause');    }
+				//else if (button == 'send/end' && action == 'long depress') { omnibus.kodi.command('play');     }
 				break;
 
 			case 0x5d:

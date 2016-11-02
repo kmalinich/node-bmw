@@ -167,22 +167,16 @@ var GM = function(omnibus) {
 
 		if (message[1] == 0x10) {
 			button = 'lock button depressed';
-
-			console.log('[GM]   Deactivating welcome lights');
-			omnibus.LCM.welcome_lights('off');
+			omnibus.LCM.welcome_lights('on');
 		}
 
 		else if (bit_test(message[1], 0x20)) {
 			button = 'unlock button depressed';
-
-			console.log('[GM]   Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
 		else if (bit_test(message[1], 0x40)) {
 			button = 'trunk button depressed';
-
-			console.log('[GM]   Activating welcome lights');
 			omnibus.LCM.welcome_lights('on');
 		}
 
@@ -305,7 +299,7 @@ var GM = function(omnibus) {
 		// Will need to concat and push array for value
 		var msg = [0x10, 0x05, value];
 		omnibus.GM.gm_send(msg);
-	}	
+	}
 
 	// Central locking
 	function gm_cl(action) {

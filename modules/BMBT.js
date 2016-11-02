@@ -299,7 +299,7 @@ var BMBT = function(omnibus) {
 				button_up   = bit_set(button_down, bit_7);
 
 				break;
-		}		
+		}
 
 		console.log('[BMBT->RAD] Sending button down: %s', button);
 
@@ -317,7 +317,7 @@ var BMBT = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 
 		// Prepare and send the up message after 150ms
-		setTimeout(function() {	
+		setTimeout(function() {
 			console.log('[BMBT->RAD] Sending button up: %s', button);
 
 			// Send message

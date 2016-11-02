@@ -15,14 +15,24 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
+// Test number for bitmask
+function bit_test(num, bit) {
+	if ((num & bit) != 0) { return true; }
+	else { return false; }
+}
+
+// Set a bit in a bitmask
+function bit_set(num, bit) {
+	num |= bit;
+	return num;
+}
+
 var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
 
 	// Exposed data
 	this.auto_lights         = auto_lights;
-	this.bit_set             = bit_set;
-	this.bit_test            = bit_test;
 	this.comfort_turn        = comfort_turn;
 	this.io_status_decode    = io_status_decode;
 	this.io_status_encode    = io_status_encode;
@@ -46,14 +56,20 @@ var LCM = function(omnibus) {
 
 		switch (message[0]) {
 			case 0x02: // Broadcast: device status
-				if (message[1] == 0x00) {
-					command = 'device status';
-					value   = 'ready';
-				}
+				command = 'device status';
 
-				else if (message[1] == 0x01) {
-					command = 'device status';
-					value   = 'ready after reset';
+				switch (message[1]) {
+					case 0x00:
+						value = 'ready';
+						break;
+
+					case 0x01:
+						value = 'ready after reset';
+						break;
+
+					default:
+						value = 'unknown';
+						break;
 				}
 				break;
 
@@ -102,6 +118,8 @@ var LCM = function(omnibus) {
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
 	function light_status_decode(message) {
+		// Could be done better/cleaner, like setting all values (except turn) to false first.. or something
+
 		// Lights on
 		if (message[1] == 0x00)          { omnibus.status.lights.all_off        = true; } else { omnibus.status.lights.all_off        = false; }
 		if (bit_test(message[1], bit_0)) { omnibus.status.lights.standing_front = true; } else { omnibus.status.lights.standing_front = false; }
@@ -152,24 +170,28 @@ var LCM = function(omnibus) {
 			console.log('[LCM]  Comfort turn signal currently engaged');
 		}
 		else {
-			// If
-			//
-			// left signal is now on, and
-			// right signal is now off, and
-			// left signal was previously off:
-			//
-			// Set turn_left_depress_time timestamp
+			/*
+			 * If:
+			 *
+			 * left signal is now on, and
+			 * right signal is now off, and
+			 * left signal was previously off:
+			 *
+			 * Set turn_left_depress_time timestamp
+			 */
 			if (turn_left_on && !turn_right_on && omnibus.status.lights.turn_left == false) {
 				omnibus.status.lights.turn_left_depress_time = Date.now();
 			}
 
-			// If
-			//
-			// left signal is now off, and
-			// right signal is now on, and
-			// right signal was previously off:
-			//
-			// Set turn_right_depress_time timestamp
+			/*
+			 * If
+			 *
+			 * left signal is now off, and
+			 * right signal is now on, and
+			 * right signal was previously off:
+			 *
+			 * Set turn_right_depress_time timestamp
+			 */
 			if (!turn_left_on && turn_right_on && omnibus.status.lights.turn_right == false) {
 				omnibus.status.lights.turn_right_depress_time = Date.now();
 			}
@@ -221,7 +243,6 @@ var LCM = function(omnibus) {
 		if (typeof data['lcm-get'] !== 'undefined') {
 			lcm_get();
 		}
-
 		else {
 			// Dirty assumption
 			io_status_encode(data);
@@ -272,7 +293,7 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
-				
+
 		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
 		// Ask IKE for ignition status and sensor status (includes handbrake)
@@ -346,38 +367,181 @@ var LCM = function(omnibus) {
 
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
-		console.log('[LCM]  Welcome lights - \'%s\'', action);
+		var lcm_object;
+		console.log('[node-bmw] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
 
 		switch (action) {
 			case 'on' :
-				var lcm_object = {
-					output_fog_front_left       : true,
-					output_fog_front_right      : true,
-					output_license_rear_right   : true,
-					output_standing_front_left  : true,
-					output_standing_front_right : true,
-					output_standing_rear_left   : true,
-					output_standing_rear_right  : true,
-					output_turn_front_left      : false,
-					output_turn_front_right     : false,
-				};
+				omnibus.status.lights.welcome_lights = true;
+
+				// This below could be done about 5000x better, but it is late, I'm tired, and I wanted to write working POC code before I hung it up.
+				if (omnibus.status.lights.welcome_lights_level == 0) {
+					omnibus.status.lights.welcome_lights_level = 1;
+					lcm_object = {
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 1) {
+					omnibus.status.lights.welcome_lights_level = 2;
+					lcm_object = {
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 2) {
+					omnibus.status.lights.welcome_lights_level = 3;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_license_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 3) {
+					omnibus.status.lights.welcome_lights_level = 4;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 4) {
+					omnibus.status.lights.welcome_lights_level = 5;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 5) {
+					omnibus.status.lights.welcome_lights_level = 6;
+					lcm_object = {
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+					};
+				}
+				else if (omnibus.status.lights.welcome_lights_level == 6) {
+					omnibus.status.lights.welcome_lights_level = 0;
+					lcm_object = {
+						output_brake_rear_left           : true,
+						output_brake_rear_middle         : true,
+						output_brake_rear_right          : true,
+						output_fog_front_left            : true,
+						output_fog_front_right           : true,
+						output_highbeam_front_left       : true,
+						output_highbeam_front_right      : true,
+						output_license_rear_right        : true,
+						output_lowbeam_front_left        : true,
+						output_lowbeam_front_right       : true,
+						output_reverse_rear_left         : true,
+						output_reverse_rear_right        : true,
+						output_standing_front_left       : true,
+						output_standing_front_right      : true,
+						output_standing_inner_rear_left  : true,
+						output_standing_inner_rear_right : true,
+						output_standing_rear_left        : true,
+						output_standing_rear_right       : true,
+						output_turn_front_left           : true,
+						output_turn_front_right          : true,
+						output_turn_rear_left            : true,
+						output_turn_rear_right           : true,
+					};
+				}
 
 				io_status_encode(lcm_object);
 				break;
 			case 'off':
+				omnibus.status.lights.welcome_lights       = false;
+				omnibus.status.lights.welcome_lights_level = 0;
 				reset();
 				break;
+		}
+
+		// Clear welcome lights variables after 15 seconds
+		if (omnibus.status.lights.welcome_lights == true) {
+			setTimeout(function() {
+				omnibus.status.lights.welcome_lights       = false;
+				omnibus.status.lights.welcome_lights_level = 0;
+			}, 15000);
 		}
 	}
 
 	function reset() {
 		console.log('[LCM]  Resetting');
 		var lcm_object = {
-			switch_standing   : omnibus.status.lights.auto_standing,
-			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
-			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
-			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
-			switch_turn_right : omnibus.status.lights.turn_comfort_right,
+			output_lowbeam_front_left        : omnibus.status.lights.auto_lowbeam,
+			output_lowbeam_front_right       : omnibus.status.lights.auto_lowbeam,
+			output_standing_front_left       : omnibus.status.lights.auto_standing,
+			output_standing_front_right      : omnibus.status.lights.auto_standing,
+			output_standing_inner_rear_left  : omnibus.status.lights.auto_standing,
+			output_standing_inner_rear_right : omnibus.status.lights.auto_standing,
+			output_standing_rear_left        : omnibus.status.lights.auto_standing,
+			output_standing_rear_right       : omnibus.status.lights.auto_standing,
+			switch_lowbeam_1                 : omnibus.status.lights.auto_lowbeam,
+			switch_lowbeam_2                 : omnibus.status.lights.auto_lowbeam,
+			switch_standing                  : omnibus.status.lights.auto_standing,
+			switch_turn_left                 : omnibus.status.lights.turn_comfort_left,
+			switch_turn_right                : omnibus.status.lights.turn_comfort_right,
+      output_license_rear_left         : omnibus.status.lights.auto_standing,
 		};
 
 		console.log(lcm_object);
@@ -420,22 +584,6 @@ var LCM = function(omnibus) {
 		// Send the message
 		console.log('[LCM]  Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
-	// Test if a bit in a bitmask is set
-	function bit_test(num, bit) {
-		if ((num & bit) != 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	// Set a bit in a bitmask
-	function bit_set(num, bit) {
-		num |= bit;
-		return num;
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values
@@ -518,7 +666,7 @@ var LCM = function(omnibus) {
 		// LCM dimmer
 		if(array.dimmer_value                    ) { bitmask_9 = parseInt(array.dimmer_value); }
 
-		// Suspect	
+		// Suspect
 		// array.clamp_58g
 		// array.output_fog_rear_right
 		// array.output_fog_rear_trailer

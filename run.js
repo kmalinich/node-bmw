@@ -12,7 +12,8 @@ var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
 
 // Other custom libraries
-// var BT = require('./lib/BT.js');
+//var BT   = require('./lib/BT.js');
+var kodi = require('./lib/kodi.js');
 
 // Module libraries
 var ABG  = require('./modules/ABG.js');
@@ -38,11 +39,6 @@ var SES  = require('./modules/SES.js');
 var SHD  = require('./modules/SHD.js');
 var TEL  = require('./modules/TEL.js');
 
-// WebSocket libraries
-var socket_server = require('./lib/socket-server.js');
-var api_server    = http.createServer(api_handler);
-
-
 // Everything connection handle
 var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
@@ -52,6 +48,7 @@ omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
 omnibus.BMBT            = new BMBT(omnibus);
 //omnibus.BT              = new BT(omnibus);
+omnibus.kodi            = new kodi(omnibus);
 omnibus.CCM             = new CCM(omnibus);
 omnibus.CDC             = new CDC(omnibus);
 omnibus.DSP             = new DSP(omnibus);
@@ -77,6 +74,10 @@ omnibus.data_handler    = new data_handler(omnibus); // Data handler
 var api_port       = 3001;
 var websocket_port = 3002;
 
+// WebSocket libraries
+var socket_server = require('./lib/socket-server.js');
+var api_server    = http.createServer(api_handler);
+
 // API handler function
 function api_handler(request, response) {
 	console.log('[API]  %s request: %s', request.method, request.url);
@@ -86,6 +87,9 @@ function api_handler(request, response) {
 function start() {
 	// Start BT autoconfig
 	//omnibus.BT.autoconfig();
+
+	// Start kodi autoconfig
+	omnibus.kodi.autoconfig();
 
 	// Start API server
 	api_server.listen(api_port, function() {

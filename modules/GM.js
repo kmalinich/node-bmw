@@ -302,7 +302,8 @@ var GM = function(omnibus) {
 	}
 
 	// Central locking
-	function gm_cl(action) {
+	function gm_cl() {
+		var action = 'toggle';
 		console.log('[GM]   Central locking: \'%s\'', action);
 		// Hex:
 		// 01 3A 01 : LF unlock (CL)
@@ -314,19 +315,14 @@ var GM = function(omnibus) {
 		// 01 42 02 : Rear unlock
 
 		// Init message variable
-		var msg;
-
-		// Switch for action
-		// Toggle
-		// Unlock
-		// Lock
-		switch (action) {
-			case 'toggle' : msg = [0x00, 0x0B]; break;
-			case 'lock'   : msg = [0x03, 0x01]; break;
-			case 'unlock' : msg = [0x97, 0x01]; break;
-		}
+		var msg = [0x00, 0x0B];
 
 		omnibus.GM.gm_send(msg);
+
+		// Send the cluster and Kodi a notification
+		var notify_message = 'Unlocking doors';
+		omnibus.kodi.notify('GM', notify_message);
+		ike_text_urgent(notify_message)
 	}
 
 	// Send message to GM

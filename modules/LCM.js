@@ -31,6 +31,9 @@ var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
 
+	// Auto lights interval
+	var auto_lights_interval;
+
 	// Exposed data
 	this.auto_lights         = auto_lights;
 	this.comfort_turn        = comfort_turn;
@@ -256,13 +259,18 @@ var LCM = function(omnibus) {
 
 		switch (light_switch) {
 			case 'off':
-				clearInterval(omnibus.status.lights.auto_lights_interval);
+				clearInterval(auto_lights_interval);
 
 				// Set status variables
 				omnibus.status.lights.auto_lights   = false;
 				omnibus.status.lights.auto_standing = false;
 				omnibus.status.lights.auto_lowbeam  = false;
 				reset();
+
+				// Send the cluster and Kodi a notification
+				var notify_message = 'Auto lights off';
+				omnibus.kodi.notify('LCM', notify_message);
+				omnibus.IKE.ike_text_urgent(notify_message)
 
 				console.log('[node-bmw] Automatic lights disabled');
 				break;
@@ -276,13 +284,15 @@ var LCM = function(omnibus) {
 
 					// Process/send LCM data on 10 second interval
 					// LCM diag command timeout is 15 seconds
-					omnibus.status.lights.auto_lights_interval = setInterval(function() {
-						// Ask IKE for ignition status
-						omnibus.IKE.request('ignition');
-
+					auto_lights_interval = setInterval(function() {
 						// Process auto lights
 						auto_lights_process();
 					}, 10000);
+
+					// Send the cluster and Kodi a notification
+					var notify_message = 'Auto lights on';
+					omnibus.kodi.notify('LCM', notify_message);
+					omnibus.IKE.ike_text_urgent(notify_message)
 
 					console.log('[node-bmw] Automatic lights enabled');
 				}
@@ -309,7 +319,7 @@ var LCM = function(omnibus) {
 		if (current_time < lights_off) {
 			lights_reason = 'before lights off';
 			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = true;
+			omnibus.status.lights.auto_standing = false;
 		}
 		else if (current_time > lights_off && current_time < lights_on) {
 			lights_reason = 'after lights off, before lights on';
@@ -319,12 +329,12 @@ var LCM = function(omnibus) {
 		else if (current_time > lights_on) {
 			lights_reason = 'after lights on';
 			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = true;
+			omnibus.status.lights.auto_standing = false;
 		}
 		else {
 			lights_reason = 'unknown time of day, engaging failsafe';
-			omnibus.status.lights.auto_standing = false;
 			omnibus.status.lights.auto_lowbeam  = true;
+			omnibus.status.lights.auto_standing = false;
 		}
 
 		console.log('[node-bmw] Auto lights: standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
@@ -523,7 +533,6 @@ var LCM = function(omnibus) {
 		console.log('[LCM]  Resetting');
 		var lcm_object = {
 			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
-			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
 			switch_standing   : omnibus.status.lights.auto_standing,
 			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
 			switch_turn_right : omnibus.status.lights.turn_comfort_right,
@@ -581,7 +590,7 @@ var LCM = function(omnibus) {
 		var bitmask_6  = 0x00;
 		var bitmask_7  = 0x00;
 		var bitmask_8  = 0x00;
-		var bitmask_9  = 0xFF; // Dimmer from 00-FF
+		var bitmask_9  = 0xFE; // Dimmer from 00-FF
 		// 10-11 are .. something, don't know yet.
 		var bitmask_10 = 0x00;
 		var bitmask_11 = 0x00;
@@ -766,7 +775,7 @@ var LCM = function(omnibus) {
 		omnibus.status.lcm.switch_turn_left                 = bit_test(bitmask_2, bit_7);
 		omnibus.status.lcm.switch_turn_right                = bit_test(bitmask_2, bit_6);
 
-		console.log('[node-bmw] decoded current IO status');
+		console.log('[node-bmw] decoded LCM IO status');
 	}
 
 	// All the possible values to send to the LCM

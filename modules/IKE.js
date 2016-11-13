@@ -2,8 +2,6 @@
 
 // npm libraries
 var convert = require('node-unit-conversion');
-var dbus    = require('dbus-native');
-var wait    = require('wait.for');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -26,12 +24,13 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.ike_data  = ike_data;
-	this.ike_send  = ike_send;
-	this.ike_text  = ike_text;
-	this.obc_data  = obc_data;
-	this.parse_out = parse_out;
-	this.request   = request;
+	this.ike_data        = ike_data;
+	this.ike_send        = ike_send;
+	this.ike_text        = ike_text;
+	this.ike_text_urgent = ike_text_urgent;
+	this.obc_data        = obc_data;
+	this.parse_out       = parse_out;
+	this.request         = request;
 
 	// Pad string for IKE text screen length (20 characters)
 	String.prototype.ike_pad = function() {
@@ -85,7 +84,7 @@ var IKE = function(omnibus) {
 					if (omnibus.status.vehicle.locked == true) {
 						console.log('[node-bmw] Unlocking doors');
 						// Send message to GM to toggle door locks
-						omnibus.GM.gm_cl('toggle');
+						omnibus.GM.gm_cl();
 					}
 				}
 
@@ -99,9 +98,6 @@ var IKE = function(omnibus) {
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
 					omnibus.status.audio.rad_ready = false;
-
-					// Send Kodi a notification
-					omnibus.kodi.notify('IKE', 'Power-off state reached');
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
@@ -111,9 +107,6 @@ var IKE = function(omnibus) {
 
 					// Start auto lights
 					omnibus.LCM.auto_lights('on');
-
-					// Send Kodi a notification
-					omnibus.kodi.notify('IKE', 'Power-on state reached');
 				}
 
 				switch (message[1]) { // Ignition status value
@@ -828,13 +821,12 @@ var IKE = function(omnibus) {
 	}
 
 	// Check control messages
-	function ike_text_urgent(message) {
+	function ike_text_urgent(message, timeout) {
 		var src = 0x30; // CCM
 		var dst = 0x80; // IKE
 
 		var message_hex = [0x1A, 0x35, 0x00];
-		var message_hex = message_hex.concat(ascii2hex(message));
-		// var message_hex = message_hex.concat(0x04);
+		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
 		var ibus_packet = {
 			src: src,
@@ -843,6 +835,13 @@ var IKE = function(omnibus) {
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);
+
+		if (!timeout) { var timeout = 5000; }
+
+		// Clear the message after 5 seconds
+		setTimeout(function() {
+			ike_text_urgent_off();
+		}, timeout);
 	}
 
 	// Check control messages

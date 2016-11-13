@@ -99,6 +99,9 @@ var IKE = function(omnibus) {
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
 					omnibus.status.audio.rad_ready = false;
+
+					// Send Kodi a notification
+					omnibus.kodi.notify('IKE', 'Power-off state reached');
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
@@ -108,6 +111,9 @@ var IKE = function(omnibus) {
 
 					// Start auto lights
 					omnibus.LCM.auto_lights('on');
+
+					// Send Kodi a notification
+					omnibus.kodi.notify('IKE', 'Power-on state reached');
 				}
 
 				switch (message[1]) { // Ignition status value

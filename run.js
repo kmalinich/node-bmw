@@ -38,6 +38,7 @@ var RLS  = require('./modules/RLS.js');
 var SES  = require('./modules/SES.js');
 var SHD  = require('./modules/SHD.js');
 var TEL  = require('./modules/TEL.js');
+var VID  = require('./modules/VID.js');
 
 // Everything connection handle
 var omnibus             = {};
@@ -66,6 +67,7 @@ omnibus.RLS             = new RLS(omnibus);
 omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
+omnibus.VID             = new VID(omnibus);
 //omnibus.BT              = new BT(omnibus);
 omnibus.kodi            = new kodi(omnibus);
 omnibus.data_handler    = new data_handler(omnibus); // Data handler

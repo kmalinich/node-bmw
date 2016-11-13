@@ -192,6 +192,9 @@ var IKE = function(omnibus) {
 
 				omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
 				omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
+
+				// Send Kodi a notification
+				omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant_c+' C, Exterior: '+omnibus.status.temperature.exterior_c+' C');
 				break;
 
 			case 0x1B: // ACK text message
@@ -276,6 +279,10 @@ var IKE = function(omnibus) {
 								omnibus.status.obc.temp_exterior_f = parseFloat(string_temp_exterior_value).toFixed(2);
 								break;
 						}
+
+						// Update other variables
+						omnibus.status.temperature.exterior_c = omnibus.status.obc.temp_exterior_c;
+						omnibus.status.temperature.exterior_f = omnibus.status.obc.temp_exterior_f;
 
 						value = omnibus.status.obc.temp_exterior_c;
 						break;

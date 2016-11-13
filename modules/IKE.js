@@ -498,7 +498,7 @@ var IKE = function(omnibus) {
 						value = 'blink';
 						break;
 					default:
-						value = 'unknown';
+						value = new Buffer(message);
 						break;
 				}
 
@@ -594,7 +594,7 @@ var IKE = function(omnibus) {
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
 
-		ike_text(omnibus.status.obc.time+' '+cons1+'mpg '+ctmp+'°');
+		ike_text(omnibus.status.obc.time+' '+cons1+'mpg '+ctmp+'c');
 	}
 
 	// Refresh OBC data

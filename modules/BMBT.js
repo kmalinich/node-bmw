@@ -64,11 +64,12 @@ var BMBT = function(omnibus) {
 
 	// Send the power on button command if needed/ready
 	function power_on_if_ready() {
-		console.log('[node-bmw] BMBT.power_on_if_ready(): evaluating');
-		console.log('[node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
-		console.log('[node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
-		console.log('[node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
-		console.log('[node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
+		// Debug logging
+		// console.log('[node-bmw] BMBT.power_on_if_ready(): evaluating');
+		// console.log('[node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
+		// console.log('[node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
+		// console.log('[node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
+		// console.log('[node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
 
 		if (
 			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&

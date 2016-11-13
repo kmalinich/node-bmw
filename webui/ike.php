@@ -8,8 +8,7 @@
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
-			<h4>OBC Set Clock</h4>
-			<button class="btn btn-lg btn-primary btn-block" id="btn-ike-set-clock" onclick="javascript:ike_set_clock();">Set clock</button>
+			<button class="btn btn-lg btn-primary btn-block" id="btn-ike-set-clock" onclick="javascript:ike_set_clock();">Set OBC clock</button>
 			<hr>
 
 			<h4>OBC Get</h4>
@@ -217,13 +216,8 @@
 			<h4>Backlight</h4>
 
 			<div class="container-fluid">
-				<input type="text" id="slider-ike-backlight" name="ike-backlight" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
+				<input type="text" id="slider-ike-backlight" name="ike-backlight" data-provide="slider" data-slider-min="0" data-slider-max="254" data-slider-tooltip="never" data-slider-tooltip-position="bottom">
 			</div>
-			<br/>
-			<br/>
-			<br/>
-
-			<hr>
 
 		</div>
 

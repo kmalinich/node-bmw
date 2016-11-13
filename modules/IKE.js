@@ -188,6 +188,15 @@ var IKE = function(omnibus) {
 				omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
 				break;
 
+			case 0x1B: // ACK text message
+				command = 'acknowledged';
+				value   = 'temperature value';
+
+				value = parseFloat(message[1]);
+
+				value = value+' text messages';
+				break;
+
 			case 0x24: // OBC values broadcast
 				switch (message[1]) {
 					case 0x01: // Time

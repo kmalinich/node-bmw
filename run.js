@@ -47,8 +47,6 @@ omnibus.ibus_connection = new ibus_interface(omnibus); // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
 omnibus.BMBT            = new BMBT(omnibus);
-//omnibus.BT              = new BT(omnibus);
-omnibus.kodi            = new kodi(omnibus);
 omnibus.CCM             = new CCM(omnibus);
 omnibus.CDC             = new CDC(omnibus);
 omnibus.DSP             = new DSP(omnibus);
@@ -68,6 +66,8 @@ omnibus.RLS             = new RLS(omnibus);
 omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
+//omnibus.BT              = new BT(omnibus);
+omnibus.kodi            = new kodi(omnibus);
 omnibus.data_handler    = new data_handler(omnibus); // Data handler
 
 // Server ports

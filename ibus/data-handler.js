@@ -33,6 +33,7 @@ var data_handler = function(omnibus) {
 				case 'LCM'  : omnibus.LCM.parse_out(data);  break;
 				case 'MFL'  : omnibus.MFL.parse_out(data);  break;
 				case 'RAD'  : omnibus.RAD.parse_out(data);  break;
+				case 'VID'  : omnibus.VID.parse_out(data);  break;
 
 				// Old model
 				case 'ABG'  : omnibus.ABG.parse_data(data.msg);  break;

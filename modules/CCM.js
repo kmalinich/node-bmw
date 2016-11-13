@@ -63,7 +63,20 @@ var CCM = function(omnibus) {
 
 			case 0x51: // Broadcast: check control sensors
 				command = 'check control sensors';
-				value   = 'unknown';
+				switch (message[1]) {
+					case 0x00:
+						value = 'none';
+						break;
+					case 0x04:
+						value = 'key in ignition';
+						break;
+					case 0x12:
+						value = 'seatbelt not fastened';
+						break;
+					default:
+						value = new Buffer(message[1]);
+						break;
+				}
 				break;
 
 			case 0x73: // Request: immobiliser status

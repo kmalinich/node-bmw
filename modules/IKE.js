@@ -499,6 +499,11 @@ var IKE = function(omnibus) {
 				omnibus.status.obc.aux_heat_led = value;
 				break;
 
+			case 0x50: // Request check-control sensor information
+				command = 'request';
+				value   = 'check control sensor status';
+				break;
+
 			case 0x57: // BC button in cluster
 				command = 'button';
 				value   = 'BC';

@@ -103,6 +103,7 @@ var LCM = function(omnibus) {
 
 			case 0xA0:
 				command = 'current IO status';
+				value   = 'decoded';
 				omnibus.LCM.io_status_decode(message);
 				break;
 
@@ -276,6 +277,10 @@ var LCM = function(omnibus) {
 					// Process/send LCM data on 10 second interval
 					// LCM diag command timeout is 15 seconds
 					omnibus.status.lights.auto_lights_interval = setInterval(function() {
+						// Ask IKE for ignition status
+						omnibus.IKE.request('ignition');
+
+						// Process auto lights
 						auto_lights_process();
 					}, 10000);
 
@@ -295,10 +300,6 @@ var LCM = function(omnibus) {
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
 
 		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
-
-		// Ask IKE for ignition status and sensor status (includes handbrake)
-		//omnibus.IKE.request('sensor');
-		omnibus.IKE.request('ignition');
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);
@@ -685,7 +686,6 @@ var LCM = function(omnibus) {
 			bitmask_11,
 		];
 
-		// console.log('[LCM]  io_status_encode() output: %s', output);
 		lcm_set(output);
 	}
 
@@ -704,204 +704,134 @@ var LCM = function(omnibus) {
 		var bitmask_10 = array[11];
 		var bitmask_11 = array[12];
 
-		var clamp_15                         = bit_test(bitmask_3, bit_5);
-		var clamp_30a                        = bit_test(bitmask_0, bit_0);
-		var clamp_30b                        = bit_test(bitmask_0, bit_7);
-		var clamp_r                          = bit_test(bitmask_0, bit_6);
-		var input_air_suspension             = bit_test(bitmask_3, bit_0);
-		var input_armoured_door              = bit_test(bitmask_1, bit_6);
-		var input_brake_fluid_level          = bit_test(bitmask_1, bit_7);
-		var input_carb                       = bit_test(bitmask_0, bit_4);
-		var input_engine_failsafe            = bit_test(bitmask_3, bit_6);
-		var input_fire_extinguisher          = bit_test(bitmask_0, bit_1);
-		var input_hold_up_alarm              = bit_test(bitmask_3, bit_1);
-		var input_key_in_ignition            = bit_test(bitmask_1, bit_0);
-		var input_kfn                        = bit_test(bitmask_1, bit_5);
-		var input_preheating_fuel_injection  = bit_test(bitmask_0, bit_2);
-		var input_seat_belts_lock            = bit_test(bitmask_1, bit_1);
-		var input_tire_defect                = bit_test(bitmask_3, bit_7);
-		var input_vertical_aim               = bit_test(bitmask_6, bit_1);
-		var input_washer_fluid_level         = bit_test(bitmask_3, bit_2);
-		var mode_failsafe                    = bit_test(bitmask_8, bit_0);
-		var mode_sleep                       = bit_test(bitmask_8, bit_6);
-		var output_brake_rear_left           = bit_test(bitmask_4, bit_3);
-		var output_brake_rear_middle         = bit_test(bitmask_6, bit_4);
-		var output_brake_rear_right          = bit_test(bitmask_4, bit_4);
-		var output_fog_front_left            = bit_test(bitmask_5, bit_2);
-		var output_fog_front_right           = bit_test(bitmask_5, bit_6);
-		var output_fog_rear_left             = bit_test(bitmask_7, bit_2);
-		var output_highbeam_front_left       = bit_test(bitmask_4, bit_6);
-		var output_highbeam_front_right      = bit_test(bitmask_4, bit_5);
-		var output_led_switch_hazard         = bit_test(bitmask_8, bit_2);
-		var output_led_switch_light          = bit_test(bitmask_8, bit_3);
-		var output_license_rear_left         = bit_test(bitmask_4, bit_2);
-		var output_license_rear_right        = bit_test(bitmask_6, bit_2);
-		var output_lowbeam_front_left        = bit_test(bitmask_5, bit_4);
-		var output_lowbeam_front_right       = bit_test(bitmask_5, bit_5);
-		var output_reverse_rear_left         = bit_test(bitmask_5, bit_3);
-		var output_reverse_rear_right        = bit_test(bitmask_7, bit_7);
-		var output_reverse_rear_trailer      = bit_test(bitmask_8, bit_5);
-		var output_standing_front_left       = bit_test(bitmask_5, bit_0);
-		var output_standing_front_right      = bit_test(bitmask_6, bit_5);
-		var output_standing_inner_rear_left  = bit_test(bitmask_5, bit_1);
-		var output_standing_inner_rear_right = bit_test(bitmask_7, bit_3);
-		var output_standing_rear_left        = bit_test(bitmask_6, bit_3);
-		var output_standing_rear_right       = bit_test(bitmask_7, bit_4);
-		var output_turn_front_left           = bit_test(bitmask_7, bit_6);
-		var output_turn_front_right          = bit_test(bitmask_6, bit_6);
-		var output_turn_rear_left            = bit_test(bitmask_6, bit_7);
-		var output_turn_rear_right           = bit_test(bitmask_7, bit_1);
-		var switch_brake                     = bit_test(bitmask_2, bit_0);
-		var switch_fog_front                 = bit_test(bitmask_2, bit_2);
-		var switch_fog_rear                  = bit_test(bitmask_2, bit_4);
-		var switch_hazard                    = bit_test(bitmask_1, bit_4);
-		var switch_highbeam                  = bit_test(bitmask_2, bit_1);
-		var switch_highbeam_flash            = bit_test(bitmask_1, bit_2);
-		var switch_lowbeam_1                 = bit_test(bitmask_3, bit_4);
-		var switch_lowbeam_2                 = bit_test(bitmask_3, bit_3);
-		var switch_standing                  = bit_test(bitmask_2, bit_5);
-		var switch_turn_left                 = bit_test(bitmask_2, bit_7);
-		var switch_turn_right                = bit_test(bitmask_2, bit_6);
-		var dimmer_value                     = bitmask_9;
-
-		// Suspect
-		// var clamp_58g                       = bit_test(bitmask_, bit_);
-		// var output_fog_rear_right           = bit_test(bitmask_, bit_);
-		// var output_fog_rear_trailer         = bit_test(bitmask_, bit_);
-
-		var output = {
-			clamp_15                         : clamp_15,
-			clamp_30a                        : clamp_30a,
-			clamp_30b                        : clamp_30b,
-			clamp_r                          : clamp_r,
-			dimmer_value                     : dimmer_value,
-			input_air_suspension             : input_air_suspension,
-			input_armoured_door              : input_armoured_door,
-			input_brake_fluid_level          : input_brake_fluid_level,
-			input_carb                       : input_carb,
-			input_engine_failsafe            : input_engine_failsafe,
-			input_fire_extinguisher          : input_fire_extinguisher,
-			input_hold_up_alarm              : input_hold_up_alarm,
-			input_key_in_ignition            : input_key_in_ignition,
-			input_kfn                        : input_kfn,
-			input_preheating_fuel_injection  : input_preheating_fuel_injection,
-			input_seat_belts_lock            : input_seat_belts_lock,
-			input_tire_defect                : input_tire_defect,
-			input_vertical_aim               : input_vertical_aim,
-			input_washer_fluid_level         : input_washer_fluid_level,
-			mode_failsafe                    : mode_failsafe,
-			mode_sleep                       : mode_sleep,
-			output_brake_rear_middle         : output_brake_rear_middle,
-			output_brake_rear_right          : output_brake_rear_right,
-			output_fog_front_left            : output_fog_front_left,
-			output_fog_front_right           : output_fog_front_right,
-			output_fog_rear_left             : output_fog_rear_left,
-			output_highbeam_front_left       : output_highbeam_front_left,
-			output_highbeam_front_right      : output_highbeam_front_right,
-			output_led_switch_hazard         : output_led_switch_hazard,
-			output_led_switch_light          : output_led_switch_light,
-			output_license_rear_left         : output_license_rear_left,
-			output_license_rear_right        : output_license_rear_right,
-			output_lowbeam_front_left        : output_lowbeam_front_left,
-			output_lowbeam_front_right       : output_lowbeam_front_right,
-			output_reverse_rear_left         : output_reverse_rear_left,
-			output_reverse_rear_right        : output_reverse_rear_right,
-			output_reverse_rear_trailer      : output_reverse_rear_trailer,
-			output_standing_front_left       : output_standing_front_left,
-			output_standing_front_right      : output_standing_front_right,
-			output_standing_inner_rear_left  : output_standing_inner_rear_left,
-			output_standing_inner_rear_right : output_standing_inner_rear_right,
-			output_standing_rear_left        : output_standing_rear_left,
-			output_standing_rear_right       : output_standing_rear_right,
-			output_turn_front_left           : output_turn_front_left,
-			output_turn_front_right          : output_turn_front_right,
-			output_turn_rear_left            : output_turn_rear_left,
-			output_turn_rear_right           : output_turn_rear_right,
-			switch_brake                     : switch_brake,
-			switch_fog_front                 : switch_fog_front,
-			switch_fog_rear                  : switch_fog_rear,
-			switch_hazard                    : switch_hazard,
-			switch_highbeam                  : switch_highbeam,
-			switch_highbeam_flash            : switch_highbeam_flash,
-			switch_lowbeam_1                 : switch_lowbeam_1,
-			switch_lowbeam_2                 : switch_lowbeam_2,
-			switch_standing                  : switch_standing,
-			switch_turn_left                 : switch_turn_left,
-			switch_turn_right                : switch_turn_right,
-		}
-
-		// Suspect
-		// clamp_58g                        : clamp_58g,
-		// output_fog_rear_right            : output_fog_rear_right,
-		// output_fog_rear_trailer          : output_fog_rear_trailer,
-
-		//return output;
-		// console.log(output);
+		omnibus.status.lcm.bitmask_10                       = bitmask_10;
+		omnibus.status.lcm.bitmask_11                       = bitmask_11;
+		omnibus.status.lcm.clamp_15                         = bit_test(bitmask_3, bit_5);
+		omnibus.status.lcm.clamp_30a                        = bit_test(bitmask_0, bit_0);
+		omnibus.status.lcm.clamp_30b                        = bit_test(bitmask_0, bit_7);
+		omnibus.status.lcm.clamp_r                          = bit_test(bitmask_0, bit_6);
+		omnibus.status.lcm.dimmer_value                     = bitmask_9;
+		omnibus.status.lcm.input_air_suspension             = bit_test(bitmask_3, bit_0);
+		omnibus.status.lcm.input_armoured_door              = bit_test(bitmask_1, bit_6);
+		omnibus.status.lcm.input_brake_fluid_level          = bit_test(bitmask_1, bit_7);
+		omnibus.status.lcm.input_carb                       = bit_test(bitmask_0, bit_4);
+		omnibus.status.lcm.input_engine_failsafe            = bit_test(bitmask_3, bit_6);
+		omnibus.status.lcm.input_fire_extinguisher          = bit_test(bitmask_0, bit_1);
+		omnibus.status.lcm.input_hold_up_alarm              = bit_test(bitmask_3, bit_1);
+		omnibus.status.lcm.input_key_in_ignition            = bit_test(bitmask_1, bit_0);
+		omnibus.status.lcm.input_kfn                        = bit_test(bitmask_1, bit_5);
+		omnibus.status.lcm.input_preheating_fuel_injection  = bit_test(bitmask_0, bit_2);
+		omnibus.status.lcm.input_seat_belts_lock            = bit_test(bitmask_1, bit_1);
+		omnibus.status.lcm.input_tire_defect                = bit_test(bitmask_3, bit_7);
+		omnibus.status.lcm.input_vertical_aim               = bit_test(bitmask_6, bit_1);
+		omnibus.status.lcm.input_washer_fluid_level         = bit_test(bitmask_3, bit_2);
+		omnibus.status.lcm.mode_failsafe                    = bit_test(bitmask_8, bit_0);
+		omnibus.status.lcm.mode_sleep                       = bit_test(bitmask_8, bit_6);
+		omnibus.status.lcm.output_brake_rear_left           = bit_test(bitmask_4, bit_3);
+		omnibus.status.lcm.output_brake_rear_middle         = bit_test(bitmask_6, bit_4);
+		omnibus.status.lcm.output_brake_rear_right          = bit_test(bitmask_4, bit_4);
+		omnibus.status.lcm.output_fog_front_left            = bit_test(bitmask_5, bit_2);
+		omnibus.status.lcm.output_fog_front_right           = bit_test(bitmask_5, bit_6);
+		omnibus.status.lcm.output_fog_rear_left             = bit_test(bitmask_7, bit_2);
+		omnibus.status.lcm.output_highbeam_front_left       = bit_test(bitmask_4, bit_6);
+		omnibus.status.lcm.output_highbeam_front_right      = bit_test(bitmask_4, bit_5);
+		omnibus.status.lcm.output_led_switch_hazard         = bit_test(bitmask_8, bit_2);
+		omnibus.status.lcm.output_led_switch_light          = bit_test(bitmask_8, bit_3);
+		omnibus.status.lcm.output_license_rear_left         = bit_test(bitmask_4, bit_2);
+		omnibus.status.lcm.output_license_rear_right        = bit_test(bitmask_6, bit_2);
+		omnibus.status.lcm.output_lowbeam_front_left        = bit_test(bitmask_5, bit_4);
+		omnibus.status.lcm.output_lowbeam_front_right       = bit_test(bitmask_5, bit_5);
+		omnibus.status.lcm.output_reverse_rear_left         = bit_test(bitmask_5, bit_3);
+		omnibus.status.lcm.output_reverse_rear_right        = bit_test(bitmask_7, bit_7);
+		omnibus.status.lcm.output_reverse_rear_trailer      = bit_test(bitmask_8, bit_5);
+		omnibus.status.lcm.output_standing_front_left       = bit_test(bitmask_5, bit_0);
+		omnibus.status.lcm.output_standing_front_right      = bit_test(bitmask_6, bit_5);
+		omnibus.status.lcm.output_standing_inner_rear_left  = bit_test(bitmask_5, bit_1);
+		omnibus.status.lcm.output_standing_inner_rear_right = bit_test(bitmask_7, bit_3);
+		omnibus.status.lcm.output_standing_rear_left        = bit_test(bitmask_6, bit_3);
+		omnibus.status.lcm.output_standing_rear_right       = bit_test(bitmask_7, bit_4);
+		omnibus.status.lcm.output_turn_front_left           = bit_test(bitmask_7, bit_6);
+		omnibus.status.lcm.output_turn_front_right          = bit_test(bitmask_6, bit_6);
+		omnibus.status.lcm.output_turn_rear_left            = bit_test(bitmask_6, bit_7);
+		omnibus.status.lcm.output_turn_rear_right           = bit_test(bitmask_7, bit_1);
+		omnibus.status.lcm.switch_brake                     = bit_test(bitmask_2, bit_0);
+		omnibus.status.lcm.switch_fog_front                 = bit_test(bitmask_2, bit_2);
+		omnibus.status.lcm.switch_fog_rear                  = bit_test(bitmask_2, bit_4);
+		omnibus.status.lcm.switch_hazard                    = bit_test(bitmask_1, bit_4);
+		omnibus.status.lcm.switch_highbeam                  = bit_test(bitmask_2, bit_1);
+		omnibus.status.lcm.switch_highbeam_flash            = bit_test(bitmask_1, bit_2);
+		omnibus.status.lcm.switch_lowbeam_1                 = bit_test(bitmask_3, bit_4);
+		omnibus.status.lcm.switch_lowbeam_2                 = bit_test(bitmask_3, bit_3);
+		omnibus.status.lcm.switch_standing                  = bit_test(bitmask_2, bit_5);
+		omnibus.status.lcm.switch_turn_left                 = bit_test(bitmask_2, bit_7);
+		omnibus.status.lcm.switch_turn_right                = bit_test(bitmask_2, bit_6);
 
 		console.log('[node-bmw] decoded current IO status');
 	}
 
 	// All the possible values to send to the LCM
 	var array_of_possible_values = {
-		clamp_15                         : true,
-		clamp_30a                        : true,
-		clamp_30b                        : true,
-		clamp_r                          : true,
+		bitmask_10                       : 0x00,
+		bitmask_11                       : 0x00,
+		clamp_15                         : false,
+		clamp_30a                        : false,
+		clamp_30b                        : false,
+		clamp_r                          : false,
 		dimmer_value                     : 0xFF,
-		input_air_suspension             : true,
-		input_armoured_door              : true,
-		input_brake_fluid_level          : true,
-		input_carb                       : true,
-		input_engine_failsafe            : true,
-		input_fire_extinguisher          : true,
-		input_hold_up_alarm              : true,
-		input_key_in_ignition            : true,
-		input_kfn                        : true,
-		input_preheating_fuel_injection  : true,
-		input_seat_belts_lock            : true,
-		input_tire_defect                : true,
-		input_vertical_aim               : true,
-		input_washer_fluid_level         : true,
-		mode_failsafe                    : true,
-		mode_sleep                       : true,
-		output_brake_rear_left           : true,
-		output_brake_rear_middle         : true,
-		output_brake_rear_right          : true,
-		output_fog_front_left            : true,
-		output_fog_front_right           : true,
-		output_fog_rear_left             : true,
-		output_highbeam_front_left       : true,
-		output_highbeam_front_right      : true,
-		output_led_switch_hazard         : true,
-		output_led_switch_light          : true,
-		output_license_rear_left         : true,
-		output_license_rear_right        : true,
-		output_lowbeam_front_left        : true,
-		output_lowbeam_front_right       : true,
-		output_reverse_rear_left         : true,
-		output_reverse_rear_right        : true,
-		output_reverse_rear_trailer      : true,
-		output_standing_front_left       : true,
-		output_standing_front_right      : true,
-		output_standing_inner_rear_left  : true,
-		output_standing_inner_rear_right : true,
-		output_standing_rear_left        : true,
-		output_standing_rear_right       : true,
-		output_turn_front_left           : true,
-		output_turn_front_right          : true,
-		output_turn_rear_left            : true,
-		output_turn_rear_right           : true,
-		switch_brake                     : true,
-		switch_fog_front                 : true,
-		switch_fog_rear                  : true,
-		switch_hazard                    : true,
-		switch_highbeam                  : true,
-		switch_highbeam_flash            : true,
-		switch_lowbeam_1                 : true,
-		switch_lowbeam_2                 : true,
-		switch_standing                  : true,
-		switch_turn_left                 : true,
-		switch_turn_right                : true,
+		input_air_suspension             : false,
+		input_armoured_door              : false,
+		input_brake_fluid_level          : false,
+		input_carb                       : false,
+		input_engine_failsafe            : false,
+		input_fire_extinguisher          : false,
+		input_hold_up_alarm              : false,
+		input_key_in_ignition            : false,
+		input_kfn                        : false,
+		input_preheating_fuel_injection  : false,
+		input_seat_belts_lock            : false,
+		input_tire_defect                : false,
+		input_vertical_aim               : false,
+		input_washer_fluid_level         : false,
+		mode_failsafe                    : false,
+		mode_sleep                       : false,
+		output_brake_rear_left           : false,
+		output_brake_rear_middle         : false,
+		output_brake_rear_right          : false,
+		output_fog_front_left            : false,
+		output_fog_front_right           : false,
+		output_fog_rear_left             : false,
+		output_highbeam_front_left       : false,
+		output_highbeam_front_right      : false,
+		output_led_switch_hazard         : false,
+		output_led_switch_light          : false,
+		output_license_rear_left         : false,
+		output_license_rear_right        : false,
+		output_lowbeam_front_left        : false,
+		output_lowbeam_front_right       : false,
+		output_reverse_rear_left         : false,
+		output_reverse_rear_right        : false,
+		output_reverse_rear_trailer      : false,
+		output_standing_front_left       : false,
+		output_standing_front_right      : false,
+		output_standing_inner_rear_left  : false,
+		output_standing_inner_rear_right : false,
+		output_standing_rear_left        : false,
+		output_standing_rear_right       : false,
+		output_turn_front_left           : false,
+		output_turn_front_right          : false,
+		output_turn_rear_left            : false,
+		output_turn_rear_right           : false,
+		switch_brake                     : false,
+		switch_fog_front                 : false,
+		switch_fog_rear                  : false,
+		switch_hazard                    : false,
+		switch_highbeam                  : false,
+		switch_highbeam_flash            : false,
+		switch_lowbeam_1                 : false,
+		switch_lowbeam_2                 : false,
+		switch_standing                  : false,
+		switch_turn_left                 : false,
+		switch_turn_right                : false,
 
 		// Suspect
 		// clamp_58g                        : true,

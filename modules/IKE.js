@@ -43,11 +43,11 @@ var IKE = function(omnibus) {
 		return string;
 	}
 
-	// Refresh OBC HUD once every 2 seconds, if ignition is in 'run'
-	if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+	// Refresh OBC HUD once every 8 seconds, if ignition is in 'run'
+	hud_refresh();
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	}, 5000);
+	}, 8000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -589,12 +589,12 @@ var IKE = function(omnibus) {
 
 		// Request consumption 1 and time
 		obc_data('get', 'cons1');
-		obc_data('get', 'time');
+		//obc_data('get', 'time');
 
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
 
-		ike_text(omnibus.status.obc.time+' C:'+cons1+' T:'+ctmp);
+		ike_text(omnibus.status.obc.time+' '+cons1+'mpg '+ctmp+'°');
 	}
 
 	// Refresh OBC data

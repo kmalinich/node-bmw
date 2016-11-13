@@ -105,16 +105,17 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
 					omnibus.status.vehicle.ignition = 'accessory';
+
 					// Start auto lights
 					omnibus.LCM.auto_lights('on');
 				}
 
 				switch (message[1]) { // Ignition status value
-					case 0x00 : omnibus.status.vehicle.ignition = 'off'      ; break;
-					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
-					case 0x03 : omnibus.status.vehicle.ignition = 'run'      ; break;
-					case 0x07 : omnibus.status.vehicle.ignition = 'start'    ; break;
-					default   : omnibus.status.vehicle.ignition = 'unknown'  ; break;
+					case 0x00 : omnibus.status.vehicle.ignition = 'off';      break;
+					case 0x01 : omnibus.status.vehicle.ignition = 'accessory' break;
+					case 0x03 : omnibus.status.vehicle.ignition = 'run';      break;
+					case 0x07 : omnibus.status.vehicle.ignition = 'start';    break;
+					default   : omnibus.status.vehicle.ignition = 'unknown';  break;
 				}
 
 				value = omnibus.status.vehicle.ignition;
@@ -466,6 +467,28 @@ var IKE = function(omnibus) {
 						value   = new Buffer(message);
 						break;
 				}
+				break;
+
+			case 0x2A: // Aux heating LED
+				command = 'Aux heating LED';
+				// This actually is a bitmask but.. this is also a freetime project
+				switch(message[2]) {
+					case 0x00:
+						value = 'off';
+						break;
+					case 0x04:
+						value = 'on';
+						break;
+					case 0x08:
+						value = 'blink';
+						break;
+					default:
+						value = 'unknown';
+						break;
+				}
+
+				omnibus.status.obc.aux_heat_led = value;
+				break;
 
 			case 0x57: // BC button in cluster
 				command = 'button';

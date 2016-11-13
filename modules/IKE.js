@@ -111,11 +111,11 @@ var IKE = function(omnibus) {
 				}
 
 				switch (message[1]) { // Ignition status value
-					case 0x00 : omnibus.status.vehicle.ignition = 'off';      break;
-					case 0x01 : omnibus.status.vehicle.ignition = 'accessory' break;
-					case 0x03 : omnibus.status.vehicle.ignition = 'run';      break;
-					case 0x07 : omnibus.status.vehicle.ignition = 'start';    break;
-					default   : omnibus.status.vehicle.ignition = 'unknown';  break;
+					case 0x00 : omnibus.status.vehicle.ignition = 'off';       break;
+					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
+					case 0x03 : omnibus.status.vehicle.ignition = 'run';       break;
+					case 0x07 : omnibus.status.vehicle.ignition = 'start';     break;
+					default   : omnibus.status.vehicle.ignition = 'unknown';   break;
 				}
 
 				value = omnibus.status.vehicle.ignition;

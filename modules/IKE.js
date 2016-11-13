@@ -128,24 +128,10 @@ var IKE = function(omnibus) {
 				// message[1]:
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
-					// If the handbrake was previously off
-					if (omnibus.status.vehicle.handbrake == false) {
-						// Stop auto lights
-						omnibus.LCM.auto_lights('off');
-					}
-
 					omnibus.status.vehicle.handbrake = true;
-					console.log('[node-bmw] Handbrake on');
 				}
 				else {
-					// If the handbrake was previously on
-					if (omnibus.status.vehicle.handbrake == true) {
-						// Start auto lights
-						omnibus.LCM.auto_lights('on');
-					}
-
 					omnibus.status.vehicle.handbrake = false;
-					console.log('[node-bmw] Handbrake off');
 				}
 
 				// message[2]:

@@ -297,7 +297,7 @@ var LCM = function(omnibus) {
 		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
 		// Ask IKE for ignition status and sensor status (includes handbrake)
-		omnibus.IKE.request('sensor');
+		//omnibus.IKE.request('sensor');
 		omnibus.IKE.request('ignition');
 
 		// Debug logging
@@ -324,13 +324,6 @@ var LCM = function(omnibus) {
 			lights_reason = 'unknown time of day, engaging failsafe';
 			omnibus.status.lights.auto_standing = false;
 			omnibus.status.lights.auto_lowbeam  = true;
-		}
-
-		// Check handbrake status
-		if (omnibus.status.vehicle.handbrake == true) {
-			lights_reason = 'handbrake on';
-			omnibus.status.lights.auto_standing = false;
-			omnibus.status.lights.auto_lowbeam  = false;
 		}
 
 		console.log('[node-bmw] Auto lights: standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
@@ -528,23 +521,12 @@ var LCM = function(omnibus) {
 	function reset() {
 		console.log('[LCM]  Resetting');
 		var lcm_object = {
-			output_lowbeam_front_left        : omnibus.status.lights.auto_lowbeam,
-			output_lowbeam_front_right       : omnibus.status.lights.auto_lowbeam,
-			output_standing_front_left       : omnibus.status.lights.auto_standing,
-			output_standing_front_right      : omnibus.status.lights.auto_standing,
-			output_standing_inner_rear_left  : omnibus.status.lights.auto_standing,
-			output_standing_inner_rear_right : omnibus.status.lights.auto_standing,
-			output_standing_rear_left        : omnibus.status.lights.auto_standing,
-			output_standing_rear_right       : omnibus.status.lights.auto_standing,
-			switch_lowbeam_1                 : omnibus.status.lights.auto_lowbeam,
-			switch_lowbeam_2                 : omnibus.status.lights.auto_lowbeam,
-			switch_standing                  : omnibus.status.lights.auto_standing,
-			switch_turn_left                 : omnibus.status.lights.turn_comfort_left,
-			switch_turn_right                : omnibus.status.lights.turn_comfort_right,
-      output_license_rear_left         : omnibus.status.lights.auto_standing,
+			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
+			switch_lowbeam_2  : omnibus.status.lights.auto_lowbeam,
+			switch_standing   : omnibus.status.lights.auto_standing,
+			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
+			switch_turn_right : omnibus.status.lights.turn_comfort_right,
 		};
-
-		console.log(lcm_object);
 
 		io_status_encode(lcm_object);
 	}

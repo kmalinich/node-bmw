@@ -322,7 +322,7 @@ var GM = function(omnibus) {
 		// Send the cluster and Kodi a notification
 		var notify_message = 'Unlocking doors';
 		omnibus.kodi.notify('GM', notify_message);
-		ike_text_urgent(notify_message)
+		omnibus.IKE.ike_text_urgent(notify_message)
 	}
 
 	// Send message to GM

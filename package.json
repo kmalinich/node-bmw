@@ -22,20 +22,21 @@
 		"url": "https://github.com/kmalinich/node-bmw/issues"
 	},
 	"dependencies": {
-		"cli-color": "^1.1.0",
-		"dbus-native": "^0.2.0",
-		"domain": "0.0.1",
-		"fs": "0.0.1-security",
-		"http": "0.0.0",
-		"http-dispatcher": "^0.2.2",
-		"kodi-ws": "^2.4.3",
-		"log": "^1.4.0",
-		"node-unit-conversion": "^0.1.1",
-		"querystring": "^0.2.0",
-		"serialport": "^4.0.6",
-		"suncalc": "^1.7.0",
-		"url": "^0.11.0",
-		"wait.for": "^0.6.6",
-		"websocket.io": "^0.2.1"
+		"cli-color"            : "^1.1.0",
+		"dbus-native"          : "^0.2.0",
+		"domain"               : "0.0.1",
+		"fs"                   : "0.0.1-security",
+		"http"                 : "0.0.0",
+		"httpdispatcher"       : "^2.0.1",
+		"jsonfile"             : "^2.4.0",
+		"kodi-ws"              : "^2.4.3",
+		"log"                  : "^1.4.0",
+		"node-unit-conversion" : "^0.1.1",
+		"querystring"          : "^0.2.0",
+		"serialport"           : "^4.0.6",
+		"suncalc"              : "^1.7.0",
+		"url"                  : "^0.11.0",
+		"wait.for"             : "^0.6.6",
+		"websocket.io"         : "^0.2.1"
 	}
 }

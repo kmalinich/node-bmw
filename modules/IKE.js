@@ -44,10 +44,9 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 8 seconds, if ignition is in 'run'
-	hud_refresh();
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	}, 8000);
+	}, 60000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {

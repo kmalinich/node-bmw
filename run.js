@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // npm libraries
-var dispatcher   = require('httpdispatcher');
+var dispatcher   = require('http-dispatcher');
 var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');

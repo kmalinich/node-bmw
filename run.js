@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 // npm libraries
-var dispatcher   = require('http-dispatcher');
 var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');
 var wait         = require('wait.for');
+
+var http_dispatcher = require('httpdispatcher');
+var dispatcher      = new http_dispatcher();
 
 // IBUS libraries
 var ibus_interface = require('./ibus/ibus-interface.js');

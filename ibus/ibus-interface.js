@@ -22,7 +22,7 @@ var ibus_interface = function(omnibus) {
 		autoOpen : false,
 		lock     : false,
 		parity   : 'even',
-		parser   : SerialPort.parsers.byteLength(5),
+		parser   : serialport.parsers.byteLength(5),
 		rtscts   : true,
 	});
 

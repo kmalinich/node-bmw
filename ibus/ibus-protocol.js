@@ -2,33 +2,30 @@
 
 module.exports = {
 	parser: function() {
-		var _self = this;
-		var data  = new Buffer(0);
+		var data = new Buffer(0);
 
 		return function(emitter, buffer) {
 			data = Buffer.concat([data, buffer]);
+			console.log('[parser] Current buffer         : ', data);
 
 			while (data.length >= 5) {
 				var out = data.slice(0, length);
 				data    = data.slice(length);
 
+				console.log('[parser] Emitting message');
 				emitter.emit('data', out);
 			}
 		};
 	},
 
 	ye_olde_parser : function() {
-		console.log('[ibus_protocol] Processing chunk #     : ', _self._process_id);
-		console.log('[ibus_protocol] Current buffer         : ', _self._buffer);
-		console.log('[ibus_protocol] Current chunk          : ', chunk);
-
-		_self._process_id++;
+		console.log('[parser] Current chunk          : ', chunk);
 
 		_self._buffer = Buffer.concat([_self._buffer, chunk]);
 
 		var current_chunk = _self._buffer;
 
-		console.log('[ibus_protocol] Concated chunk         : ', current_chunk);
+		console.log('[parser] Concated chunk         : ', current_chunk);
 
 		// If current chunk is long enough
 		// This assumption is based on the IBUS protocol
@@ -36,7 +33,7 @@ module.exports = {
 		// Each message must have at least 5 parts:
 		// SRC LEN DST DATA CHK
 		if (current_chunk.length > 4) {
-			console.log('[ibus_protocol] Analyzing chunk        : ', current_chunk);
+			console.log('[parser] Analyzing chunk        : ', current_chunk);
 
 			// Gather messages from current chunk
 			var messages = [];
@@ -92,7 +89,7 @@ module.exports = {
 
 			if (messages.length > 0) {
 				messages.forEach(function(message) {
-					console.log('[ibus_protocol] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
+					console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
 					_self.emit('message', message);
 				});
 			}
@@ -102,11 +99,11 @@ module.exports = {
 				// Push the remaining chunk from the end of the last valid message
 				_self._buffer = current_chunk.slice(end_of_last_message);
 
-				console.log('[ibus_protocol] Sliced data            : ', end_of_last_message, _self._buffer);
+				console.log('[parser] Sliced data            : ', end_of_last_message, _self._buffer);
 			}
 		}
 
-		console.log('[ibus_protocol]', 'Buffered messages size : ', _self._buffer.length);
+		console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 	},
 
 	create_ibus_message : function(msg) {

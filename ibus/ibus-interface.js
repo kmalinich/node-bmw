@@ -55,6 +55,7 @@ var ibus_interface = function(omnibus) {
 	// On data RX
 	serial_port.on('data', function(data) {
 	  console.log('[ INTF ] Data on port           : ', data);
+		_self.emit('data', data);
 	});
 
 	// Open serial port

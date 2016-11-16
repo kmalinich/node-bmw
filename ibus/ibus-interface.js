@@ -89,19 +89,19 @@ var ibus_interface = function(omnibus) {
 	function send_message(msg) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 
-		// console.log('[INTF] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
-		// console.log('[INTF] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
-		// console.log('[INTF] MSG : ', data_buffer);
+		console.log('[INTF::SEND] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
+		console.log('[INTF::SEND] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
+		console.log('[INTF::SEND] MSG : ', data_buffer);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
-				console.log('[INTF] Failed to write : ', error);
+				console.log('[INTF::SEND] Failed to write : ', error);
 			}
 
 			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
-				console.log('[INTF] Data drained');
+				console.log('[INTF::SEND] Data drained');
 			});
 
 			_self.emit('message_sent');

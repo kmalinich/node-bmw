@@ -42,7 +42,7 @@ var ibus_interface = function(omnibus) {
 	serial_port.on('open', function() {
 		console.log('[INTF] Port open [%s]', device);
 
-    serial_port.pipe(parser);
+    serial_port.pipe(ibus_parser);
 
 		// Request ignition status
 		//omnibus.IKE.request('ignition');

@@ -10,10 +10,9 @@ var ibus_interface = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.get_interface = get_interface;
-	this.startup       = startup;
-	this.shutdown      = shutdown;
-	this.send_message  = send_message;
+	this.startup      = startup;
+	this.shutdown     = shutdown;
+	this.send_message = send_message;
 
 	// Local data
 	var parser;
@@ -40,27 +39,27 @@ var ibus_interface = function(omnibus) {
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[INTF] Port open [%s]', device);
+    console.log('[INTF] Port open [%s]', device);
 
-		parser = new ibus_protocol();
-		parser.on('message', on_message);
-		serial_port.pipe(parser);
+    parser = new ibus_protocol();
+    parser.on('message', on_message);
+    serial_port.pipe(parser);
 
-		// Request ignition status
-		//omnibus.IKE.request('ignition');
-		omnibus.IKE.request('sensor');
-	});
+    // Request ignition status
+    //omnibus.IKE.request('ignition');
+    omnibus.IKE.request('sensor');
+  });
 
-	// On port close
-	serial_port.on('close', function() {
-		console.log('[INTF] Port closed [%s]', device);
-		parser = null;
-	});
+  // On port close
+  serial_port.on('close', function() {
+    console.log('[INTF] Port closed [%s]', device);
+    parser = null;
+  });
 
-	// On data RX
-	//serial_port.on('data', function(data) {
-	//	 console.log('[INTF] Data on port: ', data);
-	//});
+  // On data RX
+  serial_port.on('data', function(data) {
+    console.log('[INTF] Data on port: ', data);
+  });
 
 	// Open serial port
 	function startup() {
@@ -86,10 +85,6 @@ var ibus_interface = function(omnibus) {
 		callback();
 	}
 
-	function get_interface() {
-		return serial_port;
-	}
-
 	function on_message(msg) {
 		// console.log('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
 		_self.emit('data', msg);
@@ -104,7 +99,7 @@ var ibus_interface = function(omnibus) {
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
-				console.log('[INTF] Failed to write: ' + error);
+				console.log('[INTF] Failed to write : ', error);
 			}
 
 			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
@@ -116,7 +111,6 @@ var ibus_interface = function(omnibus) {
 			_self.emit('message_sent');
 		});
 	}
-
 };
 
 util.inherits(ibus_interface, event_emitter);

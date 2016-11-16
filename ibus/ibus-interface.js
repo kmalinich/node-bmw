@@ -15,14 +15,14 @@ var ibus_interface = function(omnibus) {
 	this.send_message = send_message;
 
 	// Local data
-	var parser      = new ibus_protocol();
+	var ibus_parser = new ibus_protocol();
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
 		lock     : false,
 		parity   : 'even',
-		parser   : parser,
+		parser   : ibus_parser,
 		rtscts   : true,
 	});
 
@@ -30,8 +30,8 @@ var ibus_interface = function(omnibus) {
 	 * Event handling
 	 */
 
-	// When the parser sends a fully-formed message back
-	parser.on('message', on_message);
+	// When ibus_parser sends a fully-formed message back
+	ibus_parser.on('message', on_message);
 
 	// On port error
 	serial_port.on('error', function(error) {
@@ -40,25 +40,23 @@ var ibus_interface = function(omnibus) {
 
 	// On port open
 	serial_port.on('open', function() {
-    console.log('[INTF] Port open [%s]', device);
+		console.log('[INTF] Port open [%s]', device);
 
-    serial_port.pipe(parser);
+		// Request ignition status
+		//omnibus.IKE.request('ignition');
+		omnibus.IKE.request('sensor');
+	});
 
-    // Request ignition status
-    //omnibus.IKE.request('ignition');
-    omnibus.IKE.request('sensor');
-  });
+	// On port close
+	serial_port.on('close', function() {
+		console.log('[INTF] Port closed [%s]', device);
+		ibus_parser = null;
+	});
 
-  // On port close
-  serial_port.on('close', function() {
-    console.log('[INTF] Port closed [%s]', device);
-    parser = null;
-  });
-
-  // On data RX
-  //serial_port.on('data', function(data) {
-  //  console.log('[INTF] Data on port : ', data);
-  //});
+	// On data RX
+	//serial_port.on('data', function(data) {
+	//  console.log('[INTF] Data on port : ', data);
+	//});
 
 	// Open serial port
 	function startup() {

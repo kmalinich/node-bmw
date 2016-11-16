@@ -6,12 +6,12 @@ module.exports = {
 	},
 
 	parser: function() {
-		var data = new Buffer(0);
+		var data   = new Buffer(0);
+		var length = 5;
+    console.log('[parser] Current buffer         : ', data);
 
 		return function(emitter, buffer) {
-			length = 5;
-			data   = Buffer.concat([data, buffer]);
-			console.log('[parser] Current buffer         : ', data);
+			data = Buffer.concat([data, buffer]);
 
 			while (data.length >= length) {
 				var out = data.slice(0, length);

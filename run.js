@@ -46,6 +46,7 @@ var VID  = require('./modules/VID.js');
 var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js');  // Vehicle status object
+omnibus.data_handler    = new data_handler(omnibus); // Data handler
 omnibus.ibus_connection = new ibus_interface(omnibus); // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
@@ -72,7 +73,6 @@ omnibus.TEL             = new TEL(omnibus);
 omnibus.VID             = new VID(omnibus);
 //omnibus.BT              = new BT(omnibus);
 omnibus.kodi            = new kodi(omnibus);
-omnibus.data_handler    = new data_handler(omnibus); // Data handler
 
 // Server ports
 var api_port       = 3001;

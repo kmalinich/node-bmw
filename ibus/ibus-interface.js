@@ -18,7 +18,7 @@ var ibus_interface = function(omnibus) {
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
 	var serial_port = new serialport(device, {
-		//autoOpen : false,
+		autoOpen : false,
 		lock     : false,
 		parity   : 'even',
 		parser   : ibus_protocol.parser, 

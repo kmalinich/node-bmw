@@ -6,16 +6,16 @@ var serialport    = require('serialport');
 var util          = require('util');
 
 var ibus_interface = function(omnibus) {
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
+	// Exposed data
 	this.get_interface = get_interface;
 	this.startup       = startup;
 	this.shutdown      = shutdown;
 	this.send_message  = send_message;
 
-	// local data
+	// Local data
 	var parser;
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
@@ -98,19 +98,19 @@ var ibus_interface = function(omnibus) {
 	function send_message(msg) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 
-		// console.log('[send_message] Src :', bus_modules.get_module_name(msg.src.toString(16)));
-		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
-		// console.log('[INTF] Send message: ', data_buffer);
+		// console.log('[INTF] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
+		// console.log('[INTF] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
+		// console.log('[INTF] MSG : ', data_buffer);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
 				console.log('[INTF] Failed to write: ' + error);
 			}
 
-			//console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
-				// console.log(clc.white('Data drained'));
+				console.log('[INTF] Data drained');
 			});
 
 			_self.emit('message_sent');

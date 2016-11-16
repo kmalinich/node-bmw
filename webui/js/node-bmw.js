@@ -631,6 +631,7 @@ function status_refresh_on() {
 		obc_refresh_exec();
 	}, 600);
 
+	// F**k .. need to get my websocket game up
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();

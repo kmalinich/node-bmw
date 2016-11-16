@@ -11,10 +11,10 @@ module.exports = {
 
 		return function(emitter, buffer) {
 			data = Buffer.concat([data, buffer]);
-			console.log('[parser] Current buffer         : ', data);
+			// console.log('[parser] Current buffer         : ', data);
 
 			if (data.length >= length) {
-				console.log('[parser] Analyzing chunk        : ', data);
+				// console.log('[parser] Analyzing chunk        : ', data);
 
 				// Gather messages from current chunk
 				var messages = [];
@@ -77,7 +77,7 @@ module.exports = {
 						//data = data.slice(length);
 						emitter.emit('data', message);
 
-						console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
+						// console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
 					});
 				}
 
@@ -86,11 +86,11 @@ module.exports = {
 					// Push the remaining chunk from the end of the last valid message
 					data = data.slice(end_of_last_message);
 
-					console.log('[parser] Sliced data            : ', end_of_last_message, data);
+					// console.log('[parser] Sliced data            : ', end_of_last_message, data);
 				}
 			}
 
-			//console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
+			//// console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 		}
 	},
 

@@ -31,6 +31,7 @@
     "jsonfile": "^2.4.0",
     "kodi-ws": "^2.4.3",
     "log": "^1.4.0",
+    "moment": "^2.16.0",
     "node-unit-conversion": "^0.1.1",
     "querystring": "^0.2.0",
     "serialport": "^4.0.6",

@@ -2,6 +2,7 @@
 
 // npm libraries
 var convert = require('node-unit-conversion');
+var moment  = require('moment');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -46,7 +47,7 @@ var IKE = function(omnibus) {
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	}, 3000);
+	}, 900);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -135,9 +136,9 @@ var IKE = function(omnibus) {
 				}
 				else {
 					// If it's newly off, flash a 1 second message
-					if (omnibus.status.vehicle.handbrake === true) {
-						ike_text_urgent('Handbrake off!', 2000);
-					}
+					//if (omnibus.status.vehicle.handbrake === true) {
+					//	ike_text_urgent('Handbrake off!', 2000);
+					//}
 					omnibus.status.vehicle.handbrake = false;
 				}
 
@@ -153,6 +154,11 @@ var IKE = function(omnibus) {
 				if (bit_test(message[2], bit_0)) { omnibus.status.engine.running = true; } else { omnibus.status.engine.running = false; }
 
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
+					// If it's newly in reverse
+					if (omnibus.status.vehicle.reverse == false) {
+						ike_text_warning('YOU\'RE IN REVERSE!', 2000);
+					}
+
 					omnibus.status.vehicle.reverse = true;
 				}
 				else {
@@ -594,14 +600,20 @@ var IKE = function(omnibus) {
 	function hud_refresh() {
 		// console.log('[node-bmw] Refreshing OBC HUD');
 
-		// Request consumption 1 and time
-		obc_data('get', 'cons1');
-		obc_data('get', 'time');
+		// Populate values if missing
+		if (omnibus.status.vehicle.reverse == 0) {
+			obc_data('get', 'cons1');
+		}
+		if (omnibus.status.temperature.coolant_c == 0) {
+			request('temperature');
+		}
 
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
 
-		ike_text(omnibus.status.obc.time+' '+cons1+'mpg '+ctmp+'¨');
+		var time_string = moment().format('hh:mm:ss');
+
+		ike_text(time_string+' '+cons1+'mpg '+ctmp+'¨');
 	}
 
 	// Refresh OBC data

@@ -31,6 +31,7 @@ var ibus_interface = function(omnibus) {
 
 	// When ibus_parser sends a fully-formed message back
 	// ibus_parser.on('message', on_message);
+	serial_port.on('data', on_message);
 
 	// On port error
 	serial_port.on('error', function(error) {
@@ -55,7 +56,6 @@ var ibus_interface = function(omnibus) {
 	// On data RX
 	serial_port.on('data', function(data) {
 	  console.log('[ INTF ] Data on port           : ', data);
-		_self.emit('data', data);
 	});
 
 	// Open serial port

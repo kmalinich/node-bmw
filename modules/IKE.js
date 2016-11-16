@@ -142,8 +142,8 @@ var IKE = function(omnibus) {
 					omnibus.status.vehicle.handbrake = true;
 				}
 				else {
-					// If it's newly off, enable auto lights
-					if (omnibus.status.vehicle.handbrake === false) {
+					// If it's newly off, and the ignition is in 'run', enable auto lights
+					if (omnibus.status.vehicle.handbrake === true && omnibus.status.vehicle.ignition == 'run') {
 						omnibus.LCM.auto_lights('on');
 					}
 					omnibus.status.vehicle.handbrake = false;

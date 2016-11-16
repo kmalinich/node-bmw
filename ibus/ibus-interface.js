@@ -29,10 +29,6 @@ var ibus_interface = function(omnibus) {
 	 * Event handling
 	 */
 
-	// When ibus_parser sends a fully-formed message back
-	// ibus_parser.on('message', on_message);
-	serial_port.on('data', on_message);
-
 	// On port error
 	serial_port.on('error', function(error) {
 		console.error('[INTF] Port error : %s', error);
@@ -53,10 +49,8 @@ var ibus_interface = function(omnibus) {
 		ibus_parser = null;
 	});
 
-	// On data RX
-	serial_port.on('data', function(data) {
-	  console.log('[ INTF ] Data on port           : ', data);
-	});
+	// When the parser sends a fully-formed message back
+	serial_port.on('data', omnibus.data_handler.check_data);
 
 	// Open serial port
 	function startup() {
@@ -80,11 +74,6 @@ var ibus_interface = function(omnibus) {
 		}
 
 		callback();
-	}
-
-	function on_message(msg) {
-		// console.log('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
-		_self.emit('data', msg);
 	}
 
 	function send_message(msg) {

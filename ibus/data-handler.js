@@ -8,7 +8,7 @@ var data_handler = function(omnibus) {
 	this.check_data = check_data;
 
 	// Run check_data(); when new bus data appears
-	omnibus.ibus_connection.on('data', check_data)
+	//omnibus.ibus_connection.on('data', check_data)
 
 	// Data handler
 	function check_data(data) {

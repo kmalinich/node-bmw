@@ -576,6 +576,32 @@ var status_loop;
 var status_refresh;
 var gm_refresh;
 
+function obc_refresh_exec() {
+	// Data refresh from OBC/IKE
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'obc-get=all',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function gm_refresh_exec() {
+	// Data refresh from GM
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm-get',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function status_refresh_on() {
 	// CSS magic
 	$('#icon-refresh').addClass('fa-spin');
@@ -596,36 +622,19 @@ function status_refresh_on() {
 	});
 
 	// Set the loops
+	obc_refresh_exec();
 	status_refresh = setInterval(function() {
-		// Data refresh from OBC/IKE
-		$.ajax({
-			url      : '/api/ike',
-			type     : 'POST',
-			dataType : 'json',
-			data     : 'obc-get=all',
-			success  : function(return_data) {
-				console.log(return_data);
-			}
-		});
-	}, 10000);
+		obc_refresh_exec();
+	}, 500);
 
 	gm_refresh = setInterval(function() {
-		// Data refresh from GM
-		$.ajax({
-			url      : '/api/gm',
-			type     : 'POST',
-			dataType : 'json',
-			data     : 'gm-command=gm-get',
-			success  : function(return_data) {
-				console.log(return_data);
-			}
-		});
-	}, 5000);
+		obc_refresh_exec();
+	}, 600);
 
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();
-	}, 1000);
+	}, 500);
 }
 
 // Convert a string to hex

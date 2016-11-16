@@ -8,9 +8,11 @@ module.exports = {
   // Emit a data event every `length` bytes
   parser: function(length) {
     var data = new Buffer(0);
+    console.log('[parser] External buffer         : ', data);
 
     return function(emitter, buffer) {
       data = Buffer.concat([data, buffer]);
+      console.log('[parser] Internal buffer         : ', data);
   
       while (data.length >= length) {
         var out = data.slice(0, length);

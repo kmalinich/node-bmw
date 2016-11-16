@@ -10,8 +10,8 @@ var http_dispatcher = require('httpdispatcher');
 var dispatcher      = new http_dispatcher();
 
 // IBUS libraries
-var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
+var ibus_interface = require('./ibus/ibus-interface.js');
 
 // Other custom libraries
 //var BT   = require('./lib/BT.js');

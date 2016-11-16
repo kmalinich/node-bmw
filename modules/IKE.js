@@ -129,14 +129,14 @@ var IKE = function(omnibus) {
 				if (bit_test(message[1], bit_0)) {
 					// If it's newly on, flash a 1 second message
 					if (omnibus.status.vehicle.handbrake === false) {
-						ike_text_urgent('Handbrake on!', 1);
+						ike_text_urgent('Handbrake on!', 1000);
 					}
 					omnibus.status.vehicle.handbrake = true;
 				}
 				else {
 					// If it's newly off, flash a 1 second message
 					if (omnibus.status.vehicle.handbrake === true) {
-						ike_text_urgent('Handbrake off!', 1);
+						ike_text_urgent('Handbrake off!', 1000);
 					}
 					omnibus.status.vehicle.handbrake = false;
 				}

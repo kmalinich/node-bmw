@@ -282,17 +282,13 @@ var LCM = function(omnibus) {
 					// Send one through to prime the pumps
 					auto_lights_process();
 
-					// Process/send LCM data on 10 second interval
+					// Process/send LCM data on 3 second interval
 					// LCM diag command timeout is 15 seconds
 					auto_lights_interval = setInterval(function() {
 						// Process auto lights
 						auto_lights_process();
-					}, 10000);
+					}, 3000);
 
-					// Send the cluster and Kodi a notification
-					var notify_message = 'Auto lights on';
-					omnibus.kodi.notify('LCM', notify_message);
-					omnibus.IKE.ike_text_urgent(notify_message)
 
 					console.log('[node-bmw] Automatic lights enabled');
 				}

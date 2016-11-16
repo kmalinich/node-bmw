@@ -80,20 +80,23 @@ var IKE = function(omnibus) {
 
 				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
+					console.log('[node-bmw] Trigger: power-off state');
+
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
 						console.log('[node-bmw] Unlocking doors');
+
 						// Send message to GM to toggle door locks
 						omnibus.GM.gm_cl();
+
+						// Stop auto lights
+						omnibus.LCM.auto_lights('off');
 					}
 				}
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
-					console.log('[node-bmw] Trigger: power-off state');
-					omnibus.status.vehicle.ignition = 'off';
-					// Stop auto lights
-					omnibus.LCM.auto_lights('off');
+					console.log('[node-bmw] Trigger: power-down state');
 
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
@@ -103,7 +106,11 @@ var IKE = function(omnibus) {
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
-					omnibus.status.vehicle.ignition = 'accessory';
+				}
+
+				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
+				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
+					console.log('[node-bmw] Trigger: run state');
 
 					// Start auto lights
 					omnibus.LCM.auto_lights('on');
@@ -128,17 +135,17 @@ var IKE = function(omnibus) {
 				// message[1]:
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
-					// If it's newly on, flash a 1 second message
+					// If it's newly on, disable auto lights
 					if (omnibus.status.vehicle.handbrake === false) {
-						ike_text_warning('Handbrake on!', 2000);
+						omnibus.LCM.auto_lights('off');
 					}
 					omnibus.status.vehicle.handbrake = true;
 				}
 				else {
-					// If it's newly off, flash a 1 second message
-					//if (omnibus.status.vehicle.handbrake === true) {
-					//	ike_text_urgent('Handbrake off!', 2000);
-					//}
+					// If it's newly off, enable auto lights
+					if (omnibus.status.vehicle.handbrake === false) {
+						omnibus.LCM.auto_lights('on');
+					}
 					omnibus.status.vehicle.handbrake = false;
 				}
 

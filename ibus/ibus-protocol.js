@@ -5,23 +5,20 @@ module.exports = {
 		emitter.emit('data', buffer);
 	},
 
-	parser: function() {
-		var data   = new Buffer(0);
-		var length = 5;
+  // Emit a data event every `length` bytes
+  parser: function(length) {
+    var data = new Buffer(0);
 
-		return function(emitter, buffer) {
-			data = Buffer.concat([data, buffer]);
-      console.log('[parser] Current buffer         : ', data);
-
-			while (data.length >= length) {
-				var out = data.slice(0, length);
-				data    = data.slice(length);
-
-				console.log('[parser] Emitting message : ', out);
-				emitter.emit('data', out);
-			}
-		};
-	},
+    return function(emitter, buffer) {
+      data = Buffer.concat([data, buffer]);
+  
+      while (data.length >= length) {
+        var out = data.slice(0, length);
+        data = data.slice(length);
+        emitter.emit('data', out);
+      }
+    };
+  },
 
 	ye_olde_parser : function() {
 		console.log('[parser] Current chunk          : ', chunk);

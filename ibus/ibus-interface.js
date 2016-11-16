@@ -23,7 +23,7 @@ var ibus_interface = function(omnibus) {
 		lock     : false,
 		parity   : 'even',
 		// parser   : serialport.parsers.byteLength(5),
-		parser   : serialport.parsers.readline('\n'),
+		parser   : serialport.parsers.readline('\n', 16),
 		rtscts   : true,
 	});
 

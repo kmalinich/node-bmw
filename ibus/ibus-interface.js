@@ -23,7 +23,7 @@ var ibus_interface = function(omnibus) {
 		baudRate : 9600,
 		dataBits : 8,
 		parity   : 'even',
-		parser   : serialport.parsers.raw,
+		parser   : serialport.parsers.readline('\n'),
 		rtscts   : true,
 		stopBits : 1,
 	});

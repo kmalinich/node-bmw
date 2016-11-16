@@ -82,7 +82,7 @@ module.exports = {
 					// Push the remaining chunk from the end of the last valid message
 					data = data.slice(end_of_last_message);
 
-					console.log('[parser] Sliced data            : ', end_of_last_message, _self._buffer);
+					console.log('[parser] Sliced data            : ', end_of_last_message, data);
 				}
 			}
 

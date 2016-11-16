@@ -129,14 +129,14 @@ var IKE = function(omnibus) {
 				if (bit_test(message[1], bit_0)) {
 					// If it's newly on, flash a 1 second message
 					if (omnibus.status.vehicle.handbrake === false) {
-						ike_text_urgent('Handbrake on!', 1000);
+						ike_text_warning('Handbrake on!', 2000);
 					}
 					omnibus.status.vehicle.handbrake = true;
 				}
 				else {
 					// If it's newly off, flash a 1 second message
 					if (omnibus.status.vehicle.handbrake === true) {
-						ike_text_urgent('Handbrake off!', 1000);
+						ike_text_urgent('Handbrake off!', 2000);
 					}
 					omnibus.status.vehicle.handbrake = false;
 				}
@@ -596,7 +596,7 @@ var IKE = function(omnibus) {
 
 		// Request consumption 1 and time
 		obc_data('get', 'cons1');
-		//obc_data('get', 'time');
+		obc_data('get', 'time');
 
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
@@ -827,6 +827,31 @@ var IKE = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
+	// Check control warnings
+	function ike_text_warning(message, timeout) {
+		var src = 0x30; // CCM
+		var dst = 0x80; // IKE
+
+		var message_hex = [0x1A, 0x37, 0x1b];
+		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer(message_hex),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+
+		if (!timeout) { var timeout = 5000; }
+
+		// Clear the message after 5 seconds
+		setTimeout(function() {
+			ike_text_urgent_off();
+			hud_refresh();
+		}, timeout);
+	}
+
 	// Check control messages
 	function ike_text_urgent(message, timeout) {
 		var src = 0x30; // CCM
@@ -848,6 +873,7 @@ var IKE = function(omnibus) {
 		// Clear the message after 5 seconds
 		setTimeout(function() {
 			ike_text_urgent_off();
+			hud_refresh();
 		}, timeout);
 	}
 

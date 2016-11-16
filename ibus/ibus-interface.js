@@ -15,14 +15,13 @@ var ibus_interface = function(omnibus) {
 	this.send_message = send_message;
 
 	// Local data
-	var ibus_parser = new ibus_protocol();
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		//autoOpen : false,
 		lock     : false,
 		parity   : 'even',
-		parser   : ibus_parser.parser(), 
+		parser   : ibus_parser.parser, 
 		rtscts   : true,
 	});
 

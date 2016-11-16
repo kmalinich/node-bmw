@@ -41,7 +41,7 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
   // Each message must have at least 5 parts:
   // SRC LEN DST DATA CHK
   if (current_chunk.length > 4) {
-    console.log('[ibus_protocol] Analyzing chunk         : ', current_chunk);
+    console.log('[ibus_protocol] Analyzing chunk        : ', current_chunk);
 
     // Gather messages from current chunk
     var messages = [];

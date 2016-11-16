@@ -21,7 +21,7 @@ var ibus_interface = function(omnibus) {
 		autoOpen : false,
 		lock     : false,
 		parity   : 'even',
-		parser   : ibus_protocol.raw, 
+		parser   : ibus_protocol.parser, 
 		rtscts   : true,
 	});
 

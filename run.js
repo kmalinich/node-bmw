@@ -84,7 +84,7 @@ var api_server    = http.createServer(api_handler);
 
 // API handler function
 function api_handler(request, response) {
-	console.log('[API]  %s request: %s', request.method, request.url);
+	//console.log('[API]  %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 

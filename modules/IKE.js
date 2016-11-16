@@ -658,7 +658,7 @@ var IKE = function(omnibus) {
 		// Assemble message string
 		var msg = [cmd, value_id, action_id];
 
-		console.log('[node-bmw]  Doing \'%s\' on OBC value \'%s\'', action, value);
+		// console.log('[node-bmw] Doing \'%s\' on OBC value \'%s\'', action, value);
 
 		var ibus_packet = {
 			src: src,

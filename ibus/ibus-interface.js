@@ -39,7 +39,7 @@ var ibus_interface = function(omnibus) {
 		console.log('[INTF] Port open [%s]', device);
 
 		// Request ignition status
-		//omnibus.IKE.request('ignition');
+		omnibus.IKE.request('ignition');
 		omnibus.IKE.request('sensor');
 	});
 
@@ -79,9 +79,9 @@ var ibus_interface = function(omnibus) {
 	function send_message(msg) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 
-		console.log('[INTF::SEND] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
-		console.log('[INTF::SEND] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
-		console.log('[INTF::SEND] MSG : ', data_buffer);
+		// console.log('[INTF::SEND] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
+		// console.log('[INTF::SEND] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
+		// console.log('[INTF::SEND] MSG : ', data_buffer);
 
 		serial_port.write(data_buffer, function(error, resp) {
 			if (error) {
@@ -91,7 +91,7 @@ var ibus_interface = function(omnibus) {
 			// console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 			serial_port.drain(function(error) {
-				console.log('[INTF::SEND] Data drained');
+				// console.log('[INTF::SEND] Data drained');
 			});
 
 			_self.emit('message_sent');

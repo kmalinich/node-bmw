@@ -5,24 +5,32 @@ util.inherits(ibus_protocol, Transform);
 function ibus_protocol(options) {
 	options = options || {};
 
-	if (!(this instanceof ibus_protocol))
+	if (!(this instanceof ibus_protocol)) {
 		return new ibus_protocol(options);
-
-	Transform.call(this, options);
-	this._buffer        = new Buffer(0x00);
-	this._process_id    = 0;
-	this._is_processing = false;
-}
-
-ibus_protocol.prototype._transform = function(chunk, encoding, done) {        
-	var _self = this;
-
-	if(_self._is_processing === true) {
-		console.log('[ibus_protocol] Error. This _transform function should NOT be running..');
 	}
 
-	_self._is_processing = true;
+	Transform.call(this, options);
+	this._process_id = 0;
+}
 
+
+ibus_protocol.parser = function() {
+	var _self = this;
+	var data  = new Buffer(0);
+
+	return function(emitter, buffer) {
+		data = Buffer.concat([data, buffer]);
+
+		while (data.length >= 5) {
+			var out = data.slice(0, length);
+			data    = data.slice(length);
+
+			emitter.emit('data', out);
+		}
+	};
+};
+
+ibus_protocol.ye_olde_parser = function() {
 	console.log('[ibus_protocol] Processing chunk #     : ', _self._process_id);
 	console.log('[ibus_protocol] Current buffer         : ', _self._buffer);
 	console.log('[ibus_protocol] Current chunk          : ', chunk);
@@ -109,21 +117,9 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 
 			console.log('[ibus_protocol] Sliced data            : ', end_of_last_message, _self._buffer);
 		}
-		else {
-			// Push the entire chunk
-			if (_self._buffer.length > 1024) {
-				// Overflow protection
-				console.log('[ibus_protocol]', 'Dropping some data..');
-				_self._buffer = current_chunk.slice(chunk.length - 300);
-			}
-		}
 	}
 
 	console.log('[ibus_protocol]', 'Buffered messages size : ', _self._buffer.length);
-
-	_self._is_processing = false;
-
-	done();
 };
 
 ibus_protocol.create_ibus_message = function(msg) {

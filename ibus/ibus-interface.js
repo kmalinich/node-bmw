@@ -22,8 +22,7 @@ var ibus_interface = function(omnibus) {
 		autoOpen : false,
 		lock     : false,
 		parity   : 'even',
-		// parser   : serialport.parsers.byteLength(5),
-		parser   : serialport.parsers.readline('\n', 16),
+		parser   : ibus_parser.parser, 
 		rtscts   : true,
 	});
 
@@ -32,7 +31,7 @@ var ibus_interface = function(omnibus) {
 	 */
 
 	// When ibus_parser sends a fully-formed message back
-	ibus_parser.on('message', on_message);
+	// ibus_parser.on('message', on_message);
 
 	// On port error
 	serial_port.on('error', function(error) {
@@ -42,8 +41,6 @@ var ibus_interface = function(omnibus) {
 	// On port open
 	serial_port.on('open', function() {
 		console.log('[INTF] Port open [%s]', device);
-
-    // serial_port.pipe(ibus_parser);
 
 		// Request ignition status
 		//omnibus.IKE.request('ignition');

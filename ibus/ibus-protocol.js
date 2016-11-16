@@ -9,10 +9,11 @@ module.exports = {
 		var data = new Buffer(0);
 
 		return function(emitter, buffer) {
-			data = Buffer.concat([data, buffer]);
+			length = 5;
+			data   = Buffer.concat([data, buffer]);
 			console.log('[parser] Current buffer         : ', data);
 
-			while (data.length >= 5) {
+			while (data.length >= length) {
 				var out = data.slice(0, length);
 				data    = data.slice(length);
 

@@ -43,10 +43,10 @@ var IKE = function(omnibus) {
 		return string;
 	}
 
-	// Refresh OBC HUD once every 8 seconds, if ignition is in 'run'
+	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
 	setInterval(function() {
 		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
-	}, 60000);
+	}, 3000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -584,7 +584,7 @@ var IKE = function(omnibus) {
 
 	// Refresh custom HUD
 	function hud_refresh() {
-		console.log('[node-bmw] Refreshing OBC HUD');
+		// console.log('[node-bmw] Refreshing OBC HUD');
 
 		// Request consumption 1 and time
 		obc_data('get', 'cons1');
@@ -866,9 +866,9 @@ var IKE = function(omnibus) {
 
 		string = string.ike_pad();
 
-		// Need to center and pad spaces out to 20 chars
-		console.log('[node-bmw] Sending text to IKE screen: \'%s\'', string);
+		// console.log('[node-bmw] Sending text to IKE screen: \'%s\'', string);
 
+		// Need to center text.. 
 		var string_hex = [0x23, 0x50, 0x30, 0x07];
 		var string_hex = string_hex.concat(ascii2hex(string));
 		var string_hex = string_hex.concat(0x04);

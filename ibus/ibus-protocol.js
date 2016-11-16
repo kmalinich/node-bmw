@@ -48,7 +48,11 @@ module.exports = {
 							crc = crc ^ mMsg[j];
 						}
 
-						if (crc === mCrc) {
+						// THIS IS IMPORTANT!!
+						// The IKE sensor status will look like 80 0a bf 13 00 00 00 00 00 00 
+						// and at some point, the checksum will look correct to the parser
+						// So f**k that, no 0x00 checksums
+						 if (crc === mCrc && crc != 0x00) {
 							messages.push({
 								'id'  : Date.now(),
 								'src' : mSrc.toString(16),
@@ -88,94 +92,6 @@ module.exports = {
 
 			//console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 		}
-	},
-
-	ye_olde_parser : function() {
-		console.log('[parser] Current chunk          : ', chunk);
-
-		_self._buffer = Buffer.concat([_self._buffer, chunk]);
-
-		var current_chunk = _self._buffer;
-
-		console.log('[parser] Concated chunk         : ', current_chunk);
-
-		// If current chunk is long enough
-		// This assumption is based on the IBUS protocol
-		//
-		// Each message must have at least 5 parts:
-		// SRC LEN DST DATA CHK
-		if (current_chunk.length > 4) {
-			console.log('[parser] Analyzing chunk        : ', current_chunk);
-
-			// Gather messages from current chunk
-			var messages = [];
-
-			var end_of_last_message = -1;
-
-			var mSrc;
-			var mLen;
-			var mDst;
-			var mMsg;
-			var mCrc;
-
-			// Look for messages in current chunk
-			for (var i = 0; i < current_chunk.length - 5; i++) {
-				mSrc = current_chunk[i + 0];
-				mLen = current_chunk[i + 1];
-				mDst = current_chunk[i + 2];
-
-				// Test to see if have enough data for a complete message
-				if (current_chunk.length >= (i + 2 + mLen)) {
-
-					mMsg = current_chunk.slice(i + 3, i + 3 + mLen - 2);
-					mCrc = current_chunk[i + 2 + mLen - 1];
-
-					var crc = 0x00;
-
-					crc = crc ^ mSrc;
-					crc = crc ^ mLen;
-					crc = crc ^ mDst;
-
-					for (var j = 0; j < mMsg.length; j++) {
-						crc = crc ^ mMsg[j];
-					}
-
-					if (crc === mCrc) {
-						messages.push({
-							'id'  : Date.now(),
-							'src' : mSrc.toString(16),
-							'len' : mLen.toString(16),
-							'dst' : mDst.toString(16),
-							'msg' : mMsg,
-							'crc' : mCrc.toString(16)
-						});
-
-						// Mark end of last message
-						end_of_last_message = (i + 2 + mLen);
-
-						// Skip ahead
-						i = end_of_last_message - 1;
-					}
-				}
-			}
-
-			if (messages.length > 0) {
-				messages.forEach(function(message) {
-					console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
-					_self.emit('message', message);
-				});
-			}
-
-			// Push the remaining data back to the stream
-			if (end_of_last_message !== -1) {
-				// Push the remaining chunk from the end of the last valid message
-				_self._buffer = current_chunk.slice(end_of_last_message);
-
-				console.log('[parser] Sliced data            : ', end_of_last_message, _self._buffer);
-			}
-		}
-
-		console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 	},
 
 	create_ibus_message : function(msg) {

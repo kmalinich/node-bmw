@@ -8,16 +8,16 @@ module.exports = {
 	parser: function() {
 		var data   = new Buffer(0);
 		var length = 5;
-    console.log('[parser] Current buffer         : ', data);
 
 		return function(emitter, buffer) {
 			data = Buffer.concat([data, buffer]);
+      console.log('[parser] Current buffer         : ', data);
 
 			while (data.length >= length) {
 				var out = data.slice(0, length);
 				data    = data.slice(length);
 
-				console.log('[parser] Emitting message');
+				console.log('[parser] Emitting message : ', out);
 				emitter.emit('data', out);
 			}
 		};

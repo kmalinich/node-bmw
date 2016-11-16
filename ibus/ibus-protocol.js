@@ -97,7 +97,7 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 
 		if (messages.length > 0) {
 			messages.forEach(function(message) {
-				console.log('[ibus_protocol] Emitting message');
+				console.log('[ibus_protocol] Emitting message       : ', message);
 				_self.emit('message', message);
 			});
 		}

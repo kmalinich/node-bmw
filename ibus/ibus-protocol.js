@@ -9,7 +9,7 @@ function ibus_protocol(options) {
     return new ibus_protocol(options);
 
   Transform.call(this, options);
-  this._buffer        = new Buffer(0);
+  this._buffer        = new Buffer(0x00);
   this._process_id    = 0;
   this._is_processing = false;
 }
@@ -33,7 +33,7 @@ ibus_protocol.prototype._transform = function(chunk, encoding, done) {
 
   var current_chunk = _self._buffer;
 
-  console.log('[ibus_protocol] Concated chunk          : ', current_chunk);
+  console.log('[ibus_protocol] Concated chunk         : ', current_chunk);
 
   // If current chunk is long enough
   // This assumption is based on the IBUS protocol

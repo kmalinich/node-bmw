@@ -13,7 +13,7 @@ module.exports = {
 			data = Buffer.concat([data, buffer]);
 			console.log('[parser] Current buffer         : ', data);
 
-			while (data.length >= length) {
+			if (data.length >= length) {
 				console.log('[parser] Analyzing chunk        : ', data);
 
 				// Gather messages from current chunk

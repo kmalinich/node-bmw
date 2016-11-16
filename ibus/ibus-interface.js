@@ -47,7 +47,8 @@ var ibus_interface = function(omnibus) {
 		serial_port.pipe(parser);
 
 		// Request ignition status
-		omnibus.IKE.request('ignition');	
+		//omnibus.IKE.request('ignition');
+		omnibus.IKE.request('sensor');
 	});
 
 	// On port close

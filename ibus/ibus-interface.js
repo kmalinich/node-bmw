@@ -15,34 +15,33 @@ var ibus_interface = function(omnibus) {
 	this.send_message = send_message;
 
 	// Local data
-	var parser;
+	var parser      = new ibus_protocol();
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
-		baudRate : 9600,
-		dataBits : 8,
+		lock     : false,
 		parity   : 'even',
-		parser   : serialport.parsers.readline('\n'),
+		parser   : parser,
 		rtscts   : true,
-		stopBits : 1,
 	});
 
 	/*
 	 * Event handling
 	 */
 
+	// When the parser sends a fully-formed message back
+	parser.on('message', on_message);
+
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[INTF] Port error: %s', error);
+		console.error('[INTF] Port error : %s', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
     console.log('[INTF] Port open [%s]', device);
 
-    parser = new ibus_protocol();
-    parser.on('message', on_message);
     serial_port.pipe(parser);
 
     // Request ignition status
@@ -57,9 +56,9 @@ var ibus_interface = function(omnibus) {
   });
 
   // On data RX
-  serial_port.on('data', function(data) {
-    console.log('[INTF] Data on port: ', data);
-  });
+  //serial_port.on('data', function(data) {
+  //  console.log('[INTF] Data on port : ', data);
+  //});
 
 	// Open serial port
 	function startup() {

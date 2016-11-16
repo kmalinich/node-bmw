@@ -69,9 +69,9 @@ module.exports = {
 
 				if (messages.length > 0) {
 					messages.forEach(function(message) {
-						var out = data.slice(0, length);
+						//var out = data.slice(0, length);
 						//data = data.slice(length);
-						emitter.emit('data', out);
+						emitter.emit('data', message);
 
 						console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
 					});

@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = {
+	raw: function(emitter, buffer) {
+		emitter.emit('data', buffer);
+	},
+
 	parser: function() {
 		var data = new Buffer(0);
 

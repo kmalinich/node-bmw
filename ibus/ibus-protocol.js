@@ -80,7 +80,7 @@ module.exports = {
 				// Push the remaining data back to the stream
 				if (end_of_last_message !== -1) {
 					// Push the remaining chunk from the end of the last valid message
-					date = data.slice(end_of_last_message);
+					data = data.slice(end_of_last_message);
 
 					console.log('[parser] Sliced data            : ', end_of_last_message, _self._buffer);
 				}

@@ -46,7 +46,7 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
 	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run') { hud_refresh(); }
+		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
 	}, 900);
 
 	// Parse data sent from IKE module
@@ -82,15 +82,15 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[node-bmw] Trigger: power-off state');
 
+					// Stop auto lights
+					omnibus.LCM.auto_lights('off');
+
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
 						console.log('[node-bmw] Unlocking doors');
 
 						// Send message to GM to toggle door locks
 						omnibus.GM.gm_cl();
-
-						// Stop auto lights
-						omnibus.LCM.auto_lights('off');
 					}
 				}
 
@@ -163,7 +163,7 @@ var IKE = function(omnibus) {
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
 					// If it's newly in reverse
 					if (omnibus.status.vehicle.reverse == false) {
-						ike_text_warning('YOU\'RE IN REVERSE!', 2000);
+						ike_text_warning(' YOU\'RE IN REVERSE!', 2000);
 					}
 
 					omnibus.status.vehicle.reverse = true;
@@ -618,7 +618,7 @@ var IKE = function(omnibus) {
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
 
-		var time_string = moment().format('hh:mm:ss');
+		var time_string = moment().format('HH:mm');
 
 		ike_text(time_string+' '+cons1+'mpg '+ctmp+'¨');
 	}
@@ -851,7 +851,18 @@ var IKE = function(omnibus) {
 		var src = 0x30; // CCM
 		var dst = 0x80; // IKE
 
-		var message_hex = [0x1A, 0x37, 0x1b];
+		// var message_hex = [0x1A, 0x37, 0x00]; // no gong, no arrows
+		// var message_hex = [0x1A, 0x37, 0x01]; // no gong, solid arrows
+		// var message_hex = [0x1A, 0x37, 0x02]; // no gong, no arrows
+		// var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrows
+		// var message_hex = [0x1A, 0x37, 0x04]; // 1 hi gong,  no arrows
+		// var message_hex = [0x1A, 0x37, 0x08]; // 2 hi gongs, no arrows
+		// var message_hex = [0x1A, 0x37, 0x0C]; // 3 hi gongs + no arrows
+		// var message_hex = [0x1A, 0x37, 0x10]; // 1 lo gong, no arrows
+		// var message_hex = [0x1A, 0x37, 0x18]; // 3 beeps + no arrows
+
+		var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrows
+
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
 		var ibus_packet = {

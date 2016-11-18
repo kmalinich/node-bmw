@@ -267,11 +267,6 @@ var LCM = function(omnibus) {
 				omnibus.status.lights.auto_lowbeam  = false;
 				reset();
 
-				// Send the cluster and Kodi a notification
-				var notify_message = 'Auto lights off';
-				omnibus.kodi.notify('LCM', notify_message);
-				omnibus.IKE.ike_text_urgent(notify_message)
-
 				console.log('[node-bmw] Automatic lights disabled');
 				break;
 			case 'on':

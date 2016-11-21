@@ -200,14 +200,14 @@ var IKE = function(omnibus) {
 				value   = 'temperature values';
 
 				// Update external and engine coolant temp variables
-				omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
-				omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(2);
+				omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(1);
+				omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(0);
 
 				omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
 				omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
 
 				// Send Kodi a notification
-				omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant_c+' C, Exterior: '+omnibus.status.temperature.exterior_c+' C');
+				// omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant_c+' C, Exterior: '+omnibus.status.temperature.exterior_c+' C');
 				break;
 
 			case 0x1B: // ACK text message
@@ -618,9 +618,32 @@ var IKE = function(omnibus) {
 		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
 		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
 
-		var time_string = moment().format('HH:mm');
+		var string_time = moment().format('HH:mm');
+		var string_cons = cons1+'m';
+		var string_temp = ctmp+'¨';
+		var spacing1;
+		var spacing2;
 
-		ike_text(time_string+' '+cons1+'mpg '+ctmp+'¨');
+		switch (string_temp.length) {
+			case 4:
+				spacing1 = '  ';
+				spacing2 = '   ';
+				break;
+			case 3:
+				spacing1 = '    ';
+				spacing2 = '   ';
+				break;
+			case 2:
+				spacing1 = '    ';
+				spacing2 = '    ';
+				break;
+			default:
+				spacing1 = ' ';
+				spacing2 = ' ';
+				break;
+		}
+
+		ike_text(string_cons+spacing1+string_temp+spacing2+string_time);
 	}
 
 	// Refresh OBC data

@@ -654,6 +654,9 @@ var IKE = function(omnibus) {
 	function obc_refresh() {
 		console.log('[node-bmw] Refreshing all OBC data');
 
+		request('vin');
+		request('vin');
+		request('vin');
 		obc_data('get', 'auxheat1');
 		obc_data('get', 'auxheat2');
 		obc_data('get', 'cons1');
@@ -670,7 +673,6 @@ var IKE = function(omnibus) {
 		request('temperature');
 		request('sensor');
 		request('odometer');
-		request('vin');
 	}
 
 	// OBC data request

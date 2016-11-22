@@ -27,6 +27,15 @@ function bit_set(num, bit) {
 	return num;
 }
 
+// Convert hex to ascii
+function hex2a(hexx) {
+	var hex = hexx.toString();
+	var str = '';
+	for (var i = 0; i < hex.length; i += 2)
+		str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+	return str;
+}
+
 var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;

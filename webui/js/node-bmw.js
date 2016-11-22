@@ -634,51 +634,14 @@ function str2hex(str) {
 
 // Live IBUS data websocket
 function ws_ibus() {
-	var loc = window.location, ws_uri;
-
-	// Autodetect websocket URL
-	if (loc.protocol === "https:") {
-		ws_uri = "wss:";
-	}
-	else {
-		ws_uri = "ws:";
-	}
-
-	ws_uri += "//" + loc.host + '/ws/ibus';
-	console.log('WebSocket URI:', ws_uri);
-
 	// Open WebSocket
 	var socket = io();
 
-	// Assemble and send data from form below table
-	$('#ws-ibus-send').click(function() {
-		var data_send = {};
-		// Parse incoming data
-		data_send.src = parseInt($('#ws-ibus-src').val(), 16).toString(16);
-		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16).toString(16);
-
-		// Create the message array by removing whitespaces and splitting by comma
-		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');
-
-		// Format the message
-		var msg_array = [];
-		for (var i = 0; i < data_send.msg.length; i++) {
-			// Convert it to hexadecimal
-			msg_array.push(parseInt(data_send.msg[i], 16));
-		}
-		data_send.msg = msg_array;
-
-		data_send = JSON.stringify(data_send);
-
-		console.log(data_send);
-		socket.send(data_send);
+	socket.on('connect', function() {
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Socket connected');
 	});
 
-	socket.onopen = function() {
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
-	};
-
-	socket.onmessage = function(message) {
+	socket.on('message', function(message) {
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
 		var data = JSON.parse(message.data);
 
@@ -708,11 +671,39 @@ function ws_ibus() {
 		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
 
 		$('#ws-ibus-table tbody').prepend(tr);
-	};
+	});
 
-	socket.onerror = function (error) {
-		console.log('WebSocket error: \'%s\'', error);
+	socket.on('error', function (error) {
 		console.error(error);
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Live IBUS. Error. =/');
-	};
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Socket error');
+	});
+
+	socket.on('disconnect', function () {
+		console.log('socket disconnected');
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-danger').addClass('text-warning').removeClass('text-success').text('Socket disconnected');
+	});
+
+	// Assemble and send data from form below table
+	$('#ws-ibus-send').click(function() {
+		var data_send = {};
+		// Parse incoming data
+		data_send.src = parseInt($('#ws-ibus-src').val(), 16).toString(16);
+		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16).toString(16);
+
+		// Create the message array by removing whitespaces and splitting by comma
+		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');
+
+		// Format the message
+		var msg_array = [];
+		for (var i = 0; i < data_send.msg.length; i++) {
+			// Convert it to hexadecimal
+			msg_array.push(parseInt(data_send.msg[i], 16));
+		}
+		data_send.msg = msg_array;
+
+		data_send = JSON.stringify(data_send);
+
+		console.log(data_send);
+		socket.send(data_send);
+	});
 }

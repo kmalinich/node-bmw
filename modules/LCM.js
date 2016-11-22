@@ -84,7 +84,7 @@ var LCM = function(omnibus) {
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
 				value   = 'vehicle data';
-				// vehicle_data_decode(message);
+				vehicle_data_decode(message);
 				break;
 
 			case 0x5B: // Broadcast: light status

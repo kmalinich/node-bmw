@@ -16,8 +16,7 @@ var bit_7 = 0x80; // 128
 
 // Test number for bitmask
 function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
+	if ((num & bit) != 0) { return true; } else { return false; }
 }
 
 var IKE = function(omnibus) {

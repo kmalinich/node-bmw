@@ -320,7 +320,7 @@ var GM = function(omnibus) {
 		omnibus.GM.gm_send(msg);
 
 		// Send the cluster and Kodi a notification
-		var notify_message = 'Unlocking doors';
+		var notify_message = 'Toggling door locks';
 		omnibus.kodi.notify('GM', notify_message);
 		omnibus.IKE.ike_text_urgent(notify_message)
 	}

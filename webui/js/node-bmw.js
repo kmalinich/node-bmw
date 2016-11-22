@@ -482,7 +482,7 @@ function status() {
 			if (return_data.lights.interior) { $('#lights-interior').text('Interior lights on'); } else { $('#lights-interior').text('Interior lights off'); }
 
 			// Central locking status
-			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Central locking locked'); } else { $('#vehicle-locked').text('Central locking unlocked'); }
+			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Locked'); } else { $('#vehicle-locked').text('Unlocked'); }
 
 			// Current, average, and limit speed
 			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed.toUpperCase());

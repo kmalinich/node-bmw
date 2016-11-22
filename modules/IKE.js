@@ -178,8 +178,13 @@ var IKE = function(omnibus) {
 				break;
 
 			case 0x17: // Odometer
-				command = 'broadcast';
-				value   = 'odometer';
+				command                            = 'odometer';
+				var odometer_value1                = message[3] << 16;
+				var odometer_value2                = message[2] << 8;
+				var odometer_value                 = odometer_value1 + odometer_value2 + message[1];
+				value                              = odometer_value;
+				omnibus.status.vehicle.odometer_km = odometer_value;
+				omnibus.status.vehicle.odometer_mi = Math.round(convert(odometer_value).from('kilometre').to('us mile'));
 				break;
 
 			case 0x18: // Vehicle speed and RPM
@@ -525,6 +530,11 @@ var IKE = function(omnibus) {
 				break;
 
 			case 0x50: // Request check-control sensor information
+				command = 'request';
+				value   = 'check control sensor status';
+				break;
+
+			case 0x54: // Request check-control sensor information
 				command = 'request';
 				value   = 'check control sensor status';
 				break;
@@ -954,7 +964,7 @@ var IKE = function(omnibus) {
 
 		// console.log('[node-bmw] Sending text to IKE screen: \'%s\'', string);
 
-		// Need to center text.. 
+		// Need to center text..
 		var string_hex = [0x23, 0x50, 0x30, 0x07];
 		var string_hex = string_hex.concat(ascii2hex(string));
 		var string_hex = string_hex.concat(0x04);

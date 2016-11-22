@@ -149,19 +149,6 @@ function form_ike_get() {
 	});
 }
 
-function form_ike_gong() {
-	console.log($('#form-ike-gong').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-gong').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
 function form_ike_reset() {
 	console.log($('#form-ike-reset').serialize());
 	$.ajax({
@@ -204,17 +191,15 @@ function form_lcm() {
 // Decode hex string and get module name
 function get_module_name(key) {
 	var hkey = parseInt(key, 16);
-
 	for (var dkey in _modules) {
 		if (_modules[dkey] === hkey) {
 			return dkey;
 		}
 	}
-
 	return 'Unknown Device' + ' - ' + key;
 };
 
-// Get IO status 
+// Get IO status
 function gm_get() {
 	console.log('gm_get();');
 
@@ -391,7 +376,7 @@ function prepare_lcm() {
 	prepare_lcm_dimmer();
 }
 
-// Initialize LCM dimmer slider 
+// Initialize LCM dimmer slider
 function prepare_lcm_dimmer() {
 	$('#slider-lcm-dimmer').on('slideStart', function(data) {
 		console.log('lcm_dimmer_slideStart: %s', data.value);
@@ -437,7 +422,7 @@ function status() {
 			$('#temperature-coolant-unit').text(return_data.coding.unit_temp.toUpperCase());
 			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp.toUpperCase());
 
-			if (return_data.coding.unit_temp == 'c') { 
+			if (return_data.coding.unit_temp == 'c') {
 				$('#temperature-coolant').text(return_data.temperature.coolant_c);
 				$('#obc-temp-exterior').text(return_data.temperature.exterior_c);
 			}
@@ -615,7 +600,7 @@ function status_refresh_on() {
 		url      : '/api/lcm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
+		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on',
 		success  : function(return_data) {
 			console.log(return_data);
 		}
@@ -641,11 +626,9 @@ function status_refresh_on() {
 // Convert a string to hex
 function str2hex(str) {
 	var hex = '';
-
 	for(var i=0; i<str.length; i++) {
 		hex += ''+str.charCodeAt(i).toString(16);
 	}
-
 	return hex;
 }
 
@@ -665,7 +648,7 @@ function ws_ibus() {
 	console.log('WebSocket URI:', ws_uri);
 
 	// Open WebSocket
-	var socket = new WebSocket(ws_uri);
+	var socket = io();
 
 	// Assemble and send data from form below table
 	$('#ws-ibus-send').click(function() {
@@ -720,7 +703,7 @@ function ws_ibus() {
 
 		// Add a new row to the table
 		var ws_ibus_table = document.getElementById('ws-ibus-table');
-		var timestamp     = moment().format('h:mm:ss a'); 
+		var timestamp     = moment().format('h:mm:ss a');
 
 		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
 
@@ -728,7 +711,8 @@ function ws_ibus() {
 	};
 
 	socket.onerror = function (error) {
-		console.log('WebSocket error: ' + error);
+		console.log('WebSocket error: \'%s\'', error);
+		console.error(error);
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Live IBUS. Error. =/');
 	};
 }

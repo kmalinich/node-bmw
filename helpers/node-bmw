@@ -22,6 +22,10 @@ sleep_msg() {
 	#sleep 1
 }
 
+follow() {
+	journalctl -o cat -u ${UNIT} -f
+}
+
 status() {
 	echo -e "Checking status of ${UNIT}.\n"
 	systemctl status ${UNIT}

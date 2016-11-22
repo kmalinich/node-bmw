@@ -130,8 +130,8 @@ var LCM = function(omnibus) {
 
   // This message also has days since service and total kms, but, baby steps...
 	function vehicle_data_decode(message) {
-		var vin_string      = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
-		omnibus.vehicle.vin = vin_string;
+		var vin_string             = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
+		omnibus.status.vehicle.vin = vin_string;
 		console.log('[node-bmw] Decoded VIN string: \'%s\'', vin_string);
 	}
 

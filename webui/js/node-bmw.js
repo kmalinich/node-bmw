@@ -432,6 +432,7 @@ function status() {
 			}
 
 			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer_mi);
+			$('#vehicle-vin').text(return_data.vehicle.vin);
 
 			/*
 			 * Vehicle sensors

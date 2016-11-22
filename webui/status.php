@@ -37,6 +37,7 @@
 							<h6>Speed: <span id="vehicle-speed"></span> <span id="vehicle-speed-unit"></span></h6>
 							<h6>Coolant: <span id="temperature-coolant"></span> °<span id="temperature-coolant-unit"></span></h6>
 							<h6>Odometer: <span id="vehicle-odometer-mi"></span> mi</h6>
+							<h6>VIN: <span id="vehicle-vin"></span></h6>
 						</div>
 
 					</div>

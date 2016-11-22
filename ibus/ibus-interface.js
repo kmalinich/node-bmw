@@ -40,9 +40,6 @@ var ibus_interface = function(omnibus) {
 
 		// Request ignition status
 		omnibus.IKE.request('ignition');
-		omnibus.IKE.request('sensor');
-		omnibus.IKE.request('odometer');
-		omnibus.IKE.request('vin');
 	});
 
 	// On port close

@@ -667,6 +667,10 @@ var IKE = function(omnibus) {
 		obc_data('get', 'temp_exterior');
 		obc_data('get', 'time');
 		obc_data('get', 'timer');
+		request('temperature');
+		request('sensor');
+		request('odometer');
+		request('vin');
 	}
 
 	// OBC data request

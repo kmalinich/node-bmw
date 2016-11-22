@@ -35,7 +35,7 @@
     "node-unit-conversion": "^0.1.1",
     "querystring": "^0.2.0",
     "serialport": "^4.0.6",
-    "socket.io": "^1.5.1",
+    "socket.io": "^1.6.0",
     "suncalc": "^1.7.0",
     "url": "^0.11.0",
     "wait.for": "^0.6.6"

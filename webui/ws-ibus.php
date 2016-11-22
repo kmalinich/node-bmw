@@ -175,5 +175,5 @@
 	</body>
 	<script src="/js/moment.js"></script>
 	<?php include './include/js.php'; ?>
-	<script src="/socket.io/socket.io.js"></script>
+	<script src="/ws/socket.io/socket.io.js"></script>
 </html>

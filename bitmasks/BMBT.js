@@ -105,6 +105,9 @@ bit_sample('pty dn', 0x32);
 bit_sample('dby dn', 0x33);
 bit_sample('Nmn dn', 0x34);
 bit_sample(' test ', 0x1B);
+bit_sample(' 0xFF ', 0xFF);
+bit_sample(' 0xFD ', 0xFD);
+bit_sample(' 0x4E ', 0x4E);
 
 
 // bit_sample('Pwr hd', 0x46);

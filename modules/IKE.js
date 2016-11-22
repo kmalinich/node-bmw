@@ -163,7 +163,7 @@ var IKE = function(omnibus) {
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
 					// If it's newly in reverse
 					if (omnibus.status.vehicle.reverse == false) {
-						ike_text_warning(' YOU\'RE IN REVERSE!', 2000);
+						ike_text_warning(' YOU\'RE IN REVERSE!', 4000);
 					}
 
 					omnibus.status.vehicle.reverse = true;

@@ -119,6 +119,12 @@ var LCM = function(omnibus) {
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
+  // This message also has days since service and total kms, but, baby steps...
+	function vehicle_data_decode(message) {
+		var vin_string      = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
+		omnibus.vehicle.vin = vin_string;
+		console.log('[node-bmw] Decoded VIN string: \'%s\'', vin_string);
+	}
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
 	function light_status_decode(message) {

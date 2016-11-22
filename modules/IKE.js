@@ -534,11 +534,6 @@ var IKE = function(omnibus) {
 				value   = 'check control sensor status';
 				break;
 
-			case 0x54: // Request check-control sensor information
-				command = 'request';
-				value   = 'check control sensor status';
-				break;
-
 			case 0x57: // BC button in cluster
 				command = 'button';
 				value   = 'BC';
@@ -777,6 +772,11 @@ var IKE = function(omnibus) {
 			case 'temperature':
 				src = 0x5B; // IHKA
 				cmd = [0x1D, 0xC5];
+				break;
+			case 'vin':
+				src = 0x80; // IKE
+				dst = 0xD0; // LCM
+				cmd = [0x53];
 				break;
 		}
 

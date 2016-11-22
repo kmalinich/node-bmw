@@ -157,7 +157,7 @@ var GM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[ %s > %s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results

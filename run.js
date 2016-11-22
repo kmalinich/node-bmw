@@ -73,18 +73,18 @@ omnibus.TEL             = new TEL(omnibus);
 omnibus.VID             = new VID(omnibus);
 //omnibus.BT              = new BT(omnibus);
 omnibus.kodi            = new kodi(omnibus);
+omnibus.socket_server = require('./lib/socket-server.js');
 
 // Server ports
 var api_port       = 3001;
 var websocket_port = 3002;
 
 // WebSocket libraries
-var socket_server = require('./lib/socket-server.js');
 var api_server    = http.createServer(api_handler);
 
 // API handler function
 function api_handler(request, response) {
-	//console.log('[API]  %s request: %s', request.method, request.url);
+	//console.log('[node-api] %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 
@@ -97,11 +97,11 @@ function start() {
 
 	// Start API server
 	api_server.listen(api_port, function() {
-		console.log('[API]  Started, port %s', api_port);
+		console.log('[node-api] Started, port %s', api_port);
 	});
 
 	// Start WebSocket server
-	socket_server.init(websocket_port, omnibus);
+	omnibus.socket_server.init(websocket_port, omnibus);
 
 	// Start IBUS connection
 	omnibus.ibus_connection.startup();

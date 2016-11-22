@@ -504,7 +504,7 @@ var IKE = function(omnibus) {
 				break;
 
 			case 0x2A: // Aux heating LED
-				command = 'Aux heating LED';
+				command = 'aux heating LED';
 				// This actually is a bitmask but.. this is also a freetime project
 				switch(message[2]) {
 					case 0x00:
@@ -540,7 +540,7 @@ var IKE = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s > %s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// Handle incoming commands from API

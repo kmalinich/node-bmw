@@ -23,7 +23,7 @@ sleep_msg() {
 }
 
 follow() {
-	journalctl -o cat -u ${UNIT} -f
+	journalctl -o cat -u ${UNIT} -f -n 0
 }
 
 status() {

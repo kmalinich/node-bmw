@@ -196,7 +196,7 @@ function get_module_name(key) {
 			return dkey;
 		}
 	}
-	return 'Unknown Device' + ' - ' + key;
+	return 'Unknown ' + key;
 };
 
 // Get IO status
@@ -641,7 +641,7 @@ function ws_ibus() {
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Socket connected');
 	});
 
-	socket.on('message', function(message) {
+	socket.on('ibus-message', function(message) {
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
 		var data = JSON.parse(message.data);
 
@@ -679,7 +679,6 @@ function ws_ibus() {
 	});
 
 	socket.on('disconnect', function () {
-		console.log('socket disconnected');
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-danger').addClass('text-warning').removeClass('text-success').text('Socket disconnected');
 	});
 

@@ -408,10 +408,10 @@ function status() {
 			// Engine status
 			$('#engine-speed').text(return_data.engine.speed);
 			if (return_data.engine.running) {
-				$('#engine-running').text('Running').addClass('text-success');
+				$('#engine-running').text('Engine running').addClass('text-success');
 			}
 			else {
-				$('#engine-running').text('Not running').addClass('text-danger');
+				$('#engine-running').text('Engine off').addClass('text-danger');
 			}
 
 			/*
@@ -430,6 +430,8 @@ function status() {
 				$('#temperature-coolant').text(return_data.temperature.coolant_f);
 				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior_f);
 			}
+
+			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer_mi);
 
 			/*
 			 * Vehicle sensors
@@ -479,7 +481,7 @@ function status() {
 			if (return_data.windows.roof)        { $('#windows-roof').text('Moonroof open');           } else { $('#windows-roof').text('Moonroof closed');           }
 
 			// Lighting status
-			if (return_data.lights.interior) { $('#lights-interior').text('Interior lights on'); } else { $('#lights-interior').text('Interior lights off'); }
+			if (return_data.lights.interior) { $('#lights-interior').text('interior lights on'); } else { $('#lights-interior').text('interior lights off'); }
 
 			// Central locking status
 			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Locked'); } else { $('#vehicle-locked').text('Unlocked'); }

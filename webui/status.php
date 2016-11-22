@@ -43,33 +43,53 @@
 
 					<hr>
 
-					<h4><i class="fa fa-bullseye fa-inverse"></i> GM</h4>
+					<h4><i class="fa fa-key fa-inverse"></i> <span id="vehicle-locked"></span>, <span id="lights-interior"></span></h4>
 					<div class="row text-center">
+
 						<div class="col-xs-12">
-							<h5><span id="vehicle-locked"></span>, <span id="lights-interior"></span></h5>
+							<div class="row">
+								<h6 id="flaps-hood"></h6>
+							</div>
+							<hr>
 						</div>
 
-						<div class="col-xs-6">
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-6">
+									<h6 id="flaps-front-left" ></h6>
+									<h6 id="windows-front-left" ></h6>
+								</div>
+								<div class="col-xs-6">
+									<h6 id="flaps-front-right"></h6>
+									<h6 id="windows-front-right"></h6>
+								</div>
+							</div>
 							<hr>
-							<h5><i class="fa fa-key fa-inverse"></i> Doors</h5>
-							<h6 id="flaps-hood"       ></h6>
-							<h6 id="flaps-front-left" ></h6>
-							<h6 id="flaps-front-right"></h6>
-							</br>
-							<h6 id="flaps-rear-left"  ></h6>
-							<h6 id="flaps-rear-right" ></h6>
-							<h6 id="flaps-trunk"      ></h6>
 						</div>
 
-						<div class="col-xs-6">
+						<div class="col-xs-12">
+							<div class="row">
+								<h6 id="windows-roof"></h6>
+							</div>
 							<hr>
-							<h5><i class="fa fa-windows fa-inverse"></i> Windows</h5>
-							</br>
-							<h6 id="windows-front-left" ></h6>
-							<h6 id="windows-front-right"></h6>
-							<h6 id="windows-roof"       ></h6>
-							<h6 id="windows-rear-left"  ></h6>
-							<h6 id="windows-rear-right" ></h6>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-6">
+									<h6 id="flaps-rear-left" ></h6>
+									<h6 id="windows-rear-left" ></h6>
+								</div>
+								<div class="col-xs-6">
+									<h6 id="flaps-rear-right"></h6>
+									<h6 id="windows-rear-right"></h6>
+								</div>
+							</div>
+							<hr>
+						</div>
+
+						<div class="col-xs-12">
+							<h6 id="flaps-trunk"></h6>
 						</div>
 
 					</div>
@@ -77,6 +97,7 @@
 				</div>
 
 			</div>
+
 			<hr>
 
 			<div class="row">

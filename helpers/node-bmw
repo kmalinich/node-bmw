@@ -14,21 +14,21 @@ OLD_PWD="${PWD}"
 #### Functions ==start ####
 
 log() {
-	logger -s -t "${UNIT}" "${1}"
+	logger -s -t "${UNIT}" "${1}" 2>&1
 }
 
 sleep_msg() {
 	log "Sleeping."
-	#sleep 1
+	sleep 0.5
 }
 
 follow() {
-	journalctl -o cat -u ${UNIT} -f -n 0
+	sudo journalctl -o cat -u ${UNIT} -f -n 0
 }
 
 status() {
 	echo -e "Checking status of ${UNIT}.\n"
-	systemctl status ${UNIT}
+	sudo systemctl status ${UNIT}
 }
 
 restart() {
@@ -41,14 +41,14 @@ restart() {
 
 stop() {
 	log "Stopping ${UNIT}."
-	systemctl stop ${UNIT}
+	sudo systemctl stop ${UNIT}
 	sleep_msg
 	status
 }
 
 start() {
 	log "Starting ${UNIT}."
-	systemctl start ${UNIT}
+	sudo systemctl start ${UNIT}
 	sleep_msg
 	status
 }

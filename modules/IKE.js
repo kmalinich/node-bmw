@@ -204,11 +204,11 @@ var IKE = function(omnibus) {
 				value   = 'temperature values';
 
 				// Update external and engine coolant temp variables
-				omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(1);
-				omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(0);
+				omnibus.status.temperature.exterior_c = parseFloat(message[1]).toFixed(2);
+				omnibus.status.temperature.coolant_c  = parseFloat(message[2]).toFixed(1);
 
-				omnibus.status.temperature.exterior_f = convert(parseFloat(message[1])).from('celsius').to('fahrenheit').toFixed(2);
-				omnibus.status.temperature.coolant_f  = convert(parseFloat(message[2])).from('celsius').to('fahrenheit').toFixed(2);
+				omnibus.status.temperature.exterior_f = Math.round(convert(parseFloat(message[1])).from('celsius').to('fahrenheit'));
+				omnibus.status.temperature.coolant_f  = Math.round(convert(parseFloat(message[2])).from('celsius').to('fahrenheit'));
 
 				// Send Kodi a notification
 				// omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant_c+' C, Exterior: '+omnibus.status.temperature.exterior_c+' C');

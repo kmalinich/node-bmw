@@ -121,6 +121,11 @@ var LCM = function(omnibus) {
 				}
 				break;
 
+			case 0xA2: // diagnostic command rejected
+				command = 'diagnostic command';
+				value   = 'rejected';
+				break;
+
 			default:
 				command = 'unknown';
 				value   = new Buffer(message);

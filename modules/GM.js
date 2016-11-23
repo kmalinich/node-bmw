@@ -138,7 +138,7 @@ var GM = function(omnibus) {
 
 			case 0xA0: // diagnostic command acknowledged
 				command = 'diagnostic command';
-				value   = 'acknowledged';
+				value   = new Buffer(message);
 				break;
 
 			case 0xA2: // diagnostic command rejected

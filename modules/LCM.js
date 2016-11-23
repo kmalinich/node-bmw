@@ -113,10 +113,12 @@ var LCM = function(omnibus) {
 				value   = 'door/flap status';
 				break;
 
-			case 0xA0:
-				command = 'current IO status';
-				value   = 'decoded';
-				omnibus.LCM.io_status_decode(message);
+			case 0xA0: // Reply to DIA message: success
+				command = 'diagnostic reply';
+				value   = new Buffer(message);
+				if (message.length == 33) {
+					omnibus.LCM.io_status_decode(message);
+				}
 				break;
 
 			default:
@@ -551,7 +553,8 @@ var LCM = function(omnibus) {
 	function lcm_get() {
 		var src = 0x3F; // DIA
 		var dst = 0xD0; // GLO
-		var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
+		//var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
+		var cmd = [0x08, 0x00]; // Get IO status
 
 		var ibus_packet = {
 			src: src,
@@ -623,7 +626,7 @@ var LCM = function(omnibus) {
 		if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5); }
 		if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6); }
 		if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7); }
-		
+
 		if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0); }
 		if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1); }
 		if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2); }
@@ -632,13 +635,13 @@ var LCM = function(omnibus) {
 		if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5); }
 		if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6); }
 		if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7); }
-		
+
 		if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2); }
 		if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3); }
 		if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4); }
 		if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5); }
 		if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6); }
-		
+
 		if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0); }
 		if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1); }
 		if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2); }
@@ -646,7 +649,7 @@ var LCM = function(omnibus) {
 		if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4); }
 		if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5); }
 		if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6); }
-		
+
 		if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1); }
 		if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2); }
 		if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3); }
@@ -654,14 +657,14 @@ var LCM = function(omnibus) {
 		if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_5); }
 		if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_6); }
 		if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_7); }
-		
+
 		if(array.output_turn_rear_right          ) { bitmask_7 = bit_set(bitmask_7, bit_1); }
 		if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_2); }
 		if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_3); }
 		if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_4); }
 		if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_6); }
 		if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_7); }
-		
+
 		if(array.mode_failsafe                   ) { bitmask_8 = bit_set(bitmask_8, bit_0); }
 		if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_2); }
 		if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_3); }
@@ -727,8 +730,8 @@ var LCM = function(omnibus) {
 		var bitmask_11 = array[12];
 		var bitmask_12 = array[13];
 		var bitmask_13 = array[14];
-		var bitmask_14 = array[15]; // Dimmer state ?
-		var bitmask_15 = array[16]; // LWR state ?
+		var bitmask_14 = array[15];
+		var bitmask_15 = array[16]; // Dimmer value 00-FF (actual)
 		var bitmask_16 = array[17];
 		var bitmask_17 = array[18];
 		var bitmask_18 = array[19]; // Something
@@ -742,8 +745,8 @@ var LCM = function(omnibus) {
 		var bitmask_26 = array[27];
 		var bitmask_27 = array[28];
 		var bitmask_28 = array[29];
-		var bitmask_29 = array[30]; // Something
-		var bitmask_30 = array[31]; // Something
+		var bitmask_29 = array[30]; // Something autolevel related
+		var bitmask_30 = array[31]; // Something autolevel related
 		var bitmask_31 = array[32];
 
 		omnibus.status.lcm.bitmask_0                        = bitmask_0;

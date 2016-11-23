@@ -1,0 +1,19 @@
+[DIA->LCM] command: <Buffer 08 00>
+[DIA->LCM] command: <Buffer 08 01>
+[DIA->LCM] command: <Buffer 08 02>
+[DIA->LCM] command: <Buffer 08 03>
+[DIA->LCM] command: <Buffer 08 05>
+[DIA->LCM] command: <Buffer 08 06>
+[DIA->LCM] command: <Buffer 08 08>
+[DIA->LCM] command: <Buffer 09 00 02 00 40 01 00 08 00 00 00 00 00 00 00 00 23 20 4e 21 90 00 00 4b 00 00 02 00 5a 16 00 00 00>
+[DIA->LCM] command: <Buffer 08 00>
+[DIA->LCM] command: <Buffer 09 01 00 00 00 00 00 00 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00>
+[DIA->LCM] command: <Buffer 08 01>
+[DIA->LCM] command: <Buffer 09 02 20 20 20 20 20 20 20 20 20 72 72 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 b5 3f 5a 55 00>
+[DIA->LCM] command: <Buffer 08 02>
+[DIA->LCM] command: <Buffer 09 03 98 08 00 00 98 08 00 00 00 00 00 00 0a 10 64 14 01 20 00 00 00 00 00 00 00 00 00 00 00 00 00>
+[DIA->LCM] command: <Buffer 08 03>
+[DIA->LCM] command: <Buffer 09 05 03 00 00 00 9a 93 5c 5c 56 ec 07 37 7c 88 88 88 88 71 5e 51 47 3f 36 2f 2f 2f 2f 2f 2f 2f 00>
+[DIA->LCM] command: <Buffer 08 05>
+[DIA->LCM] command: <Buffer 09 06 3f 15 fd 15 fe 15 18 fd 18 fe 18 6b ac 56 3a 9c db 8b 48 a0 a0 0a 13 31 72 42 61 c0 18 f8 2d>
+

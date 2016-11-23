@@ -44,9 +44,9 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
-	setInterval(function() {
-		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
-	}, 900);
+	//setInterval(function() {
+	//	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
+	//}, 3000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -612,7 +612,7 @@ var IKE = function(omnibus) {
 		// console.log('[node-bmw] Refreshing OBC HUD');
 
 		// Populate values if missing
-		if (omnibus.status.vehicle.reverse == 0) {
+		if (omnibus.status.obc.consumption_1_mpg == 0) {
 			obc_data('get', 'cons1');
 		}
 		if (omnibus.status.temperature.coolant_c == 0) {

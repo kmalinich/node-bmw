@@ -94,4 +94,4 @@ update() {
 
 #### Functions ==final ####
 
-[[ ${1} ]] && ${1} || status
+${1-status}

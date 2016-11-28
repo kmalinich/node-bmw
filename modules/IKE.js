@@ -44,9 +44,9 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
-	//setInterval(function() {
-	//	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
-	//}, 3000);
+	setInterval(function() {
+		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
+	}, 3000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {

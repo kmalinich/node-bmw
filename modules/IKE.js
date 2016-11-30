@@ -609,22 +609,35 @@ var IKE = function(omnibus) {
 
 	// Refresh custom HUD
 	function hud_refresh() {
+		var string_cons;
+		var string_temp;
+
 		// console.log('[node-bmw] Refreshing OBC HUD');
 
 		// Populate values if missing
 		if (omnibus.status.obc.consumption_1_mpg == 0) {
 			obc_data('get', 'cons1');
+			string_cons = '     ';
 		}
+		else {
+			var cons1   = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
+			string_cons = cons1+'m';
+		}
+
 		if (omnibus.status.temperature.coolant_c == 0) {
 			request('temperature');
+			string_temp = '  ';
+		}
+		else {
+			var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
+			var string_temp = ctmp+'¨';
 		}
 
-		var cons1 = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
-		var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
+		// Only display data if we have data
+		if (omnibus.status.obc.consumption_1_mpg != 0 && omnibus.status.temperature.coolant_c != 0) {
+		}
 
 		var string_time = moment().format('HH:mm');
-		var string_cons = cons1+'m';
-		var string_temp = ctmp+'¨';
 		var spacing1;
 		var spacing2;
 

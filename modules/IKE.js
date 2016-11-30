@@ -105,6 +105,11 @@ var IKE = function(omnibus) {
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
+
+					// Send welcome message
+					setTimeout(function() {
+						ike_text_warning('     [node-bmw]     ');
+					}, 250);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
@@ -924,7 +929,7 @@ var IKE = function(omnibus) {
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 
-		if (!timeout) { var timeout = 5000; }
+		if (!timeout) { var timeout = 10000; }
 
 		// Clear the message after 5 seconds
 		setTimeout(function() {

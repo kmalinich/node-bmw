@@ -3,6 +3,7 @@
 // npm libraries
 var convert = require('node-unit-conversion');
 var moment  = require('moment');
+var os      = require('os');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -106,10 +107,8 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node-bmw] Trigger: power-on state');
 
-					// Send welcome message
-					setTimeout(function() {
-						ike_text_warning('     [node-bmw]     ');
-					}, 250);
+					// Welcome message
+					setTimeout(function() { ike_text_warning('node-bmw     '+os.hostname()); }, 300);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'

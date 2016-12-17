@@ -19,7 +19,7 @@ var bit_7 = 0x80; // 128
 
 // Bitmask constants
 var hold    = bit_6;
-var release = bit_7; 
+var release = bit_7;
 
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
@@ -104,6 +104,10 @@ bit_sample('fm  dn', 0x31);
 bit_sample('pty dn', 0x32);
 bit_sample('dby dn', 0x33);
 bit_sample('Nmn dn', 0x34);
+bit_sample(' test ', 0x1B);
+bit_sample(' 0xFF ', 0xFF);
+bit_sample(' 0xFD ', 0xFD);
+bit_sample(' 0x4E ', 0x4E);
 
 
 // bit_sample('Pwr hd', 0x46);
@@ -124,10 +128,10 @@ bit_sample('Nmn dn', 0x34);
 // bit_sample('5   up', 0x93);
 // bit_sample('6   up', 0x83);
 // console.log(line);
-// 
+//
 // bit_sample('Pwr up', 0x86);
 // console.log(line);
-// 
+//
 // bit_sample('fm  up', 0xb1);
 // bit_sample('am  up', 0xa1);
 // bit_sample('pty up', 0xb2);

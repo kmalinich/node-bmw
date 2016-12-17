@@ -6,27 +6,23 @@ var serialport    = require('serialport');
 var util          = require('util');
 
 var ibus_interface = function(omnibus) {
-	// self reference
+	// Self reference
 	var _self = this;
 
-	// exposed data
-	this.get_interface = get_interface;
-	this.startup       = startup;
-	this.shutdown      = shutdown;
-	this.send_message  = send_message;
+	// Exposed data
+	this.startup      = startup;
+	this.shutdown     = shutdown;
+	this.send_message = send_message;
 
-	// local data
-	var parser;
+	// Local data
 	var device      = '/dev/ttyUSB0';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
-		baudRate : 9600,
-		dataBits : 8,
+		lock     : false,
 		parity   : 'even',
-		parser   : serialport.parsers.raw,
+		parser   : ibus_protocol.parser(5),
 		rtscts   : true,
-		stopBits : 1,
 	});
 
 	/*
@@ -35,87 +31,74 @@ var ibus_interface = function(omnibus) {
 
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[INTF] Port error: %s', error);
+		console.error('[  INTF  ] Port error : %s', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[INTF] Port open [%s]', device);
-
-		parser = new ibus_protocol();
-		parser.on('message', on_message);
-		serial_port.pipe(parser);
+		console.log('[  INTF  ] Port open [%s]', device);
 
 		// Request ignition status
-		omnibus.IKE.request('ignition');	
+		omnibus.IKE.request('ignition');
 	});
 
 	// On port close
 	serial_port.on('close', function() {
-		console.log('[INTF] Port closed [%s]', device);
-		parser = null;
+		console.log('[  INTF  ] Port closed [%s]', device);
+		ibus_parser = null;
 	});
 
-	// On data RX
-	//serial_port.on('data', function(data) {
-	//	 console.log('[INTF] Data on port: ', data);
-	//});
+	// When the parser sends a fully-formed message back
+	serial_port.on('data', omnibus.data_handler.check_data);
 
 	// Open serial port
 	function startup() {
-		console.log('[INTF] Starting');
+		console.log('[  INTF  ] Starting');
 
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
-			console.log('[INTF] Opening port');
+			console.log('[  INTF  ] Opening port');
 			serial_port.open();
 		}
 	}
 
 	// Close serial port
 	function shutdown(callback) {
-		console.log('[INTF] Ending');
+		console.log('[  INTF  ] Ending');
 
 		// Close port if it is open
 		if (serial_port.isOpen()) {
-			console.log('[INTF] Closing port');
+			console.log('[  INTF  ] Closing port');
 			serial_port.close();
 		}
 
 		callback();
 	}
 
-	function get_interface() {
-		return serial_port;
-	}
-
-	function on_message(msg) {
-		// console.log('[INTF] Raw message: ', msg.src, msg.len, msg.dst, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
-		_self.emit('data', msg);
-	}
-
 	function send_message(msg) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 
-		// console.log('[send_message] Src :', bus_modules.get_module_name(msg.src.toString(16)));
-		// console.log('[send_message] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
-		// console.log('[INTF] Send message: ', data_buffer);
+		// console.log('[INTF::SEND] SRC : ', bus_modules.get_module_name(msg.src.toString(16)));
+		// console.log('[INTF::SEND] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
+		// console.log('[INTF::SEND] MSG : ', data_buffer);
 
-		serial_port.write(data_buffer, function(error, resp) {
-			if (error) {
-				console.log('[INTF] Failed to write: ' + error);
-			}
+		// Only write data if port is open
+		if (serial_port.isOpen()) {
+			serial_port.write(data_buffer, function(error, resp) {
+				if (error) {
+					console.log('[INTF::SEND] Failed to write : ', error);
+				}
 
-			//console.log('[INTF]', clc.red('Wrote to device:'), data_buffer, resp);
+				// console.log('[  INTF  ]', clc.red('Wrote to device:'), data_buffer, resp);
 
-			serial_port.drain(function(error) {
-				// console.log(clc.white('Data drained'));
+				serial_port.drain(function(error) {
+					// console.log('[INTF::SEND] Data drained');
+				});
+
+				_self.emit('message_sent');
 			});
-
-			_self.emit('message_sent');
-		});
+		}
 	}
-
 };
 
 util.inherits(ibus_interface, event_emitter);

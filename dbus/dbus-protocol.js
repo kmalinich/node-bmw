@@ -17,7 +17,7 @@ function dbus_protocol(options) {
 	this._is_processing = false;
 }
 
-dbus_protocol.prototype._transform = function(chunk, encoding, done) {        
+dbus_protocol.prototype._transform = function(chunk, encoding, done) {
 	var _self = this;
 
 	if(_self._is_processing === true) {
@@ -136,14 +136,14 @@ dbus_protocol.create_dbus_message = function(msg) {
 	//
 	// IBUS: C8 0F 3F A0 89 12 98 51 50 05 21 12 20 06 23 37 5E
 	//       TX LL RX [----data-segment--------------------] CS
-	// 
+	//
 	// IBUS:
 	// TX = Sender address
 	// LL = Length of following bytes (packet length - 2)
 	// RX = Receiver address
 	// ..Data..
 	// CS = Checksum
-	// 
+	//
 	// DBUS:
 	// RX = Receiver address
 	// LA = Length of all bytes (entire packet)
@@ -156,7 +156,7 @@ dbus_protocol.create_dbus_message = function(msg) {
 	var buf           = new Buffer(packet_length);
 
 	buf[0] = msg.dst;
-	buf[1] = packet_length; 
+	buf[1] = packet_length;
 
 	for (var i = 0; i < msg.msg.length; i++) {
 		buf[2 + i] = msg.msg[i];

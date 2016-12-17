@@ -1,4 +1,4 @@
-#!/bin/bash - 
+#!/bin/bash -
 
 BASE="http://localhost:3001/lcm?"
 SLEEP="0.03"

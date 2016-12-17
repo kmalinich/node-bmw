@@ -23,69 +23,74 @@
 
 				<div class="col-lg-12 col-xs-12">
 
-					<h4><i class="fa fa-tachometer fa-inverse"></i> Engine</h4>
-					<div class="row text-center">
-
-						<div class="col-xs-4">
-							<h5>Status</h5>
-							<h6 id="engine-running"></h5>
-						</div>
-
-						<div class="col-xs-4">
-							<h5>RPM</h5>
-							<h6><span id="engine-speed"></span> rpm</h6>
-						</div>
-
-						<div class="col-xs-4">
-							<h5>Temp</h5>
-							<h6><span id="temperature-coolant"></span><span id="temperature-coolant-unit"></span></h6>
-						</div>
-
-					</div>
-
-					<hr>
-
 					<h4><i class="fa fa-car fa-inverse"></i> Vehicle</h4>
 					<div class="row text-center">
 
 						<div class="col-xs-6">
-							<h5>Status</h5>
 							<h6 id="vehicle-ignition" ></h6>
+							<h6 id="engine-running"></h5>
 							<h6 id="vehicle-handbrake"></h6>
 							<h6 id="vehicle-reverse"  ></h6>
-							<h6 id="vehicle-locked"   ></h6>
 						</div>
 
 						<div class="col-xs-6">
-							<h5>Speed</h5>
-							<h6><span id="vehicle-speed"></span> <span id="vehicle-speed-unit"></span></h6>
+							<h6>Speed: <span id="vehicle-speed"></span> <span id="vehicle-speed-unit"></span></h6>
+							<h6>Coolant: <span id="temperature-coolant"></span> °<span id="temperature-coolant-unit"></span></h6>
+							<h6>Odometer: <span id="vehicle-odometer-mi"></span> mi</h6>
+							<h6>VIN: <span id="vehicle-vin"></span></h6>
 						</div>
 
 					</div>
 
 					<hr>
 
-					<h4><i class="fa fa-folder-open fa-inverse"></i> Doors/windows</h4>
+					<h4><i class="fa fa-key fa-inverse"></i> <span id="vehicle-locked"></span>, <span id="lights-interior"></span></h4>
 					<div class="row text-center">
 
-						<div class="col-xs-6">
-							<h5><i class="fa fa-key fa-inverse"></i> Doors</h5>
-							<h6 id="flaps-front-left" ></h6>
-							<h6 id="flaps-front-right"></h6>
-							<h6 id="flaps-rear-left"  ></h6>
-							<h6 id="flaps-rear-right" ></h6>
-							<h6 id="flaps-hood"       ></h6>
-							<h6 id="flaps-trunk"      ></h6>
+						<div class="col-xs-12">
+							<div class="row">
+								<h6 id="flaps-hood"></h6>
+							</div>
+							<hr>
 						</div>
 
-						<div class="col-xs-6">
-							<h5><i class="fa fa-windows fa-inverse"></i> Windows</h5>
-							<h6 id="windows-front-left" ></h6>
-							<h6 id="windows-front-right"></h6>
-							<h6 id="windows-rear-left"  ></h6>
-							<h6 id="windows-rear-right" ></h6>
-							<h6 id="windows-roof"       ></h6>
-							<h6 id="lights-interior"    ></h6>
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-6">
+									<h6 id="flaps-front-left" ></h6>
+									<h6 id="windows-front-left" ></h6>
+								</div>
+								<div class="col-xs-6">
+									<h6 id="flaps-front-right"></h6>
+									<h6 id="windows-front-right"></h6>
+								</div>
+							</div>
+							<hr>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<h6 id="windows-roof"></h6>
+							</div>
+							<hr>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-6">
+									<h6 id="flaps-rear-left" ></h6>
+									<h6 id="windows-rear-left" ></h6>
+								</div>
+								<div class="col-xs-6">
+									<h6 id="flaps-rear-right"></h6>
+									<h6 id="windows-rear-right"></h6>
+								</div>
+							</div>
+							<hr>
+						</div>
+
+						<div class="col-xs-12">
+							<h6 id="flaps-trunk"></h6>
 						</div>
 
 					</div>
@@ -93,6 +98,7 @@
 				</div>
 
 			</div>
+
 			<hr>
 
 			<div class="row">
@@ -109,7 +115,7 @@
 
 						<div class="col-xs-6">
 							<h5>Ext. temp</h5>
-							<h6><span id="obc-temp-exterior"></span><span id="obc-temp-exterior-unit"></span></h6>
+							<h6><span id="obc-temp-exterior"></span> °<span id="obc-temp-exterior-unit"></span></h6>
 						</div>
 
 					</div>
@@ -235,7 +241,6 @@
 						</div>
 
 					</div>
-					<hr>
 
 				</div>
 			</div>

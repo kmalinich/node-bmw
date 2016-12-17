@@ -138,7 +138,7 @@ var GM = function(omnibus) {
 
 			case 0xA0: // diagnostic command acknowledged
 				command = 'diagnostic command';
-				value   = 'acknowledged';
+				value   = new Buffer(message);
 				break;
 
 			case 0xA2: // diagnostic command rejected
@@ -157,7 +157,7 @@ var GM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[ %s > %s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results
@@ -320,9 +320,9 @@ var GM = function(omnibus) {
 		omnibus.GM.gm_send(msg);
 
 		// Send the cluster and Kodi a notification
-		var notify_message = 'Unlocking doors';
+		var notify_message = 'Toggling door locks';
 		omnibus.kodi.notify('GM', notify_message);
-		ike_text_urgent(notify_message)
+		omnibus.IKE.ike_text_urgent(notify_message)
 	}
 
 	// Send message to GM

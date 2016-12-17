@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
 // npm libraries
-var dispatcher   = require('httpdispatcher');
 var http         = require('http');
 var query_string = require('querystring');
 var url          = require('url');
 var wait         = require('wait.for');
 
+var http_dispatcher = require('httpdispatcher');
+var dispatcher      = new http_dispatcher();
+
 // IBUS libraries
-var ibus_interface = require('./ibus/ibus-interface.js');
 var data_handler   = require('./ibus/data-handler.js');
+var ibus_interface = require('./ibus/ibus-interface.js');
 
 // Other custom libraries
 //var BT   = require('./lib/BT.js');
@@ -44,6 +46,7 @@ var VID  = require('./modules/VID.js');
 var omnibus             = {};
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js');  // Vehicle status object
+omnibus.data_handler    = new data_handler(omnibus); // Data handler
 omnibus.ibus_connection = new ibus_interface(omnibus); // IBUS connection handle
 omnibus.ABG             = new ABG(omnibus);
 omnibus.ANZV            = new ANZV(omnibus);
@@ -70,19 +73,18 @@ omnibus.TEL             = new TEL(omnibus);
 omnibus.VID             = new VID(omnibus);
 //omnibus.BT              = new BT(omnibus);
 omnibus.kodi            = new kodi(omnibus);
-omnibus.data_handler    = new data_handler(omnibus); // Data handler
+omnibus.socket_server = require('./lib/socket-server.js');
 
 // Server ports
 var api_port       = 3001;
 var websocket_port = 3002;
 
 // WebSocket libraries
-var socket_server = require('./lib/socket-server.js');
 var api_server    = http.createServer(api_handler);
 
 // API handler function
 function api_handler(request, response) {
-	console.log('[API]  %s request: %s', request.method, request.url);
+	//console.log('[node-api] %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 
@@ -95,11 +97,11 @@ function start() {
 
 	// Start API server
 	api_server.listen(api_port, function() {
-		console.log('[API]  Started, port %s', api_port);
+		console.log('[node-api] Started, port %s', api_port);
 	});
 
 	// Start WebSocket server
-	socket_server.init(websocket_port, omnibus);
+	omnibus.socket_server.init(websocket_port, omnibus);
 
 	// Start IBUS connection
 	omnibus.ibus_connection.startup();

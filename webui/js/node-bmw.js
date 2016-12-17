@@ -149,19 +149,6 @@ function form_ike_get() {
 	});
 }
 
-function form_ike_gong() {
-	console.log($('#form-ike-gong').serialize());
-	$.ajax({
-		url      : '/api/ike',
-		type     : 'POST',
-		dataType : 'json',
-		data     : $('#form-ike-gong').serialize(),
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
 function form_ike_reset() {
 	console.log($('#form-ike-reset').serialize());
 	$.ajax({
@@ -204,17 +191,15 @@ function form_lcm() {
 // Decode hex string and get module name
 function get_module_name(key) {
 	var hkey = parseInt(key, 16);
-
 	for (var dkey in _modules) {
 		if (_modules[dkey] === hkey) {
 			return dkey;
 		}
 	}
-
-	return 'Unknown Device' + ' - ' + key;
+	return 'Unknown ' + key;
 };
 
-// Get IO status 
+// Get IO status
 function gm_get() {
 	console.log('gm_get();');
 
@@ -391,7 +376,7 @@ function prepare_lcm() {
 	prepare_lcm_dimmer();
 }
 
-// Initialize LCM dimmer slider 
+// Initialize LCM dimmer slider
 function prepare_lcm_dimmer() {
 	$('#slider-lcm-dimmer').on('slideStart', function(data) {
 		console.log('lcm_dimmer_slideStart: %s', data.value);
@@ -423,10 +408,10 @@ function status() {
 			// Engine status
 			$('#engine-speed').text(return_data.engine.speed);
 			if (return_data.engine.running) {
-				$('#engine-running').text('Running').addClass('text-success');
+				$('#engine-running').text('Engine running').addClass('text-success');
 			}
 			else {
-				$('#engine-running').text('Not running').addClass('text-danger');
+				$('#engine-running').text('Engine off').addClass('text-danger');
 			}
 
 			/*
@@ -437,7 +422,7 @@ function status() {
 			$('#temperature-coolant-unit').text(return_data.coding.unit_temp.toUpperCase());
 			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp.toUpperCase());
 
-			if (return_data.coding.unit_temp == 'c') { 
+			if (return_data.coding.unit_temp == 'c') {
 				$('#temperature-coolant').text(return_data.temperature.coolant_c);
 				$('#obc-temp-exterior').text(return_data.temperature.exterior_c);
 			}
@@ -445,6 +430,9 @@ function status() {
 				$('#temperature-coolant').text(return_data.temperature.coolant_f);
 				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior_f);
 			}
+
+			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer_mi);
+			$('#vehicle-vin').text(return_data.vehicle.vin);
 
 			/*
 			 * Vehicle sensors
@@ -481,23 +469,23 @@ function status() {
 			}
 
 			// Doors (flaps) and window status
-			if (return_data.flaps.front_left)    { $('#flaps-front-left').text('Front left open');     } else { $('#flaps-front-left').text('Front left closed');     }
-			if (return_data.flaps.front_right)   { $('#flaps-front-right').text('Front right open');   } else { $('#flaps-front-right').text('Front right closed');   }
-			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');                 } else { $('#flaps-hood').text('Hood closed');                 }
-			if (return_data.flaps.rear_left)     { $('#flaps-rear-left').text('Rear left open');       } else { $('#flaps-rear-left').text('Rear left closed');       }
-			if (return_data.flaps.rear_right)    { $('#flaps-rear-right').text('Rear right open');     } else { $('#flaps-rear-right').text('Rear right closed');     }
-			if (return_data.flaps.trunk)         { $('#flaps-trunk').text('Trunk open');               } else { $('#flaps-trunk').text('Trunk closed');               }
-			if (return_data.windows.front_left)  { $('#windows-front-left').text('Front left open');   } else { $('#windows-front-left').text('Front left closed');   }
-			if (return_data.windows.front_right) { $('#windows-front-right').text('Front right open'); } else { $('#windows-front-right').text('Front right closed'); }
-			if (return_data.windows.rear_left)   { $('#windows-rear-left').text('Rear left open');     } else { $('#windows-rear-left').text('Rear left closed');     }
-			if (return_data.windows.rear_right)  { $('#windows-rear-right').text('Rear right open');   } else { $('#windows-rear-right').text('Rear right closed');   }
-			if (return_data.windows.roof)        { $('#windows-roof').text('Moonroof open');           } else { $('#windows-roof').text('Moonroof closed');           }
+			if (return_data.flaps.front_left)    { $('#flaps-front-left').text('Door open');      } else { $('#flaps-front-left').text('Door closed');      }
+			if (return_data.flaps.front_right)   { $('#flaps-front-right').text('Door open');     } else { $('#flaps-front-right').text('Door closed');     }
+			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');            } else { $('#flaps-hood').text('Hood closed');            }
+			if (return_data.flaps.rear_left)     { $('#flaps-rear-left').text('Door open');       } else { $('#flaps-rear-left').text('Door closed');       }
+			if (return_data.flaps.rear_right)    { $('#flaps-rear-right').text('Door open');      } else { $('#flaps-rear-right').text('Door closed');      }
+			if (return_data.flaps.trunk)         { $('#flaps-trunk').text('Trunk open');          } else { $('#flaps-trunk').text('Trunk closed');          }
+			if (return_data.windows.front_left)  { $('#windows-front-left').text('Window open');  } else { $('#windows-front-left').text('Window closed');  }
+			if (return_data.windows.front_right) { $('#windows-front-right').text('Window open'); } else { $('#windows-front-right').text('Window closed'); }
+			if (return_data.windows.rear_left)   { $('#windows-rear-left').text('Window open');   } else { $('#windows-rear-left').text('Window closed');   }
+			if (return_data.windows.rear_right)  { $('#windows-rear-right').text('Window open');  } else { $('#windows-rear-right').text('Window closed');  }
+			if (return_data.windows.roof)        { $('#windows-roof').text('Moonroof open');      } else { $('#windows-roof').text('Moonroof closed');      }
 
 			// Lighting status
-			if (return_data.lights.interior) { $('#lights-interior').text('Interior lights on'); } else { $('#lights-interior').text('Interior lights off'); }
+			if (return_data.lights.interior) { $('#lights-interior').text('interior lights on'); } else { $('#lights-interior').text('interior lights off'); }
 
 			// Central locking status
-			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Central locking locked'); } else { $('#vehicle-locked').text('Central locking unlocked'); }
+			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Locked'); } else { $('#vehicle-locked').text('Unlocked'); }
 
 			// Current, average, and limit speed
 			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed.toUpperCase());
@@ -576,6 +564,32 @@ var status_loop;
 var status_refresh;
 var gm_refresh;
 
+function obc_refresh_exec() {
+	// Data refresh from OBC/IKE
+	$.ajax({
+		url      : '/api/ike',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'obc-get=all',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+function gm_refresh_exec() {
+	// Data refresh from GM
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : 'gm-command=gm-get',
+		success  : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function status_refresh_on() {
 	// CSS magic
 	$('#icon-refresh').addClass('fa-spin');
@@ -589,103 +603,48 @@ function status_refresh_on() {
 		url      : '/api/lcm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on', 
+		data     : 'clamp_15=on&clamp_30a=on&clamp_30b=on',
 		success  : function(return_data) {
 			console.log(return_data);
 		}
 	});
 
 	// Set the loops
+	obc_refresh_exec();
 	status_refresh = setInterval(function() {
-		// Data refresh from OBC/IKE
-		$.ajax({
-			url      : '/api/ike',
-			type     : 'POST',
-			dataType : 'json',
-			data     : 'obc-get=all',
-			success  : function(return_data) {
-				console.log(return_data);
-			}
-		});
-	}, 10000);
+		obc_refresh_exec();
+	}, 500);
 
 	gm_refresh = setInterval(function() {
-		// Data refresh from GM
-		$.ajax({
-			url      : '/api/gm',
-			type     : 'POST',
-			dataType : 'json',
-			data     : 'gm-command=gm-get',
-			success  : function(return_data) {
-				console.log(return_data);
-			}
-		});
-	}, 5000);
+		obc_refresh_exec();
+	}, 600);
 
+	// F**k .. need to get my websocket game up
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();
-	}, 1000);
+	}, 500);
 }
 
 // Convert a string to hex
 function str2hex(str) {
 	var hex = '';
-
 	for(var i=0; i<str.length; i++) {
 		hex += ''+str.charCodeAt(i).toString(16);
 	}
-
 	return hex;
 }
 
 // Live IBUS data websocket
 function ws_ibus() {
-	var loc = window.location, ws_uri;
-
-	// Autodetect websocket URL
-	if (loc.protocol === "https:") {
-		ws_uri = "wss:";
-	}
-	else {
-		ws_uri = "ws:";
-	}
-
-	ws_uri += "//" + loc.host + '/ws/ibus';
-	console.log('WebSocket URI:', ws_uri);
-
 	// Open WebSocket
-	var socket = new WebSocket(ws_uri);
+	var socket = io();
 
-	// Assemble and send data from form below table
-	$('#ws-ibus-send').click(function() {
-		var data_send = {};
-		// Parse incoming data
-		data_send.src = parseInt($('#ws-ibus-src').val(), 16).toString(16);
-		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16).toString(16);
-
-		// Create the message array by removing whitespaces and splitting by comma
-		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');
-
-		// Format the message
-		var msg_array = [];
-		for (var i = 0; i < data_send.msg.length; i++) {
-			// Convert it to hexadecimal
-			msg_array.push(parseInt(data_send.msg[i], 16));
-		}
-		data_send.msg = msg_array;
-
-		data_send = JSON.stringify(data_send);
-
-		console.log(data_send);
-		socket.send(data_send);
+	socket.on('connect', function() {
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Socket connected');
 	});
 
-	socket.onopen = function() {
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Live IBUS. Connected.');
-	};
-
-	socket.onmessage = function(message) {
+	socket.on('ibus-message', function(message) {
 		// Parse the incoming JSON.stringifyied data back into a real JSON blob
 		var data = JSON.parse(message.data);
 
@@ -710,15 +669,43 @@ function ws_ibus() {
 
 		// Add a new row to the table
 		var ws_ibus_table = document.getElementById('ws-ibus-table');
-		var timestamp     = moment().format('h:mm:ss a'); 
+		var timestamp     = moment().format('h:mm:ss a');
 
 		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
 
 		$('#ws-ibus-table tbody').prepend(tr);
-	};
+	});
 
-	socket.onerror = function (error) {
-		console.log('WebSocket error: ' + error);
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Live IBUS. Error. =/');
-	};
+	socket.on('error', function (error) {
+		console.error(error);
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Socket error');
+	});
+
+	socket.on('disconnect', function () {
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-danger').addClass('text-warning').removeClass('text-success').text('Socket disconnected');
+	});
+
+	// Assemble and send data from form below table
+	$('#ws-ibus-send').click(function() {
+		var data_send = {};
+		// Parse incoming data
+		data_send.src = parseInt($('#ws-ibus-src').val(), 16).toString(16);
+		data_send.dst = parseInt($('#ws-ibus-dst').val(), 16).toString(16);
+
+		// Create the message array by removing whitespaces and splitting by comma
+		data_send.msg = $('#ws-ibus-msg').val().replace(' ', '').replace('0x', '').split(',');
+
+		// Format the message
+		var msg_array = [];
+		for (var i = 0; i < data_send.msg.length; i++) {
+			// Convert it to hexadecimal
+			msg_array.push(parseInt(data_send.msg[i], 16));
+		}
+		data_send.msg = msg_array;
+
+		data_send = JSON.stringify(data_send);
+
+		console.log(data_send);
+		socket.send(data_send);
+	});
 }

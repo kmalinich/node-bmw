@@ -3,7 +3,7 @@
 
 #### Variables ==start ####
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:/sbin:/bin:/usr/sbin:/usr/bin:/usr/bin/X11:/usr/games"
+export PATH="/bin:/usr/bin"
 UNIT="node-bmw"
 APP_DIR="/usr/local/${UNIT}"
 OLD_PWD="${PWD}"
@@ -14,17 +14,21 @@ OLD_PWD="${PWD}"
 #### Functions ==start ####
 
 log() {
-	logger -s -t "${UNIT}" "${1}"
+	sudo logger -s -t "${UNIT}" "${1}" 2>&1
 }
 
 sleep_msg() {
 	log "Sleeping."
-	#sleep 1
+	sleep 0.5
+}
+
+follow() {
+	sudo journalctl -o cat -u ${UNIT} -f -n 0
 }
 
 status() {
 	echo -e "Checking status of ${UNIT}.\n"
-	systemctl status ${UNIT}
+	sudo systemctl status ${UNIT}
 }
 
 restart() {
@@ -37,14 +41,14 @@ restart() {
 
 stop() {
 	log "Stopping ${UNIT}."
-	systemctl stop ${UNIT}
+	sudo systemctl stop ${UNIT}
 	sleep_msg
 	status
 }
 
 start() {
 	log "Starting ${UNIT}."
-	systemctl start ${UNIT}
+	sudo systemctl start ${UNIT}
 	sleep_msg
 	status
 }
@@ -53,41 +57,33 @@ update() {
 	cd ${APP_DIR}
 
 	GIT_BRANCH="$(git branch | grep '*' | sed 's/^*\ //g')"
-	git fetch origin ${GIT_BRANCH} > /dev/null 2>&1
+	sudo git fetch origin ${GIT_BRANCH} &> /dev/null
 
 	GIT_LOG="$(git log HEAD..origin/${GIT_BRANCH} --oneline)"
+	[[ -z "${GIT_LOG}" ]] && log "No ${UNIT} update needed" && return
 
-	if [[ -z "${GIT_LOG}" ]]; then
-		log "No ${UNIT} update needed"
-	else
-		log "${UNIT} update available!"
+	log "${UNIT} update available!"
 
-		log "Downloading ${UNIT} update"
-		git fetch
-		git pull
+	log "Downloading ${UNIT} update"
+	sudo git pull
 
-		log "Performing npm global update"
-		npm -g update
+	log "Performing npm global update"
+	sudo npm -g update
 
-		NPM_DEPS=($(grep -A 20 dependencies ${APP_DIR}/package.json | awk -F '"' '/".*.".*:*.".*."/ {print $2}'))
-		log "Updating npm dependencies: '${NPM_DEPS[@]}'"
+	log "Performing local npm install"
+	sudo npm install
 
-		# Loop and update npm dependencies
-		for DEP in ${NPM_DEPS[@]}; do
-			log "Updating '${DEP}'"
-			if [[ "${DEP}" == "serialport" ]]; then
-				npm -g install --unsafe-perm ${DEP}
-			else
-				npm -g install ${DEP}
-			fi
-		done
+	log "Performing local npm update"
+	sudo npm update
 
-		restart
-	fi
+	log "Performing --unsafe-perm install of serialport"
+	sudo npm install --unsafe-perm serialport
+
+	restart
 
 	cd "${OLD_PWD}"
 }
 
 #### Functions ==final ####
 
-[[ ${1} ]] && ${1} || status
+${1-status}

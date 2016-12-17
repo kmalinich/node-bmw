@@ -32,7 +32,7 @@ var dbus_interface = function(device_path) {
 
 	// implementation
 	function init_dbus() {
-		device      = '/dev/ttyUSB1'; 
+		device      = '/dev/ttyUSB1';
 		serial_port = new serialport.SerialPort(device, {
 			//rtscts   : true,
 			baudRate : 9600,
@@ -78,7 +78,7 @@ var dbus_interface = function(device_path) {
 		return (ts[0] * 1000) + (ts[1] / 1000000);
 	};
 
-	function watch_for_empty_bus(workerFn) {        
+	function watch_for_empty_bus(workerFn) {
 		if (get_ht_diff_time(last_activity_time) >= 20) {
 			workerFn(function success() {
 				// operation is ready, resume looking for an empty bus

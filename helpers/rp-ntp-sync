@@ -21,7 +21,7 @@ LOG_STRING="rp-ntp-sync"
 #### Functions ==start ####
 
 # Write to stderr and syslog
-function log() {
+log() {
 	logger -s -t "${LOG_STRING}" "${1}"
 }
 
@@ -30,12 +30,13 @@ function log() {
 
 #### Main code ==start ####
 
-log "INF: Started at $(date)."
-
 # Check for 1st argument
-[[ -z "${1}" ]] && log "ERR: No NTP server passed. Usage: rp-ntp-sync <NTP server>" && exit 1
+if [[ -z "${1}" ]]; then
+	#log  "No NTP server passed; defaulting to '${NTP_SERVER_EXTERNAL}'"
+	NTP_SERVER="${NTP_SERVER_EXTERNAL}"
+fi
 
-log "DBG: Pinging ${NTP_SERVER}."
+#log "DBG: Pinging ${NTP_SERVER}"
 PING_ATTEMPT="0"
 
 while true; do
@@ -44,17 +45,17 @@ while true; do
 
 	if [[ "${PING_ATTEMPT}" -gt "3" ]]; then
 		# If we exceed the 3 attempt limit, break
-		log "ERR: ${NTP_SERVER} was still offline after 3 attempts. Trying external NTP server."
+		log "Error: ${NTP_SERVER} was still offline after 3 attempts; trying external NTP server"
 
 		NTP_OFFSET=$(ntpdate ${NTP_SERVER_EXTERNAL} 2>&1 | awk -F 'offset ' '{print $2}')
 		NTP_EXIT="${?}"
 
 		if [[ "${NTP_EXIT}" != "0" ]]; then
-			log "ERR: No NTP sync possible at this time."
+			log "Error: No NTP sync possible at this time"
 			break
 		else
 			# If NTP sync succeeds, break the loop and go
-			log "INF: NTP time synced. Time offset: ${NTP_OFFSET}."
+			log "NTP time synced; time offset: ${NTP_OFFSET}"
 			break
 		fi
 	else
@@ -64,13 +65,13 @@ while true; do
 
 		# If the ping fails write to log and notify user
 		if [[ "${PING_EXIT}" != "0" ]]; then
-			log "ERR: Attempt #${PING_ATTEMPT} to ping ${NTP_SERVER} failed. sleeping for 5 seconds."
+			log "Error: Attempt #${PING_ATTEMPT} to ping ${NTP_SERVER} failed; sleeping for 5 seconds"
 
 			# Try again after 5 seconds
 			sleep 1
 		else
 			# If ping succeeds, sync NTP
-			log "DBG: ${NTP_SERVER} online."
+			#log "DBG: ${NTP_SERVER} online"
 			NTP_ATTEMPT="0"
 
 			while true; do
@@ -79,23 +80,23 @@ while true; do
 
 				if [[ "${NTP_ATTEMPT}" -gt "3" ]]; then
 					# If we exceed the 3 attempt limit, break
-					log "ERR: ${NTP_SERVER} is still not responding after 3 attempts. Trying external NTP server."
+					log "Error: ${NTP_SERVER} is still not responding after 3 attempts; trying external NTP server"
 
 					NTP_SYNC=$(ntpdate ${NTP_SERVER_EXTERNAL} 2>&1)
 					NTP_EXIT="${?}"
 					NTP_OFFSET=$(echo ${NTP_SYNC} | awk -F 'offset ' '{print $2}')
 
 					if [[ "${NTP_EXIT}" != "0" ]]; then
-						log "ERR: No NTP sync possible at this time."
+						log "Error: No NTP sync possible at this time"
 						break 2
 					else
 						# If NTP sync succeeds, break the loop and go
-						log "INF: NTP time synced. Time offset: ${NTP_OFFSET}."
+						log "NTP time synced; time offset: ${NTP_OFFSET}"
 						break 2
 					fi
 				else
 					# If we haven't hit the limit, test the API
-					log "DBG: Attempting NTP sync with ${NTP_SERVER}."
+					#log "DBG: Attempting NTP sync with ${NTP_SERVER}"
 
 					NTP_SYNC=$(ntpdate ${NTP_SERVER} 2>&1)
 					NTP_EXIT="${?}"
@@ -103,13 +104,13 @@ while true; do
 
 					# If the API fails write to log and notify user
 					if [[ "${NTP_EXIT}" != "0" ]]; then
-						log "ERR: Attempt #${NTP_ATTEMPT} to sync NTP failed (output was '${NTP_SYNC}'). Sleeping for 5 seconds."
+						log "Error: Attempt #${NTP_ATTEMPT} to sync NTP failed (output was '${NTP_SYNC}'); sleeping for 5 seconds"
 
 						# Try again after 5 seconds
 						sleep 5
 					else
 						# If NTP sync succeeds, break the loop and go
-						log "INF: NTP time synced. Time offset: ${NTP_OFFSET}."
+						log "NTP time synced; time offset: ${NTP_OFFSET}"
 						break 2
 					fi
 				fi
@@ -118,6 +119,6 @@ while true; do
 	fi
 done
 
-log "INF: Finished at $(date)."
+#log "Finished at $(date)"
 
 #### Main code ==final ####

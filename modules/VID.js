@@ -54,6 +54,11 @@ var VID = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x12: // Request: IKE sensor status
+				command = 'request';
+				value   = 'IKE sensor status';
+				break;
+
 			case 0x14: // Country coding request
 				command = 'request';
 				value   = 'country coding';

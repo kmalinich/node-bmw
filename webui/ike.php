@@ -162,38 +162,6 @@
 			</form>
 			<hr>
 
-
-			<h4>Gong</h4>
-			<form class="form-horizontal" id="form-ike-gong" action="javascript:form_ike_gong();">
-
-				<div class="radio">
-					<label>
-						<input type="radio" name="obc-gong" id="form-ike-gong-1" value="1">
-						Gong 1
-					</label>
-				</div>
-
-				<div class="radio">
-					<label>
-						<input type="radio" name="obc-gong" id="form-ike-gong-2" value="2">
-						Gong 2
-					</label>
-				</div>
-
-				<br/>
-				<div class="row">
-					<div class="col-xs-6">
-						<button class="btn btn-lg btn-danger btn-block" id="form-ike-gong-reset" type="reset">Reset</button>
-					</div>
-					<div class="col-xs-6">
-						<button class="btn btn-lg btn-primary btn-block" id="form-ike-gong-submit" type="submit">Send</button>
-					</div>
-				</div>
-
-			</form>
-
-			<hr>
-
 			<h4>Text</h4>
 			<form class="form-horizontal" id="form-ike-text" action="javascript:form_ike_text();">
 

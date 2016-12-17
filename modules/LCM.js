@@ -27,6 +27,15 @@ function bit_set(num, bit) {
 	return num;
 }
 
+// Convert hex to ascii
+function hex2a(hexx) {
+	var hex = hexx.toString();
+	var str = '';
+	for (var i = 0; i < hex.length; i += 2)
+		str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+	return str;
+}
+
 var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
@@ -84,7 +93,7 @@ var LCM = function(omnibus) {
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
 				value   = 'vehicle data';
-				// vehicle_data_decode(message);
+				vehicle_data_decode(message);
 				break;
 
 			case 0x5B: // Broadcast: light status
@@ -104,10 +113,17 @@ var LCM = function(omnibus) {
 				value   = 'door/flap status';
 				break;
 
-			case 0xA0:
-				command = 'current IO status';
-				value   = 'decoded';
-				omnibus.LCM.io_status_decode(message);
+			case 0xA0: // Reply to DIA message: success
+				command = 'diagnostic reply';
+				value   = new Buffer(message);
+				if (message.length == 33) {
+					omnibus.LCM.io_status_decode(message);
+				}
+				break;
+
+			case 0xA2: // diagnostic command rejected
+				command = 'diagnostic command';
+				value   = 'rejected';
 				break;
 
 			default:
@@ -119,6 +135,12 @@ var LCM = function(omnibus) {
 		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
 	}
 
+  // This message also has days since service and total kms, but, baby steps...
+	function vehicle_data_decode(message) {
+		var vin_string             = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
+		omnibus.status.vehicle.vin = vin_string;
+		console.log('[node-bmw] Decoded VIN string: \'%s\'', vin_string);
+	}
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
 	function light_status_decode(message) {
@@ -267,11 +289,6 @@ var LCM = function(omnibus) {
 				omnibus.status.lights.auto_lowbeam  = false;
 				reset();
 
-				// Send the cluster and Kodi a notification
-				var notify_message = 'Auto lights off';
-				omnibus.kodi.notify('LCM', notify_message);
-				omnibus.IKE.ike_text_urgent(notify_message)
-
 				console.log('[node-bmw] Automatic lights disabled');
 				break;
 			case 'on':
@@ -282,17 +299,13 @@ var LCM = function(omnibus) {
 					// Send one through to prime the pumps
 					auto_lights_process();
 
-					// Process/send LCM data on 10 second interval
+					// Process/send LCM data on 3 second interval
 					// LCM diag command timeout is 15 seconds
 					auto_lights_interval = setInterval(function() {
 						// Process auto lights
 						auto_lights_process();
-					}, 10000);
+					}, 3000);
 
-					// Send the cluster and Kodi a notification
-					var notify_message = 'Auto lights on';
-					omnibus.kodi.notify('LCM', notify_message);
-					omnibus.IKE.ike_text_urgent(notify_message)
 
 					console.log('[node-bmw] Automatic lights enabled');
 				}
@@ -545,7 +558,8 @@ var LCM = function(omnibus) {
 	function lcm_get() {
 		var src = 0x3F; // DIA
 		var dst = 0xD0; // GLO
-		var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
+		//var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
+		var cmd = [0x08, 0x00]; // Get IO status
 
 		var ibus_packet = {
 			src: src,
@@ -609,6 +623,7 @@ var LCM = function(omnibus) {
 		if(array.input_kfn                       ) { bitmask_1 = bit_set(bitmask_1, bit_5); }
 		if(array.input_armoured_door             ) { bitmask_1 = bit_set(bitmask_1, bit_6); }
 		if(array.input_brake_fluid_level         ) { bitmask_1 = bit_set(bitmask_1, bit_7); }
+
 		if(array.switch_brake                    ) { bitmask_2 = bit_set(bitmask_2, bit_0); }
 		if(array.switch_highbeam                 ) { bitmask_2 = bit_set(bitmask_2, bit_1); }
 		if(array.switch_fog_front                ) { bitmask_2 = bit_set(bitmask_2, bit_2); }
@@ -616,6 +631,7 @@ var LCM = function(omnibus) {
 		if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5); }
 		if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6); }
 		if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7); }
+
 		if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0); }
 		if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1); }
 		if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2); }
@@ -624,11 +640,13 @@ var LCM = function(omnibus) {
 		if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5); }
 		if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6); }
 		if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7); }
+
 		if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2); }
 		if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3); }
 		if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4); }
 		if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5); }
 		if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6); }
+
 		if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0); }
 		if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1); }
 		if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2); }
@@ -636,6 +654,7 @@ var LCM = function(omnibus) {
 		if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4); }
 		if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5); }
 		if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6); }
+
 		if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1); }
 		if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2); }
 		if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3); }
@@ -643,12 +662,14 @@ var LCM = function(omnibus) {
 		if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_5); }
 		if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_6); }
 		if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_7); }
+
 		if(array.output_turn_rear_right          ) { bitmask_7 = bit_set(bitmask_7, bit_1); }
 		if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_2); }
 		if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_3); }
 		if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_4); }
 		if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_6); }
 		if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_7); }
+
 		if(array.mode_failsafe                   ) { bitmask_8 = bit_set(bitmask_8, bit_0); }
 		if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_2); }
 		if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_3); }
@@ -712,9 +733,61 @@ var LCM = function(omnibus) {
 		var bitmask_9  = array[10]; // Dimmer from 00-FF
 		var bitmask_10 = array[11];
 		var bitmask_11 = array[12];
+		var bitmask_12 = array[13];
+		var bitmask_13 = array[14];
+		var bitmask_14 = array[15];
+		var bitmask_15 = array[16]; // Dimmer value 00-FF (actual)
+		var bitmask_16 = array[17];
+		var bitmask_17 = array[18];
+		var bitmask_18 = array[19]; // Something
+		var bitmask_19 = array[20];
+		var bitmask_20 = array[21];
+		var bitmask_21 = array[22];
+		var bitmask_22 = array[23];
+		var bitmask_23 = array[24];
+		var bitmask_24 = array[25];
+		var bitmask_25 = array[26];
+		var bitmask_26 = array[27];
+		var bitmask_27 = array[28];
+		var bitmask_28 = array[29];
+		var bitmask_29 = array[30]; // Something autolevel related
+		var bitmask_30 = array[31]; // Something autolevel related
+		var bitmask_31 = array[32];
 
+		omnibus.status.lcm.bitmask_0                        = bitmask_0;
+		omnibus.status.lcm.bitmask_1                        = bitmask_1;
+		omnibus.status.lcm.bitmask_2                        = bitmask_2;
+		omnibus.status.lcm.bitmask_2                        = bitmask_2;
+		omnibus.status.lcm.bitmask_3                        = bitmask_3;
+		omnibus.status.lcm.bitmask_4                        = bitmask_4;
+		omnibus.status.lcm.bitmask_5                        = bitmask_5;
+		omnibus.status.lcm.bitmask_6                        = bitmask_6;
+		omnibus.status.lcm.bitmask_7                        = bitmask_7;
+		omnibus.status.lcm.bitmask_8                        = bitmask_8;
+		omnibus.status.lcm.bitmask_9                        = bitmask_9;
 		omnibus.status.lcm.bitmask_10                       = bitmask_10;
 		omnibus.status.lcm.bitmask_11                       = bitmask_11;
+		omnibus.status.lcm.bitmask_12                       = bitmask_12;
+		omnibus.status.lcm.bitmask_13                       = bitmask_13;
+		omnibus.status.lcm.bitmask_14                       = bitmask_14;
+		omnibus.status.lcm.bitmask_15                       = bitmask_15;
+		omnibus.status.lcm.bitmask_16                       = bitmask_16;
+		omnibus.status.lcm.bitmask_17                       = bitmask_17;
+		omnibus.status.lcm.bitmask_18                       = bitmask_18;
+		omnibus.status.lcm.bitmask_19                       = bitmask_19;
+		omnibus.status.lcm.bitmask_20                       = bitmask_20;
+		omnibus.status.lcm.bitmask_21                       = bitmask_21;
+		omnibus.status.lcm.bitmask_22                       = bitmask_22;
+		omnibus.status.lcm.bitmask_23                       = bitmask_23;
+		omnibus.status.lcm.bitmask_24                       = bitmask_24;
+		omnibus.status.lcm.bitmask_25                       = bitmask_25;
+		omnibus.status.lcm.bitmask_26                       = bitmask_26;
+		omnibus.status.lcm.bitmask_27                       = bitmask_27;
+		omnibus.status.lcm.bitmask_28                       = bitmask_28;
+		omnibus.status.lcm.bitmask_29                       = bitmask_29;
+		omnibus.status.lcm.bitmask_30                       = bitmask_30;
+		omnibus.status.lcm.bitmask_31                       = bitmask_31;
+
 		omnibus.status.lcm.clamp_15                         = bit_test(bitmask_3, bit_5);
 		omnibus.status.lcm.clamp_30a                        = bit_test(bitmask_0, bit_0);
 		omnibus.status.lcm.clamp_30b                        = bit_test(bitmask_0, bit_7);

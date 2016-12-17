@@ -103,7 +103,7 @@ function bit_sample(dsc, packet, callback) {
 
 		var src = 0x3F; // DIA
 		var dst = 0x00; // GM
-		var cmd = 0x0C; // Set IO status 
+		var cmd = 0x0C; // Set IO status
 
 		// Add the command to the beginning of the hex array
 		packet.unshift(cmd);

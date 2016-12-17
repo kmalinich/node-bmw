@@ -98,6 +98,9 @@ var IKE = function(omnibus) {
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
 					console.log('[node-bmw] Trigger: power-down state');
 
+					// Stop media playback
+					omnibus.kodi.stop_all();
+
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
 					omnibus.status.audio.rad_ready = false;

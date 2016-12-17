@@ -82,19 +82,22 @@ var ibus_interface = function(omnibus) {
 		// console.log('[INTF::SEND] DST : ', bus_modules.get_module_name(msg.dst.toString(16)));
 		// console.log('[INTF::SEND] MSG : ', data_buffer);
 
-		serial_port.write(data_buffer, function(error, resp) {
-			if (error) {
-				console.log('[INTF::SEND] Failed to write : ', error);
-			}
+		// Only write data if port is open
+		if (serial_port.isOpen()) {
+			serial_port.write(data_buffer, function(error, resp) {
+				if (error) {
+					console.log('[INTF::SEND] Failed to write : ', error);
+				}
 
-			// console.log('[  INTF  ]', clc.red('Wrote to device:'), data_buffer, resp);
+				// console.log('[  INTF  ]', clc.red('Wrote to device:'), data_buffer, resp);
 
-			serial_port.drain(function(error) {
-				// console.log('[INTF::SEND] Data drained');
+				serial_port.drain(function(error) {
+					// console.log('[INTF::SEND] Data drained');
+				});
+
+				_self.emit('message_sent');
 			});
-
-			_self.emit('message_sent');
-		});
+		}
 	}
 };
 

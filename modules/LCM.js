@@ -45,6 +45,7 @@ var LCM = function(omnibus) {
 
 	// Exposed data
 	this.auto_lights         = auto_lights;
+	this.auto_lights_process = auto_lights_process;
 	this.comfort_turn        = comfort_turn;
 	this.io_status_decode    = io_status_decode;
 	this.io_status_encode    = io_status_encode;
@@ -299,12 +300,12 @@ var LCM = function(omnibus) {
 					// Send one through to prime the pumps
 					auto_lights_process();
 
-					// Process/send LCM data on 3 second interval
+					// Process/send LCM data on 10 second interval
 					// LCM diag command timeout is 15 seconds
 					auto_lights_interval = setInterval(function() {
 						// Process auto lights
 						auto_lights_process();
-					}, 3000);
+					}, 10000);
 
 
 					console.log('[node-bmw] Automatic lights enabled');
@@ -321,6 +322,8 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
+		var handbrake    = omnibus.status.vehicle.handbrake;
+		var ignition     = omnibus.status.vehicle.ignition;
 
 		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
@@ -329,6 +332,24 @@ var LCM = function(omnibus) {
 		// console.log('lights_on    : %s', lights_on);
 		// console.log('lights_off   : %s', lights_off);
 
+    // Check ignition
+    if (ignition != 'run') {
+      // Not in run: turn off auto lights
+      auto_lights('off');
+      return;
+    }
+
+    // Check handbrake
+    if (handbrake == true) {
+      // Handbrake is set: disable auto lowbeams
+      console.log('[node-bmw] Auto lights: Handbrake on');
+			omnibus.status.lights.auto_lowbeam  = false;
+			omnibus.status.lights.auto_standing = true;
+      reset();
+      return;
+    }
+
+    // Check time of day
 		if (current_time < lights_off) {
 			lights_reason = 'before lights off';
 			omnibus.status.lights.auto_lowbeam  = true;

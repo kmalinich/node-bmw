@@ -141,18 +141,12 @@ var IKE = function(omnibus) {
 				// message[1]:
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
-					// If it's newly on, disable auto lights
-					if (omnibus.status.vehicle.handbrake === false) {
-						omnibus.LCM.auto_lights('off');
-					}
 					omnibus.status.vehicle.handbrake = true;
+					omnibus.LCM.auto_lights_process();
 				}
 				else {
-					// If it's newly off, and the ignition is in 'run', enable auto lights
-					if (omnibus.status.vehicle.handbrake === true && omnibus.status.vehicle.ignition == 'run') {
-						omnibus.LCM.auto_lights('on');
-					}
 					omnibus.status.vehicle.handbrake = false;
+					omnibus.LCM.auto_lights_process();
 				}
 
 				// message[2]:

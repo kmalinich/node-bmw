@@ -92,9 +92,6 @@ function start() {
 	// Start BT autoconfig
 	//omnibus.BT.autoconfig();
 
-	// Start kodi autoconfig
-	omnibus.kodi.autoconfig();
-
 	// Start API server
 	api_server.listen(api_port, function() {
 		console.log('[node-api] Started, port %s', api_port);

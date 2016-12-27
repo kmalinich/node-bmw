@@ -609,21 +609,14 @@ function status_refresh_on() {
 		}
 	});
 
-	// Set the loops
+	// Refresh data
 	obc_refresh_exec();
-	status_refresh = setInterval(function() {
-		obc_refresh_exec();
-	}, 500);
-
-	gm_refresh = setInterval(function() {
-		obc_refresh_exec();
-	}, 600);
 
 	// F**k .. need to get my websocket game up
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();
-	}, 500);
+	}, 1000);
 }
 
 // Convert a string to hex

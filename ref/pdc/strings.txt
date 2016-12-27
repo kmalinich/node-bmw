@@ -1,6 +1,6 @@
 Turn PDC On
 
-3F 04 60 0C 80 D7 
+3F 04 60 0C 80 D7
 
 Turn PDC Off
 

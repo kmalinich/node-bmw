@@ -265,7 +265,7 @@ LCM --> GLO : Lamp status: All_Off All_OK
 30 04 BF 51 00 DA
 CCM --> GLO : Checkcontrol sensors:
 80 0A BF 13 03 00 00 00 00 00 43 66
-IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low 
+IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low
 C8 05 E7 A6 00 00 8C
 TEL --> ANZV: Special indicators: Request
 3B 04 68 45 00 12
@@ -291,9 +291,9 @@ IKE --> ANZV: On-board computer special indicators: Aux_Heating_LED = Off
 80 06 60 07 00 00 00 E1
 IKE --> PDC : Gong status, Data="00 00 00"
 80 0A BF 13 03 00 00 02 00 00 43 64
-IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low 
+IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low
 80 0A BF 13 03 B0 00 02 00 00 43 D4
-IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P 
+IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P
 80 07 BF 15 01 04 00 42 6A
 IKE --> GLO : Country coding status: Ntwk=E38/E39 Lang=GB_English Clock=24h OutTemp=°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
 50 04 C8 3B 90 37
@@ -345,7 +345,7 @@ IKE --> GLO : Odometer: 143,391 km
 18 0A 68 39 00 02 00 01 00 01 00 41
 CDC --> RAD : CD_status: Stop Request=Pause CD=1 Track=0 CDs_Loaded=P1
 80 0A BF 13 03 B0 00 00 00 00 43 D6
-IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P 
+IKE --> GLO : IKE sensor status: Handbrake_On Oil_Pressure_Low Gear_P
 18 0A 68 39 00 02 00 01 00 01 01 40
 CDC --> RAD : CD_status: Stop Request=Pause CD=1 Track=1 CDs_Loaded=P1
 D0 07 BF 5B 00 00 00 00 33
@@ -533,9 +533,9 @@ IKE --> GLO : Speed/RPM: Speed 0 km/h, 0 RPM
 D0 07 BF 5B 00 00 00 00 33
 LCM --> GLO : Lamp status: All_Off All_OK
 80 0A BF 13 02 B0 00 00 00 00 43 D7
-IKE --> GLO : IKE sensor status: Oil_Pressure_Low Gear_P 
+IKE --> GLO : IKE sensor status: Oil_Pressure_Low Gear_P
 80 0A BF 13 02 00 00 00 00 00 43 67
-IKE --> GLO : IKE sensor status: Oil_Pressure_Low 
+IKE --> GLO : IKE sensor status: Oil_Pressure_Low
 80 04 BF 11 01 2B
 IKE --> GLO : Ignition status: Pos1_Acc
 80 0A BF 13 00 00 00 00 00 00 43 65

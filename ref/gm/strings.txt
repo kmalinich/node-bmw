@@ -27,7 +27,7 @@ SR sunroof
 ---- 00 00 01
 --- Up
 ----
--- Right 
+-- Right
 --- Down
 ---- 00 03 01
 --- Up
@@ -45,13 +45,13 @@ SR sunroof
 
 // Extras
 
-LF D P : 01 18 01   
+LF D P : 01 18 01
 LF D P : 01 36 01
-LR D F : 00 45 01   
-RF U P : 02 32 01   
-RR D F : 00 47 01   
-RR U P : 00 04 01   
-RR U P : 00 46 01   
+LR D F : 00 45 01
+RF U P : 02 32 01
+RR D F : 00 47 01
+RR U P : 00 04 01
+RR U P : 00 46 01
 
 00 65  : front windows fully down // Working
 00 66  : Sunroof open
@@ -69,10 +69,10 @@ RR U P : 00 46 01
 05 07 01 : Driver seat backrest backward
 05 08 01 : Driver seat headrest up
 05 09 01 : Driver seat headrest down
-05 0A 01 : ?? Possibly sport bolster 
-05 0B 01 : ?? Possibly sport bolster 
+05 0A 01 : ?? Possibly sport bolster
+05 0B 01 : ?? Possibly sport bolster
 05 0C 01 : Driver seat upper backwards
-05 0D 01 : Driver seat upper forwards 
+05 0D 01 : Driver seat upper forwards
 
 
 // Steering wheel
@@ -86,9 +86,9 @@ RR U P : 00 46 01
 
 // Locks (tested)
 
-00 0B 01 : toggle (only 'outside' locks) 
-03 01    : nothing 
-34 01    : nothing 
+00 0B 01 : toggle (only 'outside' locks)
+03 01    : nothing
+34 01    : nothing
 9E 01    : nothing
 9F 01    : nothing
 01 52 01 : unlock LF
@@ -101,8 +101,8 @@ RR U P : 00 46 01
 00 41 01 : lock rear doors
 00 42    : lock gas cap
 00 42 01 : unlock rear doors
-4F 01    : lock all but LF 
-97 01    : toggle 
+4F 01    : lock all but LF
+97 01    : toggle
 
 52 01 : LF window open
 53 01 : LF window close
@@ -166,15 +166,15 @@ cmd  : 0x6D (move?)
 0x40 : passenger mirror stop (motor won't stop until you tell it)
 
 // with normal GM cmd
-01 31 01 : left in 
-01 30 01 : left out 
+01 31 01 : left in
+01 30 01 : left out
 02 31 01 : right in
 02 30 01 : right out
 
 
 // Misc
 
-00 10 : Wheel up, interior on 
+00 10 : Wheel up, interior on
 00 17 : Interior on, no fade
 00 3C : Red nose on for 3 sec
 00 56 : ALARM!!!

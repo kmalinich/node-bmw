@@ -12,7 +12,7 @@ M# = Mode:
 	07 = End
 	08 = Loading
 F# = Function:
-	09 = Request Play 
+	09 = Request Play
 E# = Errors:
 	02 = HIGH_TEMP
 	08 = NO_DISC
@@ -43,7 +43,7 @@ loop {
 
 RAD sends rad_cdc_get_current_track
 if playing {
-	CDC sends cdc_startplaying01 
+	CDC sends cdc_startplaying01
 }
 else {
 	CDC sends cdc_rad_status_not_playing

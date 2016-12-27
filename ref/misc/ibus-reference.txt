@@ -11,7 +11,7 @@
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Devices 
+Devices
 00 Broadcast, GM
 08 SHD
 
@@ -93,7 +93,7 @@ Operations
 2B LED command to BM
 2C Display Phone symbol
 31 60 00 nn NAV to radio. Change to CD 'nn'
-32 Left BM nob turn (and steeringwheel '+' & '-') 
+32 Left BM nob turn (and steeringwheel '+' & '-')
 38 Request CD and track info
 39 CD status and track info response
 3B Steering wheel buttons except vol+ and -
@@ -150,22 +150,22 @@ temp deg F
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Speed message
 
-18 ss rr 
+18 ss rr
 
 ss = speed / 2 [km/h] (512km/h max)
 rr = revs / 100 rpm
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 LED control messages
 
-2B Data1 Data2 Data3 Data4 
+2B Data1 Data2 Data3 Data4
 
-Data: 
+Data:
 76 54 32 10
 00 gg yy rr
 
 00: off
 01: on
-11: on/flashing 
+11: on/flashing
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Request CD and track info
 
@@ -193,22 +193,22 @@ CD status and track info
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Set date and time
 
-40 01 0C 3B 
-40 = OBC Set data 
+40 01 0C 3B
+40 = OBC Set data
 01 = Time
 0C = hours in hex
 3B = minutes in hex
 
 40 02 1B 05 08
-40 = OBC Set data 
+40 = OBC Set data
 02 = Date
-1B = day in hex 
+1B = day in hex
 05 = month in hex
 08 = year in hex
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Turning on an off LED next to left knob 
+Turning on an off LED next to left knob
 
-4A FF switch on and 
+4A FF switch on and
 4A 00 to switch it off."
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Sideview mirror
@@ -216,18 +216,18 @@ Sideview mirror
 6D 40 right
 6D 80 left
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Remote key 
+Remote key
 
 72 22 unlock in
 72 12 lock in
 72 42 boot in
-72 02 
+72 02
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 When key is inserted into the ignition lock these messages are sent
 
-74 04 01 in 
-74 00 FF out 
+74 04 01 in
+74 00 FF out
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Window and door message 
+Window and door message
 
 7A 51 20

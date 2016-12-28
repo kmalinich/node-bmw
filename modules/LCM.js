@@ -325,7 +325,7 @@ var LCM = function(omnibus) {
 		var handbrake    = omnibus.status.vehicle.handbrake;
 		var ignition     = omnibus.status.vehicle.ignition;
 
-		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
+		// console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);

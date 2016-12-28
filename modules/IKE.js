@@ -82,8 +82,7 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[node-bmw] Trigger: power-off state');
 
-					// Stop auto lights
-					omnibus.LCM.auto_lights('off');
+					omnibus.LCM.auto_lights_process();
 
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
@@ -111,15 +110,13 @@ var IKE = function(omnibus) {
 					console.log('[node-bmw] Trigger: power-on state');
 
 					// Welcome message
-					setTimeout(function() { ike_text_warning('node-bmw     '+os.hostname()); }, 300);
+					setTimeout(function() { ike_text_warning('node-bmw     '+os.hostname(), 3000); }, 300);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
 				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
 					console.log('[node-bmw] Trigger: run state');
-
-					// Start auto lights
-					omnibus.LCM.auto_lights('on');
+					omnibus.LCM.auto_lights_process();
 				}
 
 				switch (message[1]) { // Ignition status value
@@ -142,12 +139,11 @@ var IKE = function(omnibus) {
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
 					omnibus.status.vehicle.handbrake = true;
-					omnibus.LCM.auto_lights_process();
 				}
 				else {
 					omnibus.status.vehicle.handbrake = false;
-					omnibus.LCM.auto_lights_process();
 				}
+				omnibus.LCM.auto_lights_process();
 
 				// message[2]:
 				//   1 = Engine running
@@ -610,8 +606,11 @@ var IKE = function(omnibus) {
 
 	// Refresh custom HUD
 	function hud_refresh() {
+		var spacing1;
+		var spacing2;
 		var string_cons;
 		var string_temp;
+		var string_time = moment().format('HH:mm');
 
 		// console.log('[node-bmw] Refreshing OBC HUD');
 
@@ -621,8 +620,7 @@ var IKE = function(omnibus) {
 			string_cons = '     ';
 		}
 		else {
-			var cons1   = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1);
-			string_cons = cons1+'m';
+			string_cons = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1)+'m '+omnibus.status.vehicle.speed_mph;
 		}
 
 		if (omnibus.status.temperature.coolant_c == 0) {
@@ -630,21 +628,16 @@ var IKE = function(omnibus) {
 			string_temp = '  ';
 		}
 		else {
-			var ctmp  = Math.round(omnibus.status.temperature.coolant_c);
-			var string_temp = ctmp+'¨';
+			string_temp = Math.round(omnibus.status.temperature.coolant_c)+'¨';
 		}
 
 		// Only display data if we have data
 		if (omnibus.status.obc.consumption_1_mpg != 0 && omnibus.status.temperature.coolant_c != 0) {
 		}
 
-		var string_time = moment().format('HH:mm');
-		var spacing1;
-		var spacing2;
-
 		switch (string_temp.length) {
 			case 4:
-				spacing1 = '  ';
+				spacing1 = '   ';
 				spacing2 = '   ';
 				break;
 			case 3:
@@ -659,6 +652,11 @@ var IKE = function(omnibus) {
 				spacing1 = ' ';
 				spacing2 = ' ';
 				break;
+		}
+
+		// Add space to left-most string (consumption 1)
+		if (string_cons.length == 4) {
+			string_cons = '0'+string_cons;
 		}
 
 		ike_text(string_cons+spacing1+string_temp+spacing2+string_time);

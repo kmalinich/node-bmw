@@ -100,6 +100,9 @@ var IKE = function(omnibus) {
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
+					// Turn off HDMI display
+					omnibus.HDMI.command('poweroff');
+
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
 					omnibus.status.audio.rad_ready = false;
@@ -161,7 +164,19 @@ var IKE = function(omnibus) {
 				// 192 = 4 (6+7)
 				// 208 = 3 (4+6+7)
 				//  64 = 2 (6)
-				if (bit_test(message[2], bit_0)) { omnibus.status.engine.running = true; } else { omnibus.status.engine.running = false; }
+				if (bit_test(message[2], bit_0)) {
+					// If it's newly running
+					if (omnibus.status.engine.running === false) {
+						omnibus.HDMI.command('poweron');
+						omnibus.status.engine.running = true;
+					}
+				}
+				else {
+					// If it's newly NOT running
+					if (omnibus.status.engine.running === true) {
+						omnibus.status.engine.running = false;
+					}
+				}
 
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
 					// If it's newly in reverse

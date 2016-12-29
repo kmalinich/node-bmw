@@ -16,6 +16,7 @@ var ibus_interface = require('./ibus/ibus-interface.js');
 // Other custom libraries
 //var BT   = require('./lib/BT.js');
 var kodi = require('./lib/kodi.js');
+var HDMI = require('./lib/HDMI.js');
 
 // Module libraries
 var ABG  = require('./modules/ABG.js');
@@ -71,9 +72,10 @@ omnibus.SES             = new SES(omnibus);
 omnibus.SHD             = new SHD(omnibus);
 omnibus.TEL             = new TEL(omnibus);
 omnibus.VID             = new VID(omnibus);
-//omnibus.BT              = new BT(omnibus);
 omnibus.kodi            = new kodi(omnibus);
-omnibus.socket_server = require('./lib/socket-server.js');
+omnibus.HDMI            = new HDMI(omnibus);
+omnibus.socket_server   = require('./lib/socket-server.js');
+//omnibus.BT              = new BT(omnibus);
 
 // Server ports
 var api_port       = 3001;
@@ -90,10 +92,13 @@ function api_handler(request, response) {
 
 function start() {
 	// Start BT autoconfig
-	//omnibus.BT.autoconfig();
+	// omnibus.BT.autoconfig();
+
+	// Start HDMI autoconfig
+	omnibus.HDMI.autoconfig();
 
 	// Start API server
-	api_server.listen(api_port, function() {
+	api_server.listen(api_port, () => {
 		console.log('[node-api] Started, port %s', api_port);
 	});
 
@@ -107,14 +112,13 @@ function start() {
 // Shutdown function
 function shutdown() {
 	console.log('[node-bmw] Closing all threads and exiting');
+	omnibus.HDMI.shutdown();
 
-	api_server.close(function() {
-		process.exit(function() {
-		});
+	api_server.close(() => {
 	});
 
 	// Close serial port if open, and exit process
-	omnibus.ibus_connection.shutdown(function() {
+	omnibus.ibus_connection.shutdown(() => {
 		process.exit();
 	});
 }
@@ -124,14 +128,14 @@ function shutdown() {
 // This should be moved into it's own object
 
 // Status GET request
-dispatcher.onGet('/status', function(request, response) {
+dispatcher.onGet('/status', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'application/json'});
 
 	response.end(JSON.stringify(omnibus.status));
 });
 
 // GM POST request
-dispatcher.onPost('/gm', function(request, response) {
+dispatcher.onPost('/gm', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
@@ -141,7 +145,7 @@ dispatcher.onPost('/gm', function(request, response) {
 });
 
 // IKE POST request
-dispatcher.onPost('/ike', function(request, response) {
+dispatcher.onPost('/ike', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
@@ -151,7 +155,7 @@ dispatcher.onPost('/ike', function(request, response) {
 });
 
 // LCM POST request
-dispatcher.onPost('/lcm', function(request, response) {
+dispatcher.onPost('/lcm', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'text/plain'});
 
 	var post = query_string.parse(request.body);
@@ -161,7 +165,7 @@ dispatcher.onPost('/lcm', function(request, response) {
 });
 
 // Error
-dispatcher.onError(function(request, response) {
+dispatcher.onError((request, response) => {
 	console.error('[API]  Error: 404');
 	response.writeHead(404);
 	response.end();

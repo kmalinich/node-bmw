@@ -45,7 +45,7 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run'
-	setInterval(function() {
+	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
 	}, 3000);
 
@@ -947,7 +947,7 @@ var IKE = function(omnibus) {
 		if (!timeout) { var timeout = 10000; }
 
 		// Clear the message after 5 seconds
-		setTimeout(function() {
+		setTimeout(() => {
 			ike_text_urgent_off();
 			hud_refresh();
 		}, timeout);
@@ -972,7 +972,7 @@ var IKE = function(omnibus) {
 		if (!timeout) { var timeout = 5000; }
 
 		// Clear the message after 5 seconds
-		setTimeout(function() {
+		setTimeout(() => {
 			ike_text_urgent_off();
 			hud_refresh();
 		}, timeout);

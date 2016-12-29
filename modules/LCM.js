@@ -133,7 +133,40 @@ var LCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		// Dynamic logging output
+		var data_dst_name;
+		switch (data.dst_name.length) {
+			case 1:
+				data_dst_name = data.dst_name+'   ';
+				break;
+			case 2:
+				data_dst_name = data.dst_name+'  ';
+				break;
+			case 3:
+				data_dst_name = data.dst_name+' ';
+				break;
+			default:
+				data_dst_name = data.dst_name;
+				break;
+		}
+
+		var data_src_name;
+		switch (data.src_name.length) {
+			case 1:
+				data_src_name = '   '+data.src_name;
+				break;
+			case 2:
+				data_src_name = '  '+data.src_name;
+				break;
+			case 3:
+				data_src_name = ' '+data.src_name;
+				break;
+			default:
+				data_src_name = data.src_name;
+				break;
+		}
+
+		console.log('[%s>%s] %s:', data_src_name, data_dst_name, command, value);
 	}
 
   // This message also has days since service and total kms, but, baby steps...
@@ -305,7 +338,7 @@ var LCM = function(omnibus) {
 
 					// Process/send LCM data on 10 second interval
 					// LCM diag command timeout is 15 seconds
-					auto_lights_interval = setInterval(function() {
+					auto_lights_interval = setInterval(() => {
 						// Process auto lights
 						auto_lights_process();
 					}, 10000);
@@ -402,12 +435,12 @@ var LCM = function(omnibus) {
 		reset();
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
-		setTimeout(function() {
+		setTimeout(() => {
 			// Set status variables
 			omnibus.status.lights.turn_comfort_left  = false;
 			omnibus.status.lights.turn_comfort_right = false;
 			reset();
-		}, 2500);
+		}, 2000);
 	}
 
 	// Welcome lights on unlocking/locking
@@ -563,7 +596,7 @@ var LCM = function(omnibus) {
 
 		// Clear welcome lights variables after 15 seconds
 		if (omnibus.status.lights.welcome_lights == true) {
-			setTimeout(function() {
+			setTimeout(() => {
 				omnibus.status.lights.welcome_lights       = false;
 				omnibus.status.lights.welcome_lights_level = 0;
 			}, 15000);
@@ -571,7 +604,7 @@ var LCM = function(omnibus) {
 	}
 
 	function reset() {
-		console.log('[LCM]  Resetting');
+		console.log('[node-bmw] [LCM] Resetting');
 		var lcm_object = {
 			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
 			switch_standing   : omnibus.status.lights.auto_standing,

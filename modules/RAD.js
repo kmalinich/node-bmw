@@ -70,7 +70,7 @@ var RAD = function(omnibus) {
 						omnibus.status.audio.rad_ready = true;
 
 						// Attempt to send BMBT power button
-						setTimeout(function() {
+						setTimeout(() => {
 							omnibus.BMBT.power_on_if_ready();
 						}, 2000);
 						break;

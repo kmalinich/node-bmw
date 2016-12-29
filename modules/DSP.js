@@ -64,7 +64,7 @@ var DSP = function(omnibus) {
 						console.log('[node-bmw] omnibus.status.audio.dsp_ready: \'%s\'', omnibus.status.audio.dsp_ready);
 
 						// Attempt to send BMBT power button
-						setTimeout(function() {
+						setTimeout(() => {
 							omnibus.BMBT.power_on_if_ready();
 						}, 2000);
 						break;

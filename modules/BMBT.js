@@ -46,7 +46,7 @@ var BMBT = function(omnibus) {
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 		request_rad_status();
 	}
-	setInterval(function() {
+	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			request_rad_status();
 		}
@@ -56,7 +56,7 @@ var BMBT = function(omnibus) {
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 		send_device_status();
 	}
-	setInterval(function() {
+	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			send_device_status();
 		}
@@ -318,7 +318,7 @@ var BMBT = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 
 		// Prepare and send the up message after 150ms
-		setTimeout(function() {
+		setTimeout(() => {
 			console.log('[BMBT->RAD] Sending button up: %s', button);
 
 			// Send message

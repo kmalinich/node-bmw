@@ -22,7 +22,6 @@ function bit_test(num, bit) {
 
 
 var PDC = function(omnibus) {
-
 	// Self reference
 	var _self = this;
 
@@ -53,6 +52,12 @@ var PDC = function(omnibus) {
 		else if (message[0] == 0x10) {
 			command = 'request';
 			data    = 'ignition status';
+		}
+
+		// Gong status
+		else if (message[0] == 0x70) {
+			command = 'broadcast';
+			data    = 'gong status';
 		}
 
 		// Door/flap status request

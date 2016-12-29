@@ -82,12 +82,8 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[node-bmw] Trigger: power-off state');
 
-					omnibus.LCM.auto_lights_process();
-
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
-						console.log('[node-bmw] Unlocking doors');
-
 						// Send message to GM to toggle door locks
 						omnibus.GM.gm_cl();
 					}
@@ -100,12 +96,14 @@ var IKE = function(omnibus) {
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
-					// Turn off HDMI display
-					omnibus.HDMI.command('poweroff');
-
 					// Set audio modules as not ready
 					omnibus.status.audio.dsp_ready = false;
 					omnibus.status.audio.rad_ready = false;
+
+					// Turn off HDMI display after 3 seconds
+					setTimeout(() => {
+						omnibus.HDMI.command('poweroff');
+					}, 3000);
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
@@ -113,13 +111,14 @@ var IKE = function(omnibus) {
 					console.log('[node-bmw] Trigger: power-on state');
 
 					// Welcome message
-					setTimeout(function() { ike_text_warning('node-bmw     '+os.hostname(), 3000); }, 300);
+					setTimeout(() => {
+						ike_text_warning('node-bmw     '+os.hostname(), 3000);
+					}, 300);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
 				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
 					console.log('[node-bmw] Trigger: run state');
-					omnibus.LCM.auto_lights_process();
 				}
 
 				switch (message[1]) { // Ignition status value
@@ -131,6 +130,7 @@ var IKE = function(omnibus) {
 				}
 
 				value = omnibus.status.vehicle.ignition;
+				omnibus.LCM.auto_lights_process();
 				break;
 
 			case 0x13: // IKE sensor status
@@ -144,14 +144,14 @@ var IKE = function(omnibus) {
 					// If handbrake is newly true
 					if (omnibus.status.vehicle.handbrake === false) {
 						omnibus.status.vehicle.handbrake = true;
-						omnibus.LCM.auto_lights_process();
+						// omnibus.LCM.auto_lights_process();
 					}
 				}
 				else {
 					// If handbrake is newly false
 					if (omnibus.status.vehicle.handbrake === true) {
 						omnibus.status.vehicle.handbrake = false;
-						omnibus.LCM.auto_lights_process();
+						// omnibus.LCM.auto_lights_process();
 					}
 				}
 
@@ -181,9 +181,8 @@ var IKE = function(omnibus) {
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
 					// If it's newly in reverse
 					if (omnibus.status.vehicle.reverse == false) {
-						ike_text_warning(' YOU\'RE IN REVERSE!', 4000);
+						ike_text_warning(' YOU\'RE IN REVERSE!', 2000);
 					}
-
 					omnibus.status.vehicle.reverse = true;
 				}
 				else {

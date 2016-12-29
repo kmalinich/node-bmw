@@ -340,14 +340,14 @@ var LCM = function(omnibus) {
     }
 
     // Check handbrake
-    if (handbrake == true) {
-      // Handbrake is set: disable auto lowbeams
-      console.log('[node-bmw] Auto lights: Handbrake on');
-			omnibus.status.lights.auto_lowbeam  = false;
-			omnibus.status.lights.auto_standing = true;
-      reset();
-      return;
-    }
+    // if (handbrake == true && ignition == 'run') {
+    //   // Handbrake is set: disable auto lowbeams
+    //   console.log('[node-bmw] Auto lights: Handbrake on');
+		// 	omnibus.status.lights.auto_lowbeam  = false;
+		// 	omnibus.status.lights.auto_standing = true;
+    //   reset();
+    //   return;
+    // }
 
     // Check time of day
 		if (current_time < lights_off) {

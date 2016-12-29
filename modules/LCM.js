@@ -278,10 +278,11 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling
 	function auto_lights(light_switch) {
-		console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
 
 		switch (light_switch) {
 			case 'off':
+				console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
+
 				clearInterval(auto_lights_interval);
 
 				// Set status variables
@@ -294,6 +295,8 @@ var LCM = function(omnibus) {
 				break;
 			case 'on':
 				if (omnibus.status.lights.auto_lights == false) {
+					console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
+
 					// Set status variables
 					omnibus.status.lights.auto_lights = true;
 

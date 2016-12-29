@@ -138,12 +138,19 @@ var IKE = function(omnibus) {
 				// message[1]:
 				// 0x01 = handbrake on
 				if (bit_test(message[1], bit_0)) {
-					omnibus.status.vehicle.handbrake = true;
+					// If handbrake is newly true
+					if (omnibus.status.vehicle.handbrake === false) {
+						omnibus.status.vehicle.handbrake = true;
+						omnibus.LCM.auto_lights_process();
+					}
 				}
 				else {
-					omnibus.status.vehicle.handbrake = false;
+					// If handbrake is newly false
+					if (omnibus.status.vehicle.handbrake === true) {
+						omnibus.status.vehicle.handbrake = false;
+						omnibus.LCM.auto_lights_process();
+					}
 				}
-				omnibus.LCM.auto_lights_process();
 
 				// message[2]:
 				//   1 = Engine running
@@ -620,7 +627,7 @@ var IKE = function(omnibus) {
 			string_cons = '     ';
 		}
 		else {
-			string_cons = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1)+'m '+omnibus.status.vehicle.speed_mph;
+			string_cons = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1)+'m';
 		}
 
 		if (omnibus.status.temperature.coolant_c == 0) {

@@ -338,6 +338,10 @@ var LCM = function(omnibus) {
       auto_lights('off');
       return;
     }
+		else {
+			// In run: start auto_lights interval
+      auto_lights('on');
+		}
 
     // Check handbrake
     // if (handbrake == true && ignition == 'run') {

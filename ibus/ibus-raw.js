@@ -6,7 +6,7 @@ var serialport    = require('serialport');
 
 // local data
 var parser;
-var device      = '/dev/ttyUSB0';
+var device      = '/dev/bmw';
 var queue       = [];
 var serial_port = new serialport(device, {
 	autoOpen : false,

@@ -15,7 +15,7 @@ var ibus_interface = function(omnibus) {
 	this.send_message = send_message;
 
 	// Local data
-	var device      = '/dev/ttyUSB0';
+	var device      = '/dev/bmw';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,

@@ -423,15 +423,15 @@ function status() {
 			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp.toUpperCase());
 
 			if (return_data.coding.unit_temp == 'c') {
-				$('#temperature-coolant').text(return_data.temperature.coolant_c);
-				$('#obc-temp-exterior').text(return_data.temperature.exterior_c);
+				$('#temperature-coolant').text(return_data.temperature.coolant.c);
+				$('#obc-temp-exterior').text(return_data.temperature.exterior.obc.c);
 			}
 			else if (return_data.coding.unit_temp == 'f') {
-				$('#temperature-coolant').text(return_data.temperature.coolant_f);
-				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior_f);
+				$('#temperature-coolant').text(return_data.temperature.coolant.f);
+				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior.obc.f);
 			}
 
-			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer_mi);
+			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer.mi);
 			$('#vehicle-vin').text(return_data.vehicle.vin);
 
 			/*

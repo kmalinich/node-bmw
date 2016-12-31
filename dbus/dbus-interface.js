@@ -32,12 +32,12 @@ var dbus_interface = function(device_path) {
 
 	// implementation
 	function init_dbus() {
-		device      = '/dev/ttyUSB1';
+		device      = '/dev/samsung';
 		serial_port = new serialport.SerialPort(device, {
 			//rtscts   : true,
 			baudRate : 9600,
 			dataBits : 8,
-			parity   : 'even',
+			//parity   : 'even',
 			parser   : serialport.parsers.raw,
 			stopBits : 1,
 		}, false);

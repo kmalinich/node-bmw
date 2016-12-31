@@ -6,15 +6,15 @@ var serialport    = require('serialport');
 
 // local data
 var parser;
-var device      = '/dev/bmw';
+var device      = '/dev/samsung';
 var queue       = [];
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	baudRate : 9600,
 	dataBits : 8,
-	parity   : 'even',
+//	parity   : 'even',
 	parser   : serialport.parsers.raw,
-	rtscts   : true,
+	// rtscts   : true,
 	stopBits : 1,
 });
 

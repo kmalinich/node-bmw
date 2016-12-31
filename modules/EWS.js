@@ -69,8 +69,6 @@ var EWS = function(omnibus) {
 				break;
 
 			case 0x74: // Broadcast: immobiliser status
-				command = 'immobiliser status';
-
 				// Init variables
 				var value_1;
 				var value_2;
@@ -83,49 +81,38 @@ var EWS = function(omnibus) {
 				// Key detected/vehicle immobilised
 				switch (message[1]) {
 					case 0x00:
-						value_1 = 'no key detected';
+						value = 'no key';
+						omnibus.status.immobilizer.key_present = false;
 						break;
 					case 0x01:
-						value_1 = 'immobilisation deactivated';
+						value = 'immobilisation deactivated';
+						// omnibus.status.immobilizer.key_present = null;
+						omnibus.status.immobilizer.immobilized = false;
 						break;
 					case 0x04:
-						value_1 = 'valid key detected';
+						value = 'valid key';
+						omnibus.status.immobilizer.key_present = true;
+						omnibus.status.immobilizer.immobilized = false;
 						break;
 					default:
-						value_1 = new Buffer([message[1]]);
+						value = new Buffer([message[1]]);
 						break;
 				}
+				command = 'key presence';
+				console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+				value = null;
 
-				// Key #/Vehicle immobilised
-				switch (message[2]) {
-					case 0x01:
-						value_2 = 'key 1';
-						break;
-					case 0x02:
-						value_2 = 'key 2';
-						break;
-					case 0x03:
-						value_2 = 'key 3';
-						break;
-					case 0x04:
-						value_2 = 'key 4';
-						break;
-					case 0x05:
-						value_2 = 'key 5';
-						break;
-					case 0x06:
-						value_2 = 'key 6';
-						break;
-					case 0xFF:
-						value_2 = 'immobilised';
-						break;
-					default:
-						value_1 = new Buffer([message[1]]);
-						break;
+				// Key number 255/0xFF = no key, vehicle immobilized
+				if (message[2] == 0xFF) {
+					omnibus.status.immobilizer.key_number  = null;
+					// omnibus.status.immobilizer.immobilized = true;
 				}
-
-				// Assemble string
-				value = value_1+' '+value_2;
+				else {
+					omnibus.status.immobilizer.key_number = message[2];
+				}
+				command = 'key number';
+				console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, message[2]);
+				value = null;
 				break;
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged
@@ -154,7 +141,9 @@ var EWS = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		if (value !== null) {
+			console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		}
 	}
 }
 

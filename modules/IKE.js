@@ -201,8 +201,8 @@ var IKE = function(omnibus) {
 				var odometer_value2                = message[2] << 8;
 				var odometer_value                 = odometer_value1 + odometer_value2 + message[1];
 				value                              = odometer_value;
-				omnibus.status.vehicle.odometer_km = odometer_value;
-				omnibus.status.vehicle.odometer_mi = Math.round(convert(odometer_value).from('kilometre').to('us mile'));
+				omnibus.status.vehicle.odometer.km = odometer_value;
+				omnibus.status.vehicle.odometer.mi = Math.round(convert(odometer_value).from('kilometre').to('us mile'));
 				break;
 
 			case 0x18: // Vehicle speed and RPM
@@ -210,11 +210,11 @@ var IKE = function(omnibus) {
 				value   = 'current speed and RPM';
 
 				// Update vehicle and engine speed variables
-				omnibus.status.vehicle.speed_kmh = parseFloat(message[1]*2);
+				omnibus.status.vehicle.speed.kmh = parseFloat(message[1]*2);
 				omnibus.status.engine.speed      = parseFloat(message[2]*100);
 
 				// Convert values and round to 2 decimals
-				omnibus.status.vehicle.speed_mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
+				omnibus.status.vehicle.speed.mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
 				break;
 
 			case 0x19: // Coolant temp and external temp
@@ -252,11 +252,11 @@ var IKE = function(omnibus) {
 
 						// Detect 12h or 24h time and parse value
 						if (string_time_unit == 'am' || string_time_unit == 'pm') {
-							omnibus.status.coding.unit_time = '12h';
+							omnibus.status.coding.unit.time = '12h';
 							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						}
 						else {
-							omnibus.status.coding.unit_time = '24h';
+							omnibus.status.coding.unit.time = '24h';
 							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7]]);
 						}
 
@@ -304,12 +304,12 @@ var IKE = function(omnibus) {
 						// Update omnibus.status variables
 						switch (string_temp_exterior_unit) {
 							case 'c':
-								omnibus.status.coding.unit_temp = 'c';
+								omnibus.status.coding.unit.temp = 'c';
 								omnibus.status.temperature.exterior.obc.c = parseFloat(string_temp_exterior_value);
 								omnibus.status.temperature.exterior.obc.f = convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit');
 								break;
 							case 'f':
-								omnibus.status.coding.unit_temp = 'f';
+								omnibus.status.coding.unit.temp = 'f';
 								omnibus.status.temperature.exterior.obc.c = convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius');
 								omnibus.status.temperature.exterior.obc.f = parseFloat(string_temp_exterior_value);
 								break;
@@ -332,13 +332,13 @@ var IKE = function(omnibus) {
 						// Perform appropriate conversions between units
 						switch (string_consumption_1_unit) {
 							case 'm':
-								omnibus.status.coding.unit_cons = 'mpg';
+								omnibus.status.coding.unit.cons = 'mpg';
 								string_consumption_1_mpg        = string_consumption_1;
 								string_consumption_1_l100       = 235.21/string_consumption_1;
 								break;
 
 							default:
-								omnibus.status.coding.unit_cons = 'l100';
+								omnibus.status.coding.unit.cons = 'l100';
 								string_consumption_1_mpg        = 235.21/string_consumption_1;
 								string_consumption_1_l100       = string_consumption_1;
 								break;
@@ -392,13 +392,13 @@ var IKE = function(omnibus) {
 						// Update omnibus.status variables
 						switch (string_range_unit) {
 							case 'ml':
-								omnibus.status.coding.unit_distance = 'mi';
+								omnibus.status.coding.unit.distance = 'mi';
 								omnibus.status.obc.range_mi = parseFloat(string_range);
 								omnibus.status.obc.range_km = parseFloat(convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2));
 								break;
 
 							case 'km':
-								omnibus.status.coding.unit_distance = 'km';
+								omnibus.status.coding.unit.distance = 'km';
 								omnibus.status.obc.range_mi = parseFloat(convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2));
 								omnibus.status.obc.range_km = parseFloat(string_range);
 								break;
@@ -419,9 +419,15 @@ var IKE = function(omnibus) {
 						value                       = omnibus.status.obc.distance;
 						break;
 
-					case 0x08: // --:--
-						command = 'OBC clock';
-						value   = new Buffer(message);
+					case 0x08: // Arrival time
+						command = 'OBC arrival time';
+						// Parse value
+						string_arrival = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_arrival = string_arrival.toString().trim().toLowerCase();
+
+						// Update omnibus.status variables
+						omnibus.status.obc.arrival = string_arrival;
+						value                      = omnibus.status.obc.arrival;
 						break;
 
 					case 0x09: // Limit
@@ -450,14 +456,14 @@ var IKE = function(omnibus) {
 						// Convert values appropriately based on coding valueunits
 						switch(string_speedavg_unit) {
 							case 'k':
-								omnibus.status.coding.unit_speed = 'kmh';
+								omnibus.status.coding.unit.speed = 'kmh';
 								// Update omnibus.status variables
 								omnibus.status.obc.speedavg_kmh = string_speedavg.toFixed(2);
 								omnibus.status.obc.speedavg_mph = convert(string_speedavg).from('kilometre').to('us mile').toFixed(2);
 								break;
 
 							case 'm':
-								omnibus.status.coding.unit_speed = 'mph';
+								omnibus.status.coding.unit.speed = 'mph';
 								// Update omnibus.status variables
 								omnibus.status.obc.speedavg_kmh = convert(string_speedavg).from('us mile').to('kilometre').toFixed(2);
 								omnibus.status.obc.speedavg_mph = string_speedavg.toFixed(2);
@@ -465,6 +471,27 @@ var IKE = function(omnibus) {
 						}
 
 						value = omnibus.status.obc.speedavg_mph;
+						break;
+
+					case 0x0B: //
+						command = 'OBC 0x0B';
+						value   = new Buffer(message);
+						break;
+
+					case 0x0C: //
+						command = 'OBC 0x0C';
+						value   = new Buffer(message);
+						break;
+
+					case 0x0D: //
+						command = 'OBC code';
+						// Parse value
+						string_code = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_code = string_code.toString().trim().toLowerCase();
+
+						// Update omnibus.status variable
+						omnibus.status.obc.code = string_code;
+						value                   = omnibus.status.obc.code;
 						break;
 
 					case 0x0E: // Timer
@@ -716,26 +743,29 @@ var IKE = function(omnibus) {
 	function obc_refresh() {
 		console.log('[ node-bmw] Refreshing all OBC data');
 
-		request('vin');
-		obc_data('get', 'arrival');
-		obc_data('get', 'auxheat1');
-		obc_data('get', 'auxheat2');
-		obc_data('get', 'auxheatvent');
-		obc_data('get', 'code');
-		obc_data('get', 'cons1');
-		obc_data('get', 'cons2');
-		obc_data('get', 'date');
-		obc_data('get', 'distance');
-		obc_data('get', 'range');
-		obc_data('get', 'speedavg');
-		obc_data('get', 'speedlimit');
-		obc_data('get', 'stopwatch');
-		obc_data('get', 'temp_exterior');
-		obc_data('get', 'time');
-		obc_data('get', 'timer');
+		// IKE data
+		request('vin'        );
 		request('temperature');
-		request('sensor');
-		request('odometer');
+		request('sensor'     );
+		request('odometer'   );
+
+		// OBC data
+		obc_data('get', 'arrival'      );
+		obc_data('get', 'auxheat1'     );
+		obc_data('get', 'auxheat2'     );
+		obc_data('get', 'auxheatvent'  );
+		obc_data('get', 'code'         );
+		obc_data('get', 'cons1'        );
+		obc_data('get', 'cons2'        );
+		obc_data('get', 'date'         );
+		obc_data('get', 'distance'     );
+		obc_data('get', 'range'        );
+		obc_data('get', 'speedavg'     );
+		obc_data('get', 'speedlimit'   );
+		obc_data('get', 'stopwatch'    );
+		obc_data('get', 'temp_exterior');
+		obc_data('get', 'time'         );
+		obc_data('get', 'timer'        );
 	}
 
 	// OBC data request
@@ -752,10 +782,10 @@ var IKE = function(omnibus) {
 		switch (action) {
 			case 'get'        : action_id = 0x01; break; // Request current value
 			case 'get-status' : action_id = 0x02; break; // Request current status
-			case 'limit-on'   : action_id = 0x04; break;
 			case 'limit-off'  : action_id = 0x08; break;
-			case 'reset'      : action_id = 0x10; break;
+			case 'limit-on'   : action_id = 0x04; break;
 			case 'limit-set'  : action_id = 0x20; break;
+			case 'reset'      : action_id = 0x10; break;
 		}
 
 		// Determine value_id from value argument
@@ -796,7 +826,7 @@ var IKE = function(omnibus) {
 	function ike_backlight(value) {
 		var src = 0xD0; // LCM
 		var dst = 0xBF; // GLO
-		var cmd = 0x5C; // Set LCD screen text
+		var cmd = 0x5C; // Set LCD screen backlight
 
 		console.log('[ node-bmw] Setting LCD screen backlight to %s', value);
 
@@ -845,7 +875,7 @@ var IKE = function(omnibus) {
 			case 'vin':
 				src = 0x80; // IKE
 				dst = 0xD0; // LCM
-				cmd = [0x53];
+				cmd = 0x53;
 				break;
 		}
 

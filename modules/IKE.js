@@ -25,13 +25,14 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
-	this.ike_data        = ike_data;
-	this.ike_send        = ike_send;
-	this.ike_text        = ike_text;
-	this.ike_text_urgent = ike_text_urgent;
-	this.obc_data        = obc_data;
-	this.parse_out       = parse_out;
-	this.request         = request;
+	this.ike_data         = ike_data;
+	this.ike_send         = ike_send;
+	this.ike_text         = ike_text;
+	this.ike_text_urgent  = ike_text_urgent;
+	this.ike_text_warning = ike_text_warning;
+	this.obc_data         = obc_data;
+	this.parse_out        = parse_out;
+	this.request          = request;
 
 	// Pad string for IKE text screen length (20 characters)
 	String.prototype.ike_pad = function() {
@@ -692,7 +693,7 @@ var IKE = function(omnibus) {
 		// console.log('[ node-bmw] Refreshing OBC HUD');
 
 		// Populate values if missing
-		if (omnibus.status.obc.consumption_1_mpg == 0) {
+		if (omnibus.status.obc.consumption_1_mpg === null) {
 			obc_data('get', 'cons1');
 			string_cons = '     ';
 		}
@@ -700,7 +701,7 @@ var IKE = function(omnibus) {
 			string_cons = parseFloat(omnibus.status.obc.consumption_1_mpg).toFixed(1)+'m';
 		}
 
-		if (omnibus.status.temperature.coolant.c == 0) {
+		if (omnibus.status.temperature.coolant.c === null) {
 			request('temperature');
 			string_temp = '  ';
 		}

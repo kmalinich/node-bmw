@@ -40,9 +40,6 @@ var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
 
-	// Auto lights interval
-	var auto_lights_interval;
-
 	// Exposed data
 	this.auto_lights         = auto_lights;
 	this.auto_lights_process = auto_lights_process;
@@ -311,17 +308,15 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling
 	function auto_lights(light_switch) {
+		console.log('[ node-bmw] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
 		switch (light_switch) {
 			case 'off':
 				if (omnibus.status.lights.auto.active === true) {
-					console.log('[ node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
 					auto_lights_off();
 				}
 				break;
 			case 'on':
 				if (omnibus.status.lights.auto.active === false) {
-					console.log('[ node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
-
 					// Set status variable
 					omnibus.status.lights.auto.active = true;
 
@@ -330,7 +325,7 @@ var LCM = function(omnibus) {
 
 					// Process/send LCM data on 5 second interval
 					// LCM diag command timeout is 15 seconds
-					auto_lights_interval = setInterval(() => {
+					omnibus.LCM.auto_lights_interval = setInterval(() => {
 						// Process auto lights
 						auto_lights_process();
 					}, 5000);
@@ -341,7 +336,7 @@ var LCM = function(omnibus) {
 
 	// Quick reset auto lights
 	function auto_lights_off() {
-		clearInterval(auto_lights_interval);
+		clearInterval(omnibus.LCM.auto_lights_interval);
 
 		// Set status variables
 		omnibus.status.lights.auto.reason   = null;
@@ -366,22 +361,15 @@ var LCM = function(omnibus) {
 		// console.log('lights_on    : %s', lights_on);
 		// console.log('lights_off   : %s', lights_off);
 
-		// Silently call to disable auto_lights if needed and bounce 
-		if (omnibus.status.lights.auto.active === false) {
-      auto_lights('off');
-      return;
-		}
-
-    // Check ignition
-    if (ignition !== null && ignition != 'run') {
+		// Check ignition
+		if (ignition != 'run') {
 			console.log('[      LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
-      // Not in run: turn off auto lights
-      auto_lights('off');
-      return;
-    }
+			// Not in run: turn off auto lights
+			auto_lights('off');
+			return;
+		}
 		else {
-			// In run: start auto_lights interval
-      auto_lights('on');
+			auto_lights('on');
 		}
 
 		// Check handbrake
@@ -428,6 +416,11 @@ var LCM = function(omnibus) {
 
 	// Comfort turn signal handling
 	function comfort_turn(action) {
+		// Init variable
+		var cluster_msg_1;
+		var cluster_msg_2 = ' turn ';
+		var cluster_msg_3;
+
 		console.log('[ node-bmw] comfort turn signal - \'%s\'', action);
 
 		switch (action) {
@@ -435,15 +428,23 @@ var LCM = function(omnibus) {
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = true;
 				omnibus.status.lights.turn_comfort_right = false;
+				cluster_msg_1 = '<------';
+				cluster_msg_3 = '       ';
 				break;
 			case 'right':
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = false;
 				omnibus.status.lights.turn_comfort_right = true;
+				cluster_msg_1 = '       ';
+				cluster_msg_3 = '------>';
 				break;
 		}
-
 		reset();
+
+		// Concat message string
+		cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
+
+		omnibus.IKE.ike_text_warning(cluster_msg, 2000);
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(() => {
@@ -452,6 +453,7 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.turn_comfort_right = false;
 			reset();
 		}, 2000);
+
 	}
 
 	// Welcome lights on unlocking/locking
@@ -619,7 +621,7 @@ var LCM = function(omnibus) {
 		var lcm_object = {
 			dimmer_value_1    : omnibus.status.lights.dimmer_value_1,
 			dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
-			switch_fog_rear   : omnibus.status.lights.auto.lowbeam, // To leverage the IKE LED as a status indicator
+			switch_fog_rear   : true, // To leverage the IKE LED as a status indicator
 			switch_lowbeam_1  : omnibus.status.lights.auto.lowbeam,
 			switch_standing   : omnibus.status.lights.auto.standing,
 			switch_turn_left  : omnibus.status.lights.turn_comfort_left,

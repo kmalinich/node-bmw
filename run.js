@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 // npm libraries
-var http            = require('http');
-var http_dispatcher = require('httpdispatcher');
-var query_string    = require('querystring');
-var url             = require('url');
-var wait            = require('wait.for');
+var http              = require('http');
+var http_dispatcher   = require('httpdispatcher');
+var query_string      = require('querystring');
+var url               = require('url');
+var wait              = require('wait.for');
+var lib_socket_server = require('./lib/socket-server.js')
 
 // IBUS libraries
 var data_handler   = require('./ibus/data-handler.js');
@@ -76,7 +77,7 @@ omnibus.kodi = new kodi(omnibus);
 omnibus.HDMI = new HDMI(omnibus);
 
 omnibus.api_server    = http.createServer(api_handler);
-omnibus.socket_server = require('./lib/socket-server.js');
+omnibus.socket_server = new lib_socket_server(omnibus);
 
 // Server ports
 var api_port       = 3001;
@@ -85,16 +86,19 @@ var websocket_port = 3002;
 
 // Global startup
 function startup() {
-  console.log('[ node-bmw] Opening all threads and starting up');
+  console.log('[ node-bmw] Starting up');
   // Start API server
   omnibus.api_server.listen(api_port, () => {
-    console.log('[      API] Started, port %s', api_port);
+    console.log('[      API] Started up, port %s', api_port);
     // Start WebSocket server
-    omnibus.socket_server.init(omnibus.api_server, omnibus, () => {
+    omnibus.socket_server.startup(() => {
+			console.log('[       WS] Started up');
       // Start HDMI autoconfig
       omnibus.HDMI.autoconfig(() => {
+				console.log('[     HDMI] Started up');
         // Start IBUS connection
         omnibus.ibus_connection.startup(() => {
+					console.log('[     INTF] Started up');
         });
       });
     });
@@ -103,12 +107,15 @@ function startup() {
 
 // Global shutdown
 function shutdown() {
-  console.log('[ node-bmw] Closing all threads and shutting down');
+  console.log('[ node-bmw] Shutting down');
   // Close serial port if open, and exit process
   omnibus.ibus_connection.shutdown(() => {
+		console.log('[     INTF] Shut down');
     omnibus.HDMI.shutdown(() => {
+			console.log('[     HDMI] Shut down');
       // socket server?
       omnibus.api_server.close(() => {
+				console.log('[      API] Shut down');
         process.exit();
       });
     });
@@ -174,22 +181,22 @@ dispatcher.onError((request, response) => {
 
 // Shutdown events/signals
 process.on('SIGTERM', () => {
-  console.log('Received SIGTERM, launching shutdown()');
+  console.log('[ node-bmw] Received SIGTERM, launching shutdown()');
   shutdown();
 });
 
 process.on('SIGINT', () => {
-  console.log('Received SIGINT, launching shutdown()');
+  console.log('[ node-bmw] Received SIGINT, launching shutdown()');
   shutdown();
 });
 
 process.on('SIGPIPE', () => {
-  console.log('Received SIGPIPE, launching shutdown()');
+  console.log('[ node-bmw] Received SIGPIPE, launching shutdown()');
   shutdown();
 });
 
 process.on('exit', () => {
-  console.log('Shutdown complete');
+  console.log('[ node-bmw] Shutdown complete');
 });
 
 

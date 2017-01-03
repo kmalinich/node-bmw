@@ -12,8 +12,12 @@ var ibus_interface = function(omnibus) {
 	// Read/write queues
 	var queue_read  = [];
 	var key_read    = 0;
+	var active_read = false;
+
 	var queue_write = [];
 	var key_write   = 0;
+	var active_write = false;
+
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -69,29 +73,48 @@ var ibus_interface = function(omnibus) {
 
 	// Open serial port
 	function startup(callback) {
-		console.log('[     INTF] Starting');
+		console.log('[     INTF] Starting up');
 
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
-			console.log('[     INTF] Opening port');
-			serial_port.open(() => {
-				console.log('[     INTF] Opened port');
-				callback();
+			console.log('[INTF:PORT] Opening');
+			serial_port.open((error) => {
+				if (error) {
+					console.log('[INTF:PORT] Error opening: ', error);
+					callback();
+				}
+				else {
+					console.log('[INTF:PORT] Opened');
+					callback();
+				}
 			});
+		}
+		else {
+			console.log('[INTF:PORT] Already open');
+			callback();
 		}
 	}
 
 	// Close serial port
 	function shutdown(callback) {
-		console.log('[     INTF] Ending');
+		console.log('[     INTF] Shutting down');
 
 		// Close port if it is open
 		if (serial_port.isOpen()) {
-			console.log('[     INTF] Closing port');
-			serial_port.close(() => {
-				console.log('[     INTF] Closed port')
-				callback();
+			serial_port.close((error) => {
+				if (error) {
+					console.log('[INTF:PORT] Error closing: ', error);
+					callback();
+				}
+				else {
+					console.log('[INTF:PORT] Closted');
+					callback();
+				};
 			});
+		}
+		else {
+			console.log('[INTF:PORT] Already closed');
+			callback();
 		}
 	}
 
@@ -100,16 +123,16 @@ var ibus_interface = function(omnibus) {
 		// Only write data if port is open
 		if (serial_port.isOpen()) {
 			if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
-        active_write = false;
+				active_write = false;
 
 				serial_port.write(queue_write[key_write], (error) => {
 					if (error) {
-						console.log('[INTF:RITE] Write failed : ', queue_write[key_write], error);
+						console.log('[INTF:RITE] Failed : ', queue_write[key_write], error);
 						// callback(false);
 					}
 
 					serial_port.drain((error) => {
-						console.log('[INTF:RITE] Write success : ', queue_write[key_write]);
+						console.log('[INTF:RITE] Success : ', queue_write[key_write]);
 						delete queue_write[key_write];
 						key_write = ++key_write;
 						// callback(true);
@@ -118,7 +141,7 @@ var ibus_interface = function(omnibus) {
 						}
 						else {
 							active_write = false;
-              console.log('[INTF:RITE] Finished queue write');
+							console.log('[INTF:RITE] Finished queue');
 						}
 					});
 				});
@@ -131,10 +154,10 @@ var ibus_interface = function(omnibus) {
 				if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
 					write_message();
 				}
-        else {
-          active_write = false;
-          console.log('[INTF:RITE] Finished queue write');
-        }
+				else {
+					active_write = false;
+					console.log('[INTF:RITE] Finished queue write');
+				}
 			}, 100);
 		}
 	}
@@ -149,7 +172,7 @@ var ibus_interface = function(omnibus) {
 			write_message();
 		}
 	}
-};
+}
 
 util.inherits(ibus_interface, event_emitter);
 module.exports = ibus_interface;

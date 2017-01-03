@@ -16,6 +16,8 @@
 				<li><a href="/gm">GM</a></li>
 				<li><a href="/ike">IKE</a></li>
 				<li><a href="/lcm">LCM</a></li>
+				<li><a href="/dsp">DSP</a></li>
+				<li><a href="/status-mobile">Status mini</a></li>
 				<li><a href="/status">Status</a></li>
 				<li><a href="/ws-ibus">IBUS websocket</a></li>
 			</ul>

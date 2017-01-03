@@ -75,7 +75,7 @@ function offoff() {
 }
 
 function bit_sample(dsc, hex, callback) {
-	setTimeout(function() {
+	setTimeout(() => {
 		var bit_0_test = bit_test(hex, bit_0);
 		var bit_1_test = bit_test(hex, bit_1);
 		var bit_2_test = bit_test(hex, bit_2);

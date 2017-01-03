@@ -70,7 +70,7 @@ var RAD = function(omnibus) {
 						omnibus.status.audio.rad_ready = true;
 
 						// Attempt to send BMBT power button
-						setTimeout(function() {
+						setTimeout(() => {
 							omnibus.BMBT.power_on_if_ready();
 						}, 2000);
 						break;
@@ -174,7 +174,7 @@ var RAD = function(omnibus) {
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
 	function led(object) {
-		console.log('[node-bmw] Encoding \'RAD LED\' packet');
+		console.log('[ node-bmw] Encoding \'RAD LED\' packet');
 
 		// Bitmask
 		// 0x00 = all off
@@ -209,7 +209,7 @@ var RAD = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[node-bmw] Sending \'RAD LED\' packet');
+		console.log('[ node-bmw] Sending \'RAD LED\' packet');
 
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}

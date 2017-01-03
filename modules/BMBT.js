@@ -46,7 +46,7 @@ var BMBT = function(omnibus) {
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 		request_rad_status();
 	}
-	setInterval(function() {
+	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			request_rad_status();
 		}
@@ -56,7 +56,7 @@ var BMBT = function(omnibus) {
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 		send_device_status();
 	}
-	setInterval(function() {
+	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			send_device_status();
 		}
@@ -65,11 +65,11 @@ var BMBT = function(omnibus) {
 	// Send the power on button command if needed/ready
 	function power_on_if_ready() {
 		// Debug logging
-		// console.log('[node-bmw] BMBT.power_on_if_ready(): evaluating');
-		// console.log('[node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
-		// console.log('[node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
-		// console.log('[node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
-		// console.log('[node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): evaluating');
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
 
 		if (
 			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&
@@ -318,7 +318,7 @@ var BMBT = function(omnibus) {
 		omnibus.ibus_connection.send_message(ibus_packet);
 
 		// Prepare and send the up message after 150ms
-		setTimeout(function() {
+		setTimeout(() => {
 			console.log('[BMBT->RAD] Sending button up: %s', button);
 
 			// Send message

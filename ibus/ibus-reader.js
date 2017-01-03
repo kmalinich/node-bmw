@@ -11,7 +11,7 @@ process.on('SIGINT', on_signal_int);
 ibus_connection.on('data', on_ibus_data);
 
 function on_signal_int() {
-	ibus_connection.shutdown(function() {
+	ibus_connection.shutdown(() => {
 		process.exit();
 	});
 }

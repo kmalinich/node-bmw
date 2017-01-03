@@ -72,7 +72,7 @@ DSP modes = {
 68 6A 34 90 00,RAD --> DSP: DSP equalizer button M-Audio off
 68 6A 34 91 00,RAD --> DSP: DSP equalizer button M-Audio on
 
-68 6A 34 95,RAD --> DSP: Set DSP memory 
+68 6A 34 95,RAD --> DSP: Set DSP memory
 
 // B1: DSP mode
 // B2: Reverb

@@ -40,11 +40,9 @@ var LCM = function(omnibus) {
 	// Self reference
 	var _self = this;
 
-	// Auto lights interval
-	var auto_lights_interval;
-
 	// Exposed data
 	this.auto_lights         = auto_lights;
+	this.auto_lights_process = auto_lights_process;
 	this.comfort_turn        = comfort_turn;
 	this.io_status_decode    = io_status_decode;
 	this.io_status_encode    = io_status_encode;
@@ -105,7 +103,7 @@ var LCM = function(omnibus) {
 			case 0x5C: // Broadcast: light dimmer status
 				command = 'broadcast';
 				value   = 'light dimmer status';
-				omnibus.status.lights.dimmer = message[1];
+				omnibus.status.lights.dimmer_value_3 = message[1];
 				break;
 
 			case 0x79: // Request: door/flap status
@@ -114,8 +112,8 @@ var LCM = function(omnibus) {
 				break;
 
 			case 0xA0: // Reply to DIA message: success
-				command = 'diagnostic reply';
-				value   = new Buffer(message);
+				command = 'diagnostic reply ';
+				value   = 'length '+message.length;
 				if (message.length == 33) {
 					omnibus.LCM.io_status_decode(message);
 				}
@@ -132,14 +130,47 @@ var LCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		// Dynamic logging output
+		var data_dst_name;
+		switch (data.dst_name.length) {
+			case 1:
+				data_dst_name = data.dst_name+'   ';
+				break;
+			case 2:
+				data_dst_name = data.dst_name+'  ';
+				break;
+			case 3:
+				data_dst_name = data.dst_name+' ';
+				break;
+			default:
+				data_dst_name = data.dst_name;
+				break;
+		}
+
+		var data_src_name;
+		switch (data.src_name.length) {
+			case 1:
+				data_src_name = '   '+data.src_name;
+				break;
+			case 2:
+				data_src_name = '  '+data.src_name;
+				break;
+			case 3:
+				data_src_name = ' '+data.src_name;
+				break;
+			default:
+				data_src_name = data.src_name;
+				break;
+		}
+
+		console.log('[%s>%s] %s:', data_src_name, data_dst_name, command, value);
 	}
 
   // This message also has days since service and total kms, but, baby steps...
 	function vehicle_data_decode(message) {
 		var vin_string             = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
 		omnibus.status.vehicle.vin = vin_string;
-		console.log('[node-bmw] Decoded VIN string: \'%s\'', vin_string);
+		console.log('[ node-bmw] Decoded VIN string: \'%s\'', vin_string);
 	}
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
@@ -261,7 +292,7 @@ var LCM = function(omnibus) {
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
 
-		console.log('[node-bmw] decoded light status message');
+		console.log('[ node-bmw] decoded light status message');
 	}
 
 	// Handle incoming commands
@@ -277,115 +308,158 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling
 	function auto_lights(light_switch) {
-		console.log('[node-bmw] Turning %s auto lights; current status \'%s\'', light_switch, omnibus.status.lights.auto_lights);
-
+		console.log('[ node-bmw] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
 		switch (light_switch) {
 			case 'off':
-				clearInterval(auto_lights_interval);
-
-				// Set status variables
-				omnibus.status.lights.auto_lights   = false;
-				omnibus.status.lights.auto_standing = false;
-				omnibus.status.lights.auto_lowbeam  = false;
-				reset();
-
-				console.log('[node-bmw] Automatic lights disabled');
+				if (omnibus.status.lights.auto.active === true) {
+					auto_lights_off();
+				}
 				break;
 			case 'on':
-				if (omnibus.status.lights.auto_lights == false) {
-					// Set status variables
-					omnibus.status.lights.auto_lights = true;
+				if (omnibus.status.lights.auto.active === false) {
+					// Set status variable
+					omnibus.status.lights.auto.active = true;
 
 					// Send one through to prime the pumps
 					auto_lights_process();
 
-					// Process/send LCM data on 3 second interval
+					// Process/send LCM data on 5 second interval
 					// LCM diag command timeout is 15 seconds
-					auto_lights_interval = setInterval(function() {
+					omnibus.LCM.auto_lights_interval = setInterval(() => {
 						// Process auto lights
 						auto_lights_process();
-					}, 3000);
-
-
-					console.log('[node-bmw] Automatic lights enabled');
+					}, 5000);
 				}
 				break;
 		}
 	}
 
+	// Quick reset auto lights
+	function auto_lights_off() {
+		clearInterval(omnibus.LCM.auto_lights_interval);
+
+		// Set status variables
+		omnibus.status.lights.auto.reason   = null;
+		omnibus.status.lights.auto.active   = false;
+		omnibus.status.lights.auto.standing = false;
+		omnibus.status.lights.auto.lowbeam  = false;
+		reset();
+	}
+
 	// Logic based on location and time of day, determine if the low beams should be on
 	function auto_lights_process() {
 		// Init variables
-		var lights_reason;
 		var current_time = new Date();
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
-
-		console.log('[LCM] auto_lights_process(): auto_lights = \'%s\'', omnibus.status.lights.auto_lights);
+		var handbrake    = omnibus.status.vehicle.handbrake;
+		var ignition     = omnibus.status.vehicle.ignition;
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);
 		// console.log('lights_on    : %s', lights_on);
 		// console.log('lights_off   : %s', lights_off);
 
-		if (current_time < lights_off) {
-			lights_reason = 'before lights off';
-			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = false;
-		}
-		else if (current_time > lights_off && current_time < lights_on) {
-			lights_reason = 'after lights off, before lights on';
-			omnibus.status.lights.auto_lowbeam  = false;
-			omnibus.status.lights.auto_standing = true;
-		}
-		else if (current_time > lights_on) {
-			lights_reason = 'after lights on';
-			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = false;
+		// Check ignition
+		if (ignition != 'run') {
+			console.log('[      LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
+			// Not in run: turn off auto lights
+			auto_lights('off');
+			return;
 		}
 		else {
-			lights_reason = 'unknown time of day, engaging failsafe';
-			omnibus.status.lights.auto_lowbeam  = true;
-			omnibus.status.lights.auto_standing = false;
+			auto_lights('on');
 		}
 
-		console.log('[node-bmw] Auto lights: standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto_standing, omnibus.status.lights.auto_lowbeam, lights_reason);
+		// Check handbrake
+		// if (handbrake === true && ignition == 'run') {
+		// 	// Handbrake is set: disable auto lowbeams
+		// 	console.log('[ node-bmw] Auto lights: Handbrake on');
+
+		// 	omnibus.status.lights.auto.reason   = 'handbrake on';
+		// 	omnibus.status.lights.auto.lowbeam  = false;
+		// 	omnibus.status.lights.auto.standing = true;
+		// 	reset();
+		// 	return;
+		// }
+
+    // Check time of day
+		if (current_time < lights_off) {
+			omnibus.status.lights.auto.reason    = 'before lights off';
+			omnibus.status.lights.auto.lowbeam   = true;
+			omnibus.status.lights.auto.standing  = false;
+			omnibus.status.lights.dimmer_value_1 = 0xFE;
+		}
+		else if (current_time > lights_off && current_time < lights_on) {
+			omnibus.status.lights.auto.reason    = 'after lights off, before lights on';
+			omnibus.status.lights.auto.lowbeam   = false;
+			omnibus.status.lights.auto.standing  = true;
+			omnibus.status.lights.dimmer_value_1 = 0xFF;
+		}
+		else if (current_time > lights_on) {
+			omnibus.status.lights.auto.reason    = 'after lights on';
+			omnibus.status.lights.auto.lowbeam   = true;
+			omnibus.status.lights.auto.standing  = false;
+			omnibus.status.lights.dimmer_value_1 = 0xFE;
+		}
+		else {
+			omnibus.status.lights.auto.reason    = 'unknown time of day, engaging failsafe';
+			omnibus.status.lights.auto.lowbeam   = true;
+			omnibus.status.lights.auto.standing  = false;
+			omnibus.status.lights.dimmer_value_1 = 0xFE;
+		}
+
+		console.log('[      LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto.standing, omnibus.status.lights.auto.lowbeam, omnibus.status.lights.auto.reason);
 		reset();
 	}
 
 	// Comfort turn signal handling
 	function comfort_turn(action) {
-		console.log('[node-bmw] Comfort turn signal - \'%s\'', action);
+		// Init variable
+		var cluster_msg_1;
+		var cluster_msg_2 = ' turn ';
+		var cluster_msg_3;
+
+		console.log('[ node-bmw] comfort turn signal - \'%s\'', action);
 
 		switch (action) {
 			case 'left':
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = true;
 				omnibus.status.lights.turn_comfort_right = false;
+				cluster_msg_1 = '<------';
+				cluster_msg_3 = '       ';
 				break;
 			case 'right':
 				// Set status variables
 				omnibus.status.lights.turn_comfort_left  = false;
 				omnibus.status.lights.turn_comfort_right = true;
+				cluster_msg_1 = '       ';
+				cluster_msg_3 = '------>';
 				break;
 		}
-
 		reset();
 
+		// Concat message string
+		cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
+
+		omnibus.IKE.ike_text_warning(cluster_msg, 2000);
+
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
-		setTimeout(function() {
+		setTimeout(() => {
 			// Set status variables
 			omnibus.status.lights.turn_comfort_left  = false;
 			omnibus.status.lights.turn_comfort_right = false;
 			reset();
-		}, 2500);
+		}, 2000);
+
 	}
 
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
 		var lcm_object;
-		console.log('[node-bmw] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
+		console.log('[ node-bmw] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
 
 		switch (action) {
 			case 'on' :
@@ -535,7 +609,7 @@ var LCM = function(omnibus) {
 
 		// Clear welcome lights variables after 15 seconds
 		if (omnibus.status.lights.welcome_lights == true) {
-			setTimeout(function() {
+			setTimeout(() => {
 				omnibus.status.lights.welcome_lights       = false;
 				omnibus.status.lights.welcome_lights_level = 0;
 			}, 15000);
@@ -543,10 +617,13 @@ var LCM = function(omnibus) {
 	}
 
 	function reset() {
-		console.log('[LCM]  Resetting');
+		console.log('[      LCM] reset();');
 		var lcm_object = {
-			switch_lowbeam_1  : omnibus.status.lights.auto_lowbeam,
-			switch_standing   : omnibus.status.lights.auto_standing,
+			dimmer_value_1    : omnibus.status.lights.dimmer_value_1,
+			dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
+			switch_fog_rear   : true, // To leverage the IKE LED as a status indicator
+			switch_lowbeam_1  : omnibus.status.lights.auto.lowbeam,
+			switch_standing   : omnibus.status.lights.auto.standing,
 			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
 			switch_turn_right : omnibus.status.lights.turn_comfort_right,
 		};
@@ -588,7 +665,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM]  Sending \'Set IO status\' packet');
+		// console.log('[LCM]  Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -604,10 +681,33 @@ var LCM = function(omnibus) {
 		var bitmask_6  = 0x00;
 		var bitmask_7  = 0x00;
 		var bitmask_8  = 0x00;
-		var bitmask_9  = 0xFE; // Dimmer from 00-FF
-		// 10-11 are .. something, don't know yet.
+		var bitmask_9  = 0x00;
 		var bitmask_10 = 0x00;
 		var bitmask_11 = 0x00;
+
+		// dimmer_value_2
+		var bitmask_15 = 0x00;
+
+		// These we kinda don't fool with, so just populate them from the present values
+		var bitmask_12 = omnibus.status.lcm.io.bitmask_12;
+		var bitmask_13 = omnibus.status.lcm.io.bitmask_13;
+		var bitmask_14 = omnibus.status.lcm.io.bitmask_14;
+		var bitmask_16 = omnibus.status.lcm.io.bitmask_16;
+		var bitmask_17 = omnibus.status.lcm.io.bitmask_17;
+		var bitmask_18 = omnibus.status.lcm.io.bitmask_18;
+		var bitmask_19 = omnibus.status.lcm.io.bitmask_19;
+		var bitmask_20 = omnibus.status.lcm.io.bitmask_20;
+		var bitmask_21 = omnibus.status.lcm.io.bitmask_21;
+		var bitmask_22 = omnibus.status.lcm.io.bitmask_22;
+		var bitmask_23 = omnibus.status.lcm.io.bitmask_23;
+		var bitmask_24 = omnibus.status.lcm.io.bitmask_24;
+		var bitmask_25 = omnibus.status.lcm.io.bitmask_25;
+		var bitmask_26 = omnibus.status.lcm.io.bitmask_26;
+		var bitmask_27 = omnibus.status.lcm.io.bitmask_27;
+		var bitmask_28 = omnibus.status.lcm.io.bitmask_28;
+		var bitmask_29 = omnibus.status.lcm.io.bitmask_29;
+		var bitmask_30 = omnibus.status.lcm.io.bitmask_30;
+		var bitmask_31 = omnibus.status.lcm.io.bitmask_31;
 
 		// Set the various bitmask values according to the input array
 		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0); }
@@ -677,7 +777,8 @@ var LCM = function(omnibus) {
 		if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6); }
 
 		// LCM dimmer
-		if(array.dimmer_value                    ) { bitmask_9 = parseInt(array.dimmer_value); }
+		if(array.dimmer_value_1) { bitmask_9  = parseInt(array.dimmer_value_1); }
+		if(array.dimmer_value_2) { bitmask_15 = parseInt(array.dimmer_value_2); }
 
 		// Suspect
 		// array.clamp_58g
@@ -714,6 +815,26 @@ var LCM = function(omnibus) {
 			bitmask_9,
 			bitmask_10,
 			bitmask_11,
+			bitmask_12,
+			bitmask_13,
+			bitmask_14,
+			bitmask_15,
+			bitmask_16,
+			bitmask_17,
+			bitmask_18,
+			bitmask_19,
+			bitmask_20,
+			bitmask_21,
+			bitmask_22,
+			bitmask_23,
+			bitmask_24,
+			bitmask_25,
+			bitmask_26,
+			bitmask_27,
+			bitmask_28,
+			bitmask_29,
+			bitmask_30,
+			bitmask_31,
 		];
 
 		lcm_set(output);
@@ -730,13 +851,13 @@ var LCM = function(omnibus) {
 		var bitmask_6  = array[7];
 		var bitmask_7  = array[8];
 		var bitmask_8  = array[9];
-		var bitmask_9  = array[10]; // Dimmer from 00-FF
+		var bitmask_9  = array[10]; // dimmer_value_1 0x00-0xFF
 		var bitmask_10 = array[11];
 		var bitmask_11 = array[12];
 		var bitmask_12 = array[13];
 		var bitmask_13 = array[14];
 		var bitmask_14 = array[15];
-		var bitmask_15 = array[16]; // Dimmer value 00-FF (actual)
+		var bitmask_15 = array[16]; // dimmer_value_2 0x00-0xFF
 		var bitmask_16 = array[17];
 		var bitmask_17 = array[18];
 		var bitmask_18 = array[19]; // Something
@@ -754,45 +875,47 @@ var LCM = function(omnibus) {
 		var bitmask_30 = array[31]; // Something autolevel related
 		var bitmask_31 = array[32];
 
-		omnibus.status.lcm.bitmask_0                        = bitmask_0;
-		omnibus.status.lcm.bitmask_1                        = bitmask_1;
-		omnibus.status.lcm.bitmask_2                        = bitmask_2;
-		omnibus.status.lcm.bitmask_2                        = bitmask_2;
-		omnibus.status.lcm.bitmask_3                        = bitmask_3;
-		omnibus.status.lcm.bitmask_4                        = bitmask_4;
-		omnibus.status.lcm.bitmask_5                        = bitmask_5;
-		omnibus.status.lcm.bitmask_6                        = bitmask_6;
-		omnibus.status.lcm.bitmask_7                        = bitmask_7;
-		omnibus.status.lcm.bitmask_8                        = bitmask_8;
-		omnibus.status.lcm.bitmask_9                        = bitmask_9;
-		omnibus.status.lcm.bitmask_10                       = bitmask_10;
-		omnibus.status.lcm.bitmask_11                       = bitmask_11;
-		omnibus.status.lcm.bitmask_12                       = bitmask_12;
-		omnibus.status.lcm.bitmask_13                       = bitmask_13;
-		omnibus.status.lcm.bitmask_14                       = bitmask_14;
-		omnibus.status.lcm.bitmask_15                       = bitmask_15;
-		omnibus.status.lcm.bitmask_16                       = bitmask_16;
-		omnibus.status.lcm.bitmask_17                       = bitmask_17;
-		omnibus.status.lcm.bitmask_18                       = bitmask_18;
-		omnibus.status.lcm.bitmask_19                       = bitmask_19;
-		omnibus.status.lcm.bitmask_20                       = bitmask_20;
-		omnibus.status.lcm.bitmask_21                       = bitmask_21;
-		omnibus.status.lcm.bitmask_22                       = bitmask_22;
-		omnibus.status.lcm.bitmask_23                       = bitmask_23;
-		omnibus.status.lcm.bitmask_24                       = bitmask_24;
-		omnibus.status.lcm.bitmask_25                       = bitmask_25;
-		omnibus.status.lcm.bitmask_26                       = bitmask_26;
-		omnibus.status.lcm.bitmask_27                       = bitmask_27;
-		omnibus.status.lcm.bitmask_28                       = bitmask_28;
-		omnibus.status.lcm.bitmask_29                       = bitmask_29;
-		omnibus.status.lcm.bitmask_30                       = bitmask_30;
-		omnibus.status.lcm.bitmask_31                       = bitmask_31;
+		// Raw IO status bitmasks
+		omnibus.status.lcm.io.bitmask_0  = bitmask_0;
+		omnibus.status.lcm.io.bitmask_1  = bitmask_1;
+		omnibus.status.lcm.io.bitmask_2  = bitmask_2;
+		omnibus.status.lcm.io.bitmask_2  = bitmask_2;
+		omnibus.status.lcm.io.bitmask_3  = bitmask_3;
+		omnibus.status.lcm.io.bitmask_4  = bitmask_4;
+		omnibus.status.lcm.io.bitmask_5  = bitmask_5;
+		omnibus.status.lcm.io.bitmask_6  = bitmask_6;
+		omnibus.status.lcm.io.bitmask_7  = bitmask_7;
+		omnibus.status.lcm.io.bitmask_8  = bitmask_8;
+		omnibus.status.lcm.io.bitmask_9  = bitmask_9;
+		omnibus.status.lcm.io.bitmask_10 = bitmask_10;
+		omnibus.status.lcm.io.bitmask_11 = bitmask_11;
+		omnibus.status.lcm.io.bitmask_12 = bitmask_12;
+		omnibus.status.lcm.io.bitmask_13 = bitmask_13;
+		omnibus.status.lcm.io.bitmask_14 = bitmask_14;
+		omnibus.status.lcm.io.bitmask_15 = bitmask_15;
+		omnibus.status.lcm.io.bitmask_16 = bitmask_16;
+		omnibus.status.lcm.io.bitmask_17 = bitmask_17;
+		omnibus.status.lcm.io.bitmask_18 = bitmask_18;
+		omnibus.status.lcm.io.bitmask_19 = bitmask_19;
+		omnibus.status.lcm.io.bitmask_20 = bitmask_20;
+		omnibus.status.lcm.io.bitmask_21 = bitmask_21;
+		omnibus.status.lcm.io.bitmask_22 = bitmask_22;
+		omnibus.status.lcm.io.bitmask_23 = bitmask_23;
+		omnibus.status.lcm.io.bitmask_24 = bitmask_24;
+		omnibus.status.lcm.io.bitmask_25 = bitmask_25;
+		omnibus.status.lcm.io.bitmask_26 = bitmask_26;
+		omnibus.status.lcm.io.bitmask_27 = bitmask_27;
+		omnibus.status.lcm.io.bitmask_28 = bitmask_28;
+		omnibus.status.lcm.io.bitmask_29 = bitmask_29;
+		omnibus.status.lcm.io.bitmask_30 = bitmask_30;
+		omnibus.status.lcm.io.bitmask_31 = bitmask_31;
 
 		omnibus.status.lcm.clamp_15                         = bit_test(bitmask_3, bit_5);
 		omnibus.status.lcm.clamp_30a                        = bit_test(bitmask_0, bit_0);
 		omnibus.status.lcm.clamp_30b                        = bit_test(bitmask_0, bit_7);
 		omnibus.status.lcm.clamp_r                          = bit_test(bitmask_0, bit_6);
-		omnibus.status.lcm.dimmer_value                     = bitmask_9;
+		omnibus.status.lcm.dimmer_value_1                   = bitmask_9;
+		omnibus.status.lcm.dimmer_value_2                   = bitmask_15;
 		omnibus.status.lcm.input_air_suspension             = bit_test(bitmask_3, bit_0);
 		omnibus.status.lcm.input_armoured_door              = bit_test(bitmask_1, bit_6);
 		omnibus.status.lcm.input_brake_fluid_level          = bit_test(bitmask_1, bit_7);
@@ -848,7 +971,7 @@ var LCM = function(omnibus) {
 		omnibus.status.lcm.switch_turn_left                 = bit_test(bitmask_2, bit_7);
 		omnibus.status.lcm.switch_turn_right                = bit_test(bitmask_2, bit_6);
 
-		console.log('[node-bmw] decoded LCM IO status');
+		console.log('[ node-bmw] decoded LCM IO status');
 	}
 
 	// All the possible values to send to the LCM
@@ -859,7 +982,8 @@ var LCM = function(omnibus) {
 		clamp_30a                        : false,
 		clamp_30b                        : false,
 		clamp_r                          : false,
-		dimmer_value                     : 0xFF,
+		dimmer_value_1                   : 0xFF,
+		dimmer_value_2                   : 0xFF,
 		input_air_suspension             : false,
 		input_armoured_door              : false,
 		input_brake_fluid_level          : false,

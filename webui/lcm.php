@@ -85,7 +85,7 @@
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_front_left" name="output_standing_front_left">
-												Left standing 
+												Left standing
 											</label>
 										</div>
 
@@ -149,7 +149,7 @@
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_inner_rear_left" name="output_standing_inner_rear_left">
-												Left inner standing 
+												Left inner standing
 											</label>
 										</div>
 
@@ -163,7 +163,7 @@
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" id="output_standing_rear_left" name="output_standing_rear_left">
-												Left outer standing 
+												Left outer standing
 											</label>
 										</div>
 

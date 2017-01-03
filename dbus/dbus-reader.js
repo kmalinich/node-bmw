@@ -11,7 +11,7 @@ process.on('SIGINT', on_signal_int);
 dbus_connection.on('data', on_dbus_data);
 
 function on_signal_int() {
-	dbus_connection.shutdown(function() {
+	dbus_connection.shutdown(() => {
 		process.exit();
 	});
 }

@@ -26,7 +26,7 @@ function startup() {
 // Shutdown function
 function shutdown() {
 	// Terminate connection
-	ibus_connection.shutdown(function() {
+	ibus_connection.shutdown(() => {
 		process.exit();
 	});
 }
@@ -97,7 +97,7 @@ function gm_bitmask_display(dsc, hex) {
 }
 
 function bit_sample(dsc, packet, callback) {
-	setTimeout(function() {
+	setTimeout(() => {
 		// Display the bitmask for the two array positions
 		gm_bitmask_display(dsc, packet);
 

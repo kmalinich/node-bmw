@@ -50,7 +50,8 @@ var data_handler = function(omnibus) {
 				case 'TEL'  : omnibus.TEL.parse_data(data.msg);  break;
 
 				// Diag/default
-				case 'DIA'  : console.log('[%s->%s] command:',          data.src_name, data.dst_name, data.msg); break;
+				//case 'DIA'  : console.log('[%s->%s] command:',          data.src_name, data.dst_name, data.msg); break;
+				case 'DIA'  : break;
 				default     : console.log('[%s->%s] No source handler', data.src_name, data.dst_name, data.msg); break;
 			}
 

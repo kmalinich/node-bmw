@@ -9,7 +9,7 @@ saft6luck: "For my LH driven car the 0x9B is the left and 0x51 is the right mirr
 
 When key is inserted into the ignition lock these messages are sent. I will use this to detect ignition on.
 
-44 05 BF 74 04 01 8F // in 
+44 05 BF 74 04 01 8F // in
 44 05 BF 74 00 FF 75 // out
 
 > GT --> IKE : Ignition status request  (Jochen)
@@ -84,10 +84,10 @@ DB1: bit
 01: on
 11: on/flashing
 
-The LEDs are for the telephone connection - all three will blink for the Bluetooth 
+The LEDs are for the telephone connection - all three will blink for the Bluetooth
 pairing, I don't know if they blink for hardwired phone, the right LED is red, and
-blinks if there is NO cell coverage on the connected phone. The middle LED is 
-green and lights up when you have active connection on the phone. 
+blinks if there is NO cell coverage on the connected phone. The middle LED is
+green and lights up when you have active connection on the phone.
 
 Indicator lamps for phone* mode
 Yellow: Call is being routed through alternate network
@@ -113,7 +113,7 @@ on and DB1=0x00 to switch it off."
 
 Speed (Thank you, Richard Gaunt) I will use this to create PWM for the GPS
 
-80 05 BF 18 ss rr cc 
+80 05 BF 18 ss rr cc
 
 ss = speed / 2 [km/h] (512km/h max)
 rr = revs / 100 rpm
@@ -122,22 +122,22 @@ rr = revs / 100 rpm
 
 Set Time (thanks enforcer) I might use this to set car time from PC/GPS time.
 
-GT telling IKE to set the time: 
+GT telling IKE to set the time:
 
 3B 06 80 40 01 0C 3B cc
-GT –> IKE : On-board computer set data: Set Time = 12:59 
-40 = OBC  Set data 
+GT –> IKE : On-board computer set data: Set Time = 12:59
+40 = OBC  Set data
 01 = Time
 0C = hours in hex
 3B = minutes in hex
 
-GT telling IKE to set the date: 
+GT telling IKE to set the date:
 
 3B 07 80 40 02 1B 05 08 cc
 GT –> IKE : On-board computer set data: Set Date = 27/05/08
-40 = OBC Set data 
+40 = OBC Set data
 02 = Date
-1B = day in hex 
+1B = day in hex
 05 = month in hex
 08 = year in hex
 
@@ -194,7 +194,7 @@ Here is an E46 that just changed km to miles:
 GT --> IKE : Country coding status: Ntwk=E46 Lang=GB_English Clock=24h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Motor=Petrol
 
 So it uses the same country coding status, but the GT sends the info to the IKE
-80 05 BF 15 01 00  cc      
+80 05 BF 15 01 00  cc
 
 change OBC temp to C, 24H time, MPG
 

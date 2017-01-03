@@ -49,7 +49,7 @@ module.exports = {
 						}
 
 						// THIS IS IMPORTANT!!
-						// The IKE sensor status will look like 80 0a bf 13 00 00 00 00 00 00 
+						// The IKE sensor status will look like 80 0a bf 13 00 00 00 00 00 00
 						// and at some point, the checksum will look correct to the parser
 						// So f**k that, no 0x00 checksums
 						 if (crc === mCrc && crc != 0x00) {

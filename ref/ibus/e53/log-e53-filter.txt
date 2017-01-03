@@ -21,10 +21,10 @@
 3B 03 D0 5A B2,GT   --> LCM  : Lamp status request
 3B 04 68 45 00 12,GT   --> RAD  : Radio status request, Data="00"
 3B 04 6A 34 28 49,GT   --> DSP  : DSP  equaliser button, Data="28"
-3B 04 BB 4F 02 C9,GT   --> NAJ  : RGB control: LCD_off GT  
-3B 04 BB 4F 12 D9,GT   --> NAJ  : RGB control: LCD_on GT  
-3B 04 F0 4F 02 82,GT   --> BMBT: RGB control: LCD_off GT  
-3B 04 F0 4F 12 92,GT   --> BMBT: RGB control: LCD_on GT  
+3B 04 BB 4F 02 C9,GT   --> NAJ  : RGB control: LCD_off GT
+3B 04 BB 4F 12 D9,GT   --> NAJ  : RGB control: LCD_on GT
+3B 04 F0 4F 02 82,GT   --> BMBT: RGB control: LCD_off GT
+3B 04 F0 4F 12 92,GT   --> BMBT: RGB control: LCD_on GT
 3B 05 68 4E 00 00 18,GT   --> RAD  : Audio source selection
 3B 05 80 41 01 01 FF,GT   --> IKE  : On-board computer data request: Time: current value request
 3B 05 80 41 02 01 FC,GT   --> IKE  : On-board computer data request: Date: current value request
@@ -121,7 +121,7 @@ ED 03 80 12 7C,VID  --> IKE  : IKE  sensor status request
 ED 05 80 41 01 01 29,VID  --> IKE  : On-board computer data request: Time: current value request
 ED 05 80 41 02 01 2A,VID  --> IKE  : On-board computer data request: Date: current value request
 ED 05 80 41 1B 02 30,VID  --> IKE  : On-board computer data request: Aux_Heat/Vent: status request
-ED 05 F0 4F 12 11 54,VID  --> BMBT: RGB control: LCD_on GT  
+ED 05 F0 4F 12 11 54,VID  --> BMBT: RGB control: LCD_on GT
 F0 03 00 79 8A,BMBT --> GM   : door/flap status request
 F0 03 D0 5D 7E,BMBT --> LCM  : Light dimmer status request
 F0 04 3B 48 05 82,BMBT --> GT   : BM Button: BM_Knob_pressed

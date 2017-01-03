@@ -1,4 +1,4 @@
-#!/bin/bash - 
+#!/bin/bash -
 
 c=0
 l=1

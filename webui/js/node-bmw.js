@@ -419,19 +419,19 @@ function status() {
 			 */
 
 			// Units
-			$('#temperature-coolant-unit').text(return_data.coding.unit_temp.toUpperCase());
-			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit_temp.toUpperCase());
+			$('#temperature-coolant-unit').text(return_data.coding.unit.temp.toUpperCase());
+			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit.temp.toUpperCase());
 
-			if (return_data.coding.unit_temp == 'c') {
-				$('#temperature-coolant').text(return_data.temperature.coolant_c);
-				$('#obc-temp-exterior').text(return_data.temperature.exterior_c);
+			if (return_data.coding.unit.temp == 'c') {
+				$('#temperature-coolant').text(return_data.temperature.coolant.c);
+				$('#obc-temp-exterior').text(return_data.temperature.exterior.obc.c);
 			}
-			else if (return_data.coding.unit_temp == 'f') {
-				$('#temperature-coolant').text(return_data.temperature.coolant_f);
-				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior_f);
+			else if (return_data.coding.unit.temp == 'f') {
+				$('#temperature-coolant').text(return_data.temperature.coolant.f);
+				$('#obc-temp-exterior'  ).text(return_data.temperature.exterior.obc.f);
 			}
 
-			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer_mi);
+			$('#vehicle-odometer-mi').text(return_data.vehicle.odometer.mi);
 			$('#vehicle-vin').text(return_data.vehicle.vin);
 
 			/*
@@ -488,45 +488,45 @@ function status() {
 			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Locked'); } else { $('#vehicle-locked').text('Unlocked'); }
 
 			// Current, average, and limit speed
-			$('#vehicle-speed-unit' ).text(return_data.coding.unit_speed.toUpperCase());
-			$('#obc-speedavg-unit'  ).text(return_data.coding.unit_speed.toUpperCase());
-			$('#obc-speedlimit-unit').text(return_data.coding.unit_speed.toUpperCase());
+			$('#vehicle-speed-unit' ).text(return_data.coding.unit.speed.toUpperCase());
+			$('#obc-speedavg-unit'  ).text(return_data.coding.unit.speed.toUpperCase());
+			$('#obc-speedlimit-unit').text(return_data.coding.unit.speed.toUpperCase());
 
-			if (return_data.coding.unit_speed == 'kmh') {
-				$('#vehicle-speed' ).text(return_data.vehicle.speed_kmh);
+			if (return_data.coding.unit.speed == 'kmh') {
+				$('#vehicle-speed' ).text(return_data.vehicle.speed.kmh);
 				$('#obc-speedavg'  ).text(return_data.obc.speedavg_kmh);
 				$('#obc-speedlimit').text(return_data.obc.speedlimit_kmh);
 			}
-			else if (return_data.coding.unit_speed == 'mph') {
-				$('#vehicle-speed' ).text(return_data.vehicle.speed_mph);
+			else if (return_data.coding.unit.speed == 'mph') {
+				$('#vehicle-speed' ).text(return_data.vehicle.speed.mph);
 				$('#obc-speedavg'  ).text(return_data.obc.speedavg_mph);
 				$('#obc-speedlimit').text(return_data.obc.speedlimit_mph);
 			}
 
 			// Distance to arrival and range to empty
-			$('#obc-distance-unit').text(return_data.coding.unit_distance);
-			$('#obc-range-unit'   ).text(return_data.coding.unit_distance);
+			$('#obc-distance-unit').text(return_data.coding.unit.distance);
+			$('#obc-range-unit'   ).text(return_data.coding.unit.distance);
 
-			if (return_data.coding.unit_distance == 'mi') {
+			if (return_data.coding.unit.distance == 'mi') {
 				$('#obc-distance').text(return_data.obc.distance_mi);
 				$('#obc-range').text(return_data.obc.range_mi);
 			}
 
-			else if (return_data.coding.unit_distance == 'km') {
+			else if (return_data.coding.unit.distance == 'km') {
 				$('#obc-distance').text(return_data.obc.distance_km);
 				$('#obc-range').text(return_data.obc.range_km);
 			}
 
 			// Fuel consumption
-			$('#obc-consumption-1-unit').text(return_data.coding.unit_cons);
-			$('#obc-consumption-2-unit').text(return_data.coding.unit_cons);
+			$('#obc-consumption-1-unit').text(return_data.coding.unit.cons);
+			$('#obc-consumption-2-unit').text(return_data.coding.unit.cons);
 
-			if (return_data.coding.unit_cons == 'mpg') {
+			if (return_data.coding.unit.cons == 'mpg') {
 				$('#obc-consumption-1').text(return_data.obc.consumption_1_mpg);
 				$('#obc-consumption-2').text(return_data.obc.consumption_2_mpg);
 			}
 
-			else if ( return_data.coding.unit_cons == 'l100') {
+			else if ( return_data.coding.unit.cons == 'l100') {
 				$('#obc-consumption-1').text(return_data.obc.consumption_1_l100);
 				$('#obc-consumption-2').text(return_data.obc.consumption_2_100);
 			}
@@ -538,11 +538,11 @@ function status() {
 			$('#obc-timer'           ).text(return_data.obc.timer);
 
 			// Coding data
-			$('#obc-coding-unit-cons'    ).text(return_data.coding.unit_cons    );
-			$('#obc-coding-unit-distance').text(return_data.coding.unit_distance);
-			$('#obc-coding-unit-speed'   ).text(return_data.coding.unit_speed   );
-			$('#obc-coding-unit-temp'    ).text(return_data.coding.unit_temp    );
-			$('#obc-coding-unit-time'    ).text(return_data.coding.unit_time    );
+			$('#obc-coding-unit-cons'    ).text(return_data.coding.unit.cons    );
+			$('#obc-coding-unit-distance').text(return_data.coding.unit.distance);
+			$('#obc-coding-unit-speed'   ).text(return_data.coding.unit.speed   );
+			$('#obc-coding-unit-temp'    ).text(return_data.coding.unit.temp    );
+			$('#obc-coding-unit-time'    ).text(return_data.coding.unit.time    );
 		}
 	});
 }
@@ -609,21 +609,14 @@ function status_refresh_on() {
 		}
 	});
 
-	// Set the loops
+	// Refresh data
 	obc_refresh_exec();
-	status_refresh = setInterval(function() {
-		obc_refresh_exec();
-	}, 500);
-
-	gm_refresh = setInterval(function() {
-		obc_refresh_exec();
-	}, 600);
 
 	// F**k .. need to get my websocket game up
 	status_loop = setInterval(function() {
 		// Refresh browser view
 		status();
-	}, 500);
+	}, 1000);
 }
 
 // Convert a string to hex

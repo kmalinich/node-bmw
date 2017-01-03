@@ -15,7 +15,7 @@ var ibus_interface = function(omnibus) {
 	this.send_message = send_message;
 
 	// Local data
-	var device      = '/dev/ttyUSB0';
+	var device      = '/dev/bmw';
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
@@ -31,12 +31,12 @@ var ibus_interface = function(omnibus) {
 
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[  INTF  ] Port error : %s', error);
+		console.error('[     INTF] Port error : %s', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[  INTF  ] Port open [%s]', device);
+		console.log('[     INTF] Port open [%s]', device);
 
 		// Request ignition status
 		omnibus.IKE.request('ignition');
@@ -44,7 +44,7 @@ var ibus_interface = function(omnibus) {
 
 	// On port close
 	serial_port.on('close', function() {
-		console.log('[  INTF  ] Port closed [%s]', device);
+		console.log('[     INTF] Port closed [%s]', device);
 		ibus_parser = null;
 	});
 
@@ -53,22 +53,22 @@ var ibus_interface = function(omnibus) {
 
 	// Open serial port
 	function startup() {
-		console.log('[  INTF  ] Starting');
+		console.log('[     INTF] Starting');
 
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
-			console.log('[  INTF  ] Opening port');
+			console.log('[     INTF] Opening port');
 			serial_port.open();
 		}
 	}
 
 	// Close serial port
 	function shutdown(callback) {
-		console.log('[  INTF  ] Ending');
+		console.log('[     INTF] Ending');
 
 		// Close port if it is open
 		if (serial_port.isOpen()) {
-			console.log('[  INTF  ] Closing port');
+			console.log('[     INTF] Closing port');
 			serial_port.close();
 		}
 
@@ -89,7 +89,7 @@ var ibus_interface = function(omnibus) {
 					console.log('[INTF::SEND] Failed to write : ', error);
 				}
 
-				// console.log('[  INTF  ]', clc.red('Wrote to device:'), data_buffer, resp);
+				// console.log('[     INTF]', clc.red('Wrote to device:'), data_buffer, resp);
 
 				serial_port.drain(function(error) {
 					// console.log('[INTF::SEND] Data drained');

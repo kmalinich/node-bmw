@@ -93,8 +93,8 @@ function startup() {
     // Start WebSocket server
     omnibus.socket_server.startup(() => {
 			console.log('[       WS] Started up');
-      // Start HDMI autoconfig
-      omnibus.HDMI.autoconfig(() => {
+      // Start HDMI CEC
+      omnibus.HDMI.startup(() => {
 				console.log('[     HDMI] Started up');
         // Start IBUS connection
         omnibus.ibus_connection.startup(() => {

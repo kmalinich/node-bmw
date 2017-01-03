@@ -29,9 +29,9 @@ while true; do
 	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
 	curl "${BASE}" -d        "${RRR}&${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
 	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFL}" ; sleep ${SLEEP}
-	curl "${BASE}" -d        "${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${TRR}&${SORL}&${BRR}&${SFR}&${TFR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d        "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORL}&${BRR}&${SFR}&${TFR}"        ; sleep ${SLEEP}
+	curl "${BASE}" -d "${TRR}&${SORL}&${BRR}&${SFR}&${TFR}"        ; sleep ${SLEEP}
+	curl "${BASE}" -d        "${SORR}&${BRL}&${SFL}&${TFR}"        ; sleep ${SLEEP}
 	curl "${BASE}" -d               "${SORR}&${BRL}&${SFL}&${TFR}" ; sleep ${SLEEP}
 	curl "${BASE}" -d        "${RRL}&${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}
 	curl "${BASE}" -d               "${SORL}&${BRR}&${SFR}&${TFL}" ; sleep ${SLEEP}

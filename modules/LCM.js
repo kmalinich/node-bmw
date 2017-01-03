@@ -439,19 +439,21 @@ var LCM = function(omnibus) {
 				cluster_msg_3 = '------>';
 				break;
 		}
-		reset();
 
 		// Concat message string
 		cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
 
-		omnibus.IKE.ike_text_warning(cluster_msg, 2000);
+		reset();
+		omnibus.IKE.ike_text(cluster_msg);
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(() => {
+			console.log('[ node-bmw] comfort turn signal - off');
 			// Set status variables
 			omnibus.status.lights.turn_comfort_left  = false;
 			omnibus.status.lights.turn_comfort_right = false;
 			reset();
+			omnibus.IKE.hud_refresh();
 		}, 2000);
 
 	}

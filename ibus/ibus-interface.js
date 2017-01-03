@@ -11,11 +11,9 @@ var ibus_interface = function(omnibus) {
 
 	// Read/write queues
 	var queue_read  = [];
-	var key_read    = 0;
 	var active_read = false;
 
-	var queue_write = [];
-	var key_write   = 0;
+	var queue_write  = [];
 	var active_write = false;
 
 
@@ -33,7 +31,7 @@ var ibus_interface = function(omnibus) {
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
-		lock     : false,
+		lock     : true,
 		parity   : 'even',
 		parser   : ibus_protocol.parser(5),
 		rtscts   : true,
@@ -121,46 +119,51 @@ var ibus_interface = function(omnibus) {
 
 	// Write the next message to the serial port
 	function write_message() {
-		// Only write data if port is open
-		if (serial_port.isOpen()) {
-			if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
-				active_write = true;
-
-				serial_port.write(queue_write[key_write], (error) => {
-					if (error) {
-						console.log('[INTF:RITE] Failed : ', queue_write[key_write], error);
-						// callback(false);
-					}
-
-					serial_port.drain((error) => {
-						// console.log('[INTF:RITE] Success : ', queue_write[key_write]);
-						delete queue_write[key_write];
-						key_write = ++key_write;
-						// callback(true);
-						if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
-							write_message();
+		setTimeout(() => {
+			// Only write data if port is open
+			if (serial_port.isOpen()) {
+				if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
+					serial_port.write(queue_write[0], (error) => {
+						if (error) {
+							console.log('[INTF:RITE] Failed : ', queue_write[0], error);
 						}
-						else {
-							active_write = false;
-							console.log('[INTF:RITE] Finished queue');
-						}
+
+						serial_port.drain((error) => {
+							active_write = true;
+							console.log('[INTF:RITE] Writing %s remain', queue_write.length);
+
+							if (error) {
+								console.log('[ INTF:DRN] Failed : ', queue_write[0], error);
+							}
+							else {
+								// console.log('[INTF:RITE] Success : ', queue_write[0]);
+								queue_write.splice(0, 1);
+								if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
+									write_message();
+								}
+								else {
+									active_write = false;
+									console.log('[INTF:RITE] Finished queue');
+								}
+							}
+						});
 					});
-				});
+				}
 			}
-		}
-		else {
-			// Chill for a bit, then try again
-			console.log('[INTF:RITE] Chilling until port is open');
-			setTimeout(() => {
-				if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
-					write_message();
-				}
-				else {
-					active_write = false;
-					console.log('[INTF:RITE] Finished queue write');
-				}
-			}, 1000);
-		}
+			else {
+				// Chill for a bit, then try again
+				console.log('[INTF:RITE] Chilling until port is open');
+				setTimeout(() => {
+					if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
+						write_message();
+					}
+					else {
+						active_write = false;
+						console.log('[INTF:RITE] Finished queue');
+					}
+				}, 1000);
+			}
+		}, 20);
 	}
 
 	// Insert a message into the write queue
@@ -168,8 +171,8 @@ var ibus_interface = function(omnibus) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 		queue_write.push(data_buffer);
 		// console.log('[INTF:SEND] Pushed data into write queue');
-		if (active_write === false) {
-			// console.log('[INTF:SEND] Starting queue write');
+		if (active_write === false && queue_write.length === 1) {
+			console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}
 	}

@@ -25,6 +25,7 @@ var IKE = function(omnibus) {
 	var _self = this;
 
 	// Exposed data
+	this.hud_refresh      = hud_refresh;
 	this.ike_data         = ike_data;
 	this.ike_send         = ike_send;
 	this.ike_text         = ike_text;
@@ -49,7 +50,7 @@ var IKE = function(omnibus) {
 	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run' or 'accessory'
 	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
-	}, 3000);
+	}, 5000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -744,6 +745,7 @@ var IKE = function(omnibus) {
 		console.log('[ node-bmw] Refreshing all OBC data');
 
 		// IKE data
+		request('ignition'   );
 		request('vin'        );
 		request('temperature');
 		request('sensor'     );

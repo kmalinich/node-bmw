@@ -80,10 +80,10 @@ omnibus.api_server    = http.createServer(api_handler);
 omnibus.socket_server = new lib_socket_server(omnibus);
 
 // HTTP/WS config
-var api_port        = 3001;
+var api_port            = 3001;
 var api_socket_key_last = 0;
 var api_socket_map      = {};
-var websocket_port  = 3002;
+var websocket_port      = 3002;
 
 
 // Global startup
@@ -158,7 +158,7 @@ function shutdown_api_server(callback) {
 
   // Loop through all sockets and destroy them
   Object.keys(api_socket_map).forEach((api_socket_key) => {
-    socket_map[api_socket_key].destroy();
+    api_socket_map[api_socket_key].destroy();
   });
 
   // Tell server to close

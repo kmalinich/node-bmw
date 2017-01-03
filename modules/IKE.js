@@ -113,9 +113,7 @@ var IKE = function(omnibus) {
 					console.log('[ node-bmw] Trigger: power-on state');
 
 					// Welcome message
-					setTimeout(() => {
-						ike_text_warning('node-bmw     '+os.hostname(), 3000);
-					}, 300);
+					ike_text_warning('node-bmw     '+os.hostname(), 3000);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'

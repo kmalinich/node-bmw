@@ -31,6 +31,7 @@ var IKE = function(omnibus) {
 	this.ike_text_urgent  = ike_text_urgent;
 	this.ike_text_warning = ike_text_warning;
 	this.obc_data         = obc_data;
+	this.obc_refresh      = obc_refresh;
 	this.parse_out        = parse_out;
 	this.request          = request;
 

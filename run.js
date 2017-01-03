@@ -91,7 +91,6 @@ function startup() {
   console.log('[ node-bmw] Starting up');
   // Start API server
   startup_api_server(() => {
-    console.log('[      API] Started up, port %s', api_port);
     // Start WebSocket server
     omnibus.socket_server.startup(() => {
       console.log('[       WS] Started up');

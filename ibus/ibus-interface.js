@@ -46,20 +46,21 @@ var ibus_interface = function(omnibus) {
 
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[     INTF] Port error : %s', error);
+		console.error('[INTF:PORT] Error : %s', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[     INTF] Port open [%s]', device);
+		console.log('[INTF:PORT] Open [%s]', device);
 
-		// Request ignition status
-		omnibus.IKE.request('ignition');
+		// Get data
+		omnibus.IKE.obc_refresh();
+		omnibus.LCM.lcm_get();
 	});
 
 	// On port close
 	serial_port.on('close', function() {
-		console.log('[     INTF] Port closed [%s]', device);
+		console.log('[INTF:PORT] Closed [%s]', device);
 		ibus_parser = null;
 	});
 
@@ -107,7 +108,7 @@ var ibus_interface = function(omnibus) {
 					callback();
 				}
 				else {
-					console.log('[INTF:PORT] Closted');
+					console.log('[INTF:PORT] Closed');
 					callback();
 				};
 			});
@@ -123,7 +124,7 @@ var ibus_interface = function(omnibus) {
 		// Only write data if port is open
 		if (serial_port.isOpen()) {
 			if (typeof queue_write[key_write] !== 'undefined' && queue_write[key_write]) {
-				active_write = false;
+				active_write = true;
 
 				serial_port.write(queue_write[key_write], (error) => {
 					if (error) {
@@ -132,7 +133,7 @@ var ibus_interface = function(omnibus) {
 					}
 
 					serial_port.drain((error) => {
-						console.log('[INTF:RITE] Success : ', queue_write[key_write]);
+						// console.log('[INTF:RITE] Success : ', queue_write[key_write]);
 						delete queue_write[key_write];
 						key_write = ++key_write;
 						// callback(true);
@@ -158,7 +159,7 @@ var ibus_interface = function(omnibus) {
 					active_write = false;
 					console.log('[INTF:RITE] Finished queue write');
 				}
-			}, 100);
+			}, 1000);
 		}
 	}
 
@@ -166,9 +167,9 @@ var ibus_interface = function(omnibus) {
 	function send_message(msg, callback) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 		queue_write.push(data_buffer);
-		console.log('[INTF:SEND] Pushed data into write queue');
+		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {
-			console.log('[INTF:SEND] Starting queue write');
+			// console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}
 	}

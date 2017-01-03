@@ -134,6 +134,8 @@ function startup_api_server(callback) {
   // error handling breh
   omnibus.api_server.listen(api_port, () => {
     console.log('[      API] Started up, port %s', api_port);
+    // Only call back if callback is a function
+    if (typeof callback === 'function') { callback(); }
 
     omnibus.api_server.on('connection', (api_socket) => {
       // Generate a new, unique api_socket-key

@@ -1,1 +1,0 @@
-handlebars-4.0.5.min.js

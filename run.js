@@ -90,7 +90,7 @@ var websocket_port  = 3002;
 function startup() {
   console.log('[ node-bmw] Starting up');
   // Start API server
-  omnibus.api_server.listen(api_port, () => {
+  startup_api_server(() => {
     console.log('[      API] Started up, port %s', api_port);
     // Start WebSocket server
     omnibus.socket_server.startup(() => {
@@ -116,7 +116,7 @@ function shutdown() {
     omnibus.HDMI.shutdown(() => {
       console.log('[     HDMI] Shut down');
       // socket server? .. nah, it's the api server. er..
-      omnibus.api_server.close(() => {
+      shutdown_api_server(() => {
         console.log('[      API] Shut down');
         process.exit();
       });

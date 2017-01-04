@@ -31,12 +31,10 @@ var ibus_interface = function(omnibus) {
 	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
-		lock     : true,
 		parity   : 'even',
 		parser   : ibus_protocol.parser(5),
 		rtscts   : true,
 	});
-
 
 	/*
 	 * Event handling
@@ -50,17 +48,18 @@ var ibus_interface = function(omnibus) {
 	// On port open
 	serial_port.on('open', function() {
 		console.log('[INTF:PORT] Open [%s]', device);
-		write_message();
 
-		// Get data
+		// Get some data
 		omnibus.IKE.obc_refresh();
 		omnibus.LCM.lcm_get();
+		omnibus.LCM.request('vehicledata');
+		omnibus.LCM.request('lampstatus');
+		omnibus.LCM.request('dimmer');
 	});
 
 	// On port close
 	serial_port.on('close', function() {
 		console.log('[INTF:PORT] Closed [%s]', device);
-		ibus_parser = null;
 	});
 
 	// When the parser sends a fully-formed message back
@@ -120,11 +119,11 @@ var ibus_interface = function(omnibus) {
 
 	// Return false if there's still something to write
 	function queue_done() {
-		if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
-			active_write = false;
+		if (typeof queue_write[0] !== 'undefined' && queue_write[0] && queue_write.length !== 0) {
+			active_write = true;
 		}
 		else {
-			active_write = true;
+			active_write = false;
 		}
 
 		return active_write;
@@ -144,15 +143,13 @@ var ibus_interface = function(omnibus) {
 		}
 
 		serial_port.write(queue_write[0], (error) => {
-			if (error) {
-				console.log('[INTF:RITE] Failed : ', queue_write[0], error);
-			}
+			if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
 
 			serial_port.drain((error) => {
-				console.log('[INTF:RITE] Writing %s remain', queue_write.length);
+				console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
 
 				if (error) {
-					console.log('[ INTF:DRN] Failed : ', queue_write[0], error);
+					console.log('[INTF::DRN] Failed : ', queue_write[0], error);
 				}
 				else {
 					// console.log('[INTF:RITE] Success : ', queue_write[0]);
@@ -175,8 +172,9 @@ var ibus_interface = function(omnibus) {
 	function send_message(msg, callback) {
 		var data_buffer = ibus_protocol.create_ibus_message(msg);
 		queue_write.push(data_buffer);
+
 		// console.log('[INTF:SEND] Pushed data into write queue');
-		if (active_write === false && queue_write.length === 1) {
+		if (active_write === false) {
 			console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}

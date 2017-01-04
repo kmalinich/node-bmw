@@ -745,11 +745,12 @@ var IKE = function(omnibus) {
 		console.log('[ node-bmw] Refreshing all OBC data');
 
 		// IKE data
+		request('coding'     );
 		request('ignition'   );
-		request('vin'        );
-		request('temperature');
-		request('sensor'     );
 		request('odometer'   );
+		request('sensor'     );
+		request('temperature');
+		request('vin'        );
 
 		// OBC data
 		obc_data('get', 'arrival'      );
@@ -771,7 +772,7 @@ var IKE = function(omnibus) {
 	}
 
 	// OBC data request
-	function obc_data(action, value) {
+	function obc_data(action, value, target) {
 		var src = 0x3B; // GT
 		var dst = 0x80; // IKE
 		var cmd = 0x41; // OBC data request
@@ -788,6 +789,10 @@ var IKE = function(omnibus) {
 			case 'limit-on'   : action_id = 0x04; break;
 			case 'limit-set'  : action_id = 0x20; break;
 			case 'reset'      : action_id = 0x10; break;
+			case 'set' :
+				cmd       = 0x40; // OBC data set (speed limit/distance)
+				action_id = 0x00;
+				break;
 		}
 
 		// Determine value_id from value argument
@@ -812,6 +817,11 @@ var IKE = function(omnibus) {
 
 		// Assemble message string
 		var msg = [cmd, value_id, action_id];
+
+		// If we're setting, insert the data
+		if (typeof target !== 'undefined' && target) {
+			msg = [msg, target];
+		}
 
 		// console.log('[ node-bmw] Doing \'%s\' on OBC value \'%s\'', action, value);
 
@@ -853,7 +863,7 @@ var IKE = function(omnibus) {
 		var dst = 0x80; // IKE
 		var cmd;
 
-		console.log('[ node-bmw] Requesting \'%s\' from IKE', value);
+		console.log('[ node-bmw] Requesting \'%s\'', value);
 
 		switch (value) {
 			case 'ignition':
@@ -869,6 +879,10 @@ var IKE = function(omnibus) {
 			case 'odometer':
 				src = 0x44; // EWS
 				cmd = 0x16;
+				break;
+			case 'dimmer':
+				src = 0x5B; // IHKA
+				cmd = [0x1D, 0xC5];
 				break;
 			case 'temperature':
 				src = 0x5B; // IHKA

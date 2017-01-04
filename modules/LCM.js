@@ -51,8 +51,42 @@ var LCM = function(omnibus) {
 	this.lcm_set             = lcm_set;
 	this.light_status_decode = light_status_decode;
 	this.parse_out           = parse_out;
+	this.request             = request;
 	this.reset               = reset;
 	this.welcome_lights      = welcome_lights;
+
+	// Request various things from LCM
+	function request(value) {
+		var src = 0xED; // VID
+		var dst = 0xD0; // LCM
+		var cmd;
+
+		console.log('[ node-bmw] Requesting \'%s\'', value);
+
+		switch (value) {
+			case 'vehicledata':
+				src = 0x80; // IKE
+				dst = 0xD0; // LCM
+				cmd = 0x53;
+				break;
+			case 'lampstatus':
+				src = 0x3B; // GT
+				cmd = 0x5A;
+				break;
+			case 'dimmer':
+				src = 0xF0; // BMBT
+				cmd = 0x5D;
+				break;
+		}
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer([cmd]),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
 
 	// Parse data sent from LCM module
 	function parse_out(data) {
@@ -113,9 +147,12 @@ var LCM = function(omnibus) {
 
 			case 0xA0: // Reply to DIA message: success
 				command = 'diagnostic reply ';
-				value   = 'length '+message.length;
 				if (message.length == 33) {
+					value = 'IO status';
 					omnibus.LCM.io_status_decode(message);
+				}
+				else if (message.length == 1) {
+					value = 'ACK'
 				}
 				break;
 
@@ -224,7 +261,7 @@ var LCM = function(omnibus) {
 
 		// If comfort turn is not currently engaged
 		if (omnibus.status.lights.turn_comfort_left == true || omnibus.status.lights.turn_comfort_right == true) {
-			console.log('[LCM]  Comfort turn signal currently engaged');
+			console.log('[      LCM]  Comfort turn signal currently engaged');
 		}
 		else {
 			/*
@@ -266,7 +303,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_left_depress_elapsed < 1000) {
-						console.log('[LCM]  Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+						console.log('[      LCM]  Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
 						comfort_turn('left');
 					}
 				}
@@ -281,7 +318,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
-						console.log('[LCM]  Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+						console.log('[      LCM]  Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
 						comfort_turn('right');
 					}
 				}
@@ -309,6 +346,7 @@ var LCM = function(omnibus) {
 	// Automatic lights handling
 	function auto_lights(light_switch) {
 		console.log('[ node-bmw] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
+
 		switch (light_switch) {
 			case 'off':
 				if (omnibus.status.lights.auto.active === true) {
@@ -621,8 +659,8 @@ var LCM = function(omnibus) {
 	function reset() {
 		console.log('[      LCM] reset();');
 		var lcm_object = {
-			dimmer_value_1    : omnibus.status.lights.dimmer_value_1,
-			dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
+			// dimmer_value_1    : omnibus.status.lights.dimmer_value_1,
+			// dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
 			switch_fog_rear   : true, // To leverage the IKE LED as a status indicator
 			switch_lowbeam_1  : omnibus.status.lights.auto.lowbeam,
 			switch_standing   : omnibus.status.lights.auto.standing,
@@ -647,7 +685,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[LCM]  Sending \'Get IO status\' packet');
+		console.log('[      LCM]  Sending \'Get IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -667,7 +705,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		// console.log('[LCM]  Sending \'Set IO status\' packet');
+		// console.log('[      LCM]  Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

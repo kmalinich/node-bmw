@@ -261,7 +261,7 @@ var LCM = function(omnibus) {
 
 		// If comfort turn is not currently engaged
 		if (omnibus.status.lights.turn_comfort_left == true || omnibus.status.lights.turn_comfort_right == true) {
-			console.log('[      LCM]  Comfort turn signal currently engaged');
+			console.log('[      LCM] Comfort turn signal currently engaged');
 		}
 		else {
 			/*
@@ -303,7 +303,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_left_depress_elapsed < 1000) {
-						console.log('[      LCM]  Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+						console.log('[      LCM] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
 						comfort_turn('left');
 					}
 				}
@@ -318,7 +318,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
-						console.log('[      LCM]  Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+						console.log('[      LCM] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
 						comfort_turn('right');
 					}
 				}
@@ -685,7 +685,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		console.log('[      LCM]  Sending \'Get IO status\' packet');
+		console.log('[      LCM] Sending \'Get IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 
@@ -705,7 +705,7 @@ var LCM = function(omnibus) {
 		}
 
 		// Send the message
-		// console.log('[      LCM]  Sending \'Set IO status\' packet');
+		// console.log('[      LCM] Sending \'Set IO status\' packet');
 		omnibus.ibus_connection.send_message(ibus_packet);
 	}
 

@@ -118,7 +118,7 @@ var ibus_interface = function(omnibus) {
 	}
 
 	// Return false if there's still something to write
-	function queue_done() {
+	function queue_busy() {
 		if (typeof queue_write[0] !== 'undefined' && queue_write[0] && queue_write.length !== 0) {
 			active_write = true;
 		}
@@ -137,8 +137,8 @@ var ibus_interface = function(omnibus) {
 			return;
 		}
 
-		if (queue_done()) {
-			console.log('[INTF:RITE] Queue done');
+		if (!queue_busy()) {
+			console.log('[INTF:RITE] Queue done (1st)');
 			return;
 		}
 
@@ -157,11 +157,11 @@ var ibus_interface = function(omnibus) {
 					// Successful write, remove this message from the queue
 					queue_write.splice(0, 1);
 
-					if (!queue_done()) {
+					if (queue_busy()) {
 						write_message();
 					}
 					else {
-						console.log('[INTF:RITE] Queue done');
+						console.log('[INTF:RITE] Queue done (2nd)');
 					}
 				}
 			});
@@ -174,7 +174,7 @@ var ibus_interface = function(omnibus) {
 		queue_write.push(data_buffer);
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
-		if (active_write === false) {
+		if (!queue_busy()) {
 			console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}

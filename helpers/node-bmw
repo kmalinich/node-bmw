@@ -77,7 +77,7 @@ update() {
 	sudo npm update
 
 	log "Performing --unsafe-perm install of serialport"
-	sudo npm install --unsafe-perm serialport
+	sudo npm install --unsafe-perm --build-from-source serialport
 
 	restart
 

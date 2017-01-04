@@ -21,49 +21,49 @@ module.exports = {
 
 				var end_of_last_message = -1;
 
-				var mSrc;
-				var mLen;
-				var mDst;
-				var mMsg;
-				var mCrc;
+				var msg_src;
+				var msg_len;
+				var msg_dst;
+				var msg_msg;
+				var msg_crc;
 
 				// Look for messages in current chunk
 				for (var i = 0; i < data.length - 5; i++) {
-					mSrc = data[i + 0];
-					mLen = data[i + 1];
-					mDst = data[i + 2];
+					msg_src = data[i+0];
+					msg_len = data[i+1];
+					msg_dst = data[i+2];
 
 					// Test to see if have enough data for a complete message
-					if (data.length >= (i + 2 + mLen)) {
-						mMsg = data.slice(i + 3, i + 3 + mLen - 2);
-						mCrc = data[i + 2 + mLen - 1];
+					if (data.length >= (i+2+msg_len)) {
+						msg_msg = data.slice(i+3, i+3+msg_len-2);
+						msg_crc = data[i+2+msg_len-1];
 
 						var crc = 0x00;
 
-						crc = crc ^ mSrc;
-						crc = crc ^ mLen;
-						crc = crc ^ mDst;
+						crc = crc^msg_src;
+						crc = crc^msg_len;
+						crc = crc^msg_dst;
 
-						for (var j = 0; j < mMsg.length; j++) {
-							crc = crc ^ mMsg[j];
+						for (var j = 0; j < msg_msg.length; j++) {
+							crc = crc^msg_msg[j];
 						}
 
 						// THIS IS IMPORTANT!!
 						// The IKE sensor status will look like 80 0a bf 13 00 00 00 00 00 00
 						// and at some point, the checksum will look correct to the parser
 						// So f**k that, no 0x00 checksums
-						 if (crc === mCrc && crc != 0x00) {
+						if (crc === msg_crc && crc !== 0x00) {
 							messages.push({
 								'id'  : Date.now(),
-								'src' : mSrc.toString(16),
-								'len' : mLen.toString(16),
-								'dst' : mDst.toString(16),
-								'msg' : mMsg,
-								'crc' : mCrc.toString(16)
+								'src' : msg_src.toString(16),
+								'len' : msg_len.toString(16),
+								'dst' : msg_dst.toString(16),
+								'msg' : msg_msg,
+								'crc' : msg_crc.toString(16)
 							});
 
 							// Mark end of last message
-							end_of_last_message = (i + 2 + mLen);
+							end_of_last_message = (i + 2 + msg_len);
 
 							// Skip ahead
 							i = end_of_last_message - 1;
@@ -72,9 +72,9 @@ module.exports = {
 				}
 
 				if (messages.length > 0) {
-					messages.forEach(function(message) {
-						//var out = data.slice(0, length);
-						//data = data.slice(length);
+					messages.forEach((message) => {
+						// var out = data.slice(0, length);
+						// data    = data.slice(length);
 						emitter.emit('data', message);
 
 						// console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
@@ -90,30 +90,32 @@ module.exports = {
 				}
 			}
 
-			//// console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
+			// console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 		}
 	},
 
 	create_ibus_message : function(msg) {
-		// 1 + 1 + 1 + msgLen + 1
-		var packetLength = 4 + msg.msg.length;
-		var buf          = new Buffer(packetLength);
+		//   1 + 1 + 1 + n + 1
+		// SRC LEN DST MSG CHK
+		// ... or packet length + 4
 
-		buf[0] = msg.src;
-		buf[1] = msg.msg.length + 2;
-		buf[2] = msg.dst;
+		var buffer = new Buffer((msg.msg.length+4));
+
+		buffer[0] = msg.src;
+		buffer[1] = msg.msg.length + 2;
+		buffer[2] = msg.dst;
 
 		for (var i = 0; i < msg.msg.length; i++) {
-			buf[3 + i] = msg.msg[i];
+			buffer[3 + i] = msg.msg[i];
 		}
 
 		var crc = 0x00;
-		for (var i = 0; i < buf.length - 1; i++) {
-			crc ^= buf[i];
+		for (var i = 0; i < buffer.length - 1; i++) {
+			crc ^= buffer[i];
 		}
 
-		buf[3 + msg.msg.length] = crc;
+		buffer[3 + msg.msg.length] = crc;
 
-		return buf;
+		return buffer;
 	}
 };

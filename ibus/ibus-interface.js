@@ -50,6 +50,7 @@ var ibus_interface = function(omnibus) {
 	// On port open
 	serial_port.on('open', function() {
 		console.log('[INTF:PORT] Open [%s]', device);
+		write_message();
 
 		// Get data
 		omnibus.IKE.obc_refresh();
@@ -117,53 +118,57 @@ var ibus_interface = function(omnibus) {
 		}
 	}
 
+	// Return false if there's still something to write
+	function queue_done() {
+		if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
+			active_write = false;
+		}
+		else {
+			active_write = true;
+		}
+
+		return active_write;
+	}
+
 	// Write the next message to the serial port
 	function write_message() {
-		setTimeout(() => {
-			// Only write data if port is open
-			if (serial_port.isOpen()) {
-				if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
-					serial_port.write(queue_write[0], (error) => {
-						if (error) {
-							console.log('[INTF:RITE] Failed : ', queue_write[0], error);
-						}
+		// Only write data if port is open
+		if (!serial_port.isOpen()) {
+			console.log('[INTF:RITE] Chilling until port is open');
+			return;
+		}
 
-						serial_port.drain((error) => {
-							active_write = true;
-							console.log('[INTF:RITE] Writing %s remain', queue_write.length);
+		if (queue_done()) {
+			console.log('[INTF:RITE] Queue done');
+			return;
+		}
 
-							if (error) {
-								console.log('[ INTF:DRN] Failed : ', queue_write[0], error);
-							}
-							else {
-								// console.log('[INTF:RITE] Success : ', queue_write[0]);
-								queue_write.splice(0, 1);
-								if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
-									write_message();
-								}
-								else {
-									active_write = false;
-									console.log('[INTF:RITE] Finished queue');
-								}
-							}
-						});
-					});
-				}
+		serial_port.write(queue_write[0], (error) => {
+			if (error) {
+				console.log('[INTF:RITE] Failed : ', queue_write[0], error);
 			}
-			else {
-				// Chill for a bit, then try again
-				console.log('[INTF:RITE] Chilling until port is open');
-				setTimeout(() => {
-					if (typeof queue_write[0] !== 'undefined' && queue_write[0]) {
+
+			serial_port.drain((error) => {
+				console.log('[INTF:RITE] Writing %s remain', queue_write.length);
+
+				if (error) {
+					console.log('[ INTF:DRN] Failed : ', queue_write[0], error);
+				}
+				else {
+					// console.log('[INTF:RITE] Success : ', queue_write[0]);
+
+					// Successful write, remove this message from the queue
+					queue_write.splice(0, 1);
+
+					if (!queue_done()) {
 						write_message();
 					}
 					else {
-						active_write = false;
-						console.log('[INTF:RITE] Finished queue');
+						console.log('[INTF:RITE] Queue done');
 					}
-				}, 1000);
-			}
-		}, 20);
+				}
+			});
+		});
 	}
 
 	// Insert a message into the write queue

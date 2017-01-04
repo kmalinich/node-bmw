@@ -744,7 +744,18 @@ var IKE = function(omnibus) {
 	function obc_refresh() {
 		console.log('[ node-bmw] Refreshing all OBC data');
 
+		// LCM data
+		omnibus.LCM.request('vehicledata');
+		omnibus.LCM.request('lampstatus');
+		omnibus.LCM.request('dimmer');
+		omnibus.LCM.request('lcm-io');
+
+		// Immo+GM data
+		omnibus.EWS.request('immobiliserstatus');
+		omnibus.GM.gm_get();
+
 		// IKE data
+		request('statusall'  );
 		request('coding'     );
 		request('ignition'   );
 		request('odometer'   );
@@ -887,6 +898,11 @@ var IKE = function(omnibus) {
 			case 'temperature':
 				src = 0x5B; // IHKA
 				cmd = [0x1D, 0xC5];
+				break;
+			case 'statusall':
+				src = 0x80; // IKE
+				dst = 0xBF; // GLO
+				cmd = 0x01;
 				break;
 			case 'vin':
 				src = 0x80; // IKE

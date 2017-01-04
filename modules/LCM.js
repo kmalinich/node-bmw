@@ -64,6 +64,11 @@ var LCM = function(omnibus) {
 		console.log('[ node-bmw] Requesting \'%s\'', value);
 
 		switch (value) {
+			case 'lcm-io':
+				src = 0x3F; // DIA
+				dst = 0xD0; // GLO
+				cmd = [0x08, 0x00]; // Get IO status
+				break;
 			case 'vehicledata':
 				src = 0x80; // IKE
 				dst = 0xD0; // LCM

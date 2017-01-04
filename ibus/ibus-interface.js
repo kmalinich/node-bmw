@@ -51,10 +51,6 @@ var ibus_interface = function(omnibus) {
 
 		// Get some data
 		omnibus.IKE.obc_refresh();
-		omnibus.LCM.lcm_get();
-		omnibus.LCM.request('vehicledata');
-		omnibus.LCM.request('lampstatus');
-		omnibus.LCM.request('dimmer');
 	});
 
 	// On port close
@@ -126,6 +122,7 @@ var ibus_interface = function(omnibus) {
 			active_write = false;
 		}
 
+		// console.log('[INTF::QUE] Queue busy: %s', active_write);
 		return active_write;
 	}
 
@@ -146,7 +143,7 @@ var ibus_interface = function(omnibus) {
 			if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
 
 			serial_port.drain((error) => {
-				console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
+				// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
 
 				if (error) {
 					console.log('[INTF::DRN] Failed : ', queue_write[0], error);
@@ -174,7 +171,7 @@ var ibus_interface = function(omnibus) {
 		queue_write.push(data_buffer);
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
-		if (!queue_busy()) {
+		if (active_write === false) {
 			console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}

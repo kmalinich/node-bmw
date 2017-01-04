@@ -61,6 +61,11 @@ var GT = function(omnibus) {
 			data    = 'OBC value';
 		}
 
+		else if (message[0] == 0x5A) {
+			command = 'request';
+			data    = 'lamp status';
+		}
+
 		// Door/flap status request
 		else if (message[0] == 0x79) {
 			command = 'request';
@@ -72,7 +77,7 @@ var GT = function(omnibus) {
 			data    = new Buffer(message);
 		}
 
-		console.log('[GT]   Sent %s:', command, data);
+		// console.log('[GT]   Sent %s:', command, data);
 	}
 }
 

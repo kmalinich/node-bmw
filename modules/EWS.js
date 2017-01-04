@@ -26,6 +26,31 @@ var EWS = function(omnibus) {
 
 	// Exposed data
 	this.parse_out = parse_out;
+	this.request   = request;
+
+	// Request various things from EWS
+	function request(value) {
+		var src = 0x30; // CCN
+		var dst = 0x44; // EWS
+		var cmd;
+
+		console.log('[ node-bmw] Requesting \'%s\'', value);
+
+		switch (value) {
+			case 'immobiliserstatus':
+				// cmd = [0x73, 0x00, 0x00, 0x80];
+				cmd = 0x73;
+				break;
+		}
+
+		var ibus_packet = {
+			src: src,
+			dst: dst,
+			msg: new Buffer([cmd]),
+		}
+
+		omnibus.ibus_connection.send_message(ibus_packet);
+	}
 
 	// Parse data sent from EWS module
 	function parse_out(data) {

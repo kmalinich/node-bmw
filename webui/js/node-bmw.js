@@ -419,6 +419,10 @@ function status() {
 			 */
 
 			// Units
+			if (!return_data.coding.unit.temp) {
+				return_data.coding.unit.temp = 'c';
+			}
+
 			$('#temperature-coolant-unit').text(return_data.coding.unit.temp.toUpperCase());
 			$('#obc-temp-exterior-unit'  ).text(return_data.coding.unit.temp.toUpperCase());
 
@@ -488,6 +492,10 @@ function status() {
 			if (return_data.vehicle.locked) { $('#vehicle-locked').text('Locked'); } else { $('#vehicle-locked').text('Unlocked'); }
 
 			// Current, average, and limit speed
+			if (return_data.coding.unit.speed === null) {
+				return_data.coding.unit.speed = 'mph';
+			}
+
 			$('#vehicle-speed-unit' ).text(return_data.coding.unit.speed.toUpperCase());
 			$('#obc-speedavg-unit'  ).text(return_data.coding.unit.speed.toUpperCase());
 			$('#obc-speedlimit-unit').text(return_data.coding.unit.speed.toUpperCase());

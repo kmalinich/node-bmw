@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+console.log('[ node-bmw] Starting up');
+
 // npm libraries
 const http              = require('http');
 const http_dispatcher   = require('httpdispatcher');
@@ -43,6 +45,9 @@ const VID  = require('./modules/VID.js');
 
 // Everything connection object
 const omnibus = {};
+
+// Last time data was fired
+omnibus.last_event = 0;
 
 omnibus.bus_modules     = require('./lib/bus-modules.js');
 omnibus.status          = require('./lib/status.js');  // Vehicle status object
@@ -88,7 +93,6 @@ var websocket_port      = 3002;
 
 // Global startup
 function startup() {
-  console.log('[ node-bmw] Starting up');
   // Start API server
   startup_api_server(() => {
     // Start WebSocket server
@@ -99,7 +103,7 @@ function startup() {
         console.log('[     HDMI] Started up');
         // Start IBUS connection
         omnibus.ibus_connection.startup(() => {
-          console.log('[     INTF] Started up');
+          console.log('[     INTF] Started up', omnibus.last_event);
         });
       });
     });

@@ -1,13 +1,16 @@
-var bus_modules   = require('../lib/bus-modules.js');
-var clc           = require('cli-color');
-var event_emitter = require('events');
-var ibus_protocol = require('./ibus-protocol.js');
-var serialport    = require('serialport');
-var util          = require('util');
+const bus_modules   = require('../lib/bus-modules.js');
+const clc           = require('cli-color');
+const event_emitter = require('events');
+const ibus_protocol = require('./ibus-protocol.js');
+const now           = require('performance-now')
+const serialport    = require('serialport');
+const util          = require('util');
 
 var ibus_interface = function(omnibus) {
 	// Self reference
 	var _self = this;
+
+	var IBUSprotocol = new ibus_protocol(omnibus);
 
 	// Read/write queues
 	var queue_read  = [];
@@ -17,7 +20,7 @@ var ibus_interface = function(omnibus) {
 	var active_write = false;
 
 	// Last time any data did something
-	var last_event = 0;
+	omnibus.last_event = 0;
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -34,7 +37,7 @@ var ibus_interface = function(omnibus) {
 	var serial_port = new serialport(device, {
 		autoOpen : false,
 		parity   : 'even',
-		parser   : ibus_protocol.parser(5),
+		parser   : IBUSprotocol.parser(5),
 	});
 
 	/*

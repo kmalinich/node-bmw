@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var now = require("performance-now")
-var start = now()
-var end = now()
+var now = require('performance-now')
+
+var start = now().toFixed(1);
+var end   = now().toFixed(1);
 
 console.log(start)
 console.log(end)
-console.log((end-start))
-console.log((end-start).toFixed(3))
+console.log(end-start)

@@ -35,7 +35,6 @@ var ibus_interface = function(omnibus) {
 		autoOpen : false,
 		parity   : 'even',
 		parser   : ibus_protocol.parser(5),
-		rtscts   : true,
 	});
 
 	/*

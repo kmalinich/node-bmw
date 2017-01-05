@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
+var ibus_protocol = require('./ibus-protocol-dbg.js');
 var clc           = require('cli-color');
 var serialport    = require('serialport');
 
 
 // local data
 var parser;
-var device      = '/dev/samsung';
+var device      = '/dev/bmw';
 var queue       = [];
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	baudRate : 9600,
 	dataBits : 8,
-//	parity   : 'even',
-	parser   : serialport.parsers.raw,
-	// rtscts   : true,
+	parity   : 'even',
+	parser   : ibus_protocol.parser(5),
 	stopBits : 1,
 });
 
@@ -40,7 +40,7 @@ serial_port.on('close', function() {
 
 // On data RX
 serial_port.on('data', function(data) {
-	console.log(data);
+	console.log(data.toString());
 });
 
 // Open serial port

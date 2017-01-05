@@ -1,5 +1,5 @@
 # node-bmw
-======
+
 A node.js powered interface for IBUS BMW vehicles, for use with whatever runs the dependencies.
 It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and macOS 10.10/10.11.
 

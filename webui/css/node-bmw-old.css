@@ -16,7 +16,7 @@ body {
 	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
-.charisma-page-header {
+.node-bmw-page-header {
 	margin  : 60px 0 0;
 	padding : 0 0 0 0;
 }
@@ -228,7 +228,7 @@ h1, h2, h3, h4, h5, h6, hr, p, .lead {
 }
 
 
-/* charisma purple
+/* kdm's purple
  *
  * highlight shades, lightest to darkest:
  * 1: #a65ef1

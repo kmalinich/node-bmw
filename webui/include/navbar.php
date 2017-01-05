@@ -8,7 +8,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/">
-				<img alt="node-bmw" class="navbar-brand-img" src="/images/charisma-top-no-shadow.png">
+				<img alt="node-bmw" class="navbar-brand-img" src="/images/bmw-64px.png">
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbar">

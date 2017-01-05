@@ -1,4 +1,8 @@
 /* Misc page/element tweaks */
+html, body {
+	font-family            : '.sf-thin',sans-serif;
+	-webkit-font-smoothing : subpixel-antialiased;
+}
 
 .row {
 	margin-bottom: 5px;

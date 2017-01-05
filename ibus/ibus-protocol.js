@@ -28,7 +28,7 @@ module.exports = {
 				var msg_crc;
 
 				// Look for messages in current chunk
-				for (var i = 0; i < data.length - 5; i++) {
+				for (var i = 0; i < data.length-5; i++) {
 					msg_src = data[i+0];
 					msg_len = data[i+1];
 					msg_dst = data[i+2];

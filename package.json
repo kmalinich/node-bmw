@@ -37,6 +37,7 @@
     "node-unit-conversion": "^0.1.1",
     "ora": "^0.4.0",
     "os": "^0.1.1",
+    "performance-now": "^1.0.1",
     "querystring": "^0.2.0",
     "samsung-tv": "^0.3.1",
     "serialport": "^4.0.7",

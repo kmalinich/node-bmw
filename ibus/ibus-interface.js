@@ -16,6 +16,8 @@ var ibus_interface = function(omnibus) {
 	var queue_write  = [];
 	var active_write = false;
 
+	// Last time any data did something
+	var last_event = 0;
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -115,7 +117,7 @@ var ibus_interface = function(omnibus) {
 
 	// Return false if there's still something to write
 	function queue_busy() {
-		if (typeof queue_write[0] !== 'undefined' && queue_write[0] && queue_write.length !== 0) {
+		if (typeof queue_write[0] !== 'undefined' && queue_write.length !== 0) {
 			active_write = true;
 		}
 		else {

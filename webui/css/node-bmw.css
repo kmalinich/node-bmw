@@ -39,8 +39,16 @@ hr {
 	border-color     : #5d9ab8;
 }
 
+.btn-success {
+	color : #222;
+}
 
-/* Custom navbar graphic */
+
+/* Custom navbar */
+
+.navbar {
+  margin-bottom : 10px;
+}
 
 .navbar-brand {
 	padding-left   : 15px;
@@ -63,17 +71,26 @@ hr {
 }
 
 
-/* IKE backlight slider */
+/* Sliders */
 
-.slider {
+.slider.slider-vertical .slider-tick, .slider.slider-vertical .slider-handle {
+	margin-left: -5px;
+	margin-top: -18px;
+}
+
+.slider-horizontal {
 	min-width : 100%;
+}
+
+.slider.slider-vertical {
+	width : 46px;
 }
 
 .slider-handle {
 	background-image: linear-gradient(to bottom,#37a2c7 0,#5d9ab8 100%);
 }
 
-.slider-track-low, .slider-track-high {
+.slider-selection, .slider-track, .slider-track-low, .slider-track-high {
 	background: #7f8487;
 }
 
@@ -82,9 +99,9 @@ hr {
 }
 
 .tooltip-inner {
-	background-color : rgba(42, 159, 214, 0.75);
+	background-color : rgba(42, 159, 214, 1);
 }
 
 .tooltip.bottom .tooltip-arrow {
-	border-bottom-color : rgba(42, 159, 214, 0.75);
+	border-bottom-color : rgba(42, 159, 214, 1);
 }

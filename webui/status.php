@@ -4,7 +4,7 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body>
+	<body onload="javascript:status_load()">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 			<div class="row">

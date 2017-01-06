@@ -4,21 +4,9 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body onload="javascript:status_refresh_on();">
+	<body onload="javascript:status_load()">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
-
-			<h4><i id="icon-refresh" class="fa fa-refresh fa-inverse"></i> Refresh</h4>
-			<div class="row">
-				<div class="col-xs-6">
-					<button class="btn btn-lg btn-warning btn-block" onclick="javascript:status();">Force</button>
-				</div>
-				<div class="col-xs-6">
-					<button id="btn-refresh" class="btn btn-lg btn-success btn-block" onclick="javascript:status_refresh_on();">Enable</button>
-				</div>
-			</div>
-			<hr>
-
 			<div class="row">
 
 				<div class="col-lg-12 col-xs-12">

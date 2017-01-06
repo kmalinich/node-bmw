@@ -4,12 +4,25 @@ html, body {
 	-webkit-font-smoothing : subpixel-antialiased;
 }
 
+.navbar-nav>li>a {
+	font-family : '.sf-ultralight',sans-serif;
+}
+
+h1.title {
+  font-family : '.sf-ultralight',sans-serif;
+  font-size   : 72px;
+}
+
 .row {
 	margin-bottom: 5px;
 }
 
 h1, h2, h3, h4, h5, h6, hr, p, .lead {
 	margin: 6px 0px 6px 0px;
+}
+
+hr {
+	border-top : 1px solid #ababab;
 }
 
 

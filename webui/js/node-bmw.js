@@ -555,24 +555,7 @@ function status() {
 	});
 }
 
-// Status page autorefresh disable
-function status_refresh_off() {
-	// CSS magic
-	$('#icon-refresh').removeClass('fa-spin');
-	$('#btn-refresh').removeClass('btn-danger').addClass('btn-success').text('Enable').attr('onclick', 'javascript:status_refresh_on();');
-
-	// Clear the loop
-	clearInterval(status_loop);
-	clearInterval(status_refresh);
-	clearInterval(gm_refresh);
-}
-
-// Status page autorefresh enable
-var status_loop;
-var status_refresh;
-var gm_refresh;
-
-function obc_refresh_exec() {
+function obc_refresh() {
 	// Data refresh from OBC/IKE
 	$.ajax({
 		url      : '/api/ike',
@@ -585,7 +568,7 @@ function obc_refresh_exec() {
 	});
 }
 
-function gm_refresh_exec() {
+function gm_refresh() {
 	// Data refresh from GM
 	$.ajax({
 		url      : '/api/gm',
@@ -598,14 +581,7 @@ function gm_refresh_exec() {
 	});
 }
 
-function status_refresh_on() {
-	// CSS magic
-	$('#icon-refresh').addClass('fa-spin');
-	$('#btn-refresh').addClass('btn-danger').removeClass('btn-success').text('Disable').attr('onclick', 'javascript:status_refresh_off();');
-
-	// Refresh browser view
-	status();
-
+function status_load() {
 	// Pulse clamps 15, 30A, 30B, once
 	$.ajax({
 		url      : '/api/lcm',
@@ -617,14 +593,11 @@ function status_refresh_on() {
 		}
 	});
 
-	// Refresh data
-	obc_refresh_exec();
+	// Refresh OBC data
+	obc_refresh();
 
-	// F**k .. need to get my websocket game up
-	status_loop = setInterval(function() {
-		// Refresh browser view
-		status();
-	}, 1000);
+	// Refresh browser view
+	status();
 }
 
 // Convert a string to hex

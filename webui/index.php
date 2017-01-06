@@ -7,8 +7,7 @@
 	<body>
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid text-center">
-			<h1><?php echo gethostname(); ?>.</h1>
-			<h1>node-bmw.</h1>
+			<h1 class="title">node-bmw</h1>
 		</div>
 	</body>
 	<?php include './include/js.php'; ?>

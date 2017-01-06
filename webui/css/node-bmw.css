@@ -73,6 +73,10 @@ hr {
 	background-image: linear-gradient(to bottom,#37a2c7 0,#5d9ab8 100%);
 }
 
+.slider-track-low, .slider-track-high {
+	background: #7f8487;
+}
+
 .tooltip {
 	font-size : 18px;
 }

@@ -15,10 +15,3 @@
 	src         : url('/fonts/sf-ultralight.woff2') format('woff2'), url('/fonts/sf-ultralight.woff') format('woff'), url('/fonts/sf-ultralight.ttf') format('truetype');
 	font-style  : normal;
 }
-
-/*
-body {
-font-family            : '.sf-ultralight',sans-serif;
--webkit-font-smoothing : subpixel-antialiased;
-}
- */

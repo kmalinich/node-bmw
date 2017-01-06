@@ -11,7 +11,7 @@
 
 				<div class="col-lg-12 col-xs-12">
 
-					<h4><i class="fa fa-car fa-inverse"></i> Vehicle</h4>
+					<h4><i class="fa fa-car"></i> Vehicle</h4>
 					<div class="row text-center">
 
 						<div class="col-xs-6">
@@ -32,7 +32,7 @@
 
 					<hr>
 
-					<h4><i class="fa fa-key fa-inverse"></i> <span id="vehicle-locked"></span>, <span id="lights-interior"></span></h4>
+					<h4><i class="fa fa-key"></i> <span id="vehicle-locked"></span>, <span id="lights-interior"></span></h4>
 					<div class="row text-center">
 
 						<div class="col-xs-12">
@@ -92,7 +92,7 @@
 			<div class="row">
 
 				<div class="col-lg-12 col-xs-12">
-					<h4><i class="fa fa-desktop fa-inverse"></i> OBC</h4>
+					<h4><i class="fa fa-desktop"></i> OBC</h4>
 
 					<div class="row text-center">
 
@@ -199,7 +199,7 @@
 
 				<div class="col-lg-12 col-xs-12">
 
-					<h4><i class="fa fa-gear fa-inverse"></i> Coding data</h4>
+					<h4><i class="fa fa-gear"></i> Coding data</h4>
 
 					<div class="row text-center">
 

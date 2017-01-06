@@ -18,7 +18,7 @@
 
 			<div class="row">
 				<div class="col-xs-12">
-					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-unlock" onclick="javascript:gm_cl('toggle');"><i class="fa fa-unlock-alt fa-inverse"></i> Central locking</button>
+					<button class="btn btn-lg btn-primary btn-block" id="btn-gm-unlock" onclick="javascript:gm_cl('toggle');"><i class="fa fa-unlock-alt"></i> Central locking</button>
 				</div>
 			</div>
 
@@ -26,12 +26,12 @@
 
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'up');">LF window <i class="fa fa-arrow-up fa-inverse"></i></button>
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'dn');">LF window <i class="fa fa-arrow-down fa-inverse"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'up');">LF window <i class="fa fa-arrow-up"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'dn');">LF window <i class="fa fa-arrow-down"></i></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'up');">RF window <i class="fa fa-arrow-up fa-inverse"></i></button>
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'dn');">RF window <i class="fa fa-arrow-down fa-inverse"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'up');">RF window <i class="fa fa-arrow-up"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'dn');">RF window <i class="fa fa-arrow-down"></i></button>
 				</div>
 			</div>
 
@@ -39,20 +39,20 @@
 
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'up');">LR window <i class="fa fa-arrow-up fa-inverse"></i></button>
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'dn');">LR window <i class="fa fa-arrow-down fa-inverse"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'up');">LR window <i class="fa fa-arrow-up"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'dn');">LR window <i class="fa fa-arrow-down"></i></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'up');">RR window <i class="fa fa-arrow-up fa-inverse"></i></button>
-					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'dn');">RR window <i class="fa fa-arrow-down fa-inverse"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'up');">RR window <i class="fa fa-arrow-up"></i></button>
+					<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'dn');">RR window <i class="fa fa-arrow-down"></i></button>
 				</div>
 			</div>
 
 			<hr>
 
-			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof <i class="fa fa-arrow-up fa-inverse"></i></button>
-			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'tt');">Roof <i class="fa fa-bars fa-inverse"></i></button>
-			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof <i class="fa fa-arrow-down fa-inverse"></i></button>
+			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof <i class="fa fa-arrow-up"></i></button>
+			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'tt');">Roof <i class="fa fa-bars"></i></button>
+			<button class="btn btn-primary btn-block" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof <i class="fa fa-arrow-down"></i></button>
 
 			<!--
 			<hr>

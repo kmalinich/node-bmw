@@ -37,7 +37,7 @@ var ibus_interface = function(omnibus) {
 	var serial_port = new serialport(device, {
 		autoOpen : false,
 		parity   : 'even',
-		parser   : IBUSprotocol.parser(5),
+		parser   : IBUSprotocol.parser(omnibus, 5),
 	});
 
 	/*
@@ -171,7 +171,7 @@ var ibus_interface = function(omnibus) {
 
 	// Insert a message into the write queue
 	function send_message(msg, callback) {
-		var data_buffer = ibus_protocol.create_ibus_message(msg);
+		var data_buffer = IBUSprotocol.create_ibus_message(msg);
 		queue_write.push(data_buffer);
 
 		// console.log('[INTF:SEND] Pushed data into write queue');

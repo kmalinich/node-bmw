@@ -7,11 +7,9 @@ var data_handler = function(omnibus) {
 	// Exposed data
 	this.check_data = check_data;
 
-	// Run check_data(); when new bus data appears
-	//omnibus.ibus_connection.on('data', check_data)
-
 	// Data handler
 	function check_data(data) {
+		//console.log('[IBUS:HDLR] Last event %s', omnibus.last_event);
 		data.dst_name = omnibus.bus_modules.get_module_name(data.dst);
 		data.src_name = omnibus.bus_modules.get_module_name(data.src);
 

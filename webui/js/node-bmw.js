@@ -581,7 +581,7 @@ function gm_refresh() {
 	});
 }
 
-function status_load() {
+function lcm_pulse() {
 	// Pulse clamps 15, 30A, 30B, once
 	$.ajax({
 		url      : '/api/lcm',
@@ -592,7 +592,9 @@ function status_load() {
 			console.log(return_data);
 		}
 	});
+}
 
+function status_load() {
 	// Refresh OBC data
 	obc_refresh();
 

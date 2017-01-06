@@ -9,7 +9,7 @@ function ibus_protocol(omnibus) {
 }
 
 // Emit a data event every `length` bytes
-ibus_protocol.prototype.parser = function(length) {
+ibus_protocol.prototype.parser = function(omnibus, length) {
 	console.log('[IBUS:PRSR] Init');
 	this.omnibus.last_event = now();
 

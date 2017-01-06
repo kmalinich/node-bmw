@@ -1,11 +1,11 @@
 /* Misc page/element tweaks */
 html, body {
-	font-family            : '.sf-thin',sans-serif;
+	font-family            : '.sf-regular',sans-serif;
 	-webkit-font-smoothing : subpixel-antialiased;
 }
 
 .navbar-nav>li>a {
-	font-family : '.sf-ultralight',sans-serif;
+	font-family : '.sf-thin',sans-serif;
 }
 
 h1.title {
@@ -21,8 +21,22 @@ h1, h2, h3, h4, h5, h6, hr, p, .lead {
 	margin: 6px 0px 6px 0px;
 }
 
+.h4, h4 {
+	font-size : 24px;
+}
+
+.h6, h6 {
+	font-size : 15px;
+}
+
 hr {
-	border-top : 1px solid #ababab;
+	border-top : 1px solid #37a2c7;
+}
+
+.btn-primary {
+	color            : #fff;
+	background-color : #37a2c7;
+	border-color     : #5d9ab8;
 }
 
 
@@ -53,6 +67,10 @@ hr {
 
 .slider {
 	min-width : 100%;
+}
+
+.slider-handle {
+	background-image: linear-gradient(to bottom,#37a2c7 0,#5d9ab8 100%);
 }
 
 .tooltip {

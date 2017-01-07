@@ -1,7 +1,21 @@
-#!/bin/bash -
+#!/usr/bin/env bash
 
-BASE="http://localhost:3001/lcm?"
-SLEEP="0.04"
+export PROTO_BMW="http"
+
+if [[ "$(hostname -s)" == *"e39"* ]]; then
+	export HOST_BMW="localhost"
+	export PORT_BMW="3001"
+	export URL_BMW="${PROTO_BMW}://${HOST_BMW}:${PORT_BMW}"
+	export URL_BMW_API="${URL_BMW}"
+else
+	export HOST_BMW="kdm-e39"
+	export PORT_BMW="80"
+	export URL_BMW="${PROTO_BMW}://${HOST_BMW}:${PORT_BMW}"
+	export URL_BMW_API="${PROTO_BMW}://${HOST_BMW}/api"
+fi
+
+BASE="${URL_BMW_API}/lcm?"
+SLEEP="0"
 
 SFL="output_standing_front_left=true"
 SFR="output_standing_front_right=true"
@@ -18,14 +32,14 @@ RRL="output_reverse_rear_left=true"
 RRR="output_reverse_rear_right=true"
 
 while true; do
-	curl "${BASE}" -d "${SFR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${TFR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${BRR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${SRR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${TRR}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${TRL}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${SRL}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${BRL}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${TFL}" ; sleep ${SLEEP}
-	curl "${BASE}" -d "${SFL}" ; sleep ${SLEEP}
+	curl "${BASE}" -d "${SFR}"
+	curl "${BASE}" -d "${TFR}"
+	curl "${BASE}" -d "${BRR}"
+	curl "${BASE}" -d "${SRR}"
+	curl "${BASE}" -d "${TRR}"
+	curl "${BASE}" -d "${TRL}"
+	curl "${BASE}" -d "${SRL}"
+	curl "${BASE}" -d "${BRL}"
+	curl "${BASE}" -d "${TFL}"
+	curl "${BASE}" -d "${SFL}"
 done

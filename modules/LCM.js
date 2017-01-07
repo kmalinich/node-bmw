@@ -432,25 +432,25 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.auto.reason    = 'before lights off';
 			omnibus.status.lights.auto.lowbeam   = true;
 			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.dimmer_value_1 = 0xFE;
+			omnibus.status.lights.auto.dimmer_value_1 = 0x80;
 		}
 		else if (current_time > lights_off && current_time < lights_on) {
 			omnibus.status.lights.auto.reason    = 'after lights off, before lights on';
 			omnibus.status.lights.auto.lowbeam   = false;
 			omnibus.status.lights.auto.standing  = true;
-			omnibus.status.lights.dimmer_value_1 = 0xFF;
+			omnibus.status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 		else if (current_time > lights_on) {
 			omnibus.status.lights.auto.reason    = 'after lights on';
 			omnibus.status.lights.auto.lowbeam   = true;
 			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.dimmer_value_1 = 0xFE;
+			omnibus.status.lights.auto.dimmer_value_1 = 0x80;
 		}
 		else {
 			omnibus.status.lights.auto.reason    = 'unknown time of day, engaging failsafe';
 			omnibus.status.lights.auto.lowbeam   = true;
 			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.dimmer_value_1 = 0xFE;
+			omnibus.status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 
 		console.log('[      LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto.standing, omnibus.status.lights.auto.lowbeam, omnibus.status.lights.auto.reason);
@@ -664,7 +664,7 @@ var LCM = function(omnibus) {
 	function reset() {
 		console.log('[      LCM] reset();');
 		var lcm_object = {
-			// dimmer_value_1    : omnibus.status.lights.dimmer_value_1,
+			dimmer_value_1    : omnibus.status.lights.auto.dimmer_value_1,
 			// dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
 			switch_fog_rear   : true, // To leverage the IKE LED as a status indicator
 			switch_lowbeam_1  : omnibus.status.lights.auto.lowbeam,

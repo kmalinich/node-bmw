@@ -86,9 +86,6 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[ node-bmw] Trigger: power-off state');
 
-					// Refresh OBC HUD once every 5 seconds, if ignition is in 'run' or 'accessory'
-					clearInterval(interval_hud_refresh);
-
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
 						// Send message to GM to toggle door locks
@@ -100,6 +97,11 @@ var IKE = function(omnibus) {
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
 					console.log('[ node-bmw] Trigger: power-down state');
 
+					// Disable HUD refresh
+					clearInterval(interval_hud_refresh, () => {
+						console.log('[ node-bmw] Cleared HUD refresh interval');
+					});
+
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
@@ -110,7 +112,7 @@ var IKE = function(omnibus) {
 					// Turn off HDMI display after 3 seconds
 					setTimeout(() => {
 						omnibus.HDMI.command('poweroff');
-					}, 3000);
+					}, 1000);
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
@@ -120,10 +122,11 @@ var IKE = function(omnibus) {
 					// Welcome message
 					ike_text_warning('node-bmw     '+os.hostname(), 3000);
 
-          // Refresh OBC HUD once every 5 seconds
+          // Refresh OBC HUD once every 14 seconds
+          hud_refresh(true);
           interval_hud_refresh = setInterval(() => {
             hud_refresh(true);
-          }, 5000);
+          }, 14000);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
@@ -711,8 +714,8 @@ var IKE = function(omnibus) {
 		var string_time = moment().format('HH:mm');
     var time_now    = now();
 
-    // Bounce if the last update was less than 4 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 4000 && interval === true) {
+    // Bounce if the last update was less than 13 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 13000 && interval === true) {
       console.log('[     IKE] HUD refresh: too soon');
       return;
     }

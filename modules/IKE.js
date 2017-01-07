@@ -580,6 +580,11 @@ var IKE = function(omnibus) {
 				value   = 'check control sensor status';
 				break;
 
+			case 0x53: // Request vehicle data
+				command = 'request';
+				value   = 'check control sensor status';
+				break;
+
 			case 0x57: // BC button in cluster
 				command = 'button';
 				value   = 'BC';

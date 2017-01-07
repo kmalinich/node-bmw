@@ -67,7 +67,7 @@ var MID = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Parse data sent from MID module
@@ -101,6 +101,18 @@ var MID = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x32: // Volume buttons
+				command = 'button';
+				switch (data.msg[1]) {
+					case 0x10:
+						value = 'volume decrease 1 step';
+						break;
+					case 0x11:
+						value = 'volume increase 1 step';
+						break;
+				}
+				break;
+
 			case 0x35: // Broadcast: car memory
 				command = 'broadcast';
 				value   = 'car memory';
@@ -117,7 +129,7 @@ var MID = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// MID->GLO Device status ready

@@ -72,14 +72,11 @@ var ibus_interface = function(omnibus) {
 
 	// Open serial port
 	function startup(callback) {
-		console.log('[     INTF] Starting up');
-
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
-			console.log('[INTF:PORT] Opening');
 			serial_port.open((error) => {
 				if (error) {
-					console.log('[INTF:PORT] Error opening: ', error);
+					console.log('[INTF:PORT]', error);
 					callback();
 				}
 				else {
@@ -96,13 +93,11 @@ var ibus_interface = function(omnibus) {
 
 	// Close serial port
 	function shutdown(callback) {
-		console.log('[     INTF] Shutting down');
-
 		// Close port if it is open
 		if (serial_port.isOpen()) {
 			serial_port.close((error) => {
 				if (error) {
-					console.log('[INTF:PORT] Error closing: ', error);
+					console.log('[INTF:PORT]', error);
 					callback();
 				}
 				else {

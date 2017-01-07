@@ -37,7 +37,7 @@ var RAD = function(omnibus) {
 	// Parse data sent from RAD module
 	function parse_out(data) {
 		// Init variables
-		var src     = data.src;
+		var src     = data.src.id;
 		var dst     = data.dst;
 		var message = data.msg;
 
@@ -47,7 +47,7 @@ var RAD = function(omnibus) {
 		// Device status
 		switch (message[0]) {
 			case 0x01: // device status request + CD changer emulation handling
-				if (data.dst_name == 'CDC') {
+				if (data.dst.name == 'CDC') {
 					command = 'device status request';
 					value   = 'CD changer';
 
@@ -129,7 +129,7 @@ var RAD = function(omnibus) {
 				break;
 
 			case 0x38: // CD control status request
-				if (data.dst_name == 'CDC') {
+				if (data.dst.name == 'CDC') {
 					command = 'request'
 					value   = 'CD control status';
 
@@ -169,7 +169,7 @@ var RAD = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object

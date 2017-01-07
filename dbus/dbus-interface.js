@@ -159,7 +159,7 @@ var dbus_interface = function(device_path) {
 	function send_message(msg) {
 		var data_buffer = dbus_protocol.create_dbus_message(msg);
 
-		console.log('[dbus-interface] Dst :', bus_modules.get_module_name(msg.dst.toString(16)));
+		console.log('[dbus-interface] Dst :', bus_modules.hex2name(msg.dst.toString(16)));
 		log.debug('[dbus-interface] Send message: ', data_buffer);
 
 		if (queue.length > 1000) {

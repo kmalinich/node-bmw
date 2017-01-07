@@ -3,101 +3,89 @@
 var now = require('performance-now');
 
 function ibus_protocol(omnibus) {
-	console.log('[IBUS:PRTO] Init');
-	this.omnibus       = omnibus;
+	// Exported
+	create_ibus_message = this.create_ibus_message;
+	parser              = this.parser;
+
+	// Imported
+	this.omnibus = omnibus;
+
+	// Tag last event time
 	omnibus.last_event = now();
 }
 
-// Emit a data event every `length` bytes
+// Emit a data event on each complete IBUS message
 ibus_protocol.prototype.parser = function(omnibus, length) {
-	console.log('[IBUS:PRSR] Init');
+	// Mark last event time
 	this.omnibus.last_event = now();
 
-	var data = new Buffer(0);
+	var data = new Array();
 
 	return function(emitter, buffer) {
 		omnibus.last_event = now();
-		data = Buffer.concat([data, buffer]);
-		// console.log('[parser] Current buffer         : ', data);
+		data.push(buffer);
 
 		if (data.length >= length) {
-			// console.log('[parser] Analyzing chunk        : ', data);
-
-			// Gather messages from current chunk
-			var messages = [];
-
-			var end_of_last_message = -1;
-
+			// IBUS packet:
+			// SRC LEN DST MSG CHK
 			var msg_src;
-			var msg_len;
+			var msg_len; // Length is the length of the packet after the LEN byte (or the entire thing, minus 2)
 			var msg_dst;
 			var msg_msg;
 			var msg_crc;
 
-			// Look for messages in current chunk
-			for (var i = 0; i < data.length-5; i++) {
-				msg_src = data[i+0];
-				msg_len = data[i+1];
-				msg_dst = data[i+2];
+			// Data from stream, must be verified
+			msg_src = data[0];
+			msg_len = data[1];
+			msg_dst = data[2];
 
-				// Test to see if have enough data for a complete message
-				if (data.length >= (i+2+msg_len)) {
-					msg_msg = data.slice(i+3, i+3+msg_len-2);
-					msg_crc = data[i+2+msg_len-1];
+			var msg_dst_name = omnibus.bus_modules.hex2name(msg_dst);
+			var msg_src_name = omnibus.bus_modules.hex2name(msg_src);
 
-					var crc = 0x00;
+			if (data.length-2 === msg_len) {
+				// When we arrive at the complete message,
+				// calculate our own CRC and compare it to
+				// what the message is claiming it should be
 
-					crc = crc^msg_src;
-					crc = crc^msg_len;
-					crc = crc^msg_dst;
+				// Grab message (removing SRC LEN DST and CHK)
+				msg_msg = data.slice(3, data.length-1);
 
-					for (var j = 0; j < msg_msg.length; j++) {
-						crc = crc^msg_msg[j];
-					}
+				// Grab message CRC (removing SRC LEN DST and MSG)
+				msg_crc = data[data.length-1];
 
-					// THIS IS IMPORTANT!!
-					// The IKE sensor status will look like 80 0a bf 13 00 00 00 00 00 00
-					// and at some point, the checksum will look correct to the parser
-					// So f**k that, no 0x00 checksums
-					if (crc === msg_crc && crc !== 0x00) {
-						messages.push({
-							'id'  : Date.now(),
-							'src' : msg_src.toString(16),
-							'len' : msg_len.toString(16),
-							'dst' : msg_dst.toString(16),
-							'msg' : msg_msg,
-							'crc' : msg_crc.toString(16)
-						});
+				// Calculate CRC of received message
+				var calc_crc = 0x00;
+				calc_crc = calc_crc^msg_src;
+				calc_crc = calc_crc^msg_len;
+				calc_crc = calc_crc^msg_dst;
 
-						// Mark end of last message
-						end_of_last_message = (i + 2 + msg_len);
+				for (var byte = 0; byte < msg_msg.length; byte++) {
+					calc_crc = calc_crc^msg_msg[byte];
+				}
 
-						// Skip ahead
-						i = end_of_last_message - 1;
-					}
+				// If the shoe fits..
+				if (calc_crc === msg_crc) {
+					var msg_obj = {
+						crc : msg_crc,
+						dst : {
+							name : msg_dst_name,
+							id   : msg_dst,
+						},
+						len : msg_len,
+						msg : msg_msg,
+						src : {
+							name : msg_src_name,
+							id   : msg_src,
+						},
+					};
+
+					emitter.emit('data', msg_obj);
+
+					// Reset data var
+					data = new Array();
 				}
 			}
-
-			if (messages.length > 0) {
-				messages.forEach((message) => {
-					// var out = data.slice(0, length);
-					// data    = data.slice(length);
-					emitter.emit('data', message);
-
-					// console.log('[parser] Emitting message       : ', message.src, message.len, message.dst, message.msg, message.crc);
-				});
-			}
-
-			// Push the remaining data back to the stream
-			if (end_of_last_message !== -1) {
-				// Push the remaining chunk from the end of the last valid message
-				data = data.slice(end_of_last_message);
-
-				// console.log('[parser] Sliced data            : ', end_of_last_message, data);
-			}
 		}
-
-		// console.log('[parser]', 'Buffered messages size : ', _self._buffer.length);
 	}
 };
 

@@ -96,7 +96,7 @@ var LCM = function(omnibus) {
 	// Parse data sent from LCM module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src;
+		var src      = data.src.id;
 		var dst      = data.dst;
 		var message  = data.msg;
 
@@ -174,34 +174,34 @@ var LCM = function(omnibus) {
 
 		// Dynamic logging output
 		var data_dst_name;
-		switch (data.dst_name.length) {
+		switch (data.dst.name.length) {
 			case 1:
-				data_dst_name = data.dst_name+'   ';
+				data_dst_name = data.dst.name+'   ';
 				break;
 			case 2:
-				data_dst_name = data.dst_name+'  ';
+				data_dst_name = data.dst.name+'  ';
 				break;
 			case 3:
-				data_dst_name = data.dst_name+' ';
+				data_dst_name = data.dst.name+' ';
 				break;
 			default:
-				data_dst_name = data.dst_name;
+				data_dst_name = data.dst.name;
 				break;
 		}
 
 		var data_src_name;
-		switch (data.src_name.length) {
+		switch (data.src.name.length) {
 			case 1:
-				data_src_name = '   '+data.src_name;
+				data_src_name = '   '+data.src.name;
 				break;
 			case 2:
-				data_src_name = '  '+data.src_name;
+				data_src_name = '  '+data.src.name;
 				break;
 			case 3:
-				data_src_name = ' '+data.src_name;
+				data_src_name = ' '+data.src.name;
 				break;
 			default:
-				data_src_name = data.src_name;
+				data_src_name = data.src.name;
 				break;
 		}
 

@@ -17,7 +17,7 @@ function on_signal_int() {
 }
 
 function on_dbus_data(data) {
-	var module_dst = bus_modules.get_module_name(data.dst);
+	var module_dst = bus_modules.hex2name(data.dst);
 	console.log('[dbus-reader] %s,', module_dst, data.msg);
 }
 

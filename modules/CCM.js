@@ -31,7 +31,7 @@ var CCM = function(omnibus) {
 	// Parse data sent from CCM module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src;
+		var src      = data.src.id;
 		var dst      = data.dst;
 		var message  = data.msg;
 
@@ -95,7 +95,7 @@ var CCM = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 }
 

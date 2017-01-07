@@ -67,7 +67,7 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Parse data sent from DSPC module
@@ -117,7 +117,7 @@ var DSPC = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src_name, data.dst_name, command, value);
+		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// DSPC->GLO Device status ready

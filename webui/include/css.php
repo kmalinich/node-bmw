@@ -2,4 +2,6 @@
 <link rel="stylesheet" href="/css/font-awesome.css"/>
 <link rel="stylesheet" href="/css/bootstrap-slider.css"/>
 <link rel="stylesheet" href="/css/font-sfns.css"/>
+<link rel="stylesheet" href="/css/bootstrap-material-design.css"/>
+<link rel="stylesheet" href="/css/ripples.css"/>
 <link rel="stylesheet" href="/css/node-bmw.css"/>

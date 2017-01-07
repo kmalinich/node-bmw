@@ -23,7 +23,7 @@ ibus_protocol.prototype.parser = function(buffer) {
 	console.log('[IBUS:PRSR] Received data:', buffer);
 	data.push(buffer);
 
-	if (data.length >= length) {
+	if (data.length >= 5) {
 		// IBUS packet:
 		// SRC LEN DST MSG CHK
 		var msg_src;

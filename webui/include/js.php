@@ -4,5 +4,5 @@
 <script src="/js/bootstrap.js"></script>
 <script src="/js/material.js"></script>
 <script src="/js/ripples.js"></script>
-<script src="/js/bootstrap-slider.js"></script>
+<script src="/js/nouislider.js"></script>
 <script src="/js/node-bmw.js"></script>

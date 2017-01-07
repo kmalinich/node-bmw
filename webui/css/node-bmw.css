@@ -1,22 +1,21 @@
-/* Misc page/element tweaks */
-html, body {
-	font-family            : '.sf-regular',sans-serif;
-	-webkit-font-smoothing : subpixel-antialiased;
-}
-
-.navbar-nav>li>a {
-	font-family : '.sf-thin',sans-serif;
-}
-
-h1.title {
-  font-family : '.sf-ultralight',sans-serif;
-  font-size   : 72px;
-}
-
-
 /* Live WebSocket data table */
-
 .table-live {
 	height   : 300px !important;
 	overflow : auto;
+}
+
+
+/* Navbar logo */
+/*
+.navbar-brand {
+	padding-left   : 3px;
+	padding-right  : 3px;
+	padding-top    : 3px;
+	padding-bottom : 3px;
+}
+*/
+
+.navbar-brand-img {
+	width  : 32px;
+	height : 32px;
 }

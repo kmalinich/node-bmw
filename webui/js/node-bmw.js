@@ -262,14 +262,21 @@ function prepare_gm() {
 
 // Initialize GM interior_light slider
 function prepare_gm_interior_light() {
-	$('#slider-gm-interior-light').on('slideStart', function(data) {
-		console.log('gm_interior_light_slideStart: %s', data.value);
-		gm_interior_light(data.value);
+	var slider = $('#slider-gm-interior-light')[0];
+
+	noUiSlider.create(slider, {
+		start   : 0,
+		step    : 1,
+		connect : [true, false],
+		range   : {
+			'min': 0,
+			'max': 255
+		}
 	});
 
-	$('#slider-gm-interior-light').on('slideStop', function(data) {
-		console.log('gm_interior_light_slidestop: %s', data.value);
-		gm_interior_light(data.value);
+	slider.noUiSlider.on('change', function(data) {
+    var value = parseInt(data[0]);
+		gm_interior_light(value);
 	});
 }
 
@@ -298,14 +305,21 @@ function prepare_lcm() {
 
 // Initialize LCM dimmer slider
 function prepare_lcm_dimmer() {
-	$('#slider-lcm-dimmer').on('slideStart', function(data) {
-		console.log('lcm_dimmer_slideStart: %s', data.value);
-		// lcm_dimmer(data.value);
+	var slider = $('#slider-lcm-dimmer')[0];
+
+	noUiSlider.create(slider, {
+		start   : 0,
+		step    : 1,
+		connect : [true, false],
+		range   : {
+			'min': 0,
+			'max': 255
+		}
 	});
 
-	$('#slider-lcm-dimmer').on('slideStop', function(data) {
-		console.log('lcm_dimmer_slidestop: %s', data.value);
-		// lcm_dimmer(data.value);
+	slider.noUiSlider.on('change', function(data) {
+    var value = parseInt(data[0]);
+		console.log('LCM dimmer slider: %s', value);
 	});
 }
 
@@ -605,3 +619,7 @@ function ws_ibus() {
 		socket.send(data_send);
 	});
 }
+
+$(function() {
+	$.material.init();
+});

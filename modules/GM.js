@@ -107,7 +107,7 @@ var GM = function(omnibus) {
 					case 0x02: // A guess
 						value = 'armed';
 						break;
-					case default:
+					default:
 						value = new Buffer(message[1]);
 						break;
 				}

@@ -45,12 +45,12 @@ var ibus_interface = function(omnibus) {
 
 	// On port error
 	serial_port.on('error', function(error) {
-		console.error('[INTF:PORT] Error : %s', error);
+		console.error('[INTF:PORT]', error);
 	});
 
 	// On port open
 	serial_port.on('open', function() {
-		console.log('[INTF:PORT] Open [%s]', device);
+		console.log('[INTF:PORT] Opened [%s]', device);
 
 		// Get some data
 		omnibus.IKE.obc_refresh();
@@ -63,7 +63,9 @@ var ibus_interface = function(omnibus) {
 
 	// Send the data to the parser
 	serial_port.on('data', (data) => {
+		console.log('[INTF:PORT] Data received', new Buffer(data));
 		ibus_protocol.parser(data, () => {
+			console.log('[INTF:PORT] Data sent to parser', new Buffer(data));
 		});
 	});
 

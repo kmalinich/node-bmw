@@ -63,7 +63,6 @@ var ibus_interface = function(omnibus) {
 
 	// Send the data to the parser
 	serial_port.on('data', (data) => {
-		console.log('[INTF:PORT] Data received', new Buffer(data));
 		ibus_protocol.parser(data);
 	});
 

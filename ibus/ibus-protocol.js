@@ -20,8 +20,9 @@ function ibus_protocol(omnibus) {
 ibus_protocol.prototype.parser = function(buffer) {
 	// Mark last event time
 	this.omnibus.last_event = now();
-	console.log('[IBUS:PRSR] Received data:', buffer);
-	data.push(buffer);
+	var new_data = buffer.readUInt16LE(0, buffer.length)
+	console.log('[IBUS:PRSR] Received data:', new_data);
+	data.push(new_data);
 
 	if (data.length >= 5) {
 		// IBUS packet:

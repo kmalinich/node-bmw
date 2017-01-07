@@ -7,23 +7,18 @@
 	<body onload="javascript:prepare_lcm();">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
-			<button class="btn btn-lg btn-warning btn-block" id="form-lcm-check" onclick="javascript:lcm_get();">Check</button>
-			<hr>
 			<form class="form-horizontal" id="form-lcm" action="javascript:form_lcm();">
 
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-xs-12">
 						<button class="btn btn-lg btn-danger btn-block" id="form-lcm-reset" type="reset">Reset</button>
-					</div>
-					<div class="col-xs-6">
-						<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
 					</div>
 				</div>
 
 				<hr>
 				<h4>Dimmer wheel</h4>
 				<div class="container-fluid">
-					<input type="text" id="dimmer_value" name="dimmer_value" data-provide="slider" data-slider-value="255" data-slider-min="0" data-slider-max="254" data-slider-tooltip="always" data-slider-tooltip-position="bottom">
+					<input type="text" id="dimmer_value" name="dimmer_value" data-provide="slider" data-slider-value="255" data-slider-min="0" data-slider-max="255" data-slider-tooltip-position="top">
 				</div>
 				<hr>
 
@@ -519,10 +514,7 @@
 				<hr>
 
 				<div class="row">
-					<div class="col-xs-6">
-						<button class="btn btn-lg btn-danger btn-block" id="form-lcm-reset" type="reset">Reset</button>
-					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-12">
 						<button class="btn btn-lg btn-primary btn-block" id="form-lcm-submit" type="submit">Send</button>
 					</div>
 				</div>

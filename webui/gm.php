@@ -8,12 +8,8 @@
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 
-			<h4>Interior lighting brightness</h4>
-
-			<div class="container-fluid">
-				<input type="text" id="slider-gm-interior-light" name="gm-interior-light" data-provide="slider" data-slider-min="0" data-slider-max="255" data-slider-tooltip="never" data-slider-tooltip-position="bottom">
-			</div>
-
+			<h2 class="pull-right">Interior lighting brightness</h2>
+			<input type="text" id="slider-gm-interior-light" name="gm-interior-light" data-provide="slider" data-slider-min="0" data-slider-max="255" data-slider-tooltip="never" data-slider-tooltip-position="top">
 			<hr>
 
 			<div class="row">
@@ -21,47 +17,43 @@
 					<button class="btn btn-lg btn-primary btn-block btn-lg" id="btn-gm-unlock" onclick="javascript:gm_cl('toggle');"><i class="fa fa-unlock-alt"></i> Central locking</button>
 				</div>
 			</div>
-
 			<hr>
 
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-6 block-left">
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'up');">LF window <i class="fa fa-arrow-up"></i></button>
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('lf', 'dn');">LF window <i class="fa fa-arrow-down"></i></button>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-xs-6 block-right">
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'up');">RF window <i class="fa fa-arrow-up"></i></button>
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('rf', 'dn');">RF window <i class="fa fa-arrow-down"></i></button>
 				</div>
 			</div>
-
 			<hr>
 
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-4 block-left">
+					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof <i class="fa fa-arrow-up"></i></button>
+				</div>
+				<div class="col-xs-4 block-center">
+					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'tt');">Roof <i class="fa fa-bars"></i></button>
+				</div>
+				<div class="col-xs-4 block-right">
+					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof <i class="fa fa-arrow-down"></i></button>
+				</div>
+			</div>
+			<hr>
+
+			<div class="row">
+				<div class="col-xs-6 block-left">
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'up');">LR window <i class="fa fa-arrow-up"></i></button>
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('lr', 'dn');">LR window <i class="fa fa-arrow-down"></i></button>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-xs-6 block-right">
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'up');">RR window <i class="fa fa-arrow-up"></i></button>
 					<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('rr', 'dn');">RR window <i class="fa fa-arrow-down"></i></button>
 				</div>
 			</div>
-
-			<hr>
-
-			<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'up');">Roof <i class="fa fa-arrow-up"></i></button>
-			<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'tt');">Roof <i class="fa fa-bars"></i></button>
-			<button class="btn btn-primary btn-block btn-lg" id="btn-gm-lock" onclick="javascript:gm_windows('roof', 'dn');">Roof <i class="fa fa-arrow-down"></i></button>
-
-			<!--
-			<hr>
-			<div class="row">
-				<div class="col-xs-12">
-					<button class="btn btn-lg btn-warning btn-block" id="btn-gm-get-status" onclick="javascript:gm_get();">Get IO status</button>
-				</div>
-			</div>
-			-->
 
 		</div>
 	</body>

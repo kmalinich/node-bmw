@@ -64,8 +64,23 @@ ibus_protocol.prototype.parser = function(omnibus, length) {
 					calc_crc = calc_crc^msg_msg[byte];
 				}
 
+				console.log('[MSG PSBLE] %s => %s (%s/%s/%s)', msg_src_name, msg_dst_name, msg_len, data.length, msg_len+2);
+				console.log('[MSG PSBLE] Message  : %s', msg_msg);
+				console.log('[MSG PSBLE] Data     : %s', data.toString(16));
+				console.log('[MSG PSBLE] Checksum : %s/%s', msg_crc.toString(16), calc_crc.toString(16));
+
 				// If the shoe fits..
 				if (calc_crc === msg_crc) {
+					console.log(' ');
+					console.log('[MSG FOUND] ===========================');
+					console.log('[MSG FOUND] Source      : %s', msg_src_name);
+					console.log('[MSG FOUND] Destination : %s', msg_dst_name);
+					console.log('[MSG FOUND] Length      : %s', msg_len);
+					console.log('[MSG FOUND] Data        :', new Buffer(msg_msg));
+					console.log('[MSG FOUND] Checksum    : %s', msg_crc.toString(16));
+					console.log('[MSG FOUND] ===========================');
+					console.log(' ');
+
 					var msg_obj = {
 						crc : msg_crc,
 						dst : {
@@ -85,6 +100,9 @@ ibus_protocol.prototype.parser = function(omnibus, length) {
 					// Reset data var
 					data = new Array();
 				}
+			}
+			else {
+				console.log('[ANALYZING] %s => %s (%s/%s/%s)', msg_src_name, msg_dst_name, msg_len, data.length, msg_len+2);
 			}
 		}
 	}

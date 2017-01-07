@@ -11,46 +11,46 @@ const omnibus = {};
 // Last time data was fired
 omnibus.last_event = 0;
 
-omnibus.bus_modules = new (require('./lib/bus-modules.js'));
-omnibus.config      = require('./lib/config.js');  // Config
-omnibus.status      = require('./lib/status.js');  // Global status object
+omnibus.bus_modules = new (require('../lib/bus-modules.js'));
+omnibus.config      = require('../lib/config.js');  // Config
+omnibus.status      = require('../lib/status.js');  // Global status object
 
 // Data bus module libraries
-omnibus.ABG  = new (require('./modules/ABG.js'))(omnibus);
-omnibus.ANZV = new (require('./modules/ANZV.js'))(omnibus);
-omnibus.BMBT = new (require('./modules/BMBT.js'))(omnibus);
-omnibus.CCM  = new (require('./modules/CCM.js'))(omnibus);
-omnibus.CDC  = new (require('./modules/CDC.js'))(omnibus);
-omnibus.DSP  = new (require('./modules/DSP.js'))(omnibus);
-omnibus.DSPC = new (require('./modules/DSPC.js'))(omnibus);
-omnibus.EWS  = new (require('./modules/EWS.js'))(omnibus);
-omnibus.GM   = new (require('./modules/GM.js'))(omnibus);
-omnibus.GT   = new (require('./modules/GT.js'))(omnibus);
-omnibus.HAC  = new (require('./modules/HAC.js'))(omnibus);
-omnibus.IHKA = new (require('./modules/IHKA.js'))(omnibus);
-omnibus.IKE  = new (require('./modules/IKE.js'))(omnibus);
-omnibus.LCM  = new (require('./modules/LCM.js'))(omnibus);
-omnibus.MFL  = new (require('./modules/MFL.js'))(omnibus);
-omnibus.MID  = new (require('./modules/MID.js'))(omnibus);
-omnibus.PDC  = new (require('./modules/PDC.js'))(omnibus);
-omnibus.RAD  = new (require('./modules/RAD.js'))(omnibus);
-omnibus.RLS  = new (require('./modules/RLS.js'))(omnibus);
-omnibus.SES  = new (require('./modules/SES.js'))(omnibus);
-omnibus.SHD  = new (require('./modules/SHD.js'))(omnibus);
-omnibus.TEL  = new (require('./modules/TEL.js'))(omnibus);
-omnibus.VID  = new (require('./modules/VID.js'))(omnibus);
+omnibus.ABG  = new (require('../modules/ABG.js'))(omnibus);
+omnibus.ANZV = new (require('../modules/ANZV.js'))(omnibus);
+omnibus.BMBT = new (require('../modules/BMBT.js'))(omnibus);
+omnibus.CCM  = new (require('../modules/CCM.js'))(omnibus);
+omnibus.CDC  = new (require('../modules/CDC.js'))(omnibus);
+omnibus.DSP  = new (require('../modules/DSP.js'))(omnibus);
+omnibus.DSPC = new (require('../modules/DSPC.js'))(omnibus);
+omnibus.EWS  = new (require('../modules/EWS.js'))(omnibus);
+omnibus.GM   = new (require('../modules/GM.js'))(omnibus);
+omnibus.GT   = new (require('../modules/GT.js'))(omnibus);
+omnibus.HAC  = new (require('../modules/HAC.js'))(omnibus);
+omnibus.IHKA = new (require('../modules/IHKA.js'))(omnibus);
+omnibus.IKE  = new (require('../modules/IKE.js'))(omnibus);
+omnibus.LCM  = new (require('../modules/LCM.js'))(omnibus);
+omnibus.MFL  = new (require('../modules/MFL.js'))(omnibus);
+omnibus.MID  = new (require('../modules/MID.js'))(omnibus);
+omnibus.PDC  = new (require('../modules/PDC.js'))(omnibus);
+omnibus.RAD  = new (require('../modules/RAD.js'))(omnibus);
+omnibus.RLS  = new (require('../modules/RLS.js'))(omnibus);
+omnibus.SES  = new (require('../modules/SES.js'))(omnibus);
+omnibus.SHD  = new (require('../modules/SHD.js'))(omnibus);
+omnibus.TEL  = new (require('../modules/TEL.js'))(omnibus);
+omnibus.VID  = new (require('../modules/VID.js'))(omnibus);
 
 // Custom libraries
-omnibus.kodi = new (require('./lib/kodi.js'))(omnibus);
-omnibus.HDMI = new (require('./lib/HDMI.js'))(omnibus);
+omnibus.kodi = new (require('../lib/kodi.js'))(omnibus);
+omnibus.HDMI = new (require('../lib/HDMI.js'))(omnibus);
 
 // API/WebSocket libraries
 omnibus.api_server    = http.createServer(api_handler);
-omnibus.socket_server = new (require('./lib/socket-server.js'))(omnibus);
+omnibus.socket_server = new (require('../lib/socket-server.js'))(omnibus);
 
 // IBUS libraries
-omnibus.data_handler    = new (require('./ibus/data-handler.js'))(omnibus);   // Data handler
-omnibus.ibus_connection = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
+omnibus.data_handler    = new (require('../ibus/data-handler.js'))(omnibus);   // Data handler
+omnibus.ibus_connection = new (require('../ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
 
 // API handler function
 function api_handler(request, response) {
@@ -92,13 +92,9 @@ function add_data(buffer) {
 			// When we arrive at the complete message,
 			// calculate our own CRC and compare it to
 			// what the message is claiming it should be
-			console.log('[MSG PSBLE] %s => %s (%s/%s/%s)', msg_src_name, msg_dst_name, msg_len, data.length, msg_len+2);
 
 			// Grab message (removing SRC LEN DST and CHK)
 			msg_msg = data.slice(3, data.length-1);
-			console.log('[MSG PSBLE] Message  : %s', msg_msg);
-
-			console.log('[MSG PSBLE] Data     : %s', data.toString(16));
 
 			msg_crc = data[data.length-1];
 
@@ -112,6 +108,9 @@ function add_data(buffer) {
 				calc_crc = calc_crc^msg_msg[byte];
 			}
 
+			console.log('[MSG PSBLE] %s => %s (%s/%s/%s)', msg_src_name, msg_dst_name, msg_len, data.length, msg_len+2);
+			console.log('[MSG PSBLE] Message  : %s', msg_msg);
+			console.log('[MSG PSBLE] Data     : %s', data.toString(16));
 			console.log('[MSG PSBLE] Checksum : %s/%s', msg_crc.toString(16), calc_crc.toString(16));
 
 			if (calc_crc === msg_crc) {
@@ -124,26 +123,26 @@ function add_data(buffer) {
 				console.log('[MSG FOUND] Checksum    : %s', msg_crc.toString(16));
 				console.log('[MSG FOUND] ===========================');
 				console.log(' ');
+
+				var msg_obj = {
+					crc : msg_crc,
+					dst : {
+						name : msg_dst_name,
+						id   : msg_dst,
+					},
+					len : msg_len,
+					msg : msg_msg,
+					src : {
+						name : msg_src_name,
+						id   : msg_src,
+					},
+				};
+
+				omnibus.data_handler.check_data(msg_obj);
+
+				// Reset data var
+				data = new Array();
 			}
-
-			var msg_obj = {
-				crc : msg_crc,
-				dst : {
-					name : msg_dst_name,
-					id   : msg_dst,
-				},
-				len : msg_len,
-				msg : msg_msg,
-				src : {
-					name : msg_src_name,
-					id   : msg_src,
-				},
-			};
-
-			omnibus.data_handler.check_data(msg_obj);
-
-			// Reset data var
-			data = new Array();
 		}
 	}
 }

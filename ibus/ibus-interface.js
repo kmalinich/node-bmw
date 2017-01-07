@@ -141,7 +141,6 @@ var ibus_interface = function(omnibus) {
 		// Do we need to wait longer?
 		var time_now = now();
 		if (time_now-omnibus.last_event < 1.4) {
-			console.log('[INTF:RITE] Waiting for the bus');
 			// Do we still have data?
 			if (queue_busy()) {
 				write_message();
@@ -170,9 +169,9 @@ var ibus_interface = function(omnibus) {
 						if (queue_busy()) {
 							write_message();
 						}
-						else {
-							console.log('[INTF:RITE] Queue done (3rd)');
-						}
+						// else {
+						// 	console.log('[INTF:RITE] Queue done (3rd)');
+						// }
 					}
 				});
 			});
@@ -186,7 +185,7 @@ var ibus_interface = function(omnibus) {
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {
-			console.log('[INTF:SEND] Starting queue write');
+			// console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}
 	}

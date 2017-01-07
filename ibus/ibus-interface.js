@@ -1,7 +1,6 @@
 const bus_modules   = require('../lib/bus-modules.js');
 const clc           = require('cli-color');
 const event_emitter = require('events');
-const ibus_protocol = require('./ibus-protocol.js');
 const now           = require('performance-now')
 const serialport    = require('serialport');
 const util          = require('util');
@@ -10,7 +9,7 @@ var ibus_interface = function(omnibus) {
 	// Self reference
 	var _self = this;
 
-	var IBUSprotocol = new ibus_protocol(omnibus);
+	var ibus_protocol = new (require('./ibus-protocol.js'))(omnibus);
 
 	// Read/write queues
 	var queue_read  = [];
@@ -37,7 +36,7 @@ var ibus_interface = function(omnibus) {
 	var serial_port = new serialport(device, {
 		autoOpen : false,
 		parity   : 'even',
-		parser   : IBUSprotocol.parser(omnibus, 5),
+		parser   : serialport.parsers.byteLength(5),
 	});
 
 	/*
@@ -62,8 +61,11 @@ var ibus_interface = function(omnibus) {
 		console.log('[INTF:PORT] Closed [%s]', device);
 	});
 
-	// When the parser sends a fully-formed message back
-	serial_port.on('data', omnibus.data_handler.check_data);
+	// Send the data to the parser
+	serial_port.on('data', (data) => {
+		ibus_protocol.parser(data, () => {
+		});
+	});
 
 
 	/*
@@ -166,7 +168,7 @@ var ibus_interface = function(omnibus) {
 
 	// Insert a message into the write queue
 	function send_message(msg, callback) {
-		var data_buffer = IBUSprotocol.create_ibus_message(msg);
+		var data_buffer = ibus_protocol.create_ibus_message(msg);
 		queue_write.push(data_buffer);
 
 		// console.log('[INTF:SEND] Pushed data into write queue');

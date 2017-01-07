@@ -15,14 +15,14 @@ function ibus_protocol(omnibus) {
 }
 
 // Emit a data event on each complete IBUS message
-ibus_protocol.prototype.parser = function(omnibus, length) {
+ibus_protocol.prototype.parser = function() {
 	// Mark last event time
 	this.omnibus.last_event = now();
 
 	var data = new Array();
 
-	return function(emitter, buffer) {
-		omnibus.last_event = now();
+	return function(buffer, callback) {
+		this.omnibus.last_event = now();
 		console.log('[IBUS:PRSR] Received data:', buffer);
 		data.push(buffer);
 
@@ -40,8 +40,8 @@ ibus_protocol.prototype.parser = function(omnibus, length) {
 			msg_len = data[1];
 			msg_dst = data[2];
 
-			var msg_dst_name = omnibus.bus_modules.hex2name(msg_dst);
-			var msg_src_name = omnibus.bus_modules.hex2name(msg_src);
+			var msg_dst_name = this.omnibus.bus_modules.hex2name(msg_dst);
+			var msg_src_name = this.omnibus.bus_modules.hex2name(msg_src);
 
 			if (data.length-2 === msg_len) {
 				// When we arrive at the complete message,
@@ -95,7 +95,8 @@ ibus_protocol.prototype.parser = function(omnibus, length) {
 						},
 					};
 
-					emitter.emit('data', msg_obj);
+					// emitter.emit('data', msg_obj);
+					this.omnibus.data_handler.check_data(msg_obj);
 
 					// Reset data var
 					data = new Array();

@@ -23,6 +23,7 @@ ibus_protocol.prototype.parser = function(omnibus, length) {
 
 	return function(emitter, buffer) {
 		omnibus.last_event = now();
+		console.log('[IBUS:PRSR] Received data:', buffer);
 		data.push(buffer);
 
 		if (data.length >= length) {

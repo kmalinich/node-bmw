@@ -10,10 +10,6 @@ function ibus_protocol(omnibus) {
 
 	// Imported
 	this.omnibus = omnibus;
-
-
-	// Tag last event time
-	omnibus.last_event = now();
 }
 
 // Emit a data event on each complete IBUS message

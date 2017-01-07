@@ -3,6 +3,7 @@
 // npm libraries
 var convert = require('node-unit-conversion');
 var moment  = require('moment');
+var now     = require('performance-now');
 var os      = require('os');
 
 // Bitmasks in hex
@@ -21,9 +22,6 @@ function bit_test(num, bit) {
 }
 
 var IKE = function(omnibus) {
-	// Self reference
-	var _self = this;
-
 	// Exposed data
 	this.hud_refresh      = hud_refresh;
 	this.ike_data         = ike_data;
@@ -36,6 +34,10 @@ var IKE = function(omnibus) {
 	this.parse_out        = parse_out;
 	this.request          = request;
 
+  // HUD refresh vars
+	var interval_hud_refresh;
+	var last_hud_refresh = 0;
+
 	// Pad string for IKE text screen length (20 characters)
 	String.prototype.ike_pad = function() {
 		var string = this;
@@ -46,11 +48,6 @@ var IKE = function(omnibus) {
 
 		return string;
 	}
-
-	// Refresh OBC HUD once every 3 seconds, if ignition is in 'run' or 'accessory'
-	setInterval(() => {
-		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') { hud_refresh(); }
-	}, 5000);
 
 	// Parse data sent from IKE module
 	function parse_out(data) {
@@ -89,6 +86,9 @@ var IKE = function(omnibus) {
 				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[ node-bmw] Trigger: power-off state');
 
+					// Refresh OBC HUD once every 5 seconds, if ignition is in 'run' or 'accessory'
+					clearInterval(interval_hud_refresh);
+
 					// If the doors are locked
 					if (omnibus.status.vehicle.locked == true) {
 						// Send message to GM to toggle door locks
@@ -119,6 +119,11 @@ var IKE = function(omnibus) {
 
 					// Welcome message
 					ike_text_warning('node-bmw     '+os.hostname(), 3000);
+
+          // Refresh OBC HUD once every 5 seconds
+          interval_hud_refresh = setInterval(() => {
+            hud_refresh(true);
+          }, 5000);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
@@ -235,6 +240,9 @@ var IKE = function(omnibus) {
 
 				// Send Kodi a notification
 				// omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant.c+' C, Exterior: '+omnibus.status.temperature.exterior.c+' C');
+
+        // Refresh the HUD
+        hud_refresh(false);
 				break;
 
 			case 0x1B: // ACK text message
@@ -354,6 +362,9 @@ var IKE = function(omnibus) {
 						omnibus.status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
 
 						value = omnibus.status.obc.consumption_1_mpg;
+
+            // Refresh the HUD
+            hud_refresh(false);
 						break;
 
 					case 0x05: // Consumption 2
@@ -692,12 +703,19 @@ var IKE = function(omnibus) {
 	}
 
 	// Refresh custom HUD
-	function hud_refresh() {
+	function hud_refresh(interval) {
 		var spacing1;
 		var spacing2;
 		var string_cons;
 		var string_temp;
 		var string_time = moment().format('HH:mm');
+    var time_now    = now();
+
+    // Bounce if the last update was less than 4 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 4000 && interval === true) {
+      console.log('[     IKE] HUD refresh: too soon');
+      return;
+    }
 
 		// console.log('[ node-bmw] Refreshing OBC HUD');
 
@@ -718,10 +736,7 @@ var IKE = function(omnibus) {
 			string_temp = Math.round(omnibus.status.temperature.coolant.c)+'¨';
 		}
 
-		// Only display data if we have data
-		if (omnibus.status.obc.consumption_1_mpg != 0 && omnibus.status.temperature.coolant.c != 0) {
-		}
-
+		// Format the output (ghetto-ly)
 		switch (string_temp.length) {
 			case 4:
 				spacing1 = '   ';
@@ -742,11 +757,15 @@ var IKE = function(omnibus) {
 		}
 
 		// Add space to left-most string (consumption 1)
-		if (string_cons.length == 4) {
+		if (string_cons.length === 4) {
 			string_cons = '0'+string_cons;
 		}
 
-		ike_text(string_cons+spacing1+string_temp+spacing2+string_time);
+		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+			ike_text(string_cons+spacing1+string_temp+spacing2+string_time, () => {
+        last_hud_refresh = now();
+      });
+		}
 	}
 
 	// Refresh OBC data
@@ -1050,7 +1069,6 @@ var IKE = function(omnibus) {
 		// Clear the message after 5 seconds
 		setTimeout(() => {
 			ike_text_urgent_off();
-			hud_refresh();
 		}, timeout);
 	}
 
@@ -1075,7 +1093,6 @@ var IKE = function(omnibus) {
 		// Clear the message after 5 seconds
 		setTimeout(() => {
 			ike_text_urgent_off();
-			hud_refresh();
 		}, timeout);
 	}
 
@@ -1093,6 +1110,7 @@ var IKE = function(omnibus) {
 		}
 
 		omnibus.ibus_connection.send_message(ibus_packet);
+		hud_refresh();
 	}
 
 	// IKE cluster text send message

@@ -1,8 +1,7 @@
-const bus_modules   = require('../lib/bus-modules.js');
-const clc           = require('cli-color');
 const event_emitter = require('events');
 const now           = require('performance-now')
 const serialport    = require('serialport');
+// Use of util.inherits like this is discouraged - FIX IT
 const util          = require('util');
 
 var ibus_interface = function(omnibus) {
@@ -139,30 +138,45 @@ var ibus_interface = function(omnibus) {
 			return;
 		}
 
-		serial_port.write(queue_write[0], (error) => {
-			if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
+		// Do we need to wait longer?
+		var time_now = now();
+		if (time_now-omnibus.last_event < 1.4) {
+			console.log('[INTF:RITE] Waiting for the bus');
+			// Do we still have data?
+			if (queue_busy()) {
+				write_message();
+			}
+			else {
+				console.log('[INTF:RITE] Queue done (2nd)');
+			}
+		}
+		else {
+			serial_port.write(queue_write[0], (error) => {
+				if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
 
-			serial_port.drain((error) => {
-				// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
+				serial_port.drain((error) => {
+					// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
 
-				if (error) {
-					console.log('[INTF::DRN] Failed : ', queue_write[0], error);
-				}
-				else {
-					// console.log('[INTF:RITE] Success : ', queue_write[0]);
-
-					// Successful write, remove this message from the queue
-					queue_write.splice(0, 1);
-
-					if (queue_busy()) {
-						write_message();
+					if (error) {
+						console.log('[INTF::DRN] Failed : ', queue_write[0], error);
 					}
 					else {
-						console.log('[INTF:RITE] Queue done (2nd)');
+						// console.log('[INTF:RITE] Success : ', queue_write[0]);
+
+						// Successful write, remove this message from the queue
+						queue_write.splice(0, 1);
+
+						// Do we still have data?
+						if (queue_busy()) {
+							write_message();
+						}
+						else {
+							console.log('[INTF:RITE] Queue done (3rd)');
+						}
 					}
-				}
+				});
 			});
-		});
+		}
 	}
 
 	// Insert a message into the write queue

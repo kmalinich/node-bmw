@@ -63,8 +63,12 @@ var IKE = function(omnibus) {
 		var value;
 
 		switch (message[0]) {
+			case 0x01: // Request device status
+				command = 'request';
+				value   = 'device status';
+				break;
 
-			case 0x02: // device status
+			case 0x02: // Broadcast device status
 				switch (message[1]) {
 					case 0x00:
 						command = 'device status';

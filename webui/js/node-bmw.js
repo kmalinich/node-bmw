@@ -203,22 +203,10 @@ function ike_backlight(value) {
 }
 
 function ike_set_clock() {
-	var timestamp     = moment();
-	var post_data     = {};
-
-	post_data.command = 'obc_clock';
-	post_data.day     = timestamp.format('D');
-	post_data.month   = timestamp.format('M');
-	post_data.year    = timestamp.format('YY');
-	post_data.hour    = timestamp.format('H');
-	post_data.minute  = timestamp.format('m');
-	console.log(post_data);
-
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
 		dataType : 'json',
-		data     : post_data,
 		success  : function(return_data) {
 			console.log(return_data);
 		}
@@ -489,7 +477,7 @@ function status() {
 	});
 }
 
-function obc_refresh() {
+function obc_refresh(callback) {
 	// Data refresh from OBC/IKE
 	$.ajax({
 		url      : '/api/ike',
@@ -498,6 +486,9 @@ function obc_refresh() {
 		data     : 'obc-get=all',
 		success  : function(return_data) {
 			console.log(return_data);
+			if (typeof callback === 'function') {
+				callback();
+			}
 		}
 	});
 }
@@ -530,10 +521,10 @@ function lcm_pulse() {
 
 function status_load() {
 	// Refresh OBC data
-	obc_refresh();
-
-	// Refresh browser view
-	status();
+	obc_refresh(function() {
+		// Refresh browser view
+		status();
+	});
 }
 
 // Convert a string to hex
@@ -552,6 +543,15 @@ function ws_ibus() {
 
 	socket.on('connect', function() {
 		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass('text-success').text('Socket connected');
+	});
+
+	socket.on('error', function (error) {
+		console.error(error);
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Socket error');
+	});
+
+	socket.on('disconnect', function () {
+		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-danger').addClass('text-warning').removeClass('text-success').text('Socket disconnected');
 	});
 
 	socket.on('ibus-message', function(message) {
@@ -584,15 +584,6 @@ function ws_ibus() {
 		var tr = '<tr><td>'+timestamp+'</td><td>'+src+'</td><td>'+dst+'</td><td>'+msg_fmt+'</td></tr>';
 
 		$('#ws-ibus-table tbody').prepend(tr);
-	});
-
-	socket.on('error', function (error) {
-		console.error(error);
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-success').addClass('text-danger').removeClass('text-success').text('Socket error');
-	});
-
-	socket.on('disconnect', function () {
-		$('#ws-ibus-header').removeClass('text-warning').removeClass('text-danger').addClass('text-warning').removeClass('text-success').text('Socket disconnected');
 	});
 
 	// Assemble and send data from form below table

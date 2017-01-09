@@ -349,7 +349,7 @@ var GM = function(omnibus) {
 		// Send the message
 		console.log('[      GM] Sending \'Set IO status\' packet');
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 
 	// Request door/flap status from GM
@@ -367,7 +367,7 @@ var GM = function(omnibus) {
 		// Send the message
 		console.log('[ node-bmw] Requesting door/flap status');
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 
 	// Test if a bit in a bitmask is set

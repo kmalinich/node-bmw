@@ -49,7 +49,7 @@ var EWS = function(omnibus) {
 			msg: new Buffer([cmd]),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 
 	// Parse data sent from EWS module

@@ -115,7 +115,7 @@ var CDC = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		console.log('[CDC->LOC] Sent %s:', command, data);
 	}
@@ -136,7 +136,7 @@ var CDC = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		console.log('[CDC->LOC] Sent %s:', command, data);
 	}
@@ -157,7 +157,7 @@ var CDC = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		console.log('[CDC->LOC] Sent %s:', command, data);
 	}

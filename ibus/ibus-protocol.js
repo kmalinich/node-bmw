@@ -100,6 +100,32 @@ ibus_protocol.prototype.parser = function(buffer) {
 	}
 };
 
+ibus_protocol.prototype.create = function(msg) {
+	//   1 + 1 + 1 + n + 1
+	// SRC LEN DST MSG CHK
+	// ... or packet length + 4
+
+	var buffer = Buffer.alloc((msg.msg.length+4));
+
+	// Convert module names to hex codes
+	buffer[0] = this.omnibus.bus_modules.name2hex(msg.src);
+	buffer[1] = msg.msg.length+2;
+	buffer[2] = this.omnibus.bus_modules.name2hex(msg.dst);
+
+	for (var i = 0; i < msg.msg.length; i++) {
+		buffer[3 + i] = msg.msg[i];
+	}
+
+	var crc = 0x00;
+	for (var i = 0; i < buffer.length - 1; i++) {
+		crc ^= buffer[i];
+	}
+
+	buffer[3 + msg.msg.length] = crc;
+
+	return buffer;
+};
+
 ibus_protocol.prototype.create_ibus_message = function(msg) {
 	//   1 + 1 + 1 + n + 1
 	// SRC LEN DST MSG CHK

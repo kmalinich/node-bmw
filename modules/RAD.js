@@ -211,7 +211,7 @@ var RAD = function(omnibus) {
 		// Send the message
 		console.log('[ node-bmw] Sending \'RAD LED\' packet');
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 }
 

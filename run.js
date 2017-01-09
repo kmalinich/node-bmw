@@ -52,7 +52,7 @@ omnibus.socket_server = new (require('./lib/socket-server.js'))(omnibus);
 
 // IBUS libraries
 omnibus.data_handler    = new (require('./ibus/data-handler.js'))(omnibus);   // Data handler
-omnibus.ibus_connection = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
+omnibus.ibus = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
 
 // HTTP/WS config
 var api_port            = 3001;
@@ -70,7 +70,7 @@ function startup() {
       // Start HDMI CEC
       omnibus.HDMI.startup(() => {
         // Start IBUS connection
-        omnibus.ibus_connection.startup(() => {
+        omnibus.ibus.startup(() => {
 					console.log('[ node-bmw] Started');
         });
       });
@@ -82,7 +82,7 @@ function startup() {
 function shutdown() {
   console.log('[ node-bmw] Stopping');
   // Close serial port if open, and exit process
-  omnibus.ibus_connection.shutdown(() => {
+  omnibus.ibus.shutdown(() => {
     omnibus.HDMI.shutdown(() => {
       // socket server? .. nah, it's the api server. er..
       shutdown_api_server(() => {

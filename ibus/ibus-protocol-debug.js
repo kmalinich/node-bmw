@@ -50,7 +50,7 @@ omnibus.socket_server = new (require('../lib/socket-server.js'))(omnibus);
 
 // IBUS libraries
 omnibus.data_handler    = new (require('../ibus/data-handler.js'))(omnibus);   // Data handler
-omnibus.ibus_connection = new (require('../ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
+omnibus.ibus = new (require('../ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
 
 // API handler function
 function api_handler(request, response) {

@@ -169,9 +169,6 @@ var ibus_interface = function(omnibus) {
 						if (queue_busy()) {
 							write_message();
 						}
-						// else {
-						// 	console.log('[INTF:RITE] Queue done (3rd)');
-						// }
 					}
 				});
 			});
@@ -179,9 +176,21 @@ var ibus_interface = function(omnibus) {
 	}
 
 	// Insert a message into the write queue
+	function send(msg) {
+		// Generate IBUS message with checksum, etc
+		quete_write.push(ibus_protocol.create(msg));
+
+		// console.log('[INTF:SEND] Pushed data into write queue');
+		if (active_write === false) {
+			// console.log('[INTF:SEND] Starting queue write');
+			write_message();
+		}
+	}
+
+	// Insert a message into the write queue
 	function send_message(msg, callback) {
-		var data_buffer = ibus_protocol.create_ibus_message(msg);
-		queue_write.push(data_buffer);
+		// Generate IBUS message with checksum, etc
+		queue_write.push(ibus_protocol.create_ibus_message(msg));
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {

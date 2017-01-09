@@ -219,7 +219,7 @@ var BMBT = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		// console.log('[BMBT->RAD] Sent %s:', command);
 	}
@@ -251,7 +251,7 @@ var BMBT = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		console.log('[BMBT->GLO] Sent %s:', command, data);
 	}
@@ -274,7 +274,7 @@ var BMBT = function(omnibus) {
 		// Send the message
 		console.log('[BMBT->RAD] Sending cassette status: no tape');
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 
 	// Emulate button presses
@@ -315,7 +315,7 @@ var BMBT = function(omnibus) {
 		}
 
 		// Send the down message
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		// Prepare and send the up message after 150ms
 		setTimeout(() => {
@@ -329,7 +329,7 @@ var BMBT = function(omnibus) {
 			}
 
 			// Send the up message
-			omnibus.ibus_connection.send_message(ibus_packet);
+			omnibus.ibus.send_message(ibus_packet);
 		}, 150);
 	}
 }

@@ -25,7 +25,6 @@ var IKE = function(omnibus) {
 	// Exposed data
 	this.hud_refresh      = hud_refresh;
 	this.ike_data         = ike_data;
-	this.ike_send         = ike_send;
 	this.ike_text         = ike_text;
 	this.ike_text_urgent  = ike_text_urgent;
 	this.ike_text_warning = ike_text_warning;
@@ -34,7 +33,7 @@ var IKE = function(omnibus) {
 	this.parse_out        = parse_out;
 	this.request          = request;
 
-  // HUD refresh vars
+	// HUD refresh vars
 	var interval_hud_refresh;
 	var last_hud_refresh = 0;
 
@@ -122,11 +121,11 @@ var IKE = function(omnibus) {
 					// Welcome message
 					ike_text_warning('node-bmw     '+os.hostname(), 3000);
 
-          // Refresh OBC HUD once every 14 seconds
-          hud_refresh(true);
-          interval_hud_refresh = setInterval(() => {
-            hud_refresh(true);
-          }, 14000);
+					// Refresh OBC HUD once every 10 seconds
+					hud_refresh(true);
+					interval_hud_refresh = setInterval(() => {
+						hud_refresh(true);
+					}, 10000);
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
@@ -244,8 +243,8 @@ var IKE = function(omnibus) {
 				// Send Kodi a notification
 				// omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant.c+' C, Exterior: '+omnibus.status.temperature.exterior.c+' C');
 
-        // Refresh the HUD
-        hud_refresh(false);
+				// Refresh the HUD
+				hud_refresh(false);
 				break;
 
 			case 0x1B: // ACK text message
@@ -366,8 +365,8 @@ var IKE = function(omnibus) {
 
 						value = omnibus.status.obc.consumption_1_mpg;
 
-            // Refresh the HUD
-            hud_refresh(false);
+						// Refresh the HUD
+						hud_refresh(false);
 						break;
 
 					case 0x05: // Consumption 2
@@ -712,13 +711,13 @@ var IKE = function(omnibus) {
 		var string_cons;
 		var string_temp;
 		var string_time = moment().format('HH:mm');
-    var time_now    = now();
+		var time_now    = now();
 
-    // Bounce if the last update was less than 13 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 13000 && interval === true) {
-      console.log('[     IKE] HUD refresh: too soon');
-      return;
-    }
+		// Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
+		if (time_now-last_hud_refresh <= 9000 && interval === true) {
+			console.log('[     IKE] HUD refresh: too soon');
+			return;
+		}
 
 		// console.log('[ node-bmw] Refreshing OBC HUD');
 
@@ -766,8 +765,8 @@ var IKE = function(omnibus) {
 
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			ike_text(string_cons+spacing1+string_temp+spacing2+string_time, () => {
-        last_hud_refresh = now();
-      });
+				last_hud_refresh = now();
+			});
 		}
 	}
 
@@ -815,8 +814,6 @@ var IKE = function(omnibus) {
 
 	// OBC data request
 	function obc_data(action, value, target) {
-		var src = 0x3B; // GT
-		var dst = 0x80; // IKE
 		var cmd = 0x41; // OBC data request
 
 		// Init action_id, value_id
@@ -867,46 +864,30 @@ var IKE = function(omnibus) {
 
 		// console.log('[ node-bmw] Doing \'%s\' on OBC value \'%s\'', action, value);
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'GT',
+			dst: 'IKE',
+			msg: msg,
+		});
 	}
 
 	// Cluster/interior backlight
 	function ike_backlight(value) {
-		var src = 0xD0; // LCM
-		var dst = 0xBF; // GLO
-		var cmd = 0x5C; // Set LCD screen backlight
-
 		console.log('[ node-bmw] Setting LCD screen backlight to %s', value);
-
-		// Convert the value to hex
-		value = value.toString(16);
-
-		// Will need to concat and push array for value
-		var msg = [cmd, value, 0x00];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'LCM',
+			dst: 'GLO',
+			msg: [0x5C, value.toString(16), 0x00]
+		});
 	}
 
 	// Request various things from IKE
 	function request(value) {
-		var src = 0xED; // VID
-		var dst = 0x80; // IKE
-		var cmd;
-
 		console.log('[ node-bmw] Requesting \'%s\'', value);
 
+		var cmd;
+		var src = 'VID';
+		var dst = 'IKE';
 		switch (value) {
 			case 'ignition':
 				cmd = 0x10;
@@ -915,53 +896,45 @@ var IKE = function(omnibus) {
 				cmd = 0x12;
 				break;
 			case 'coding':
-				src = 0x68; // RAD
+				src = 'RAD';
 				cmd = 0x14;
 				break;
 			case 'odometer':
-				src = 0x44; // EWS
+				src = 'EWS';
 				cmd = 0x16;
 				break;
 			case 'dimmer':
-				src = 0x5B; // IHKA
+				src = 'IHKA';
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'temperature':
-				src = 0x5B; // IHKA
+				src = 'IHKA';
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'statusall':
-				src = 0x80; // IKE
-				dst = 0xBF; // GLO
+				src = 'IKE';
+				dst = 'GLO';
 				cmd = 0x01;
 				break;
 			case 'vin':
-				src = 0x80; // IKE
-				dst = 0xD0; // LCM
+				src = 'IKE';
+				dst = 'LCM';
 				cmd = 0x53;
 				break;
 		}
 
-		var ibus_packet = {
+		omnibus.ibus.send({
 			src: src,
 			dst: dst,
-			msg: new Buffer([cmd]),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+			msg: [cmd],
+		});
 	}
 
 	// Pretend to be IKE saying the car is on
 	function ike_ignition(value) {
-		var src = 0x80; // IKE
-		var dst = 0xBF; // GLO
-		var cmd = 0x11; // Ignition status
-
-		// Init status variable
-		var status;
-
 		console.log('[ node-bmw] Claiming ignition is \'%s\'', value);
 
+		var status;
 		switch (value) {
 			case 'off':
 				status = 0x00;
@@ -977,39 +950,32 @@ var IKE = function(omnibus) {
 				break;
 		}
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer([cmd, status]),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'IKE',
+			dst: 'GLO',
+			msg: [0x11, status],
+		});
 	}
 
 	// OBC set clock
-	function obc_clock(data) {
-		var src = 0x3B; // GT
-		var dst = 0x80; // IKE
+	function obc_clock() {
+		console.log('[ node-bmw] Setting OBC clock to current time');
 
-		console.log('[ node-bmw] Setting OBC clock to \'%s/%s/%s %s:%s\'', data.day, data.month, data.year, data.hour, data.minute);
+		var time = moment();
 
-		var time_msg         = [0x40, 0x01, data.hour, data.minute];
-		var time_ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(time_msg),
-		}
+		// Time
+		omnibus.ibus.send({
+			src: 'GT',
+			dst: 'IKE',
+			msg: [0x40, 0x01, time.format('H'), time.format('m')],
+		});
 
-		omnibus.ibus_connection.send_message(time_ibus_packet);
-
-		var date_msg         = [0x40, 0x02, data.day, data.month, data.year];
-		var date_ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(date_msg),
-		}
-
-		omnibus.ibus_connection.send_message(date_ibus_packet);
+		// Date
+		omnibus.ibus.send({
+			src: 'GT',
+			dst: 'IKE',
+			msg: [0x40, 0x02, time.format('D'), time.format('M'), time.format('YY')],
+		});
 	}
 
 	// OBC gong
@@ -1037,37 +1003,33 @@ var IKE = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 
 	// Check control warnings
 	function ike_text_warning(message, timeout) {
-		var src = 0x30; // CCM
-		var dst = 0x80; // IKE
+		// 3rd byte:
+		// 0x00 : no gong,   no arrow
+		// 0x01 : no gong,   solid arrow
+		// 0x02 : no gong,   no arrow
+		// 0x03 : no gong,   flash arrow
+		// 0x04 : 1 hi gong, no arrow
+		// 0x08 : 2 hi gong, no arrow
+		// 0x0C : 3 hi gong, no arrow
+		// 0x10 : 1 lo gong, no arrow
+		// 0x18 : 3 beep,    no arrow
 
-		// var message_hex = [0x1A, 0x37, 0x00]; // no gong, no arrows
-		// var message_hex = [0x1A, 0x37, 0x01]; // no gong, solid arrows
-		// var message_hex = [0x1A, 0x37, 0x02]; // no gong, no arrows
-		// var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrows
-		// var message_hex = [0x1A, 0x37, 0x04]; // 1 hi gong,  no arrows
-		// var message_hex = [0x1A, 0x37, 0x08]; // 2 hi gongs, no arrows
-		// var message_hex = [0x1A, 0x37, 0x0C]; // 3 hi gongs + no arrows
-		// var message_hex = [0x1A, 0x37, 0x10]; // 1 lo gong, no arrows
-		// var message_hex = [0x1A, 0x37, 0x18]; // 3 beeps + no arrows
-
-		var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrows
-
+		var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrow
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(message_hex),
-		}
+		omnibus.ibus.send({
+			src: 'CCM',
+			dst: 'IKE',
+			msg: message_hex,
+		});
 
-		omnibus.ibus_connection.send_message(ibus_packet);
-
-		if (!timeout) { var timeout = 10000; }
+		// Default timeout = 10 sec
+		if (typeof timeout === 'undefined' || timeout === null) { var timeout = 10000; }
 
 		// Clear the message after 5 seconds
 		setTimeout(() => {
@@ -1077,21 +1039,17 @@ var IKE = function(omnibus) {
 
 	// Check control messages
 	function ike_text_urgent(message, timeout) {
-		var src = 0x30; // CCM
-		var dst = 0x80; // IKE
-
 		var message_hex = [0x1A, 0x35, 0x00];
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(message_hex),
-		}
+		omnibus.ibus.send({
+			src: 'CCM',
+			dst: 'IKE',
+			msg: message_hex,
+		});
 
-		omnibus.ibus_connection.send_message(ibus_packet);
-
-		if (!timeout) { var timeout = 5000; }
+		// Default timeout = 5 sec
+		if (typeof timeout === 'undefined' || timeout === null) { var timeout = 5000; }
 
 		// Clear the message after 5 seconds
 		setTimeout(() => {
@@ -1099,66 +1057,35 @@ var IKE = function(omnibus) {
 		}, timeout);
 	}
 
-	// Check control messages
+	// Clear check control messages, then refresh HUD
 	function ike_text_urgent_off() {
-		var src = 0x30; // CCM
-		var dst = 0x80; // IKE
+		omnibus.ibus.send({
+			src: 'CCM',
+			dst: 'IKE',
+			msg: [0x1A, 0x30, 0x00],
+		});
 
-		var message_hex = [0x1A, 0x30, 0x00];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(message_hex),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
-		hud_refresh();
+		setTimeout(() => {
+			hud_refresh();
+		}, 250);
 	}
 
 	// IKE cluster text send message
 	function ike_text(string) {
-		var src = 0x68; // RAD
-		var dst = 0xBF; // GLO
-
-		string = string.ike_pad();
-
 		// console.log('[ node-bmw] Sending text to IKE screen: \'%s\'', string);
+		string = string.ike_pad();
 
 		// Need to center text..
 		var string_hex = [0x23, 0x50, 0x30, 0x07];
 		var string_hex = string_hex.concat(ascii2hex(string));
 		var string_hex = string_hex.concat(0x04);
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(string_hex),
-		}
-
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'RAD',
+			dst: 'GLO',
+			msg: string_hex,
+		});
 	}
-
-	// Send message to IKE
-	function ike_send(packet) {
-		var src = 0x3F; // DIA
-		var dst = 0xBF; // GLO
-		var cmd = 0x0C; // Set IO status
-
-		// Add the command to the beginning of the IKE hex array
-		packet.unshift(cmd);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
-		console.log('[ node-bmw] Sending IKE packet');
-		omnibus.ibus_connection.send_message(ibus_packet);
-	}
-
 }
 
 module.exports = IKE;

@@ -121,7 +121,7 @@ var DSP = function(omnibus) {
 			msg: new Buffer(msg),
 		}
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 
 		console.log('[DSP->GLO] Sent %s:', command, data);
 	}

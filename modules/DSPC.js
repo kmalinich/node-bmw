@@ -150,7 +150,7 @@ var DSPC = function(omnibus) {
 
 		console.log('[%s->%s] %s:', src_name, dst_name, command, data);
 
-		omnibus.ibus_connection.send_message(ibus_packet);
+		omnibus.ibus.send_message(ibus_packet);
 	}
 }
 

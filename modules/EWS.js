@@ -30,26 +30,21 @@ var EWS = function(omnibus) {
 
 	// Request various things from EWS
 	function request(value) {
-		var src = 0x30; // CCN
-		var dst = 0x44; // EWS
 		var cmd;
-
 		console.log('[ node-bmw] Requesting \'%s\'', value);
 
 		switch (value) {
 			case 'immobiliserstatus':
 				// cmd = [0x73, 0x00, 0x00, 0x80];
-				cmd = 0x73;
+				cmd = [0x73];
 				break;
 		}
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer([cmd]),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'CCM',
+			dst: 'EWS',
+			msg: cmd,
+		});
 	}
 
 	// Parse data sent from EWS module

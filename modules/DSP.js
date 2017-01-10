@@ -99,8 +99,6 @@ var DSP = function(omnibus) {
 	function send_device_status() {
 		// Init variables
 		var command = 'device status';
-		var src     = 0x6A; // DSP
-		var dst     = 0xBF; // GLO
     var data;
     var msg;
 
@@ -115,13 +113,11 @@ var DSP = function(omnibus) {
 			msg  = [0x02, 0x01];
 		}
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'DSP',
+			dst: 'GLO',
+			msg: msg,
+		});
 
 		console.log('[DSP->GLO] Sent %s:', command, data);
 	}

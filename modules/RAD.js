@@ -134,7 +134,7 @@ var RAD = function(omnibus) {
 					value   = 'CD control status';
 
 					// Do CDC->LOC CD status stop
-					omnibus.CDC.send_cd_status_stop();
+					omnibus.CDC.send_cd_status('stop');
 				}
 				break;
 

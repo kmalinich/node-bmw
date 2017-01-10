@@ -208,18 +208,12 @@ var BMBT = function(omnibus) {
 	function request_rad_status() {
 		// Init variables
 		var command = 'request device status';
-		var src     = 0xF0; // BMBT
-		var dst     = 0x68; // RAD
 
-		var msg = [0x01];
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'BMBT',
+			dst: 'RAD',
+			msg: [0x01],
+		});
 
 		// console.log('[BMBT->RAD] Sent %s:', command);
 	}
@@ -228,14 +222,12 @@ var BMBT = function(omnibus) {
 	function send_device_status() {
 		// Init variables
 		var command = 'device status';
-		var src     = 0xF0; // BMBT
-		var dst     = 0xBF; // GLO
 
 		var data;
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (reset == true) {
+		if (reset === true) {
 			data  = 'ready after reset';
 			reset = false;
 			msg   = [0x02, 0x01];
@@ -245,45 +237,27 @@ var BMBT = function(omnibus) {
 			msg   = [0x02, 0x00];
 		}
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'BMBT',
+			dst: 'GLO',
+			msg: msg,
+		});
 
 		console.log('[BMBT->GLO] Sent %s:', command, data);
 	}
 
 	// Say we have no tape in the player
 	function send_cassette_status() {
-		// Init variables
-		var src     = 0xF0; // BMBT
-		var dst     = 0x68; // RAD
-		var command = 0x4B; // Cassette status
-		var packet  = [command, 0x05]; // No tape
-
-		// Send message
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
 		console.log('[BMBT->RAD] Sending cassette status: no tape');
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'BMBT',
+			dst: 'RAD',
+			msg: [0x4B, 0x05],
+		});
 	}
 
 	// Emulate button presses
 	function send_button(button) {
-		// Init variables
-		var src     = 0xF0; // BMBT
-		var dst     = 0x68; // RAD
-		var command = 0x48; // Button action
-
 		var button_down = 0x00;
 		var button_hold;
 		var button_up;
@@ -298,38 +272,30 @@ var BMBT = function(omnibus) {
 				// Generate hold and up values
 				button_hold = bit_set(button_down, bit_6);
 				button_up   = bit_set(button_down, bit_7);
-
 				break;
 		}
 
 		console.log('[BMBT->RAD] Sending button down: %s', button);
 
+		// Init variables
+		var command     = 0x48; // Button action
 		var packet_down = [command, button_down];
 		var packet_up   = [command, button_up];
 
-		// Send message
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet_down),
-		}
-
-		// Send the down message
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'BMBT',
+			dst: 'RAD',
+			msg: packet_down,
+		});
 
 		// Prepare and send the up message after 150ms
 		setTimeout(() => {
 			console.log('[BMBT->RAD] Sending button up: %s', button);
-
-			// Send message
-			var ibus_packet = {
-				src: src,
-				dst: dst,
-				msg: new Buffer(packet_up),
-			}
-
-			// Send the up message
-			omnibus.ibus.send_message(ibus_packet);
+      omnibus.ibus.send({
+        src: 'BMBT',
+        dst: 'RAD',
+        msg: packet_up,
+      });
 		}, 150);
 	}
 }

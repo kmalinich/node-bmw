@@ -25,6 +25,7 @@ var ibus_interface = function(omnibus) {
 	this.active_write = active_write;
 	this.queue_read   = queue_read;
 	this.queue_write  = queue_write;
+	this.send         = send;
 	this.send_message = send_message;
 	this.shutdown     = shutdown;
 	this.startup      = startup;

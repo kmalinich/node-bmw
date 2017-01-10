@@ -179,7 +179,7 @@ var ibus_interface = function(omnibus) {
 	// Insert a message into the write queue
 	function send(msg) {
 		// Generate IBUS message with checksum, etc
-		quete_write.push(ibus_protocol.create(msg));
+		queue_write.push(ibus_protocol.create(msg));
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {

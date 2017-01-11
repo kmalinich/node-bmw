@@ -25,9 +25,9 @@ var IKE = function(omnibus) {
 	// Exposed data
 	this.hud_refresh      = hud_refresh;
 	this.ike_data         = ike_data;
-	this.ike_text         = ike_text;
-	this.ike_text_urgent  = ike_text_urgent;
-	this.ike_text_warning = ike_text_warning;
+	this.text         = text;
+	this.text_urgent  = text_urgent;
+	this.text_warning = text_warning;
 	this.obc_data         = obc_data;
 	this.obc_refresh      = obc_refresh;
 	this.parse_out        = parse_out;
@@ -119,7 +119,7 @@ var IKE = function(omnibus) {
 					console.log('[ node-bmw] Trigger: power-on state');
 
 					// Welcome message
-					ike_text_warning('node-bmw     '+os.hostname(), 3000);
+					text_warning('node-bmw     '+os.hostname(), 3000);
 
 					// Refresh OBC HUD once every 10 seconds
 					hud_refresh(true);
@@ -193,7 +193,7 @@ var IKE = function(omnibus) {
 				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
 					// If it's newly in reverse
 					if (omnibus.status.vehicle.reverse == false) {
-						ike_text_warning(' YOU\'RE IN REVERSE!', 2000);
+						text_warning(' YOU\'RE IN REVERSE!', 2000);
 					}
 					omnibus.status.vehicle.reverse = true;
 				}
@@ -649,7 +649,7 @@ var IKE = function(omnibus) {
 	function ike_data(data) {
 		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
-			ike_text(data['obc-text']);
+			text(data['obc-text']);
 		}
 
 		// Set OBC clock
@@ -764,7 +764,7 @@ var IKE = function(omnibus) {
 		}
 
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-			ike_text(string_cons+spacing1+string_temp+spacing2+string_time, () => {
+			text(string_cons+spacing1+string_temp+spacing2+string_time, () => {
 				last_hud_refresh = now();
 			});
 		}
@@ -997,17 +997,15 @@ var IKE = function(omnibus) {
 
 		console.log('[ node-bmw] OBC gong %s', obc_value);
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'RAD',
+			dst: 'IKE',
+			msg: msg,
+		});
 	}
 
 	// Check control warnings
-	function ike_text_warning(message, timeout) {
+	function text_warning(message, timeout) {
 		// 3rd byte:
 		// 0x00 : no gong,   no arrow
 		// 0x01 : no gong,   solid arrow
@@ -1033,12 +1031,12 @@ var IKE = function(omnibus) {
 
 		// Clear the message after 5 seconds
 		setTimeout(() => {
-			ike_text_urgent_off();
+			text_urgent_off();
 		}, timeout);
 	}
 
 	// Check control messages
-	function ike_text_urgent(message, timeout) {
+	function text_urgent(message, timeout) {
 		var message_hex = [0x1A, 0x35, 0x00];
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
@@ -1053,12 +1051,12 @@ var IKE = function(omnibus) {
 
 		// Clear the message after 5 seconds
 		setTimeout(() => {
-			ike_text_urgent_off();
+			text_urgent_off();
 		}, timeout);
 	}
 
 	// Clear check control messages, then refresh HUD
-	function ike_text_urgent_off() {
+	function text_urgent_off() {
 		omnibus.ibus.send({
 			src: 'CCM',
 			dst: 'IKE',
@@ -1071,7 +1069,7 @@ var IKE = function(omnibus) {
 	}
 
 	// IKE cluster text send message
-	function ike_text(string) {
+	function text(string) {
 		// console.log('[ node-bmw] Sending text to IKE screen: \'%s\'', string);
 		string = string.ike_pad();
 

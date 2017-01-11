@@ -3,10 +3,10 @@
 var ibus_interface = require('./ibus-interface.js');
 var bus_modules    = require('../lib/bus-modules.js');
 
-// data
+// IBUS connection
 var ibus_connection = new ibus_interface();
 
-// events
+// Events
 process.on('SIGINT', on_signal_int);
 ibus_connection.on('data', on_ibus_data);
 
@@ -27,24 +27,14 @@ function on_ibus_data(data) {
 	}
 }
 
-function init() {
-	ibus_connection.startup();
-}
-
-init();
-
 function doibus() {
-	var packet      = [0x0b, 0x03];
-	var ibus_packet = {
-		src: 0x3F,
-		dst: 0x5B,
-		msg: new Buffer(packet),
-	}
-
-	// Send the message
 	console.log('[ibus-reader] Sending IHKA packet.');
-	ibus_connection.send_message(ibus_packet);
+	ibus_connection.send({
+		src: 'DIA',
+		dst: 'IHKA',
+		msg: [0x0B, 0x03],
+	});
 }
 
-
-//setInterval(doibus, 1000);
+// ibus_connection.startup();
+// setInterval(doibus, 1000);

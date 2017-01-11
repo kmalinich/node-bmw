@@ -5,9 +5,6 @@ const serialport    = require('serialport');
 const util          = require('util');
 
 var ibus_interface = function(omnibus) {
-	// Self reference
-	var _self = this;
-
 	var ibus_protocol = new (require('./ibus-protocol.js'))(omnibus);
 
 	// Read/write queues
@@ -18,7 +15,7 @@ var ibus_interface = function(omnibus) {
 	var active_write = false;
 
 	// Last time any data did something
-	omnibus.last_event = 0;
+	omnibus.last_event_ibus = 0;
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -26,7 +23,6 @@ var ibus_interface = function(omnibus) {
 	this.queue_read   = queue_read;
 	this.queue_write  = queue_write;
 	this.send         = send;
-	this.send_message = send_message;
 	this.shutdown     = shutdown;
 	this.startup      = startup;
 
@@ -141,7 +137,7 @@ var ibus_interface = function(omnibus) {
 
 		// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event < 1.4) {
+		if (time_now-omnibus.last_event_ibus < 1.4) {
 			// Do we still have data?
 			if (queue_busy()) {
 				write_message();
@@ -180,18 +176,6 @@ var ibus_interface = function(omnibus) {
 	function send(msg) {
 		// Generate IBUS message with checksum, etc
 		queue_write.push(ibus_protocol.create(msg));
-
-		// console.log('[INTF:SEND] Pushed data into write queue');
-		if (active_write === false) {
-			// console.log('[INTF:SEND] Starting queue write');
-			write_message();
-		}
-	}
-
-	// Insert a message into the write queue
-	function send_message(msg, callback) {
-		// Generate IBUS message with checksum, etc
-		queue_write.push(ibus_protocol.create_ibus_message(msg));
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {

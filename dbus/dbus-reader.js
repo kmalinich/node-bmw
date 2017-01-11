@@ -26,15 +26,12 @@ function init() {
 }
 
 function dodbus() {
-	var packet      = [0x0b, 0x03];
-	var dbus_packet = {
-		dst: 0x5B,
-		msg: new Buffer(packet),
-	}
-
 	// Send the message
 	console.log('[dbus-reader] Sending IHKA packet.');
-	dbus_connection.send_message(dbus_packet);
+	dbus_connection.send({
+		dst: 'IHKA',
+		msg: [0x0B, 0x03],
+	});
 }
 
 

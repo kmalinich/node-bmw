@@ -27,7 +27,6 @@ function bit_set(num, bit) {
 
 var GM = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.door_flap_status_decode = door_flap_status_decode;
@@ -328,46 +327,27 @@ var GM = function(omnibus) {
 		// Send the cluster and Kodi a notification
 		var notify_message = 'Toggling door locks';
 		omnibus.kodi.notify('GM', notify_message);
-		omnibus.IKE.ike_text_urgent(notify_message)
+		omnibus.IKE.text_urgent(notify_message)
 	}
 
 	// Send message to GM
 	function gm_send(packet) {
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-		var cmd = 0x0C; // Set IO status
-
-		// Add the command code (cmd) to the beginning of the message hex array
-		packet.unshift(cmd);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
 		console.log('[      GM] Sending \'Set IO status\' packet');
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'DIA',
+			dst: 'GM',
+			msg: [0x0C, packet],
+		});
 	}
 
 	// Request door/flap status from GM
 	function gm_get() {
-		var src = 0xF0; // BMBT
-		var dst = 0x00; // GM
-		var cmd = 0x79; // Get door/flap status
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer([cmd]),
-		}
-
-		// Send the message
 		console.log('[ node-bmw] Requesting door/flap status');
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'BMBT',
+			dst: 'GM',
+			msg: [0x79], // Get door/flap status
+		});
 	}
 
 	// Test if a bit in a bitmask is set

@@ -93,7 +93,7 @@ function form_ike_reset() {
 	});
 }
 
-function form_ike_text() {
+function form_text() {
 	console.log($('#form-ike-text').serialize());
 	$.ajax({
 		url      : '/api/ike',

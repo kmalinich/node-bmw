@@ -1,176 +1,189 @@
-var serialport    = require('serialport');
-var util          = require('util');
-var event_emitter = require('events');
-var dbus_protocol = require('./dbus-protocol.js');
-var bus_modules   = require('../lib/bus-modules.js');
-var Log           = require('log');
-var log           = new Log('info');
+const event_emitter = require('events');
+const now           = require('performance-now')
+const serialport    = require('serialport');
+// Use of util.inherits like this is discouraged - FIX IT
+const util          = require('util');
 
-log.on('line', function(line){
-	console.log(line);
-});
+var dbus_interface = function(omnibus) {
+	var dbus_protocol = new (require('./dbus-protocol.js'))(omnibus);
 
-var dbus_interface = function(device_path) {
+	// Read/write queues
+	var queue_read  = [];
+	var active_read = false;
 
-	// self reference
-	var _self = this;
+	var queue_write  = [];
+	var active_write = false;
 
-	// exposed data
-	this.get_interface = get_interface;
-	this.init_dbus     = init_dbus;
-	this.close_dbus    = close_dbus;
-	this.startup       = startup;
-	this.shutdown      = shutdown;
-	this.send_message  = send_message;
+	// Last time any data did something
+	omnibus.last_event_dbus = 0;
 
-	// local data
-	var serial_port;
-	var parser;
-	var device             = device_path;
-	var last_activity_time = process.hrtime();
-	var queue              = [];
+	// Exposed data
+	this.active_read  = active_read;
+	this.active_write = active_write;
+	this.queue_read   = queue_read;
+	this.queue_write  = queue_write;
+	this.send         = send;
+	this.shutdown     = shutdown;
+	this.startup      = startup;
 
-	// implementation
-	function init_dbus() {
-		device      = '/dev/samsung';
-		serial_port = new serialport.SerialPort(device, {
-			//rtscts   : true,
-			baudRate : 9600,
-			dataBits : 8,
-			//parity   : 'even',
-			parser   : serialport.parsers.raw,
-			stopBits : 1,
-		}, false);
+	// Local data
+	var device      = '/dev/bmw-dbus';
+	var queue       = [];
+	var serial_port = new serialport(device, {
+		autoOpen : false,
+		parity   : 'even',
+		parser   : serialport.parsers.byteLength(1),
+	});
 
-		serial_port.open(function(error) {
-			if (error) {
-				log.error('[dbus-interface] Failed to open: ' + error);
-			}
-			else {
-				console.log('[dbus-interface] Port open [' + device + ']');
-				_self.emit('port_open');
+	/*
+	 * Event handling
+	 */
 
-				serial_port.on('data', function(data) {
-					// console.log('[dbus-interface] Data on port: ', data);
+	// On port error
+	serial_port.on('error', function(error) {
+		console.error('[INTF:PORT]', error);
+	});
 
-					last_activity_time = process.hrtime();
-				});
+	// On port open
+	serial_port.on('open', function() {
+		console.log('[INTF:PORT] Opened [%s]', device);
 
-				serial_port.on('error', function(err) {
-					log.error("[dbus-interface] Error", err);
-					shutdown(startup);
-				});
+		// Get some data
+		omnibus.IKE.obc_refresh();
+	});
 
-				parser = new dbus_protocol();
-				parser.on('message', on_message);
+	// On port close
+	serial_port.on('close', function() {
+		console.log('[INTF:PORT] Closed [%s]', device);
+	});
 
-				serial_port.pipe(parser);
+	// Send the data to the parser
+	serial_port.on('data', (data) => {
+		dbus_protocol.parser(data);
+	});
 
-				watch_for_empty_bus(process_write_queue);
-			}
-		});
-	}
 
-	function get_ht_diff_time(time) {
-		// ts = [seconds, nanoseconds]
-		var ts = process.hrtime(time);
-		// convert seconds to miliseconds and nanoseconds to miliseconds as well
-		return (ts[0] * 1000) + (ts[1] / 1000000);
-	};
+	/*
+	 * Functions
+	 */
 
-	function watch_for_empty_bus(workerFn) {
-		if (get_ht_diff_time(last_activity_time) >= 20) {
-			workerFn(function success() {
-				// operation is ready, resume looking for an empty bus
-				setImmediate(watch_for_empty_bus, workerFn);
+	// Open serial port
+	function startup(callback) {
+		// Open port if it is closed
+		if (!serial_port.isOpen()) {
+			serial_port.open((error) => {
+				if (error) {
+					console.log('[INTF:PORT]', error);
+					callback();
+				}
+				else {
+					console.log('[INTF:PORT] Opened');
+					callback();
+				}
 			});
 		}
 		else {
-			// keep looking for an empty bus
-			setImmediate(watch_for_empty_bus, workerFn);
+			console.log('[INTF:PORT] Already open');
+			callback();
 		}
 	}
 
-	function process_write_queue(ready) {
-		// noop on empty queue
-		if (queue.length <= 0) {
-			ready();
-			return;
-		}
-
-		// process 1 message
-		var data_buffer = queue.pop();
-
-		log.debug(clc.blue('[dbus-interface] Write queue length: '), queue.length);
-
-		serial_port.write(data_buffer, function(error, resp) {
-			if (error) {
-				log.error('[dbus-interface] Failed to write: ' + error);
-			}
-			else {
-				console.log('[dbus-interface]', clc.white('Wrote to device:'), data_buffer, resp);
-
-				serial_port.drain(function(error) {
-					log.debug(clc.white('Data drained'));
-
-					// this counts as an activity, so mark it
-					last_activity_time = process.hrtime();
-
-					ready();
-				});
-				_self.emit('message_sent');
-			}
-
-		});
-	}
-
-	function close_dbus(callback) {
-		serial_port.close(function(error) {
-			if (error) {
-				log.error('[dbus-interface] Error closing port: ', error);
-				callback();
-			}
-			else {
-				console.log('[dbus-interface] Port closed [' + device + ']');
-				parser = null;
-				callback();
-			}
-		});
-	}
-
-	function get_interface() {
-		return serial_port;
-	}
-
-	function startup() {
-		init_dbus();
-	}
-
+	// Close serial port
 	function shutdown(callback) {
-		console.log('[dbus-interface] Shutting down dbus device..');
-		close_dbus(callback);
+		// Close port if it is open
+		if (serial_port.isOpen()) {
+			serial_port.close((error) => {
+				if (error) {
+					console.log('[INTF:PORT]', error);
+					callback();
+				}
+				else {
+					console.log('[INTF:PORT] Closed');
+					callback();
+				};
+			});
+		}
+		else {
+			console.log('[INTF:PORT] Already closed');
+			callback();
+		}
 	}
 
-	function on_message(msg) {
-		log.debug('[dbus-interface] Raw message: ', msg.dst, msg.len, msg.msg, '[' + msg.msg.toString('ascii') + ']', msg.crc);
-		_self.emit('data', msg);
+	// Return false if there's still something to write
+	function queue_busy() {
+		if (typeof queue_write[0] !== 'undefined' && queue_write.length !== 0) {
+			active_write = true;
+		}
+		else {
+			active_write = false;
+		}
+
+		// console.log('[INTF::QUE] Queue busy: %s', active_write);
+		return active_write;
 	}
 
-	function send_message(msg) {
-		var data_buffer = dbus_protocol.create_dbus_message(msg);
-
-		console.log('[dbus-interface] Dst :', bus_modules.hex2name(msg.dst.toString(16)));
-		log.debug('[dbus-interface] Send message: ', data_buffer);
-
-		if (queue.length > 1000) {
-			log.warning('[dbus-interface] Queue too large, dropping message..', data_buffer);
+	// Write the next message to the serial port
+	function write_message() {
+		// Only write data if port is open
+		if (!serial_port.isOpen()) {
+			console.log('[INTF:RITE] Chilling until port is open');
 			return;
 		}
 
-		queue.unshift(data_buffer);
+		if (!queue_busy()) {
+			console.log('[INTF:RITE] Queue done (1st)');
+			return;
+		}
+
+		// Do we need to wait longer?
+		var time_now = now();
+		if (time_now-omnibus.last_event_dbus < 1.4) {
+			// Do we still have data?
+			if (queue_busy()) {
+				write_message();
+			}
+			else {
+				console.log('[INTF:RITE] Queue done (2nd)');
+			}
+		}
+		else {
+			serial_port.write(queue_write[0], (error) => {
+				if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
+
+				serial_port.drain((error) => {
+					// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
+
+					if (error) {
+						console.log('[INTF::DRN] Failed : ', queue_write[0], error);
+					}
+					else {
+						// console.log('[INTF:RITE] Success : ', queue_write[0]);
+
+						// Successful write, remove this message from the queue
+						queue_write.splice(0, 1);
+
+						// Do we still have data?
+						if (queue_busy()) {
+							write_message();
+						}
+					}
+				});
+			});
+		}
 	}
 
-};
+	// Insert a message into the write queue
+	function send(msg) {
+		// Generate IBUS message with checksum, etc
+		queue_write.push(dbus_protocol.create(msg));
+
+		// console.log('[INTF:SEND] Pushed data into write queue');
+		if (active_write === false) {
+			// console.log('[INTF:SEND] Starting queue write');
+			write_message();
+		}
+	}
+}
 
 util.inherits(dbus_interface, event_emitter);
 module.exports = dbus_interface;

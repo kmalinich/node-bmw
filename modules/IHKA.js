@@ -24,7 +24,6 @@ function bit_test(num, bit) {
 var IHKA = function(omnibus) {
 
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.parse_out = parse_out;

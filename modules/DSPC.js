@@ -22,7 +22,6 @@ function bit_test(num, bit) {
 
 var DSPC = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Reset bit
 	var reset = true;

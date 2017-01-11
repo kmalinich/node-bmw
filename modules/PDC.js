@@ -23,7 +23,6 @@ function bit_test(num, bit) {
 
 var PDC = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.parse_data = parse_data;

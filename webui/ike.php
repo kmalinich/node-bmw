@@ -163,7 +163,7 @@
 			<hr>
 
 			<h4>Text</h4>
-			<form class="form-horizontal" id="form-ike-text" action="javascript:form_ike_text();">
+			<form class="form-horizontal" id="form-ike-text" action="javascript:form_text();">
 
 				<input class="form-control" type="text" name="obc-text" id="form-ike-text-text" placeholder="Cluster text">
 				<br/>

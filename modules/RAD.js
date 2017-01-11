@@ -28,7 +28,6 @@ function bit_set(num, bit) {
 
 var RAD = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.led       = led;
@@ -174,8 +173,6 @@ var RAD = function(omnibus) {
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
 	function led(object) {
-		console.log('[ node-bmw] Encoding \'RAD LED\' packet');
-
 		// Bitmask
 		// 0x00 = all off
 		// 0x01 = solid red
@@ -195,23 +192,13 @@ var RAD = function(omnibus) {
 		if (object.solid_green)  { byte = bit_set(byte, bit_4); }
 		if (object.flash_green)  { byte = bit_set(byte, bit_5); }
 
-		// Assemble strings
-		var src     = 0xC8; // TEL
-		var dst     = 0xE7; // OBC
-		var command = 0x2B; // Turn on radio LED
-		var packet  = [command, byte];
-
 		// Send message
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
 		console.log('[ node-bmw] Sending \'RAD LED\' packet');
-
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'TEL',
+			dst: 'OBC',
+			msg: [command, byte], // Turn on radio LED
+		});
 	}
 }
 

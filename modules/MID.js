@@ -25,7 +25,6 @@ function bit_test(num, bit) {
 
 var MID = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.parse_in           = parse_in;
@@ -135,13 +134,9 @@ var MID = function(omnibus) {
 	// MID->GLO Device status ready
 	function send_device_status() {
 		// Init variables
-		var src      = 0xC0; // MID
-		var dst      = 0xBF; // GLO
-		var src_name = 'MID';
-		var dst_name = 'GLO';
 		var command  = 'device status';
-    var data;
-    var msg;
+		var data;
+		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (reset == true) {
@@ -150,19 +145,16 @@ var MID = function(omnibus) {
 			msg   = [0x02, 0x01];
 		}
 		else {
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			data = 'ready';
+			msg  = [0x02, 0x00];
 		}
 
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(msg),
-		}
-
-		console.log('[%s->%s] %s:', src_name, dst_name, command, data);
-
-		omnibus.ibus.send_message(ibus_packet);
+		console.log('[%s->%s] %s:', 'MID', 'GLO', command, data);
+		omnibus.ibus.send({
+			src: 'MID',
+			dst: 'GLO',
+			msg: msg,
+		});
 	}
 }
 

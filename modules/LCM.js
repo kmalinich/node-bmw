@@ -37,9 +37,6 @@ function hex2a(hexx) {
 }
 
 var LCM = function(omnibus) {
-	// Self reference
-	var _self = this;
-
 	// Exposed data
 	this.auto_lights         = auto_lights;
 	this.auto_lights_process = auto_lights_process;
@@ -57,40 +54,38 @@ var LCM = function(omnibus) {
 
 	// Request various things from LCM
 	function request(value) {
-		var src = 0xED; // VID
-		var dst = 0xD0; // LCM
+		var src = 'VID';
+		var dst = 'LCM';
 		var cmd;
 
 		console.log('[ node-bmw] Requesting \'%s\'', value);
 
 		switch (value) {
 			case 'lcm-io':
-				src = 0x3F; // DIA
-				dst = 0xD0; // GLO
+				src = 'DIA';
+				dst = 'GLO';
 				cmd = [0x08, 0x00]; // Get IO status
 				break;
 			case 'vehicledata':
-				src = 0x80; // IKE
-				dst = 0xD0; // LCM
+				src = 'IKE';
+				dst = 'LCM';
 				cmd = 0x53;
 				break;
 			case 'lampstatus':
-				src = 0x3B; // GT
+				src = 'GT';
 				cmd = 0x5A;
 				break;
 			case 'dimmer':
-				src = 0xF0; // BMBT
+				src = 'BMBT';
 				cmd = 0x5D;
 				break;
 		}
 
-		var ibus_packet = {
+		omnibus.ibus.send({
 			src: src,
 			dst: dst,
-			msg: new Buffer([cmd]),
-		}
-
-		omnibus.ibus.send_message(ibus_packet);
+			msg: [cmd],
+		});
 	}
 
 	// Parse data sent from LCM module
@@ -487,7 +482,7 @@ var LCM = function(omnibus) {
 		cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
 
 		reset();
-		omnibus.IKE.ike_text(cluster_msg);
+		omnibus.IKE.text(cluster_msg);
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(() => {
@@ -678,40 +673,22 @@ var LCM = function(omnibus) {
 
 	// Get LCM IO status
 	function lcm_get() {
-		var src = 0x3F; // DIA
-		var dst = 0xD0; // GLO
-		//var cmd = [0x0B, 0x00, 0x00, 0x00, 0x00]; // Get IO status
-		var cmd = [0x08, 0x00]; // Get IO status
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(cmd),
-		}
-
-		// Send the message
-		console.log('[      LCM] Sending \'Get IO status\' packet');
-		omnibus.ibus.send_message(ibus_packet);
+		// console.log('[      LCM] Sending \'Get IO status\' packet');
+		omnibus.ibus.send({
+			src: 'DIA',
+			dst: 'LCM',
+			msg: [0x08, 0x00], // Get IO status
+		});
 	}
 
 	// Send message to LCM
 	function lcm_set(packet) {
-		var src = 0x3F; // DIA
-		var dst = 0xD0; // LCM
-		var cmd = 0x0C; // Set IO status
-
-		// Add the command to the beginning of the LCM hex array
-		packet.unshift(cmd);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		// Send the message
 		// console.log('[      LCM] Sending \'Set IO status\' packet');
-		omnibus.ibus.send_message(ibus_packet);
+		omnibus.ibus.send({
+			src: 'DIA',
+			dst: 'LCM',
+			msg: [0x0C, packet],
+		});
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values

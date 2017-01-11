@@ -24,7 +24,6 @@ function bit_test(num, bit) {
 var NAV = function(omnibus) {
 
 	// Self reference
-	var _self = this;
 
 	// Exposed data
 	this.parse_data = parse_data;

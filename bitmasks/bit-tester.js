@@ -17,6 +17,16 @@ var ibus_connection = new ibus_interface(device);
 // Run shutdown() on SIGINT
 process.on('SIGINT', shutdown);
 
+// Bitmasks in hex
+var bit_0 = 0x01;
+var bit_1 = 0x02;
+var bit_2 = 0x04;
+var bit_3 = 0x08;
+var bit_4 = 0x10;
+var bit_5 = 0x20;
+var bit_6 = 0x40;
+var bit_7 = 0x80;
+
 // Startup function
 function startup() {
 	// Open serial port
@@ -30,21 +40,6 @@ function shutdown() {
 		process.exit();
 	});
 }
-
-// Send IBUS message
-function ibus_send(ibus_packet) {
-	ibus_connection.send_message(ibus_packet);
-}
-
-// Bitmasks in hex
-var bit_0 = 0x01;
-var bit_1 = 0x02;
-var bit_2 = 0x04;
-var bit_3 = 0x08;
-var bit_4 = 0x10;
-var bit_5 = 0x20;
-var bit_6 = 0x40;
-var bit_7 = 0x80;
 
 function bit_test(num, bit) {
 	if ((num & bit) != 0) {
@@ -101,20 +96,12 @@ function bit_sample(dsc, packet, callback) {
 		// Display the bitmask for the two array positions
 		gm_bitmask_display(dsc, packet);
 
-		var src = 0x3F; // DIA
-		var dst = 0x00; // GM
-		var cmd = 0x0C; // Set IO status
+		omnibus.ibus.send({
+			src: 'DIA',
+			dst: 'GM',
+			msg: [0x0C, packet],
+		});
 
-		// Add the command to the beginning of the hex array
-		packet.unshift(cmd);
-
-		var ibus_packet = {
-			src: src,
-			dst: dst,
-			msg: new Buffer(packet),
-		}
-
-		//ibus_connection.send_message(ibus_packet);
 		callback(null, 'message sent');
 	}, 100);
 }

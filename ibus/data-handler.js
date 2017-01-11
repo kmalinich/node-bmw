@@ -1,15 +1,12 @@
 #!/usr/bin/env node
 
 var data_handler = function(omnibus) {
-	// Self reference
-	var _self = this;
-
 	// Exposed data
 	this.check_data = check_data;
 
 	// Data handler
 	function check_data(data) {
-		//console.log('[IBUS:HDLR] Last event %s', omnibus.last_event);
+		//console.log('[IBUS:HDLR] Last event %s', omnibus.last_event_ibus);
 
 		if (data.msg != 0) {
 			// Log output

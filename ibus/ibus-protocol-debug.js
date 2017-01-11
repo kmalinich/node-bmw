@@ -9,7 +9,7 @@ const query_string = require('querystring');
 const omnibus = {};
 
 // Last time data was fired
-omnibus.last_event = 0;
+omnibus.last_event_ibus = 0;
 
 omnibus.bus_modules = new (require('../lib/bus-modules.js'));
 omnibus.config      = require('../lib/config.js');  // Config

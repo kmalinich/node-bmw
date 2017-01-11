@@ -28,7 +28,6 @@ function bit_set(num, bit) {
 
 var BMBT = function(omnibus) {
 	// Self reference
-	var _self = this;
 
 	// Reset bit
 	var reset = true;

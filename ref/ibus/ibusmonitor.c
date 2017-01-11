@@ -405,9 +405,6 @@ static void decode_message(const unsigned char *msg, int len)
             if (msg[4] == 0x00)
                 printf("REMOVE");
             break;
-        case 0x7a:
-            printf("INTERIOR LIGHT ");
-            break;
         case 0xAA:
             printf("NAVIGATION CONTROL");
             break;
@@ -522,6 +519,7 @@ int main(int argc, char **argv)
     rxpos = 0;
     memset(rxbuf, 0, sizeof(rxbuf));
     ctr = 0;
+
     for(;;) {
         if((len = read(fd, rxbuf + rxpos, 1)) == -1) {
             fprintf(stderr, "read: %m\n");

@@ -225,13 +225,13 @@ var LCM = function(omnibus) {
 
 		// Faulty
 		if (message[2] == 0x00)          { omnibus.status.lights.faulty.all_ok         = true; } else { omnibus.status.lights.faulty.all_ok         = false; }
-		if (bit_test(message[2], bit_0)) { omnibus.status.lights.faulty.standing_front = true; } else { omnibus.status.lights.faulty.standing_front = false; }
+		if (bit_test(message[2], bit_0)) { omnibus.status.lights.faulty.standing.front = true; } else { omnibus.status.lights.faulty.standing.front = false; }
 		if (bit_test(message[2], bit_1)) { omnibus.status.lights.faulty.lowbeam        = true; } else { omnibus.status.lights.faulty.lowbeam        = false; }
 		if (bit_test(message[2], bit_2)) { omnibus.status.lights.faulty.highbeam       = true; } else { omnibus.status.lights.faulty.highbeam       = false; }
-		if (bit_test(message[2], bit_3)) { omnibus.status.lights.faulty.fog_front      = true; } else { omnibus.status.lights.faulty.fog_front      = false; }
-		if (bit_test(message[2], bit_4)) { omnibus.status.lights.faulty.fog_rear       = true; } else { omnibus.status.lights.faulty.fog_rear       = false; }
-		if (bit_test(message[2], bit_5)) { omnibus.status.lights.faulty.turn_left      = true; } else { omnibus.status.lights.faulty.turn_left      = false; }
-		if (bit_test(message[2], bit_6)) { omnibus.status.lights.faulty.turn_right     = true; } else { omnibus.status.lights.faulty.turn_right     = false; }
+		if (bit_test(message[2], bit_3)) { omnibus.status.lights.faulty.fog.front      = true; } else { omnibus.status.lights.faulty.fog.front      = false; }
+		if (bit_test(message[2], bit_4)) { omnibus.status.lights.faulty.fog.rear       = true; } else { omnibus.status.lights.faulty.fog.rear       = false; }
+		if (bit_test(message[2], bit_5)) { omnibus.status.lights.faulty.turn.left      = true; } else { omnibus.status.lights.faulty.turn.left      = false; }
+		if (bit_test(message[2], bit_6)) { omnibus.status.lights.faulty.turn.right     = true; } else { omnibus.status.lights.faulty.turn.right     = false; }
 		if (bit_test(message[2], bit_7)) { omnibus.status.lights.faulty.license_plate  = true; } else { omnibus.status.lights.faulty.license_plate  = false; }
 
 		// Lights on
@@ -244,12 +244,12 @@ var LCM = function(omnibus) {
 		if (bit_test(message[3], bit_7)) { omnibus.status.lights.hazard          = true; } else { omnibus.status.lights.hazard          = false; }
 
 		// Faulty
-		if (bit_test(message[4], bit_0)) { omnibus.status.lights.faulty.brake_right         = true; } else { omnibus.status.lights.faulty.brake_right         = false; }
-		if (bit_test(message[4], bit_1)) { omnibus.status.lights.faulty.brake_left          = true; } else { omnibus.status.lights.faulty.brake_left          = false; }
-		if (bit_test(message[4], bit_2)) { omnibus.status.lights.faulty.standing_rear_right = true; } else { omnibus.status.lights.faulty.standing_rear_right = false; }
-		if (bit_test(message[4], bit_3)) { omnibus.status.lights.faulty.standing_rear_left  = true; } else { omnibus.status.lights.faulty.standing_rear_left  = false; }
-		if (bit_test(message[4], bit_4)) { omnibus.status.lights.faulty.lowbeam_right       = true; } else { omnibus.status.lights.faulty.lowbeam_right       = false; }
-		if (bit_test(message[4], bit_5)) { omnibus.status.lights.faulty.lowbeam_left        = true; } else { omnibus.status.lights.faulty.lowbeam_left        = false; }
+		if (bit_test(message[4], bit_0)) { omnibus.status.lights.faulty.brake.right         = true; } else { omnibus.status.lights.faulty.brake.right         = false; }
+		if (bit_test(message[4], bit_1)) { omnibus.status.lights.faulty.brake.left          = true; } else { omnibus.status.lights.faulty.brake.left          = false; }
+		if (bit_test(message[4], bit_2)) { omnibus.status.lights.faulty.standing.rear_right = true; } else { omnibus.status.lights.faulty.standing.rear_right = false; }
+		if (bit_test(message[4], bit_3)) { omnibus.status.lights.faulty.standing.rear_left  = true; } else { omnibus.status.lights.faulty.standing.rear_left  = false; }
+		if (bit_test(message[4], bit_4)) { omnibus.status.lights.faulty.lowbeam.right       = true; } else { omnibus.status.lights.faulty.lowbeam.right       = false; }
+		if (bit_test(message[4], bit_5)) { omnibus.status.lights.faulty.lowbeam.left        = true; } else { omnibus.status.lights.faulty.lowbeam.left        = false; }
 
 		/*
 		 * Comfort turn signal handling

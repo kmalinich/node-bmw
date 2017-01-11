@@ -12,6 +12,9 @@ var data_handler = function(omnibus) {
 			// Log output
 			// console.log('[%s->%s] ', data.src.name, data.dst.name, data.msg);
 
+			// After moving everything to new model, just do:
+			// omnibus[data.src.name].parse_out(data); break;
+
 			// Send message to code module to parse
 			switch (data.src.name) {
 				// New model

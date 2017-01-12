@@ -23,7 +23,6 @@ function bit_test(num, bit) {
 
 var ANZV = function(omnibus) {
 
-	// Self reference
 
 	// Exposed data
 	this.parse_data = parse_data;

@@ -1,19 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
@@ -27,11 +13,6 @@ function bit_set(num, bit) {
 }
 
 var BMBT = function(omnibus) {
-	// Self reference
-
-	// Reset bit
-	var reset = true;
-
 	// Exposed data
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
@@ -43,21 +24,13 @@ var BMBT = function(omnibus) {
 
 	// Request RAD status every 10 seconds
 	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+		send_device_status();
 		request_rad_status();
 	}
 	setInterval(() => {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-			request_rad_status();
-		}
-	}, 10000);
-
-	// Send device status every 10 seconds
-	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-		send_device_status();
-	}
-	setInterval(() => {
-		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			send_device_status();
+			request_rad_status();
 		}
 	}, 10000);
 
@@ -65,16 +38,16 @@ var BMBT = function(omnibus) {
 	function power_on_if_ready() {
 		// Debug logging
 		// console.log('[ node-bmw] BMBT.power_on_if_ready(): evaluating');
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): ignition      : \'%s\'', omnibus.status.vehicle.ignition);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): audio_control : \'%s\'', omnibus.status.audio.audio_control);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): dsp_ready     : \'%s\'', omnibus.status.audio.dsp_ready);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad_ready     : \'%s\'', omnibus.status.audio.rad_ready);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): ignition          : \'%s\'', omnibus.status.vehicle.ignition);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', omnibus.status.dsp.ready);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', omnibus.status.rad.audio_control);
+		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', omnibus.status.rad.ready);
 
 		if (
 			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&
-			omnibus.status.audio.audio_control == 'off' &&
-			omnibus.status.audio.dsp_ready == true &&
-			omnibus.status.audio.rad_ready == true
+			omnibus.status.rad.audio_control === 'off' &&
+			omnibus.status.dsp.ready === true &&
+			omnibus.status.rad.ready === true
 		) {
 			send_button('power');
 		}
@@ -83,14 +56,10 @@ var BMBT = function(omnibus) {
 	// Parse data sent to BMBT module
 	function parse_in(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x01: // Request: device status
 				command = 'request';
 				value   = 'device status';
@@ -100,22 +69,19 @@ var BMBT = function(omnibus) {
 				break;
 
 			case 0x02: // Device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
-						value   = 'ready';
+						value = 'ready';
 						break;
-
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						value = 'ready after reset';
 						break;
 				}
 				break;
 
-			case 0x4a: // Cassette control
+			case 0x4A: // Cassette control
 				command = 'cassette control';
-				value   = message[1];
+				value   = data.msg[1];
 
 				send_cassette_status();
 				break;
@@ -126,34 +92,29 @@ var BMBT = function(omnibus) {
 				break;
 		}
 
-		console.log('[%s<-%s] %s:', data.dst.name, data.src.name, command, value);
+		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Parse data sent from BMBT module
 	function parse_out(data) {
 		// Init variables
-		var src     = data.src.id;
-		var dst     = data.dst;
-		var message = data.msg;
-
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x01: // Request: device status
 				command = 'request';
 				value   = 'device status';
 				break;
 
 			case 0x02: // Device status
-				switch (message[1]) {
+				omnibus.status.bmbt.ready = true;
+				command = 'device status';
+				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
 						value   = 'ready';
 						break;
-
 					case 0x01:
-						command = 'device status';
 						value   = 'ready after reset';
 						break;
 				}
@@ -169,7 +130,7 @@ var BMBT = function(omnibus) {
 				value   = 'volume control';
 				break;
 
-			case 0x4b: // Cassette status
+			case 0x4B: // Cassette status
 				command = 'cassette status';
 				value   = 'no tape';
 				break;
@@ -184,7 +145,7 @@ var BMBT = function(omnibus) {
 				value   = 'BM button';
 				break;
 
-			case 0x5d: // Request: light dimmer status
+			case 0x5D: // Request: light dimmer status
 				command = 'request';
 				value   = 'light dimmer status';
 				break;
@@ -196,11 +157,11 @@ var BMBT = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = new Buffer(data.msg);
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
+		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Request status from RAD module
@@ -226,14 +187,14 @@ var BMBT = function(omnibus) {
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (reset === true) {
+		if (omnibus.status.bmbt.reset === true) {
+			omnibus.status.bmbt.reset = false;
 			data  = 'ready after reset';
-			reset = false;
 			msg   = [0x02, 0x01];
 		}
 		else {
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			data = 'ready';
+			msg  = [0x02, 0x00];
 		}
 
 		omnibus.ibus.send({

@@ -26,7 +26,6 @@ function bit_set(num, bit) {
 }
 
 var GM = function(omnibus) {
-	// Self reference
 
 	// Exposed data
 	this.door_flap_status_decode = door_flap_status_decode;

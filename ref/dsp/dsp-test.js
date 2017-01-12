@@ -13,10 +13,7 @@ var data_4;
 var data_5;
 var data_6;
 var data_7;
-var dsp_mode;
 var echo;
-var reverb;
-var room_size;
 
 var dsp_modes = {
 	0 : 'concert hall',
@@ -90,12 +87,13 @@ data_5 = [0x35, 0x06, 0x00, 0x20, 0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0]; // 
 data_6 = [0x35, 0x05, 0x00, 0x20, 0x0A, 0x27, 0x42, 0x77, 0x93, 0xA6, 0xCA]; // kdm-e39 - good preset
 data_7 = [0x35, 0x04, 0x01, 0x23, 0x03, 0x27, 0x48, 0x67, 0x8A, 0xA9, 0xC8];
 
-// decode_dsp(data_1);
-// decode_dsp(data_2);
-// decode_dsp(data_3);
-// decode_dsp(data_4);
-// decode_dsp(data_6);
+decode_dsp(data_1);
+decode_dsp(data_2);
+decode_dsp(data_3);
+decode_dsp(data_4);
+decode_dsp(data_5);
 decode_dsp(data_6);
+decode_dsp(data_7);
 
 var dsp_data = {
   memory    : 2,
@@ -112,4 +110,4 @@ var dsp_data = {
   },
 }
 
-encode_dsp(dsp_data);
+// encode_dsp(dsp_data);

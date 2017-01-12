@@ -1,140 +1,158 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
 // Test number for bitmask
 function bit_test(num, bit) {
-  if ((num & bit) != 0) { return true; }
-  else { return false; }
+	if ((num & bit) != 0) { return true; }
+	else { return false; }
 }
 
 var CDC = function(omnibus) {
-  // Reset bit
-  var reset = true;
+	// Exposed data
+	this.parse_in           = parse_in;
+	this.parse_out          = parse_out;
+	this.send_cd_status     = send_cd_status;
+	this.send_device_status = send_device_status;
 
-  // Exposed data
-  this.parse_data         = parse_data;
-  this.send_cd_status     = send_cd_status;
-  this.send_device_status = send_device_status;
+	// Parse data sent to CDC module
+	function parse_in(data) {
+		// Init variables
+		var command;
+		var value;
 
-  // Parse data sent from CDC module
-  function parse_data(message) {
-    // Init variables
-    var command;
-    var data;
+		switch (data.msg[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				value   = 'device status';
 
-    switch (message[0]) {
-      case 0x01: // Request: device status
-        command = 'request';
-        data    = 'device status';
-        break;
+				// Send the ready packet since this module doesn't actually exist
+				send_device_status();
+				break;
 
-      case 0x02: // Device status
-        switch (message[1]) {
-          case 0x00:
-            command = 'device status';
-            data    = 'ready';
-            break;
+			case 0x02: // Device status
+				switch (data.msg[1]) {
+					case 0x00:
+						value = 'ready';
+						break;
+					case 0x01:
+						value = 'ready after reset';
+						break;
+				}
+				break;
 
-          case 0x01:
-            command = 'device status';
-            data    = 'ready after reset';
-            break;
-        }
-        break;
+			default:
+				command = 'unknown';
+				value   = new Buffer(data.msg);
+				break;
+		}
 
-      case 0x10: // Request: ignition status
-        command = 'request';
-        data    = 'ignition status';
-        break;
+		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);
+	}
 
-      case 0x16: // Request: odometer
-        command = 'request';
-        data    = 'odometer';
-        break;
+	// Parse data sent from CDC module
+	function parse_out(data) {
+		// Init variables
+		var command;
+		var value;
 
-      case 0x39: // Broadcast: CD status
-        command = 'broadcast';
-        data    = 'CD status';
-        break;
+		switch (data.msg[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				value   = 'device status';
+				break;
 
-      case 0x79: // Request: door/flap status
-        command = 'request';
-        data    = 'door/flap status';
-        break;
+			case 0x02: // Device status
+				omnibus.status.cdc.ready = true;
+				command = 'device status';
+				switch (data.msg[1]) {
+					case 0x00:
+						value = 'ready';
+						break;
+					case 0x01:
+						value = 'ready after reset';
+						break;
+				}
+				break;
 
-      default:
-        command = 'unknown';
-        data    = new Buffer(message);
-        break;
-    }
+			case 0x10: // Request: ignition status
+				command = 'request';
+				value   = 'ignition status';
+				break;
 
-    console.log('[CDC->???] Sent %s:', command, data);
-  }
+			case 0x16: // Request: odometer
+				command = 'request';
+				value   = 'odometer';
+				break;
 
-  // CDC->LOC Device status ready
-  function send_device_status() {
-    var command = 'device status';
-    var data;
-    var msg;
+			case 0x39: // Broadcast: CD status
+				command = 'broadcast';
+				value   = 'CD status';
+				break;
 
-    // Handle 'ready' vs. 'ready after reset'
-    if (reset == true) {
-      data  = 'ready after reset';
-      reset = false;
-      msg   = [0x02, 0x01];
-    }
-    else {
-      data  = 'ready';
-      msg   = [0x02, 0x00];
-    }
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				value   = 'door/flap status';
+				break;
 
-    omnibus.ibus.send({
-      src: 'CDC',
-      dst: 'LOC',
-      msg: msg,
-    });
+			default:
+				command = 'unknown';
+				value   = new Buffer(data.msg);
+				break;
+		}
 
-    console.log('[CDC->LOC] Sent %s:', command, data);
-  }
+		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);
+	}
 
-  // CDC->RAD CD status
-  function send_cd_status(status) {
-    var command = 'CD status';
-    var data;
-    var msg;
+	// CDC->LOC Device status ready
+	function send_device_status() {
+		var command = 'device status';
+		var data;
+		var msg;
 
-    switch(status) {
-      case 'stop':
-        data = 'stop';
-        msg  = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
-        break;
-      case 'play':
-        data = 'play';
-        msg  = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
-        break;
-    }
+		// Handle 'ready' vs. 'ready after reset'
+		if (omnibus.status.cdc.reset == true) {
+			omnibus.status.cdc.reset = false;
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
+		}
+		else {
+			data = 'ready';
+			msg  = [0x02, 0x00];
+		}
 
-    omnibus.ibus.send({
-      src: 'CDC',
-      dst: 'RAD',
-      msg: msg,
-    });
+		omnibus.ibus.send({
+			src: 'CDC',
+			dst: 'LOC',
+			msg: msg,
+		});
 
-    console.log('[CDC->LOC] Sent %s:', command, data);
-  }
+		console.log('[CDC->LOC] Sent %s:', command, data);
+	}
+
+	// CDC->RAD CD status
+	function send_cd_status(status) {
+		var command = 'CD status';
+		var data;
+		var msg;
+
+		switch(status) {
+			case 'stop':
+				data = 'stop';
+				msg  = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
+				break;
+			case 'play':
+				data = 'play';
+				msg  = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
+				break;
+		}
+
+		omnibus.ibus.send({
+			src: 'CDC',
+			dst: 'RAD',
+			msg: msg,
+		});
+
+		console.log('[CDC->RAD] Sent %s:', command, data);
+	}
 }
 
 module.exports = CDC;

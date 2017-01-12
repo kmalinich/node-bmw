@@ -23,15 +23,15 @@ function bit_test(num, bit) {
 
 var IKE = function(omnibus) {
 	// Exposed data
-	this.hud_refresh      = hud_refresh;
-	this.ike_data         = ike_data;
+	this.hud_refresh  = hud_refresh;
+	this.ike_data     = ike_data;
+	this.obc_data     = obc_data;
+	this.obc_refresh  = obc_refresh;
+	this.parse_out    = parse_out;
+	this.request      = request;
 	this.text         = text;
 	this.text_urgent  = text_urgent;
 	this.text_warning = text_warning;
-	this.obc_data         = obc_data;
-	this.obc_refresh      = obc_refresh;
-	this.parse_out        = parse_out;
-	this.request          = request;
 
 	// HUD refresh vars
 	var interval_hud_refresh;
@@ -104,9 +104,11 @@ var IKE = function(omnibus) {
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
-					// Set audio modules as not ready
-					omnibus.status.audio.dsp_ready = false;
-					omnibus.status.audio.rad_ready = false;
+					// Set modules as not ready
+					omnibus.status.bmbt.ready = false;
+					omnibus.status.cdc.ready  = false;
+					omnibus.status.dsp.ready  = false;
+					omnibus.status.rad.ready  = false;
 
 					// Turn off HDMI display after 3 seconds
 					setTimeout(() => {

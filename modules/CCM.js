@@ -22,7 +22,6 @@ function bit_test(num, bit) {
 
 
 var CCM = function(omnibus) {
-	// Self reference
 
 	// Exposed data
 	this.parse_out = parse_out;

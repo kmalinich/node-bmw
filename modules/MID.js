@@ -24,7 +24,6 @@ function bit_test(num, bit) {
 }
 
 var MID = function(omnibus) {
-	// Self reference
 
 	// Exposed data
 	this.parse_in           = parse_in;

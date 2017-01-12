@@ -1,19 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
@@ -27,8 +13,6 @@ function bit_set(num, bit) {
 }
 
 var RAD = function(omnibus) {
-	// Self reference
-
 	// Exposed data
 	this.led       = led;
 	this.parse_out = parse_out;
@@ -36,37 +20,26 @@ var RAD = function(omnibus) {
 	// Parse data sent from RAD module
 	function parse_out(data) {
 		// Init variables
-		var src     = data.src.id;
-		var dst     = data.dst;
-		var message = data.msg;
-
 		var command;
 		var value;
 
 		// Device status
-		switch (message[0]) {
-			case 0x01: // device status request + CD changer emulation handling
-				if (data.dst.name == 'CDC') {
-					command = 'device status request';
-					value   = 'CD changer';
-
-					// Do CDC->LOC Device status ready
-					omnibus.CDC.send_device_status();
-				}
+		switch (data.msg[0]) {
+			case 0x01: // Request: device status
+				command = 'request';
+				value   = 'device status';
 				break;
 
 			case 0x02: // Device status
-				switch (message[1]) {
-					case 0x00:
-						command = 'device status';
-						value   = 'ready';
-						omnibus.status.audio.rad_ready = true;
-						break;
+				omnibus.status.rad.ready = true;
+				command = 'device status';
 
+				switch (data.msg[1]) {
+					case 0x00:
+						value  = 'ready';
+						break;
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
-						omnibus.status.audio.rad_ready = true;
+						value = 'ready after reset';
 
 						// Attempt to send BMBT power button
 						setTimeout(() => {
@@ -103,26 +76,26 @@ var RAD = function(omnibus) {
 
 			case 0x32: // Volume control
 				command = 'volume control';
-				value   = message[1];
+				value   = data.msg[1];
 				break;
 
 			case 0x36: // Audio control (i.e. source)
 				command = 'audio control';
 
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0xAF:
 						value = 'off';
-						omnibus.status.audio.audio_control = value;
+						omnibus.status.rad.audio_control = value;
 						break;
 
 					case 0xa1:
 						value = 'tuner/tape';
-						omnibus.status.audio.audio_control = value;
+						omnibus.status.rad.audio_control = value;
 						break;
 
 					default:
-						value = message[1];
-						omnibus.status.audio.audio_control = value;
+						value = data.msg[1];
+						omnibus.status.rad.audio_control = value;
 						break;
 				}
 				break;
@@ -139,20 +112,20 @@ var RAD = function(omnibus) {
 
 			case 0x4A: // Cassette control
 				command = 'cassette control';
-				value   =  message[1];
+				value   =  data.msg[1];
 				break;
 
 			case 0x46: // LCD control
 				command = 'LCD control';
 				value   = 'request';
 
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x0E:
 						value = 'off';
 						break;
 
 					default:
-						value = message[1];
+						value = data.msg[1];
 						break;
 				}
 				break;
@@ -164,11 +137,11 @@ var RAD = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = new Buffer(data.msg);
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
+		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);
 	}
 
 	// Turn on/off/flash the RAD LED by encoding a bitmask from an input object
@@ -193,7 +166,7 @@ var RAD = function(omnibus) {
 		if (object.flash_green)  { byte = bit_set(byte, bit_5); }
 
 		// Send message
-		console.log('[ node-bmw] Sending \'RAD LED\' packet');
+		console.log('[node::RAD] Sending \'RAD LED\' packet');
 		omnibus.ibus.send({
 			src: 'TEL',
 			dst: 'OBC',

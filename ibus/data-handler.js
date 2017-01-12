@@ -6,12 +6,7 @@ var data_handler = function(omnibus) {
 
 	// Data handler
 	function check_data(data) {
-		//console.log('[IBUS:HDLR] Last event %s', omnibus.last_event_ibus);
-
 		if (data.msg != 0) {
-			// Log output
-			// console.log('[%s->%s] ', data.src.name, data.dst.name, data.msg);
-
 			// After moving everything to new model, just do:
 			// omnibus[data.src.name].parse_out(data); break;
 
@@ -20,6 +15,7 @@ var data_handler = function(omnibus) {
 				// New model
 				case 'BMBT' : omnibus.BMBT.parse_out(data); break;
 				case 'CCM'  : omnibus.CCM.parse_out(data);  break;
+				case 'CDC'  : omnibus.CDC.parse_out(data);  break;
 				case 'DSP'  : omnibus.DSP.parse_out(data);  break;
 				case 'DSPC' : omnibus.DSPC.parse_out(data); break;
 				case 'EWS'  : omnibus.EWS.parse_out(data);  break;
@@ -35,7 +31,6 @@ var data_handler = function(omnibus) {
 				// Old model
 				case 'ABG'  : omnibus.ABG.parse_data(data.msg);  break;
 				case 'ANZV' : omnibus.ANZV.parse_data(data.msg); break;
-				case 'CDC'  : omnibus.CDC.parse_data(data.msg);  break;
 				case 'GT'   : omnibus.GT.parse_data(data.msg);   break;
 				case 'HAC'  : omnibus.HAC.parse_data(data.msg);  break;
 				case 'NAV'  : omnibus.NAV.parse_data(data.msg);  break;
@@ -47,13 +42,18 @@ var data_handler = function(omnibus) {
 
 				// Diag/default
 				//case 'DIA'  : console.log('[%s->%s] command:',          data.src.name, data.dst.name, data.msg); break;
-				case 'DIA'  : break;
-				default     : console.log('[%s->%s] No source handler', data.src.name, data.dst.name, data.msg); break;
+				case 'DIA' : break;
+				default    : console.log('[%s->%s] No source handler', data.src.name, data.dst.name, data.msg); break;
 			}
+
+			// After moving everything to new model, just do:
+			// omnibus[data.dst.name].parse_in(data);  break;
 
 			switch (data.dst.name) {
 				case 'BMBT' : omnibus.BMBT.parse_in(data); break;
+				case 'CDC'  : omnibus.CDC.parse_in(data);  break;
 				case 'DSPC' : omnibus.DSPC.parse_in(data); break;
+				case 'MID'  : omnibus.MID.parse_in(data);  break;
 			}
 		}
 	}

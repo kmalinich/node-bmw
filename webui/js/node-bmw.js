@@ -119,23 +119,6 @@ function form_lcm() {
 	});
 }
 
-// Get IO status
-function gm_get() {
-	console.log('gm_get();');
-
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : {
-			'gm-command' : 'gm-get',
-		},
-		success : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
 // Central locking/unlocking
 function gm_cl(action) {
 	console.log('gm_cl(%s);', action);
@@ -228,9 +211,26 @@ function lcm_dimmer(value) {
 	});
 }
 
-// LCM Get IO status
+// Get GM IO status
+function gm_get() {
+	console.log('gm_get()');
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : {
+			'gm-command' : 'gm-get',
+		},
+		success : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
+// Get LCM IO status
 function lcm_get() {
-	console.log('lcm_get();');
+	console.log('lcm_get()');
 
 	$.ajax({
 		url      : '/api/lcm',
@@ -263,7 +263,7 @@ function prepare_gm_interior_light() {
 	});
 
 	slider.noUiSlider.on('change', function(data) {
-    var value = parseInt(data[0]);
+		var value = parseInt(data[0]);
 		gm_interior_light(value);
 	});
 }
@@ -306,7 +306,7 @@ function prepare_lcm_dimmer() {
 	});
 
 	slider.noUiSlider.on('change', function(data) {
-    var value = parseInt(data[0]);
+		var value = parseInt(data[0]);
 		console.log('LCM dimmer slider: %s', value);
 	});
 }
@@ -493,19 +493,6 @@ function obc_refresh(callback) {
 	});
 }
 
-function gm_refresh() {
-	// Data refresh from GM
-	$.ajax({
-		url      : '/api/gm',
-		type     : 'POST',
-		dataType : 'json',
-		data     : 'gm-command=gm-get',
-		success  : function(return_data) {
-			console.log(return_data);
-		}
-	});
-}
-
 function lcm_pulse() {
 	// Pulse clamps 15, 30A, 30B, once
 	$.ajax({
@@ -516,14 +503,6 @@ function lcm_pulse() {
 		success  : function(return_data) {
 			console.log(return_data);
 		}
-	});
-}
-
-function status_load() {
-	// Refresh OBC data
-	obc_refresh(function() {
-		// Refresh browser view
-		status();
 	});
 }
 

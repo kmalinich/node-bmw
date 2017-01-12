@@ -4,7 +4,7 @@
 		<?php include './include/head.php'; ?>
 		<?php include './include/css.php'; ?>
 	</head>
-	<body onload="javascript:status_load()">
+	<body onload="javascript:status();">
 		<?php include './include/navbar.php'; ?>
 		<div class="container-fluid">
 				<div class="panel-group">
@@ -25,8 +25,6 @@
 						</div>
 					</div>
 				</div>
-
-
 
 					<hr>
 						<h4><i class="fa fa-key"></i> <span id="vehicle-locked"></span>, <span id="lights-interior"></span></h4>

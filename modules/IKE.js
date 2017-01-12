@@ -778,11 +778,11 @@ var IKE = function(omnibus) {
 		omnibus.LCM.request('vehicledata');
 		omnibus.LCM.request('lampstatus');
 		omnibus.LCM.request('dimmer');
-		omnibus.LCM.request('lcm-io');
+		omnibus.LCM.request('io-status');
 
 		// Immo+GM data
 		omnibus.EWS.request('immobiliserstatus');
-		omnibus.GM.gm_get();
+		omnibus.GM.request('io-status');
 
 		// IKE data
 		request('statusall'  );

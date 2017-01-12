@@ -56,10 +56,10 @@ var LCM = function(omnibus) {
 		var src;
 		var cmd;
 
-		console.log('[ node-bmw] Requesting \'%s\'', value);
+		console.log('[node::LCM] Requesting \'%s\'', value);
 
 		switch (value) {
-			case 'lcm-io':
+			case 'io-status':
 				src = 'DIA';
 				cmd = [0x08, 0x00]; // Get IO status
 				break;
@@ -668,16 +668,6 @@ var LCM = function(omnibus) {
 		};
 
 		io_status_encode(lcm_object);
-	}
-
-	// Get LCM IO status
-	function lcm_get() {
-		// console.log('[      LCM] Sending \'Get IO status\' packet');
-		omnibus.ibus.send({
-			src: 'DIA',
-			dst: 'LCM',
-			msg: [0x08, 0x00], // Get IO status
-		});
 	}
 
 	// Send message to LCM

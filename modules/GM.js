@@ -32,7 +32,6 @@ var GM = function(omnibus) {
 	this.door_flap_status_decode = door_flap_status_decode;
 	this.gm_cl                   = gm_cl;
 	this.gm_data                 = gm_data;
-	this.gm_get                  = gm_get;
 	this.gm_interior_light       = gm_interior_light;
 	this.gm_send                 = gm_send;
 	this.gm_windows              = gm_windows;
@@ -224,8 +223,8 @@ var GM = function(omnibus) {
 		// Sort-of.. future-mode.. JSON command.. object? maybe..
 		else if (typeof data['gm-command'] !== 'undefined') {
 			switch (data['gm-command']) {
-				case 'gm-get' : gm_get();                            break; // Get IO status
-				case 'gm-cl'  : gm_cl(data['gm-command-action']);    break; // Central locking
+				case 'gm-get' : request('io-status');                      break; // Get IO status
+				case 'gm-cl'  : gm_cl(data['gm-command-action']);          break; // Central locking
 				default       : console.log('[      GM] Unknown command'); break; // Dunno what I sent
 			}
 		}
@@ -340,13 +339,36 @@ var GM = function(omnibus) {
 		});
 	}
 
-	// Request door/flap status from GM
-	function gm_get() {
-		console.log('[ node-bmw] Requesting door/flap status');
+	// Request various things from GM
+	function request(value) {
+		var src;
+		var cmd;
+
+		console.log('[node::LCM] Requesting \'%s\'', value);
+
+		switch (value) {
+			case 'io-status':
+				src = 'DIA';
+				cmd = [0x08, 0x00]; // Get IO status
+				break;
+			case 'door-flap-status':
+				src = 'BMBT';
+				cmd = 0x79;
+				break;
+			case 'lampstatus':
+				src = 'GT';
+				cmd = 0x5A;
+				break;
+			case 'dimmer':
+				src = 'BMBT';
+				cmd = 0x5D;
+				break;
+		}
+
 		omnibus.ibus.send({
-			src: 'BMBT',
+			src: src,
 			dst: 'GM',
-			msg: [0x79], // Get door/flap status
+			msg: [cmd],
 		});
 	}
 

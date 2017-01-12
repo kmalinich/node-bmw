@@ -44,7 +44,6 @@ var LCM = function(omnibus) {
 	this.io_status_decode    = io_status_decode;
 	this.io_status_encode    = io_status_encode;
 	this.lcm_data            = lcm_data;
-	this.lcm_get             = lcm_get;
 	this.lcm_set             = lcm_set;
 	this.light_status_decode = light_status_decode;
 	this.parse_out           = parse_out;
@@ -54,8 +53,7 @@ var LCM = function(omnibus) {
 
 	// Request various things from LCM
 	function request(value) {
-		var src = 'VID';
-		var dst = 'LCM';
+		var src;
 		var cmd;
 
 		console.log('[ node-bmw] Requesting \'%s\'', value);
@@ -63,12 +61,10 @@ var LCM = function(omnibus) {
 		switch (value) {
 			case 'lcm-io':
 				src = 'DIA';
-				dst = 'GLO';
 				cmd = [0x08, 0x00]; // Get IO status
 				break;
 			case 'vehicledata':
 				src = 'IKE';
-				dst = 'LCM';
 				cmd = 0x53;
 				break;
 			case 'lampstatus':
@@ -83,7 +79,7 @@ var LCM = function(omnibus) {
 
 		omnibus.ibus.send({
 			src: src,
-			dst: dst,
+			dst: 'LCM',
 			msg: [cmd],
 		});
 	}
@@ -152,7 +148,10 @@ var LCM = function(omnibus) {
 					omnibus.LCM.io_status_decode(message);
 				}
 				else if (message.length == 1) {
-					value = 'ACK'
+					value = 'ACK';
+				}
+				else {
+					value = Buffer.from(message);
 				}
 				break;
 
@@ -335,7 +334,7 @@ var LCM = function(omnibus) {
 	// Handle incoming commands
 	function lcm_data(data) {
 		if (typeof data['lcm-get'] !== 'undefined') {
-			lcm_get();
+			request('lcm-io');
 		}
 		else {
 			// Dirty assumption

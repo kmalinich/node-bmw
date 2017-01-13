@@ -51,8 +51,8 @@ omnibus.api_server    = http.createServer(api_handler);
 omnibus.socket_server = new (require('./lib/socket-server.js'))(omnibus);
 
 // IBUS libraries
-omnibus.data_handler    = new (require('./ibus/data-handler.js'))(omnibus);   // Data handler
-omnibus.ibus = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
+omnibus.data_handler = new (require('./ibus/data-handler.js'))(omnibus);   // Data handler
+omnibus.ibus         = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
 
 // HTTP/WS config
 var api_port            = 3001;

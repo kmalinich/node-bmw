@@ -36,6 +36,7 @@ var GM = function(omnibus) {
 	this.gm_windows              = gm_windows;
 	this.key_fob_status_decode   = key_fob_status_decode;
 	this.parse_out               = parse_out;
+	this.request                 = request;
 
 	// Parse data sent from GM module
 	function parse_out(data) {
@@ -343,7 +344,7 @@ var GM = function(omnibus) {
 		var src;
 		var cmd;
 
-		console.log('[node::LCM] Requesting \'%s\'', value);
+		console.log('[node:::GM] Requesting \'%s\'', value);
 
 		switch (value) {
 			case 'io-status':
@@ -353,14 +354,6 @@ var GM = function(omnibus) {
 			case 'door-flap-status':
 				src = 'BMBT';
 				cmd = 0x79;
-				break;
-			case 'lampstatus':
-				src = 'GT';
-				cmd = 0x5A;
-				break;
-			case 'dimmer':
-				src = 'BMBT';
-				cmd = 0x5D;
 				break;
 		}
 

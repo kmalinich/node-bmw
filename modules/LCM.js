@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 // npm libraries
-var dbus    = require('dbus-native');
 var suncalc = require('suncalc');
-var wait    = require('wait.for');
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -61,7 +59,7 @@ var LCM = function(omnibus) {
 		switch (value) {
 			case 'io-status':
 				src = 'DIA';
-				cmd = [0x08, 0x00]; // Get IO status
+				cmd = [0x0B]; // Get IO status
 				break;
 			case 'vehicledata':
 				src = 'IKE';
@@ -87,18 +85,14 @@ var LCM = function(omnibus) {
 	// Parse data sent from LCM module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
 				command = 'device status';
 
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						value = 'ready';
 						break;
@@ -121,19 +115,19 @@ var LCM = function(omnibus) {
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
 				value   = 'vehicle data';
-				vehicle_data_decode(message);
+				vehicle_data_decode(data.msg);
 				break;
 
 			case 0x5B: // Broadcast: light status
 				command = 'broadcast';
 				value   = 'light status';
-				light_status_decode(message);
+				light_status_decode(data.msg);
 				break;
 
 			case 0x5C: // Broadcast: light dimmer status
 				command = 'broadcast';
 				value   = 'light dimmer status';
-				omnibus.status.lights.dimmer_value_3 = message[1];
+				omnibus.status.lights.dimmer_value_3 = data.msg[1];
 				break;
 
 			case 0x79: // Request: door/flap status
@@ -141,17 +135,17 @@ var LCM = function(omnibus) {
 				value   = 'door/flap status';
 				break;
 
-			case 0xA0: // Reply to DIA message: success
+			case 0xA0: // Reply to DIA: success
 				command = 'diagnostic reply ';
-				if (message.length == 33) {
+				if (data.msg.length === 33 || data.msg.length === 13) {
 					value = 'IO status';
-					omnibus.LCM.io_status_decode(message);
+					omnibus.LCM.io_status_decode(data.msg);
 				}
-				else if (message.length == 1) {
+				else if (data.msg.length == 1) {
 					value = 'ACK';
 				}
 				else {
-					value = Buffer.from(message);
+					value = Buffer.from(data.msg);
 				}
 				break;
 
@@ -162,7 +156,7 @@ var LCM = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = new Buffer(data.msg);
 				break;
 		}
 
@@ -206,7 +200,7 @@ var LCM = function(omnibus) {
 	function vehicle_data_decode(message) {
 		var vin_string             = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
 		omnibus.status.vehicle.vin = vin_string;
-		console.log('[ node-bmw] Decoded VIN string: \'%s\'', vin_string);
+		console.log('[node::LCM] Decoded VIN string: \'%s\'', vin_string);
 	}
 
 	// [0x5B] Decode a light status message from the LCM and act upon the results
@@ -328,13 +322,13 @@ var LCM = function(omnibus) {
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
 
-		console.log('[ node-bmw] decoded light status message');
+		console.log('[node::LCM] Decoded light status');
 	}
 
 	// Handle incoming commands
 	function lcm_data(data) {
 		if (typeof data['lcm-get'] !== 'undefined') {
-			request('lcm-io');
+			request('io-status');
 		}
 		else {
 			// Dirty assumption
@@ -696,29 +690,29 @@ var LCM = function(omnibus) {
 		var bitmask_10 = 0x00;
 		var bitmask_11 = 0x00;
 
-		// dimmer_value_2
-		var bitmask_15 = 0x00;
+		// // dimmer_value_2
+		// var bitmask_15 = 0x00;
 
-		// These we kinda don't fool with, so just populate them from the present values
-		var bitmask_12 = omnibus.status.lcm.io.bitmask_12;
-		var bitmask_13 = omnibus.status.lcm.io.bitmask_13;
-		var bitmask_14 = omnibus.status.lcm.io.bitmask_14;
-		var bitmask_16 = omnibus.status.lcm.io.bitmask_16;
-		var bitmask_17 = omnibus.status.lcm.io.bitmask_17;
-		var bitmask_18 = omnibus.status.lcm.io.bitmask_18;
-		var bitmask_19 = omnibus.status.lcm.io.bitmask_19;
-		var bitmask_20 = omnibus.status.lcm.io.bitmask_20;
-		var bitmask_21 = omnibus.status.lcm.io.bitmask_21;
-		var bitmask_22 = omnibus.status.lcm.io.bitmask_22;
-		var bitmask_23 = omnibus.status.lcm.io.bitmask_23;
-		var bitmask_24 = omnibus.status.lcm.io.bitmask_24;
-		var bitmask_25 = omnibus.status.lcm.io.bitmask_25;
-		var bitmask_26 = omnibus.status.lcm.io.bitmask_26;
-		var bitmask_27 = omnibus.status.lcm.io.bitmask_27;
-		var bitmask_28 = omnibus.status.lcm.io.bitmask_28;
-		var bitmask_29 = omnibus.status.lcm.io.bitmask_29;
-		var bitmask_30 = omnibus.status.lcm.io.bitmask_30;
-		var bitmask_31 = omnibus.status.lcm.io.bitmask_31;
+		// // These we kinda don't fool with, so just populate them from the present values
+		// var bitmask_12 = omnibus.status.lcm.io.bitmask_12;
+		// var bitmask_13 = omnibus.status.lcm.io.bitmask_13;
+		// var bitmask_14 = omnibus.status.lcm.io.bitmask_14;
+		// var bitmask_16 = omnibus.status.lcm.io.bitmask_16;
+		// var bitmask_17 = omnibus.status.lcm.io.bitmask_17;
+		// var bitmask_18 = omnibus.status.lcm.io.bitmask_18;
+		// var bitmask_19 = omnibus.status.lcm.io.bitmask_19;
+		// var bitmask_20 = omnibus.status.lcm.io.bitmask_20;
+		// var bitmask_21 = omnibus.status.lcm.io.bitmask_21;
+		// var bitmask_22 = omnibus.status.lcm.io.bitmask_22;
+		// var bitmask_23 = omnibus.status.lcm.io.bitmask_23;
+		// var bitmask_24 = omnibus.status.lcm.io.bitmask_24;
+		// var bitmask_25 = omnibus.status.lcm.io.bitmask_25;
+		// var bitmask_26 = omnibus.status.lcm.io.bitmask_26;
+		// var bitmask_27 = omnibus.status.lcm.io.bitmask_27;
+		// var bitmask_28 = omnibus.status.lcm.io.bitmask_28;
+		// var bitmask_29 = omnibus.status.lcm.io.bitmask_29;
+		// var bitmask_30 = omnibus.status.lcm.io.bitmask_30;
+		// var bitmask_31 = omnibus.status.lcm.io.bitmask_31;
 
 		// Set the various bitmask values according to the input array
 		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0); }
@@ -789,7 +783,7 @@ var LCM = function(omnibus) {
 
 		// LCM dimmer
 		if(array.dimmer_value_1) { bitmask_9  = parseInt(array.dimmer_value_1); }
-		if(array.dimmer_value_2) { bitmask_15 = parseInt(array.dimmer_value_2); }
+		// if(array.dimmer_value_2) { bitmask_15 = parseInt(array.dimmer_value_2); }
 
 		// Suspect
 		// array.clamp_58g
@@ -826,26 +820,26 @@ var LCM = function(omnibus) {
 			bitmask_9,
 			bitmask_10,
 			bitmask_11,
-			bitmask_12,
-			bitmask_13,
-			bitmask_14,
-			bitmask_15,
-			bitmask_16,
-			bitmask_17,
-			bitmask_18,
-			bitmask_19,
-			bitmask_20,
-			bitmask_21,
-			bitmask_22,
-			bitmask_23,
-			bitmask_24,
-			bitmask_25,
-			bitmask_26,
-			bitmask_27,
-			bitmask_28,
-			bitmask_29,
-			bitmask_30,
-			bitmask_31,
+			// bitmask_12,
+			// bitmask_13,
+			// bitmask_14,
+			// bitmask_15,
+			// bitmask_16,
+			// bitmask_17,
+			// bitmask_18,
+			// bitmask_19,
+			// bitmask_20,
+			// bitmask_21,
+			// bitmask_22,
+			// bitmask_23,
+			// bitmask_24,
+			// bitmask_25,
+			// bitmask_26,
+			// bitmask_27,
+			// bitmask_28,
+			// bitmask_29,
+			// bitmask_30,
+			// bitmask_31,
 		];
 
 		lcm_set(output);
@@ -982,7 +976,7 @@ var LCM = function(omnibus) {
 		omnibus.status.lcm.switch.turn_left                 = bit_test(bitmask_2, bit_7);
 		omnibus.status.lcm.switch.turn_right                = bit_test(bitmask_2, bit_6);
 
-		console.log('[ node-bmw] decoded LCM IO status');
+		console.log('[node::LCM] Decoded IO status');
 	}
 }
 

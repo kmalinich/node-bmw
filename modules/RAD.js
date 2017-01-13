@@ -101,13 +101,8 @@ var RAD = function(omnibus) {
 				break;
 
 			case 0x38: // CD control status request
-				if (data.dst.name == 'CDC') {
-					command = 'request'
-					value   = 'CD control status';
-
-					// Do CDC->LOC CD status stop
-					omnibus.CDC.send_cd_status('stop');
-				}
+				command = 'CD control status'
+				value   = 'request';
 				break;
 
 			case 0x4A: // Cassette control

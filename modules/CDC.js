@@ -25,7 +25,9 @@ var CDC = function(omnibus) {
 				value   = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
-				send_device_status();
+				if (omnibus.config.cdc_emulation === true) {
+					send_device_status();
+				}
 				break;
 
 			case 0x02: // Device status
@@ -36,6 +38,16 @@ var CDC = function(omnibus) {
 					case 0x01:
 						value = 'ready after reset';
 						break;
+				}
+				break;
+
+			case 0x38:
+				if (omnibus.config.cdc_emulation === true) {
+					command = 'request'
+					value   = 'CD control status';
+
+					// Do CDC->LOC CD status stop
+					send_cd_status('stop');
 				}
 				break;
 

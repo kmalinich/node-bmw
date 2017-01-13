@@ -143,7 +143,7 @@ var IKE = function(omnibus) {
 					default   : omnibus.status.vehicle.ignition = 'unknown';   break;
 				}
 
-				omnibus.LCM.auto_lights_process();
+				// omnibus.LCM.auto_lights_process();
 				value = omnibus.status.vehicle.ignition;
 				break;
 
@@ -785,6 +785,7 @@ var IKE = function(omnibus) {
 		// Immo+GM data
 		omnibus.EWS.request('immobiliserstatus');
 		omnibus.GM.request('io-status');
+		omnibus.GM.request('door-flap-status');
 
 		// IKE data
 		request('statusall'  );

@@ -198,7 +198,7 @@ var BMBT = function(omnibus) {
 	// Request status from RAD module
 	function request_rad_status() {
 		// Init variables
-		var command = 'request device status';
+		var command = 'request: device status';
 
 		omnibus.ibus.send({
 			src: 'BMBT',
@@ -206,7 +206,7 @@ var BMBT = function(omnibus) {
 			msg: [0x01],
 		});
 
-		// console.log('[BMBT->RAD] Sent %s:', command);
+		console.log('[BMBT::RAD] Sent %s', command);
 	}
 
 	// Send ready or ready after reset
@@ -220,8 +220,8 @@ var BMBT = function(omnibus) {
 		// Handle 'ready' vs. 'ready after reset'
 		if (omnibus.status.bmbt.reset === true) {
 			omnibus.status.bmbt.reset = false;
-			data  = 'ready after reset';
-			msg   = [0x02, 0x01];
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
 		}
 		else {
 			data = 'ready';
@@ -234,7 +234,7 @@ var BMBT = function(omnibus) {
 			msg: msg,
 		});
 
-		console.log('[BMBT->GLO] Sent %s:', command, data);
+		console.log('[BMBT::GLO] Sent %s:', command, data);
 	}
 
 	// Say we have no tape in the player

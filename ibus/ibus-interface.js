@@ -136,12 +136,12 @@ var ibus_interface = function(omnibus) {
 
 		// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event_ibus < 25) {
+		if (time_now-omnibus.last_event_ibus < 100) {
 			// Do we still have data?
 			if (queue_busy()) {
 				setTimeout(() => {
 					write_message();
-				}, 5);
+				}, 50);
 			}
 			else {
 				console.log('[INTF:RITE] Queue done (2nd)');

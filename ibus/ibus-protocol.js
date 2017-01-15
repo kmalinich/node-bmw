@@ -113,7 +113,7 @@ ibus_protocol.prototype.create = function(msg) {
   buffer[2] = this.omnibus.bus_modules.name2hex(msg.dst);
 
   for (var i = 0; i < msg.msg.length; i++) {
-    buffer[3 + i] = msg.msg[i];
+    buffer[i+3] = msg.msg[i];
   }
 
   var crc = 0x00;

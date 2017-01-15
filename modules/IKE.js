@@ -148,7 +148,7 @@ var IKE = function(omnibus) {
 					default   : omnibus.status.vehicle.ignition = 'unknown';   break;
 				}
 
-				// omnibus.LCM.auto_lights_process();
+				omnibus.LCM.auto_lights_process();
 				value = omnibus.status.vehicle.ignition;
 				break;
 

@@ -28,7 +28,6 @@ var ibus_interface = function(omnibus) {
 
 	// Local data
 	var device      = '/dev/bmw';
-	var queue       = [];
 	var serial_port = new serialport(device, {
 		autoOpen : false,
 		parity   : 'even',
@@ -137,7 +136,7 @@ var ibus_interface = function(omnibus) {
 
 		// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event_ibus < 1.4) {
+		if (time_now-omnibus.last_event_ibus < 5) {
 			// Do we still have data?
 			if (queue_busy()) {
 				write_message();

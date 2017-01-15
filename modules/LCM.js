@@ -63,22 +63,22 @@ var LCM = function(omnibus) {
 				break;
 			case 'vehicledata':
 				src = 'IKE';
-				cmd = 0x53;
+				cmd = [0x53];
 				break;
 			case 'lampstatus':
 				src = 'GT';
-				cmd = 0x5A;
+				cmd = [0x5A];
 				break;
 			case 'dimmer':
 				src = 'BMBT';
-				cmd = 0x5D;
+				cmd = [0x5D];
 				break;
 		}
 
 		omnibus.ibus.send({
 			src: src,
 			dst: 'LCM',
-			msg: [cmd],
+			msg: cmd,
 		});
 	}
 
@@ -156,7 +156,7 @@ var LCM = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 
@@ -254,7 +254,7 @@ var LCM = function(omnibus) {
 
 		// If comfort turn is not currently engaged
 		if (omnibus.status.lights.turn_comfort_left == true || omnibus.status.lights.turn_comfort_right == true) {
-			console.log('[      LCM] Comfort turn signal currently engaged');
+			console.log('[node::LCM] Comfort turn signal currently engaged');
 		}
 		else {
 			/*
@@ -296,7 +296,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_left_depress_elapsed < 1000) {
-						console.log('[      LCM] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
+						console.log('[node::LCM] Left turn signal depress elapsed time: %s ms. Firing left comfort turn signal', turn_left_depress_elapsed);
 						comfort_turn('left');
 					}
 				}
@@ -311,7 +311,7 @@ var LCM = function(omnibus) {
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
-						console.log('[      LCM] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
+						console.log('[node::LCM] Right turn signal depress elapsed time: %s ms. Firing right comfort turn signal', turn_right_depress_elapsed);
 						comfort_turn('right');
 					}
 				}
@@ -322,7 +322,7 @@ var LCM = function(omnibus) {
 		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
 		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
 
-		console.log('[node::LCM] Decoded light status');
+		// console.log('[node::LCM] Decoded light status');
 	}
 
 	// Handle incoming commands
@@ -667,9 +667,7 @@ var LCM = function(omnibus) {
 	// Send message to LCM
 	function lcm_set(packet) {
 		// console.log('[node::LCM] Sending \'Set IO status\' packet');
-		console.log('[node::LCM] lcm_set()');
 		packet.unshift(0x0C);
-		console.log(packet);
 		omnibus.ibus.send({
 			src: 'DIA',
 			dst: 'LCM',
@@ -679,9 +677,6 @@ var LCM = function(omnibus) {
 
 	// Encode the LCM bitmask string from an input of true/false values
 	function io_status_encode(array) {
-		console.log('[node::LCM] io_status_encode()');
-		console.log(array);
-
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -847,16 +842,12 @@ var LCM = function(omnibus) {
 			bitmask_30,
 			bitmask_31,
 		];
-		console.log(output);
 
 		lcm_set(output);
 	}
 
 	// Decode the LCM bitmask string and output an array of true/false values
 	function io_status_decode(array) {
-		console.log('[node::LCM] io_status_decode()');
-		console.log(array);
-
 		var bitmask_0  = array[1];
 		var bitmask_1  = array[2];
 		var bitmask_2  = array[3];
@@ -986,7 +977,7 @@ var LCM = function(omnibus) {
 		omnibus.status.lcm.switch.turn_left                 = bit_test(bitmask_2, bit_7);
 		omnibus.status.lcm.switch.turn_right                = bit_test(bitmask_2, bit_6);
 
-		console.log('[node::LCM] Decoded IO status');
+		// console.log('[node::LCM] Decoded IO status');
 	}
 }
 

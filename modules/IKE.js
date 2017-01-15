@@ -37,6 +37,12 @@ var IKE = function(omnibus) {
 	var interval_hud_refresh;
 	var last_hud_refresh = 0;
 
+	// Ignition state change vars
+	var state_powerdown;
+	var state_poweroff;
+	var state_poweron;
+	var state_run;
+
 	// Pad string for IKE text screen length (20 characters)
 	String.prototype.ike_pad = function() {
 		var string = this;
@@ -86,34 +92,71 @@ var IKE = function(omnibus) {
 			case 0x11: // ignition status
 				command = 'ignition status';
 
-				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
-				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
-					console.log('[ node-bmw] Trigger: power-off state');
-
-					// If the doors are locked
-					if (omnibus.status.vehicle.locked == true) {
-						// Send message to GM to toggle door locks
-						omnibus.GM.gm_cl();
-					}
-				}
-
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
-					console.log('[ node-bmw] Trigger: power-down state');
+					console.log('[node::IKE] Trigger: power-down state');
+					state_powerdown = true;
+				}
+				else {
+					state_powerdown = false;
+				}
 
+				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
+				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
+					console.log('[node::IKE] Trigger: power-off state');
+					state_poweroff = true;
+				}
+				else {
+					state_poweroff = false;
+				}
+
+				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
+				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
+					console.log('[node::IKE] Trigger: power-on state');
+					state_poweron = true;
+				}
+				else {
+					state_poweron = false;
+				}
+
+				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
+				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
+					console.log('[node::IKE] Trigger: run state');
+					state_run = true;
+				}
+				else {
+					state_run = false;
+				}
+
+				switch (message[1]) { // Ignition status value
+					case 0x00 : omnibus.status.vehicle.ignition = 'off';       break;
+					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
+					case 0x03 : omnibus.status.vehicle.ignition = 'run';       break;
+					case 0x07 : omnibus.status.vehicle.ignition = 'start';     break;
+					default   : omnibus.status.vehicle.ignition = 'unknown';   break;
+				}
+
+				if (state_powerdown === true) {
 					// Disable HUD refresh
 					clearInterval(interval_hud_refresh, () => {
-						console.log('[ node-bmw] Cleared HUD refresh interval');
+						console.log('[node::IKE] Cleared HUD refresh interval');
 					});
+
+					// Disable BMBT refresh
+					omnibus.BMBT.interval_status('unset');
 
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
 					// Set modules as not ready
 					omnibus.status.bmbt.ready = false;
+					omnibus.status.bmbt.reset = true;
 					omnibus.status.cdc.ready  = false;
+					omnibus.status.cdc.reset  = true;
 					omnibus.status.dsp.ready  = false;
+					omnibus.status.dsp.reset  = true;
 					omnibus.status.rad.ready  = false;
+					omnibus.status.rad.reset  = true;
 
 					// Turn off HDMI display after 3 seconds
 					setTimeout(() => {
@@ -121,9 +164,17 @@ var IKE = function(omnibus) {
 					}, 1000);
 				}
 
-				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
-					console.log('[ node-bmw] Trigger: power-on state');
+				if (state_poweroff === true) {
+					// If the doors are locked
+					if (omnibus.status.vehicle.locked == true) {
+						// Send message to GM to toggle door locks
+						omnibus.GM.gm_cl();
+					}
+				}
+
+				if (state_poweron === true) {
+					// Enable BMBT refresh
+					omnibus.BMBT.interval_status('set');
 
 					// Welcome message
 					text_warning('node-bmw     '+os.hostname(), 3000);
@@ -135,17 +186,7 @@ var IKE = function(omnibus) {
 					}, 10000);
 				}
 
-				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
-				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
-					console.log('[ node-bmw] Trigger: run state');
-				}
-
-				switch (message[1]) { // Ignition status value
-					case 0x00 : omnibus.status.vehicle.ignition = 'off';       break;
-					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
-					case 0x03 : omnibus.status.vehicle.ignition = 'run';       break;
-					case 0x07 : omnibus.status.vehicle.ignition = 'start';     break;
-					default   : omnibus.status.vehicle.ignition = 'unknown';   break;
+				if (state_run === true) {
 				}
 
 				omnibus.LCM.auto_lights_process();
@@ -256,11 +297,7 @@ var IKE = function(omnibus) {
 
 			case 0x1B: // ACK text message
 				command = 'acknowledged';
-				value   = 'temperature value';
-
-				value = parseFloat(message[1]);
-
-				value = value+' text messages';
+				value   = parseFloat(message[1])+' text messages';
 				break;
 
 			case 0x24: // OBC values broadcast
@@ -694,7 +731,7 @@ var IKE = function(omnibus) {
 		}
 
 		else {
-			console.log('[ node-bmw] ike_data(): Unknown command');
+			console.log('[node::IKE] ike_data(): Unknown command');
 		}
 
 	}
@@ -726,7 +763,7 @@ var IKE = function(omnibus) {
 			return;
 		}
 
-		// console.log('[ node-bmw] Refreshing OBC HUD');
+		// console.log('[node::IKE] Refreshing OBC HUD');
 
 		// Populate values if missing
 		if (omnibus.status.obc.consumption_1_mpg === null) {
@@ -779,7 +816,7 @@ var IKE = function(omnibus) {
 
 	// Refresh OBC data
 	function obc_refresh() {
-		console.log('[ node-bmw] Refreshing all OBC data');
+		console.log('[node::IKE] Refreshing all OBC data');
 
 		// LCM data
 		omnibus.LCM.request('vehicledata');
@@ -870,7 +907,7 @@ var IKE = function(omnibus) {
 			msg = [msg, target];
 		}
 
-		// console.log('[ node-bmw] Doing \'%s\' on OBC value \'%s\'', action, value);
+		// console.log('[node::IKE] Doing \'%s\' on OBC value \'%s\'', action, value);
 
 		omnibus.ibus.send({
 			src: 'GT',
@@ -881,7 +918,7 @@ var IKE = function(omnibus) {
 
 	// Cluster/interior backlight
 	function ike_backlight(value) {
-		console.log('[ node-bmw] Setting LCD screen backlight to %s', value);
+		console.log('[node::IKE] Setting LCD screen backlight to %s', value);
 		omnibus.ibus.send({
 			src: 'LCM',
 			dst: 'GLO',
@@ -891,7 +928,7 @@ var IKE = function(omnibus) {
 
 	// Request various things from IKE
 	function request(value) {
-		console.log('[ node-bmw] Requesting \'%s\'', value);
+		console.log('[node::IKE] Requesting \'%s\'', value);
 
 		var cmd;
 		var src = 'VID';
@@ -940,7 +977,7 @@ var IKE = function(omnibus) {
 
 	// Pretend to be IKE saying the car is on
 	function ike_ignition(value) {
-		console.log('[ node-bmw] Claiming ignition is \'%s\'', value);
+		console.log('[node::IKE] Claiming ignition is \'%s\'', value);
 
 		var status;
 		switch (value) {
@@ -967,7 +1004,7 @@ var IKE = function(omnibus) {
 
 	// OBC set clock
 	function obc_clock() {
-		console.log('[ node-bmw] Setting OBC clock to current time');
+		console.log('[node::IKE] Setting OBC clock to current time');
 
 		var time = moment();
 
@@ -1003,7 +1040,7 @@ var IKE = function(omnibus) {
 			var obc_value = '2';
 		}
 
-		console.log('[ node-bmw] OBC gong %s', obc_value);
+		console.log('[node::IKE] OBC gong %s', obc_value);
 
 		omnibus.ibus.send({
 			src: 'RAD',
@@ -1078,7 +1115,7 @@ var IKE = function(omnibus) {
 
 	// IKE cluster text send message
 	function text(string) {
-		// console.log('[ node-bmw] Sending text to IKE screen: \'%s\'', string);
+		// console.log('[node::IKE] Sending text to IKE screen: \'%s\'', string);
 		string = string.ike_pad();
 
 		// Need to center text..

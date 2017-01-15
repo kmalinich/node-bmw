@@ -24,6 +24,7 @@ function bit_set(num, bit) {
 
 var BMBT = function(omnibus) {
 	// Exposed data
+	this.interval_status      = interval_status;
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
 	this.power_on_if_ready    = power_on_if_ready;
@@ -32,26 +33,46 @@ var BMBT = function(omnibus) {
 	this.send_cassette_status = send_cassette_status;
 	this.send_device_status   = send_device_status;
 
-	// Request RAD status every 10 seconds
-	if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-		send_device_status();
-		request_rad_status();
+	// Interval var
+	var status_interval;
+
+	// Set or unset the status interval
+	function interval_status(action) {
+		if (omnibus.config.emulate.bmbt === true) {
+			switch (action) {
+				case 'set':
+					refresh_status();
+					status_interval = setInterval(() => {
+						refresh_status();
+					}, 10000);
+					console.log('[node:BMBT] Set refresh interval');
+					break;
+
+				case 'unset':
+					clearInterval(status_interval, () => {
+						console.log('[node:BMBT] Unset refresh interval');
+					});
+					break;
+			}
+		}
 	}
-	setInterval(() => {
+
+	// Send BMBT status, and request status from RAD
+	function refresh_status() {
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
 			send_device_status();
 			request_rad_status();
 		}
-	}, 10000);
+	}
 
 	// Send the power on button command if needed/ready
 	function power_on_if_ready() {
 		// Debug logging
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): evaluating');
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): ignition          : \'%s\'', omnibus.status.vehicle.ignition);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', omnibus.status.dsp.ready);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', omnibus.status.rad.audio_control);
-		// console.log('[ node-bmw] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', omnibus.status.rad.ready);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): evaluating');
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition          : \'%s\'', omnibus.status.vehicle.ignition);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', omnibus.status.dsp.ready);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', omnibus.status.rad.audio_control);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', omnibus.status.rad.ready);
 
 		if (
 			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&
@@ -122,10 +143,10 @@ var BMBT = function(omnibus) {
 				command = 'device status';
 				switch (data.msg[1]) {
 					case 0x00:
-						value   = 'ready';
+						value = 'ready';
 						break;
 					case 0x01:
-						value   = 'ready after reset';
+						value = 'ready after reset';
 						break;
 				}
 				break;

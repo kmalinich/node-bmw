@@ -673,6 +673,9 @@ var LCM = function(omnibus) {
 			dst: 'LCM',
 			msg: packet, // Set IO status
 		});
+
+		// Request the IO status after
+		request('io-status');
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values

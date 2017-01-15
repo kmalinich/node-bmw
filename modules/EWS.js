@@ -29,7 +29,7 @@ var EWS = function(omnibus) {
 	// Request various things from EWS
 	function request(value) {
 		var cmd;
-		console.log('[ node-bmw] Requesting \'%s\'', value);
+		console.log('[node::EWS] Requesting \'%s\'', value);
 
 		switch (value) {
 			case 'immobiliserstatus':

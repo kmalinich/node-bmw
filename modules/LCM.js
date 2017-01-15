@@ -394,7 +394,7 @@ var LCM = function(omnibus) {
 
 		// Check ignition
 		if (ignition != 'run') {
-			console.log('[      LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
+			console.log('[node::LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
 			// Not in run: turn off auto lights
 			auto_lights('off');
 			return;

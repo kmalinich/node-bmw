@@ -696,29 +696,29 @@ var LCM = function(omnibus) {
 		var bitmask_10 = 0x00;
 		var bitmask_11 = 0x00;
 
-		// // dimmer_value_2
-		// var bitmask_15 = 0x00;
+		// dimmer_value_2
+		var bitmask_15 = 0x00;
 
-		// // These we kinda don't fool with, so just populate them from the present values
-		// var bitmask_12 = omnibus.status.lcm.io.bitmask_12;
-		// var bitmask_13 = omnibus.status.lcm.io.bitmask_13;
-		// var bitmask_14 = omnibus.status.lcm.io.bitmask_14;
-		// var bitmask_16 = omnibus.status.lcm.io.bitmask_16;
-		// var bitmask_17 = omnibus.status.lcm.io.bitmask_17;
-		// var bitmask_18 = omnibus.status.lcm.io.bitmask_18;
-		// var bitmask_19 = omnibus.status.lcm.io.bitmask_19;
-		// var bitmask_20 = omnibus.status.lcm.io.bitmask_20;
-		// var bitmask_21 = omnibus.status.lcm.io.bitmask_21;
-		// var bitmask_22 = omnibus.status.lcm.io.bitmask_22;
-		// var bitmask_23 = omnibus.status.lcm.io.bitmask_23;
-		// var bitmask_24 = omnibus.status.lcm.io.bitmask_24;
-		// var bitmask_25 = omnibus.status.lcm.io.bitmask_25;
-		// var bitmask_26 = omnibus.status.lcm.io.bitmask_26;
-		// var bitmask_27 = omnibus.status.lcm.io.bitmask_27;
-		// var bitmask_28 = omnibus.status.lcm.io.bitmask_28;
-		// var bitmask_29 = omnibus.status.lcm.io.bitmask_29;
-		// var bitmask_30 = omnibus.status.lcm.io.bitmask_30;
-		// var bitmask_31 = omnibus.status.lcm.io.bitmask_31;
+		// These we kinda don't fool with, so just populate them from the present values
+		var bitmask_12 = 0x00;
+		var bitmask_13 = 0x00;
+		var bitmask_14 = 0x00;
+		var bitmask_16 = 0x00;
+		var bitmask_17 = 0x00;
+		var bitmask_18 = 0x00;
+		var bitmask_19 = 0x00;
+		var bitmask_20 = 0x00;
+		var bitmask_21 = 0x00;
+		var bitmask_22 = 0x00;
+		var bitmask_23 = 0x00;
+		var bitmask_24 = 0x00;
+		var bitmask_25 = 0x00;
+		var bitmask_26 = 0x00;
+		var bitmask_27 = 0x00;
+		var bitmask_28 = 0x00;
+		var bitmask_29 = 0x00;
+		var bitmask_30 = 0x00;
+		var bitmask_31 = 0x00;
 
 		// Set the various bitmask values according to the input array
 		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0); }
@@ -826,28 +826,28 @@ var LCM = function(omnibus) {
 			bitmask_9,
 			bitmask_10,
 			bitmask_11,
+			bitmask_12,
+			bitmask_13,
+			bitmask_14,
+			bitmask_15,
+			bitmask_16,
+			bitmask_17,
+			bitmask_18,
+			bitmask_19,
+			bitmask_20,
+			bitmask_21,
+			bitmask_22,
+			bitmask_23,
+			bitmask_24,
+			bitmask_25,
+			bitmask_26,
+			bitmask_27,
+			bitmask_28,
+			bitmask_29,
+			bitmask_30,
+			bitmask_31,
 		];
 		console.log(output);
-		// bitmask_12,
-		// bitmask_13,
-		// bitmask_14,
-		// bitmask_15,
-		// bitmask_16,
-		// bitmask_17,
-		// bitmask_18,
-		// bitmask_19,
-		// bitmask_20,
-		// bitmask_21,
-		// bitmask_22,
-		// bitmask_23,
-		// bitmask_24,
-		// bitmask_25,
-		// bitmask_26,
-		// bitmask_27,
-		// bitmask_28,
-		// bitmask_29,
-		// bitmask_30,
-		// bitmask_31,
 
 		lcm_set(output);
 	}

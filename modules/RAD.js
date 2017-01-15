@@ -88,7 +88,7 @@ var RAD = function(omnibus) {
 						omnibus.status.rad.audio_control = value;
 						break;
 
-					case 0xa1:
+					case 0xA1:
 						value = 'tuner/tape';
 						omnibus.status.rad.audio_control = value;
 						break;

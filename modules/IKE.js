@@ -354,7 +354,6 @@ var IKE = function(omnibus) {
 							string_temp_exterior_value = new Buffer(message[3], [message[4], message[5], message[6], message[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
-
 						else {
 							string_temp_exterior_value = new Buffer([message[4], message[5], message[6], message[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
@@ -639,7 +638,7 @@ var IKE = function(omnibus) {
 
 			case 0x53: // Request vehicle data
 				command = 'request';
-				value   = 'check control sensor status';
+				value   = 'vehicle data';
 				break;
 
 			case 0x57: // BC button in cluster
@@ -907,7 +906,7 @@ var IKE = function(omnibus) {
 			msg = [msg, target];
 		}
 
-		// console.log('[node::IKE] Doing \'%s\' on OBC value \'%s\'', action, value);
+		// console.log('[node::IKE] Performing \'%s\' on OBC value \'%s\'', action, value);
 
 		omnibus.ibus.send({
 			src: 'GT',
@@ -935,47 +934,48 @@ var IKE = function(omnibus) {
 		var dst = 'IKE';
 		switch (value) {
 			case 'ignition':
-				cmd = 0x10;
+				cmd = [0x10];
 				break;
 			case 'sensor':
-				cmd = 0x12;
+				cmd = [0x12];
 				break;
 			case 'coding':
 				src = 'RAD';
-				cmd = 0x14;
+				cmd = [0x14];
 				break;
 			case 'odometer':
 				src = 'EWS';
-				cmd = 0x16;
+				cmd = [0x16];
 				break;
 			case 'dimmer':
 				src = 'IHKA';
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'temperature':
-				src = 'IHKA';
+				src = 'LCM';
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'statusall':
 				src = 'IKE';
 				dst = 'GLO';
-				cmd = 0x01;
+				cmd = [0x01];
 				break;
 			case 'vin':
 				src = 'IKE';
 				dst = 'LCM';
-				cmd = 0x53;
+				cmd = [0x53];
 				break;
 		}
 
 		omnibus.ibus.send({
 			src: src,
 			dst: dst,
-			msg: [cmd],
+			msg: cmd,
 		});
 	}
 
 	// Pretend to be IKE saying the car is on
+	// Note - this can and WILL set the alarm off - kudos to the Germans...
 	function ike_ignition(value) {
 		console.log('[node::IKE] Claiming ignition is \'%s\'', value);
 

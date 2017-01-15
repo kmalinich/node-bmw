@@ -666,16 +666,22 @@ var LCM = function(omnibus) {
 
 	// Send message to LCM
 	function lcm_set(packet) {
-		// console.log('[      LCM] Sending \'Set IO status\' packet');
+		// console.log('[node::LCM] Sending \'Set IO status\' packet');
+		console.log('[node::LCM] lcm_set()');
+		packet.unshift(0x0C);
+		console.log(packet);
 		omnibus.ibus.send({
 			src: 'DIA',
 			dst: 'LCM',
-			msg: [0x0C, packet], // Set IO status
+			msg: packet, // Set IO status
 		});
 	}
 
 	// Encode the LCM bitmask string from an input of true/false values
 	function io_status_encode(array) {
+		console.log('[node::LCM] io_status_encode()');
+		console.log(array);
+
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -820,33 +826,37 @@ var LCM = function(omnibus) {
 			bitmask_9,
 			bitmask_10,
 			bitmask_11,
-			// bitmask_12,
-			// bitmask_13,
-			// bitmask_14,
-			// bitmask_15,
-			// bitmask_16,
-			// bitmask_17,
-			// bitmask_18,
-			// bitmask_19,
-			// bitmask_20,
-			// bitmask_21,
-			// bitmask_22,
-			// bitmask_23,
-			// bitmask_24,
-			// bitmask_25,
-			// bitmask_26,
-			// bitmask_27,
-			// bitmask_28,
-			// bitmask_29,
-			// bitmask_30,
-			// bitmask_31,
 		];
+		console.log(output);
+		// bitmask_12,
+		// bitmask_13,
+		// bitmask_14,
+		// bitmask_15,
+		// bitmask_16,
+		// bitmask_17,
+		// bitmask_18,
+		// bitmask_19,
+		// bitmask_20,
+		// bitmask_21,
+		// bitmask_22,
+		// bitmask_23,
+		// bitmask_24,
+		// bitmask_25,
+		// bitmask_26,
+		// bitmask_27,
+		// bitmask_28,
+		// bitmask_29,
+		// bitmask_30,
+		// bitmask_31,
 
 		lcm_set(output);
 	}
 
 	// Decode the LCM bitmask string and output an array of true/false values
 	function io_status_decode(array) {
+		console.log('[node::LCM] io_status_decode()');
+		console.log(array);
+
 		var bitmask_0  = array[1];
 		var bitmask_1  = array[2];
 		var bitmask_2  = array[3];

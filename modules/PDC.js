@@ -20,12 +20,9 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-
 var PDC = function(omnibus) {
-
 	// Exposed data
 	this.parse_data = parse_data;
-
 
 	// Parse data sent from PDC module
 	function parse_data(message) {

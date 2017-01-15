@@ -59,7 +59,7 @@ var LCM = function(omnibus) {
 		switch (value) {
 			case 'io-status':
 				src = 'DIA';
-				cmd = [0x0B]; // Get IO status
+				cmd = [0x0B, 0x00]; // Get IO status
 				break;
 			case 'vehicledata':
 				src = 'IKE';
@@ -139,7 +139,7 @@ var LCM = function(omnibus) {
 				command = 'diagnostic reply ';
 				if (data.msg.length === 33 || data.msg.length === 13) {
 					value = 'IO status';
-					omnibus.LCM.io_status_decode(data.msg);
+					io_status_decode(data.msg);
 				}
 				else if (data.msg.length == 1) {
 					value = 'ACK';
@@ -338,7 +338,7 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling
 	function auto_lights(light_switch) {
-		console.log('[ node-bmw] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
+		console.log('[node::LCM] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
 
 		switch (light_switch) {
 			case 'off':
@@ -406,7 +406,7 @@ var LCM = function(omnibus) {
 		// Check handbrake
 		// if (handbrake === true && ignition == 'run') {
 		// 	// Handbrake is set: disable auto lowbeams
-		// 	console.log('[ node-bmw] Auto lights: Handbrake on');
+		// 	console.log('[node::LCM] Auto lights: Handbrake on');
 
 		// 	omnibus.status.lights.auto.reason   = 'handbrake on';
 		// 	omnibus.status.lights.auto.lowbeam  = false;
@@ -441,7 +441,7 @@ var LCM = function(omnibus) {
 			omnibus.status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 
-		console.log('[      LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto.standing, omnibus.status.lights.auto.lowbeam, omnibus.status.lights.auto.reason);
+		console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto.standing, omnibus.status.lights.auto.lowbeam, omnibus.status.lights.auto.reason);
 		reset();
 	}
 
@@ -452,7 +452,7 @@ var LCM = function(omnibus) {
 		var cluster_msg_2 = ' turn ';
 		var cluster_msg_3;
 
-		console.log('[ node-bmw] comfort turn signal - \'%s\'', action);
+		console.log('[node::LCM] comfort turn signal - \'%s\'', action);
 
 		switch (action) {
 			case 'left':
@@ -479,7 +479,7 @@ var LCM = function(omnibus) {
 
 		// Turn off comfort turn signal - 1 blink is 500ms, so 5x blink is 2500ms
 		setTimeout(() => {
-			console.log('[ node-bmw] comfort turn signal - off');
+			console.log('[node::LCM] comfort turn signal - off');
 			// Set status variables
 			omnibus.status.lights.turn_comfort_left  = false;
 			omnibus.status.lights.turn_comfort_right = false;
@@ -492,7 +492,7 @@ var LCM = function(omnibus) {
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
 		var lcm_object;
-		console.log('[ node-bmw] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
+		console.log('[node::LCM] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
 
 		switch (action) {
 			case 'on' :
@@ -650,7 +650,7 @@ var LCM = function(omnibus) {
 	}
 
 	function reset() {
-		console.log('[      LCM] reset();');
+		console.log('[node::LCM] reset()');
 		var lcm_object = {
 			dimmer_value_1    : omnibus.status.lights.auto.dimmer_value_1,
 			// dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
@@ -670,7 +670,7 @@ var LCM = function(omnibus) {
 		omnibus.ibus.send({
 			src: 'DIA',
 			dst: 'LCM',
-			msg: [0x0C, packet], // Get IO status
+			msg: [0x0C, packet], // Set IO status
 		});
 	}
 

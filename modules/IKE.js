@@ -78,6 +78,11 @@ var IKE = function(omnibus) {
 				}
 				break;
 
+			case 0x07: // Gong status
+				command = 'gong status';
+				value   = 'not decoded';
+				break;
+
 			case 0x11: // ignition status
 				command = 'ignition status';
 

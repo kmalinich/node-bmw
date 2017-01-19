@@ -43,9 +43,9 @@ while true; do
 	# Increment ping attempt counter
 	((PING_ATTEMPT++))
 
-	if [[ "${PING_ATTEMPT}" -gt "3" ]]; then
-		# If we exceed the 3 attempt limit, break
-		log "Error: ${NTP_SERVER} was still offline after 3 attempts; trying external NTP server"
+	if [[ "${PING_ATTEMPT}" -gt "5" ]]; then
+		# If we exceed the 5 attempt limit, break
+		log "Error: ${NTP_SERVER} was still offline after 5 attempts; trying external NTP server"
 
 		NTP_OFFSET=$(ntpdate ${NTP_SERVER_EXTERNAL} 2>&1 | awk -F 'offset ' '{print $2}')
 		NTP_EXIT="${?}"
@@ -60,15 +60,15 @@ while true; do
 		fi
 	else
 		# If we haven't hit the limit, try to ping
-		ping -q -c 3 -W 3 "${NTP_SERVER}" > /dev/null 2>&1
+		ping -i 0.5 -q -c 3 -W 3 "${NTP_SERVER}" > /dev/null 2>&1
 		PING_EXIT="${?}"
 
 		# If the ping fails write to log and notify user
 		if [[ "${PING_EXIT}" != "0" ]]; then
 			log "Error: Attempt #${PING_ATTEMPT} to ping ${NTP_SERVER} failed; sleeping for 5 seconds"
 
-			# Try again after 5 seconds
-			sleep 1
+			# Try again after 15 seconds
+			sleep 15
 		else
 			# If ping succeeds, sync NTP
 			#log "DBG: ${NTP_SERVER} online"
@@ -78,9 +78,9 @@ while true; do
 				# Increment NTP attempt counter
 				((NTP_ATTEMPT++))
 
-				if [[ "${NTP_ATTEMPT}" -gt "3" ]]; then
-					# If we exceed the 3 attempt limit, break
-					log "Error: ${NTP_SERVER} is still not responding after 3 attempts; trying external NTP server"
+				if [[ "${NTP_ATTEMPT}" -gt "5" ]]; then
+					# If we exceed the 5 attempt limit, break
+					log "Error: ${NTP_SERVER} is still not responding after 5 attempts; trying external NTP server"
 
 					NTP_SYNC=$(ntpdate ${NTP_SERVER_EXTERNAL} 2>&1)
 					NTP_EXIT="${?}"

@@ -48,7 +48,9 @@ var ibus_interface = function(omnibus) {
 		console.log('[INTF:PORT] Opened [%s]', device);
 
 		// Get some data
-		omnibus.IKE.obc_refresh();
+		setTimeout(() => {
+			omnibus.IKE.obc_refresh();
+		}, 5000);
 	});
 
 	// On port close
@@ -136,13 +138,13 @@ var ibus_interface = function(omnibus) {
 
 		// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event_ibus < 2) {
+		if (time_now-omnibus.last_event_ibus < 4) {
 			// Do we still have data?
 			if (queue_busy()) {
-				console.log('[INTF:RITE] Waiting for %s', time_now-omnibus.last_event_ibus);
+				// console.log('[INTF:RITE] Waiting for %s', time_now-omnibus.last_event_ibus);
 				setTimeout(() => {
 					write_message();
-				}, 2);
+				}, 4);
 			}
 			else {
 				console.log('[INTF:RITE] Queue done (2nd)');

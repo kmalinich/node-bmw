@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-var ibus_protocol = require('./ibus-protocol-dbg.js');
-var clc           = require('cli-color');
-var serialport    = require('serialport');
-
+var protocol   = require('./ibus-protocol-dbg.js');
+var serialport = require('serialport');
 
 // local data
 var parser;
@@ -14,7 +12,7 @@ var serial_port = new serialport(device, {
 	baudRate : 9600,
 	dataBits : 8,
 	parity   : 'even',
-	parser   : ibus_protocol.parser(5),
+	parser   : protocol.parser(5),
 	stopBits : 1,
 });
 

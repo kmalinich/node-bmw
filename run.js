@@ -12,35 +12,35 @@ const omnibus = {
 	last_event_ibus : 0, // Last time data was fired
 	last_event_dbus : 0,
 	bus_modules     : new (require('./lib/bus-modules.js')),
-	config          : require('./lib/config.js'),  // Config
-	status          : require('./lib/status.js'),  // Global status object
+	config          : require('./lib/config.js'), // Config
+	status          : require('./lib/status.js'), // Global status object
 };
 
 // Data bus module libraries
-omnibus.ABG  = new (require('./modules/ABG.js'))(omnibus);
+omnibus.ABG  = new (require('./modules/ABG.js' ))(omnibus);
 omnibus.ANZV = new (require('./modules/ANZV.js'))(omnibus);
 omnibus.BMBT = new (require('./modules/BMBT.js'))(omnibus);
-omnibus.CCM  = new (require('./modules/CCM.js'))(omnibus);
-omnibus.CDC  = new (require('./modules/CDC.js'))(omnibus);
-omnibus.DSP  = new (require('./modules/DSP.js'))(omnibus);
+omnibus.CCM  = new (require('./modules/CCM.js' ))(omnibus);
+omnibus.CDC  = new (require('./modules/CDC.js' ))(omnibus);
+omnibus.DSP  = new (require('./modules/DSP.js' ))(omnibus);
 omnibus.DSPC = new (require('./modules/DSPC.js'))(omnibus);
-omnibus.EWS  = new (require('./modules/EWS.js'))(omnibus);
-omnibus.GM   = new (require('./modules/GM.js'))(omnibus);
-omnibus.GT   = new (require('./modules/GT.js'))(omnibus);
-omnibus.HAC  = new (require('./modules/HAC.js'))(omnibus);
+omnibus.EWS  = new (require('./modules/EWS.js' ))(omnibus);
+omnibus.GM   = new (require('./modules/GM.js'  ))(omnibus);
+omnibus.GT   = new (require('./modules/GT.js'  ))(omnibus);
+omnibus.HAC  = new (require('./modules/HAC.js' ))(omnibus);
 omnibus.IHKA = new (require('./modules/IHKA.js'))(omnibus);
-omnibus.IKE  = new (require('./modules/IKE.js'))(omnibus);
-omnibus.LCM  = new (require('./modules/LCM.js'))(omnibus);
-omnibus.MFL  = new (require('./modules/MFL.js'))(omnibus);
-omnibus.MID  = new (require('./modules/MID.js'))(omnibus);
-omnibus.NAV  = new (require('./modules/NAV.js'))(omnibus);
-omnibus.PDC  = new (require('./modules/PDC.js'))(omnibus);
-omnibus.RAD  = new (require('./modules/RAD.js'))(omnibus);
-omnibus.RLS  = new (require('./modules/RLS.js'))(omnibus);
-omnibus.SES  = new (require('./modules/SES.js'))(omnibus);
-omnibus.SHD  = new (require('./modules/SHD.js'))(omnibus);
-omnibus.TEL  = new (require('./modules/TEL.js'))(omnibus);
-omnibus.VID  = new (require('./modules/VID.js'))(omnibus);
+omnibus.IKE  = new (require('./modules/IKE.js' ))(omnibus);
+omnibus.LCM  = new (require('./modules/LCM.js' ))(omnibus);
+omnibus.MFL  = new (require('./modules/MFL.js' ))(omnibus);
+omnibus.MID  = new (require('./modules/MID.js' ))(omnibus);
+omnibus.NAV  = new (require('./modules/NAV.js' ))(omnibus);
+omnibus.PDC  = new (require('./modules/PDC.js' ))(omnibus);
+omnibus.RAD  = new (require('./modules/RAD.js' ))(omnibus);
+omnibus.RLS  = new (require('./modules/RLS.js' ))(omnibus);
+omnibus.SES  = new (require('./modules/SES.js' ))(omnibus);
+omnibus.SHD  = new (require('./modules/SHD.js' ))(omnibus);
+omnibus.TEL  = new (require('./modules/TEL.js' ))(omnibus);
+omnibus.VID  = new (require('./modules/VID.js' ))(omnibus);
 
 // Custom libraries
 omnibus.kodi = new (require('./lib/kodi.js'))(omnibus);
@@ -51,7 +51,8 @@ omnibus.api_server    = http.createServer(api_handler);
 omnibus.socket_server = new (require('./lib/socket-server.js'))(omnibus);
 
 // IBUS libraries
-omnibus.data_handler = new (require('./ibus/data-handler.js'))(omnibus);   // Data handler
+omnibus.data_handler = new (require('./ibus/data-handler.js'  ))(omnibus); // Data handler
+omnibus.protocol     = new (require('./ibus/ibus-protocol.js' ))(omnibus); // Bus protocol
 omnibus.ibus         = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
 
 // HTTP/WS config

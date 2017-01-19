@@ -5,8 +5,6 @@ const serialport    = require('serialport');
 const util          = require('util');
 
 var ibus_interface = function(omnibus) {
-	var ibus_protocol = new (require('./ibus-protocol.js'))(omnibus);
-
 	// Read/write queues
 	var queue_read  = [];
 	var active_read = false;
@@ -15,7 +13,7 @@ var ibus_interface = function(omnibus) {
 	var active_write = false;
 
 	// Last time any data did something
-	omnibus.last_event_ibus = 0;
+	omnibus.last_event_ibus = now();
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -60,7 +58,7 @@ var ibus_interface = function(omnibus) {
 
 	// Send the data to the parser
 	serial_port.on('data', (data) => {
-		ibus_protocol.parser(data);
+		omnibus.protocol.parser(data);
 	});
 
 
@@ -131,11 +129,6 @@ var ibus_interface = function(omnibus) {
 			return;
 		}
 
-		if (!queue_busy()) {
-			console.log('[INTF:RITE] Queue done (1st)');
-			return;
-		}
-
 		// Do we need to wait longer?
 		var time_now = now();
 		if (time_now-omnibus.last_event_ibus < 4) {
@@ -147,39 +140,41 @@ var ibus_interface = function(omnibus) {
 				}, 4);
 			}
 			else {
-				console.log('[INTF:RITE] Queue done (2nd)');
+				console.log('[INTF:RITE] Queue done');
 			}
 		}
 		else {
-			serial_port.write(queue_write[0], (error) => {
-				if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
+			if (queue_busy()) {
+				serial_port.write(queue_write[0], (error) => {
+					if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
 
-				serial_port.drain((error) => {
-					// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
+					serial_port.drain((error) => {
+						// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
 
-					if (error) {
-						console.log('[INTF::DRN] Failed : ', queue_write[0], error);
-					}
-					else {
-						// console.log('[INTF:RITE] Success : ', queue_write[0]);
-
-						// Successful write, remove this message from the queue
-						queue_write.splice(0, 1);
-
-						// Do we still have data?
-						if (queue_busy()) {
-							write_message();
+						if (error) {
+							console.log('[INTF::DRN] Failed : ', queue_write[0], error);
 						}
-					}
+						else {
+							// console.log('[INTF:RITE] Success : ', queue_write[0]);
+
+							// Successful write, remove this message from the queue
+							queue_write.splice(0, 1);
+
+							// Do we still have data?
+							if (queue_busy()) {
+								write_message();
+							}
+						}
+					});
 				});
-			});
+			}
 		}
 	}
 
 	// Insert a message into the write queue
 	function send(msg) {
 		// Generate IBUS message with checksum, etc
-		queue_write.push(ibus_protocol.create(msg));
+		queue_write.push(omnibus.protocol.create(msg));
 
 		// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {

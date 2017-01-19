@@ -3,7 +3,7 @@
 var now  = require('performance-now');
 var data = new Array();
 
-function ibus_protocol(omnibus) {
+function protocol(omnibus) {
   // Exported
   create = this.create;
   parser = this.parser;
@@ -13,7 +13,7 @@ function ibus_protocol(omnibus) {
 }
 
 // Emit a data event on each complete IBUS message
-ibus_protocol.prototype.parser = function(buffer) {
+protocol.prototype.parser = function(buffer) {
   // Mark last event time
   this.omnibus.last_event_ibus = now();
   data.push(buffer.readUInt16LE(0, buffer.length));
@@ -100,7 +100,7 @@ ibus_protocol.prototype.parser = function(buffer) {
   }
 };
 
-ibus_protocol.prototype.create = function(msg) {
+protocol.prototype.create = function(msg) {
   //   1 + 1 + 1 + n + 1
   // SRC LEN DST MSG CHK
   // ... or packet length + 4
@@ -126,4 +126,4 @@ ibus_protocol.prototype.create = function(msg) {
   return buffer;
 };
 
-module.exports = ibus_protocol;
+module.exports = protocol;

@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -21,10 +17,6 @@ function bit_test(num, bit) {
 }
 
 var DSPC = function(omnibus) {
-
-	// Reset bit
-	var reset = true;
-
 	// Exposed data
 	this.parse_in           = parse_in;
 	this.parse_out          = parse_out;
@@ -128,14 +120,14 @@ var DSPC = function(omnibus) {
     var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (reset == true) {
-			data  = 'ready after reset';
-			reset = false;
-			msg   = [0x02, 0x01];
+		if (omnibus.status.dspc.reset === true) {
+			omnibus.status.dspc.reset = false;
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
 		}
 		else {
-			data  = 'ready';
-			msg   = [0x02, 0x00];
+			data = 'ready';
+			msg  = [0x02, 0x00];
 		}
 
 		omnibus.ibus.send({

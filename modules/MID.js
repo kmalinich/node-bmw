@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -14,9 +10,6 @@ var bit_5 = 0x20; // 32
 var bit_6 = 0x40; // 64
 var bit_7 = 0x80; // 128
 
-// Reset bit
-var reset = true;
-
 // Test number for bitmask
 function bit_test(num, bit) {
 	if ((num & bit) != 0) { return true; }
@@ -24,7 +17,6 @@ function bit_test(num, bit) {
 }
 
 var MID = function(omnibus) {
-
 	// Exposed data
 	this.parse_in           = parse_in;
 	this.parse_out          = parse_out;
@@ -133,15 +125,15 @@ var MID = function(omnibus) {
 	// MID->GLO Device status ready
 	function send_device_status() {
 		// Init variables
-		var command  = 'device status';
+		var command = 'device status';
 		var data;
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (reset == true) {
-			data  = 'ready after reset';
-			reset = false;
-			msg   = [0x02, 0x01];
+		if (omnibus.status.mid.reset === true) {
+			omnibus.status.mid.reset = false;
+			data = 'ready after reset';
+			msg  = [0x02, 0x01];
 		}
 		else {
 			data = 'ready';

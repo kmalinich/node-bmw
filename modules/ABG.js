@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -20,13 +16,9 @@ function bit_test(num, bit) {
 	else { return false; }
 }
 
-
 var ABG = function(omnibus) {
-
-
 	// Exposed data
 	this.parse_data = parse_data;
-
 
 	// Parse data sent from ABG module
 	function parse_data(message) {

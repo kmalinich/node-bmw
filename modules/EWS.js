@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -21,7 +17,6 @@ function bit_test(num, bit) {
 }
 
 var EWS = function(omnibus) {
-
 	// Exposed data
 	this.parse_out = parse_out;
 	this.request   = request;

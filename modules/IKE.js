@@ -155,6 +155,10 @@ var IKE = function(omnibus) {
 					omnibus.status.cdc.reset  = true;
 					omnibus.status.dsp.ready  = false;
 					omnibus.status.dsp.reset  = true;
+					omnibus.status.dspc.ready = false;
+					omnibus.status.dspc.reset = true;
+					omnibus.status.mid.ready  = false;
+					omnibus.status.mid.reset  = true;
 					omnibus.status.rad.ready  = false;
 					omnibus.status.rad.reset  = true;
 

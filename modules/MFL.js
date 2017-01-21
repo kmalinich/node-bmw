@@ -1,9 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var dbus = require('dbus-native');
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -21,8 +17,6 @@ function bit_test(num, bit) {
 }
 
 var MFL = function(omnibus) {
-
-
 	// Exposed data
 	this.parse_out = parse_out;
 
@@ -101,7 +95,7 @@ var MFL = function(omnibus) {
 
 				// Perform media control based on pressed key
 
-				// BT dbus control version
+				// BT control version
 				// if      (button == 'left'     && action == 'depress')      { omnibus.BT.command('previous'); }
 				// else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
 				// else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...

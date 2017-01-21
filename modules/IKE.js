@@ -762,7 +762,7 @@ var IKE = function(omnibus) {
 
 		// Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
 		if (time_now-last_hud_refresh <= 9000 && interval === true) {
-			console.log('[     IKE] HUD refresh: too soon');
+			console.log('[node::IKE] HUD refresh: too soon');
 			return;
 		}
 
@@ -805,13 +805,21 @@ var IKE = function(omnibus) {
 				break;
 		}
 
+		// 1m sysload - to 3 digits
+		var load_1m = parseFloat(os.loadavg()[0].toFixed(3));
+
+		// Add space to left-most string (sysload)
+		if (load_1m.length === 4) {
+			load_1m = load_1m+'0';
+		}
+
 		// Add space to left-most string (consumption 1)
 		if (string_cons.length === 4) {
 			string_cons = '0'+string_cons;
 		}
 
 		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
-			text(string_cons+spacing1+string_temp+spacing2+string_time, () => {
+			text(load_1m+spacing1+string_temp+spacing2+string_time, () => {
 				last_hud_refresh = now();
 			});
 		}

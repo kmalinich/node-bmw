@@ -4,8 +4,8 @@
 
 Adjustable values = {
 	Frequency bands
+	Reverb	
 	Room size
-	Echo amount
 }
 
 Frequency bands = {

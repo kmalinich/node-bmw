@@ -24,15 +24,15 @@ function bit_set(num, bit) {
 
 var GM = function(omnibus) {
 	// Exposed data
-	this.door_flap_status_decode = door_flap_status_decode;
-	this.gm_cl                   = gm_cl;
-	this.gm_data                 = gm_data;
-	this.gm_interior_light       = gm_interior_light;
-	this.gm_send                 = gm_send;
-	this.gm_windows              = gm_windows;
-	this.key_fob_status_decode   = key_fob_status_decode;
-	this.parse_out               = parse_out;
-	this.request                 = request;
+	this.decode_status_keyfob = decode_status_keyfob;
+	this.decode_status_open   = decode_status_open;
+	this.gm_cl                = gm_cl;
+	this.gm_data              = gm_data;
+	this.gm_interior_light    = gm_interior_light;
+	this.gm_send              = gm_send;
+	this.gm_windows           = gm_windows;
+	this.parse_out            = parse_out;
+	this.request              = request;
 
 	// Parse data sent from GM module
 	function parse_out(data) {
@@ -83,7 +83,7 @@ var GM = function(omnibus) {
 			case 0x72: // Key fob status
 				command = 'broadcast';
 				value   = 'key fob status';
-				key_fob_status_decode(data.msg);
+				decode_status_keyfob(data.msg);
 				break;
 
 			case 0x76: // 'Crash alarm' ..
@@ -129,7 +129,7 @@ var GM = function(omnibus) {
 			case 0x7A: // door/flap status
 				command = 'broadcast';
 				value   = 'door/flap status';
-				door_flap_status_decode(data.msg);
+				decode_status_open(data.msg);
 				break;
 
 			case 0xA0: // diagnostic command acknowledged
@@ -157,7 +157,7 @@ var GM = function(omnibus) {
 	}
 
 	// [0x72] Decode a key fob message from the GM and act upon the results
-	function key_fob_status_decode(message) {
+	function decode_status_keyfob(message) {
 		// Init variables
 		var button;
 
@@ -180,11 +180,11 @@ var GM = function(omnibus) {
 			button = 'no button pressed';
 		}
 
-		console.log('[      GM] key fob status: %s', button);
+		console.log('[node:::GM] key fob status: %s', button);
 	}
 
 	// [0x7A] Decode a door/flap status message from the GM and act upon the results
-	function door_flap_status_decode(message) {
+	function decode_status_open(message) {
 		// Set status from message by decrypting bitmask
 		if (bit_test(message[1], 0x01)) { omnibus.status.flaps.front_left    = true; } else { omnibus.status.flaps.front_left    = false; }
 		if (bit_test(message[1], 0x02)) { omnibus.status.flaps.front_right   = true; } else { omnibus.status.flaps.front_right   = false; }
@@ -217,7 +217,7 @@ var GM = function(omnibus) {
 			switch (data['gm-command']) {
 				case 'gm-get' : request('io-status');                      break; // Get IO status
 				case 'gm-cl'  : gm_cl(data['gm-command-action']);          break; // Central locking
-				default       : console.log('[      GM] Unknown command'); break; // Dunno what I sent
+				default       : console.log('[node:::GM] Unknown command'); break; // Dunno what I sent
 			}
 		}
 
@@ -227,13 +227,13 @@ var GM = function(omnibus) {
 		}
 
 		else {
-			console.log('[      GM] Unknown data: \'%s\'', data);
+			console.log('[node:::GM] Unknown data: \'%s\'', data);
 		}
 	}
 
 	// GM window control
 	function gm_windows(window, action) {
-		console.log('[      GM] Window control: \'%s\', \'%s\'', window, action);
+		console.log('[node:::GM] Window control: \'%s\', \'%s\'', window, action);
 
 		// Init message variable
 		var msg;
@@ -287,7 +287,7 @@ var GM = function(omnibus) {
 
 	// Cluster/interior backlight
 	function gm_interior_light(value) {
-		console.log('[      GM] Set interior light to %s', value);
+		console.log('[node:::GM] Set interior light to %s', value);
 
 		// Convert the value to hex
 		value = value.toString(16);
@@ -300,7 +300,7 @@ var GM = function(omnibus) {
 	// Central locking
 	function gm_cl() {
 		var action = 'toggle';
-		console.log('[      GM] Central locking: \'%s\'', action);
+		console.log('[node:::GM] Central locking: \'%s\'', action);
 		// Hex:
 		// 01 3A 01 : LF unlock (CL)
 		// 01 39 01 : LF lock (CL)
@@ -323,20 +323,22 @@ var GM = function(omnibus) {
 
 	// Send message to GM
 	function gm_send(packet) {
-		console.log('[      GM] Sending \'Set IO status\' packet');
+		// console.log('[node:::GM] Sending \'Set IO status\' packet');
+		packet.unshift(0x0C);
 		omnibus.ibus.send({
 			src: 'DIA',
 			dst: 'GM',
-			msg: [0x0C, packet],
+			msg: packet, // Set IO status
 		});
 	}
 
 	// Request various things from GM
 	function request(value) {
-		var src;
-		var cmd;
-
 		console.log('[node:::GM] Requesting \'%s\'', value);
+
+    // Init variables
+    var src;
+		var cmd;
 
 		switch (value) {
 			case 'io-status':
@@ -345,25 +347,15 @@ var GM = function(omnibus) {
 				break;
 			case 'door-flap-status':
 				src = 'BMBT';
-				cmd = 0x79;
+				cmd = [0x79];
 				break;
 		}
 
 		omnibus.ibus.send({
-			src: src,
-			dst: 'GM',
-			msg: [cmd],
+			src : src,
+			dst : 'GM',
+			msg : cmd,
 		});
-	}
-
-	// Test if a bit in a bitmask is set
-	function bit_test(num, bit) {
-		if ((num & bit) != 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	// Encode the GM bitmask string from an input of true/false values

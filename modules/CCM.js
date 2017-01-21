@@ -23,21 +23,17 @@ var CCM = function(omnibus) {
 	// Parse data sent from CCM module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
-				if (message[1] == 0x00) {
+				if (data.msg[1] == 0x00) {
 					command = 'device status';
 					value   = 'ready';
 				}
 
-				else if (message[1] == 0x01) {
+				else if (data.msg[1] == 0x01) {
 					command = 'device status';
 					value   = 'ready after reset';
 				}
@@ -50,12 +46,12 @@ var CCM = function(omnibus) {
 
 			case 0x1A: // Broadcast: check control message
 				command = 'check control message';
-				value   = ''+message+'';
+				value   = ''+data.msg+'';
 				break;
 
 			case 0x51: // Broadcast: check control sensors
 				command = 'check control sensors';
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						value = 'none';
 						break;
@@ -66,7 +62,7 @@ var CCM = function(omnibus) {
 						value = 'seatbelt not fastened';
 						break;
 					default:
-						value = Buffer.from(message[1]);
+						value = Buffer.from(data.msg[1]);
 						break;
 				}
 				break;
@@ -83,7 +79,7 @@ var CCM = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = Buffer.from(message);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

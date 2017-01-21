@@ -24,39 +24,54 @@ var ANZV = function(omnibus) {
 	function parse_data(message) {
 		// Init variables
 		var command;
-		var data;
+		var value;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
+		switch (data.msg[0]) {
+			case 0x02: // Broadcast: device status
 				command = 'device status';
-				data    = 'ready';
-			}
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
+				switch (data.msg[1]) {
+					case 0x00:
+						value = 'ready';
+						break;
+
+					case 0x01:
+						value = 'ready after reset';
+						break;
+
+					default:
+						value = 'unknown';
+						break;
+				}
+				break;
+
+			case 0x10: // Request: ignition status
+				command = 'request';
+				value   = 'ignition status';
+				break;
+
+			case 0x12: // Request: IKE sensor status
+				command = 'request';
+				value   = 'IKE sensor status';
+				break;
+
+			case 0x1D: // Request: temperature
+				command = 'request';
+				value   = 'temperature';
+				break;
+
+			case 0x79: // Request: door/flap status
+				command = 'request';
+				value   = 'door/flap status';
+				break;
+
+			default:
+				command = 'unknown';
+				value   = Buffer.from(data.msg);
+				break;
 		}
 
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
-
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
-
-		else {
-			command = 'unknown';
-			data    = Buffer.from(message);
-		}
-
-		console.log('[ANZV] Sent %s:', command, data);
+		console.log('[ANZV] Sent %s:', command, value);
 	}
 }
 

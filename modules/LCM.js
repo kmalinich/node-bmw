@@ -112,6 +112,16 @@ var LCM = function(omnibus) {
 				value   = 'ignition status';
 				break;
 
+			case 0x12: // Request: IKE sensor status
+				command = 'request';
+				value   = 'IKE sensor status';
+				break;
+
+			case 0x1D: // Request: temperature
+				command = 'request';
+				value   = 'temperature';
+				break;
+
 			case 0x54: // Broadcast: vehicle data
 				command = 'broadcast';
 				value   = 'vehicle data';

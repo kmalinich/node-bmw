@@ -23,81 +23,76 @@ var IHKA = function(omnibus) {
 	// Parse data sent from IHKA module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
 		var command;
 		var value;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
+		switch (data.msg[0]) {
+			case 0x02: // Broadcast: device status
 				command = 'device status';
-				value   = 'ready';
-			}
 
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				value   = 'ready after reset';
-			}
-		}
+				switch (data.msg[1]) {
+					case 0x00:
+						value = 'ready';
+						break;
 
-		// Request: ignition status
-		else if (message[0] == 0x10) {
-			command = 'request';
-			value   = 'ignition status';
-		}
+					case 0x01:
+						value = 'ready after reset';
+						break;
 
-		// Request: temperature
-		else if (message[0] == 0x12) {
-			command = 'request';
-			value   = 'IKE sensor status';
-		}
+					default:
+						value = 'unknown';
+						break;
+				}
+				break;
 
-		// Request: temperature
-		else if (message[0] == 0x1D) {
-			command = 'request';
-			value   = 'temperature';
-		}
+			case 0x10: // Request: ignition status
+				command = 'request';
+				value   = 'ignition status';
+				break;
 
-		// Request: rain sensor status
-		else if (message[0] == 0x71) {
-			command = 'request';
-			value   = 'rain sensor status';
-		}
+			case 0x12: // Request: IKE sensor status
+				command = 'request';
+				value   = 'temperature';
+				break;
 
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			value   = 'door/flap status';
-		}
+				// Request: rain sensor status
+			case 0x71:
+				command = 'request';
+				value   = 'rain sensor status';
+				break;
 
-		// AC compressor status
-		else if (message[0] == 0x83) {
-			command = 'broadcast';
-			value   = 'AC compressor status';
-		}
+				// Door/flap status request
+			case 0x79:
+				command = 'request';
+				value   = 'door/flap status';
+				break;
 
-		// Diagnostic command replies
-		else if (message[0] == 0xA0) {
-			command = 'diagnostic command';
-			value   = 'acknowledged';
-		}
+				// AC compressor status
+			case 0x83:
+				command = 'broadcast';
+				value   = 'AC compressor status';
+				break;
 
-		else if (message[0] == 0xA2) {
-			command = 'diagnostic command';
-			value   = 'rejected';
-		}
+				// Diagnostic command replies
+			case 0xA0:
+				command = 'diagnostic command';
+				value   = 'acknowledged';
+				break;
 
-		else if (message[0] == 0xFF) {
-			command = 'diagnostic command';
-			value   = 'not acknowledged';
-		}
+			case 0xA2:
+				command = 'diagnostic command';
+				value   = 'rejected';
+				break;
 
-		else {
-			command = 'unknown';
-			value   = Buffer.from(message);
+			case 0xFF:
+				command = 'diagnostic command';
+				value   = 'not acknowledged';
+				break;
+
+			default:
+				command = 'unknown';
+				value   = Buffer.from(data.msg);
+				break;
 		}
 
 		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);

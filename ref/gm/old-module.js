@@ -30,7 +30,6 @@ function gm(object, action) {
 	var UnfoldPassengerMirrorE39 = Buffer.from([0x0c, 0x02, 0x30, 0x01]);
 	var GetAnalogValues          = Buffer.from([0x0b, 0x01]);
 }
-#!/usr/bin/env node
 
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
@@ -44,7 +43,6 @@ var bit_7 = 0x80; // 128
 
 
 // Data below is probably mostly no good
-
 0x00, 0x00 // LR down
 0x00, 0x03 // RR down
 0x00, bit_1 // LR up

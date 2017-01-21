@@ -71,7 +71,7 @@ function offoff() {
 
 	var src = 0x00; // GM
 	var dst = 0xBF; // GLO
-	var msg = new Buffer([0x76, hex]);
+	var msg = Buffer.from([0x76, hex]);
 }
 
 function bit_sample(dsc, hex, callback) {
@@ -93,7 +93,7 @@ function bit_sample(dsc, hex, callback) {
 
 		var src = 0x00; // GM
 		var dst = 0xBF; // GLO
-		var msg = new Buffer([0x76, hex]);
+		var msg = Buffer.from([0x76, hex]);
 
 		var ibus_packet = {
 			src: src,

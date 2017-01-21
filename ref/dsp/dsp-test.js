@@ -68,13 +68,13 @@ function encode_dsp(data) {
   var reverb_out    = [0x34, 0x94 + data.memory, data.reverb & 0x0F];
   var room_size_out = [0x34, 0x94 + data.memory, (data.room_size & 0x0F) | 0x20];
 
-  console.log(new Buffer(reverb_out));
-  console.log(new Buffer(room_size_out));
+  console.log(Buffer.from(reverb_out));
+  console.log(Buffer.from(room_size_out));
 
   for (var band_num = 0; band_num < 7; band_num++) {
     // ... Don't look at me...
     var band_out = [0x34, 0x14 + data.memory, (((band_num * 2) << 4) & 0xF0) | ((data.band[band_num] < 0 ? (0x10 | (Math.abs(data.band[band_num]) & 0x0F)) : (data.band[band_num] & 0x0F)))];
-    console.log(new Buffer(band_out));
+    console.log(Buffer.from(band_out));
   }
 
 }

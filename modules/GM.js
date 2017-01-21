@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// npm libraries
-var wait = require('wait.for');
-
 // Bitmasks in hex
 var bit_0 = 0x01; // 1
 var bit_1 = 0x02; // 2
@@ -26,7 +23,6 @@ function bit_set(num, bit) {
 }
 
 var GM = function(omnibus) {
-
 	// Exposed data
 	this.door_flap_status_decode = door_flap_status_decode;
 	this.gm_cl                   = gm_cl;
@@ -41,18 +37,12 @@ var GM = function(omnibus) {
 	// Parse data sent from GM module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-    var message  = data.msg;
-
-		var action;
-		var button;
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x02: // device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						command = 'device status';
 						value   = 'ready';
@@ -93,12 +83,12 @@ var GM = function(omnibus) {
 			case 0x72: // Key fob status
 				command = 'broadcast';
 				value   = 'key fob status';
-				key_fob_status_decode(message);
+				key_fob_status_decode(data.msg);
 				break;
 
 			case 0x76: // 'Crash alarm' ..
 				command = 'crash alarm';
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						value = 'no crash';
 						break;
@@ -106,14 +96,14 @@ var GM = function(omnibus) {
 						value = 'armed';
 						break;
 					default:
-						value = new Buffer(message[1]);
+						value = Buffer.from(data.msg[1]);
 						break;
 				}
 				break;
 
 			case 0x77: // Wiper status
 				command = 'wiper status';
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x0C:
 						value = 'off';
 						break;
@@ -127,6 +117,8 @@ var GM = function(omnibus) {
 						value = 'high';
 						break;
 				}
+
+				omnibus.status.gm.wiper_status = value;
 				break;
 
 			case 0x78: // seat memory data
@@ -137,12 +129,12 @@ var GM = function(omnibus) {
 			case 0x7A: // door/flap status
 				command = 'broadcast';
 				value   = 'door/flap status';
-				door_flap_status_decode(message);
+				door_flap_status_decode(data.msg);
 				break;
 
 			case 0xA0: // diagnostic command acknowledged
 				command = 'diagnostic command';
-				value   = new Buffer(message);
+				value   = Buffer.from(data.msg);
 				break;
 
 			case 0xA2: // diagnostic command rejected
@@ -157,7 +149,7 @@ var GM = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

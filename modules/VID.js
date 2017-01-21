@@ -94,7 +94,7 @@ var VID = function(omnibus) {
 						value = 'LCD on NAVJ';
 						break;
 					default:
-						value = new Buffer([message[1]]);
+						value = Buffer.from([message[1]]);
 						break;
 				}
 
@@ -123,7 +123,7 @@ var VID = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = Buffer.from(message);
 				break;
 		}
 

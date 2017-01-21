@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.log('[ node-bmw] Starting');
+console.log('[node::bmw] Starting');
 
 // npm libraries
 const dispatcher   = new (require('httpdispatcher'));
@@ -72,7 +72,7 @@ function startup() {
 			omnibus.HDMI.startup(() => {
 				// Start IBUS connection
 				omnibus.ibus.startup(() => {
-					console.log('[ node-bmw] Started');
+					console.log('[node::bmw] Started');
 				});
 			});
 		});
@@ -81,7 +81,7 @@ function startup() {
 
 // Global shutdown
 function shutdown() {
-	console.log('[ node-bmw] Stopping');
+	console.log('[node::bmw] Stopping');
 	// Close serial port if open, and exit process
 	omnibus.ibus.shutdown(() => {
 		omnibus.HDMI.shutdown(() => {
@@ -100,7 +100,7 @@ function shutdown() {
 function startup_api_server(callback) {
 	// error handling breh
 	omnibus.api_server.listen(api_port, () => {
-		console.log('[      API] Started, port %s', api_port);
+		console.log('[node::API] Started, port %s', api_port);
 		// Only call back if callback is a function
 		if (typeof callback === 'function') { callback(); }
 
@@ -131,7 +131,7 @@ function shutdown_api_server(callback) {
 
 	// API server close event
 	omnibus.api_server.on('close', () => {
-		console.log('[      API] Stopped');
+		console.log('[node::API] Stopped');
 		// Only call back if callback is a function
 		if (typeof callback === 'function') { callback(); }
 	});
@@ -139,7 +139,7 @@ function shutdown_api_server(callback) {
 
 // API handler function
 function api_handler(request, response) {
-	//console.log('[      API] %s request: %s', request.method, request.url);
+	//console.log('[node::API] %s request: %s', request.method, request.url);
 	dispatcher.dispatch(request, response);
 }
 
@@ -182,7 +182,7 @@ dispatcher.onPost('/lcm', (request, response) => {
 
 // Error
 dispatcher.onError((request, response) => {
-	console.error('[      API] Error: 404');
+	console.error('[node::API] Error: 404');
 	response.writeHead(404);
 	response.end();
 });
@@ -190,22 +190,22 @@ dispatcher.onError((request, response) => {
 
 // Shutdown events/signals
 process.on('SIGTERM', () => {
-	console.log('[ node-bmw] Received SIGTERM, launching shutdown()');
+	console.log('[node::bmw] Received SIGTERM, launching shutdown()');
 	shutdown();
 });
 
 process.on('SIGINT', () => {
-	console.log('[ node-bmw] Received SIGINT, launching shutdown()');
+	console.log('[node::bmw] Received SIGINT, launching shutdown()');
 	shutdown();
 });
 
 process.on('SIGPIPE', () => {
-	console.log('[ node-bmw] Received SIGPIPE, launching shutdown()');
+	console.log('[node::bmw] Received SIGPIPE, launching shutdown()');
 	shutdown();
 });
 
 process.on('exit', () => {
-	console.log('[ node-bmw] Shutdown complete');
+	console.log('[node::bmw] Shutdown complete');
 });
 
 startup();

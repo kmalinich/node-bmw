@@ -77,7 +77,7 @@ var DSP = function(omnibus) {
 
       default:
         command = 'unknown';
-        value   = new Buffer(data.msg);
+        value   = Buffer.from(data.msg);
         break;
     }
 

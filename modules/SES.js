@@ -61,7 +61,7 @@ var SES = function(omnibus) {
 
 		else {
 			command = 'unknown';
-			data    = new Buffer(message);
+			data    = Buffer.from(message);
 		}
 
 		console.log('[SES]  Sent %s:', command, data);

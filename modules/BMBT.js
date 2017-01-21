@@ -119,7 +119,7 @@ var BMBT = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 
@@ -188,7 +188,7 @@ var BMBT = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

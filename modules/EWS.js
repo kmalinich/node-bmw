@@ -113,7 +113,7 @@ var EWS = function(omnibus) {
 						omnibus.status.immobilizer.immobilized = false;
 						break;
 					default:
-						value = new Buffer([message[1]]);
+						value = Buffer.from([message[1]]);
 						break;
 				}
 				command = 'key presence';
@@ -155,7 +155,7 @@ var EWS = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = Buffer.from(message);
 				break;
 		}
 

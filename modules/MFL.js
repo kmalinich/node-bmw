@@ -123,7 +123,7 @@ var MFL = function(omnibus) {
 			default:
 				command = 'unknown';
 				button  = 'unknown';
-				action  = new Buffer(message);
+				action  = Buffer.from(message);
 				break;
 		}
 

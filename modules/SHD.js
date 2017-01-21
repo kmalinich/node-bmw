@@ -61,7 +61,7 @@ var SHD = function(omnibus) {
 
 		else {
 			command = 'unknown';
-			data    = new Buffer(message);
+			data    = Buffer.from(message);
 		}
 
 		console.log('[SHD]  Sent %s:', command, data);

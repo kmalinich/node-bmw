@@ -105,7 +105,7 @@ var NAV = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				data    = new Buffer(message);
+				data    = Buffer.from(message);
 				break;
 		}
 

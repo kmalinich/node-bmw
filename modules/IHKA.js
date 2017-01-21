@@ -104,7 +104,7 @@ var IHKA = function(omnibus) {
 
 		else {
 			command = 'unknown';
-			value   = new Buffer(message);
+			value   = Buffer.from(message);
 		}
 
 		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);

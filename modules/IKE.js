@@ -306,17 +306,17 @@ var IKE = function(omnibus) {
 						command = 'OBC time';
 
 						// Parse unit
-						string_time_unit = new Buffer([message[8], message[9]]);
+						string_time_unit = Buffer.from([message[8], message[9]]);
 						string_time_unit = string_time_unit.toString().trim().toLowerCase();
 
 						// Detect 12h or 24h time and parse value
 						if (string_time_unit == 'am' || string_time_unit == 'pm') {
 							omnibus.status.coding.unit.time = '12h';
-							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+							string_time = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						}
 						else {
 							omnibus.status.coding.unit.time = '24h';
-							string_time = new Buffer([message[3], message[4], message[5], message[6], message[7]]);
+							string_time = Buffer.from([message[3], message[4], message[5], message[6], message[7]]);
 						}
 
 						string_time = string_time.toString().trim().toLowerCase();
@@ -330,7 +330,7 @@ var IKE = function(omnibus) {
 						command = 'OBC date';
 
 						// Parse value
-						string_date = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
+						string_date = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
 						string_date = string_date.toString().trim();
 
 						// Update omnibus.status variables
@@ -342,20 +342,20 @@ var IKE = function(omnibus) {
 						command = 'OBC exterior temperature';
 
 						// Parse unit
-						string_temp_exterior_unit = new Buffer([message[9]]);
+						string_temp_exterior_unit = Buffer.from([message[9]]);
 						string_temp_exterior_unit = string_temp_exterior_unit.toString().trim().toLowerCase();
 
 						// Parse if it is +/-
-						string_temp_exterior_negative = new Buffer([message[9]]);
+						string_temp_exterior_negative = Buffer.from([message[9]]);
 						string_temp_exterior_negative = string_temp_exterior_negative.toString().trim().toLowerCase();
 
 						// Parse value
 						if (string_temp_exterior_negative == '-') {
-							string_temp_exterior_value = new Buffer(message[3], [message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = Buffer.from(message[3], [message[4], message[5], message[6], message[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
 						else {
-							string_temp_exterior_value = new Buffer([message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = Buffer.from([message[4], message[5], message[6], message[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
 
@@ -380,11 +380,11 @@ var IKE = function(omnibus) {
 						command = 'OBC consumption 1';
 
 						// Parse unit
-						string_consumption_1_unit = new Buffer([message[8]]);
+						string_consumption_1_unit = Buffer.from([message[8]]);
 						string_consumption_1_unit = string_consumption_1_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_consumption_1 = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_consumption_1 = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_consumption_1 = parseFloat(string_consumption_1.toString().trim().toLowerCase());
 
 						// Perform appropriate conversions between units
@@ -416,11 +416,11 @@ var IKE = function(omnibus) {
 						command = 'OBC consumption 2';
 
 						// Parse unit
-						string_consumption_2_unit = new Buffer([message[8]]);
+						string_consumption_2_unit = Buffer.from([message[8]]);
 						string_consumption_2_unit = string_consumption_2_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_consumption_2 = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_consumption_2 = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_consumption_2 = parseFloat(string_consumption_2.toString().trim().toLowerCase());
 
 						// Perform appropriate conversions between units and round to 2 decimals
@@ -444,10 +444,10 @@ var IKE = function(omnibus) {
 						command = 'OBC range to empty';
 
 						// Parse value
-						string_range = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_range = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_range = string_range.toString().trim();
 
-						string_range_unit = new Buffer([message[7], message[8]]);
+						string_range_unit = Buffer.from([message[7], message[8]]);
 						string_range_unit = string_range_unit.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -472,7 +472,7 @@ var IKE = function(omnibus) {
 						command = 'OBC distance remaining';
 
 						// Parse value
-						string_distance = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_distance = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_distance = string_distance.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -483,7 +483,7 @@ var IKE = function(omnibus) {
 					case 0x08: // Arrival time
 						command = 'OBC arrival time';
 						// Parse value
-						string_arrival = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_arrival = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						string_arrival = string_arrival.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -495,7 +495,7 @@ var IKE = function(omnibus) {
 						command = 'OBC speed limit';
 
 						// Parse value
-						string_speedlimit = new Buffer([message[3], message[4], message[5]]);
+						string_speedlimit = Buffer.from([message[3], message[4], message[5]]);
 						string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
 						// Update omnibus.status variables
@@ -507,11 +507,11 @@ var IKE = function(omnibus) {
 						command = 'OBC average speed';
 
 						// Parse unit
-						string_speedavg_unit = new Buffer([message[8]]);
+						string_speedavg_unit = Buffer.from([message[8]]);
 						string_speedavg_unit = string_speedavg_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_speedavg = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_speedavg = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
 
 						// Convert values appropriately based on coding valueunits
@@ -536,18 +536,18 @@ var IKE = function(omnibus) {
 
 					case 0x0B: //
 						command = 'OBC 0x0B';
-						value   = new Buffer(message);
+						value   = Buffer.from(message);
 						break;
 
 					case 0x0C: //
 						command = 'OBC 0x0C';
-						value   = new Buffer(message);
+						value   = Buffer.from(message);
 						break;
 
 					case 0x0D: //
 						command = 'OBC code';
 						// Parse value
-						string_code = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_code = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_code = string_code.toString().trim().toLowerCase();
 
 						// Update omnibus.status variable
@@ -559,7 +559,7 @@ var IKE = function(omnibus) {
 						command = 'OBC timer';
 
 						// Parse value
-						string_timer = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_timer = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_timer = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
@@ -571,7 +571,7 @@ var IKE = function(omnibus) {
 						command = 'OBC aux heat timer 1';
 
 						// Parse value
-						string_aux_heat_timer_1 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_1 = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -583,7 +583,7 @@ var IKE = function(omnibus) {
 						command = 'OBC aux heat timer 2';
 
 						// Parse value
-						string_aux_heat_timer_2 = new Buffer([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_2 = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
 						string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -595,7 +595,7 @@ var IKE = function(omnibus) {
 						command = 'OBC stopwatch';
 
 						// Parse value
-						string_stopwatch = new Buffer([message[3], message[4], message[5], message[6]]);
+						string_stopwatch = Buffer.from([message[3], message[4], message[5], message[6]]);
 						string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
@@ -605,7 +605,7 @@ var IKE = function(omnibus) {
 
 					default:
 						command = 'OBC unknown value';
-						value   = new Buffer(message);
+						value   = Buffer.from(message);
 						break;
 				}
 				break;
@@ -624,7 +624,7 @@ var IKE = function(omnibus) {
 						value = 'blink';
 						break;
 					default:
-						value = new Buffer(message);
+						value = Buffer.from(message);
 						break;
 				}
 
@@ -648,7 +648,7 @@ var IKE = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(message);
+				value   = Buffer.from(message);
 				break;
 		}
 

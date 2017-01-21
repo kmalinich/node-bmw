@@ -68,7 +68,7 @@ protocol.prototype.parser = function(buffer) {
         // console.log('[MSG FOUND] Source      : %s', msg_src_name);
         // console.log('[MSG FOUND] Destination : %s', msg_dst_name);
         // console.log('[MSG FOUND] Length      : %s', msg_len);
-        // console.log('[MSG FOUND] Data        :', new Buffer(msg_msg));
+        // console.log('[MSG FOUND] Data        :', Buffer.from(msg_msg));
         // console.log('[MSG FOUND] Checksum    : %s', msg_crc.toString(16));
         // console.log('[MSG FOUND] ===========================');
         // console.log(' ');

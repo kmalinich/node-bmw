@@ -61,7 +61,7 @@ var DSPC = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 
@@ -111,7 +111,7 @@ var DSPC = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

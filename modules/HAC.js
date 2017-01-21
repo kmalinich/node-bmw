@@ -61,7 +61,7 @@ var HAC = function(omnibus) {
 
 		else {
 			command = 'unknown';
-			data    = new Buffer(message);
+			data    = Buffer.from(message);
 		}
 
 		console.log('[HAC]  Sent %s:', command, data);

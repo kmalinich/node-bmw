@@ -53,7 +53,7 @@ var CDC = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 
@@ -107,7 +107,7 @@ var CDC = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = new Buffer(data.msg);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

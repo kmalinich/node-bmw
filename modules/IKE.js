@@ -57,21 +57,20 @@ var IKE = function(omnibus) {
 	// Parse data sent from IKE module
 	function parse_out(data) {
 		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
+		var src = data.src.id;
+		var dst = data.dst;
 
 		var command;
 		var value;
 
-		switch (message[0]) {
+		switch (data.msg[0]) {
 			case 0x01: // Request device status
 				command = 'request';
 				value   = 'device status';
 				break;
 
 			case 0x02: // Broadcast device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						command = 'device status';
 						value   = 'ready';
@@ -93,7 +92,7 @@ var IKE = function(omnibus) {
 				command = 'ignition status';
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
-				if (message[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
+				if (data.msg[1] == 0x00 && (omnibus.status.vehicle.ignition == 'accessory' || omnibus.status.vehicle.ignition == 'run')) {
 					console.log('[node::IKE] Trigger: power-down state');
 					state_powerdown = true;
 				}
@@ -102,7 +101,7 @@ var IKE = function(omnibus) {
 				}
 
 				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
-				if ((message[1] == 0x00 || message[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
+				if ((data.msg[1] == 0x00 || data.msg[1] == 0x01) && omnibus.status.vehicle.ignition == 'run') {
 					console.log('[node::IKE] Trigger: power-off state');
 					state_poweroff = true;
 				}
@@ -111,7 +110,7 @@ var IKE = function(omnibus) {
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((message[1] == 0x01 || message[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
+				if ((data.msg[1] == 0x01 || data.msg[1] == 0x03) && omnibus.status.vehicle.ignition == 'off') {
 					console.log('[node::IKE] Trigger: power-on state');
 					state_poweron = true;
 				}
@@ -120,7 +119,7 @@ var IKE = function(omnibus) {
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
-				if (message[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
+				if (data.msg[1] == 0x03 && (omnibus.status.vehicle.ignition == 'off' || omnibus.status.vehicle.ignition == 'accessory')) {
 					console.log('[node::IKE] Trigger: run state');
 					state_run = true;
 				}
@@ -128,7 +127,7 @@ var IKE = function(omnibus) {
 					state_run = false;
 				}
 
-				switch (message[1]) { // Ignition status value
+				switch (data.msg[1]) { // Ignition status value
 					case 0x00 : omnibus.status.vehicle.ignition = 'off';       break;
 					case 0x01 : omnibus.status.vehicle.ignition = 'accessory'; break;
 					case 0x03 : omnibus.status.vehicle.ignition = 'run';       break;
@@ -183,28 +182,29 @@ var IKE = function(omnibus) {
 					// Welcome message
 					text_warning('node-bmw     '+os.hostname(), 3000);
 
-					// Refresh OBC HUD once every 10 seconds
+					// Refresh OBC HUD once every 5 seconds
 					hud_refresh(true);
 					interval_hud_refresh = setInterval(() => {
 						hud_refresh(true);
-					}, 10000);
+					}, 5000);
 				}
 
 				if (state_run === true) {
 				}
 
-				omnibus.LCM.auto_lights_process();
+				// omnibus.LCM.auto_lights_process();
 				value = omnibus.status.vehicle.ignition;
 				break;
 
 			case 0x13: // IKE sensor status
 				command = 'broadcast';
 				value   = 'IKE sensor status';
+				// console.log('[node::IKE] sensor :', Buffer.from(data.msg));
 
 				// This is a bitmask
-				// message[1]:
+				// data.msg[1]:
 				// 0x01 = handbrake on
-				if (bit_test(message[1], bit_0)) {
+				if (bit_test(data.msg[1], bit_0)) {
 					// If handbrake is newly true
 					if (omnibus.status.vehicle.handbrake === false) {
 						omnibus.status.vehicle.handbrake = true;
@@ -219,7 +219,7 @@ var IKE = function(omnibus) {
 					}
 				}
 
-				// message[2]:
+				// data.msg[2]:
 				//   1 = Engine running
 				// 176 = P (4+5+7)
 				//  16 = R (4)
@@ -228,23 +228,27 @@ var IKE = function(omnibus) {
 				// 192 = 4 (6+7)
 				// 208 = 3 (4+6+7)
 				//  64 = 2 (6)
-				if (bit_test(message[2], bit_0)) {
+				if (bit_test(data.msg[2], bit_0)) {
 					// If it's newly running
-					if (omnibus.status.engine.running === false) {
+					if (omnibus.status.engine.running === false || omnibus.status.engine.running === null) {
 						omnibus.HDMI.command('poweron');
 						omnibus.status.engine.running = true;
 					}
 				}
 				else {
 					// If it's newly NOT running
-					if (omnibus.status.engine.running === true) {
+					if (omnibus.status.engine.running === true || omnibus.status.engine.running === null) {
 						omnibus.status.engine.running = false;
 					}
 				}
 
-				if (bit_test(message[2], bit_4) && !bit_test(message[2], bit_5) && !bit_test(message[2], bit_6) && !bit_test(message[2], bit_7)) {
+				if (bit_test(data.msg[2], bit_4) &&
+					!bit_test(data.msg[2], bit_5)  &&
+					!bit_test(data.msg[2], bit_6)  &&
+					!bit_test(data.msg[2], bit_7)) {
+
 					// If it's newly in reverse
-					if (omnibus.status.vehicle.reverse == false) {
+					if (omnibus.status.vehicle.reverse === false || omnibus.status.vehicle.reverse === null) {
 						text_warning(' YOU\'RE IN REVERSE!', 2000);
 					}
 					omnibus.status.vehicle.reverse = true;
@@ -261,9 +265,9 @@ var IKE = function(omnibus) {
 
 			case 0x17: // Odometer
 				command                            = 'odometer';
-				var odometer_value1                = message[3] << 16;
-				var odometer_value2                = message[2] << 8;
-				var odometer_value                 = odometer_value1 + odometer_value2 + message[1];
+				var odometer_value1                = data.msg[3] << 16;
+				var odometer_value2                = data.msg[2] << 8;
+				var odometer_value                 = odometer_value1 + odometer_value2 + data.msg[1];
 				value                              = odometer_value;
 				omnibus.status.vehicle.odometer.km = odometer_value;
 				omnibus.status.vehicle.odometer.mi = Math.round(convert(odometer_value).from('kilometre').to('us mile'));
@@ -274,11 +278,11 @@ var IKE = function(omnibus) {
 				value   = 'current speed and RPM';
 
 				// Update vehicle and engine speed variables
-				omnibus.status.vehicle.speed.kmh = parseFloat(message[1]*2);
-				omnibus.status.engine.speed      = parseFloat(message[2]*100);
+				omnibus.status.vehicle.speed.kmh = parseFloat(data.msg[1]*2);
+				omnibus.status.engine.speed      = parseFloat(data.msg[2]*100);
 
 				// Convert values and round to 2 decimals
-				omnibus.status.vehicle.speed.mph = convert(parseFloat((message[1]*2))).from('kilometre').to('us mile').toFixed(2);
+				omnibus.status.vehicle.speed.mph = convert(parseFloat((data.msg[1]*2))).from('kilometre').to('us mile').toFixed(2);
 				break;
 
 			case 0x19: // Coolant temp and external temp
@@ -286,11 +290,11 @@ var IKE = function(omnibus) {
 				value   = 'temperature values';
 
 				// Update external and engine coolant temp variables
-				omnibus.status.temperature.exterior.c = parseFloat(message[1]);
-				omnibus.status.temperature.coolant.c  = parseFloat(message[2]);
+				omnibus.status.temperature.exterior.c = parseFloat(data.msg[1]);
+				omnibus.status.temperature.coolant.c  = parseFloat(data.msg[2]);
 
-				omnibus.status.temperature.exterior.f = Math.round(convert(parseFloat(message[1])).from('celsius').to('fahrenheit'));
-				omnibus.status.temperature.coolant.f  = Math.round(convert(parseFloat(message[2])).from('celsius').to('fahrenheit'));
+				omnibus.status.temperature.exterior.f = Math.round(convert(parseFloat(data.msg[1])).from('celsius').to('fahrenheit'));
+				omnibus.status.temperature.coolant.f  = Math.round(convert(parseFloat(data.msg[2])).from('celsius').to('fahrenheit'));
 
 				// Send Kodi a notification
 				// omnibus.kodi.notify('Temperature', 'Coolant: '+omnibus.status.temperature.coolant.c+' C, Exterior: '+omnibus.status.temperature.exterior.c+' C');
@@ -301,26 +305,26 @@ var IKE = function(omnibus) {
 
 			case 0x1B: // ACK text message
 				command = 'acknowledged';
-				value   = parseFloat(message[1])+' text messages';
+				value   = parseFloat(data.msg[1])+' text messages';
 				break;
 
 			case 0x24: // OBC values broadcast
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x01: // Time
 						command = 'OBC time';
 
 						// Parse unit
-						string_time_unit = Buffer.from([message[8], message[9]]);
+						string_time_unit = Buffer.from([data.msg[8], data.msg[9]]);
 						string_time_unit = string_time_unit.toString().trim().toLowerCase();
 
 						// Detect 12h or 24h time and parse value
 						if (string_time_unit == 'am' || string_time_unit == 'pm') {
 							omnibus.status.coding.unit.time = '12h';
-							string_time = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+							string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						}
 						else {
 							omnibus.status.coding.unit.time = '24h';
-							string_time = Buffer.from([message[3], message[4], message[5], message[6], message[7]]);
+							string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
 						}
 
 						string_time = string_time.toString().trim().toLowerCase();
@@ -334,7 +338,7 @@ var IKE = function(omnibus) {
 						command = 'OBC date';
 
 						// Parse value
-						string_date = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9], message[10], message[11], message[12]]);
+						string_date = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9], data.msg[10], data.msg[11], data.msg[12]]);
 						string_date = string_date.toString().trim();
 
 						// Update omnibus.status variables
@@ -346,20 +350,20 @@ var IKE = function(omnibus) {
 						command = 'OBC exterior temperature';
 
 						// Parse unit
-						string_temp_exterior_unit = Buffer.from([message[9]]);
+						string_temp_exterior_unit = Buffer.from([data.msg[9]]);
 						string_temp_exterior_unit = string_temp_exterior_unit.toString().trim().toLowerCase();
 
 						// Parse if it is +/-
-						string_temp_exterior_negative = Buffer.from([message[9]]);
+						string_temp_exterior_negative = Buffer.from([data.msg[9]]);
 						string_temp_exterior_negative = string_temp_exterior_negative.toString().trim().toLowerCase();
 
 						// Parse value
 						if (string_temp_exterior_negative == '-') {
-							string_temp_exterior_value = Buffer.from(message[3], [message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = Buffer.from(data.msg[3], [data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
 						else {
-							string_temp_exterior_value = Buffer.from([message[4], message[5], message[6], message[7]]);
+							string_temp_exterior_value = Buffer.from([data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
 
@@ -384,11 +388,11 @@ var IKE = function(omnibus) {
 						command = 'OBC consumption 1';
 
 						// Parse unit
-						string_consumption_1_unit = Buffer.from([message[8]]);
+						string_consumption_1_unit = Buffer.from([data.msg[8]]);
 						string_consumption_1_unit = string_consumption_1_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_consumption_1 = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_consumption_1 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_consumption_1 = parseFloat(string_consumption_1.toString().trim().toLowerCase());
 
 						// Perform appropriate conversions between units
@@ -420,11 +424,11 @@ var IKE = function(omnibus) {
 						command = 'OBC consumption 2';
 
 						// Parse unit
-						string_consumption_2_unit = Buffer.from([message[8]]);
+						string_consumption_2_unit = Buffer.from([data.msg[8]]);
 						string_consumption_2_unit = string_consumption_2_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_consumption_2 = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_consumption_2 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_consumption_2 = parseFloat(string_consumption_2.toString().trim().toLowerCase());
 
 						// Perform appropriate conversions between units and round to 2 decimals
@@ -448,10 +452,10 @@ var IKE = function(omnibus) {
 						command = 'OBC range to empty';
 
 						// Parse value
-						string_range = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_range = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_range = string_range.toString().trim();
 
-						string_range_unit = Buffer.from([message[7], message[8]]);
+						string_range_unit = Buffer.from([data.msg[7], data.msg[8]]);
 						string_range_unit = string_range_unit.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -476,7 +480,7 @@ var IKE = function(omnibus) {
 						command = 'OBC distance remaining';
 
 						// Parse value
-						string_distance = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_distance = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_distance = string_distance.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -487,7 +491,7 @@ var IKE = function(omnibus) {
 					case 0x08: // Arrival time
 						command = 'OBC arrival time';
 						// Parse value
-						string_arrival = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_arrival = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						string_arrival = string_arrival.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -499,7 +503,7 @@ var IKE = function(omnibus) {
 						command = 'OBC speed limit';
 
 						// Parse value
-						string_speedlimit = Buffer.from([message[3], message[4], message[5]]);
+						string_speedlimit = Buffer.from([data.msg[3], data.msg[4], data.msg[5]]);
 						string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
 						// Update omnibus.status variables
@@ -511,11 +515,11 @@ var IKE = function(omnibus) {
 						command = 'OBC average speed';
 
 						// Parse unit
-						string_speedavg_unit = Buffer.from([message[8]]);
+						string_speedavg_unit = Buffer.from([data.msg[8]]);
 						string_speedavg_unit = string_speedavg_unit.toString().trim().toLowerCase();
 
 						// Parse value
-						string_speedavg = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_speedavg = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
 
 						// Convert values appropriately based on coding valueunits
@@ -540,18 +544,18 @@ var IKE = function(omnibus) {
 
 					case 0x0B: //
 						command = 'OBC 0x0B';
-						value   = Buffer.from(message);
+						value   = Buffer.from(data.msg);
 						break;
 
 					case 0x0C: //
 						command = 'OBC 0x0C';
-						value   = Buffer.from(message);
+						value   = Buffer.from(data.msg);
 						break;
 
 					case 0x0D: //
 						command = 'OBC code';
 						// Parse value
-						string_code = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_code = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_code = string_code.toString().trim().toLowerCase();
 
 						// Update omnibus.status variable
@@ -563,7 +567,7 @@ var IKE = function(omnibus) {
 						command = 'OBC timer';
 
 						// Parse value
-						string_timer = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_timer = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_timer = parseFloat(string_timer.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
@@ -575,7 +579,7 @@ var IKE = function(omnibus) {
 						command = 'OBC aux heat timer 1';
 
 						// Parse value
-						string_aux_heat_timer_1 = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_1 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -587,7 +591,7 @@ var IKE = function(omnibus) {
 						command = 'OBC aux heat timer 2';
 
 						// Parse value
-						string_aux_heat_timer_2 = Buffer.from([message[3], message[4], message[5], message[6], message[7], message[8], message[9]]);
+						string_aux_heat_timer_2 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
 
 						// Update omnibus.status variables
@@ -599,7 +603,7 @@ var IKE = function(omnibus) {
 						command = 'OBC stopwatch';
 
 						// Parse value
-						string_stopwatch = Buffer.from([message[3], message[4], message[5], message[6]]);
+						string_stopwatch = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update omnibus.status variables
@@ -609,7 +613,7 @@ var IKE = function(omnibus) {
 
 					default:
 						command = 'OBC unknown value';
-						value   = Buffer.from(message);
+						value   = Buffer.from(data.msg);
 						break;
 				}
 				break;
@@ -617,7 +621,7 @@ var IKE = function(omnibus) {
 			case 0x2A: // aux heating LED
 				command = 'aux heating LED';
 				// This actually is a bitmask but.. this is also a freetime project
-				switch(message[2]) {
+				switch(data.msg[2]) {
 					case 0x00:
 						value = 'off';
 						break;
@@ -628,7 +632,7 @@ var IKE = function(omnibus) {
 						value = 'blink';
 						break;
 					default:
-						value = Buffer.from(message);
+						value = Buffer.from(data.msg);
 						break;
 				}
 
@@ -652,7 +656,7 @@ var IKE = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = Buffer.from(message);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 
@@ -760,8 +764,8 @@ var IKE = function(omnibus) {
 		var string_time = moment().format('HH:mm');
 		var time_now    = now();
 
-		// Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
-		if (time_now-last_hud_refresh <= 9000 && interval === true) {
+		// Bounce if the last update was less than 5 sec ago, and it's the auto interval calling
+		if (time_now-last_hud_refresh <= 5000 && interval === true) {
 			console.log('[node::IKE] HUD refresh: too soon');
 			return;
 		}
@@ -806,11 +810,22 @@ var IKE = function(omnibus) {
 		}
 
 		// 1m sysload - to 3 digits
-		var load_1m = parseFloat(os.loadavg()[0].toFixed(3));
+		var load_1m = os.loadavg()[0].toFixed(3);
 
-		// Add space to left-most string (sysload)
-		if (load_1m.length === 4) {
-			load_1m = load_1m+'0';
+		// Format the output (ghetto-ly)
+		switch (load_1m.length) {
+			case 4:
+				load_1m = load_1m+'0';
+				break;
+			case 3:
+				load_1m = load_1m+'00';
+				break;
+			case 2:
+				load_1m = load_1m+'000';
+				break;
+			case 1:
+				load_1m = '0.000';
+				break;
 		}
 
 		// Add space to left-most string (consumption 1)
@@ -1078,9 +1093,9 @@ var IKE = function(omnibus) {
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
 		omnibus.ibus.send({
-			src: 'CCM',
-			dst: 'IKE',
-			msg: message_hex,
+			src : 'CCM',
+			dst : 'IKE',
+			msg : message_hex,
 		});
 
 		// Default timeout = 10 sec
@@ -1098,9 +1113,9 @@ var IKE = function(omnibus) {
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
 		omnibus.ibus.send({
-			src: 'CCM',
-			dst: 'IKE',
-			msg: message_hex,
+			src : 'CCM',
+			dst : 'IKE',
+			msg : message_hex,
 		});
 
 		// Default timeout = 5 sec

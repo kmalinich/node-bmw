@@ -192,7 +192,7 @@ var IKE = function(omnibus) {
 				if (state_run === true) {
 				}
 
-				// omnibus.LCM.auto_lights_process();
+				omnibus.LCM.auto_lights_process();
 				value = omnibus.status.vehicle.ignition;
 				break;
 

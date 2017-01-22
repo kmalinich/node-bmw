@@ -1,11 +1,5 @@
 #!/usr/bin/env node
 
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
 // Array of all DSP modes
 var dsp_modes = {
 	0 : 'concert hall',
@@ -17,7 +11,7 @@ var dsp_modes = {
 	6 : 'DSP off',
 }
 
-var DSP = function(omnibus) {
+var DSP = function() {
 	// Exposed data
 	this.eq_decode          = eq_decode;
 	this.eq_encode          = eq_encode;
@@ -125,7 +119,7 @@ var DSP = function(omnibus) {
 			case 0x02: // Device status
 				switch (data.msg[1]) {
 					case 0x00:
-						omnibus.status.dsp.ready = true;
+						status.dsp.ready = true;
 						command = 'device status';
 						value   = 'ready';
 						break;
@@ -135,8 +129,8 @@ var DSP = function(omnibus) {
 						value   = 'ready after reset';
 
 						// Set value to okay powering on via BMBT
-						omnibus.status.dsp.ready = true;
-						console.log('[node::bmw] omnibus.status.dsp.ready: \'%s\'', omnibus.status.dsp.ready);
+						status.dsp.ready = true;
+						console.log('[node::bmw] status.dsp.ready: \'%s\'', status.dsp.ready);
 
 						// Attempt to send BMBT power button
 						setTimeout(() => {
@@ -188,12 +182,12 @@ var DSP = function(omnibus) {
 		var dsp_mode = data[1]-1;
 
 		var reverb   = data[2] & 0x0F;
-		if (bit_test(data[2], 0x10)) {
+		if (bitmask.bit_test(data[2], 0x10)) {
 			reverb *= -1;
 		}
 
 		var room_size = data[3] & 0x0F;
-		if (bit_test(data[3], 0x10)) {
+		if (bitmask.bit_test(data[3], 0x10)) {
 			room_size *= -1;
 		}
 
@@ -203,22 +197,22 @@ var DSP = function(omnibus) {
 		for (n = 0; n<7; n++) {
 			band[n] = data[4+n] & 0x0F;
 
-			if(bit_test(data[n+4], 0x10)) {
+			if(bitmask.bit_test(data[n+4], 0x10)) {
 				band[n]*=-1;
 			}
 		}
 
-		// Insert parsed data into omnibus.status
-		omnibus.status.dsp.mode      = dsp_modes[dsp_mode];
-		omnibus.status.dsp.reverb    = reverb;
-		omnibus.status.dsp.room_size = room_size;
-		omnibus.status.dsp.eq.band0  = band[0];
-		omnibus.status.dsp.eq.band1  = band[1];
-		omnibus.status.dsp.eq.band2  = band[2];
-		omnibus.status.dsp.eq.band3  = band[3];
-		omnibus.status.dsp.eq.band4  = band[4];
-		omnibus.status.dsp.eq.band5  = band[5];
-		omnibus.status.dsp.eq.band6  = band[6];
+		// Insert parsed data into status
+		status.dsp.mode      = dsp_modes[dsp_mode];
+		status.dsp.reverb    = reverb;
+		status.dsp.room_size = room_size;
+		status.dsp.eq.band0  = band[0];
+		status.dsp.eq.band1  = band[1];
+		status.dsp.eq.band2  = band[2];
+		status.dsp.eq.band3  = band[3];
+		status.dsp.eq.band4  = band[4];
+		status.dsp.eq.band5  = band[5];
+		status.dsp.eq.band6  = band[6];
 
 		console.log('[node::DSP] Decoded DSP EQ');
 	}
@@ -247,8 +241,8 @@ var DSP = function(omnibus) {
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (omnibus.status.dsp.reset === true) {
-			omnibus.status.dsp.reset = false;
+		if (status.dsp.reset === true) {
+			status.dsp.reset = false;
 			data  = 'ready';
 			msg   = [0x02, 0x00];
 		}

@@ -1,18 +1,6 @@
 #!/usr/bin/env node
 
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-// Set a bit in a bitmask
-function bit_set(num, bit) {
-	num |= bit;
-	return num;
-}
-
-var RAD = function(omnibus) {
+var RAD = function() {
 	// Exposed data
 	this.led       = led;
 	this.parse_out = parse_out;
@@ -31,7 +19,7 @@ var RAD = function(omnibus) {
 				break;
 
 			case 0x02: // Device status
-				omnibus.status.rad.ready = true;
+				status.rad.ready = true;
 				command = 'device status';
 
 				switch (data.msg[1]) {
@@ -85,17 +73,17 @@ var RAD = function(omnibus) {
 				switch (data.msg[1]) {
 					case 0xAF:
 						value = 'off';
-						omnibus.status.rad.audio_control = value;
+						status.rad.audio_control = value;
 						break;
 
 					case 0xA1:
 						value = 'tuner/tape';
-						omnibus.status.rad.audio_control = value;
+						status.rad.audio_control = value;
 						break;
 
 					default:
 						value = data.msg[1];
-						omnibus.status.rad.audio_control = value;
+						status.rad.audio_control = value;
 						break;
 				}
 				break;
@@ -153,12 +141,12 @@ var RAD = function(omnibus) {
 		// Initialize output byte
 		var byte = 0x00;
 
-		if (object.solid_red)    { byte = bit_set(byte, bit_0); }
-		if (object.flash_red)    { byte = bit_set(byte, bit_1); }
-		if (object.solid_yellow) { byte = bit_set(byte, bit_2); }
-		if (object.flash_yellow) { byte = bit_set(byte, bit_3); }
-		if (object.solid_green)  { byte = bit_set(byte, bit_4); }
-		if (object.flash_green)  { byte = bit_set(byte, bit_5); }
+		if (object.solid_red)    { byte = bitmask.bit_set(byte, bitmask.bit[0]); }
+		if (object.flash_red)    { byte = bitmask.bit_set(byte, bitmask.bit[1]); }
+		if (object.solid_yellow) { byte = bitmask.bit_set(byte, bitmask.bit[2]); }
+		if (object.flash_yellow) { byte = bitmask.bit_set(byte, bitmask.bit[3]); }
+		if (object.solid_green)  { byte = bitmask.bit_set(byte, bitmask.bit[4]); }
+		if (object.flash_green)  { byte = bitmask.bit_set(byte, bitmask.bit[5]); }
 
 		// Send message
 		console.log('[node::RAD] Sending \'RAD LED\' packet');

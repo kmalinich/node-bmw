@@ -7,59 +7,63 @@ const dispatcher   = new (require('httpdispatcher'));
 const http         = require('http');
 const query_string = require('querystring');
 
-// Everything connection object
-const omnibus = {
-	last_event_ibus : 0, // Last time data was fired
-	last_event_dbus : 0,
-	bus_modules     : new (require('./lib/bus-modules.js')),
-	config          : require('./lib/config.js'), // Config
-	status          : require('./lib/status.js'), // Global status object
-};
+// Global libraries
+now = require('performance-now');
 
-// Data bus module libraries
-omnibus.ABG  = new (require('./modules/ABG.js' ))(omnibus);
-omnibus.ANZV = new (require('./modules/ANZV.js'))(omnibus);
-omnibus.BMBT = new (require('./modules/BMBT.js'))(omnibus);
-omnibus.CCM  = new (require('./modules/CCM.js' ))(omnibus);
-omnibus.CDC  = new (require('./modules/CDC.js' ))(omnibus);
-omnibus.DSP  = new (require('./modules/DSP.js' ))(omnibus);
-omnibus.DSPC = new (require('./modules/DSPC.js'))(omnibus);
-omnibus.EWS  = new (require('./modules/EWS.js' ))(omnibus);
-omnibus.GM   = new (require('./modules/GM.js'  ))(omnibus);
-omnibus.GT   = new (require('./modules/GT.js'  ))(omnibus);
-omnibus.HAC  = new (require('./modules/HAC.js' ))(omnibus);
-omnibus.IHKA = new (require('./modules/IHKA.js'))(omnibus);
-omnibus.IKE  = new (require('./modules/IKE.js' ))(omnibus);
-omnibus.LCM  = new (require('./modules/LCM.js' ))(omnibus);
-omnibus.MFL  = new (require('./modules/MFL.js' ))(omnibus);
-omnibus.MID  = new (require('./modules/MID.js' ))(omnibus);
-omnibus.NAV  = new (require('./modules/NAV.js' ))(omnibus);
-omnibus.PDC  = new (require('./modules/PDC.js' ))(omnibus);
-omnibus.RAD  = new (require('./modules/RAD.js' ))(omnibus);
-omnibus.RLS  = new (require('./modules/RLS.js' ))(omnibus);
-omnibus.SES  = new (require('./modules/SES.js' ))(omnibus);
-omnibus.SHD  = new (require('./modules/SHD.js' ))(omnibus);
-omnibus.TEL  = new (require('./modules/TEL.js' ))(omnibus);
-omnibus.VID  = new (require('./modules/VID.js' ))(omnibus);
-
-// Custom libraries
-omnibus.kodi = new (require('./lib/kodi.js'))(omnibus);
-omnibus.HDMI = new (require('./lib/HDMI.js'))(omnibus);
+// Global objects
+bitmask     = require('./lib/bitmask');
+bus_modules = require('./lib/bus-modules');
+config      = require('./lib/config');
+json        = require('./lib/json');
+log         = require('./lib/log');
+status      = require('./lib/status');
 
 // API/WebSocket libraries
-omnibus.api_server    = http.createServer(api_handler);
-omnibus.socket_server = new (require('./lib/socket-server.js'))(omnibus);
+socket_server = require('./lib/socket-server');
+api_server    = http.createServer(api_handler);
 
-// IBUS libraries
-omnibus.data_handler = new (require('./ibus/data-handler.js'  ))(omnibus); // Data handler
-omnibus.protocol     = new (require('./ibus/ibus-protocol.js' ))(omnibus); // Bus protocol
-omnibus.ibus         = new (require('./ibus/ibus-interface.js'))(omnibus); // IBUS connection handle
+// Everything connection object
+omnibus = {
+	// Data bus module libraries
+	ABG  : new (require('./modules/ABG' )),
+	ANZV : new (require('./modules/ANZV')),
+	BMBT : new (require('./modules/BMBT')),
+	CCM  : new (require('./modules/CCM' )),
+	CDC  : new (require('./modules/CDC' )),
+	DSP  : new (require('./modules/DSP' )),
+	DSPC : new (require('./modules/DSPC')),
+	EWS  : new (require('./modules/EWS' )),
+	GM   : new (require('./modules/GM'  )),
+	GT   : new (require('./modules/GT'  )),
+	HAC  : new (require('./modules/HAC' )),
+	IHKA : new (require('./modules/IHKA')),
+	IKE  : new (require('./modules/IKE' )),
+	LCM  : new (require('./modules/LCM' )),
+	MFL  : new (require('./modules/MFL' )),
+	MID  : new (require('./modules/MID' )),
+	NAV  : new (require('./modules/NAV' )),
+	PDC  : new (require('./modules/PDC' )),
+	RAD  : new (require('./modules/RAD' )),
+	RLS  : new (require('./modules/RLS' )),
+	SES  : new (require('./modules/SES' )),
+	SHD  : new (require('./modules/SHD' )),
+	TEL  : new (require('./modules/TEL' )),
+	VID  : new (require('./modules/VID' )),
 
-// HTTP/WS config
-var api_port            = 3001;
+	// Custom libraries
+	BT   : new (require('./lib/BT'  )),
+	HDMI : new (require('./lib/HDMI')),
+	kodi : new (require('./lib/kodi')),
+
+	// IBUS libraries - these should be combined
+	data_handler : new (require('./ibus/data-handler'  )), // Data handler/router
+	protocol     : new (require('./ibus/ibus-protocol' )), // Protocol
+	ibus         : new (require('./ibus/ibus-interface')), // Connection
+};
+
+// API config - should be moved into API object
 var api_socket_key_last = 0;
 var api_socket_map      = {};
-var websocket_port      = 3002;
 
 
 // Global startup
@@ -99,12 +103,12 @@ function shutdown() {
 
 function startup_api_server(callback) {
 	// error handling breh
-	omnibus.api_server.listen(api_port, () => {
-		console.log('[node::API] Started, port %s', api_port);
+	api_server.listen(config.api_port, () => {
+		console.log('[node::API] Started, port %s', config.api_port);
 		// Only call back if callback is a function
 		if (typeof callback === 'function') { callback(); }
 
-		omnibus.api_server.on('connection', (api_socket) => {
+		api_server.on('connection', (api_socket) => {
 			// Generate a new, unique api_socket-key
 			var api_socket_key = ++api_socket_key_last;
 
@@ -127,10 +131,10 @@ function shutdown_api_server(callback) {
 	});
 
 	// Tell server to close
-	omnibus.api_server.close();
+	api_server.close();
 
 	// API server close event
-	omnibus.api_server.on('close', () => {
+	api_server.on('close', () => {
 		console.log('[node::API] Stopped');
 		// Only call back if callback is a function
 		if (typeof callback === 'function') { callback(); }
@@ -147,7 +151,7 @@ function api_handler(request, response) {
 dispatcher.onGet('/status', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'application/json'});
 
-	response.end(JSON.stringify(omnibus.status));
+	response.end(JSON.stringify(status));
 });
 
 // GM POST request

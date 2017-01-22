@@ -1,21 +1,17 @@
 #!/usr/bin/env node
 
-var now  = require('performance-now');
 var data = new Array();
 
-function dbus_protocol(omnibus) {
+function dbus_protocol() {
 	// Exported
 	create = this.create;
 	parser = this.parser;
-
-	// Imported
-	this.omnibus = omnibus;
 }
 
 // Emit a data event on each complete IBUS message
 dbus_protocol.prototype.parser = function(buffer) {
 	// Mark last event time
-	this.omnibus.last_event_dbus = now();
+	status.dbus.last_event = now();
 	data.push(buffer.readUInt16LE(0, buffer.length));
 
 	if (data.length >= 5) {
@@ -30,7 +26,7 @@ dbus_protocol.prototype.parser = function(buffer) {
 		msg_src = data[0];
 		msg_len = data[1];
 
-		var msg_src_name = this.omnibus.bus_modules.hex2name(msg_src);
+		var msg_src_name = bus_modules.hex2name(msg_src);
 
 		if (data.length-2 === msg_len) {
 			// When we arrive at the complete message,
@@ -79,7 +75,7 @@ dbus_protocol.prototype.parser = function(buffer) {
 				};
 
 				// emitter.emit('data', msg_obj);
-				this.omnibus.data_handler.check_data(msg_obj);
+				omnibus.data_handler.check_data(msg_obj);
 
 				// Reset data var
 				data = new Array();
@@ -99,7 +95,7 @@ dbus_protocol.prototype.create = function(msg) {
 	var buffer = Buffer.alloc((msg.msg.length+3));
 
 	// Convert module names to hex codes
-	buffer[0] = this.omnibus.bus_modules.name2hex(msg.dst);
+	buffer[0] = bus_modules.name2hex(msg.dst);
 	buffer[1] = msg.msg.length+3;
 
 	for (var i = 0; i < msg.msg.length; i++) {

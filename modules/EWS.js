@@ -1,22 +1,6 @@
 #!/usr/bin/env node
 
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-var EWS = function(omnibus) {
+var EWS = function() {
 	// Exposed data
 	this.parse_out = parse_out;
 	this.request   = request;
@@ -95,17 +79,17 @@ var EWS = function(omnibus) {
 				switch (message[1]) {
 					case 0x00:
 						value = 'no key';
-						omnibus.status.immobilizer.key_present = false;
+						status.immobilizer.key_present = false;
 						break;
 					case 0x01:
 						value = 'immobilisation deactivated';
-						// omnibus.status.immobilizer.key_present = null;
-						omnibus.status.immobilizer.immobilized = false;
+						// status.immobilizer.key_present = null;
+						status.immobilizer.immobilized = false;
 						break;
 					case 0x04:
 						value = 'valid key';
-						omnibus.status.immobilizer.key_present = true;
-						omnibus.status.immobilizer.immobilized = false;
+						status.immobilizer.key_present = true;
+						status.immobilizer.immobilized = false;
 						break;
 					default:
 						value = Buffer.from([message[1]]);
@@ -117,11 +101,11 @@ var EWS = function(omnibus) {
 
 				// Key number 255/0xFF = no key, vehicle immobilized
 				if (message[2] == 0xFF) {
-					omnibus.status.immobilizer.key_number  = null;
-					// omnibus.status.immobilizer.immobilized = true;
+					status.immobilizer.key_number  = null;
+					// status.immobilizer.immobilized = true;
 				}
 				else {
-					omnibus.status.immobilizer.key_number = message[2];
+					status.immobilizer.key_number = message[2];
 				}
 				command = 'key number';
 				console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, message[2]);

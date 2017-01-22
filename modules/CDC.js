@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-var CDC = function(omnibus) {
+var CDC = function() {
 	// Exposed data
 	this.parse_in           = parse_in;
 	this.parse_out          = parse_out;
@@ -25,7 +19,7 @@ var CDC = function(omnibus) {
 				value   = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
-				if (omnibus.config.emulate.cdc === true) {
+				if (config.emulate.cdc === true) {
 					send_device_status();
 				}
 				break;
@@ -42,7 +36,7 @@ var CDC = function(omnibus) {
 				break;
 
 			case 0x38:
-				if (omnibus.config.emulate.cdc === true) {
+				if (config.emulate.cdc === true) {
 					command = 'request'
 					value   = 'CD control status';
 
@@ -73,7 +67,7 @@ var CDC = function(omnibus) {
 				break;
 
 			case 0x02: // Device status
-				omnibus.status.cdc.ready = true;
+				status.cdc.ready = true;
 				command = 'device status';
 				switch (data.msg[1]) {
 					case 0x00:
@@ -121,8 +115,8 @@ var CDC = function(omnibus) {
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (omnibus.status.cdc.reset == true) {
-			omnibus.status.cdc.reset = false;
+		if (status.cdc.reset == true) {
+			status.cdc.reset = false;
 			data = 'ready after reset';
 			msg  = [0x02, 0x01];
 		}

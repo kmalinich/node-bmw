@@ -3,38 +3,7 @@
 // npm libraries
 var suncalc = require('suncalc');
 
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-// Set a bit in a bitmask
-function bit_set(num, bit) {
-	num |= bit;
-	return num;
-}
-
-// Convert hex to ascii
-function hex2a(hexx) {
-	var hex = hexx.toString();
-	var str = '';
-	for (var i = 0; i < hex.length; i += 2)
-		str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-	return str;
-}
-
-var LCM = function(omnibus) {
+var LCM = function() {
 	// Exposed data
 	this.auto_lights         = auto_lights;
 	this.auto_lights_process = auto_lights_process;
@@ -137,7 +106,7 @@ var LCM = function(omnibus) {
 			case 0x5C: // Broadcast: light dimmer status
 				command = 'broadcast';
 				value   = 'light dimmer status';
-				omnibus.status.lights.dimmer_value_3 = data.msg[1];
+				status.lights.dimmer_value_3 = data.msg[1];
 				break;
 
 			case 0x79: // Request: door/flap status
@@ -208,8 +177,8 @@ var LCM = function(omnibus) {
 
 	// This message also has days since service and total kms, but, baby steps...
 	function vehicle_data_decode(message) {
-		var vin_string             = hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
-		omnibus.status.vehicle.vin = vin_string;
+		var vin_string             = hex.hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
+		status.vehicle.vin = vin_string;
 		console.log('[node::LCM] Decoded VIN string: \'%s\'', vin_string);
 	}
 
@@ -218,52 +187,52 @@ var LCM = function(omnibus) {
 		// Could be done better/cleaner, like setting all values (except turn) to false first.. or something
 
 		// Lights on
-		if (message[1] == 0x00)          { omnibus.status.lights.all_off        = true; } else { omnibus.status.lights.all_off        = false; }
-		if (bit_test(message[1], bit_0)) { omnibus.status.lights.standing_front = true; } else { omnibus.status.lights.standing_front = false; }
-		if (bit_test(message[1], bit_1)) { omnibus.status.lights.lowbeam        = true; } else { omnibus.status.lights.lowbeam        = false; }
-		if (bit_test(message[1], bit_2)) { omnibus.status.lights.highbeam       = true; } else { omnibus.status.lights.highbeam       = false; }
-		if (bit_test(message[1], bit_3)) { omnibus.status.lights.fog_front      = true; } else { omnibus.status.lights.fog_front      = false; }
-		if (bit_test(message[1], bit_4)) { omnibus.status.lights.fog_rear       = true; } else { omnibus.status.lights.fog_rear       = false; }
-		if (bit_test(message[1], bit_7)) { omnibus.status.lights.turn_fast      = true; } else { omnibus.status.lights.turn_fast      = false; }
+		if (message[1] == 0x00)          { status.lights.all_off        = true; } else { status.lights.all_off        = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[0])) { status.lights.standing_front = true; } else { status.lights.standing_front = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[1])) { status.lights.lowbeam        = true; } else { status.lights.lowbeam        = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[2])) { status.lights.highbeam       = true; } else { status.lights.highbeam       = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[3])) { status.lights.fog_front      = true; } else { status.lights.fog_front      = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[4])) { status.lights.fog_rear       = true; } else { status.lights.fog_rear       = false; }
+		if (bitmask.bit_test(message[1], bitmask.bit[7])) { status.lights.turn_fast      = true; } else { status.lights.turn_fast      = false; }
 
 		// Faulty
-		if (message[2] == 0x00)          { omnibus.status.lights.faulty.all_ok         = true; } else { omnibus.status.lights.faulty.all_ok         = false; }
-		if (bit_test(message[2], bit_0)) { omnibus.status.lights.faulty.standing.front = true; } else { omnibus.status.lights.faulty.standing.front = false; }
-		if (bit_test(message[2], bit_1)) { omnibus.status.lights.faulty.lowbeam        = true; } else { omnibus.status.lights.faulty.lowbeam        = false; }
-		if (bit_test(message[2], bit_2)) { omnibus.status.lights.faulty.highbeam       = true; } else { omnibus.status.lights.faulty.highbeam       = false; }
-		if (bit_test(message[2], bit_3)) { omnibus.status.lights.faulty.fog.front      = true; } else { omnibus.status.lights.faulty.fog.front      = false; }
-		if (bit_test(message[2], bit_4)) { omnibus.status.lights.faulty.fog.rear       = true; } else { omnibus.status.lights.faulty.fog.rear       = false; }
-		if (bit_test(message[2], bit_5)) { omnibus.status.lights.faulty.turn.left      = true; } else { omnibus.status.lights.faulty.turn.left      = false; }
-		if (bit_test(message[2], bit_6)) { omnibus.status.lights.faulty.turn.right     = true; } else { omnibus.status.lights.faulty.turn.right     = false; }
-		if (bit_test(message[2], bit_7)) { omnibus.status.lights.faulty.license_plate  = true; } else { omnibus.status.lights.faulty.license_plate  = false; }
+		if (message[2] == 0x00)          { status.lights.faulty.all_ok         = true; } else { status.lights.faulty.all_ok         = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[0])) { status.lights.faulty.standing.front = true; } else { status.lights.faulty.standing.front = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[1])) { status.lights.faulty.lowbeam        = true; } else { status.lights.faulty.lowbeam        = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[2])) { status.lights.faulty.highbeam       = true; } else { status.lights.faulty.highbeam       = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[3])) { status.lights.faulty.fog.front      = true; } else { status.lights.faulty.fog.front      = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[4])) { status.lights.faulty.fog.rear       = true; } else { status.lights.faulty.fog.rear       = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[5])) { status.lights.faulty.turn.left      = true; } else { status.lights.faulty.turn.left      = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[6])) { status.lights.faulty.turn.right     = true; } else { status.lights.faulty.turn.right     = false; }
+		if (bitmask.bit_test(message[2], bitmask.bit[7])) { status.lights.faulty.license_plate  = true; } else { status.lights.faulty.license_plate  = false; }
 
 		// Lights on
-		if (bit_test(message[3], bit_1)) { omnibus.status.lights.brake           = true; } else { omnibus.status.lights.brake           = false; }
-		if (bit_test(message[3], bit_2)) { omnibus.status.lights.turn_sync       = true; } else { omnibus.status.lights.turn_sync       = false; }
-		if (bit_test(message[3], bit_3)) { omnibus.status.lights.standing_rear   = true; } else { omnibus.status.lights.standing_rear   = false; }
-		if (bit_test(message[3], bit_4)) { omnibus.status.lights.trailer         = true; } else { omnibus.status.lights.trailer         = false; }
-		if (bit_test(message[3], bit_5)) { omnibus.status.lights.reverse         = true; } else { omnibus.status.lights.reverse         = false; }
-		if (bit_test(message[3], bit_6)) { omnibus.status.lights.trailer_reverse = true; } else { omnibus.status.lights.trailer_reverse = false; }
-		if (bit_test(message[3], bit_7)) { omnibus.status.lights.hazard          = true; } else { omnibus.status.lights.hazard          = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[1])) { status.lights.brake           = true; } else { status.lights.brake           = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[2])) { status.lights.turn_sync       = true; } else { status.lights.turn_sync       = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[3])) { status.lights.standing_rear   = true; } else { status.lights.standing_rear   = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[4])) { status.lights.trailer         = true; } else { status.lights.trailer         = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[5])) { status.lights.reverse         = true; } else { status.lights.reverse         = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[6])) { status.lights.trailer_reverse = true; } else { status.lights.trailer_reverse = false; }
+		if (bitmask.bit_test(message[3], bitmask.bit[7])) { status.lights.hazard          = true; } else { status.lights.hazard          = false; }
 
 		// Faulty
-		if (bit_test(message[4], bit_0)) { omnibus.status.lights.faulty.brake.right         = true; } else { omnibus.status.lights.faulty.brake.right         = false; }
-		if (bit_test(message[4], bit_1)) { omnibus.status.lights.faulty.brake.left          = true; } else { omnibus.status.lights.faulty.brake.left          = false; }
-		if (bit_test(message[4], bit_2)) { omnibus.status.lights.faulty.standing.rear_right = true; } else { omnibus.status.lights.faulty.standing.rear_right = false; }
-		if (bit_test(message[4], bit_3)) { omnibus.status.lights.faulty.standing.rear_left  = true; } else { omnibus.status.lights.faulty.standing.rear_left  = false; }
-		if (bit_test(message[4], bit_4)) { omnibus.status.lights.faulty.lowbeam.right       = true; } else { omnibus.status.lights.faulty.lowbeam.right       = false; }
-		if (bit_test(message[4], bit_5)) { omnibus.status.lights.faulty.lowbeam.left        = true; } else { omnibus.status.lights.faulty.lowbeam.left        = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[0])) { status.lights.faulty.brake.right         = true; } else { status.lights.faulty.brake.right         = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[1])) { status.lights.faulty.brake.left          = true; } else { status.lights.faulty.brake.left          = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[2])) { status.lights.faulty.standing.rear_right = true; } else { status.lights.faulty.standing.rear_right = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[3])) { status.lights.faulty.standing.rear_left  = true; } else { status.lights.faulty.standing.rear_left  = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[4])) { status.lights.faulty.lowbeam.right       = true; } else { status.lights.faulty.lowbeam.right       = false; }
+		if (bitmask.bit_test(message[4], bitmask.bit[5])) { status.lights.faulty.lowbeam.left        = true; } else { status.lights.faulty.lowbeam.left        = false; }
 
 		/*
 		 * Comfort turn signal handling
 		 */
 
 		// Store status in temporary variables
-		var turn_left_on  = bit_test(message[1], bit_5);
-		var turn_right_on = bit_test(message[1], bit_6);
+		var turn_left_on  = bitmask.bit_test(message[1], bitmask.bit[5]);
+		var turn_right_on = bitmask.bit_test(message[1], bitmask.bit[6]);
 
 		// If comfort turn is not currently engaged
-		if (omnibus.status.lights.turn_comfort_left == true || omnibus.status.lights.turn_comfort_right == true) {
+		if (status.lights.turn_comfort_left == true || status.lights.turn_comfort_right == true) {
 			console.log('[node::LCM] Comfort turn signal currently engaged');
 		}
 		else {
@@ -276,8 +245,8 @@ var LCM = function(omnibus) {
 			 *
 			 * Set turn_left_depress_time timestamp
 			 */
-			if (turn_left_on && !turn_right_on && omnibus.status.lights.turn_left == false) {
-				omnibus.status.lights.turn_left_depress_time = Date.now();
+			if (turn_left_on && !turn_right_on && status.lights.turn_left == false) {
+				status.lights.turn_left_depress_time = Date.now();
 			}
 
 			/*
@@ -289,20 +258,19 @@ var LCM = function(omnibus) {
 			 *
 			 * Set turn_right_depress_time timestamp
 			 */
-			if (!turn_left_on && turn_right_on && omnibus.status.lights.turn_right == false) {
-				omnibus.status.lights.turn_right_depress_time = Date.now();
+			if (!turn_left_on && turn_right_on && status.lights.turn_right == false) {
+				status.lights.turn_right_depress_time = Date.now();
 			}
 
 			// If left signal is now off and right signal is now off
 			if (!turn_left_on && !turn_right_on) {
-
 				// If left signal was previously on
-				if (omnibus.status.lights.turn_left == true) {
+				if (status.lights.turn_left == true) {
 					// Set turn_left_release_time timestamp
-					omnibus.status.lights.turn_left_release_time = Date.now();
+					status.lights.turn_left_release_time = Date.now();
 
 					// Calculate time difference between initial on and off
-					var turn_left_depress_elapsed = omnibus.status.lights.turn_left_release_time-omnibus.status.lights.turn_left_depress_time;
+					var turn_left_depress_elapsed = status.lights.turn_left_release_time-status.lights.turn_left_depress_time;
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_left_depress_elapsed < 1000) {
@@ -312,12 +280,12 @@ var LCM = function(omnibus) {
 				}
 
 				// If right signal was previously on
-				if (omnibus.status.lights.turn_right == true) {
+				if (status.lights.turn_right == true) {
 					// Set turn_right_release_time timestamp
-					omnibus.status.lights.turn_right_release_time = Date.now();
+					status.lights.turn_right_release_time = Date.now();
 
 					// Calculate time difference between initial on and off
-					var turn_right_depress_elapsed = omnibus.status.lights.turn_right_release_time-omnibus.status.lights.turn_right_depress_time;
+					var turn_right_depress_elapsed = status.lights.turn_right_release_time-status.lights.turn_right_depress_time;
 
 					// If the time difference is less than 1000ms, fire comfort turn signal
 					if (turn_right_depress_elapsed < 1000) {
@@ -328,9 +296,9 @@ var LCM = function(omnibus) {
 			}
 		}
 
-		// Afterwards, set the status in omnibus.status.lights as usual
-		if (turn_right_on) { omnibus.status.lights.turn_right = true; } else { omnibus.status.lights.turn_right = false; }
-		if (turn_left_on)  { omnibus.status.lights.turn_left  = true; } else { omnibus.status.lights.turn_left  = false; }
+		// Afterwards, set the status in status.lights as usual
+		if (turn_right_on) { status.lights.turn_right = true; } else { status.lights.turn_right = false; }
+		if (turn_left_on)  { status.lights.turn_left  = true; } else { status.lights.turn_left  = false; }
 
 		// console.log('[node::LCM] Decoded light status');
 	}
@@ -348,18 +316,18 @@ var LCM = function(omnibus) {
 
 	// Automatic lights handling
 	function auto_lights(light_switch) {
-		console.log('[node::LCM] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, omnibus.status.lights.auto.active);
+		console.log('[node::LCM] Trying to set auto lights to \'%s\'; current status \'%s\'', light_switch, status.lights.auto.active);
 
 		switch (light_switch) {
 			case 'off':
-				if (omnibus.status.lights.auto.active === true) {
+				if (status.lights.auto.active === true) {
 					auto_lights_off();
 				}
 				break;
 			case 'on':
-				if (omnibus.status.lights.auto.active === false) {
+				if (status.lights.auto.active === false) {
 					// Set status variable
-					omnibus.status.lights.auto.active = true;
+					status.lights.auto.active = true;
 
 					// Send one through to prime the pumps
 					auto_lights_process();
@@ -380,10 +348,10 @@ var LCM = function(omnibus) {
 		clearInterval(omnibus.LCM.auto_lights_interval);
 
 		// Set status variables
-		omnibus.status.lights.auto.reason   = null;
-		omnibus.status.lights.auto.active   = false;
-		omnibus.status.lights.auto.standing = false;
-		omnibus.status.lights.auto.lowbeam  = false;
+		status.lights.auto.reason   = null;
+		status.lights.auto.active   = false;
+		status.lights.auto.standing = false;
+		status.lights.auto.lowbeam  = false;
 		reset();
 	}
 
@@ -394,8 +362,8 @@ var LCM = function(omnibus) {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
-		var handbrake    = omnibus.status.vehicle.handbrake;
-		var ignition     = omnibus.status.vehicle.ignition;
+		var handbrake    = status.vehicle.handbrake;
+		var ignition     = status.vehicle.ignition;
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);
@@ -418,40 +386,40 @@ var LCM = function(omnibus) {
 		// 	// Handbrake is set: disable auto lowbeams
 		// 	console.log('[node::LCM] Auto lights: Handbrake on');
 
-		// 	omnibus.status.lights.auto.reason   = 'handbrake on';
-		// 	omnibus.status.lights.auto.lowbeam  = false;
-		// 	omnibus.status.lights.auto.standing = true;
+		// 	status.lights.auto.reason   = 'handbrake on';
+		// 	status.lights.auto.lowbeam  = false;
+		// 	status.lights.auto.standing = true;
 		// 	reset();
 		// 	return;
 		// }
 
 		// Check time of day
 		if (current_time < lights_off) {
-			omnibus.status.lights.auto.reason    = 'before lights off';
-			omnibus.status.lights.auto.lowbeam   = true;
-			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.auto.dimmer_value_1 = 0x80;
+			status.lights.auto.reason    = 'before lights off';
+			status.lights.auto.lowbeam   = true;
+			status.lights.auto.standing  = false;
+			status.lights.auto.dimmer_value_1 = 0x80;
 		}
 		else if (current_time > lights_off && current_time < lights_on) {
-			omnibus.status.lights.auto.reason    = 'after lights off, before lights on';
-			omnibus.status.lights.auto.lowbeam   = false;
-			omnibus.status.lights.auto.standing  = true;
-			omnibus.status.lights.auto.dimmer_value_1 = 0xFE;
+			status.lights.auto.reason    = 'after lights off, before lights on';
+			status.lights.auto.lowbeam   = false;
+			status.lights.auto.standing  = true;
+			status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 		else if (current_time > lights_on) {
-			omnibus.status.lights.auto.reason    = 'after lights on';
-			omnibus.status.lights.auto.lowbeam   = true;
-			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.auto.dimmer_value_1 = 0x80;
+			status.lights.auto.reason    = 'after lights on';
+			status.lights.auto.lowbeam   = true;
+			status.lights.auto.standing  = false;
+			status.lights.auto.dimmer_value_1 = 0x80;
 		}
 		else {
-			omnibus.status.lights.auto.reason    = 'unknown time of day, engaging failsafe';
-			omnibus.status.lights.auto.lowbeam   = true;
-			omnibus.status.lights.auto.standing  = false;
-			omnibus.status.lights.auto.dimmer_value_1 = 0xFE;
+			status.lights.auto.reason    = 'unknown time of day, engaging failsafe';
+			status.lights.auto.lowbeam   = true;
+			status.lights.auto.standing  = false;
+			status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 
-		console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', omnibus.status.lights.auto.standing, omnibus.status.lights.auto.lowbeam, omnibus.status.lights.auto.reason);
+		console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', status.lights.auto.standing, status.lights.auto.lowbeam, status.lights.auto.reason);
 		reset();
 	}
 
@@ -467,15 +435,15 @@ var LCM = function(omnibus) {
 		switch (action) {
 			case 'left':
 				// Set status variables
-				omnibus.status.lights.turn_comfort_left  = true;
-				omnibus.status.lights.turn_comfort_right = false;
+				status.lights.turn_comfort_left  = true;
+				status.lights.turn_comfort_right = false;
 				cluster_msg_1 = '<------';
 				cluster_msg_3 = '       ';
 				break;
 			case 'right':
 				// Set status variables
-				omnibus.status.lights.turn_comfort_left  = false;
-				omnibus.status.lights.turn_comfort_right = true;
+				status.lights.turn_comfort_left  = false;
+				status.lights.turn_comfort_right = true;
 				cluster_msg_1 = '       ';
 				cluster_msg_3 = '------>';
 				break;
@@ -491,8 +459,8 @@ var LCM = function(omnibus) {
 		setTimeout(() => {
 			console.log('[node::LCM] comfort turn signal - off');
 			// Set status variables
-			omnibus.status.lights.turn_comfort_left  = false;
-			omnibus.status.lights.turn_comfort_right = false;
+			status.lights.turn_comfort_left  = false;
+			status.lights.turn_comfort_right = false;
 			reset();
 			omnibus.IKE.hud_refresh();
 		}, 2000);
@@ -502,15 +470,15 @@ var LCM = function(omnibus) {
 	// Welcome lights on unlocking/locking
 	function welcome_lights(action) {
 		var lcm_object;
-		console.log('[node::LCM] Welcome lights level \'%s\'', omnibus.status.lights.welcome_lights_level);
+		console.log('[node::LCM] Welcome lights level \'%s\'', status.lights.welcome_lights_level);
 
 		switch (action) {
 			case 'on' :
-				omnibus.status.lights.welcome_lights = true;
+				status.lights.welcome_lights = true;
 
 				// This below could be done about 5000x better, but it is late, I'm tired, and I wanted to write working POC code before I hung it up.
-				if (omnibus.status.lights.welcome_lights_level == 0) {
-					omnibus.status.lights.welcome_lights_level = 1;
+				if (status.lights.welcome_lights_level == 0) {
+					status.lights.welcome_lights_level = 1;
 					lcm_object = {
 						output_license_rear_right        : true,
 						output_standing_front_left       : true,
@@ -521,8 +489,8 @@ var LCM = function(omnibus) {
 						output_standing_rear_right       : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 1) {
-					omnibus.status.lights.welcome_lights_level = 2;
+				else if (status.lights.welcome_lights_level == 1) {
+					status.lights.welcome_lights_level = 2;
 					lcm_object = {
 						output_license_rear_right        : true,
 						output_standing_front_left       : true,
@@ -535,8 +503,8 @@ var LCM = function(omnibus) {
 						output_turn_front_right          : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 2) {
-					omnibus.status.lights.welcome_lights_level = 3;
+				else if (status.lights.welcome_lights_level == 2) {
+					status.lights.welcome_lights_level = 3;
 					lcm_object = {
 						output_fog_front_left            : true,
 						output_fog_front_right           : true,
@@ -551,8 +519,8 @@ var LCM = function(omnibus) {
 						output_turn_front_right          : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 3) {
-					omnibus.status.lights.welcome_lights_level = 4;
+				else if (status.lights.welcome_lights_level == 3) {
+					status.lights.welcome_lights_level = 4;
 					lcm_object = {
 						output_fog_front_left            : true,
 						output_fog_front_right           : true,
@@ -571,8 +539,8 @@ var LCM = function(omnibus) {
 						output_turn_front_right          : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 4) {
-					omnibus.status.lights.welcome_lights_level = 5;
+				else if (status.lights.welcome_lights_level == 4) {
+					status.lights.welcome_lights_level = 5;
 					lcm_object = {
 						output_fog_front_left            : true,
 						output_fog_front_right           : true,
@@ -591,8 +559,8 @@ var LCM = function(omnibus) {
 						output_turn_front_right          : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 5) {
-					omnibus.status.lights.welcome_lights_level = 6;
+				else if (status.lights.welcome_lights_level == 5) {
+					status.lights.welcome_lights_level = 6;
 					lcm_object = {
 						output_fog_front_left            : true,
 						output_fog_front_right           : true,
@@ -613,8 +581,8 @@ var LCM = function(omnibus) {
 						output_turn_front_right          : true,
 					};
 				}
-				else if (omnibus.status.lights.welcome_lights_level == 6) {
-					omnibus.status.lights.welcome_lights_level = 0;
+				else if (status.lights.welcome_lights_level == 6) {
+					status.lights.welcome_lights_level = 0;
 					lcm_object = {
 						output_brake_rear_left           : true,
 						output_brake_rear_middle         : true,
@@ -644,17 +612,17 @@ var LCM = function(omnibus) {
 				io_status_encode(lcm_object);
 				break;
 			case 'off':
-				omnibus.status.lights.welcome_lights       = false;
-				omnibus.status.lights.welcome_lights_level = 0;
+				status.lights.welcome_lights       = false;
+				status.lights.welcome_lights_level = 0;
 				reset();
 				break;
 		}
 
 		// Clear welcome lights variables after 15 seconds
-		if (omnibus.status.lights.welcome_lights == true) {
+		if (status.lights.welcome_lights == true) {
 			setTimeout(() => {
-				omnibus.status.lights.welcome_lights       = false;
-				omnibus.status.lights.welcome_lights_level = 0;
+				status.lights.welcome_lights       = false;
+				status.lights.welcome_lights_level = 0;
 			}, 15000);
 		}
 	}
@@ -662,13 +630,13 @@ var LCM = function(omnibus) {
 	function reset() {
 		console.log('[node::LCM] reset()');
 		var lcm_object = {
-			dimmer_value_1    : omnibus.status.lights.auto.dimmer_value_1,
-			// dimmer_value_2    : omnibus.status.lights.dimmer_value_2,
+			dimmer_value_1    : status.lights.auto.dimmer_value_1,
+			// dimmer_value_2    : status.lights.dimmer_value_2,
 			switch_fog_rear   : true, // To leverage the IKE LED as a status indicator
-			switch_lowbeam_1  : omnibus.status.lights.auto.lowbeam,
-			switch_standing   : omnibus.status.lights.auto.standing,
-			switch_turn_left  : omnibus.status.lights.turn_comfort_left,
-			switch_turn_right : omnibus.status.lights.turn_comfort_right,
+			switch_lowbeam_1  : status.lights.auto.lowbeam,
+			switch_standing   : status.lights.auto.standing,
+			switch_turn_left  : status.lights.turn_comfort_left,
+			switch_turn_right : status.lights.turn_comfort_right,
 		};
 
 		io_status_encode(lcm_object);
@@ -729,71 +697,71 @@ var LCM = function(omnibus) {
 		var bitmask_31 = 0x00;
 
 		// Set the various bitmask values according to the input array
-		if(array.clamp_30a                       ) { bitmask_0 = bit_set(bitmask_0, bit_0); }
-		if(array.input_fire_extinguisher         ) { bitmask_0 = bit_set(bitmask_0, bit_1); }
-		if(array.input_preheating_fuel_injection ) { bitmask_0 = bit_set(bitmask_0, bit_2); }
-		if(array.input_carb                      ) { bitmask_0 = bit_set(bitmask_0, bit_4); }
-		if(array.clamp_r                         ) { bitmask_0 = bit_set(bitmask_0, bit_6); }
-		if(array.clamp_30b                       ) { bitmask_0 = bit_set(bitmask_0, bit_7); }
-		if(array.input_key_in_ignition           ) { bitmask_1 = bit_set(bitmask_1, bit_0); }
-		if(array.input_seat_belts_lock           ) { bitmask_1 = bit_set(bitmask_1, bit_1); }
-		if(array.switch_highbeam_flash           ) { bitmask_1 = bit_set(bitmask_1, bit_2); }
-		if(array.switch_hazard                   ) { bitmask_1 = bit_set(bitmask_1, bit_4); }
-		if(array.input_kfn                       ) { bitmask_1 = bit_set(bitmask_1, bit_5); }
-		if(array.input_armoured_door             ) { bitmask_1 = bit_set(bitmask_1, bit_6); }
-		if(array.input_brake_fluid_level         ) { bitmask_1 = bit_set(bitmask_1, bit_7); }
+		if(array.clamp_30a                       ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[0]); }
+		if(array.input_fire_extinguisher         ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[1]); }
+		if(array.input_preheating_fuel_injection ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[2]); }
+		if(array.input_carb                      ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[4]); }
+		if(array.clamp_r                         ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[6]); }
+		if(array.clamp_30b                       ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[7]); }
+		if(array.input_key_in_ignition           ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[0]); }
+		if(array.input_seat_belts_lock           ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[1]); }
+		if(array.switch_highbeam_flash           ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[2]); }
+		if(array.switch_hazard                   ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[4]); }
+		if(array.input_kfn                       ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[5]); }
+		if(array.input_armoured_door             ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[6]); }
+		if(array.input_brake_fluid_level         ) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[7]); }
 
-		if(array.switch_brake                    ) { bitmask_2 = bit_set(bitmask_2, bit_0); }
-		if(array.switch_highbeam                 ) { bitmask_2 = bit_set(bitmask_2, bit_1); }
-		if(array.switch_fog_front                ) { bitmask_2 = bit_set(bitmask_2, bit_2); }
-		if(array.switch_fog_rear                 ) { bitmask_2 = bit_set(bitmask_2, bit_4); }
-		if(array.switch_standing                 ) { bitmask_2 = bit_set(bitmask_2, bit_5); }
-		if(array.switch_turn_right               ) { bitmask_2 = bit_set(bitmask_2, bit_6); }
-		if(array.switch_turn_left                ) { bitmask_2 = bit_set(bitmask_2, bit_7); }
+		if(array.switch_brake                    ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[0]); }
+		if(array.switch_highbeam                 ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[1]); }
+		if(array.switch_fog_front                ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[2]); }
+		if(array.switch_fog_rear                 ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[4]); }
+		if(array.switch_standing                 ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[5]); }
+		if(array.switch_turn_right               ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[6]); }
+		if(array.switch_turn_left                ) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[7]); }
 
-		if(array.input_air_suspension            ) { bitmask_3 = bit_set(bitmask_3, bit_0); }
-		if(array.input_hold_up_alarm             ) { bitmask_3 = bit_set(bitmask_3, bit_1); }
-		if(array.input_washer_fluid_level        ) { bitmask_3 = bit_set(bitmask_3, bit_2); }
-		if(array.switch_lowbeam_2                ) { bitmask_3 = bit_set(bitmask_3, bit_3); }
-		if(array.switch_lowbeam_1                ) { bitmask_3 = bit_set(bitmask_3, bit_4); }
-		if(array.clamp_15                        ) { bitmask_3 = bit_set(bitmask_3, bit_5); }
-		if(array.input_engine_failsafe           ) { bitmask_3 = bit_set(bitmask_3, bit_6); }
-		if(array.input_tire_defect               ) { bitmask_3 = bit_set(bitmask_3, bit_7); }
+		if(array.input_air_suspension            ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[0]); }
+		if(array.input_hold_up_alarm             ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[1]); }
+		if(array.input_washer_fluid_level        ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[2]); }
+		if(array.switch_lowbeam_2                ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[3]); }
+		if(array.switch_lowbeam_1                ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[4]); }
+		if(array.clamp_15                        ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[5]); }
+		if(array.input_engine_failsafe           ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[6]); }
+		if(array.input_tire_defect               ) { bitmask_3 = bitmask.bit_set(bitmask_3, bitmask.bit[7]); }
 
-		if(array.output_license_rear_left        ) { bitmask_4 = bit_set(bitmask_4, bit_2); }
-		if(array.output_brake_rear_left          ) { bitmask_4 = bit_set(bitmask_4, bit_3); }
-		if(array.output_brake_rear_right         ) { bitmask_4 = bit_set(bitmask_4, bit_4); }
-		if(array.output_highbeam_front_right     ) { bitmask_4 = bit_set(bitmask_4, bit_5); }
-		if(array.output_highbeam_front_left      ) { bitmask_4 = bit_set(bitmask_4, bit_6); }
+		if(array.output_license_rear_left        ) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[2]); }
+		if(array.output_brake_rear_left          ) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[3]); }
+		if(array.output_brake_rear_right         ) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[4]); }
+		if(array.output_highbeam_front_right     ) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[5]); }
+		if(array.output_highbeam_front_left      ) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[6]); }
 
-		if(array.output_standing_front_left      ) { bitmask_5 = bit_set(bitmask_5, bit_0); }
-		if(array.output_standing_inner_rear_left ) { bitmask_5 = bit_set(bitmask_5, bit_1); }
-		if(array.output_fog_front_left           ) { bitmask_5 = bit_set(bitmask_5, bit_2); }
-		if(array.output_reverse_rear_left        ) { bitmask_5 = bit_set(bitmask_5, bit_3); }
-		if(array.output_lowbeam_front_left       ) { bitmask_5 = bit_set(bitmask_5, bit_4); }
-		if(array.output_lowbeam_front_right      ) { bitmask_5 = bit_set(bitmask_5, bit_5); }
-		if(array.output_fog_front_right          ) { bitmask_5 = bit_set(bitmask_5, bit_6); }
+		if(array.output_standing_front_left      ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[0]); }
+		if(array.output_standing_inner_rear_left ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[1]); }
+		if(array.output_fog_front_left           ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[2]); }
+		if(array.output_reverse_rear_left        ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[3]); }
+		if(array.output_lowbeam_front_left       ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[4]); }
+		if(array.output_lowbeam_front_right      ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[5]); }
+		if(array.output_fog_front_right          ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[6]); }
 
-		if(array.input_vertical_aim              ) { bitmask_6 = bit_set(bitmask_6, bit_1); }
-		if(array.output_license_rear_right       ) { bitmask_6 = bit_set(bitmask_6, bit_2); }
-		if(array.output_standing_rear_left       ) { bitmask_6 = bit_set(bitmask_6, bit_3); }
-		if(array.output_brake_rear_middle        ) { bitmask_6 = bit_set(bitmask_6, bit_4); }
-		if(array.output_standing_front_right     ) { bitmask_6 = bit_set(bitmask_6, bit_5); }
-		if(array.output_turn_front_right         ) { bitmask_6 = bit_set(bitmask_6, bit_6); }
-		if(array.output_turn_rear_left           ) { bitmask_6 = bit_set(bitmask_6, bit_7); }
+		if(array.input_vertical_aim              ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[1]); }
+		if(array.output_license_rear_right       ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[2]); }
+		if(array.output_standing_rear_left       ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[3]); }
+		if(array.output_brake_rear_middle        ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[4]); }
+		if(array.output_standing_front_right     ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[5]); }
+		if(array.output_turn_front_right         ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[6]); }
+		if(array.output_turn_rear_left           ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[7]); }
 
-		if(array.output_turn_rear_right          ) { bitmask_7 = bit_set(bitmask_7, bit_1); }
-		if(array.output_fog_rear_left            ) { bitmask_7 = bit_set(bitmask_7, bit_2); }
-		if(array.output_standing_inner_rear_right) { bitmask_7 = bit_set(bitmask_7, bit_3); }
-		if(array.output_standing_rear_right      ) { bitmask_7 = bit_set(bitmask_7, bit_4); }
-		if(array.output_turn_front_left          ) { bitmask_7 = bit_set(bitmask_7, bit_6); }
-		if(array.output_reverse_rear_right       ) { bitmask_7 = bit_set(bitmask_7, bit_7); }
+		if(array.output_turn_rear_right          ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[1]); }
+		if(array.output_fog_rear_left            ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[2]); }
+		if(array.output_standing_inner_rear_right) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[3]); }
+		if(array.output_standing_rear_right      ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[4]); }
+		if(array.output_turn_front_left          ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[6]); }
+		if(array.output_reverse_rear_right       ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[7]); }
 
-		if(array.mode_failsafe                   ) { bitmask_8 = bit_set(bitmask_8, bit_0); }
-		if(array.output_led_switch_hazard        ) { bitmask_8 = bit_set(bitmask_8, bit_2); }
-		if(array.output_led_switch_light         ) { bitmask_8 = bit_set(bitmask_8, bit_3); }
-		if(array.output_reverse_rear_trailer     ) { bitmask_8 = bit_set(bitmask_8, bit_5); }
-		if(array.mode_sleep                      ) { bitmask_8 = bit_set(bitmask_8, bit_6); }
+		if(array.mode_failsafe                   ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[0]); }
+		if(array.output_led_switch_hazard        ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[2]); }
+		if(array.output_led_switch_light         ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[3]); }
+		if(array.output_reverse_rear_trailer     ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[5]); }
+		if(array.mode_sleep                      ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[6]); }
 
 		// LCM dimmer
 		if(array.dimmer_value_1) { bitmask_9  = parseInt(array.dimmer_value_1); }
@@ -805,20 +773,20 @@ var LCM = function(omnibus) {
 		// array.output_fog_rear_trailer
 
 		// ??
-		// if(array.) { bitmask_0 = bit_set(bitmask_0, bit_3) ; }
-		// if(array.) { bitmask_0 = bit_set(bitmask_0, bit_5) ; }
-		// if(array.) { bitmask_1 = bit_set(bitmask_1, bit_3) ; }
-		// if(array.) { bitmask_2 = bit_set(bitmask_2, bit_3) ; }
-		// if(array.) { bitmask_4 = bit_set(bitmask_4, bit_0) ; }
-		// if(array.) { bitmask_4 = bit_set(bitmask_4, bit_1) ; }
-		// if(array.) { bitmask_4 = bit_set(bitmask_4, bit_7) ; }
-		// if(array.) { bitmask_4 = bit_set(bitmask_5, bit_7) ; }
-		// if(array.) { bitmask_6 = bit_set(bitmask_6, bit_0) ; }
-		// if(array.) { bitmask_7 = bit_set(bitmask_7, bit_0) ; }
-		// if(array.) { bitmask_7 = bit_set(bitmask_7, bit_5) ; }
-		// if(array.) { bitmask_8 = bit_set(bitmask_8, bit_1) ; }
-		// if(array.) { bitmask_8 = bit_set(bitmask_8, bit_4) ; }
-		// if(array.) { bitmask_8 = bit_set(bitmask_8, bit_7) ; }
+		// if(array.) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[3]) ; }
+		// if(array.) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[5]) ; }
+		// if(array.) { bitmask_1 = bitmask.bit_set(bitmask_1, bitmask.bit[3]) ; }
+		// if(array.) { bitmask_2 = bitmask.bit_set(bitmask_2, bitmask.bit[3]) ; }
+		// if(array.) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[0]) ; }
+		// if(array.) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[1]) ; }
+		// if(array.) { bitmask_4 = bitmask.bit_set(bitmask_4, bitmask.bit[7]) ; }
+		// if(array.) { bitmask_4 = bitmask.bit_set(bitmask_5, bitmask.bit[7]) ; }
+		// if(array.) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[0]) ; }
+		// if(array.) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[0]) ; }
+		// if(array.) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[5]) ; }
+		// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[1]) ; }
+		// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[4]) ; }
+		// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[7]) ; }
 
 		// Assemble the output array
 		var output = [
@@ -895,100 +863,100 @@ var LCM = function(omnibus) {
 		var bitmask_31 = array[32];
 
 		// Raw IO status bitmasks
-		omnibus.status.lcm.io.bitmask_0  = bitmask_0;
-		omnibus.status.lcm.io.bitmask_1  = bitmask_1;
-		omnibus.status.lcm.io.bitmask_2  = bitmask_2;
-		omnibus.status.lcm.io.bitmask_2  = bitmask_2;
-		omnibus.status.lcm.io.bitmask_3  = bitmask_3;
-		omnibus.status.lcm.io.bitmask_4  = bitmask_4;
-		omnibus.status.lcm.io.bitmask_5  = bitmask_5;
-		omnibus.status.lcm.io.bitmask_6  = bitmask_6;
-		omnibus.status.lcm.io.bitmask_7  = bitmask_7;
-		omnibus.status.lcm.io.bitmask_8  = bitmask_8;
-		omnibus.status.lcm.io.bitmask_9  = bitmask_9;
-		omnibus.status.lcm.io.bitmask_10 = bitmask_10;
-		omnibus.status.lcm.io.bitmask_11 = bitmask_11;
-		omnibus.status.lcm.io.bitmask_12 = bitmask_12;
-		omnibus.status.lcm.io.bitmask_13 = bitmask_13;
-		omnibus.status.lcm.io.bitmask_14 = bitmask_14;
-		omnibus.status.lcm.io.bitmask_15 = bitmask_15;
-		omnibus.status.lcm.io.bitmask_16 = bitmask_16;
-		omnibus.status.lcm.io.bitmask_17 = bitmask_17;
-		omnibus.status.lcm.io.bitmask_18 = bitmask_18;
-		omnibus.status.lcm.io.bitmask_19 = bitmask_19;
-		omnibus.status.lcm.io.bitmask_20 = bitmask_20;
-		omnibus.status.lcm.io.bitmask_21 = bitmask_21;
-		omnibus.status.lcm.io.bitmask_22 = bitmask_22;
-		omnibus.status.lcm.io.bitmask_23 = bitmask_23;
-		omnibus.status.lcm.io.bitmask_24 = bitmask_24;
-		omnibus.status.lcm.io.bitmask_25 = bitmask_25;
-		omnibus.status.lcm.io.bitmask_26 = bitmask_26;
-		omnibus.status.lcm.io.bitmask_27 = bitmask_27;
-		omnibus.status.lcm.io.bitmask_28 = bitmask_28;
-		omnibus.status.lcm.io.bitmask_29 = bitmask_29;
-		omnibus.status.lcm.io.bitmask_30 = bitmask_30;
-		omnibus.status.lcm.io.bitmask_31 = bitmask_31;
+		status.lcm.io.bitmask_0  = bitmask_0;
+		status.lcm.io.bitmask_1  = bitmask_1;
+		status.lcm.io.bitmask_2  = bitmask_2;
+		status.lcm.io.bitmask_2  = bitmask_2;
+		status.lcm.io.bitmask_3  = bitmask_3;
+		status.lcm.io.bitmask_4  = bitmask_4;
+		status.lcm.io.bitmask_5  = bitmask_5;
+		status.lcm.io.bitmask_6  = bitmask_6;
+		status.lcm.io.bitmask_7  = bitmask_7;
+		status.lcm.io.bitmask_8  = bitmask_8;
+		status.lcm.io.bitmask_9  = bitmask_9;
+		status.lcm.io.bitmask_10 = bitmask_10;
+		status.lcm.io.bitmask_11 = bitmask_11;
+		status.lcm.io.bitmask_12 = bitmask_12;
+		status.lcm.io.bitmask_13 = bitmask_13;
+		status.lcm.io.bitmask_14 = bitmask_14;
+		status.lcm.io.bitmask_15 = bitmask_15;
+		status.lcm.io.bitmask_16 = bitmask_16;
+		status.lcm.io.bitmask_17 = bitmask_17;
+		status.lcm.io.bitmask_18 = bitmask_18;
+		status.lcm.io.bitmask_19 = bitmask_19;
+		status.lcm.io.bitmask_20 = bitmask_20;
+		status.lcm.io.bitmask_21 = bitmask_21;
+		status.lcm.io.bitmask_22 = bitmask_22;
+		status.lcm.io.bitmask_23 = bitmask_23;
+		status.lcm.io.bitmask_24 = bitmask_24;
+		status.lcm.io.bitmask_25 = bitmask_25;
+		status.lcm.io.bitmask_26 = bitmask_26;
+		status.lcm.io.bitmask_27 = bitmask_27;
+		status.lcm.io.bitmask_28 = bitmask_28;
+		status.lcm.io.bitmask_29 = bitmask_29;
+		status.lcm.io.bitmask_30 = bitmask_30;
+		status.lcm.io.bitmask_31 = bitmask_31;
 
-		omnibus.status.lcm.clamp.c_15                       = bit_test(bitmask_3, bit_5);
-		omnibus.status.lcm.clamp.c_30a                      = bit_test(bitmask_0, bit_0);
-		omnibus.status.lcm.clamp.c_30b                      = bit_test(bitmask_0, bit_7);
-		omnibus.status.lcm.clamp.c_r                        = bit_test(bitmask_0, bit_6);
-		omnibus.status.lcm.dimmer.value_1                   = bitmask_9;
-		omnibus.status.lcm.dimmer.value_2                   = bitmask_15;
-		omnibus.status.lcm.input.air_suspension             = bit_test(bitmask_3, bit_0);
-		omnibus.status.lcm.input.armoured_door              = bit_test(bitmask_1, bit_6);
-		omnibus.status.lcm.input.brake_fluid_level          = bit_test(bitmask_1, bit_7);
-		omnibus.status.lcm.input.carb                       = bit_test(bitmask_0, bit_4);
-		omnibus.status.lcm.input.engine_failsafe            = bit_test(bitmask_3, bit_6);
-		omnibus.status.lcm.input.fire_extinguisher          = bit_test(bitmask_0, bit_1);
-		omnibus.status.lcm.input.hold_up_alarm              = bit_test(bitmask_3, bit_1);
-		omnibus.status.lcm.input.key_in_ignition            = bit_test(bitmask_1, bit_0);
-		omnibus.status.lcm.input.kfn                        = bit_test(bitmask_1, bit_5);
-		omnibus.status.lcm.input.preheating_fuel_injection  = bit_test(bitmask_0, bit_2);
-		omnibus.status.lcm.input.seat_belts_lock            = bit_test(bitmask_1, bit_1);
-		omnibus.status.lcm.input.tire_defect                = bit_test(bitmask_3, bit_7);
-		omnibus.status.lcm.input.vertical_aim               = bit_test(bitmask_6, bit_1);
-		omnibus.status.lcm.input.washer_fluid_level         = bit_test(bitmask_3, bit_2);
-		omnibus.status.lcm.mode.failsafe                    = bit_test(bitmask_8, bit_0);
-		omnibus.status.lcm.mode.sleep                       = bit_test(bitmask_8, bit_6);
-		omnibus.status.lcm.output.brake.rear_left           = bit_test(bitmask_4, bit_3);
-		omnibus.status.lcm.output.brake.rear_middle         = bit_test(bitmask_6, bit_4);
-		omnibus.status.lcm.output.brake.rear_right          = bit_test(bitmask_4, bit_4);
-		omnibus.status.lcm.output.fog.front_left            = bit_test(bitmask_5, bit_2);
-		omnibus.status.lcm.output.fog.front_right           = bit_test(bitmask_5, bit_6);
-		omnibus.status.lcm.output.fog.rear_left             = bit_test(bitmask_7, bit_2);
-		omnibus.status.lcm.output.highbeam.front_left       = bit_test(bitmask_4, bit_6);
-		omnibus.status.lcm.output.highbeam.front_right      = bit_test(bitmask_4, bit_5);
-		omnibus.status.lcm.output.led.switch_hazard         = bit_test(bitmask_8, bit_2);
-		omnibus.status.lcm.output.led.switch_light          = bit_test(bitmask_8, bit_3);
-		omnibus.status.lcm.output.license.rear_left         = bit_test(bitmask_4, bit_2);
-		omnibus.status.lcm.output.license.rear_right        = bit_test(bitmask_6, bit_2);
-		omnibus.status.lcm.output.lowbeam.front_left        = bit_test(bitmask_5, bit_4);
-		omnibus.status.lcm.output.lowbeam.front_right       = bit_test(bitmask_5, bit_5);
-		omnibus.status.lcm.output.reverse.rear_left         = bit_test(bitmask_5, bit_3);
-		omnibus.status.lcm.output.reverse.rear_right        = bit_test(bitmask_7, bit_7);
-		omnibus.status.lcm.output.reverse.rear_trailer      = bit_test(bitmask_8, bit_5);
-		omnibus.status.lcm.output.standing.front_left       = bit_test(bitmask_5, bit_0);
-		omnibus.status.lcm.output.standing.front_right      = bit_test(bitmask_6, bit_5);
-		omnibus.status.lcm.output.standing.inner_rear_left  = bit_test(bitmask_5, bit_1);
-		omnibus.status.lcm.output.standing.inner_rear_right = bit_test(bitmask_7, bit_3);
-		omnibus.status.lcm.output.standing.rear_left        = bit_test(bitmask_6, bit_3);
-		omnibus.status.lcm.output.standing.rear_right       = bit_test(bitmask_7, bit_4);
-		omnibus.status.lcm.output.turn.front_left           = bit_test(bitmask_7, bit_6);
-		omnibus.status.lcm.output.turn.front_right          = bit_test(bitmask_6, bit_6);
-		omnibus.status.lcm.output.turn.rear_left            = bit_test(bitmask_6, bit_7);
-		omnibus.status.lcm.output.turn.rear_right           = bit_test(bitmask_7, bit_1);
-		omnibus.status.lcm.switch.brake                     = bit_test(bitmask_2, bit_0);
-		omnibus.status.lcm.switch.fog_front                 = bit_test(bitmask_2, bit_2);
-		omnibus.status.lcm.switch.fog_rear                  = bit_test(bitmask_2, bit_4);
-		omnibus.status.lcm.switch.hazard                    = bit_test(bitmask_1, bit_4);
-		omnibus.status.lcm.switch.highbeam                  = bit_test(bitmask_2, bit_1);
-		omnibus.status.lcm.switch.highbeam_flash            = bit_test(bitmask_1, bit_2);
-		omnibus.status.lcm.switch.lowbeam_1                 = bit_test(bitmask_3, bit_4);
-		omnibus.status.lcm.switch.lowbeam_2                 = bit_test(bitmask_3, bit_3);
-		omnibus.status.lcm.switch.standing                  = bit_test(bitmask_2, bit_5);
-		omnibus.status.lcm.switch.turn_left                 = bit_test(bitmask_2, bit_7);
-		omnibus.status.lcm.switch.turn_right                = bit_test(bitmask_2, bit_6);
+		status.lcm.clamp.c_15                       = bitmask.bit_test(bitmask_3, bitmask.bit[5]);
+		status.lcm.clamp.c_30a                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		status.lcm.clamp.c_30b                      = bitmask.bit_test(bitmask_0, bitmask.bit[7]);
+		status.lcm.clamp.c_r                        = bitmask.bit_test(bitmask_0, bitmask.bit[6]);
+		status.lcm.dimmer.value_1                   = bitmask_9;
+		status.lcm.dimmer.value_2                   = bitmask_15;
+		status.lcm.input.air_suspension             = bitmask.bit_test(bitmask_3, bitmask.bit[0]);
+		status.lcm.input.armoured_door              = bitmask.bit_test(bitmask_1, bitmask.bit[6]);
+		status.lcm.input.brake_fluid_level          = bitmask.bit_test(bitmask_1, bitmask.bit[7]);
+		status.lcm.input.carb                       = bitmask.bit_test(bitmask_0, bitmask.bit[4]);
+		status.lcm.input.engine_failsafe            = bitmask.bit_test(bitmask_3, bitmask.bit[6]);
+		status.lcm.input.fire_extinguisher          = bitmask.bit_test(bitmask_0, bitmask.bit[1]);
+		status.lcm.input.hold_up_alarm              = bitmask.bit_test(bitmask_3, bitmask.bit[1]);
+		status.lcm.input.key_in_ignition            = bitmask.bit_test(bitmask_1, bitmask.bit[0]);
+		status.lcm.input.kfn                        = bitmask.bit_test(bitmask_1, bitmask.bit[5]);
+		status.lcm.input.preheating_fuel_injection  = bitmask.bit_test(bitmask_0, bitmask.bit[2]);
+		status.lcm.input.seat_belts_lock            = bitmask.bit_test(bitmask_1, bitmask.bit[1]);
+		status.lcm.input.tire_defect                = bitmask.bit_test(bitmask_3, bitmask.bit[7]);
+		status.lcm.input.vertical_aim               = bitmask.bit_test(bitmask_6, bitmask.bit[1]);
+		status.lcm.input.washer_fluid_level         = bitmask.bit_test(bitmask_3, bitmask.bit[2]);
+		status.lcm.mode.failsafe                    = bitmask.bit_test(bitmask_8, bitmask.bit[0]);
+		status.lcm.mode.sleep                       = bitmask.bit_test(bitmask_8, bitmask.bit[6]);
+		status.lcm.output.brake.rear_left           = bitmask.bit_test(bitmask_4, bitmask.bit[3]);
+		status.lcm.output.brake.rear_middle         = bitmask.bit_test(bitmask_6, bitmask.bit[4]);
+		status.lcm.output.brake.rear_right          = bitmask.bit_test(bitmask_4, bitmask.bit[4]);
+		status.lcm.output.fog.front_left            = bitmask.bit_test(bitmask_5, bitmask.bit[2]);
+		status.lcm.output.fog.front_right           = bitmask.bit_test(bitmask_5, bitmask.bit[6]);
+		status.lcm.output.fog.rear_left             = bitmask.bit_test(bitmask_7, bitmask.bit[2]);
+		status.lcm.output.highbeam.front_left       = bitmask.bit_test(bitmask_4, bitmask.bit[6]);
+		status.lcm.output.highbeam.front_right      = bitmask.bit_test(bitmask_4, bitmask.bit[5]);
+		status.lcm.output.led.switch_hazard         = bitmask.bit_test(bitmask_8, bitmask.bit[2]);
+		status.lcm.output.led.switch_light          = bitmask.bit_test(bitmask_8, bitmask.bit[3]);
+		status.lcm.output.license.rear_left         = bitmask.bit_test(bitmask_4, bitmask.bit[2]);
+		status.lcm.output.license.rear_right        = bitmask.bit_test(bitmask_6, bitmask.bit[2]);
+		status.lcm.output.lowbeam.front_left        = bitmask.bit_test(bitmask_5, bitmask.bit[4]);
+		status.lcm.output.lowbeam.front_right       = bitmask.bit_test(bitmask_5, bitmask.bit[5]);
+		status.lcm.output.reverse.rear_left         = bitmask.bit_test(bitmask_5, bitmask.bit[3]);
+		status.lcm.output.reverse.rear_right        = bitmask.bit_test(bitmask_7, bitmask.bit[7]);
+		status.lcm.output.reverse.rear_trailer      = bitmask.bit_test(bitmask_8, bitmask.bit[5]);
+		status.lcm.output.standing.front_left       = bitmask.bit_test(bitmask_5, bitmask.bit[0]);
+		status.lcm.output.standing.front_right      = bitmask.bit_test(bitmask_6, bitmask.bit[5]);
+		status.lcm.output.standing.inner_rear_left  = bitmask.bit_test(bitmask_5, bitmask.bit[1]);
+		status.lcm.output.standing.inner_rear_right = bitmask.bit_test(bitmask_7, bitmask.bit[3]);
+		status.lcm.output.standing.rear_left        = bitmask.bit_test(bitmask_6, bitmask.bit[3]);
+		status.lcm.output.standing.rear_right       = bitmask.bit_test(bitmask_7, bitmask.bit[4]);
+		status.lcm.output.turn.front_left           = bitmask.bit_test(bitmask_7, bitmask.bit[6]);
+		status.lcm.output.turn.front_right          = bitmask.bit_test(bitmask_6, bitmask.bit[6]);
+		status.lcm.output.turn.rear_left            = bitmask.bit_test(bitmask_6, bitmask.bit[7]);
+		status.lcm.output.turn.rear_right           = bitmask.bit_test(bitmask_7, bitmask.bit[1]);
+		status.lcm.switch.brake                     = bitmask.bit_test(bitmask_2, bitmask.bit[0]);
+		status.lcm.switch.fog_front                 = bitmask.bit_test(bitmask_2, bitmask.bit[2]);
+		status.lcm.switch.fog_rear                  = bitmask.bit_test(bitmask_2, bitmask.bit[4]);
+		status.lcm.switch.hazard                    = bitmask.bit_test(bitmask_1, bitmask.bit[4]);
+		status.lcm.switch.highbeam                  = bitmask.bit_test(bitmask_2, bitmask.bit[1]);
+		status.lcm.switch.highbeam_flash            = bitmask.bit_test(bitmask_1, bitmask.bit[2]);
+		status.lcm.switch.lowbeam_1                 = bitmask.bit_test(bitmask_3, bitmask.bit[4]);
+		status.lcm.switch.lowbeam_2                 = bitmask.bit_test(bitmask_3, bitmask.bit[3]);
+		status.lcm.switch.standing                  = bitmask.bit_test(bitmask_2, bitmask.bit[5]);
+		status.lcm.switch.turn_left                 = bitmask.bit_test(bitmask_2, bitmask.bit[7]);
+		status.lcm.switch.turn_right                = bitmask.bit_test(bitmask_2, bitmask.bit[6]);
 
 		// console.log('[node::LCM] Decoded IO status');
 	}

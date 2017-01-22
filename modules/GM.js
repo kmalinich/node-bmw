@@ -1,28 +1,5 @@
 #!/usr/bin/env node
-
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-// Set a bit in a bitmask
-function bit_set(num, bit) {
-	num |= bit;
-	return num;
-}
-
-var GM = function(omnibus) {
+var GM = function() {
 	// Exposed data
 	this.decode_status_keyfob = decode_status_keyfob;
 	this.decode_status_open   = decode_status_open;
@@ -118,7 +95,7 @@ var GM = function(omnibus) {
 						break;
 				}
 
-				omnibus.status.gm.wiper_status = value;
+				status.gm.wiper_status = value;
 				break;
 
 			case 0x78: // seat memory data
@@ -166,12 +143,12 @@ var GM = function(omnibus) {
 			omnibus.LCM.welcome_lights('on');
 		}
 
-		else if (bit_test(message[1], 0x20)) {
+		else if (bitmask.bit_test(message[1], 0x20)) {
 			button = 'unlock button depressed';
 			omnibus.LCM.welcome_lights('on');
 		}
 
-		else if (bit_test(message[1], 0x40)) {
+		else if (bitmask.bit_test(message[1], 0x40)) {
 			button = 'trunk button depressed';
 			omnibus.LCM.welcome_lights('on');
 		}
@@ -186,22 +163,22 @@ var GM = function(omnibus) {
 	// [0x7A] Decode a door/flap status message from the GM and act upon the results
 	function decode_status_open(message) {
 		// Set status from message by decrypting bitmask
-		if (bit_test(message[1], 0x01)) { omnibus.status.flaps.front_left    = true; } else { omnibus.status.flaps.front_left    = false; }
-		if (bit_test(message[1], 0x02)) { omnibus.status.flaps.front_right   = true; } else { omnibus.status.flaps.front_right   = false; }
-		if (bit_test(message[1], 0x04)) { omnibus.status.flaps.rear_left     = true; } else { omnibus.status.flaps.rear_left     = false; }
-		if (bit_test(message[1], 0x08)) { omnibus.status.flaps.rear_right    = true; } else { omnibus.status.flaps.rear_right    = false; }
-		if (bit_test(message[1], 0x40)) { omnibus.status.lights.interior     = true; } else { omnibus.status.lights.interior     = false; }
+		if (bitmask.bit_test(message[1], 0x01)) { status.flaps.front_left    = true; } else { status.flaps.front_left    = false; }
+		if (bitmask.bit_test(message[1], 0x02)) { status.flaps.front_right   = true; } else { status.flaps.front_right   = false; }
+		if (bitmask.bit_test(message[1], 0x04)) { status.flaps.rear_left     = true; } else { status.flaps.rear_left     = false; }
+		if (bitmask.bit_test(message[1], 0x08)) { status.flaps.rear_right    = true; } else { status.flaps.rear_right    = false; }
+		if (bitmask.bit_test(message[1], 0x40)) { status.lights.interior     = true; } else { status.lights.interior     = false; }
 
 		// This is correct, in a sense... Not a good sense, but in a sense.
-		if (bit_test(message[1], 0x20)) { omnibus.status.vehicle.locked      = true; } else { omnibus.status.vehicle.locked      = false; }
+		if (bitmask.bit_test(message[1], 0x20)) { status.vehicle.locked      = true; } else { status.vehicle.locked      = false; }
 
-		if (bit_test(message[2], 0x01)) { omnibus.status.windows.front_left  = true; } else { omnibus.status.windows.front_left  = false; }
-		if (bit_test(message[2], 0x02)) { omnibus.status.windows.front_right = true; } else { omnibus.status.windows.front_right = false; }
-		if (bit_test(message[2], 0x04)) { omnibus.status.windows.rear_left   = true; } else { omnibus.status.windows.rear_left   = false; }
-		if (bit_test(message[2], 0x08)) { omnibus.status.windows.rear_right  = true; } else { omnibus.status.windows.rear_right  = false; }
-		if (bit_test(message[2], 0x10)) { omnibus.status.windows.roof        = true; } else { omnibus.status.windows.roof        = false; }
-		if (bit_test(message[2], 0x20)) { omnibus.status.flaps.trunk         = true; } else { omnibus.status.flaps.trunk         = false; }
-		if (bit_test(message[2], 0x40)) { omnibus.status.flaps.hood          = true; } else { omnibus.status.flaps.hood          = false; }
+		if (bitmask.bit_test(message[2], 0x01)) { status.windows.front_left  = true; } else { status.windows.front_left  = false; }
+		if (bitmask.bit_test(message[2], 0x02)) { status.windows.front_right = true; } else { status.windows.front_right = false; }
+		if (bitmask.bit_test(message[2], 0x04)) { status.windows.rear_left   = true; } else { status.windows.rear_left   = false; }
+		if (bitmask.bit_test(message[2], 0x08)) { status.windows.rear_right  = true; } else { status.windows.rear_right  = false; }
+		if (bitmask.bit_test(message[2], 0x10)) { status.windows.roof        = true; } else { status.windows.roof        = false; }
+		if (bitmask.bit_test(message[2], 0x20)) { status.flaps.trunk         = true; } else { status.flaps.trunk         = false; }
+		if (bitmask.bit_test(message[2], 0x40)) { status.flaps.hood          = true; } else { status.flaps.hood          = false; }
 
 		console.log('[ node-bmw] decoded door/flap status message');
 	}
@@ -367,7 +344,7 @@ var GM = function(omnibus) {
 		var bitmask_3  = 0x00;
 
 		// Set the various bitmask values according to the input array
-		if(array.clamp_30a) { bitmask_0 = bit_set(bitmask_0, bit_0) ; }
+		if(array.clamp_30a) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[0]) ; }
 
 		// Assemble the output array
 		var output = [
@@ -390,42 +367,42 @@ var GM = function(omnibus) {
 		var bitmask_2 = array[2];
 		var bitmask_3 = array[3];
 
-		var light_alarm                   = bit_test(bitmask_0, bit_0);
-		var light_interior                = bit_test(bitmask_0, bit_0);
-		var locks_lock                    = bit_test(bitmask_0, bit_0);
-		var locks_toggle                  = bit_test(bitmask_0, bit_0);
-		var locks_trunk                   = bit_test(bitmask_0, bit_0);
-		var locks_unlock                  = bit_test(bitmask_0, bit_0);
-		var seat_driver_backrest_backward = bit_test(bitmask_0, bit_0);
-		var seat_driver_backrest_forward  = bit_test(bitmask_0, bit_0);
-		var seat_driver_backward          = bit_test(bitmask_0, bit_0);
-		var seat_driver_down              = bit_test(bitmask_0, bit_0);
-		var seat_driver_forward           = bit_test(bitmask_0, bit_0);
-		var seat_driver_headrest_down     = bit_test(bitmask_0, bit_0);
-		var seat_driver_headrest_up       = bit_test(bitmask_0, bit_0);
-		var seat_driver_tilt_backward     = bit_test(bitmask_0, bit_0);
-		var seat_driver_tilt_forward      = bit_test(bitmask_0, bit_0);
-		var seat_driver_up                = bit_test(bitmask_0, bit_0);
-		var seat_driver_upper_backwards   = bit_test(bitmask_0, bit_0);
-		var seat_driver_upper_forwards    = bit_test(bitmask_0, bit_0);
-		var wheel_backward                = bit_test(bitmask_0, bit_0);
-		var wheel_down                    = bit_test(bitmask_0, bit_0);
-		var wheel_forward                 = bit_test(bitmask_0, bit_0);
-		var wheel_up                      = bit_test(bitmask_0, bit_0);
-		var window_front_left_down        = bit_test(bitmask_0, bit_0);
-		var window_front_left_up          = bit_test(bitmask_0, bit_0);
-		var window_front_right_down       = bit_test(bitmask_0, bit_0);
-		var window_front_right_up         = bit_test(bitmask_0, bit_0);
-		var window_rear_left_down         = bit_test(bitmask_0, bit_0);
-		var window_rear_left_up           = bit_test(bitmask_0, bit_0);
-		var window_rear_right_down        = bit_test(bitmask_0, bit_0);
-		var window_rear_right_up          = bit_test(bitmask_0, bit_0);
-		var window_sunroof_down           = bit_test(bitmask_0, bit_0);
-		var window_sunroof_up             = bit_test(bitmask_0, bit_0);
-		var wipers_auto                   = bit_test(bitmask_0, bit_0);
-		var wipers_maintenance            = bit_test(bitmask_0, bit_0);
-		var wipers_once                   = bit_test(bitmask_0, bit_0);
-		var wipers_spray                  = bit_test(bitmask_0, bit_0);
+		var light_alarm                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var light_interior                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_lock                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_toggle                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_trunk                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_unlock                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backrest_backward = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backrest_forward  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backward          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_down              = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_forward           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_headrest_down     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_headrest_up       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_tilt_backward     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_tilt_forward      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_up                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_upper_backwards   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_upper_forwards    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_backward                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_down                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_forward                 = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_up                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_left_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_left_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_right_down       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_right_up         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_left_down         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_left_up           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_right_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_right_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_sunroof_down           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var window_sunroof_up             = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_auto                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_maintenance            = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_once                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_spray                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
 
 		var output = {
 			light_alarm                   : light_alarm,

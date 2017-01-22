@@ -1,74 +1,71 @@
-const event_emitter = require('events');
-const now           = require('performance-now')
-const serialport    = require('serialport');
-// Use of util.inherits like this is discouraged - FIX IT
-const util          = require('util');
+#!/usr/bin/env node
 
-var ibus_interface = function(omnibus) {
-	// Read/write queues
-	var queue_read  = [];
-	var active_read = false;
+const serialport = require('serialport');
 
-	var queue_write  = [];
-	var active_write = false;
+// Read/write queues
+var queue_read  = [];
+var active_read = false;
 
-	// Last time any data did something
-	omnibus.last_event_ibus = now();
+var queue_write  = [];
+var active_write = false;
 
-	// Exposed data
-	this.active_read  = active_read;
-	this.active_write = active_write;
-	this.queue_read   = queue_read;
-	this.queue_write  = queue_write;
-	this.send         = send;
-	this.shutdown     = shutdown;
-	this.startup      = startup;
+// Last time any data did something
+status.ibus.last_event = now();
 
-	// Local data
-	var device      = '/dev/bmw';
-	var serial_port = new serialport(device, {
-		autoOpen : false,
-		parity   : 'even',
-		parser   : serialport.parsers.byteLength(1),
-	});
+// Exposed data
+this.active_read  = active_read;
+this.active_write = active_write;
+this.queue_read   = queue_read;
+this.queue_write  = queue_write;
+this.send         = send;
+this.shutdown     = shutdown;
+this.startup      = startup;
 
-	/*
-	 * Event handling
-	 */
+// Local data
+var device      = '/dev/bmw';
+var serial_port = new serialport(device, {
+	autoOpen : false,
+	parity   : 'even',
+	parser   : serialport.parsers.byteLength(1),
+});
 
-	// On port error
-	serial_port.on('error', function(error) {
-		console.error('[INTF:PORT]', error);
-	});
+/*
+ * Event handling
+ */
 
-	// On port open
-	serial_port.on('open', function() {
-		console.log('[INTF:PORT] Opened [%s]', device);
+// On port error
+serial_port.on('error', function(error) {
+	console.error('[INTF:PORT]', error);
+});
 
-		// Get some data
-		setTimeout(() => {
-			omnibus.IKE.obc_refresh();
-		}, 5000);
-	});
+// On port open
+serial_port.on('open', function() {
+	console.log('[INTF:PORT] Opened [%s]', device);
 
-	// On port close
-	serial_port.on('close', function() {
-		console.log('[INTF:PORT] Closed [%s]', device);
-	});
+	// Get some data
+	setTimeout(() => {
+		omnibus.IKE.obc_refresh();
+	}, 5000);
+});
 
-	// Send the data to the parser
-	serial_port.on('data', (data) => {
-		omnibus.protocol.parser(data);
-	});
+// On port close
+serial_port.on('close', function() {
+	console.log('[INTF:PORT] Closed [%s]', device);
+});
+
+// Send the data to the parser
+serial_port.on('data', (data) => {
+	omnibus.protocol.parser(data);
+});
 
 
-	/*
-	 * Functions
-	 */
+/*
+ * Functions
+ */
 
-	// Open serial port
+// Open serial port
 	function startup(callback) {
-		// Open port if it is closed
+// Open port if it is closed
 		if (!serial_port.isOpen()) {
 			serial_port.open((error) => {
 				if (error) {
@@ -87,9 +84,9 @@ var ibus_interface = function(omnibus) {
 		}
 	}
 
-	// Close serial port
+// Close serial port
 	function shutdown(callback) {
-		// Close port if it is open
+// Close port if it is open
 		if (serial_port.isOpen()) {
 			serial_port.close((error) => {
 				if (error) {
@@ -108,7 +105,7 @@ var ibus_interface = function(omnibus) {
 		}
 	}
 
-	// Return false if there's still something to write
+// Return false if there's still something to write
 	function queue_busy() {
 		if (typeof queue_write[0] !== 'undefined' && queue_write.length !== 0) {
 			active_write = true;
@@ -117,24 +114,24 @@ var ibus_interface = function(omnibus) {
 			active_write = false;
 		}
 
-		// console.log('[INTF::QUE] Queue busy: %s', active_write);
+// console.log('[INTF::QUE] Queue busy: %s', active_write);
 		return active_write;
 	}
 
-	// Write the next message to the serial port
+// Write the next message to the serial port
 	function write_message() {
-		// Only write data if port is open
+// Only write data if port is open
 		if (!serial_port.isOpen()) {
 			console.log('[INTF:RITE] Chilling until port is open');
 			return;
 		}
 
-		// Do we need to wait longer?
+// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event_ibus < 4) {
-			// Do we still have data?
+		if (time_now-status.ibus.last_event < 4) {
+// Do we still have data?
 			if (queue_busy()) {
-				// console.log('[INTF:RITE] Waiting for %s', time_now-omnibus.last_event_ibus);
+// console.log('[INTF:RITE] Waiting for %s', time_now-status.ibus.last_event);
 				setTimeout(() => {
 					write_message();
 				}, 4);
@@ -149,18 +146,18 @@ var ibus_interface = function(omnibus) {
 					if (error) { console.log('[INTF:RITE] Failed : ', queue_write[0], error); }
 
 					serial_port.drain((error) => {
-						// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
+// console.log('[INTF::DRN] %s message(s) remain(s)', queue_write.length);
 
 						if (error) {
 							console.log('[INTF::DRN] Failed : ', queue_write[0], error);
 						}
 						else {
-							// console.log('[INTF:RITE] Success : ', queue_write[0]);
+// console.log('[INTF:RITE] Success : ', queue_write[0]);
 
-							// Successful write, remove this message from the queue
+// Successful write, remove this message from the queue
 							queue_write.splice(0, 1);
 
-							// Do we still have data?
+// Do we still have data?
 							if (queue_busy()) {
 								write_message();
 							}
@@ -171,18 +168,16 @@ var ibus_interface = function(omnibus) {
 		}
 	}
 
-	// Insert a message into the write queue
+// Insert a message into the write queue
 	function send(msg) {
-		// Generate IBUS message with checksum, etc
+// Generate IBUS message with checksum, etc
 		queue_write.push(omnibus.protocol.create(msg));
 
-		// console.log('[INTF:SEND] Pushed data into write queue');
+// console.log('[INTF:SEND] Pushed data into write queue');
 		if (active_write === false) {
-			// console.log('[INTF:SEND] Starting queue write');
+// console.log('[INTF:SEND] Starting queue write');
 			write_message();
 		}
 	}
-}
 
-util.inherits(ibus_interface, event_emitter);
 module.exports = ibus_interface;

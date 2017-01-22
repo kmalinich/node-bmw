@@ -1,28 +1,6 @@
 #!/usr/bin/env node
 
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-// Set a bit in a bitmask
-function bit_set(num, bit) {
-	num |= bit;
-	return num;
-}
-
-var BMBT = function(omnibus) {
+var BMBT = function() {
 	// Exposed data
 	this.interval_status      = interval_status;
 	this.parse_in             = parse_in;
@@ -38,7 +16,7 @@ var BMBT = function(omnibus) {
 
 	// Set or unset the status interval
 	function interval_status(action) {
-		if (omnibus.config.emulate.bmbt === true) {
+		if (config.emulate.bmbt === true) {
 			switch (action) {
 				case 'set':
 					refresh_status();
@@ -59,7 +37,7 @@ var BMBT = function(omnibus) {
 
 	// Send BMBT status, and request status from RAD
 	function refresh_status() {
-		if (omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') {
+		if (status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') {
 			// console.log('[node:BMBT] Refreshing BMBT/RAD status');
 			request_rad_status();
 		}
@@ -69,16 +47,16 @@ var BMBT = function(omnibus) {
 	function power_on_if_ready() {
 		// Debug logging
 		// console.log('[node:BMBT] BMBT.power_on_if_ready(): evaluating');
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition          : \'%s\'', omnibus.status.vehicle.ignition);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', omnibus.status.dsp.ready);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', omnibus.status.rad.audio_control);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', omnibus.status.rad.ready);
+		// console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition          : \'%s\'', status.vehicle.ignition);
+		// console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', status.dsp.ready);
+		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', status.rad.audio_control);
+		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
 
 		if (
-			(omnibus.status.vehicle.ignition == 'run' || omnibus.status.vehicle.ignition == 'accessory') &&
-			omnibus.status.rad.audio_control === 'off' &&
-			omnibus.status.dsp.ready === true &&
-			omnibus.status.rad.ready === true
+			(status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') &&
+			status.rad.audio_control === 'off' &&
+			status.dsp.ready === true &&
+			status.rad.ready === true
 		) {
 			send_button('power');
 		}
@@ -139,7 +117,7 @@ var BMBT = function(omnibus) {
 				break;
 
 			case 0x02: // Device status
-				omnibus.status.bmbt.ready = true;
+				status.bmbt.ready = true;
 				command = 'device status';
 				switch (data.msg[1]) {
 					case 0x00:
@@ -218,8 +196,8 @@ var BMBT = function(omnibus) {
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
-		if (omnibus.status.bmbt.reset === true) {
-			omnibus.status.bmbt.reset = false;
+		if (status.bmbt.reset === true) {
+			status.bmbt.reset = false;
 			data = 'ready after reset';
 			msg  = [0x02, 0x01];
 		}
@@ -257,12 +235,12 @@ var BMBT = function(omnibus) {
 		switch (button) {
 			case 'power':
 				// Get down value of button
-				button_down = bit_set(button_down, bit_1);
-				button_down = bit_set(button_down, bit_2);
+				button_down = bitmask.bit_set(button_down, bitmask.bit[1]);
+				button_down = bitmask.bit_set(button_down, bitmask.bit[2]);
 
 				// Generate hold and up values
-				button_hold = bit_set(button_down, bit_6);
-				button_up   = bit_set(button_down, bit_7);
+				button_hold = bitmask.bit_set(button_down, bitmask.bit[6]);
+				button_up   = bitmask.bit_set(button_down, bitmask.bit[7]);
 				break;
 		}
 

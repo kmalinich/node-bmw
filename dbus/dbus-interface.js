@@ -1,10 +1,6 @@
-const event_emitter = require('events');
-const now           = require('performance-now')
 const serialport    = require('serialport');
-// Use of util.inherits like this is discouraged - FIX IT
-const util          = require('util');
 
-var dbus_interface = function(omnibus) {
+var dbus_interface = function() {
 	var dbus_protocol = new (require('./dbus-protocol.js'))(omnibus);
 
 	// Read/write queues
@@ -15,7 +11,7 @@ var dbus_interface = function(omnibus) {
 	var active_write = false;
 
 	// Last time any data did something
-	omnibus.last_event_dbus = 0;
+	status.dbus.last_event = 0;
 
 	// Exposed data
 	this.active_read  = active_read;
@@ -137,7 +133,7 @@ var dbus_interface = function(omnibus) {
 
 		// Do we need to wait longer?
 		var time_now = now();
-		if (time_now-omnibus.last_event_dbus < 1.4) {
+		if (time_now-status.dbus.last_event < 1.4) {
 			// Do we still have data?
 			if (queue_busy()) {
 				write_message();

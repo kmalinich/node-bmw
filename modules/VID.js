@@ -1,40 +1,17 @@
 #!/usr/bin/env node
 
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-var VID = function(omnibus) {
-
+var VID = function() {
 	// Exposed data
 	this.parse_out = parse_out;
 
 	// Parse data sent from VID module
 	function parse_out(data) {
-		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
 		var command;
 		var value;
 
-		switch (message[0]) {
-
+		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						command = 'device status';
 						value   = 'ready';
@@ -80,7 +57,7 @@ var VID = function(omnibus) {
 				// 0x02 : TV
 				// 0x04 : NAVJ
 				// 0x10 : on
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
 						value = 'LCD off';
 						break;
@@ -94,7 +71,7 @@ var VID = function(omnibus) {
 						value = 'LCD on NAVJ';
 						break;
 					default:
-						value = Buffer.from([message[1]]);
+						value = Buffer.from([data.msg[1]]);
 						break;
 				}
 
@@ -123,7 +100,7 @@ var VID = function(omnibus) {
 
 			default:
 				command = 'unknown';
-				value   = Buffer.from(message);
+				value   = Buffer.from(data.msg);
 				break;
 		}
 

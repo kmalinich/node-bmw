@@ -1,22 +1,6 @@
 #!/usr/bin/env node
 
-// Bitmasks in hex
-var bit_0 = 0x01; // 1
-var bit_1 = 0x02; // 2
-var bit_2 = 0x04; // 4
-var bit_3 = 0x08; // 8
-var bit_4 = 0x10; // 16
-var bit_5 = 0x20; // 32
-var bit_6 = 0x40; // 64
-var bit_7 = 0x80; // 128
-
-// Test number for bitmask
-function bit_test(num, bit) {
-	if ((num & bit) != 0) { return true; }
-	else { return false; }
-}
-
-var MFL = function(omnibus) {
+var MFL = function() {
 	// Exposed data
 	this.parse_out = parse_out;
 
@@ -83,14 +67,14 @@ var MFL = function(omnibus) {
 				// 0x80 = send/end
 
 				// Detect button
-				if      (bit_test(message[1], bit_0)) { button = 'right';    }
-				else if (bit_test(message[1], bit_3)) { button = 'left';     }
-				else if (bit_test(message[1], bit_7)) { button = 'send/end'; }
+				if      (bitmask.bit_test(message[1], bitmask.bit[0])) { button = 'right';    }
+				else if (bitmask.bit_test(message[1], bitmask.bit[3])) { button = 'left';     }
+				else if (bitmask.bit_test(message[1], bitmask.bit[7])) { button = 'send/end'; }
 				else                                  { button = 'unknown';  }
 
 				// Detect action
-				if      (bit_test(message[1], bit_4)) { action = 'long depress'; }
-				else if (bit_test(message[1], bit_5)) { action = 'release';      }
+				if      (bitmask.bit_test(message[1], bitmask.bit[4])) { action = 'long depress'; }
+				else if (bitmask.bit_test(message[1], bitmask.bit[5])) { action = 'release';      }
 				else                                  { action = 'depress';      }
 
 				// Perform media control based on pressed key

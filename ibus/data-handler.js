@@ -1,16 +1,13 @@
 #!/usr/bin/env node
 
-var data_handler = function(omnibus) {
-	// Exposed data
-	this.check_data = check_data;
-
+module.exports = {
 	// Data handler
-	function check_data(data) {
+	check_data : (data) => {
 		if (data.msg != 0) {
 			// After moving everything to new model, just do:
 			// omnibus[data.src.name].parse_out(data); break;
 
-			// Send message to code module to parse
+			// Parse received data from physical modules
 			switch (data.src.name) {
 				// New model
 				case 'BMBT' : omnibus.BMBT.parse_out(data); break;
@@ -49,6 +46,7 @@ var data_handler = function(omnibus) {
 			// After moving everything to new model, just do:
 			// omnibus[data.dst.name].parse_in(data);  break;
 
+			// Parse sent data from emulated modules
 			switch (data.dst.name) {
 				case 'BMBT' : omnibus.BMBT.parse_in(data); break;
 				case 'CDC'  : omnibus.CDC.parse_in(data);  break;
@@ -56,7 +54,7 @@ var data_handler = function(omnibus) {
 				case 'MID'  : omnibus.MID.parse_in(data);  break;
 			}
 		}
-	}
-}
+	},
+};
 
 module.exports = data_handler;

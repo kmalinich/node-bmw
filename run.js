@@ -26,7 +26,8 @@ api_server    = http.createServer(api_handler);
 // Everything connection object
 omnibus = {
 	// Data bus module libraries
-	GM : require('./modules/GM'),
+	GM  : require('./modules/GM'),
+	LCM : require('./modules/LCM'),
 
 	ABG  : new (require('./modules/ABG' )),
 	ANZV : new (require('./modules/ANZV')),
@@ -40,7 +41,6 @@ omnibus = {
 	HAC  : new (require('./modules/HAC' )),
 	IHKA : new (require('./modules/IHKA')),
 	IKE  : new (require('./modules/IKE' )),
-	LCM  : new (require('./modules/LCM' )),
 	MFL  : new (require('./modules/MFL' )),
 	MID  : new (require('./modules/MID' )),
 	NAV  : new (require('./modules/NAV' )),

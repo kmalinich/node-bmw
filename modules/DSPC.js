@@ -97,9 +97,7 @@ var DSPC = function() {
 	// DSPC->GLO Device status ready
 	function send_device_status() {
 		// Init variables
-		var src_name = 'DSPC';
-		var dst_name = 'GLO';
-		var command  = 'device status';
+		var command = 'device status';
     var data;
     var msg;
 
@@ -115,8 +113,8 @@ var DSPC = function() {
 		}
 
 		omnibus.ibus.send({
-			src: src_name,
-			dst: dst_name,
+			src: 'DSPC',
+			dst: 'GLO',
 			msg: msg,
 		});
 

@@ -175,23 +175,16 @@ var BMBT = function() {
 
 	// Request status from RAD module
 	function request_rad_status() {
-		// Init variables
-		var command = 'request: device status';
-
 		omnibus.ibus.send({
 			src: 'BMBT',
 			dst: 'RAD',
 			msg: Buffer.from([0x01]),
 		});
-
-		// console.log('[BMBT::RAD] Sent %s', command);
 	}
 
 	// Send ready or ready after reset
 	function send_device_status() {
 		// Init variables
-		var command = 'device status';
-
 		var data;
 		var msg;
 
@@ -211,8 +204,6 @@ var BMBT = function() {
 			dst: 'GLO',
 			msg: msg,
 		});
-
-		// console.log('[BMBT::GLO] Sent %s:', command, data);
 	}
 
 	// Say we have no tape in the player

@@ -112,7 +112,7 @@ module.exports = {
 			crc ^= buffer[i];
 		}
 
-		buffer[3 + msg.msg.length] = crc;
+		buffer[msg.msg.length+3] = crc;
 
 		return buffer;
 	},

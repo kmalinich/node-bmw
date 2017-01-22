@@ -1,18 +1,109 @@
 #!/usr/bin/env node
-var GM = function() {
-	// Exposed data
-	this.decode_status_keyfob = decode_status_keyfob;
-	this.decode_status_open   = decode_status_open;
-	this.gm_cl                = gm_cl;
-	this.gm_data              = gm_data;
-	this.gm_interior_light    = gm_interior_light;
-	this.gm_send              = gm_send;
-	this.gm_windows           = gm_windows;
-	this.parse_out            = parse_out;
-	this.request              = request;
 
+// All the possible values to send to the GM
+var array_of_possible_values = {
+	light_alarm                   : true,
+	light_interior                : true,
+	locks_lock                    : true,
+	locks_toggle                  : true,
+	locks_trunk                   : true,
+	locks_unlock                  : true,
+	seat_driver_backrest_backward : true,
+	seat_driver_backrest_forward  : true,
+	seat_driver_backward          : true,
+	seat_driver_down              : true,
+	seat_driver_forward           : true,
+	seat_driver_headrest_down     : true,
+	seat_driver_headrest_up       : true,
+	seat_driver_tilt_backward     : true,
+	seat_driver_tilt_forward      : true,
+	seat_driver_up                : true,
+	seat_driver_upper_backwards   : true,
+	seat_driver_upper_forwards    : true,
+	wheel_backward                : true,
+	wheel_down                    : true,
+	wheel_forward                 : true,
+	wheel_up                      : true,
+	window_front_left_down        : true,
+	window_front_left_up          : true,
+	window_front_right_down       : true,
+	window_front_right_up         : true,
+	window_rear_left_down         : true,
+	window_rear_left_up           : true,
+	window_rear_right_down        : true,
+	window_rear_right_up          : true,
+	window_sunroof_down           : true,
+	window_sunroof_up             : true,
+	wipers_auto                   : true,
+	wipers_maintenance            : true,
+	wipers_once                   : true,
+	wipers_spray                  : true,
+};
+
+// [0x72] Decode a key fob message from the GM and act upon the results
+function decode_status_keyfob(message) {
+	// Init variables
+	var button;
+
+	if (message[1] == 0x10) {
+		button = 'lock button depressed';
+		omnibus.LCM.welcome_lights('on');
+	}
+
+	else if (bitmask.bit_test(message[1], 0x20)) {
+		button = 'unlock button depressed';
+		omnibus.LCM.welcome_lights('on');
+	}
+
+	else if (bitmask.bit_test(message[1], 0x40)) {
+		button = 'trunk button depressed';
+		omnibus.LCM.welcome_lights('on');
+	}
+
+	else if (message[1] == 0x00) {
+		button = 'no button pressed';
+	}
+
+	console.log('[node:::GM] key fob status: %s', button);
+}
+
+// [0x7A] Decode a door/flap status message from the GM and act upon the results
+function decode_status_open(message) {
+	// Set status from message by decrypting bitmask
+	if (bitmask.bit_test(message[1], 0x01)) { status.flaps.front_left    = true; } else { status.flaps.front_left    = false; }
+	if (bitmask.bit_test(message[1], 0x02)) { status.flaps.front_right   = true; } else { status.flaps.front_right   = false; }
+	if (bitmask.bit_test(message[1], 0x04)) { status.flaps.rear_left     = true; } else { status.flaps.rear_left     = false; }
+	if (bitmask.bit_test(message[1], 0x08)) { status.flaps.rear_right    = true; } else { status.flaps.rear_right    = false; }
+	if (bitmask.bit_test(message[1], 0x40)) { status.lights.interior     = true; } else { status.lights.interior     = false; }
+
+	// This is correct, in a sense... Not a good sense, but in a sense.
+	if (bitmask.bit_test(message[1], 0x20)) { status.vehicle.locked      = true; } else { status.vehicle.locked      = false; }
+
+	if (bitmask.bit_test(message[2], 0x01)) { status.windows.front_left  = true; } else { status.windows.front_left  = false; }
+	if (bitmask.bit_test(message[2], 0x02)) { status.windows.front_right = true; } else { status.windows.front_right = false; }
+	if (bitmask.bit_test(message[2], 0x04)) { status.windows.rear_left   = true; } else { status.windows.rear_left   = false; }
+	if (bitmask.bit_test(message[2], 0x08)) { status.windows.rear_right  = true; } else { status.windows.rear_right  = false; }
+	if (bitmask.bit_test(message[2], 0x10)) { status.windows.roof        = true; } else { status.windows.roof        = false; }
+	if (bitmask.bit_test(message[2], 0x20)) { status.flaps.trunk         = true; } else { status.flaps.trunk         = false; }
+	if (bitmask.bit_test(message[2], 0x40)) { status.flaps.hood          = true; } else { status.flaps.hood          = false; }
+
+	console.log('[node:::GM] decoded door/flap status message');
+}
+
+// Send message to GM
+function gm_send(packet) {
+	// console.log('[node:::GM] Sending \'Set IO status\' packet');
+	packet.unshift(0x0C);
+	omnibus.ibus.send({
+		src: 'DIA',
+		dst: 'GM',
+		msg: packet, // Set IO status
+	});
+}
+
+module.exports = {
 	// Parse data sent from GM module
-	function parse_out(data) {
+	parse_out : (data) => {
 		// Init variables
 		var command;
 		var value;
@@ -130,61 +221,11 @@ var GM = function() {
 				break;
 		}
 
-		console.log('[ %s > %s] %s:', data.src.name, data.dst.name, command, value);
-	}
-
-	// [0x72] Decode a key fob message from the GM and act upon the results
-	function decode_status_keyfob(message) {
-		// Init variables
-		var button;
-
-		if (message[1] == 0x10) {
-			button = 'lock button depressed';
-			omnibus.LCM.welcome_lights('on');
-		}
-
-		else if (bitmask.bit_test(message[1], 0x20)) {
-			button = 'unlock button depressed';
-			omnibus.LCM.welcome_lights('on');
-		}
-
-		else if (bitmask.bit_test(message[1], 0x40)) {
-			button = 'trunk button depressed';
-			omnibus.LCM.welcome_lights('on');
-		}
-
-		else if (message[1] == 0x00) {
-			button = 'no button pressed';
-		}
-
-		console.log('[node:::GM] key fob status: %s', button);
-	}
-
-	// [0x7A] Decode a door/flap status message from the GM and act upon the results
-	function decode_status_open(message) {
-		// Set status from message by decrypting bitmask
-		if (bitmask.bit_test(message[1], 0x01)) { status.flaps.front_left    = true; } else { status.flaps.front_left    = false; }
-		if (bitmask.bit_test(message[1], 0x02)) { status.flaps.front_right   = true; } else { status.flaps.front_right   = false; }
-		if (bitmask.bit_test(message[1], 0x04)) { status.flaps.rear_left     = true; } else { status.flaps.rear_left     = false; }
-		if (bitmask.bit_test(message[1], 0x08)) { status.flaps.rear_right    = true; } else { status.flaps.rear_right    = false; }
-		if (bitmask.bit_test(message[1], 0x40)) { status.lights.interior     = true; } else { status.lights.interior     = false; }
-
-		// This is correct, in a sense... Not a good sense, but in a sense.
-		if (bitmask.bit_test(message[1], 0x20)) { status.vehicle.locked      = true; } else { status.vehicle.locked      = false; }
-
-		if (bitmask.bit_test(message[2], 0x01)) { status.windows.front_left  = true; } else { status.windows.front_left  = false; }
-		if (bitmask.bit_test(message[2], 0x02)) { status.windows.front_right = true; } else { status.windows.front_right = false; }
-		if (bitmask.bit_test(message[2], 0x04)) { status.windows.rear_left   = true; } else { status.windows.rear_left   = false; }
-		if (bitmask.bit_test(message[2], 0x08)) { status.windows.rear_right  = true; } else { status.windows.rear_right  = false; }
-		if (bitmask.bit_test(message[2], 0x10)) { status.windows.roof        = true; } else { status.windows.roof        = false; }
-		if (bitmask.bit_test(message[2], 0x20)) { status.flaps.trunk         = true; } else { status.flaps.trunk         = false; }
-		if (bitmask.bit_test(message[2], 0x40)) { status.flaps.hood          = true; } else { status.flaps.hood          = false; }
-
-		console.log('[ node-bmw] decoded door/flap status message');
-	}
+		console.log('[%s::%s] %s:', data.src.name, data.dst.name, command, value);
+	},
 
 	// Handle incoming commands from API
-	function gm_data(data) {
+	gm_data : (data) => {
 		if (typeof data['gm-interior-light'] !== 'undefined') {
 			gm_interior_light(data['gm-interior-light']);
 		}
@@ -206,10 +247,10 @@ var GM = function() {
 		else {
 			console.log('[node:::GM] Unknown data: \'%s\'', data);
 		}
-	}
+	},
 
 	// GM window control
-	function gm_windows(window, action) {
+	gm_windows : (window, action) => {
 		console.log('[node:::GM] Window control: \'%s\', \'%s\'', window, action);
 
 		// Init message variable
@@ -259,11 +300,11 @@ var GM = function() {
 				break;
 		}
 
-		omnibus.GM.gm_send(msg);
-	}
+		gm_send(msg);
+	},
 
 	// Cluster/interior backlight
-	function gm_interior_light(value) {
+	gm_interior_light : (value) => {
 		console.log('[node:::GM] Set interior light to %s', value);
 
 		// Convert the value to hex
@@ -271,11 +312,11 @@ var GM = function() {
 
 		// Will need to concat and push array for value
 		var msg = [0x10, 0x05, value];
-		omnibus.GM.gm_send(msg);
-	}
+		gm_send(msg);
+	},
 
 	// Central locking
-	function gm_cl() {
+	gm_cl : () => {
 		var action = 'toggle';
 		console.log('[node:::GM] Central locking: \'%s\'', action);
 		// Hex:
@@ -290,31 +331,20 @@ var GM = function() {
 		// Init message variable
 		var msg = [0x00, 0x0B];
 
-		omnibus.GM.gm_send(msg);
+		gm_send(msg);
 
 		// Send the cluster and Kodi a notification
 		var notify_message = 'Toggling door locks';
 		omnibus.kodi.notify('GM', notify_message);
 		omnibus.IKE.text_urgent(notify_message)
-	}
-
-	// Send message to GM
-	function gm_send(packet) {
-		// console.log('[node:::GM] Sending \'Set IO status\' packet');
-		packet.unshift(0x0C);
-		omnibus.ibus.send({
-			src: 'DIA',
-			dst: 'GM',
-			msg: packet, // Set IO status
-		});
-	}
+	},
 
 	// Request various things from GM
-	function request(value) {
+	request : (value) => {
 		console.log('[node:::GM] Requesting \'%s\'', value);
 
-    // Init variables
-    var src;
+		// Init variables
+		var src;
 		var cmd;
 
 		switch (value) {
@@ -333,10 +363,10 @@ var GM = function() {
 			dst : 'GM',
 			msg : cmd,
 		});
-	}
+	},
 
 	// Encode the GM bitmask string from an input of true/false values
-	function gm_bitmask_encode(array) {
+	gm_bitmask_encode : (array) => {
 		// Initialize bitmask variables
 		var bitmask_0  = 0x00;
 		var bitmask_1  = 0x00;
@@ -358,10 +388,10 @@ var GM = function() {
 		gm_send(output);
 
 		//return output;
-	}
+	},
 
 	// Decode the GM bitmask string and output an array of true/false values
-	function gm_bitmask_decode(array) {
+	gm_bitmask_decode : (array) => {
 		var bitmask_0 = array[0];
 		var bitmask_1 = array[1];
 		var bitmask_2 = array[2];
@@ -444,47 +474,5 @@ var GM = function() {
 		}
 
 		return output;
-	}
-
-	// All the possible values to send to the GM
-	var array_of_possible_values = {
-		light_alarm                   : true,
-		light_interior                : true,
-		locks_lock                    : true,
-		locks_toggle                  : true,
-		locks_trunk                   : true,
-		locks_unlock                  : true,
-		seat_driver_backrest_backward : true,
-		seat_driver_backrest_forward  : true,
-		seat_driver_backward          : true,
-		seat_driver_down              : true,
-		seat_driver_forward           : true,
-		seat_driver_headrest_down     : true,
-		seat_driver_headrest_up       : true,
-		seat_driver_tilt_backward     : true,
-		seat_driver_tilt_forward      : true,
-		seat_driver_up                : true,
-		seat_driver_upper_backwards   : true,
-		seat_driver_upper_forwards    : true,
-		wheel_backward                : true,
-		wheel_down                    : true,
-		wheel_forward                 : true,
-		wheel_up                      : true,
-		window_front_left_down        : true,
-		window_front_left_up          : true,
-		window_front_right_down       : true,
-		window_front_right_up         : true,
-		window_rear_left_down         : true,
-		window_rear_left_up           : true,
-		window_rear_right_down        : true,
-		window_rear_right_up          : true,
-		window_sunroof_down           : true,
-		window_sunroof_up             : true,
-		wipers_auto                   : true,
-		wipers_maintenance            : true,
-		wipers_once                   : true,
-		wipers_spray                  : true,
-	}
-}
-
-module.exports = GM;
+	},
+};

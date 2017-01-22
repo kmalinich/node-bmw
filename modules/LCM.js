@@ -177,7 +177,7 @@ var LCM = function() {
 
 	// This message also has days since service and total kms, but, baby steps...
 	function vehicle_data_decode(message) {
-		var vin_string             = hex.hex2a(message[1].toString(16))+hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
+		var vin_string     = hex.hex2a(message[1].toString(16))+hex.hex2a(message[2].toString(16))+message[3].toString(16)+message[4].toString(16)+message[5].toString(16)[0];
 		status.vehicle.vin = vin_string;
 		console.log('[node::LCM] Decoded VIN string: \'%s\'', vin_string);
 	}

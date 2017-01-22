@@ -14,6 +14,7 @@ now = require('performance-now');
 bitmask     = require('./lib/bitmask');
 bus_modules = require('./lib/bus-modules');
 config      = require('./lib/config');
+hex         = require('./lib/hex');
 json        = require('./lib/json');
 log         = require('./lib/log');
 status      = require('./lib/status');
@@ -25,6 +26,8 @@ api_server    = http.createServer(api_handler);
 // Everything connection object
 omnibus = {
 	// Data bus module libraries
+	GM : require('./modules/GM'),
+
 	ABG  : new (require('./modules/ABG' )),
 	ANZV : new (require('./modules/ANZV')),
 	BMBT : new (require('./modules/BMBT')),
@@ -33,7 +36,6 @@ omnibus = {
 	DSP  : new (require('./modules/DSP' )),
 	DSPC : new (require('./modules/DSPC')),
 	EWS  : new (require('./modules/EWS' )),
-	GM   : new (require('./modules/GM'  )),
 	GT   : new (require('./modules/GT'  )),
 	HAC  : new (require('./modules/HAC' )),
 	IHKA : new (require('./modules/IHKA')),
@@ -51,13 +53,13 @@ omnibus = {
 	VID  : new (require('./modules/VID' )),
 
 	// Custom libraries
-	BT   : require('./lib/BT'),
-	HDMI : new (require('./lib/HDMI')),
-	kodi : new (require('./lib/kodi')),
+	BT   : require('./lib/BT'  ),
+	HDMI : require('./lib/HDMI'),
+	kodi : require('./lib/kodi'),
 
 	// IBUS libraries - these should be combined
-	data_handler : require('./ibus/data-handler'), // Data handler/router
-	protocol     : new (require('./ibus/ibus-protocol' )), // Protocol
+	data_handler : require('./ibus/data-handler'  ), // Data handler/router
+	protocol     : require('./ibus/ibus-protocol' ), // Protocol
 	ibus         : require('./ibus/ibus-interface'), // Connection
 };
 

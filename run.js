@@ -51,14 +51,14 @@ omnibus = {
 	VID  : new (require('./modules/VID' )),
 
 	// Custom libraries
-	BT   : new (require('./lib/BT'  )),
+	BT   : require('./lib/BT'),
 	HDMI : new (require('./lib/HDMI')),
 	kodi : new (require('./lib/kodi')),
 
 	// IBUS libraries - these should be combined
-	data_handler : new (require('./ibus/data-handler'  )), // Data handler/router
+	data_handler : require('./ibus/data-handler'), // Data handler/router
 	protocol     : new (require('./ibus/ibus-protocol' )), // Protocol
-	ibus         : new (require('./ibus/ibus-interface')), // Connection
+	ibus         : require('./ibus/ibus-interface'), // Connection
 };
 
 // API config - should be moved into API object
@@ -71,7 +71,7 @@ function startup() {
 	// Start API server
 	startup_api_server(() => {
 		// Start WebSocket server
-		omnibus.socket_server.startup(() => {
+		socket_server.startup(() => {
 			// Start HDMI CEC
 			omnibus.HDMI.startup(() => {
 				// Start IBUS connection
@@ -103,8 +103,8 @@ function shutdown() {
 
 function startup_api_server(callback) {
 	// error handling breh
-	api_server.listen(config.api_port, () => {
-		console.log('[node::API] Started, port %s', config.api_port);
+	api_server.listen(config.api.port, () => {
+		console.log('[node::API] Started, port %s', config.api.port);
 		// Only call back if callback is a function
 		if (typeof callback === 'function') { callback(); }
 

@@ -56,5 +56,3 @@ module.exports = {
 		}
 	},
 };
-
-module.exports = data_handler;

@@ -5,76 +5,229 @@ var convert = require('node-unit-conversion');
 var moment  = require('moment');
 var os      = require('os');
 
-var IKE = function() {
-	// Exposed data
-	this.hud_refresh  = hud_refresh;
-	this.ike_data     = ike_data;
-	this.obc_data     = obc_data;
-	this.obc_refresh  = obc_refresh;
-	this.parse_out    = parse_out;
-	this.request      = request;
-	this.text         = text;
-	this.text_urgent  = text_urgent;
-	this.text_warning = text_warning;
+// HUD refresh vars
+var interval_hud_refresh;
+var last_hud_refresh = 0;
 
-	// HUD refresh vars
-	var interval_hud_refresh;
-	var last_hud_refresh = 0;
+// Ignition state change vars
+var state_powerdown;
+var state_poweroff;
+var state_poweron;
+var state_run;
 
-	// Ignition state change vars
-	var state_powerdown;
-	var state_poweroff;
-	var state_poweron;
-	var state_run;
+// Pad string for IKE text screen length (20 characters)
+String.prototype.ike_pad = function() {
+	var string = this;
 
-	// Pad string for IKE text screen length (20 characters)
-	String.prototype.ike_pad = function() {
-		var string = this;
-
-		while (string.length < 20) {
-			string = string + ' ';
-		}
-
-		return string;
+	while (string.length < 20) {
+		string = string + ' ';
 	}
 
+	return string;
+}
+
+// Clear check control messages, then refresh HUD
+function text_urgent_off() {
+	omnibus.ibus.send({
+		src: 'CCM',
+		dst: 'IKE',
+		msg: [0x1A, 0x30, 0x00],
+	});
+
+	setTimeout(() => {
+		hud_refresh();
+	}, 250);
+}
+
+// OBC data request
+function obc_data(action, value, target) {
+	var cmd = 0x41; // OBC data request
+
+	// Init action_id, value_id
+	var action_id;
+	var value_id;
+
+	// Determine action_id from action argument
+	switch (action) {
+		case 'get'        : action_id = 0x01; break; // Request current value
+		case 'get-status' : action_id = 0x02; break; // Request current status
+		case 'limit-off'  : action_id = 0x08; break;
+		case 'limit-on'   : action_id = 0x04; break;
+		case 'limit-set'  : action_id = 0x20; break;
+		case 'reset'      : action_id = 0x10; break;
+		case 'set' :
+			cmd       = 0x40; // OBC data set (speed limit/distance)
+			action_id = 0x00;
+			break;
+	}
+
+	// Determine value_id from value argument
+	switch (value) {
+		case 'arrival'       : value_id = 0x08; break;
+		case 'auxheat1'      : value_id = 0x0F; break;
+		case 'auxheat2'      : value_id = 0x10; break;
+		case 'auxheatvent'   : value_id = 0x1B; break;
+		case 'code'          : value_id = 0x0D; break;
+		case 'cons1'         : value_id = 0x04; break;
+		case 'cons2'         : value_id = 0x05; break;
+		case 'date'          : value_id = 0x02; break;
+		case 'distance'      : value_id = 0x07; break;
+		case 'range'         : value_id = 0x06; break;
+		case 'speedavg'      : value_id = 0x0A; break;
+		case 'speedlimit'    : value_id = 0x09; break;
+		case 'stopwatch'     : value_id = 0x1A; break;
+		case 'temp_exterior' : value_id = 0x03; break;
+		case 'time'          : value_id = 0x01; break;
+		case 'timer'         : value_id = 0x0E; break;
+	}
+
+	// Assemble message string
+	var msg = [cmd, value_id, action_id];
+
+	// If we're setting, insert the data
+	if (typeof target !== 'undefined' && target) {
+		msg = [msg, target];
+	}
+
+	// console.log('[node::IKE] Performing \'%s\' on OBC value \'%s\'', action, value);
+
+	omnibus.ibus.send({
+		src: 'GT',
+		dst: 'IKE',
+		msg: msg,
+	});
+}
+
+// Cluster/interior backlight
+function ike_backlight(value) {
+	console.log('[node::IKE] Setting LCD screen backlight to %s', value);
+	omnibus.ibus.send({
+		src: 'LCM',
+		dst: 'GLO',
+		msg: [0x5C, value.toString(16), 0x00]
+	});
+}
+
+// ASCII to hex for cluster message
+function ascii2hex(str) {
+	var array = [];
+
+	for (var n = 0, l = str.length; n < l; n ++) {
+		var hex = str.charCodeAt(n);
+		array.push(hex);
+	}
+
+	return array;
+}
+
+// Pretend to be IKE saying the car is on
+// Note - this can and WILL set the alarm off - kudos to the Germans...
+function ike_ignition(value) {
+	console.log('[node::IKE] Claiming ignition is \'%s\'', value);
+
+	var status;
+	switch (value) {
+		case 'off':
+			status = 0x00;
+			break;
+		case 'pos1':
+			status = 0x01;
+			break;
+		case 'pos2':
+			status = 0x03;
+			break;
+		case 'pos3':
+			status = 0x07;
+			break;
+	}
+
+	omnibus.ibus.send({
+		src: 'IKE',
+		dst: 'GLO',
+		msg: [0x11, status],
+	});
+}
+
+// OBC set clock
+function obc_clock() {
+	console.log('[node::IKE] Setting OBC clock to current time');
+
+	var time = moment();
+
+	// Time
+	omnibus.ibus.send({
+		src: 'GT',
+		dst: 'IKE',
+		msg: [0x40, 0x01, time.format('H'), time.format('m')],
+	});
+
+	// Date
+	omnibus.ibus.send({
+		src: 'GT',
+		dst: 'IKE',
+		msg: [0x40, 0x02, time.format('D'), time.format('M'), time.format('YY')],
+	});
+}
+
+// OBC gong
+// Doesn't work right now
+function obc_gong(value) {
+	var src = 0x68; // RAD
+	var dst = 0x80; // IKE
+
+	// Determine desired value to gong
+	if (value == '1') {
+		var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
+		var obc_value = '1';
+	}
+
+	else if (value == '2') {
+		var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
+		var obc_value = '2';
+	}
+
+	console.log('[node::IKE] OBC gong %s', obc_value);
+
+	omnibus.ibus.send({
+		src: 'RAD',
+		dst: 'IKE',
+		msg: msg,
+	});
+}
+
+// Exported functions
+module.exports = {
 	// Parse data sent from IKE module
-	function parse_out(data) {
+	parse_out : (data) => {
 		var bitmask = require('../lib/bitmask');
 		// Init variables
-		var src = data.src.id;
-		var dst = data.dst;
-
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
 			case 0x01: // Request device status
-				command = 'request';
-				value   = 'device status';
+				data.command = 'request';
+				data.value   = 'device status';
 				break;
 
 			case 0x02: // Broadcast device status
 				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
-						value   = 'ready';
+						data.command = 'device status';
+						data.value   = 'ready';
 						break;
 
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						data.command = 'device status';
+						data.value   = 'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x07: // Gong status
-				command = 'gong status';
-				value   = 'not decoded';
+				data.command = 'gong status';
+				data.value   = 'not decoded';
 				break;
 
 			case 0x11: // ignition status
-				command = 'ignition status';
+				data.command = 'ignition status';
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
 				if (data.msg[1] == 0x00 && (status.vehicle.ignition == 'accessory' || status.vehicle.ignition == 'run')) {
@@ -184,8 +337,8 @@ var IKE = function() {
 				break;
 
 			case 0x13: // IKE sensor status
-				command = 'broadcast';
-				value   = 'IKE sensor status';
+				data.command = 'broadcast';
+				data.value   = 'IKE sensor status';
 				// console.log('[node::IKE] sensor :', Buffer.from(data.msg));
 
 				// This is a bitmask
@@ -246,8 +399,8 @@ var IKE = function() {
 				break;
 
 			case 0x15: // country coding data
-				command = 'broadcast';
-				value   = 'country coding data';
+				data.command = 'broadcast';
+				data.value   = 'country coding data';
 				break;
 
 			case 0x17: // Odometer
@@ -261,8 +414,8 @@ var IKE = function() {
 				break;
 
 			case 0x18: // Vehicle speed and RPM
-				command = 'broadcast';
-				value   = 'current speed and RPM';
+				data.command = 'broadcast';
+				data.value   = 'current speed and RPM';
 
 				// Update vehicle and engine speed variables
 				status.vehicle.speed.kmh = parseFloat(data.msg[1]*2);
@@ -273,8 +426,8 @@ var IKE = function() {
 				break;
 
 			case 0x19: // Coolant temp and external temp
-				command = 'broadcast';
-				value   = 'temperature values';
+				data.command = 'broadcast';
+				data.value   = 'temperature values';
 
 				// Update external and engine coolant temp variables
 				status.temperature.exterior.c = parseFloat(data.msg[1]);
@@ -291,14 +444,14 @@ var IKE = function() {
 				break;
 
 			case 0x1B: // ACK text message
-				command = 'acknowledged';
-				value   = parseFloat(data.msg[1])+' text messages';
+				data.command = 'acknowledged';
+				data.value   = parseFloat(data.msg[1])+' text messages';
 				break;
 
 			case 0x24: // OBC values broadcast
 				switch (data.msg[1]) {
 					case 0x01: // Time
-						command = 'OBC time';
+						data.command = 'OBC time';
 
 						// Parse unit
 						string_time_unit = Buffer.from([data.msg[8], data.msg[9]]);
@@ -322,7 +475,7 @@ var IKE = function() {
 						break;
 
 					case 0x02: // Date
-						command = 'OBC date';
+						data.command = 'OBC date';
 
 						// Parse value
 						string_date = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9], data.msg[10], data.msg[11], data.msg[12]]);
@@ -334,7 +487,7 @@ var IKE = function() {
 						break;
 
 					case 0x03: // Exterior temp
-						command = 'OBC exterior temperature';
+						data.command = 'OBC exterior temperature';
 
 						// Parse unit
 						string_temp_exterior_unit = Buffer.from([data.msg[9]]);
@@ -372,7 +525,7 @@ var IKE = function() {
 						break;
 
 					case 0x04: // Consumption 1
-						command = 'OBC consumption 1';
+						data.command = 'OBC consumption 1';
 
 						// Parse unit
 						string_consumption_1_unit = Buffer.from([data.msg[8]]);
@@ -408,7 +561,7 @@ var IKE = function() {
 						break;
 
 					case 0x05: // Consumption 2
-						command = 'OBC consumption 2';
+						data.command = 'OBC consumption 2';
 
 						// Parse unit
 						string_consumption_2_unit = Buffer.from([data.msg[8]]);
@@ -436,7 +589,7 @@ var IKE = function() {
 						break;
 
 					case 0x06: // Range
-						command = 'OBC range to empty';
+						data.command = 'OBC range to empty';
 
 						// Parse value
 						string_range = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
@@ -464,7 +617,7 @@ var IKE = function() {
 						break;
 
 					case 0x07: // Distance
-						command = 'OBC distance remaining';
+						data.command = 'OBC distance remaining';
 
 						// Parse value
 						string_distance = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
@@ -476,7 +629,7 @@ var IKE = function() {
 						break;
 
 					case 0x08: // Arrival time
-						command = 'OBC arrival time';
+						data.command = 'OBC arrival time';
 						// Parse value
 						string_arrival = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						string_arrival = string_arrival.toString().trim().toLowerCase();
@@ -487,7 +640,7 @@ var IKE = function() {
 						break;
 
 					case 0x09: // Limit
-						command = 'OBC speed limit';
+						data.command = 'OBC speed limit';
 
 						// Parse value
 						string_speedlimit = Buffer.from([data.msg[3], data.msg[4], data.msg[5]]);
@@ -499,7 +652,7 @@ var IKE = function() {
 						break;
 
 					case 0x0A: // average speed
-						command = 'OBC average speed';
+						data.command = 'OBC average speed';
 
 						// Parse unit
 						string_speedavg_unit = Buffer.from([data.msg[8]]);
@@ -530,17 +683,17 @@ var IKE = function() {
 						break;
 
 					case 0x0B: //
-						command = 'OBC 0x0B';
-						value   = Buffer.from(data.msg);
+						data.command = 'OBC 0x0B';
+						data.value   = Buffer.from(data.msg);
 						break;
 
 					case 0x0C: //
-						command = 'OBC 0x0C';
-						value   = Buffer.from(data.msg);
+						data.command = 'OBC 0x0C';
+						data.value   = Buffer.from(data.msg);
 						break;
 
 					case 0x0D: //
-						command = 'OBC code';
+						data.command = 'OBC code';
 						// Parse value
 						string_code = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
 						string_code = string_code.toString().trim().toLowerCase();
@@ -551,7 +704,7 @@ var IKE = function() {
 						break;
 
 					case 0x0E: // Timer
-						command = 'OBC timer';
+						data.command = 'OBC timer';
 
 						// Parse value
 						string_timer = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
@@ -563,7 +716,7 @@ var IKE = function() {
 						break;
 
 					case 0x0F: // Aux heat timer 1
-						command = 'OBC aux heat timer 1';
+						data.command = 'OBC aux heat timer 1';
 
 						// Parse value
 						string_aux_heat_timer_1 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
@@ -575,7 +728,7 @@ var IKE = function() {
 						break;
 
 					case 0x10: // Aux heat timer 2
-						command = 'OBC aux heat timer 2';
+						data.command = 'OBC aux heat timer 2';
 
 						// Parse value
 						string_aux_heat_timer_2 = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
@@ -587,7 +740,7 @@ var IKE = function() {
 						break;
 
 					case 0x1A: // Stopwatch
-						command = 'OBC stopwatch';
+						data.command = 'OBC stopwatch';
 
 						// Parse value
 						string_stopwatch = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6]]);
@@ -599,14 +752,14 @@ var IKE = function() {
 						break;
 
 					default:
-						command = 'OBC unknown value';
-						value   = Buffer.from(data.msg);
+						data.command = 'OBC unknown value';
+						data.value   = Buffer.from(data.msg);
 						break;
 				}
 				break;
 
 			case 0x2A: // aux heating LED
-				command = 'aux heating LED';
+				data.command = 'aux heating LED';
 				// This actually is a bitmask but.. this is also a freetime project
 				switch(data.msg[2]) {
 					case 0x00:
@@ -627,64 +780,31 @@ var IKE = function() {
 				break;
 
 			case 0x50: // Request check-control sensor information
-				command = 'request';
-				value   = 'check control sensor status';
+				data.command = 'request';
+				data.value   = 'check control sensor status';
 				break;
 
 			case 0x53: // Request vehicle data
-				command = 'request';
-				value   = 'vehicle data';
+				data.command = 'request';
+				data.value   = 'vehicle data';
 				break;
 
 			case 0x57: // BC button in cluster
-				command = 'button';
-				value   = 'BC';
+				data.command = 'button';
+				data.value   = 'BC';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unknown';
+				data.value   = Buffer.from(data.msg);
 				break;
 		}
 
-		// Dynamic logging output
-		var data_dst_name;
-		switch (data.dst.name.length) {
-			case 1:
-				data_dst_name = data.dst.name+'   ';
-				break;
-			case 2:
-				data_dst_name = data.dst.name+'  ';
-				break;
-			case 3:
-				data_dst_name = data.dst.name+' ';
-				break;
-			default:
-				data_dst_name = data.dst.name;
-				break;
-		}
-
-		var data_src_name;
-		switch (data.src.name.length) {
-			case 1:
-				data_src_name = '   '+data.src.name;
-				break;
-			case 2:
-				data_src_name = '  '+data.src.name;
-				break;
-			case 3:
-				data_src_name = ' '+data.src.name;
-				break;
-			default:
-				data_src_name = data.src.name;
-				break;
-		}
-
-		console.log('[%s>%s] %s:', data_src_name, data_dst_name, command, value);
-	}
+		log.out(data);
+	},
 
 	// Handle incoming commands from API
-	function ike_data(data) {
+	ike_data : (data) => {
 		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
 			text(data['obc-text']);
@@ -727,23 +847,10 @@ var IKE = function() {
 		else {
 			console.log('[node::IKE] ike_data(): Unknown command');
 		}
-
-	}
-
-	// ASCII to hex for cluster message
-	function ascii2hex(str) {
-		var array = [];
-
-		for (var n = 0, l = str.length; n < l; n ++) {
-			var hex = str.charCodeAt(n);
-			array.push(hex);
-		}
-
-		return array;
-	}
+	},
 
 	// Refresh custom HUD
-	function hud_refresh(interval) {
+	hud_refresh : (interval) => {
 		var spacing1;
 		var spacing2;
 		var string_cons;
@@ -825,10 +932,10 @@ var IKE = function() {
 				last_hud_refresh = now();
 			});
 		}
-	}
+	},
 
 	// Refresh OBC data
-	function obc_refresh() {
+	obc_refresh : () => {
 		console.log('[node::IKE] Refreshing all OBC data');
 
 		// LCM data
@@ -868,79 +975,10 @@ var IKE = function() {
 		obc_data('get', 'temp_exterior');
 		obc_data('get', 'time'         );
 		obc_data('get', 'timer'        );
-	}
-
-	// OBC data request
-	function obc_data(action, value, target) {
-		var cmd = 0x41; // OBC data request
-
-		// Init action_id, value_id
-		var action_id;
-		var value_id;
-
-		// Determine action_id from action argument
-		switch (action) {
-			case 'get'        : action_id = 0x01; break; // Request current value
-			case 'get-status' : action_id = 0x02; break; // Request current status
-			case 'limit-off'  : action_id = 0x08; break;
-			case 'limit-on'   : action_id = 0x04; break;
-			case 'limit-set'  : action_id = 0x20; break;
-			case 'reset'      : action_id = 0x10; break;
-			case 'set' :
-				cmd       = 0x40; // OBC data set (speed limit/distance)
-				action_id = 0x00;
-				break;
-		}
-
-		// Determine value_id from value argument
-		switch (value) {
-			case 'arrival'       : value_id = 0x08; break;
-			case 'auxheat1'      : value_id = 0x0F; break;
-			case 'auxheat2'      : value_id = 0x10; break;
-			case 'auxheatvent'   : value_id = 0x1B; break;
-			case 'code'          : value_id = 0x0D; break;
-			case 'cons1'         : value_id = 0x04; break;
-			case 'cons2'         : value_id = 0x05; break;
-			case 'date'          : value_id = 0x02; break;
-			case 'distance'      : value_id = 0x07; break;
-			case 'range'         : value_id = 0x06; break;
-			case 'speedavg'      : value_id = 0x0A; break;
-			case 'speedlimit'    : value_id = 0x09; break;
-			case 'stopwatch'     : value_id = 0x1A; break;
-			case 'temp_exterior' : value_id = 0x03; break;
-			case 'time'          : value_id = 0x01; break;
-			case 'timer'         : value_id = 0x0E; break;
-		}
-
-		// Assemble message string
-		var msg = [cmd, value_id, action_id];
-
-		// If we're setting, insert the data
-		if (typeof target !== 'undefined' && target) {
-			msg = [msg, target];
-		}
-
-		// console.log('[node::IKE] Performing \'%s\' on OBC value \'%s\'', action, value);
-
-		omnibus.ibus.send({
-			src: 'GT',
-			dst: 'IKE',
-			msg: msg,
-		});
-	}
-
-	// Cluster/interior backlight
-	function ike_backlight(value) {
-		console.log('[node::IKE] Setting LCD screen backlight to %s', value);
-		omnibus.ibus.send({
-			src: 'LCM',
-			dst: 'GLO',
-			msg: [0x5C, value.toString(16), 0x00]
-		});
-	}
+	},
 
 	// Request various things from IKE
-	function request(value) {
+	request : (value) => {
 		console.log('[node::IKE] Requesting \'%s\'', value);
 
 		var cmd;
@@ -986,85 +1024,10 @@ var IKE = function() {
 			dst: dst,
 			msg: cmd,
 		});
-	}
-
-	// Pretend to be IKE saying the car is on
-	// Note - this can and WILL set the alarm off - kudos to the Germans...
-	function ike_ignition(value) {
-		console.log('[node::IKE] Claiming ignition is \'%s\'', value);
-
-		var status;
-		switch (value) {
-			case 'off':
-				status = 0x00;
-				break;
-			case 'pos1':
-				status = 0x01;
-				break;
-			case 'pos2':
-				status = 0x03;
-				break;
-			case 'pos3':
-				status = 0x07;
-				break;
-		}
-
-		omnibus.ibus.send({
-			src: 'IKE',
-			dst: 'GLO',
-			msg: [0x11, status],
-		});
-	}
-
-	// OBC set clock
-	function obc_clock() {
-		console.log('[node::IKE] Setting OBC clock to current time');
-
-		var time = moment();
-
-		// Time
-		omnibus.ibus.send({
-			src: 'GT',
-			dst: 'IKE',
-			msg: [0x40, 0x01, time.format('H'), time.format('m')],
-		});
-
-		// Date
-		omnibus.ibus.send({
-			src: 'GT',
-			dst: 'IKE',
-			msg: [0x40, 0x02, time.format('D'), time.format('M'), time.format('YY')],
-		});
-	}
-
-	// OBC gong
-	// Doesn't work right now
-	function obc_gong(value) {
-		var src = 0x68; // RAD
-		var dst = 0x80; // IKE
-
-		// Determine desired value to gong
-		if (value == '1') {
-			var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
-			var obc_value = '1';
-		}
-
-		else if (value == '2') {
-			var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
-			var obc_value = '2';
-		}
-
-		console.log('[node::IKE] OBC gong %s', obc_value);
-
-		omnibus.ibus.send({
-			src: 'RAD',
-			dst: 'IKE',
-			msg: msg,
-		});
-	}
+	},
 
 	// Check control warnings
-	function text_warning(message, timeout) {
+	text_warning : (message, timeout) => {
 		// 3rd byte:
 		// 0x00 : no gong,   no arrow
 		// 0x01 : no gong,   solid arrow
@@ -1092,10 +1055,10 @@ var IKE = function() {
 		setTimeout(() => {
 			text_urgent_off();
 		}, timeout);
-	}
+	},
 
 	// Check control messages
-	function text_urgent(message, timeout) {
+	text_urgent : (message, timeout) => {
 		var message_hex = [0x1A, 0x35, 0x00];
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
@@ -1112,23 +1075,10 @@ var IKE = function() {
 		setTimeout(() => {
 			text_urgent_off();
 		}, timeout);
-	}
-
-	// Clear check control messages, then refresh HUD
-	function text_urgent_off() {
-		omnibus.ibus.send({
-			src: 'CCM',
-			dst: 'IKE',
-			msg: [0x1A, 0x30, 0x00],
-		});
-
-		setTimeout(() => {
-			hud_refresh();
-		}, 250);
-	}
+	},
 
 	// IKE cluster text send message
-	function text(string) {
+	text : (string) => {
 		// console.log('[node::IKE] Sending text to IKE screen: \'%s\'', string);
 		string = string.ike_pad();
 
@@ -1142,7 +1092,6 @@ var IKE = function() {
 			dst: 'GLO',
 			msg: string_hex,
 		});
-	}
-}
+	},
 
-module.exports = IKE;
+};

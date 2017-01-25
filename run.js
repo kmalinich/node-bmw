@@ -2,11 +2,6 @@
 
 console.log('[node::bmw] Starting');
 
-// npm libraries
-const dispatcher   = new (require('httpdispatcher'));
-const http         = require('http');
-const query_string = require('querystring');
-
 // Global libraries
 now = require('performance-now');
 
@@ -25,9 +20,20 @@ api_server    = http.createServer(api_handler);
 
 // Everything connection object
 omnibus = {
+	// IBUS libraries - these should be combined
+	data_handler : require('./ibus/data-handler'  ), // Data handler/router
+	protocol     : require('./ibus/ibus-protocol' ), // Protocol
+	ibus         : require('./ibus/ibus-interface'), // Connection
+
+	// Custom libraries
+	BT   : require('./lib/BT'  ),
+	HDMI : require('./lib/HDMI'),
+	kodi : require('./lib/kodi'),
+
 	// Data bus module libraries
 	GM  : require('./modules/GM'),
 	LCM : require('./modules/LCM'),
+	IKE : require('./modules/IKE'),
 
 	ABG  : new (require('./modules/ABG' )),
 	ANZV : new (require('./modules/ANZV')),
@@ -40,7 +46,6 @@ omnibus = {
 	GT   : new (require('./modules/GT'  )),
 	HAC  : new (require('./modules/HAC' )),
 	IHKA : new (require('./modules/IHKA')),
-	IKE  : new (require('./modules/IKE' )),
 	MFL  : new (require('./modules/MFL' )),
 	MID  : new (require('./modules/MID' )),
 	NAV  : new (require('./modules/NAV' )),
@@ -51,19 +56,12 @@ omnibus = {
 	SHD  : new (require('./modules/SHD' )),
 	TEL  : new (require('./modules/TEL' )),
 	VID  : new (require('./modules/VID' )),
-
-	// Custom libraries
-	BT   : require('./lib/BT'  ),
-	HDMI : require('./lib/HDMI'),
-	kodi : require('./lib/kodi'),
-
-	// IBUS libraries - these should be combined
-	data_handler : require('./ibus/data-handler'  ), // Data handler/router
-	protocol     : require('./ibus/ibus-protocol' ), // Protocol
-	ibus         : require('./ibus/ibus-interface'), // Connection
 };
 
 // API config - should be moved into API object
+const dispatcher        = new (require('httpdispatcher'));
+const http              = require('http');
+const query_string      = require('querystring');
 var api_socket_key_last = 0;
 var api_socket_map      = {};
 

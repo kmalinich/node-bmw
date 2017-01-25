@@ -4,15 +4,6 @@
 var convert = require('node-unit-conversion');
 var moment  = require('moment');
 var os      = require('os');
-const bitmask = require('../lib/bitmask');
-var bit = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0xFF];
-
-function bit_test(num, bit) {
-	if ((num & bit) !== 0) {
-		return true;
-	}
-	return false;
-};
 
 var IKE = function() {
 	// Exposed data
@@ -200,7 +191,7 @@ var IKE = function() {
 				// This is a bitmask
 				// data.msg[1]:
 				// 0x01 = handbrake on
-				if (bit_test(data.msg[1], 1)) {
+				if (bitmask.bit_test(data.msg[1], 1)) {
 					// If handbrake is newly true
 					if (status.vehicle.handbrake === false) {
 						status.vehicle.handbrake = true;
@@ -224,7 +215,7 @@ var IKE = function() {
 				// 192 = 4 (6+7)
 				// 208 = 3 (4+6+7)
 				//  64 = 2 (6)
-				if (bit_test(data.msg[2], bit[0])) {
+				if (bitmask.bit_test(data.msg[2], bitmask.bit[0])) {
 					// If it's newly running
 					if (status.engine.running === false || status.engine.running === null) {
 						omnibus.HDMI.command('poweron');
@@ -238,10 +229,10 @@ var IKE = function() {
 					}
 				}
 
-				if (bit_test(data.msg[2], bit[4]) &&
-					!bit_test(data.msg[2], bit[5])  &&
-					!bit_test(data.msg[2], bit[6])  &&
-					!bit_test(data.msg[2], bit[7])) {
+				if (bitmask.bit_test(data.msg[2], bitmask.bit[4]) &&
+					!bitmask.bit_test(data.msg[2], bitmask.bit[5])  &&
+					!bitmask.bit_test(data.msg[2], bitmask.bit[6])  &&
+					!bitmask.bit_test(data.msg[2], bitmask.bit[7])) {
 
 					// If it's newly in reverse
 					if (status.vehicle.reverse === false || status.vehicle.reverse === null) {

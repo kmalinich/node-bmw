@@ -1,13 +1,5 @@
 #!/usr/bin/env node
 
-function bit_test(num, bit) {
-	if ((num & bit) !== 0) {
-		return true;
-	}
-	return false;
-};
-var bit = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0xFF];
-
 // All the possible values to send to the GM
 var array_of_possible_values = {
 	light_alarm                   : true,
@@ -77,7 +69,6 @@ function decode_status_keyfob(message) {
 
 // [0x7A] Decode a door/flap status message from the GM and act upon the results
 function decode_status_open(message) {
-	var bitmask = require('../lib/bitmask');
 	// Set status from message by decrypting bitmask
 	if (bit_test(message[1], 0x01)) { status.flaps.front_left    = true; } else { status.flaps.front_left    = false; }
 	if (bit_test(message[1], 0x02)) { status.flaps.front_right   = true; } else { status.flaps.front_right   = false; }
@@ -383,7 +374,7 @@ module.exports = {
 		var bitmask_3  = 0x00;
 
 		// Set the various bitmask values according to the input array
-		if(array.clamp_30a) { bitmask_0 = bitmask.bit_set(bitmask_0, bit[0]) ; }
+		if(array.clamp_30a) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[0]) ; }
 
 		// Assemble the output array
 		var output = [
@@ -406,42 +397,42 @@ module.exports = {
 		var bitmask_2 = array[2];
 		var bitmask_3 = array[3];
 
-		var light_alarm                   = bit_test(bitmask_0, bit[0]);
-		var light_interior                = bit_test(bitmask_0, bit[0]);
-		var locks_lock                    = bit_test(bitmask_0, bit[0]);
-		var locks_toggle                  = bit_test(bitmask_0, bit[0]);
-		var locks_trunk                   = bit_test(bitmask_0, bit[0]);
-		var locks_unlock                  = bit_test(bitmask_0, bit[0]);
-		var seat_driver_backrest_backward = bit_test(bitmask_0, bit[0]);
-		var seat_driver_backrest_forward  = bit_test(bitmask_0, bit[0]);
-		var seat_driver_backward          = bit_test(bitmask_0, bit[0]);
-		var seat_driver_down              = bit_test(bitmask_0, bit[0]);
-		var seat_driver_forward           = bit_test(bitmask_0, bit[0]);
-		var seat_driver_headrest_down     = bit_test(bitmask_0, bit[0]);
-		var seat_driver_headrest_up       = bit_test(bitmask_0, bit[0]);
-		var seat_driver_tilt_backward     = bit_test(bitmask_0, bit[0]);
-		var seat_driver_tilt_forward      = bit_test(bitmask_0, bit[0]);
-		var seat_driver_up                = bit_test(bitmask_0, bit[0]);
-		var seat_driver_upper_backwards   = bit_test(bitmask_0, bit[0]);
-		var seat_driver_upper_forwards    = bit_test(bitmask_0, bit[0]);
-		var wheel_backward                = bit_test(bitmask_0, bit[0]);
-		var wheel_down                    = bit_test(bitmask_0, bit[0]);
-		var wheel_forward                 = bit_test(bitmask_0, bit[0]);
-		var wheel_up                      = bit_test(bitmask_0, bit[0]);
-		var window_front_left_down        = bit_test(bitmask_0, bit[0]);
-		var window_front_left_up          = bit_test(bitmask_0, bit[0]);
-		var window_front_right_down       = bit_test(bitmask_0, bit[0]);
-		var window_front_right_up         = bit_test(bitmask_0, bit[0]);
-		var window_rear_left_down         = bit_test(bitmask_0, bit[0]);
-		var window_rear_left_up           = bit_test(bitmask_0, bit[0]);
-		var window_rear_right_down        = bit_test(bitmask_0, bit[0]);
-		var window_rear_right_up          = bit_test(bitmask_0, bit[0]);
-		var window_sunroof_down           = bit_test(bitmask_0, bit[0]);
-		var window_sunroof_up             = bit_test(bitmask_0, bit[0]);
-		var wipers_auto                   = bit_test(bitmask_0, bit[0]);
-		var wipers_maintenance            = bit_test(bitmask_0, bit[0]);
-		var wipers_once                   = bit_test(bitmask_0, bit[0]);
-		var wipers_spray                  = bit_test(bitmask_0, bit[0]);
+		var light_alarm                   = bit_test(bitmask_0, bitmask.bit[0]);
+		var light_interior                = bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_lock                    = bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_toggle                  = bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_trunk                   = bit_test(bitmask_0, bitmask.bit[0]);
+		var locks_unlock                  = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backrest_backward = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backrest_forward  = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_backward          = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_down              = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_forward           = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_headrest_down     = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_headrest_up       = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_tilt_backward     = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_tilt_forward      = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_up                = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_upper_backwards   = bit_test(bitmask_0, bitmask.bit[0]);
+		var seat_driver_upper_forwards    = bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_backward                = bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_down                    = bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_forward                 = bit_test(bitmask_0, bitmask.bit[0]);
+		var wheel_up                      = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_left_down        = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_left_up          = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_right_down       = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_front_right_up         = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_left_down         = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_left_up           = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_right_down        = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_rear_right_up          = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_sunroof_down           = bit_test(bitmask_0, bitmask.bit[0]);
+		var window_sunroof_up             = bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_auto                   = bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_maintenance            = bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_once                   = bit_test(bitmask_0, bitmask.bit[0]);
+		var wipers_spray                  = bit_test(bitmask_0, bitmask.bit[0]);
 
 		var output = {
 			light_alarm                   : light_alarm,

@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+function bit_test(num, bit) {
+	if ((num & bit) !== 0) {
+		return true;
+	}
+	return false;
+};
+
 // Array of all DSP modes
 var dsp_modes = {
 	0 : 'concert hall',
@@ -182,12 +189,12 @@ var DSP = function() {
 		var dsp_mode = data[1]-1;
 
 		var reverb   = data[2] & 0x0F;
-		if (bitmask.bit_test(data[2], 0x10)) {
+		if (bit_test(data[2], 0x10)) {
 			reverb *= -1;
 		}
 
 		var room_size = data[3] & 0x0F;
-		if (bitmask.bit_test(data[3], 0x10)) {
+		if (bit_test(data[3], 0x10)) {
 			room_size *= -1;
 		}
 
@@ -197,7 +204,7 @@ var DSP = function() {
 		for (n = 0; n<7; n++) {
 			band[n] = data[4+n] & 0x0F;
 
-			if(bitmask.bit_test(data[n+4], 0x10)) {
+			if(bit_test(data[n+4], 0x10)) {
 				band[n]*=-1;
 			}
 		}

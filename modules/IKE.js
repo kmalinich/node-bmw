@@ -286,6 +286,9 @@ module.exports = {
 					// Stop media playback
 					omnibus.kodi.stop_all();
 
+					// Call process to turn off lights
+					omnibus.LCM.auto_lights_process();
+
 					// Set modules as not ready
 					status.bmbt.ready = false;
 					status.bmbt.reset = true;
@@ -304,6 +307,8 @@ module.exports = {
 
 					// Turn off HDMI display after 2 seconds
 					setTimeout(() => {
+						// Call process to turn off lights
+						omnibus.LCM.auto_lights_process();
 						omnibus.HDMI.command('poweroff');
 					}, 2000);
 				}
@@ -372,6 +377,8 @@ module.exports = {
 				if (bitmask.bit_test(data.msg[2], bitmask.bit[0])) {
 					// If it's newly running
 					if (status.engine.running === false || status.engine.running === null) {
+						// Call process to turn on lights
+						omnibus.LCM.auto_lights_process();
 						omnibus.HDMI.command('poweron');
 						status.engine.running = true;
 					}

@@ -14,10 +14,6 @@ json        = require('./lib/json');
 log         = require('./lib/log');
 status      = require('./lib/status');
 
-// API/WebSocket libraries
-socket_server = require('./lib/socket-server');
-api_server    = http.createServer(api_handler);
-
 // Everything connection object
 omnibus = {
 	// IBUS libraries - these should be combined
@@ -64,7 +60,8 @@ const http              = require('http');
 const query_string      = require('querystring');
 var api_socket_key_last = 0;
 var api_socket_map      = {};
-
+socket_server = require('./lib/socket-server');
+api_server    = http.createServer(api_handler);
 
 // Global startup
 function startup() {

@@ -35,7 +35,7 @@ function text_urgent_off() {
 	});
 
 	setTimeout(() => {
-		hud_refresh();
+		omnibus.IKE.hud_refresh();
 	}, 250);
 }
 
@@ -320,12 +320,12 @@ module.exports = {
 					omnibus.BMBT.interval_status('set');
 
 					// Welcome message
-					text_warning('node-bmw     '+os.hostname(), 3000);
+					omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);
 
 					// Refresh OBC HUD once every 5 seconds
-					hud_refresh(true);
+					omnibus.IKE.hud_refresh(true);
 					interval_hud_refresh = setInterval(() => {
-						hud_refresh(true);
+						omnibus.IKE.hud_refresh(true);
 					}, 5000);
 				}
 
@@ -389,7 +389,7 @@ module.exports = {
 
 					// If it's newly in reverse
 					if (status.vehicle.reverse === false || status.vehicle.reverse === null) {
-						text_warning(' YOU\'RE IN REVERSE!', 2000);
+						omnibus.IKE.text_warning(' YOU\'RE IN REVERSE!', 2000);
 					}
 					status.vehicle.reverse = true;
 				}
@@ -440,7 +440,7 @@ module.exports = {
 				// omnibus.kodi.notify('Temperature', 'Coolant: '+status.temperature.coolant.c+' C, Exterior: '+status.temperature.exterior.c+' C');
 
 				// Refresh the HUD
-				hud_refresh(false);
+				omnibus.IKE.hud_refresh(false);
 				break;
 
 			case 0x1B: // ACK text message
@@ -557,7 +557,7 @@ module.exports = {
 						value = status.obc.consumption_1_mpg;
 
 						// Refresh the HUD
-						hud_refresh(false);
+						omnibus.IKE.hud_refresh(false);
 						break;
 
 					case 0x05: // Consumption 2
@@ -876,7 +876,7 @@ module.exports = {
 		}
 
 		if (status.temperature.coolant.c === null) {
-			request('temperature');
+			omnibus.IKE.request('temperature');
 			string_temp = '  ';
 		}
 		else {
@@ -928,7 +928,7 @@ module.exports = {
 		}
 
 		if (status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') {
-			text(load_1m+spacing1+string_temp+spacing2+string_time, () => {
+			omnibus.IKE.text(load_1m+spacing1+string_temp+spacing2+string_time, () => {
 				last_hud_refresh = now();
 			});
 		}
@@ -950,13 +950,13 @@ module.exports = {
 		omnibus.GM.request('door-flap-status');
 
 		// IKE data
-		request('statusall'  );
-		request('coding'     );
-		request('ignition'   );
-		request('odometer'   );
-		request('sensor'     );
-		request('temperature');
-		request('vin'        );
+		omnibus.IKE.request('statusall'  );
+		omnibus.IKE.request('coding'     );
+		omnibus.IKE.request('ignition'   );
+		omnibus.IKE.request('odometer'   );
+		omnibus.IKE.request('sensor'     );
+		omnibus.IKE.request('temperature');
+		omnibus.IKE.request('vin'        );
 
 		// OBC data
 		obc_data('get', 'arrival'      );

@@ -227,6 +227,7 @@ module.exports = {
 				break;
 
 			case 0x11: // ignition status
+				status.vehicle.ignition_level = data.msg[1];
 				data.command = 'ignition status';
 
 				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
@@ -804,41 +805,41 @@ module.exports = {
 	ike_data : (data) => {
 		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
-			text(data['obc-text']);
+			omnibus.IKE.text(data['obc-text']);
 		}
 
 		// Set OBC clock
 		else if (data.command == 'obc_clock') {
-			obc_clock(data);
+			omnibus.IKE.obc_clock(data);
 		}
 
 		else if (typeof data['obc-gong'] !== 'undefined') {
-			obc_gong(data['obc-gong']);
+			omnibus.IKE.obc_gong(data['obc-gong']);
 		}
 
 		// Set cluster LCD backlight
 		else if (typeof data['ike-backlight'] !== 'undefined') {
-			ike_backlight(data['ike-backlight']);
+			omnibus.IKE.ike_backlight(data['ike-backlight']);
 		}
 
 		// Send fake ignition status
 		else if (typeof data['ike-ignition'] !== 'undefined') {
-			ike_ignition(data['ike-ignition']);
+			omnibus.IKE.ike_ignition(data['ike-ignition']);
 		}
 
 		// Refresh OBC data value
 		else if (typeof data['obc-get'] !== 'undefined') {
 			if (data['obc-get'] == 'all') {
-				obc_refresh();
+				omnibus.IKE.obc_refresh();
 			}
 			else {
-				obc_data('get', data['obc-get']);
+				omnibus.IKE.obc_data('get', data['obc-get']);
 			}
 		}
 
 		// Reset OBC data value
 		else if (typeof data['obc-reset'] !== 'undefined') {
-			obc_data('reset', data['obc-reset']);
+			omnibus.IKE.obc_data('reset', data['obc-reset']);
 		}
 
 		else {

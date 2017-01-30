@@ -242,7 +242,7 @@ function reset() {
 		switch_turn_right : status.lights.turn_comfort_right,
 	};
 
-	io_status_encode(lcm_object);
+	encode_io_status(lcm_object);
 }
 
 // Send message to LCM
@@ -260,7 +260,7 @@ function lcm_set(packet) {
 }
 
 // Encode the LCM bitmask string from an input of true/false values
-function io_status_encode(array) {
+function encode_io_status(array) {
 	// Initialize bitmask variables
 	var bitmask_0  = 0x00;
 	var bitmask_1  = 0x00;
@@ -431,7 +431,7 @@ function io_status_encode(array) {
 }
 
 // Decode the LCM bitmask string and output an array of true/false values
-function io_status_decode(array) {
+function decode_io_status(array) {
 	var bitmask_0  = array[1];
 	var bitmask_1  = array[2];
 	var bitmask_2  = array[3];
@@ -702,7 +702,7 @@ module.exports = {
 				data.command = 'rep';
 				if (data.msg.length === 33 || data.msg.length === 13) {
 					data.value = 'IO status';
-					io_status_decode(data.msg);
+					decode_io_status(data.msg);
 				}
 				else if (data.msg.length == 1) {
 					data.value = 'ACK';
@@ -765,11 +765,11 @@ module.exports = {
 	// Handle incoming commands from API
 	lcm_data : (data) => {
 		if (typeof data['lcm-get'] !== 'undefined') {
-			request('io-status');
+			omnibus.LCM.request('io-status');
 		}
 		else {
 			// Dirty assumption
-			io_status_encode(data);
+			omnibus.LCM.encode_io_status(data);
 		}
 	},
 
@@ -915,7 +915,7 @@ module.exports = {
 					};
 				}
 
-				io_status_encode(lcm_object);
+				encode_io_status(lcm_object);
 				break;
 			case 'off':
 				status.lights.welcome_lights       = false;

@@ -283,7 +283,7 @@ module.exports = {
 					omnibus.BMBT.interval_status('unset');
 
 					// Stop media playback
-					// omnibus.kodi.stop_all();
+					omnibus.kodi.stop_all();
 
 					// Set modules as not ready
 					status.bmbt.ready = false;
@@ -301,10 +301,10 @@ module.exports = {
 					status.rad.ready  = false;
 					status.rad.reset  = true;
 
-					// Turn off HDMI display after 3 seconds
+					// Turn off HDMI display after 2 seconds
 					setTimeout(() => {
 						omnibus.HDMI.command('poweroff');
-					}, 1000);
+					}, 2000);
 				}
 
 				if (state_poweroff === true) {
@@ -376,10 +376,7 @@ module.exports = {
 					}
 				}
 				else {
-					// If it's newly NOT running
-					if (status.engine.running === true || status.engine.running === null) {
-						status.engine.running = false;
-					}
+					status.engine.running = false;
 				}
 
 				if (bitmask.bit_test(data.msg[2], bitmask.bit[4]) &&

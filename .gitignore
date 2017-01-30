@@ -4,5 +4,5 @@
 .DS_Store
 ._*
 node_modules/
-webui/images/kdm-e39*
+status.json
 test/

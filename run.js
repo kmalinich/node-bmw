@@ -12,7 +12,8 @@ config      = require('./lib/config');
 hex         = require('./lib/hex');
 json        = require('./lib/json');
 log         = require('./lib/log');
-status      = require('./lib/status');
+status      = require('./status.json');
+status2     = require('./lib/status');
 
 // Everything connection object
 omnibus = {
@@ -149,6 +150,11 @@ dispatcher.onGet('/status', (request, response) => {
 	response.writeHead(200, {'Content-Type': 'application/json'});
 
 	response.end(JSON.stringify(status));
+});
+dispatcher.onGet('/status2', (request, response) => {
+	response.writeHead(200, {'Content-Type': 'application/json'});
+
+	response.end(JSON.stringify(status2));
 });
 
 // GM POST request

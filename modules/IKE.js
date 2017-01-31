@@ -237,7 +237,7 @@ module.exports = {
 				state_run       = false;
 
 				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
-				if ((data.msg[1] == 0x00 || data.msg[1] == 0x01) && status.vehicle.ignition_level === 3) {
+				if ((data.msg[1] === 0x00 || data.msg[1] === 0x01) && status.vehicle.ignition_level === 3) {
 					console.log('[node::IKE] Trigger: powerdown state');
 					state_powerdown = true;
 				}
@@ -249,13 +249,13 @@ module.exports = {
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((data.msg[1] == 0x01 || data.msg[1] == 0x03) && status.vehicle.ignition_level === 0) {
+				if ((data.msg[1] === 0x01 || data.msg[1] === 0x03) && status.vehicle.ignition_level === 0) {
 					console.log('[node::IKE] Trigger: poweron state');
 					state_poweron = true;
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
-				if (data.msg[1] == 0x03 && (status.vehicle.ignition_level === 0 || status.vehicle.ignition_level === 1)) {
+				if (data.msg[1] === 0x03 && (status.vehicle.ignition_level === 0 || status.vehicle.ignition_level === 1)) {
 					console.log('[node::IKE] Trigger: run state');
 					state_run = true;
 				}
@@ -458,7 +458,7 @@ module.exports = {
 						string_time_unit = string_time_unit.toString().trim().toLowerCase();
 
 						// Detect 12h or 24h time and parse value
-						if (string_time_unit == 'am' || string_time_unit == 'pm') {
+						if (string_time_unit === 'am' || string_time_unit === 'pm') {
 							status.coding.unit.time = '12h';
 							string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
 						}
@@ -498,7 +498,7 @@ module.exports = {
 						string_temp_exterior_negative = string_temp_exterior_negative.toString().trim().toLowerCase();
 
 						// Parse value
-						if (string_temp_exterior_negative == '-') {
+						if (string_temp_exterior_negative === '-') {
 							string_temp_exterior_value = Buffer.from(data.msg[3], [data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
 							string_temp_exterior_value = string_temp_exterior_value.toString().trim().toLowerCase();
 						}
@@ -538,21 +538,21 @@ module.exports = {
 						// Perform appropriate conversions between units
 						switch (string_consumption_1_unit) {
 							case 'm':
-								status.coding.unit.cons    = 'mpg';
-								string_consumption.c1.mpg  = string_consumption_1;
-								string_consumption.c1.l100 = 235.21/string_consumption_1;
+								status.coding.unit.cons = 'mpg';
+								consumption_mpg         = string_consumption_1;
+								consumption_l100        = 235.21/string_consumption_1;
 								break;
 
 							default:
-								status.coding.unit.cons    = 'l100';
-								string_consumption.c1.mpg  = 235.21/string_consumption_1;
-								string_consumption.c1.l100 = string_consumption_1;
+								status.coding.unit.cons = 'l100';
+								consumption_mpg         = 235.21/string_consumption_1;
+								consumption_l100        = string_consumption_1;
 								break;
 						}
 
 						// Update status variables
-						status.obc.consumption.c1.mpg  = parseFloat(string_consumption.c1.mpg.toFixed(2));
-						status.obc.consumption.c1.l100 = parseFloat(string_consumption.c1.l100.toFixed(2));
+						status.obc.consumption.c1.mpg  = parseFloat(consumption_mpg.toFixed(2));
+						status.obc.consumption.c1.l100 = parseFloat(consumption_l100.toFixed(2));
 
 						value = status.obc.consumption.c1.mpg;
 
@@ -572,18 +572,18 @@ module.exports = {
 						string_consumption_2 = parseFloat(string_consumption_2.toString().trim().toLowerCase());
 
 						// Perform appropriate conversions between units and round to 2 decimals
-						if (string_consumption_2_unit == 'm') {
-							string_consumption.c2.mpg  = string_consumption_2;
-							string_consumption.c2.l100 = 235.215/string_consumption_2;
+						if (string_consumption_2_unit === 'm') {
+							consumption_mpg  = string_consumption_2;
+							consumption_l100 = 235.215/string_consumption_2;
 						}
 						else {
-							string_consumption.c2.mpg  = 235.215/string_consumption_2;
-							string_consumption.c2.l100 = string_consumption_2;
+							consumption_mpg  = 235.215/string_consumption_2;
+							consumption_l100 = string_consumption_2;
 						}
 
 						// Update status variables
-						status.obc.consumption.c2.mpg  = parseFloat(string_consumption.c2.mpg.toFixed(2));
-						status.obc.consumption.c2.l100 = parseFloat(string_consumption.c2.l100.toFixed(2));
+						status.obc.consumption.c2.mpg  = parseFloat(consumption_mpg.toFixed(2));
+						status.obc.consumption.c2.l100 = parseFloat(consumption_l100.toFixed(2));
 
 						value = status.obc.consumption.c2.mpg;
 						break;
@@ -747,7 +747,7 @@ module.exports = {
 						string_stopwatch = parseFloat(string_stopwatch.toString().trim().toLowerCase()).toFixed(2);
 
 						// Update status variables
-						status.obc.stopwatch = string_stopwatch;
+						status.obc.stopwatch = parseFloat(string_stopwatch);
 						value                = status.obc.stopwatch;
 						break;
 
@@ -928,7 +928,7 @@ module.exports = {
 			string_cons = '0'+string_cons;
 		}
 
-		if (status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') {
+		if (status.vehicle.ignition_level === 1 || status.vehicle.ignition_level === 3) {
 			omnibus.IKE.text(load_1m+spacing1+string_temp+spacing2+string_time, () => {
 				last_hud_refresh = now();
 			});

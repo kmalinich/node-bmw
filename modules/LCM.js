@@ -572,8 +572,6 @@ module.exports = {
 		var sun_times    = suncalc.getTimes(current_time, 39.333581, -84.327600);
 		var lights_on    = new Date(sun_times.sunsetStart.getTime());
 		var lights_off   = new Date(sun_times.sunriseEnd.getTime());
-		var handbrake    = status.vehicle.handbrake;
-		var ignition     = status.vehicle.ignition;
 
 		// Debug logging
 		// console.log('current_time : %s', current_time);
@@ -581,9 +579,9 @@ module.exports = {
 		// console.log('lights_off   : %s', lights_off);
 
 		// Check ignition
-		if (ignition != 'run') {
-			console.log('[node::LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
+		if (status.vehicle.ignition !== 'run') {
 			// Not in run: turn off auto lights
+			// console.log('[node::LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
 			auto_lights('off');
 			return;
 		}
@@ -592,7 +590,7 @@ module.exports = {
 		}
 
 		// Check handbrake
-		// if (handbrake === true && ignition == 'run') {
+		// if (status.vehicle.handbrake === true && status.vehicle.ignition == 'run') {
 		// 	// Handbrake is set: disable auto lowbeams
 		// 	console.log('[node::LCM] Auto lights: Handbrake on');
 
@@ -629,7 +627,7 @@ module.exports = {
 			status.lights.auto.dimmer_value_1 = 0xFE;
 		}
 
-		console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', status.lights.auto.standing, status.lights.auto.lowbeam, status.lights.auto.reason);
+		// console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', status.lights.auto.standing, status.lights.auto.lowbeam, status.lights.auto.reason);
 		reset();
 	},
 
@@ -641,8 +639,8 @@ module.exports = {
 
 		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
+				data.command     = 'bro';
 				status.lcm.ready = true;
-				data.command = 'bro';
 
 				switch (data.msg[1]) {
 					case 0x00:

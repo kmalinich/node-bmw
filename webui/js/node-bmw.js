@@ -381,17 +381,19 @@ function status() {
 			}
 
 			// Ignition
-			if (return_data.vehicle.ignition == 'run') {
-				$('#vehicle-ignition').text('Ignition run').addClass('text-success');
-			}
-			else if (return_data.vehicle.ignition == 'accessory') {
-				$('#vehicle-ignition').text('Ignition accessory').addClass('text-info');
-			}
-			else if (return_data.vehicle.ignition == 'start') {
-				$('#vehicle-ignition').text('Ignition start').addClass('text-warning');
-			}
-			else {
-				$('#vehicle-ignition').text('Ignition off').addClass('text-danger');
+			switch (return_data.vehicle.ignition) {
+				case 'run':
+					$('#vehicle-ignition').text('Ignition run').addClass('text-success');
+					break;
+				case 'accessory':
+					$('#vehicle-ignition').text('Ignition accessory').addClass('text-info');
+					break;
+				case 'start':
+					$('#vehicle-ignition').text('Ignition start').addClass('text-warning');
+					break;
+				default:
+					$('#vehicle-ignition').text('Ignition off').addClass('text-danger');
+					break;
 			}
 
 			// Doors (flaps) and window status
@@ -421,30 +423,28 @@ function status() {
 			$('#vehicle-speed-unit' ).text(return_data.coding.unit.speed.toUpperCase());
 			$('#obc-speedavg-unit'  ).text(return_data.coding.unit.speed.toUpperCase());
 			$('#obc-speedlimit-unit').text(return_data.coding.unit.speed.toUpperCase());
+			$('#obc-speedlimit'     ).text(return_data.obc.speedlimit);
 
 			if (return_data.coding.unit.speed == 'kmh') {
 				$('#vehicle-speed' ).text(return_data.vehicle.speed.kmh);
-				$('#obc-speedavg'  ).text(return_data.obc.speedavg_kmh);
-				$('#obc-speedlimit').text(return_data.obc.speedlimit_kmh);
+				$('#obc-speedavg'  ).text(return_data.obc.speedavg.kmh);
 			}
 			else if (return_data.coding.unit.speed == 'mph') {
 				$('#vehicle-speed' ).text(return_data.vehicle.speed.mph);
-				$('#obc-speedavg'  ).text(return_data.obc.speedavg_mph);
-				$('#obc-speedlimit').text(return_data.obc.speedlimit_mph);
+				$('#obc-speedavg'  ).text(return_data.obc.speedavg.mph);
 			}
 
 			// Distance to arrival and range to empty
 			$('#obc-distance-unit').text(return_data.coding.unit.distance);
 			$('#obc-range-unit'   ).text(return_data.coding.unit.distance);
+			$('#obc-distance').text(return_data.obc.distance);
 
 			if (return_data.coding.unit.distance == 'mi') {
-				$('#obc-distance').text(return_data.obc.distance_mi);
-				$('#obc-range').text(return_data.obc.range_mi);
+				$('#obc-range').text(return_data.obc.range.mi);
 			}
 
 			else if (return_data.coding.unit.distance == 'km') {
-				$('#obc-distance').text(return_data.obc.distance_km);
-				$('#obc-range').text(return_data.obc.range_km);
+				$('#obc-range').text(return_data.obc.range.km);
 			}
 
 			// Fuel consumption
@@ -452,18 +452,18 @@ function status() {
 			$('#obc-consumption-2-unit').text(return_data.coding.unit.cons);
 
 			if (return_data.coding.unit.cons == 'mpg') {
-				$('#obc-consumption-1').text(return_data.obc.consumption_1_mpg);
-				$('#obc-consumption-2').text(return_data.obc.consumption_2_mpg);
+				$('#obc-consumption-1').text(return_data.obc.consumption.c1.mpg);
+				$('#obc-consumption-2').text(return_data.obc.consumption.c2.mpg);
 			}
 
 			else if ( return_data.coding.unit.cons == 'l100') {
-				$('#obc-consumption-1').text(return_data.obc.consumption_1_l100);
-				$('#obc-consumption-2').text(return_data.obc.consumption_2_100);
+				$('#obc-consumption-1').text(return_data.obc.consumption.c1.l100);
+				$('#obc-consumption-2').text(return_data.obc.consumption.c2.l100);
 			}
 
 			// Stopwatch, timer, aux heat timers
-			$('#obc-aux-heat-timer-1').text(return_data.obc.aux_heat_timer_1);
-			$('#obc-aux-heat-timer-2').text(return_data.obc.aux_heat_timer_2);
+			$('#obc-aux-heat-timer-1').text(return_data.obc.aux_heat_timer.t1);
+			$('#obc-aux-heat-timer-2').text(return_data.obc.aux_heat_timer.t2);
 			$('#obc-stopwatch'       ).text(return_data.obc.stopwatch);
 			$('#obc-timer'           ).text(return_data.obc.timer);
 

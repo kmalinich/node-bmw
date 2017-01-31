@@ -176,12 +176,12 @@ function obc_gong(value) {
 	var dst = 0x80; // IKE
 
 	// Determine desired value to gong
-	if (value == '1') {
+	if (value === '1') {
 		var msg       = [0x23, 0x62, 0x30, 0x37, 0x08];
 		var obc_value = '1';
 	}
 
-	else if (value == '2') {
+	else if (value === '2') {
 		var msg       = [0x23, 0x62, 0x30, 0x37, 0x10];
 		var obc_value = '2';
 	}
@@ -199,15 +199,15 @@ function obc_gong(value) {
 module.exports = {
 	// Parse data sent from IKE module
 	parse_out : (data) => {
-		var bitmask = require('../lib/bitmask');
 		// Init variables
 		switch (data.msg[0]) {
 			case 0x01: // Request device status
-				data.command = 'request';
+				data.command = 'req';
 				data.value   = 'device status';
 				break;
 
 			case 0x02: // Broadcast device status
+				status.ike.ready = true;
 				switch (data.msg[1]) {
 					case 0x00:
 						data.command = 'device status';
@@ -215,8 +215,9 @@ module.exports = {
 						break;
 
 					case 0x01:
-						data.command = 'device status';
-						data.value   = 'ready after reset';
+						status.ike.reset = false;
+						data.command     = 'device status';
+						data.value       = 'ready after reset';
 						break;
 				}
 				break;
@@ -227,45 +228,39 @@ module.exports = {
 				break;
 
 			case 0x11: // ignition status
-				status.vehicle.ignition_level = data.msg[1];
 				data.command = 'ignition status';
 
-				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
-				if (data.msg[1] == 0x00 && (status.vehicle.ignition == 'accessory' || status.vehicle.ignition == 'run')) {
-					console.log('[node::IKE] Trigger: power-down state');
-					state_powerdown = true;
-				}
-				else {
-					state_powerdown = false;
-				}
+        // Init power-state vars
+				state_powerdown = false;
+				state_poweroff  = false;
+				state_poweron   = false;
+				state_run       = false;
 
 				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
-				if ((data.msg[1] == 0x00 || data.msg[1] == 0x01) && status.vehicle.ignition == 'run') {
-					console.log('[node::IKE] Trigger: power-off state');
-					state_poweroff = true;
+				if ((data.msg[1] == 0x00 || data.msg[1] == 0x01) && status.vehicle.ignition_level === 3) {
+					console.log('[node::IKE] Trigger: powerdown state');
+					state_powerdown = true;
 				}
-				else {
-					state_poweroff = false;
+
+				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
+				if (data.msg[1] === 0x00 && (status.vehicle.ignition_level === 1 || status.vehicle.ignition_level === 3)) {
+					console.log('[node::IKE] Trigger: poweroff state');
+					state_poweroff = true;
 				}
 
 				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((data.msg[1] == 0x01 || data.msg[1] == 0x03) && status.vehicle.ignition == 'off') {
-					console.log('[node::IKE] Trigger: power-on state');
+				if ((data.msg[1] == 0x01 || data.msg[1] == 0x03) && status.vehicle.ignition_level === 0) {
+					console.log('[node::IKE] Trigger: poweron state');
 					state_poweron = true;
-				}
-				else {
-					state_poweron = false;
 				}
 
 				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
-				if (data.msg[1] == 0x03 && (status.vehicle.ignition == 'off' || status.vehicle.ignition == 'accessory')) {
+				if (data.msg[1] == 0x03 && (status.vehicle.ignition_level === 0 || status.vehicle.ignition_level === 1)) {
 					console.log('[node::IKE] Trigger: run state');
 					state_run = true;
 				}
-				else {
-					state_run = false;
-				}
 
+        status.vehicle.ignition_level = data.msg[1];
 				switch (data.msg[1]) { // Ignition status value
 					case 0x00 : status.vehicle.ignition = 'off';       break;
 					case 0x01 : status.vehicle.ignition = 'accessory'; break;
@@ -274,7 +269,7 @@ module.exports = {
 					default   : status.vehicle.ignition = 'unknown';   break;
 				}
 
-				if (state_powerdown === true) {
+				if (state_poweroff === true) {
 					// Disable HUD refresh
 					clearInterval(interval_hud_refresh, () => {
 						console.log('[node::IKE] Cleared HUD refresh interval');
@@ -298,6 +293,8 @@ module.exports = {
 					status.dsp.reset  = true;
 					status.dspc.ready = false;
 					status.dspc.reset = true;
+					status.ike.ready  = false;
+					status.ike.reset  = true;
 					status.lcm.ready  = false;
 					status.lcm.reset  = true;
 					status.mid.ready  = false;
@@ -313,9 +310,9 @@ module.exports = {
 					}, 2000);
 				}
 
-				if (state_poweroff === true) {
+				if (state_powerdown === true) {
 					// If the doors are locked
-					if (status.vehicle.locked == true) {
+					if (status.vehicle.locked === true) {
 						// Send message to GM to toggle door locks
 						omnibus.GM.gm_cl();
 					}
@@ -335,34 +332,33 @@ module.exports = {
 					}, 5000);
 				}
 
-				if (state_run === true) {
-				}
+				// if (state_run === true) {
+				// }
 
 				omnibus.LCM.auto_lights_process();
 				value = status.vehicle.ignition;
 				break;
 
 			case 0x13: // IKE sensor status
-				data.command = 'broadcast';
+				data.command = 'bro';
 				data.value   = 'IKE sensor status';
-				// console.log('[node::IKE] sensor :', Buffer.from(data.msg));
 
 				// This is a bitmask
 				// data.msg[1]:
 				// 0x01 = handbrake on
 				if (bitmask.bit_test(data.msg[1], 1)) {
 					// If handbrake is newly true
-					if (status.vehicle.handbrake === false) {
-						status.vehicle.handbrake = true;
-						// omnibus.LCM.auto_lights_process();
-					}
+          // if (status.vehicle.handbrake === false) {
+          //   omnibus.LCM.auto_lights_process();
+          // }
+          status.vehicle.handbrake = true;
 				}
 				else {
 					// If handbrake is newly false
-					if (status.vehicle.handbrake === true) {
-						status.vehicle.handbrake = false;
-						// omnibus.LCM.auto_lights_process();
-					}
+					// if (status.vehicle.handbrake === true) {
+					// 	omnibus.LCM.auto_lights_process();
+					// }
+          status.vehicle.handbrake = false;
 				}
 
 				// data.msg[2]:
@@ -377,20 +373,19 @@ module.exports = {
 				if (bitmask.bit_test(data.msg[2], bitmask.bit[0])) {
 					// If it's newly running
 					if (status.engine.running === false || status.engine.running === null) {
-						// Call process to turn on lights
 						omnibus.LCM.auto_lights_process();
 						omnibus.HDMI.command('poweron');
-						status.engine.running = true;
 					}
+          status.engine.running = true;
 				}
 				else {
 					status.engine.running = false;
 				}
 
 				if (bitmask.bit_test(data.msg[2], bitmask.bit[4]) &&
-					!bitmask.bit_test(data.msg[2], bitmask.bit[5])  &&
-					!bitmask.bit_test(data.msg[2], bitmask.bit[6])  &&
-					!bitmask.bit_test(data.msg[2], bitmask.bit[7])) {
+					!bitmask.bit_test( data.msg[2], bitmask.bit[5]) &&
+					!bitmask.bit_test( data.msg[2], bitmask.bit[6]) &&
+					!bitmask.bit_test( data.msg[2], bitmask.bit[7])) {
 
 					// If it's newly in reverse
 					if (status.vehicle.reverse === false || status.vehicle.reverse === null) {
@@ -404,22 +399,22 @@ module.exports = {
 				break;
 
 			case 0x15: // country coding data
-				data.command = 'broadcast';
+				data.command = 'bro';
 				data.value   = 'country coding data';
 				break;
 
 			case 0x17: // Odometer
-				command                            = 'odometer';
-				var odometer_value1                = data.msg[3] << 16;
-				var odometer_value2                = data.msg[2] << 8;
-				var odometer_value                 = odometer_value1 + odometer_value2 + data.msg[1];
-				value                              = odometer_value;
+				command                    = 'odometer';
+				var odometer_value1        = data.msg[3] << 16;
+				var odometer_value2        = data.msg[2] << 8;
+				var odometer_value         = odometer_value1 + odometer_value2 + data.msg[1];
+				value                      = odometer_value;
 				status.vehicle.odometer.km = odometer_value;
 				status.vehicle.odometer.mi = Math.round(convert(odometer_value).from('kilometre').to('us mile'));
 				break;
 
 			case 0x18: // Vehicle speed and RPM
-				data.command = 'broadcast';
+				data.command = 'bro';
 				data.value   = 'current speed and RPM';
 
 				// Update vehicle and engine speed variables
@@ -427,11 +422,11 @@ module.exports = {
 				status.engine.speed      = parseFloat(data.msg[2]*100);
 
 				// Convert values and round to 2 decimals
-				status.vehicle.speed.mph = convert(parseFloat((data.msg[1]*2))).from('kilometre').to('us mile').toFixed(2);
+				status.vehicle.speed.mph = parseFloat(convert(parseFloat((data.msg[1]*2))).from('kilometre').to('us mile').toFixed(2));
 				break;
 
 			case 0x19: // Coolant temp and external temp
-				data.command = 'broadcast';
+				data.command = 'bro';
 				data.value   = 'temperature values';
 
 				// Update external and engine coolant temp variables
@@ -476,7 +471,7 @@ module.exports = {
 
 						// Update status variables
 						status.obc.time = string_time;
-						value                   = status.obc.time;
+						value           = status.obc.time;
 						break;
 
 					case 0x02: // Date
@@ -488,7 +483,7 @@ module.exports = {
 
 						// Update status variables
 						status.obc.date = string_date;
-						value                   = status.obc.date;
+						value           = status.obc.date;
 						break;
 
 					case 0x03: // Exterior temp
@@ -515,13 +510,13 @@ module.exports = {
 						// Update status variables
 						switch (string_temp_exterior_unit) {
 							case 'c':
-								status.coding.unit.temp = 'c';
+								status.coding.unit.temp           = 'c';
 								status.temperature.exterior.obc.c = parseFloat(string_temp_exterior_value);
-								status.temperature.exterior.obc.f = convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit');
+								status.temperature.exterior.obc.f = parseFloat(convert(parseFloat(string_temp_exterior_value)).from('celsius').to('fahrenheit'));
 								break;
 							case 'f':
-								status.coding.unit.temp = 'f';
-								status.temperature.exterior.obc.c = convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius');
+								status.coding.unit.temp           = 'f';
+								status.temperature.exterior.obc.c = parseFloat(convert(parseFloat(string_temp_exterior_value)).from('fahrenheit').to('celsius'));
 								status.temperature.exterior.obc.f = parseFloat(string_temp_exterior_value);
 								break;
 						}
@@ -543,26 +538,26 @@ module.exports = {
 						// Perform appropriate conversions between units
 						switch (string_consumption_1_unit) {
 							case 'm':
-								status.coding.unit.cons = 'mpg';
-								string_consumption_1_mpg        = string_consumption_1;
-								string_consumption_1_l100       = 235.21/string_consumption_1;
+								status.coding.unit.cons    = 'mpg';
+								string_consumption.c1.mpg  = string_consumption_1;
+								string_consumption.c1.l100 = 235.21/string_consumption_1;
 								break;
 
 							default:
-								status.coding.unit.cons = 'l100';
-								string_consumption_1_mpg        = 235.21/string_consumption_1;
-								string_consumption_1_l100       = string_consumption_1;
+								status.coding.unit.cons    = 'l100';
+								string_consumption.c1.mpg  = 235.21/string_consumption_1;
+								string_consumption.c1.l100 = string_consumption_1;
 								break;
 						}
 
 						// Update status variables
-						status.obc.consumption_1_mpg  = string_consumption_1_mpg.toFixed(2);
-						status.obc.consumption_1_l100 = string_consumption_1_l100.toFixed(2);
+						status.obc.consumption.c1.mpg  = parseFloat(string_consumption.c1.mpg.toFixed(2));
+						status.obc.consumption.c1.l100 = parseFloat(string_consumption.c1.l100.toFixed(2));
 
-						value = status.obc.consumption_1_mpg;
+						value = status.obc.consumption.c1.mpg;
 
 						// Refresh the HUD
-						omnibus.IKE.hud_refresh(false);
+						// omnibus.IKE.hud_refresh(false);
 						break;
 
 					case 0x05: // Consumption 2
@@ -578,19 +573,19 @@ module.exports = {
 
 						// Perform appropriate conversions between units and round to 2 decimals
 						if (string_consumption_2_unit == 'm') {
-							string_consumption_2_mpg  = string_consumption_2;
-							string_consumption_2_l100 = 235.215/string_consumption_2;
+							string_consumption.c2.mpg  = string_consumption_2;
+							string_consumption.c2.l100 = 235.215/string_consumption_2;
 						}
 						else {
-							string_consumption_2_mpg  = 235.215/string_consumption_2;
-							string_consumption_2_l100 = string_consumption_2;
+							string_consumption.c2.mpg  = 235.215/string_consumption_2;
+							string_consumption.c2.l100 = string_consumption_2;
 						}
 
 						// Update status variables
-						status.obc.consumption_2_mpg  = string_consumption_2_mpg.toFixed(2);
-						status.obc.consumption_2_l100 = string_consumption_2_l100.toFixed(2);
+						status.obc.consumption.c2.mpg  = parseFloat(string_consumption.c2.mpg.toFixed(2));
+						status.obc.consumption.c2.l100 = parseFloat(string_consumption.c2.l100.toFixed(2));
 
-						value = status.obc.consumption_2_mpg;
+						value = status.obc.consumption.c2.mpg;
 						break;
 
 					case 0x06: // Range
@@ -607,18 +602,18 @@ module.exports = {
 						switch (string_range_unit) {
 							case 'ml':
 								status.coding.unit.distance = 'mi';
-								status.obc.range_mi = parseFloat(string_range);
-								status.obc.range_km = parseFloat(convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2));
+								status.obc.range.mi = parseFloat(string_range);
+								status.obc.range.km = parseFloat(convert(parseFloat(string_range)).from('kilometre').to('us mile').toFixed(2));
 								break;
 
 							case 'km':
 								status.coding.unit.distance = 'km';
-								status.obc.range_mi = parseFloat(convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2));
-								status.obc.range_km = parseFloat(string_range);
+								status.obc.range.mi = parseFloat(convert(parseFloat(string_range)).from('us mile').to('kilometre').toFixed(2));
+								status.obc.range.km = parseFloat(string_range);
 								break;
 						}
 
-						value = status.obc.range_mi;
+						value = status.obc.range.mi;
 						break;
 
 					case 0x07: // Distance
@@ -629,8 +624,8 @@ module.exports = {
 						string_distance = string_distance.toString().trim().toLowerCase();
 
 						// Update status variables
-						status.obc.distance = string_distance;
-						value                       = status.obc.distance;
+						status.obc.distance = parseFloat(string_distance);
+						value               = status.obc.distance;
 						break;
 
 					case 0x08: // Arrival time
@@ -641,7 +636,7 @@ module.exports = {
 
 						// Update status variables
 						status.obc.arrival = string_arrival;
-						value                      = status.obc.arrival;
+						value              = status.obc.arrival;
 						break;
 
 					case 0x09: // Limit
@@ -652,8 +647,8 @@ module.exports = {
 						string_speedlimit = parseFloat(string_speedlimit.toString().trim().toLowerCase());
 
 						// Update status variables
-						status.obc.speedlimit = string_speedlimit.toFixed(2);
-						value                         = status.obc.speedlimit;
+						status.obc.speedlimit = parseFloat(string_speedlimit.toFixed(2));
+						value                 = status.obc.speedlimit;
 						break;
 
 					case 0x0A: // average speed
@@ -672,19 +667,19 @@ module.exports = {
 							case 'k':
 								status.coding.unit.speed = 'kmh';
 								// Update status variables
-								status.obc.speedavg_kmh = string_speedavg.toFixed(2);
-								status.obc.speedavg_mph = convert(string_speedavg).from('kilometre').to('us mile').toFixed(2);
+								status.obc.speedavg.kmh = parseFloat(string_speedavg.toFixed(2));
+								status.obc.speedavg.mph = parseFloat(convert(string_speedavg).from('kilometre').to('us mile').toFixed(2));
 								break;
 
 							case 'm':
 								status.coding.unit.speed = 'mph';
 								// Update status variables
-								status.obc.speedavg_kmh = convert(string_speedavg).from('us mile').to('kilometre').toFixed(2);
-								status.obc.speedavg_mph = string_speedavg.toFixed(2);
+								status.obc.speedavg.kmh = parseFloat(convert(string_speedavg).from('us mile').to('kilometre').toFixed(2));
+								status.obc.speedavg.mph = parseFloat(string_speedavg.toFixed(2));
 								break;
 						}
 
-						value = status.obc.speedavg_mph;
+						value = status.obc.speedavg.mph;
 						break;
 
 					case 0x0B: //
@@ -705,7 +700,7 @@ module.exports = {
 
 						// Update status variable
 						status.obc.code = string_code;
-						value                   = status.obc.code;
+						value           = status.obc.code;
 						break;
 
 					case 0x0E: // Timer
@@ -717,7 +712,7 @@ module.exports = {
 
 						// Update status variables
 						status.obc.timer = string_timer;
-						value                    = status.obc.timer;
+						value            = status.obc.timer;
 						break;
 
 					case 0x0F: // Aux heat timer 1
@@ -728,8 +723,8 @@ module.exports = {
 						string_aux_heat_timer_1 = string_aux_heat_timer_1.toString().trim().toLowerCase();
 
 						// Update status variables
-						status.obc.aux_heat_timer_1 = string_aux_heat_timer_1;
-						value                               = status.obc.aux_heat_timer_1;
+						status.obc.aux_heat_timer.t1 = string_aux_heat_timer_1;
+						value                        = status.obc.aux_heat_timer.t1;
 						break;
 
 					case 0x10: // Aux heat timer 2
@@ -740,8 +735,8 @@ module.exports = {
 						string_aux_heat_timer_2 = string_aux_heat_timer_2.toString().trim().toLowerCase();
 
 						// Update status variables
-						status.obc.aux_heat_timer_2 = string_aux_heat_timer_2;
-						value                               = status.obc.aux_heat_timer_2;
+						status.obc.aux_heat_timer.t2 = string_aux_heat_timer_2;
+						value                        = status.obc.aux_heat_timer.t2;
 						break;
 
 					case 0x1A: // Stopwatch
@@ -753,7 +748,7 @@ module.exports = {
 
 						// Update status variables
 						status.obc.stopwatch = string_stopwatch;
-						value                        = status.obc.stopwatch;
+						value                = status.obc.stopwatch;
 						break;
 
 					default:
@@ -785,18 +780,18 @@ module.exports = {
 				break;
 
 			case 0x50: // Request check-control sensor information
-				data.command = 'request';
+				data.command = 'req';
 				data.value   = 'check control sensor status';
 				break;
 
 			case 0x53: // Request vehicle data
-				data.command = 'request';
+				data.command = 'req';
 				data.value   = 'vehicle data';
 				break;
 
 			case 0x57: // BC button in cluster
-				data.command = 'button';
-				data.value   = 'BC';
+				data.command = 'bro';
+				data.value   = 'BC button';
 				break;
 
 			default:
@@ -809,6 +804,7 @@ module.exports = {
 	},
 
 	// Handle incoming commands from API
+	// This is pure garbage and COMPLETELY needs to be done way differently
 	ike_data : (data) => {
 		// Display text string in cluster
 		if (typeof data['obc-text'] !== 'undefined') {
@@ -816,7 +812,7 @@ module.exports = {
 		}
 
 		// Set OBC clock
-		else if (data.command == 'obc_clock') {
+		else if (data.command === 'obc_clock') {
 			omnibus.IKE.obc_clock(data);
 		}
 
@@ -836,7 +832,7 @@ module.exports = {
 
 		// Refresh OBC data value
 		else if (typeof data['obc-get'] !== 'undefined') {
-			if (data['obc-get'] == 'all') {
+			if (data['obc-get'] === 'all') {
 				omnibus.IKE.obc_refresh();
 			}
 			else {
@@ -1098,5 +1094,4 @@ module.exports = {
 			msg: string_hex,
 		});
 	},
-
 };

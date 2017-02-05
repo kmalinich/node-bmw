@@ -10,9 +10,6 @@ hex         = require('./lib/hex');
 json        = require('./lib/json');
 log         = require('./lib/log');
 
-config = require('./lib/config');
-status = require('./lib/status');
-
 // Everything connection object
 omnibus = {
   // IBUS libraries - these should be combined
@@ -74,15 +71,19 @@ function startup() {
     msg : 'Starting up',
   });
 
-  startup_api_server(() => { // Open API server
-    socket_server.startup(() => { // Config WebSocket server
-      omnibus.HDMI.startup(() => { // Open HDMI-CEC
-        omnibus.ibus.startup(() => { // Open serial port
-          log.msg({
-            src : 'run',
-            msg : 'Started',
-          });
-        });
+	json.read_config(() => { // Read JSON config file
+		json.read_status(() => { // Read JSON status file
+			startup_api_server(() => { // Open API server
+				socket_server.startup(() => { // Config WebSocket server
+					omnibus.HDMI.startup(() => { // Open HDMI-CEC
+						omnibus.ibus.startup(() => { // Open serial port
+							log.msg({
+								src : 'run',
+								msg : 'Started',
+							});
+						});
+					});
+				});
       });
     });
   });

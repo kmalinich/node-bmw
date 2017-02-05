@@ -9,9 +9,6 @@ var active_read = false;
 var queue_write  = [];
 var active_write = false;
 
-// Last time any data did something
-status.ibus.last_event = now();
-
 // Local data
 var device      = '/dev/bmw';
 var serial_port = new serialport(device, {
@@ -32,11 +29,6 @@ serial_port.on('error', function(error) {
 // On port open
 serial_port.on('open', function() {
 	console.log('[INTF:PORT] Opened [%s]', device);
-
-	// Get some data
-	setTimeout(() => {
-		omnibus.IKE.obc_refresh();
-	}, 5000);
 });
 
 // On port close
@@ -119,6 +111,9 @@ module.exports = {
 	 */
 	// Open serial port
 	startup : (callback) => {
+		// Last time any data did something
+		status.ibus.last_event = now();
+
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
 			serial_port.open((error) => {

@@ -767,7 +767,7 @@ module.exports = {
 		}
 		else {
 			// Dirty assumption
-			omnibus.LCM.encode_io_status(data);
+			encode_io_status(data);
 		}
 	},
 

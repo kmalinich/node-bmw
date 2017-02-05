@@ -12,8 +12,7 @@ config      = require('./lib/config');
 hex         = require('./lib/hex');
 json        = require('./lib/json');
 log         = require('./lib/log');
-//status      = require('./status.json');
-status     = require('./lib/status');
+status      = require('./lib/status');
 
 // Everything connection object
 omnibus = {

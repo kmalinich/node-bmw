@@ -2,6 +2,8 @@
 
 const module_name = 'LCM';
 
+var auto_lights_interval;
+
 // npm libraries
 const suncalc = require('suncalc');
 

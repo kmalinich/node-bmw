@@ -1,2 +1,3 @@
-SUBSYSTEM=="tty", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", SYMLINK+="dbus"
-SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ibus"
+#SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ibus"
+SUBSYSTEM=="tty", ATTRS{serial}=="R.Resler IBUS Interface V6b - Serial:20150416155959003502", SYMLINK+="ibus"
+SUBSYSTEM=="tty", ATTRS{serial}=="47514789", SYMLINK+="dbus"

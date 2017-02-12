@@ -54,6 +54,20 @@ function clean_class(id) {
 	$(id).removeClass('text-danger').removeClass('text-success').removeClass('text-warning').removeClass('text-primary').removeClass('text-info').text('');
 }
 
+function hdmi_command(command) {
+	$.ajax({
+		url      : '/api/hdmi',
+		type     : 'POST',
+		dataType : 'json',
+		data     : {
+			command : command,
+		},
+		success : function(return_data) {
+			console.log(return_data);
+		}
+	});
+}
+
 function form_gm() {
 	console.log($('#form-gm').serialize());
 	$.ajax({

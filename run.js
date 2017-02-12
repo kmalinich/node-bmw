@@ -198,7 +198,6 @@ dispatcher.onPost('/ike', (request, response) => {
 
 // HDMI POST request
 dispatcher.onPost('/hdmi', (request, response) => {
-	console.log(query_string.parse(request.body).command);
 	omnibus.HDMI.command(query_string.parse(request.body).command);
 	response.writeHead(200, api_header);
 	response.end(JSON.stringify({ status : 'ok' }));

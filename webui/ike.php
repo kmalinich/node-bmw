@@ -163,17 +163,17 @@
 			<hr>
 
 			<h4>Text</h4>
-			<form class="form-horizontal" id="form-ike-text" action="javascript:form_text();">
+			<form class="form-horizontal" id="form-ike-text" action="javascript:ike_text();">
 
-				<input class="form-control" type="text" name="obc-text" id="form-ike-text-text" placeholder="Cluster text">
+				<input class="form-control" type="text" id="ike-text" placeholder="Cluster text">
 				<br/>
 
 				<div class="row">
 					<div class="col-xs-6">
-						<button class="btn btn-lg btn-danger btn-block" id="form-ike-text-reset" type="reset">Reset</button>
+						<button class="btn btn-lg btn-danger btn-block" type="reset">Reset</button>
 					</div>
 					<div class="col-xs-6">
-						<button class="btn btn-lg btn-primary btn-block" id="form-ike-text-submit" type="submit">Send</button>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 					</div>
 				</div>
 

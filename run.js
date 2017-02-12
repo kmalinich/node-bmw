@@ -191,7 +191,7 @@ dispatcher.onPost('/gm', (request, response) => {
 
 // IKE POST request
 dispatcher.onPost('/ike', (request, response) => {
-	omnibus.IKE.ike_data(query_string.parse(request.body));
+	omnibus.IKE.api_command(query_string.parse(request.body));
 	response.writeHead(200, api_header);
 	response.end(JSON.stringify({ status : 'ok' }));
 });

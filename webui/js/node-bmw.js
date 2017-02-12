@@ -82,7 +82,6 @@ function form_gm() {
 }
 
 function form_ike_get() {
-	console.log($('#form-ike-get').serialize());
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
@@ -95,7 +94,6 @@ function form_ike_get() {
 }
 
 function form_ike_reset() {
-	console.log($('#form-ike-reset').serialize());
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
@@ -107,13 +105,15 @@ function form_ike_reset() {
 	});
 }
 
-function form_text() {
-	console.log($('#form-ike-text').serialize());
+function ike_text() {
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
 		dataType : 'json',
-		data     : $('#form-ike-text').serialize(),
+		data     : {
+			command : 'ike-text',
+			value   : $('#ike-text').val(),
+		},
 		success  : function(return_data) {
 			console.log(return_data);
 		}
@@ -121,7 +121,6 @@ function form_text() {
 }
 
 function form_lcm() {
-	console.log($('#form-lcm').serialize());
 	$.ajax({
 		url      : '/api/lcm',
 		type     : 'POST',
@@ -332,8 +331,6 @@ function status() {
 		type     : 'GET',
 		dataType : 'json',
 		success  : function(return_data) {
-			console.log(return_data);
-
 			// Clean up page
 			clean_class_all();
 

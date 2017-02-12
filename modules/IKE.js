@@ -805,48 +805,43 @@ module.exports = {
 
 	// Handle incoming commands from API
 	// This is pure garbage and COMPLETELY needs to be done way differently
-	ike_data : (data) => {
-		// Display text string in cluster
-		if (typeof data['obc-text'] !== 'undefined') {
-			omnibus.IKE.text(data['obc-text']);
-		}
+	api_command : (data) => {
+		switch (data.command) {
+			case 'ike-text': // Display text string in cluster
+				omnibus.IKE.text(data.value);
+				break;
 
-		// Set OBC clock
-		else if (data.command === 'obc_clock') {
-			omnibus.IKE.obc_clock(data);
-		}
+			case 'obc_clock': // Set OBC clock
+				omnibus.IKE.obc_clock();
+				break;
 
-		else if (typeof data['obc-gong'] !== 'undefined') {
-			omnibus.IKE.obc_gong(data['obc-gong']);
-		}
+			case 'obc-gong': // Fire OBC gong
+				omnibus.IKE.obc_gong(data.value);
+				break;
 
-		// Set cluster LCD backlight
-		else if (typeof data['ike-backlight'] !== 'undefined') {
-			omnibus.IKE.ike_backlight(data['ike-backlight']);
-		}
+			case 'ike-backlight': // Set IKE backlight
+				omnibus.IKE.ike_backlight(data.value);
+				break;
 
-		// Send fake ignition status
-		else if (typeof data['ike-ignition'] !== 'undefined') {
-			omnibus.IKE.ike_ignition(data['ike-ignition']);
-		}
+			case 'ike-ignition': // Send fake ignition status (but don't tho)
+				omnibus.IKE.ike_ignition(data.value);
+				break;
 
-		// Refresh OBC data value
-		else if (typeof data['obc-get'] !== 'undefined') {
-			if (data['obc-get'] === 'all') {
+			case 'obc-get-all': // Refresh all OBC data value
 				omnibus.IKE.obc_refresh();
-			}
-			else {
-				omnibus.IKE.obc_data('get', data['obc-get']);
-			}
-		}
+				break;
 
-		// Reset OBC data value
-		else if (typeof data['obc-reset'] !== 'undefined') {
-			omnibus.IKE.obc_data('reset', data['obc-reset']);
-		}
+			case 'obc-get': // Refresh specific OBC data value
+				omnibus.IKE.obc_data('get', data.value);
+				break;
 
-		else {
-			console.log('[node::IKE] ike_data(): Unknown command');
+			case 'obc-reset': // Reset specific OBC data value
+				omnibus.IKE.obc_data('reset', data.value);
+				break;
+
+			default: // Dunno.
+				console.log('[node::IKE] api_command(): Unknown command \'%s\', \'%s\'', data.command, data.value);
+				break;
 		}
 	},
 

@@ -1977,15 +1977,15 @@
 54 47 43 95 64 60 07 AB 00 92 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 196300 kms; SI-L 1460 litres since last service; SI-T 0 days since last service
 54 47 43 95 64 60 07 AD 00 96 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 196500 kms; SI-L 1500 litres since last service; SI-T 0 days since last service
 54 47 43 95 64 60 07 B4 00 A3 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 197200 kms; SI-L 1630 litres since last service; SI-T 0 days since last service
-54 47 43 95 64 60 07 BD 00 00 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 198100 kms; SI-L  0 litres since last service; SI-T 0 days since last service
+54 47 43 95 64 60 07 BD 00 00 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 198100 kms; SI-L    0 litres since last service; SI-T 0 days since last service
 54 47 43 95 64 60 07 BD 00 AC 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 198100 kms; SI-L 1720 litres since last service; SI-T 0 days since last service
-54 47 43 95 64 60 07 CB 00 0E 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 199500 kms; SI-L 140 litres since last service; SI-T 0 days since last service
+54 47 43 95 64 60 07 CB 00 0E 00 00 00 00,LCM,IKE,Vehicle data status VIN GC95646; Total dist 199500 kms; SI-L  140 litres since last service; SI-T 0 days since last service
 54 47 4D 64 13 30 06 00 00 69 00 00 00 00,LCM,IKE,Vehicle data status VIN GM64133; Total dist 153600 kms; SI-L 1050 litres since last service; SI-T 0 days since last service
-54 47 56 44 80 40 06 EE 40 15 00 00 00 52,LCM,IKE,Vehicle data status VIN GV44804; Total dist 177400 kms; SI-L 210 litres since last service; SI-T 0 days since last service
+54 47 56 44 80 40 06 EE 40 15 00 00 00 52,LCM,IKE,Vehicle data status VIN GV44804; Total dist 177400 kms; SI-L  210 litres since last service; SI-T 0 days since last service
 54 4C 4E 83 01 70 05 99 42 91 00 00 06 D3,LCM,IKE,Vehicle data status VIN LN83017; Total dist 143300 kms; SI-L 6570 litres since last service; SI-T 0 days since last service
 54 4C 56 93 28 40 08 A2 41 E8 00 00 00 00,LCM,IKE,Vehicle data status VIN LV93284; Total dist 221000 kms; SI-L 4880 litres since last service; SI-T 0 days since last service
-55 07 BD 00 00 00 00 00 00,IKE,LCM,Service Interval Display Total dist 198100 km; SI-L 0 litres since last service; ; SI-T 0 days since last service
-55 07 BD 40 00 00 00 00 00,IKE,LCM,Service Interval Display Total dist 198100 km; SI-L 0 litres since last service; ; SI-T 0 days since last service
+55 07 BD 00 00 00 00 00 00,IKE,LCM,Service Interval Display Total dist 198100 km; SI-L 0 litres since last service; SI-T 0 days since last service
+55 07 BD 40 00 00 00 00 00,IKE,LCM,Service Interval Display Total dist 198100 km; SI-L 0 litres since last service; SI-T 0 days since last service
 57 01,IKE,LOC,Check Control button CHECK_pressed
 57 02,IKE,LOC,Check Control button BC_pressed
 57 41,IKE,LOC,Check Control button CHECK_released

@@ -1036,8 +1036,6 @@
 68 80 23 C0 20,RAD,IKE,Display Text Layout=0xC0 Flags=CLS F0=
 68 BF 02 00,RAD,GLO,Device status ready
 68 BF 02 01,RAD,GLO,Device status ready after reset
-68 C0 00 20 00 03 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Cmd_0x00 Data="20 00 03 2F 2F 2F 2F 2F 2F 2F 2F"
-68 C0 00 20 20 03 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Cmd_0x00 Data="20 20 03 2F 2F 2F 2F 2F 2F 2F 2F"
 68 C0 20 00 15 60 2F 2F 2F 05 2F 2F 2F 06 2F 2F 2F 05 2F 2F 2F 05 2F 2F 2F 05 2F 2F 2F,RAD,MID,Display status _short Request_Initial_Text Show_TEL_Menu Show_AUDIO_Menu
 68 C0 21 00 00 00 2F 2F 2F 2F 2F 2F 2F 2F 01 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Menu Text Layout=0x00 Flags= F0="////////" F1"////////"
 68 C0 21 00 00 00 2F 2F 2F 2F 2F 2F 2F 2F,RAD,MID,Menu Text Layout=0x00 Flags= F0="////////"

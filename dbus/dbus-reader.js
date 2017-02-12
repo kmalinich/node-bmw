@@ -3,10 +3,10 @@
 var dbus_interface = require('./dbus-interface.js');
 var bus_modules    = require('../lib/bus-modules.js');
 
-// data
+// DBUS connection
 var dbus_connection = new dbus_interface();
 
-// events
+// Events
 process.on('SIGINT', on_signal_int);
 dbus_connection.on('data', on_dbus_data);
 
@@ -17,24 +17,22 @@ function on_signal_int() {
 }
 
 function on_dbus_data(data) {
-	var module_dst = bus_modules.hex2name(data.dst);
-	console.log('[dbus-reader] %s,', module_dst, data.msg);
-}
-
-function init() {
-	dbus_connection.startup();
+	if (data.src == 0x00 && data.dst == 0x00) {
+		console.log(data);
+	}
+	else {
+		console.log('[dbus-reader] %s, %s,', data.src, data.dst, data.msg);
+	}
 }
 
 function dodbus() {
-	// Send the message
 	console.log('[dbus-reader] Sending IHKA packet.');
 	dbus_connection.send({
+		src: 'DIA',
 		dst: 'IHKA',
 		msg: [0x0B, 0x03],
 	});
 }
 
-
-init();
-
-setInterval(dodbus, 2000);
+// dbus_connection.startup();
+// setInterval(dodbus, 1000);

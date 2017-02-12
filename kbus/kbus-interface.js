@@ -10,7 +10,7 @@ var queue_write  = [];
 var active_write = false;
 
 // Local data
-var device      = '/dev/ibus';
+var device      = '/dev/kbus';
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',
@@ -23,17 +23,17 @@ var serial_port = new serialport(device, {
 
 // On port error
 serial_port.on('error', function(error) {
-	console.error('[IBUS:PORT]', error);
+	console.error('[KBUS:PORT]', error);
 });
 
 // On port open
 serial_port.on('open', function() {
-	console.log('[IBUS:PORT] Opened [%s]', device);
+	console.log('[KBUS:PORT] Opened [%s]', device);
 });
 
 // On port close
 serial_port.on('close', function() {
-	console.log('[IBUS:PORT] Closed [%s]', device);
+	console.log('[KBUS:PORT] Closed [%s]', device);
 });
 
 // Send the data to the parser
@@ -51,7 +51,7 @@ function queue_busy() {
 		active_write = false;
 	}
 
-	// console.log('[IBUS::QUE] Queue busy: %s', active_write);
+	// console.log('[KBUS::QUE] Queue busy: %s', active_write);
 	return active_write;
 }
 
@@ -59,37 +59,37 @@ function queue_busy() {
 function write_message() {
 	// Only write data if port is open
 	if (!serial_port.isOpen()) {
-		console.log('[IBUS:RITE] Chilling until port is open');
+		console.log('[KBUS:RITE] Chilling until port is open');
 		return;
 	}
 
 	// Do we need to wait longer?
 	var time_now = now();
-	if (now()-status.ibus.last_event < 20) {
+	if (now()-status.kbus.last_event < 20) {
 		// Do we still have data?
 		if (queue_busy()) {
-			// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
+			// console.log('[KBUS:RITE] Waiting for %s', time_now-status.kbus.last_event);
 			setTimeout(() => {
 				write_message();
-			}, (20-(now()-status.ibus.last_event)));
+			}, (20-(now()-status.kbus.last_event)));
 		}
 		else {
-			console.log('[IBUS:RITE] Queue done');
+			console.log('[KBUS:RITE] Queue done');
 		}
 	}
 	else {
 		if (queue_busy()) {
 			serial_port.write(queue_write[0], (error) => {
-				if (error) { console.log('[IBUS:RITE] Failed : ', queue_write[0], error); }
+				if (error) { console.log('[KBUS:RITE] Failed : ', queue_write[0], error); }
 
 				serial_port.drain((error) => {
-					// console.log('[IBUS::DRN] %s message(s) remain(s)', queue_write.length);
+					// console.log('[KBUS::DRN] %s message(s) remain(s)', queue_write.length);
 
 					if (error) {
-						console.log('[IBUS::DRN] Failed : ', queue_write[0], error);
+						console.log('[KBUS::DRN] Failed : ', queue_write[0], error);
 					}
 					else {
-						// console.log('[IBUS:RITE] Success : ', queue_write[0]);
+						// console.log('[KBUS:RITE] Success : ', queue_write[0]);
 
 						// Successful write, remove this message from the queue
 						queue_write.splice(0, 1);
@@ -112,23 +112,23 @@ module.exports = {
 	// Open serial port
 	startup : (callback) => {
 		// Last time any data did something
-		status.ibus.last_event = now();
+		status.kbus.last_event = now();
 
 		// Open port if it is closed
 		if (!serial_port.isOpen()) {
 			serial_port.open((error) => {
 				if (error) {
-					console.log('[IBUS:PORT]', error);
+					console.log('[KBUS:PORT]', error);
 					callback();
 				}
 				else {
-					console.log('[IBUS:PORT] Opened');
+					console.log('[KBUS:PORT] Opened');
 					callback();
 				}
 			});
 		}
 		else {
-			console.log('[IBUS:PORT] Already open');
+			console.log('[KBUS:PORT] Already open');
 			callback();
 		}
 	},
@@ -139,29 +139,29 @@ module.exports = {
 		if (serial_port.isOpen()) {
 			serial_port.close((error) => {
 				if (error) {
-					console.log('[IBUS:PORT]', error);
+					console.log('[KBUS:PORT]', error);
 					callback();
 				}
 				else {
-					console.log('[IBUS:PORT] Closed');
+					console.log('[KBUS:PORT] Closed');
 					callback();
 				};
 			});
 		}
 		else {
-			console.log('[IBUS:PORT] Already closed');
+			console.log('[KBUS:PORT] Already closed');
 			callback();
 		}
 	},
 
 	// Insert a message into the write queue
 	send : (msg) => {
-		// Generate IBUS message with checksum, etc
+		// Generate KBUS message with checksum, etc
 		queue_write.push(omnibus.protocol.create(msg));
 
-		// console.log('[IBUS:SEND] Pushed data into write queue');
+		// console.log('[KBUS:SEND] Pushed data into write queue');
 		if (active_write === false) {
-			// console.log('[IBUS:SEND] Starting queue write');
+			// console.log('[KBUS:SEND] Starting queue write');
 			write_message();
 		}
 	},

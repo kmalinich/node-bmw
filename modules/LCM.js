@@ -444,7 +444,7 @@ function decode_io_status(array) {
 	var bitmask_6  = array[7];
 	var bitmask_7  = array[8];
 	var bitmask_8  = array[9];
-	var bitmask_9  = array[10]; // battery voltage 0x00-0xFF
+	var bitmask_9  = array[10]; // battery voltage 0x00-0xFF*.0708
 	var bitmask_10 = array[11];
 	var bitmask_11 = array[12];
 	var bitmask_12 = array[13];
@@ -479,7 +479,6 @@ function decode_io_status(array) {
 	status.lcm.io.bitmask_6  = bitmask_6;
 	status.lcm.io.bitmask_7  = bitmask_7;
 	status.lcm.io.bitmask_8  = bitmask_8;
-	status.lcm.io.bitmask_9  = bitmask_9;
 	status.lcm.io.bitmask_10 = bitmask_10;
 	status.lcm.io.bitmask_11 = bitmask_11;
 	status.lcm.io.bitmask_12 = bitmask_12;
@@ -500,10 +499,16 @@ function decode_io_status(array) {
 	status.lcm.io.bitmask_27 = bitmask_27;
 	status.lcm.io.bitmask_28 = bitmask_28;
 
-	// Bitmask 29+30 are the MFL lever voltage, x100
+	// Bitmask 9 is terminal 30 voltage, *.0708
+	status.lcm.io.bitmask_9 = bitmask_9;
+	status.lcm.voltage.terminal_30 = parseFloat(bitmask_9*.0708);
+
+	// Bitmask 29+30 are the MFL lever voltages, /51
 	status.lcm.io.bitmask_29 = bitmask_29;
 	status.lcm.io.bitmask_30 = bitmask_30;
-	status.lcm.switch.mfl    = parseFloat((bitmask_29+bitmask_30)/100);
+
+	status.lcm.voltage.flash_to_pass      = parseFloat(bitmask_29/51);
+	status.lcm.voltage.turn_signal_switch = parseFloat(bitmask_30/51);
 
 	status.lcm.io.bitmask_31 = bitmask_31;
 
@@ -511,7 +516,6 @@ function decode_io_status(array) {
 	status.lcm.clamp.c_30a                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
 	status.lcm.clamp.c_30b                      = bitmask.bit_test(bitmask_0, bitmask.bit[7]);
 	status.lcm.clamp.c_r                        = bitmask.bit_test(bitmask_0, bitmask.bit[6]);
-	status.lcm.battery_voltage                  = bitmask_9;
 	status.lcm.dimmer.value_2                   = bitmask_15;
 	status.lcm.input.air_suspension             = bitmask.bit_test(bitmask_3, bitmask.bit[0]);
 	status.lcm.input.armoured_door              = bitmask.bit_test(bitmask_1, bitmask.bit[6]);

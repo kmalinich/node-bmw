@@ -43,21 +43,21 @@ module.exports = {
 					calc_crc = calc_crc^msg_msg[byte];
 				}
 
-				// console.log('[MSG PSBLE] %s (%s/%s/%s)', msg_dst_name, msg_len, data.length, msg_len+2);
-				// console.log('[MSG PSBLE] Message  : %s', msg_msg);
-				// console.log('[MSG PSBLE] Data     : %s', data.toString(16));
-				// console.log('[MSG PSBLE] Checksum : %s/%s', msg_crc.toString(16), calc_crc.toString(16));
+				console.log('[MSG PSBLE] %s (%s/%s/%s)', msg_dst_name, msg_len, data.length, msg_len+2);
+				console.log('[MSG PSBLE] Message  : %s', msg_msg);
+				console.log('[MSG PSBLE] Data     : %s', data.toString(16));
+				console.log('[MSG PSBLE] Checksum : %s/%s', msg_crc.toString(16), calc_crc.toString(16));
 
 				// If the shoe fits..
 				if (calc_crc === msg_crc) {
-					// console.log(' ');
-					// console.log('[MSG FOUND] ===========================');
-					// console.log('[MSG FOUND] Destination : %s', msg_dst_name);
-					// console.log('[MSG FOUND] Length      : %s', msg_len);
-					// console.log('[MSG FOUND] Data        :', Buffer.from(msg_msg));
-					// console.log('[MSG FOUND] Checksum    : %s', msg_crc.toString(16));
-					// console.log('[MSG FOUND] ===========================');
-					// console.log(' ');
+					console.log(' ');
+					console.log('[MSG FOUND] ===========================');
+					console.log('[MSG FOUND] Destination : %s', msg_dst_name);
+					console.log('[MSG FOUND] Length      : %s', msg_len);
+					console.log('[MSG FOUND] Data        :', Buffer.from(msg_msg));
+					console.log('[MSG FOUND] Checksum    : %s', msg_crc.toString(16));
+					console.log('[MSG FOUND] ===========================');
+					console.log(' ');
 
 					var msg_obj = {
 						crc : msg_crc,
@@ -70,14 +70,14 @@ module.exports = {
 					};
 
 					// emitter.emit('data', msg_obj);
-					omnibus.data_handler.check_data(msg_obj);
+					// omnibus.data_handler.check_data(msg_obj);
 
 					// Reset data var
 					data = new Array();
 				}
 			}
 			// else {
-			//	console.log('[ANALYZING] %s (%s/%s/%s)', msg_dst_name, msg_len, data.length, msg_len+2);
+			// 	console.log('[ANALYZING] %s (%s/%s/%s)', msg_dst_name, msg_len, data.length, msg_len+2);
 			// }
 		}
 	},
@@ -91,7 +91,7 @@ module.exports = {
 
 		// Convert module names to hex codes
 		buffer[0] = bus_modules.name2hex(msg.dst);
-		buffer[1] = msg.msg.length+1;
+		buffer[1] = msg.msg.length+3;
 
 		for (var i = 0; i < msg.msg.length; i++) {
 			buffer[i+2] = msg.msg[i];

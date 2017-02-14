@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 const serialport = require('serialport');
+var dbus = {
+	protocol  : require('./dbus-protocol' ), // Protocol
+};
 
 // Read/write queues
 var queue_read  = [];
@@ -38,7 +41,7 @@ serial_port.on('close', function() {
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	omnibus.protocol.parser(data);
+	dbus.protocol.parser(data);
 });
 
 
@@ -157,7 +160,7 @@ module.exports = {
 	// Insert a message into the write queue
 	send : (msg) => {
 		// Generate DBUS message with checksum, etc
-		queue_write.push(omnibus.protocol.create(msg));
+		queue_write.push(dbus.protocol.create(msg));
 
 		// console.log('[DBUS:SEND] Pushed data into write queue');
 		if (active_write === false) {

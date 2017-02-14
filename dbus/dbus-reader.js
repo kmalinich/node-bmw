@@ -1,38 +1,82 @@
 #!/usr/bin/env node
 
-var dbus_interface = require('./dbus-interface.js');
-var bus_modules    = require('../lib/bus-modules.js');
+// Global libraries
+now = require('performance-now');
 
-// DBUS connection
-var dbus_connection = new dbus_interface();
+// Global objects
+bitmask     = require('../lib/bitmask');
+bus_modules = require('../lib/bus-modules');
+hex         = require('../lib/hex');
+json        = require('../lib/json');
+log         = require('../lib/log');
 
-// Events
-process.on('SIGINT', on_signal_int);
-dbus_connection.on('data', on_dbus_data);
+var dbus = {
+	protocol  : require('./dbus-protocol' ), // Protocol
+	interface : require('./dbus-interface'), // Connection
+};
 
-function on_signal_int() {
-	dbus_connection.shutdown(() => {
+function shutdown() {
+	dbus.interface.shutdown(() => {
 		process.exit();
 	});
 }
 
-function on_dbus_data(data) {
-	if (data.src == 0x00 && data.dst == 0x00) {
-		console.log(data);
-	}
-	else {
-		console.log('[dbus-reader] %s, %s,', data.src, data.dst, data.msg);
-	}
-}
-
-function dodbus() {
-	console.log('[dbus-reader] Sending IHKA packet.');
-	dbus_connection.send({
-		src: 'DIA',
-		dst: 'IHKA',
-		msg: [0x0B, 0x03],
+// Global startup
+function startup(callback) {
+	json.read_config(() => { // Read JSON config file
+		json.read_status(() => { // Read JSON status file
+			dbus.interface.startup(() => {
+				callback();
+			});
+		});
 	});
 }
 
-// dbus_connection.startup();
-// setInterval(dodbus, 1000);
+function on_data(data) {
+	console.log('[DBUS][%s]', data.dst, data.msg);
+}
+
+function dodbus() {
+	console.log('[DBUS] Sending DME packet');
+	dbus.interface.send({
+		dst: 'DME',
+		msg: [0x22, 0x40, 0x00],
+	});
+}
+
+// Shutdown events/signals
+process.on('SIGTERM', () => {
+	log.msg({
+		src : 'run',
+		msg : 'Received SIGTERM, launching shutdown()',
+	});
+	shutdown();
+});
+
+process.on('SIGINT', () => {
+	log.msg({
+		src : 'run',
+		msg : 'Received SIGINT, launching shutdown()',
+	});
+	shutdown();
+});
+
+process.on('SIGPIPE', () => {
+	log.msg({
+		src : 'run',
+		msg : 'Received SIGPIPE, launching shutdown()',
+	});
+	shutdown();
+});
+
+process.on('exit', () => {
+	log.msg({
+		src : 'run',
+		msg : 'Shut down',
+	});
+});
+
+startup(() => {
+	dodbus();
+	setInterval(dodbus, 4000);
+});

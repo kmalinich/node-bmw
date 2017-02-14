@@ -280,26 +280,28 @@ function encode_io_status(array) {
 	// dimmer_value_2
 	var bitmask_15 = 0x00;
 
-	// These we kinda don't fool with, so just populate them from the present values
+	// These we kinda don't fool with, so just populate them from stock values
 	var bitmask_12 = 0x00;
 	var bitmask_13 = 0x00;
 	var bitmask_14 = 0x00;
-	var bitmask_16 = 0x00;
 	var bitmask_17 = 0x00;
-	var bitmask_18 = 0x00;
+	var bitmask_18 = 0x3D;
 	var bitmask_19 = 0x00;
 	var bitmask_20 = 0x00;
 	var bitmask_21 = 0x00;
 	var bitmask_22 = 0x00;
-	var bitmask_23 = 0x00;
-	var bitmask_24 = 0x00;
 	var bitmask_25 = 0x00;
 	var bitmask_26 = 0x00;
 	var bitmask_27 = 0x00;
 	var bitmask_28 = 0x00;
-	var bitmask_29 = 0x00;
-	var bitmask_30 = 0x00;
+	var bitmask_29 = 0xFF;
+	var bitmask_30 = 0xFF;
 	var bitmask_31 = 0x00;
+
+	// These have something to do with autoleveling
+	var bitmask_16 = 101;
+	var bitmask_23 = 101;
+	var bitmask_24 = 101;
 
 	// Set the various bitmask values according to the input array
 	if(array.clamp_30a                       ) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[0]); }
@@ -346,6 +348,7 @@ function encode_io_status(array) {
 	if(array.output_lowbeam_front_left       ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[4]); }
 	if(array.output_lowbeam_front_right      ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[5]); }
 	if(array.output_fog_front_right          ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[6]); }
+	if(array.output_led_rear_fog             ) { bitmask_5 = bitmask.bit_set(bitmask_5, bitmask.bit[7]); } // Maybe this is actually the trailer fog..
 
 	if(array.input_vertical_aim              ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[1]); }
 	if(array.output_license_rear_right       ) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[2]); }
@@ -359,6 +362,7 @@ function encode_io_status(array) {
 	if(array.output_fog_rear_left            ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[2]); }
 	if(array.output_standing_inner_rear_right) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[3]); }
 	if(array.output_standing_rear_right      ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[4]); }
+	if(array.output_turn_side_left           ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[5]); } // Maybe this is actually the trailer left..
 	if(array.output_turn_front_left          ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[6]); }
 	if(array.output_reverse_rear_right       ) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[7]); }
 
@@ -369,13 +373,11 @@ function encode_io_status(array) {
 	if(array.mode_sleep                      ) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[6]); }
 
 	// LCM dimmer
-	if(array.dimmer_value_1) { bitmask_9  = parseInt(array.dimmer_value_1); }
+	if(array.battery_voltage) { bitmask_9 = parseInt(array.dimmer_value_1); }
 	// if(array.dimmer_value_2) { bitmask_15 = parseInt(array.dimmer_value_2); }
 
 	// Suspect
 	// array.clamp_58g
-	// array.output_fog_rear_right
-	// array.output_fog_rear_trailer
 
 	// ??
 	// if(array.) { bitmask_0 = bitmask.bit_set(bitmask_0, bitmask.bit[3]) ; }
@@ -388,7 +390,6 @@ function encode_io_status(array) {
 	// if(array.) { bitmask_4 = bitmask.bit_set(bitmask_5, bitmask.bit[7]) ; }
 	// if(array.) { bitmask_6 = bitmask.bit_set(bitmask_6, bitmask.bit[0]) ; }
 	// if(array.) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[0]) ; }
-	// if(array.) { bitmask_7 = bitmask.bit_set(bitmask_7, bitmask.bit[5]) ; }
 	// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[1]) ; }
 	// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[4]) ; }
 	// if(array.) { bitmask_8 = bitmask.bit_set(bitmask_8, bitmask.bit[7]) ; }
@@ -443,7 +444,7 @@ function decode_io_status(array) {
 	var bitmask_6  = array[7];
 	var bitmask_7  = array[8];
 	var bitmask_8  = array[9];
-	var bitmask_9  = array[10]; // dimmer.value_1 0x00-0xFF
+	var bitmask_9  = array[10]; // battery voltage 0x00-0xFF
 	var bitmask_10 = array[11];
 	var bitmask_11 = array[12];
 	var bitmask_12 = array[13];
@@ -498,15 +499,19 @@ function decode_io_status(array) {
 	status.lcm.io.bitmask_26 = bitmask_26;
 	status.lcm.io.bitmask_27 = bitmask_27;
 	status.lcm.io.bitmask_28 = bitmask_28;
+
+	// Bitmask 29+30 are the MFL lever voltage, x100
 	status.lcm.io.bitmask_29 = bitmask_29;
 	status.lcm.io.bitmask_30 = bitmask_30;
+	status.lcm.switch.mfl    = parseFloat((bitmask_29+bitmask_30)/100);
+
 	status.lcm.io.bitmask_31 = bitmask_31;
 
 	status.lcm.clamp.c_15                       = bitmask.bit_test(bitmask_3, bitmask.bit[5]);
 	status.lcm.clamp.c_30a                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
 	status.lcm.clamp.c_30b                      = bitmask.bit_test(bitmask_0, bitmask.bit[7]);
 	status.lcm.clamp.c_r                        = bitmask.bit_test(bitmask_0, bitmask.bit[6]);
-	status.lcm.dimmer.value_1                   = bitmask_9;
+	status.lcm.battery_voltage                  = bitmask_9;
 	status.lcm.dimmer.value_2                   = bitmask_15;
 	status.lcm.input.air_suspension             = bitmask.bit_test(bitmask_3, bitmask.bit[0]);
 	status.lcm.input.armoured_door              = bitmask.bit_test(bitmask_1, bitmask.bit[6]);
@@ -534,6 +539,7 @@ function decode_io_status(array) {
 	status.lcm.output.highbeam.front_right      = bitmask.bit_test(bitmask_4, bitmask.bit[5]);
 	status.lcm.output.led.switch_hazard         = bitmask.bit_test(bitmask_8, bitmask.bit[2]);
 	status.lcm.output.led.switch_light          = bitmask.bit_test(bitmask_8, bitmask.bit[3]);
+	status.lcm.output.led.rear_fog              = bitmask.bit_test(bitmask_5, bitmask.bit[7]);
 	status.lcm.output.license.rear_left         = bitmask.bit_test(bitmask_4, bitmask.bit[2]);
 	status.lcm.output.license.rear_right        = bitmask.bit_test(bitmask_6, bitmask.bit[2]);
 	status.lcm.output.lowbeam.front_left        = bitmask.bit_test(bitmask_5, bitmask.bit[4]);
@@ -547,6 +553,7 @@ function decode_io_status(array) {
 	status.lcm.output.standing.inner_rear_right = bitmask.bit_test(bitmask_7, bitmask.bit[3]);
 	status.lcm.output.standing.rear_left        = bitmask.bit_test(bitmask_6, bitmask.bit[3]);
 	status.lcm.output.standing.rear_right       = bitmask.bit_test(bitmask_7, bitmask.bit[4]);
+	status.lcm.output.turn.side_left            = bitmask.bit_test(bitmask_7, bitmask.bit[5]);
 	status.lcm.output.turn.front_left           = bitmask.bit_test(bitmask_7, bitmask.bit[6]);
 	status.lcm.output.turn.front_right          = bitmask.bit_test(bitmask_6, bitmask.bit[6]);
 	status.lcm.output.turn.rear_left            = bitmask.bit_test(bitmask_6, bitmask.bit[7]);

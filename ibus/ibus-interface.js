@@ -123,6 +123,7 @@ module.exports = {
 				}
 				else {
 					console.log('[IBUS:PORT] Opened');
+					omnibus.IKE.request('ignition');
 					callback();
 				}
 			});

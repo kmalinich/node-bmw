@@ -581,7 +581,7 @@ module.exports = {
 		// console.log('lights_off   : %s', lights_off);
 
 		// Check ignition
-		if (status.vehicle.ignition !== 'run') {
+		if (status.vehicle.ignition !== 'run' || config.lights.auto !== true) {
 			// Not in run: turn off auto lights
 			// console.log('[node::LCM] auto_lights_process(): ignition not in run (it\'s in \'%s\'); disabling auto lights', ignition);
 			auto_lights('off');
@@ -608,25 +608,25 @@ module.exports = {
 			status.lights.auto.reason    = 'before lights off';
 			status.lights.auto.lowbeam   = true;
 			status.lights.auto.standing  = false;
-			status.lights.auto.dimmer_value_1 = 0x80;
+			status.lights.auto.dimmer_value_1 = config.lights.dimmer_lights_on;
 		}
 		else if (current_time > lights_off && current_time < lights_on) {
 			status.lights.auto.reason    = 'after lights off, before lights on';
 			status.lights.auto.lowbeam   = false;
 			status.lights.auto.standing  = true;
-			status.lights.auto.dimmer_value_1 = 0xFE;
+			status.lights.auto.dimmer_value_1 = config.lights.dimmer_lights_off;
 		}
 		else if (current_time > lights_on) {
 			status.lights.auto.reason    = 'after lights on';
 			status.lights.auto.lowbeam   = true;
 			status.lights.auto.standing  = false;
-			status.lights.auto.dimmer_value_1 = 0x80;
+			status.lights.auto.dimmer_value_1 = config.lights.dimmer_lights_on;
 		}
 		else {
 			status.lights.auto.reason    = 'unknown time of day, engaging failsafe';
 			status.lights.auto.lowbeam   = true;
 			status.lights.auto.standing  = false;
-			status.lights.auto.dimmer_value_1 = 0xFE;
+			status.lights.auto.dimmer_value_1 = config.lights.dimmer_lights_on;
 		}
 
 		// console.log('[node::LCM] auto_lights_process(): standing: %s, lowbeam: %s, reason: %s', status.lights.auto.standing, status.lights.auto.lowbeam, status.lights.auto.reason);

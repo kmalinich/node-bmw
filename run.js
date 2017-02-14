@@ -171,9 +171,12 @@ dispatcher.onGet('/config', (request, response) => {
 
 // Config POST request
 dispatcher.onPost('/config', (request, response) => {
-	config = query_string.parse(request.body);
-	response.writeHead(200, api_header);
-	response.end(JSON.stringify({ status : 'ok' }));
+	//console.log(JSON.parse(request.body));
+	config = JSON.parse(request.body);
+	json.write_config(() => { // Write JSON config file
+		response.writeHead(200, api_header);
+		response.end(JSON.stringify({ status : 'ok' }));
+	});
 });
 
 // Status GET request

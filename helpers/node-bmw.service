@@ -7,7 +7,7 @@ Requires    = network.target
 Environment      = NODE_PATH=/usr/lib/node_modules:/usr/lib/nodejs:/usr/local/lib/node_modules:/usr/local/node-bmw/node_modules:/usr/share/javascript
 ExecStart        = /usr/bin/env node /usr/local/node-bmw/run.js
 Group            = root
-Restart          = always
+Restart          = on-failure 
 StandardError    = syslog
 StandardOutput   = syslog
 SyslogIdentifier = node-bmw

@@ -40,7 +40,7 @@ function dodbus() {
 	console.log('[DBUS] Sending DME packet');
 	dbus.interface.send({
 		dst: 'DME',
-		msg: [0x22, 0x40, 0x00],
+		msg: [0x00],
 	});
 }
 
@@ -78,5 +78,5 @@ process.on('exit', () => {
 
 startup(() => {
 	dodbus();
-	setInterval(dodbus, 4000);
+	setInterval(dodbus, 5000);
 });

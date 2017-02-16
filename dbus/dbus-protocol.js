@@ -8,6 +8,8 @@ module.exports = {
 		// Mark last event time
 		status.dbus.last_event = now();
 		data.push(buffer.readUInt16LE(0, buffer.length));
+		console.log(buffer);
+		console.log(data);
 
 		if (data.length >= 4) {
 			// DBUS packet:
@@ -98,7 +100,7 @@ module.exports = {
 		}
 
 		var crc = 0x00;
-		for (var i = 0; i < buffer.length - 1; i++) {
+		for (var i = 0; i < msg.msg.length+2; i++) {
 			crc ^= buffer[i];
 		}
 

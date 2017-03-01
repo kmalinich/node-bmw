@@ -22,7 +22,7 @@
     "url": "https://github.com/kmalinich/node-bmw/issues"
   },
   "dependencies": {
-    "cli-color": "^1.1.0",
+    "cli-color": "^1.2.0",
     "dbus-native": "^0.2.0",
     "domain": "0.0.1",
     "fs": "0.0.1-security",

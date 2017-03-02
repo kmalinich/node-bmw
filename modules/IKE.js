@@ -14,6 +14,8 @@ var state_powerdown;
 var state_poweroff;
 var state_poweron;
 var state_run;
+var state_start_begin;
+var state_start_end;
 
 // Pad string for IKE text screen length (20 characters)
 String.prototype.ike_pad = function() {
@@ -230,37 +232,54 @@ module.exports = {
 			case 0x11: // ignition status
 				data.command = 'ignition status';
 
-        // Init power-state vars
-				state_powerdown = false;
-				state_poweroff  = false;
-				state_poweron   = false;
-				state_run       = false;
+				// Below is a s**t hack workaround while I contemplate firing actual events
 
-				// If key is now in 'off' or 'accessory' and ignition status was previously 'run'
-				if ((data.msg[1] === 0x00 || data.msg[1] === 0x01) && status.vehicle.ignition_level === 3) {
-					console.log('[node::IKE] Trigger: powerdown state');
-					state_powerdown = true;
-				}
+				// Init power-state vars
+				state_powerdown   = false;
+				state_poweroff    = false;
+				state_poweron     = false;
+				state_run         = false;
+				state_start_begin = false;
+				state_start_end   = false;
 
-				// If key is now in 'off' and ignition status was previously 'accessory' or 'run'
-				if (data.msg[1] === 0x00 && (status.vehicle.ignition_level === 1 || status.vehicle.ignition_level === 3)) {
-					console.log('[node::IKE] Trigger: poweroff state');
-					state_poweroff = true;
-				}
-
-				// If key is now in 'accessory' or 'run' and ignition status was previously 'off'
-				if ((data.msg[1] === 0x01 || data.msg[1] === 0x03) && status.vehicle.ignition_level === 0) {
+				// Ignition : Off -> Acc
+				if (data.msg[1] === 0x01 && status.vehicle.ignition_level === 0) {
 					console.log('[node::IKE] Trigger: poweron state');
 					state_poweron = true;
 				}
 
-				// If key is now in 'run' and ignition status was previously 'off' or 'accessory'
-				if (data.msg[1] === 0x03 && (status.vehicle.ignition_level === 0 || status.vehicle.ignition_level === 1)) {
+				// Ignition : Acc -> Run
+				if (data.msg[1] === 0x03 && status.vehicle.ignition_level === 1) {
 					console.log('[node::IKE] Trigger: run state');
 					state_run = true;
 				}
 
-        status.vehicle.ignition_level = data.msg[1];
+				// Ignition : Run -> Start
+				if (data.msg[1] === 0x07 && status.vehicle.ignition_level === 3) {
+					console.log('[node::IKE] Trigger: start-begin state');
+					state_start_begin = true;
+				}
+
+
+				// Ignition : Start -> Run
+				if (data.msg[1] === 0x03 && status.vehicle.ignition_level === 7) {
+					console.log('[node::IKE] Trigger: start-end state');
+					state_start_end = true;
+				}
+
+				// Ignition : Run -> Acc
+				if (data.msg[1] === 0x01 && status.vehicle.ignition_level === 3) {
+					console.log('[node::IKE] Trigger: powerdown state');
+					state_powerdown = true;
+				}
+
+				// Ignition : Acc -> Off
+				if (data.msg[1] === 0x00 && status.vehicle.ignition_level === 1) {
+					console.log('[node::IKE] Trigger: poweroff state');
+					state_poweroff = true;
+				}
+
+				status.vehicle.ignition_level = data.msg[1];
 				switch (data.msg[1]) { // Ignition status value
 					case 0x00 : status.vehicle.ignition = 'off';       break;
 					case 0x01 : status.vehicle.ignition = 'accessory'; break;
@@ -332,8 +351,13 @@ module.exports = {
 					}, 5000);
 				}
 
-				// if (state_run === true) {
-				// }
+				if (state_run === true) {
+					// If the doors are locked
+					if (status.vehicle.locked === true) {
+						// Send message to GM to toggle door locks
+						omnibus.GM.gm_cl();
+					}
+				}
 
 				omnibus.LCM.auto_lights_process();
 				value = status.vehicle.ignition;
@@ -348,17 +372,17 @@ module.exports = {
 				// 0x01 = handbrake on
 				if (bitmask.bit_test(data.msg[1], 1)) {
 					// If handbrake is newly true
-          // if (status.vehicle.handbrake === false) {
-          //   omnibus.LCM.auto_lights_process();
-          // }
-          status.vehicle.handbrake = true;
+					// if (status.vehicle.handbrake === false) {
+					//   omnibus.LCM.auto_lights_process();
+					// }
+					status.vehicle.handbrake = true;
 				}
 				else {
 					// If handbrake is newly false
 					// if (status.vehicle.handbrake === true) {
 					// 	omnibus.LCM.auto_lights_process();
 					// }
-          status.vehicle.handbrake = false;
+					status.vehicle.handbrake = false;
 				}
 
 				// data.msg[2]:
@@ -376,7 +400,7 @@ module.exports = {
 						omnibus.LCM.auto_lights_process();
 						omnibus.HDMI.command('poweron');
 					}
-          status.engine.running = true;
+					status.engine.running = true;
 				}
 				else {
 					status.engine.running = false;

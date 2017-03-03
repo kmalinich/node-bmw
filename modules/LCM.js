@@ -109,7 +109,6 @@ function comfort_turn(data) {
 			status.lights.turn.depress_elapsed = now()-status.lights.turn.left.depress;
 			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
       if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
-				status.lights.turn.left.depress = 0;
         action = 'left';
       }
     }
@@ -127,7 +126,6 @@ function comfort_turn(data) {
 			status.lights.turn.depress_elapsed = now()-status.lights.turn.right.depress;
 			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
       if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
-				status.lights.turn.left.depress = 0;
         action = 'right';
       }
     }

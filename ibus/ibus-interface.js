@@ -1,5 +1,6 @@
 const serialport = require('serialport');
 var byte_length  = serialport.parsers.ByteLength;
+// var ibus_protocol = require('./ibus-protocol');
 
 // Read/write queues
 var queue_read  = [];
@@ -14,8 +15,6 @@ var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',
 });
-
-var parser = serial_port.pipe(new byte_length({length: 1}));
 
 /*
  * Event handling
@@ -38,7 +37,9 @@ serial_port.on('close', function() {
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	omnibus.protocol.parser(data);
+	for (const pair of data.entries()) {
+		omnibus.protocol.parser(pair[1]);
+	}
 });
 
 
@@ -65,13 +66,13 @@ function write_message() {
 
 	// Do we need to wait longer?
 	var time_now = now();
-	if (now()-status.ibus.last_event < 20) {
+	if (now()-status.ibus.last_event < 40) {
 		// Do we still have data?
 		if (queue_busy()) {
 			// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
 			setTimeout(() => {
 				write_message();
-			}, (20-(now()-status.ibus.last_event)));
+			}, (40-(now()-status.ibus.last_event)));
 		}
 		else {
 			console.log('[IBUS:RITE] Queue done');

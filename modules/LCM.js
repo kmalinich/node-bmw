@@ -82,81 +82,100 @@ function coding_get() {
 // Comfort turn signal handling
 function comfort_turn(data) {
   // Init variables
-  var cluster_msg_1;
+	var cluster_msg_1;
   var cluster_msg_2 = ' turn ';
   var cluster_msg_3;
   var action;
 
   // If comfort turn is not currently engaged
   if (status.lights.turn.left.comfort === true || status.lights.turn.right.comfort === true) {
-    console.log('[node::LCM] Comfort turn signal currently engaged');
     return;
   }
 
-  if (data.before.left === false) { // left turn was previously off
-    if (data.after.left && !data.after.right) { // left turn is now on, and right turn is now off
+	// If we haven't passed the cooldown yet
+  if (status.lights.turn.comfort_cool === false) {
+    return;
+  }
+
+  if (data.before.left.active === false) { // left turn was previously off
+    if (data.after.left.active && !data.after.right.active) { // left turn is now on, and right turn is now off
       status.lights.turn.left.depress = now();
       return;
     }
   }
   else { // left turn was previously on
-    if (!data.after.left && !data.after.right) { // If left turn is now off and right turn is now off
+    if (!data.after.left.active && !data.after.right.active) { // If left turn is now off and right turn is now off
       // If the time difference is less than 1000ms, fire comfort turn signal
-      if (now()-status.lights.turn.left.depress < 1000) {
+			status.lights.turn.depress_elapsed = now()-status.lights.turn.left.depress;
+			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
+      if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
+				status.lights.turn.left.depress = 0;
         action = 'left';
       }
     }
   }
 
-  if (data.before.right === false) { // right turn was previously off
-    if (!data.after.left && data.after.right) { // left turn is now off, and right turn is now on
+  if (data.before.right.active === false) { // right turn was previously off
+    if (!data.after.left.active && data.after.right.active) { // left turn is now off, and right turn is now on
       status.lights.turn.right.depress = now();
       return;
     }
   }
   else { // right turn was previously on
-    if (!data.after.left && !data.after.right) { // If left turn is now off and right turn is now off
+    if (!data.after.left.active && !data.after.right.active) { // If left turn is now off and right turn is now off
       // If the time difference is less than 1000ms, fire comfort turn signal
-      if (now()-status.lights.turn.right.depress < 1000) {
+			status.lights.turn.depress_elapsed = now()-status.lights.turn.right.depress;
+			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
+      if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
+				status.lights.turn.left.depress = 0;
         action = 'right';
       }
     }
   }
 
-  console.log('[node::LCM] Comfort turn signal - \'%s\'', action);
+	if (action === 'left' || action === 'right') {
+		console.log('[node::LCM] Comfort turn signal - \'%s\'', action);
 
-  switch (action) {
-    case 'left':
-      // Set status variables
-      status.lights.turn.left.comfort  = true;
-      status.lights.turn.right.comfort = false;
-      cluster_msg_1 = '< < < <';
-      cluster_msg_3 = '       ';
-      break;
-    case 'right':
-      // Set status variables
-      status.lights.turn.left.comfort  = false;
-      status.lights.turn.right.comfort = true;
-      cluster_msg_1 = '       ';
-      cluster_msg_3 = '> > > >';
-      break;
-  }
+		switch (action) {
+			case 'left':
+				// Set status variables
+				status.lights.turn.left.comfort  = true;
+				status.lights.turn.right.comfort = false;
+				cluster_msg_1 = '< < < <';
+				cluster_msg_3 = '< < < <';
+				break;
+			case 'right':
+				// Set status variables
+				status.lights.turn.left.comfort  = false;
+				status.lights.turn.right.comfort = true;
+				cluster_msg_1 = '> > > >';
+				cluster_msg_3 = '> > > >';
+				break;
+		}
 
-  // Concat message string
-  cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
+		// Concat message string
+		cluster_msg = cluster_msg_1+cluster_msg_2+cluster_msg_3;
 
-  reset();
-  omnibus.IKE.text(cluster_msg);
+		status.lights.turn.comfort_cool = false;
+		reset();
+		// omnibus.IKE.text(cluster_msg);
+		omnibus.IKE.text_warning(cluster_msg, 2000+status.lights.turn.depress_elapsed);
 
-  // Turn off comfort turn signal - 1 blink ~ 500ms, so 5x blink ~ 2500ms
-  setTimeout(() => {
-    console.log('[node::LCM] comfort turn signal - off');
-    // Set status variables
-    status.lights.turn.left.comfort  = false;
-    status.lights.turn.right.comfort = false;
-    reset();
-    omnibus.IKE.hud_refresh();
-  }, 2000); // 2000ms, as 500ms from the initial first blink have already elapsed
+		// Turn off comfort turn signal - 1 blink ~ 500ms, so 5x blink ~ 2500ms
+		setTimeout(() => {
+			console.log('[node::LCM] comfort turn signal - off');
+			// Set status variables
+			status.lights.turn.left.comfort  = false;
+			status.lights.turn.right.comfort = false;
+			reset();
+		}, 2000+status.lights.turn.depress_elapsed); // Subtract the time from the initial blink
+
+		// Timeout for cooldown period
+		setTimeout(() => {
+			console.log('[node::LCM] comfort turn signal - cooldown done');
+			status.lights.turn.comfort_cool = true;
+		}, 4000+status.lights.turn.depress_elapsed); // Subtract the time from the initial blink
+	}
 }
 
 // Decode various bits of data into usable information
@@ -174,49 +193,53 @@ function decode(data) {
       comfort_turn({
         before : status.lights.turn,
         after : {
-          left  : bitmask.bit_test(message[1], bitmask.bit[5]),
-          right : bitmask.bit_test(message[1], bitmask.bit[6]),
+          left  : {
+						active : bitmask.bit_test(data.msg[1], bitmask.bit[5]),
+					},
+          right : {
+						active : bitmask.bit_test(data.msg[1], bitmask.bit[6]),
+					},
         },
       });
 
       // On
-      status.lights.all_off = !Boolean(message[1]);
+      status.lights.all_off = !Boolean(data.msg[1]);
 
-      status.lights.standing.front = bitmask.bit_test(message[1], bitmask.bit[0]);
-      status.lights.lowbeam        = bitmask.bit_test(message[1], bitmask.bit[1]);
-      status.lights.highbeam       = bitmask.bit_test(message[1], bitmask.bit[2]);
-      status.lights.fog.front      = bitmask.bit_test(message[1], bitmask.bit[3]);
-      status.lights.fog.rear       = bitmask.bit_test(message[1], bitmask.bit[4]);
-      status.lights.turn.left      = bitmask.bit_test(message[1], bitmask.bit[5]);
-      status.lights.turn.right     = bitmask.bit_test(message[1], bitmask.bit[6]);
-      status.lights.turn.fast      = bitmask.bit_test(message[1], bitmask.bit[7]);
+      status.lights.standing.front    = bitmask.bit_test(data.msg[1], bitmask.bit[0]);
+      status.lights.lowbeam           = bitmask.bit_test(data.msg[1], bitmask.bit[1]);
+      status.lights.highbeam          = bitmask.bit_test(data.msg[1], bitmask.bit[2]);
+      status.lights.fog.front         = bitmask.bit_test(data.msg[1], bitmask.bit[3]);
+      status.lights.fog.rear          = bitmask.bit_test(data.msg[1], bitmask.bit[4]);
+      status.lights.turn.left.active  = bitmask.bit_test(data.msg[1], bitmask.bit[5]);
+      status.lights.turn.right.active = bitmask.bit_test(data.msg[1], bitmask.bit[6]);
+      status.lights.turn.fast         = bitmask.bit_test(data.msg[1], bitmask.bit[7]);
 
-      status.lights.brake            = bitmask.bit_test(message[3], bitmask.bit[1]);
-      status.lights.turn.sync        = bitmask.bit_test(message[3], bitmask.bit[2]);
-      status.lights.standing.rear    = bitmask.bit_test(message[3], bitmask.bit[3]);
-      status.lights.trailer.standing = bitmask.bit_test(message[3], bitmask.bit[4]);
-      status.lights.reverse          = bitmask.bit_test(message[3], bitmask.bit[5]);
-      status.lights.trailer.reverse  = bitmask.bit_test(message[3], bitmask.bit[6]);
-      status.lights.hazard           = bitmask.bit_test(message[3], bitmask.bit[7]);
+      status.lights.brake            = bitmask.bit_test(data.msg[3], bitmask.bit[1]);
+      status.lights.turn.sync        = bitmask.bit_test(data.msg[3], bitmask.bit[2]);
+      status.lights.standing.rear    = bitmask.bit_test(data.msg[3], bitmask.bit[3]);
+      status.lights.trailer.standing = bitmask.bit_test(data.msg[3], bitmask.bit[4]);
+      status.lights.reverse          = bitmask.bit_test(data.msg[3], bitmask.bit[5]);
+      status.lights.trailer.reverse  = bitmask.bit_test(data.msg[3], bitmask.bit[6]);
+      status.lights.hazard           = bitmask.bit_test(data.msg[3], bitmask.bit[7]);
 
       // Faulty
-      status.lights.faulty.all_ok = !Boolean(message[2]);
+      status.lights.faulty.all_ok = !Boolean(data.msg[2]);
 
-      status.lights.faulty.standing.front = bitmask.bit_test(message[2], bitmask.bit[0]);
-      status.lights.faulty.lowbeam        = bitmask.bit_test(message[2], bitmask.bit[1]);
-      status.lights.faulty.highbeam       = bitmask.bit_test(message[2], bitmask.bit[2]);
-      status.lights.faulty.fog.front      = bitmask.bit_test(message[2], bitmask.bit[3]);
-      status.lights.faulty.fog.rear       = bitmask.bit_test(message[2], bitmask.bit[4]);
-      status.lights.faulty.turn.left      = bitmask.bit_test(message[2], bitmask.bit[5]);
-      status.lights.faulty.turn.right     = bitmask.bit_test(message[2], bitmask.bit[6]);
-      status.lights.faulty.license_plate  = bitmask.bit_test(message[2], bitmask.bit[7]);
+      status.lights.faulty.standing.front = bitmask.bit_test(data.msg[2], bitmask.bit[0]);
+      status.lights.faulty.lowbeam        = bitmask.bit_test(data.msg[2], bitmask.bit[1]);
+      status.lights.faulty.highbeam       = bitmask.bit_test(data.msg[2], bitmask.bit[2]);
+      status.lights.faulty.fog.front      = bitmask.bit_test(data.msg[2], bitmask.bit[3]);
+      status.lights.faulty.fog.rear       = bitmask.bit_test(data.msg[2], bitmask.bit[4]);
+      status.lights.faulty.turn.left      = bitmask.bit_test(data.msg[2], bitmask.bit[5]);
+      status.lights.faulty.turn.right     = bitmask.bit_test(data.msg[2], bitmask.bit[6]);
+      status.lights.faulty.license_plate  = bitmask.bit_test(data.msg[2], bitmask.bit[7]);
 
-      status.lights.faulty.brake.right         = bitmask.bit_test(message[4], bitmask.bit[0]);
-      status.lights.faulty.brake.left          = bitmask.bit_test(message[4], bitmask.bit[1]);
-      status.lights.faulty.standing.rear.right = bitmask.bit_test(message[4], bitmask.bit[2]);
-      status.lights.faulty.standing.rear.left  = bitmask.bit_test(message[4], bitmask.bit[3]);
-      status.lights.faulty.lowbeam.right       = bitmask.bit_test(message[4], bitmask.bit[4]);
-      status.lights.faulty.lowbeam.left        = bitmask.bit_test(message[4], bitmask.bit[5]);
+      status.lights.faulty.brake.right         = bitmask.bit_test(data.msg[4], bitmask.bit[0]);
+      status.lights.faulty.brake.left          = bitmask.bit_test(data.msg[4], bitmask.bit[1]);
+      status.lights.faulty.standing.rear.right = bitmask.bit_test(data.msg[4], bitmask.bit[2]);
+      status.lights.faulty.standing.rear.left  = bitmask.bit_test(data.msg[4], bitmask.bit[3]);
+      status.lights.faulty.lowbeam.right       = bitmask.bit_test(data.msg[4], bitmask.bit[4]);
+      status.lights.faulty.lowbeam.left        = bitmask.bit_test(data.msg[4], bitmask.bit[5]);
 
       // console.log('[node::LCM] Decoded light status');
       break;

@@ -156,10 +156,7 @@ function text_urgent_off() {
     dst: 'IKE',
     msg: [0x1A, 0x30, 0x00],
   });
-
-  setTimeout(() => {
-    omnibus.IKE.hud_refresh();
-  }, 250);
+	omnibus.IKE.hud_refresh();
 }
 
 // Exported functions
@@ -359,12 +356,16 @@ module.exports = {
 
         if (status.engine.running != bitmask.bit_test(data.msg[2], bitmask.bit[0])) {
           status.engine.running = bitmask.bit_test(data.msg[2], bitmask.bit[0]);
-          omnibus.HDMI.command('poweron');
+					if (status.engine.running === true) {
+						omnibus.HDMI.command('poweron');
+					}
         }
 
         if (status.vehicle.reverse != bitmask.bit_test(data.msg[2], bitmask.bit[4])) {
           status.vehicle.reverse = bitmask.bit_test(data.msg[2], bitmask.bit[4]);
-          omnibus.IKE.text_warning('you\'re in reverse..', 2000);
+					if (status.vehicle.reverse === true) {
+						omnibus.IKE.text_warning('you\'re in reverse..', 2000);
+					}
         }
 
         data.command = 'bro';
@@ -993,7 +994,7 @@ module.exports = {
     // Default timeout = 10 sec
     if (typeof timeout === 'undefined' || timeout === null) { var timeout = 10000; }
 
-    // Clear the message after 5 seconds
+    // Clear the message after the timeout
     setTimeout(() => {
       text_urgent_off();
     }, timeout);

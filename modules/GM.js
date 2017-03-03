@@ -45,7 +45,7 @@ function decode_status_keyfob(message) {
 
 	if (message[1] == 0x10) {
 		button = 'lock button depressed';
-		omnibus.LCM.welcome_lights('on');
+		omnibus.LCM.welcome_lights('off');
 	}
 
 	else if (bitmask.bit_test(message[1], 0x20)) {

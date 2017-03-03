@@ -364,7 +364,7 @@ module.exports = {
         if (status.vehicle.reverse != bitmask.bit_test(data.msg[2], bitmask.bit[4])) {
           status.vehicle.reverse = bitmask.bit_test(data.msg[2], bitmask.bit[4]);
 					if (status.vehicle.reverse === true) {
-						omnibus.IKE.text_warning('you\'re in reverse..', 2000);
+						omnibus.IKE.text_warning('you\'re in reverse..', 5000);
 					}
         }
 
@@ -994,6 +994,8 @@ module.exports = {
     // Default timeout = 10 sec
     if (typeof timeout === 'undefined' || timeout === null) { var timeout = 10000; }
 
+		last_hud_refresh = now();
+
     // Clear the message after the timeout
     setTimeout(() => {
       text_urgent_off();
@@ -1014,6 +1016,8 @@ module.exports = {
     // Default timeout = 5 sec
     if (typeof timeout === 'undefined' || timeout === null) { var timeout = 5000; }
 
+		last_hud_refresh = now();
+
     // Clear the message after 5 seconds
     setTimeout(() => {
       text_urgent_off();
@@ -1029,6 +1033,8 @@ module.exports = {
     var string_hex = [0x23, 0x50, 0x30, 0x07];
     var string_hex = string_hex.concat(ascii2hex(string));
     var string_hex = string_hex.concat(0x04);
+
+		last_hud_refresh = now();
 
     omnibus.ibus.send({
       src: 'RAD',

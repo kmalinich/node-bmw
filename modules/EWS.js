@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var EWS = function() {
 	// Exposed data
 	this.parse_out = parse_out;

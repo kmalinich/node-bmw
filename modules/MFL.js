@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var MFL = function() {
 	// Exposed data
 	this.parse_out = parse_out;
@@ -102,7 +100,6 @@ var MFL = function() {
 				command = 'unknown';
 				button  = 'unknown';
 				action  = Buffer.from(message);
-				break;
 		}
 
 		value = button+' '+action;

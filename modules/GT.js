@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var GT = function() {
 	// Exposed data
 	this.parse_data = parse_data;

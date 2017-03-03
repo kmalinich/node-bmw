@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var ANZV = function() {
 	// Exposed data
 	this.parse_data = parse_data;

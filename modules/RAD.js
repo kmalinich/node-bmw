@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var RAD = function() {
 	// Exposed data
 	this.led       = led;
@@ -121,7 +119,6 @@ var RAD = function() {
 			default:
 				command = 'unknown';
 				value   = Buffer.from(data.msg);
-				break;
 		}
 
 		console.log('[%s>%s] %s:', data.src.name, data.dst.name, command, value);

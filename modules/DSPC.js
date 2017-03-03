@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var DSPC = function() {
 	// Exposed data
 	this.parse_in           = parse_in;

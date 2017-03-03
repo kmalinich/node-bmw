@@ -1,6 +1,5 @@
-#!/usr/bin/env node
-
 const serialport = require('serialport');
+var byte_length  = serialport.parsers.ByteLength;
 
 // Read/write queues
 var queue_read  = [];
@@ -14,8 +13,9 @@ var device      = '/dev/ibus';
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',
-	parser   : serialport.parsers.byteLength(1),
 });
+
+var parser = serial_port.pipe(new byte_length({length: 1}));
 
 /*
  * Event handling
@@ -58,7 +58,7 @@ function queue_busy() {
 // Write the next message to the serial port
 function write_message() {
 	// Only write data if port is open
-	if (!serial_port.isOpen()) {
+	if (!serial_port.isOpen) {
 		console.log('[IBUS:RITE] Chilling until port is open');
 		return;
 	}
@@ -115,7 +115,7 @@ module.exports = {
 		status.ibus.last_event = now();
 
 		// Open port if it is closed
-		if (!serial_port.isOpen()) {
+		if (!serial_port.isOpen) {
 			serial_port.open((error) => {
 				if (error) {
 					console.log('[IBUS:PORT]', error);
@@ -137,7 +137,7 @@ module.exports = {
 	// Close serial port
 	shutdown : (callback) => {
 		// Close port if it is open
-		if (serial_port.isOpen()) {
+		if (serial_port.isOpen) {
 			serial_port.close((error) => {
 				if (error) {
 					console.log('[IBUS:PORT]', error);

@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 // Global libraries
-now = require('performance-now');
+convert = require('node-unit-conversion');
+moment  = require('moment');
+now     = require('performance-now');
+os      = require('os');
+suncalc = require('suncalc');
 
 // Global objects
 bitmask     = require('./lib/bitmask');
@@ -19,11 +23,12 @@ var api_socket_map      = {};
 socket_server           = require('./lib/socket-server');
 api_server              = http.createServer(api_handler);
 var api_header          = {
-	'Content-Type'  : 'application/json',
-	'Cache-Control' : 'no-cache',
+'Content-Type'  : 'application/json',
+'Cache-Control' : 'no-cache',
 }
 
 function load_modules(callback) {
+
 	// Everything connection object
 	omnibus = {
 		// IBUS libraries - these should be combined
@@ -68,6 +73,7 @@ function load_modules(callback) {
 		TEL  : new (require('./modules/TEL' )),
 		VID  : new (require('./modules/VID' )),
 	};
+
 	if (typeof callback === 'function') { callback(); }
 }
 
@@ -87,7 +93,6 @@ function startup() {
 						omnibus.HDMI.startup(() => { // Open HDMI-CEC
 							omnibus.ibus.startup(() => { // Open IBUS serial port
 								omnibus.dbus.interface.startup(() => { // Open DBUS serial port
-
 									log.msg({
 										src : 'run',
 										msg : 'Started',
@@ -196,7 +201,7 @@ dispatcher.onGet('/status', (request, response) => {
 
 // GM POST request
 dispatcher.onPost('/gm', (request, response) => {
-	omnibus.GM.gm_data(query_string.parse(request.body));
+	omnibus.GM.api_command(query_string.parse(request.body));
 	response.writeHead(200, api_header);
 	response.end(JSON.stringify({ status : 'ok' }));
 });
@@ -217,7 +222,7 @@ dispatcher.onPost('/hdmi', (request, response) => {
 
 // LCM POST request
 dispatcher.onPost('/lcm', (request, response) => {
-	omnibus.LCM.lcm_data(query_string.parse(request.body));
+	omnibus.LCM.api_command(query_string.parse(request.body));
 	response.writeHead(200, api_header);
 	response.end(JSON.stringify({ status : 'ok' }));
 });

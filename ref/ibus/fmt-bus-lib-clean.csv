@@ -1993,7 +1993,6 @@
 58 00 00,RLS,GM,Headlight wipe interval Data="00 00"
 58 FF 7F,RLS,GM,Headlight wipe interval Data="FF 7F"
 5A,GT,LCM,Lamp status request
-5B 00 00 00 00 00,LCM,GLO,Lamp status All_Off All_OK
 5B 00 00 00 00,LCM,GLO,Lamp status All_Off All_OK
 5B 00 01 00 00,LCM,GLO,Lamp status All_Off Faulty Park
 5B 00 01 08 04,LCM,GLO,Lamp status All_Off Tail Faulty Park Tail_Right

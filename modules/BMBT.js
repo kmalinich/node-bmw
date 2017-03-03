@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var BMBT = function() {
 	// Exposed data
 	this.interval_status      = interval_status;

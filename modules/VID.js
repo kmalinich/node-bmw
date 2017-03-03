@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var VID = function() {
 	// Exposed data
 	this.parse_out = parse_out;
@@ -101,7 +99,6 @@ var VID = function() {
 			default:
 				command = 'unknown';
 				value   = Buffer.from(data.msg);
-				break;
 		}
 
 		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);

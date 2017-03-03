@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var MID = function() {
 	// Exposed data
 	this.parse_in           = parse_in;
@@ -100,7 +98,6 @@ var MID = function() {
 			default:
 				command = 'unknown';
 				value   = Buffer.from(data.msg);
-				break;
 		}
 
 		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);

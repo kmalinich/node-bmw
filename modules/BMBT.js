@@ -20,7 +20,7 @@ var BMBT = function() {
 					refresh_status();
 					status_interval = setInterval(() => {
 						refresh_status();
-					}, 30000);
+					}, 25000);
 					console.log('[node:BMBT] Set refresh interval');
 					break;
 

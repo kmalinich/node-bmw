@@ -202,58 +202,43 @@ module.exports = {
         state_start_begin = false;
         state_start_end   = false;
 
-        // Ignition state handling
-        switch (status.vehicle.ignition_level) { // Evaluate current ignition state
-          case 0: // Off
-            if (data.msg[1] === 1) {
-              // Now in accessory
-              console.log('[node::IKE] Trigger: poweron state');
-              state_poweron = true;
-            }
-            break;
+				// Ignition going up
+				if (data.msg[1] > status.vehicle.ignition_level) {
+					switch (data.msg[1]) { // Evaluate new ignition state
+						case 1: // Accessory
+							console.log('[node::IKE] Trigger: poweron state');
+							state_poweron = true;
+							break;
+						case 3: // Run
+							console.log('[node::IKE] Trigger: run state');
+							state_run = true;
+							break;
+						case 7: // Start
+							console.log('[node::IKE] Trigger: start-begin state');
+							state_start_begin = true;
+					}
+				}
 
-          case 1: // Accessory
-            switch (data.msg[1]) {
-              case 0:
-                // Now in off
-                console.log('[node::IKE] Trigger: poweroff state');
-                state_poweroff = true;
-                break;
-              case 3:
-                // Now in run
-                console.log('[node::IKE] Trigger: run state');
-                state_run = true;
-                break;
-            }
-            break;
+				// Ignition going down
+				else if (data.msg[1] < status.vehicle.ignition_level) {
+					switch (data.msg[1]) { // Evaluate new ignition state
+						case 0: // Off
+							console.log('[node::IKE] Trigger: poweroff state');
+							state_poweroff = true;
+							break;
+						case 1: // Accessory
+							console.log('[node::IKE] Trigger: powerdown state');
+							state_powerdown = true;
+							break;
+						case 3: // Run
+							console.log('[node::IKE] Trigger: start-end state');
+							state_start_end = true;
+					}
+				}
 
-          case 3: // Run
-            switch (data.msg[1]) {
-              case 1:
-                // Now in accessory
-                console.log('[node::IKE] Trigger: powerdown state');
-                state_powerdown = true;
-                break;
-              case 7:
-                // Now in start
-                console.log('[node::IKE] Trigger: start-begin state');
-                state_start_begin = true;
-                break;
-            }
-            break;
-
-          case 7: // Start
-            if (data.msg[1] === 3) {
-              // Now in run
-              console.log('[node::IKE] Trigger: start-end state');
-              state_start_end = true;
-            }
-            break;
-        }
-
-        if (state_poweroff === true) {
-          // Disable HUD refresh
-          clearInterval(interval_hud_refresh, () => {
+				if (state_poweroff === true) {
+					// Disable HUD refresh
+					clearInterval(interval_hud_refresh, () => {
             console.log('[node::IKE] Cleared HUD refresh interval');
           });
 
@@ -763,29 +748,29 @@ module.exports = {
   // This is pure garbage and COMPLETELY needs to be done way differently
   api_command : (data) => {
     switch (data.command) {
+      case 'ike-backlight': // Set IKE backlight
+        backlight(data.value);
+        break;
+      case 'ike-ignition': // Send fake ignition status (but don't tho - you've been warned)
+        ignition(data.value);
+        break;
       case 'ike-text': // Display text string in cluster
         omnibus.IKE.text(data.value);
         break;
-      case 'obc_clock': // Set OBC clock
-        omnibus.IKE.obc_clock();
+      case 'obc-clock': // Set OBC clock
+        obc_clock();
         break;
       case 'obc-gong': // Fire OBC gong
-        omnibus.IKE.obc_gong(data.value);
-        break;
-      case 'ike-backlight': // Set IKE backlight
-        omnibus.IKE.backlight(data.value);
-        break;
-      case 'ike-ignition': // Send fake ignition status (but don't tho - you've been warned)
-        omnibus.IKE.ignition(data.value);
+        obc_gong(data.value);
         break;
       case 'obc-get-all': // Refresh all OBC data value
         omnibus.IKE.obc_refresh();
         break;
       case 'obc-get': // Refresh specific OBC data value
-        omnibus.IKE.obc_data('get', data.value);
+        obc_data('get', data.value);
         break;
       case 'obc-reset': // Reset specific OBC data value
-        omnibus.IKE.obc_data('reset', data.value);
+        obc_data('reset', data.value);
         break;
       default: // Dunno.
         console.log('[node::IKE] api_command(): Unknown command \'%s\', \'%s\'', data.command, data.value);

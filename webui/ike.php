@@ -102,49 +102,49 @@
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-cons1" value="cons1">
+						<input type="radio" name="value" id="form-ike-reset-cons1" value="cons1">
 						Consumption 1
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-cons2" value="cons2">
+						<input type="radio" name="value" id="form-ike-reset-cons2" value="cons2">
 						Consumption 2
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-speedavg" value="speedavg">
+						<input type="radio" name="value" id="form-ike-reset-speedavg" value="speedavg">
 						Speed average
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-distance" value="distance">
+						<input type="radio" name="value" id="form-ike-reset-distance" value="distance">
 						Distance
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-speedlimit" value="speedlimiton">
+						<input type="radio" name="value" id="form-ike-reset-speedlimit" value="speedlimiton">
 						Speed limit on
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-speedlimit" value="speedlimitoff">
+						<input type="radio" name="value" id="form-ike-reset-speedlimit" value="speedlimitoff">
 						Speed limit off
 					</label>
 				</div>
 
 				<div class="radio">
 					<label>
-						<input type="radio" name="obc-reset" id="form-ike-reset-speedlimit" value="speedlimit">
+						<input type="radio" name="value" id="form-ike-reset-speedlimit" value="speedlimit">
 						Current speed limit
 					</label>
 				</div>

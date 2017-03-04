@@ -94,11 +94,23 @@ function form_ike_get() {
 }
 
 function form_ike_reset() {
+	var input_data = $('#form-ike-reset').serializeArray().map(
+		function(v) {
+			return v.value;
+		}
+	);
+
+	var post_data = {
+		command : 'obc-reset',
+		value   : input_data[0],
+	};
+
+	console.log(post_data);
 	$.ajax({
 		url      : '/api/ike',
 		type     : 'POST',
 		dataType : 'json',
-		data     : $('#form-ike-reset').serialize(),
+		data     : post_data,
 		success  : function(return_data) {
 			console.log(return_data);
 		}

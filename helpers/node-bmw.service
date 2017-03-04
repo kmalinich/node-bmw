@@ -4,14 +4,14 @@ Description = node-bmw daemon
 Requires    = network.target
 
 [Service]
+Group            = pi
+User             = pi
 Environment      = NODE_PATH=/usr/lib/node_modules:/usr/lib/nodejs:/usr/local/lib/node_modules:/usr/local/node-bmw/node_modules:/usr/share/javascript
 ExecStart        = /usr/bin/env node /usr/local/node-bmw/run.js
-Group            = root
 Restart          = on-failure 
 StandardError    = syslog
 StandardOutput   = syslog
 SyslogIdentifier = node-bmw
-User             = root
 WorkingDirectory = /usr/local/node-bmw
 
 [Install]

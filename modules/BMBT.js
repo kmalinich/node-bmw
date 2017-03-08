@@ -21,23 +21,32 @@ var BMBT = function() {
 					status_interval = setInterval(() => {
 						refresh_status();
 					}, 25000);
-					console.log('[node:BMBT] Set refresh interval');
 					break;
 
 				case 'unset':
 					clearInterval(status_interval, () => {
-						console.log('[node:BMBT] Unset refresh interval');
 					});
 					break;
 			}
+
+			log.msg({
+				src : 'BMBT',
+				msg : 'Ping interval '+action,
+			});
 		}
 	}
 
 	// Send BMBT status, and request status from RAD
 	function refresh_status() {
-		if (status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') {
-			// console.log('[node:BMBT] Refreshing BMBT/RAD status');
+		if (status.vehicle.ignition_level < 0) {
 			request_rad_status();
+			log.msg({
+				src : 'BMBT',
+				msg : 'Ping',
+			});
+		}
+		else {
+			interval_status('unset');
 		}
 	}
 
@@ -51,7 +60,7 @@ var BMBT = function() {
 		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
 
 		if (
-			(status.vehicle.ignition == 'run' || status.vehicle.ignition == 'accessory') &&
+			status.vehicle.ignition_level < 0 &&
 			status.rad.audio_control === 'off' &&
 			status.dsp.ready === true &&
 			status.rad.ready === true
@@ -63,43 +72,43 @@ var BMBT = function() {
 	// Parse data sent to BMBT module
 	function parse_in(data) {
 		// Init variables
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
 			case 0x01: // Request: device status
-				command = 'request';
-				value   = 'device status';
+				data.command = 'req';
+				data.value = 'device status';
 
 				// Send the ready packet since this module doesn't actually exist
 				send_device_status();
 				break;
 
 			case 0x02: // Device status
+				data.command = 'bro';
+				data.value   = 'device status ';
 				switch (data.msg[1]) {
 					case 0x00:
-						value = 'ready';
+						data.value = data.value+'ready';
 						break;
 					case 0x01:
-						value = 'ready after reset';
+						data.value = data.value+'ready after reset';
 						break;
 				}
 				break;
 
 			case 0x4A: // Cassette control
-				command = 'cassette control';
-				value   = data.msg[1];
+				data.command = 'con';
+				data.value = 'cassette ';
+				data.value = data.value+data.msg[1];
 
 				send_cassette_status();
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unk';
+				data.value = Buffer.from(data.msg);
 				break;
 		}
 
-		console.log('[%s::%s] %s:', data.src.name, data.dst.name, command, value);
+		log.out(data);
 	}
 
 	// Parse data sent from BMBT module
@@ -110,65 +119,66 @@ var BMBT = function() {
 
 		switch (data.msg[0]) {
 			case 0x01: // Request: device status
-				command = 'request';
-				value   = 'device status';
+				data.command = 'req';
+				data.value = 'device status';
 				break;
 
 			case 0x02: // Device status
-				status.bmbt.ready = true;
-				command = 'device status';
+				data.command = 'bro';
+				data.value = 'device status ';
 				switch (data.msg[1]) {
 					case 0x00:
-						value = 'ready';
+						data.value = data.value+'ready';
 						break;
 					case 0x01:
-						value = 'ready after reset';
+						data.value = data.value+'ready after reset';
 						break;
 				}
+				status.bmbt.ready = true;
 				break;
 
 			case 0x10: // Request: ignition status
-				command = 'request';
-				value   = 'ignition status';
+				data.command = 'req';
+				data.value = 'ignition status';
 				break;
 
 			case 0x32: // Broadcast: volume control
-				command = 'broadcast';
-				value   = 'volume control';
+				data.command = 'bro';
+				data.value = 'volume control';
 				break;
 
 			case 0x4B: // Cassette status
-				command = 'cassette status';
-				value   = 'no tape';
+				data.command = 'bro';
+				data.value = 'cassette status no tape';
 				break;
 
 			case 0x47: // Broadcast: BM status
-				command = 'broadcast';
-				value   = 'BM status';
+				data.command = 'bro';
+				data.value = 'BM status';
 				break;
 
 			case 0x48: // Broadcast: BM button
-				command = 'broadcast';
-				value   = 'BM button';
+				data.command = 'bro';
+				data.value = 'BM button';
 				break;
 
 			case 0x5D: // Request: light dimmer status
-				command = 'request';
-				value   = 'light dimmer status';
+				data.command = 'req';
+				data.value = 'light dimmer status';
 				break;
 
 			case 0x79: // Request: door/flap status
-				command = 'request';
-				value   = 'door/flap status';
+				data.command = 'req';
+				data.value = 'door/flap status';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unk';
+				data.value = Buffer.from(data.msg);
 				break;
 		}
 
-		console.log('[%s::%s] %s:', data.src.name, data.dst.name, command, value);
+		log.out(data);
 	}
 
 	// Request status from RAD module
@@ -176,25 +186,22 @@ var BMBT = function() {
 		omnibus.ibus.send({
 			src: 'BMBT',
 			dst: 'RAD',
-			msg: Buffer.from([0x01]),
+			msg: [0x01],
 		});
 	}
 
 	// Send ready or ready after reset
 	function send_device_status() {
 		// Init variables
-		var data;
 		var msg;
 
 		// Handle 'ready' vs. 'ready after reset'
 		if (status.bmbt.reset === true) {
 			status.bmbt.reset = false;
-			data = 'ready after reset';
-			msg  = [0x02, 0x01];
+			msg = [0x02, 0x01];
 		}
 		else {
-			data = 'ready';
-			msg  = [0x02, 0x00];
+			msg = [0x02, 0x00];
 		}
 
 		omnibus.ibus.send({
@@ -206,7 +213,6 @@ var BMBT = function() {
 
 	// Say we have no tape in the player
 	function send_cassette_status() {
-		console.log('[BMBT::RAD] Sending cassette status: no tape');
 		omnibus.ibus.send({
 			src: 'BMBT',
 			dst: 'RAD',
@@ -229,16 +235,16 @@ var BMBT = function() {
 
 				// Generate hold and up values
 				button_hold = bitmask.bit_set(button_down, bitmask.bit[6]);
-				button_up   = bitmask.bit_set(button_down, bitmask.bit[7]);
+				button_up = bitmask.bit_set(button_down, bitmask.bit[7]);
 				break;
 		}
 
 		console.log('[BMBT::RAD] Sending button down: %s', button);
 
 		// Init variables
-		var command     = 0x48; // Button action
+		var command = 0x48; // Button action
 		var packet_down = [command, button_down];
-		var packet_up   = [command, button_up];
+		var packet_up = [command, button_up];
 
 		omnibus.ibus.send({
 			src: 'BMBT',
@@ -249,11 +255,11 @@ var BMBT = function() {
 		// Prepare and send the up message after 150ms
 		setTimeout(() => {
 			console.log('[BMBT::RAD] Sending button up: %s', button);
-      omnibus.ibus.send({
-        src: 'BMBT',
-        dst: 'RAD',
-        msg: packet_up,
-      });
+			omnibus.ibus.send({
+				src: 'BMBT',
+				dst: 'RAD',
+				msg: packet_up,
+			});
 		}, 150);
 	}
 }

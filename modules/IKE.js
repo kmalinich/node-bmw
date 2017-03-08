@@ -210,6 +210,11 @@ module.exports = {
 							state_poweron = true;
 							break;
 						case 3: // Run
+							if (status.vehicle.ignition_level == 0) {
+								console.log('[node::IKE] Trigger: poweron state');
+								state_poweron = true;
+							}
+
 							console.log('[node::IKE] Trigger: run state');
 							state_run = true;
 							break;

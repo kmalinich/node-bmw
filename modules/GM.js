@@ -43,26 +43,31 @@ function decode_status_keyfob(message) {
 	// Init variables
 	var button;
 
-	if (message[1] == 0x10) {
-		button = 'lock button depressed';
-		omnibus.LCM.welcome_lights('off');
+	switch(message[1]) {
+		case 0x00:
+			button = 'none';
+			break;
+
+		case 0x10:
+			button = 'lock';
+			omnibus.LCM.welcome_lights(false);
+			break;
+
+		case 0x20:
+			button = 'unlock';
+			omnibus.LCM.welcome_lights(true);
+			break;
+
+		case 0x40:
+			button = 'trunk';
+			break;
+
+		default:
+			button = 'unknown';
+			break;
 	}
 
-	else if (bitmask.bit_test(message[1], 0x20)) {
-		button = 'unlock button depressed';
-		omnibus.LCM.welcome_lights('on');
-	}
-
-	else if (bitmask.bit_test(message[1], 0x40)) {
-		button = 'trunk button depressed';
-		omnibus.LCM.welcome_lights('on');
-	}
-
-	else if (message[1] == 0x00) {
-		button = 'no button pressed';
-	}
-
-	console.log('[node:::GM] key fob status: %s', button);
+	console.log('[node:::GM] key fob button \'%s\'', button);
 }
 
 // [0x7A] Decode a door/flap status message from the GM and act upon the results

@@ -1,4 +1,5 @@
 var auto_lights_interval;
+var welcome_lights_timeout;
 
 // Automatic lights handling
 function auto_lights(action) {
@@ -663,22 +664,33 @@ module.exports = {
 
   // Welcome lights on unlocking/locking
   welcome_lights : (action) => {
-    console.log('[node::LCM] Welcome lights \'%s\'', status.lights.welcome_lights);
+		console.log('[node::LCM] Welcome lights \'%s\' => \'%s\'', status.lights.welcome_lights, action);
 
     switch (action) {
-      case 'on' :
-        status.lights.welcome_lights = true;
-        // Send configured welcome lights
-        io_encode(config.lights.welcome_lights);
-        // Clear welcome lights status after 15 seconds
-        setTimeout(() => {
-          status.lights.welcome_lights = false;
-        }, 15000);
-        break;
+      case true :
+				if (status.lights.welcome_lights === false) {
+					console.log('[node::LCM] Welcome lights activating');
+					status.lights.welcome_lights = true;
 
-      case 'off':
-        status.lights.welcome_lights = false;
-        reset();
+					// Send configured welcome lights
+					io_encode(config.lights.welcome_lights);
+
+					// Clear welcome lights status after 15 seconds
+					welcome_lights_timeout = setTimeout(() => {
+						console.log('[node::LCM] Welcome lights timeout expired');
+						status.lights.welcome_lights = false;
+						io_encode({});
+					}, 15000);
+				}
+				break;
+
+			case false:
+				if (status.lights.welcome_lights === true) {
+					console.log('[node::LCM] Welcome lights deactivating');
+					clearTimeout(welcome_lights_timeout);
+					status.lights.welcome_lights = false;
+					io_encode({});
+				}
         break;
     }
   },

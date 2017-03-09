@@ -241,6 +241,16 @@ module.exports = {
 					}
 				}
 
+				// Set iIgnition status value
+        switch (data.msg[1]) {
+          case 0  : status.vehicle.ignition = 'off';       break;
+          case 1  : status.vehicle.ignition = 'accessory'; break;
+          case 3  : status.vehicle.ignition = 'run';       break;
+          case 7  : status.vehicle.ignition = 'start';     break;
+          default : status.vehicle.ignition = 'unknown';   break;
+        }
+        status.vehicle.ignition_level = data.msg[1];
+
 				if (state_poweroff === true) {
 					// Disable HUD refresh
 					clearInterval(interval_hud_refresh, () => {
@@ -296,11 +306,11 @@ module.exports = {
           // Welcome message
           omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);
 
-          // Refresh OBC HUD once every 5 seconds
+          // Refresh OBC HUD once every 15 seconds
           omnibus.IKE.hud_refresh(true);
           interval_hud_refresh = setInterval(() => {
             omnibus.IKE.hud_refresh(true);
-          }, 5000);
+          }, 15000);
         }
 
         if (state_run === true) {
@@ -314,15 +324,6 @@ module.exports = {
           });
         }
 
-        switch (data.msg[1]) { // Ignition status value
-          case 0  : status.vehicle.ignition = 'off';       break;
-          case 1  : status.vehicle.ignition = 'accessory'; break;
-          case 3  : status.vehicle.ignition = 'run';       break;
-          case 7  : status.vehicle.ignition = 'start';     break;
-          default : status.vehicle.ignition = 'unknown';   break;
-        }
-
-        status.vehicle.ignition_level = data.msg[1];
         omnibus.LCM.auto_lights_check();
 
         data.command = 'bro';
@@ -783,19 +784,20 @@ module.exports = {
   },
 
   // Refresh custom HUD
-  hud_refresh : (interval) => {
+  hud_refresh : (interval = false) => {
+    var time_now = now();
+
+    // Bounce if the last update was less than 14 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 14000 && interval === true) {
+      console.log('[node::IKE] HUD refresh: too soon');
+      return;
+    }
+
     var spacing1;
     var spacing2;
     var string_cons;
     var string_temp;
     var string_time = moment().format('HH:mm');
-    var time_now    = now();
-
-    // Bounce if the last update was less than 5 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 5000 && interval === true) {
-      console.log('[node::IKE] HUD refresh: too soon');
-      return;
-    }
 
     // console.log('[node::IKE] Refreshing OBC HUD');
 
@@ -860,7 +862,7 @@ module.exports = {
       string_cons = '0'+string_cons;
     }
 
-    if (status.vehicle.ignition_level === 1 || status.vehicle.ignition_level === 3) {
+    if (status.vehicle.ignition_level > 0) {
       omnibus.IKE.text(load_1m+spacing1+string_temp+spacing2+string_time, () => {
         last_hud_refresh = now();
       });

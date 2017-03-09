@@ -38,7 +38,7 @@ var BMBT = function() {
 
 	// Send BMBT status, and request status from RAD
 	function refresh_status() {
-		if (status.vehicle.ignition_level < 0) {
+		if (status.vehicle.ignition_level > 0) {
 			request_rad_status();
 			log.msg({
 				src : 'BMBT',
@@ -53,11 +53,11 @@ var BMBT = function() {
 	// Send the power on button command if needed/ready
 	function power_on_if_ready() {
 		// Debug logging
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): evaluating');
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition          : \'%s\'', status.vehicle.ignition);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', status.dsp.ready);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', status.rad.audio_control);
-		// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): evaluating');
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition          : \'%s\'', status.vehicle.ignition);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', status.dsp.ready);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', status.rad.audio_control);
+		console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
 
 		if (
 			status.vehicle.ignition_level < 0 &&

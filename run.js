@@ -82,7 +82,7 @@ function load_modules(callback) {
 function startup() {
 	log.msg({
 		src : 'run',
-		msg : 'Starting up',
+		msg : 'Starting',
 	});
 
 	json.read_config(() => { // Read JSON config file
@@ -136,7 +136,11 @@ function shutdown() {
 function startup_api_server(callback) {
 	// error handling breh
 	api_server.listen(config.api.port, () => {
-		console.log('[node::API] Started, port %s', config.api.port);
+		log.msg({
+			src : 'API',
+			msg : 'Started, port '+config.api.port,
+		});
+
 		if (typeof callback === 'function') { callback(); }
 
 		api_server.on('connection', (api_socket) => {
@@ -166,7 +170,10 @@ function shutdown_api_server(callback) {
 
 	// API server close event
 	api_server.on('close', () => {
-		console.log('[node::API] Stopped');
+		log.msg({
+			src : 'API',
+			msg : 'Stopped',
+		});
 		if (typeof callback === 'function') { callback(); }
 	});
 }
@@ -208,7 +215,6 @@ dispatcher.onPost('/gm', (request, response) => {
 
 // IKE POST request
 dispatcher.onPost('/ike', (request, response) => {
-	console.log(query_string.parse(request.body));
 	omnibus.IKE.api_command(query_string.parse(request.body));
 	response.writeHead(200, api_header);
 	response.end(JSON.stringify({ status : 'ok' }));

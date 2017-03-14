@@ -63,7 +63,7 @@ var RAD = function() {
 
 			case 0x32: // Volume control
 				data.command = 'con';
-				data.value = 'volume '+ata.msg[1];
+				data.value = 'volume '+data.msg[1];
 				break;
 
 			case 0x34: // DSP control

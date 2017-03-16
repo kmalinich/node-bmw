@@ -38,7 +38,7 @@ module.exports = {
 				case 'TEL'  : omnibus.TEL.parse_data(data.msg);  break;
 
 				// Diag/default
-				//case 'DIA'  : console.log('[%s->%s] command:',          data.src.name, data.dst.name, data.msg); break;
+				// case 'DIA' : console.log('[%s->%s] command:',          data.src.name, data.dst.name, data.msg); break;
 				case 'DIA' : break;
 				default    : console.log('[%s->%s] No source handler', data.src.name, data.dst.name, data.msg); break;
 			}
@@ -48,7 +48,7 @@ module.exports = {
 
 			// Parse sent data from emulated modules
 			switch (data.dst.name) {
-				case 'BMBT' : omnibus.BMBT.parse_in(data); break;
+				//case 'BMBT' : omnibus.BMBT.parse_in(data); break;
 				case 'CDC'  : omnibus.CDC.parse_in(data);  break;
 				case 'DSPC' : omnibus.DSPC.parse_in(data); break;
 				case 'MID'  : omnibus.MID.parse_in(data);  break;

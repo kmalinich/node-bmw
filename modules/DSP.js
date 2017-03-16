@@ -133,7 +133,12 @@ var DSP = function() {
 						// Attempt to send BMBT power button
 						setTimeout(() => {
 							request('dsp-memory'); // Get the DSP memory
-							omnibus.BMBT.power_on_if_ready();
+							if (config.emulate.bmbt === true) {
+								omnibus.BMBT.power_on_if_ready();
+							}
+							if (config.emulate.mid === true) {
+								omnibus.MID.power_on_if_ready();
+							}
 						}, 2000);
 						break;
 				}

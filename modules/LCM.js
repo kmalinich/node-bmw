@@ -481,7 +481,7 @@ function io_set(packet) {
   });
 
   // Request the IO status after
-  omnibus.LCM.request('io-status');
+  //omnibus.LCM.request('io-status');
   console.log('[node::LCM] reset()');
 }
 

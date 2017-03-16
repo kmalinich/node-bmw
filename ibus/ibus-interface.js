@@ -66,13 +66,13 @@ function write_message() {
 
 	// Do we need to wait longer?
 	var time_now = now();
-	if (now()-status.ibus.last_event < 40) {
+	if (now()-status.ibus.last_event < 30) {
 		// Do we still have data?
 		if (queue_busy()) {
 			// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
 			setTimeout(() => {
 				write_message();
-			}, (40-(now()-status.ibus.last_event)));
+			}, (30-(now()-status.ibus.last_event)));
 		}
 		else {
 			console.log('[IBUS:RITE] Queue done');

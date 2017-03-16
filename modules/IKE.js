@@ -258,7 +258,12 @@ module.exports = {
           });
 
           // Disable BMBT keepalive
-          omnibus.BMBT.interval_status('unset');
+					if (config.emulate.bmbt === true) {
+						omnibus.BMBT.interval_status('unset');
+					}
+					if (config.emulate.mid === true) {
+						omnibus.MID.interval_status('unset');
+					}
 
           // Stop media playback
           omnibus.kodi.stop_all();
@@ -301,7 +306,12 @@ module.exports = {
 
         if (state_poweron === true) {
           // Enable BMBT keepalive
-          omnibus.BMBT.interval_status('set');
+					if (config.emulate.bmbt === true) {
+						omnibus.BMBT.interval_status('set');
+					}
+					if (config.emulate.mid === true) {
+						omnibus.MID.interval_status('set');
+					}
 
           // Welcome message
           omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);

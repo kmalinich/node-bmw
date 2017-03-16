@@ -30,7 +30,12 @@ var RAD = function() {
 
 						// Attempt to send BMBT power button
 						setTimeout(() => {
-							omnibus.BMBT.power_on_if_ready();
+							if (config.emulate.bmbt === true) {
+								omnibus.BMBT.power_on_if_ready();
+							}
+							if (config.emulate.mid === true) {
+								omnibus.MID.power_on_if_ready();
+							}
 						}, 2000);
 						break;
 				}

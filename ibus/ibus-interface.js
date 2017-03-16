@@ -1,10 +1,4 @@
 const serialport = require('serialport');
-var byte_length  = serialport.parsers.ByteLength;
-// var ibus_protocol = require('./ibus-protocol');
-
-// Read/write queues
-var queue_read  = [];
-var active_read = false;
 
 var queue_write  = [];
 var active_write = false;
@@ -14,6 +8,7 @@ var device      = '/dev/ibus';
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',
+	rtscts   : true,
 });
 
 /*
@@ -28,6 +23,14 @@ serial_port.on('error', function(error) {
 // On port open
 serial_port.on('open', function() {
 	console.log('[IBUS:PORT] Opened [%s]', device);
+
+	serial_port.set({
+		cts : true,
+		dsr : true,
+		rts : true,
+	}, function() {
+		console.log('[IBUS:PORT] Options set');
+	});
 });
 
 // On port close
@@ -65,20 +68,19 @@ function write_message() {
 	}
 
 	// Do we need to wait longer?
-	var time_now = now();
-	if (now()-status.ibus.last_event < 30) {
-		// Do we still have data?
-		if (queue_busy()) {
-			// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
-			setTimeout(() => {
-				write_message();
-			}, (30-(now()-status.ibus.last_event)));
-		}
-		else {
-			console.log('[IBUS:RITE] Queue done');
-		}
-	}
-	else {
+	// if (now()-status.ibus.last_event < 30) {
+	// 	// Do we still have data?
+	// 	if (queue_busy()) {
+	// 		// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
+	// 		setTimeout(() => {
+	// 			write_message();
+	// 		}, (30-(now()-status.ibus.last_event)));
+	// 	}
+	// 	else {
+	// 		console.log('[IBUS:RITE] Queue done');
+	// 	}
+	// }
+	// else {
 		if (queue_busy()) {
 			serial_port.write(queue_write[0], (error) => {
 				if (error) { console.log('[IBUS:RITE] Failed : ', queue_write[0], error); }
@@ -103,7 +105,7 @@ function write_message() {
 				});
 			});
 		}
-	}
+	// }
 }
 
 module.exports = {

@@ -4,49 +4,43 @@ var VID = function() {
 
 	// Parse data sent from VID module
 	function parse_out(data) {
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
 				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
-						value   = 'ready';
+						data.command = 'bro';
+						data.value   = 'device status ready';
 						break;
 
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						data.command = 'bro';
+						data.value   = 'device status ready after reset';
 						break;
 				}
 				break;
 
 			case 0x10: // Request: ignition status
-				command = 'request';
-				value   = 'ignition status';
+				data.command = 'req';
+				data.value   = 'ignition status';
 				break;
 
 			case 0x12: // Request: IKE sensor status
-				command = 'request';
-				value   = 'IKE sensor status';
+				data.command = 'req';
+				data.value   = 'IKE sensor status';
 				break;
 
 			case 0x14: // Country coding request
-				command = 'request';
-				value   = 'country coding';
+				data.command = 'req';
+				data.value   = 'country coding';
 				break;
 
 			case 0x16: // Odometer request
-				command = 'request';
-				value   = 'odometer';
+				data.command = 'req';
+				data.value   = 'odometer';
 				break;
 
 			case 0x4F: // RGB control (of LCD screen in dash)
-				command = 'RGB control';
-
-				// Init variables
-				var value;
+				data.command = 'con';
 
 				// On/off + input
 				// Again, this is actually bitmask, but.. it's late
@@ -57,19 +51,19 @@ var VID = function() {
 				// 0x10 : on
 				switch (data.msg[1]) {
 					case 0x00:
-						value = 'LCD off';
+						data.value = 'LCD off';
 						break;
 					case 0x11:
-						value = 'LCD on TV';
+						data.value = 'LCD on TV';
 						break;
 					case 0x12:
-						value = 'LCD on GT';
+						data.value = 'LCD on GT';
 						break;
 					case 0x14:
-						value = 'LCD on NAVJ';
+						data.value = 'LCD on NAVJ';
 						break;
 					default:
-						value = Buffer.from([data.msg[1]]);
+						data.value = 'LCD on unknown \''+Buffer.from([data.msg[1]])+'\'';
 						break;
 				}
 
@@ -77,31 +71,31 @@ var VID = function() {
 				break;
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged
-				command = 'diagnostic command';
-				value   = 'acknowledged';
+				data.command = 'bro';
+				data.value   = 'diagnostic command acknowledged';
 				break;
 
 			case 0xA2: // Broadcast: diagnostic command rejected
-				command = 'diagnostic command';
-				value   = 'rejected';
+				data.command = 'bro';
+				data.value   = 'diagnostic command rejected';
 				break;
 
 			case 0xFF: // Broadcast: diagnostic command not acknowledged
-				command = 'diagnostic command';
-				value   = 'not acknowledged';
+				data.command = 'bro';
+				data.value   = 'diagnostic command not acknowledged';
 				break;
 
 			case 0x79: // Request: door/flap status
-				command = 'request';
-				value   = 'door/flap status';
+				data.command = 'req';
+				data.value   = 'door/flap status';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unk';
+				data.value   = Buffer.from(data.msg);
 		}
 
-		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
+		log.out(data);
 	}
 }
 

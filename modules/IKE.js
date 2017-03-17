@@ -265,8 +265,8 @@ module.exports = {
 						omnibus.MID.interval_status('unset');
 					}
 
-          // Stop media playback
-          omnibus.kodi.stop_all();
+          // Toggle media playback
+					omnibus.kodi.command('pause');
 
           // Set modules as not ready
           status.bmbt.ready = false;
@@ -312,6 +312,9 @@ module.exports = {
 					if (config.emulate.mid === true) {
 						omnibus.MID.interval_status('set');
 					}
+
+          // Toggle media playback
+					omnibus.kodi.command('pause');
 
           // Welcome message
           omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);

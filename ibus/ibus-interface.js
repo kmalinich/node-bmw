@@ -67,45 +67,30 @@ function write_message() {
 		return;
 	}
 
-	// Do we need to wait longer?
-	// if (now()-status.ibus.last_event < 30) {
-	// 	// Do we still have data?
-	// 	if (queue_busy()) {
-	// 		// console.log('[IBUS:RITE] Waiting for %s', time_now-status.ibus.last_event);
-	// 		setTimeout(() => {
-	// 			write_message();
-	// 		}, (30-(now()-status.ibus.last_event)));
-	// 	}
-	// 	else {
-	// 		console.log('[IBUS:RITE] Queue done');
-	// 	}
-	// }
-	// else {
-		if (queue_busy()) {
-			serial_port.write(queue_write[0], (error) => {
-				if (error) { console.log('[IBUS:RITE] Failed : ', queue_write[0], error); }
+	if (queue_busy()) {
+		serial_port.write(queue_write[0], (error) => {
+			if (error) { console.log('[IBUS:RITE] Failed : ', queue_write[0], error); }
 
-				serial_port.drain((error) => {
-					// console.log('[IBUS::DRN] %s message(s) remain(s)', queue_write.length);
+			serial_port.drain((error) => {
+				// console.log('[IBUS::DRN] %s message(s) remain(s)', queue_write.length);
 
-					if (error) {
-						console.log('[IBUS::DRN] Failed : ', queue_write[0], error);
+				if (error) {
+					console.log('[IBUS::DRN] Failed : ', queue_write[0], error);
+				}
+				else {
+					// console.log('[IBUS:RITE] Success : ', queue_write[0]);
+
+					// Successful write, remove this message from the queue
+					queue_write.splice(0, 1);
+
+					// Do we still have data?
+					if (queue_busy()) {
+						write_message();
 					}
-					else {
-						// console.log('[IBUS:RITE] Success : ', queue_write[0]);
-
-						// Successful write, remove this message from the queue
-						queue_write.splice(0, 1);
-
-						// Do we still have data?
-						if (queue_busy()) {
-							write_message();
-						}
-					}
-				});
+				}
 			});
-		}
-	// }
+		});
+	}
 }
 
 module.exports = {
@@ -127,6 +112,7 @@ module.exports = {
 				else {
 					console.log('[IBUS:PORT] Opened');
 					omnibus.IKE.request('ignition');
+					omnibus.IKE.obc_refresh();
 					callback();
 				}
 			});

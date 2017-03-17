@@ -24,121 +24,110 @@ var EWS = function() {
 
 	// Parse data sent from EWS module
 	function parse_out(data) {
-		// Init variables
-		var src      = data.src.id;
-		var dst      = data.dst;
-		var message  = data.msg;
-
-		var command;
-		var value;
-
-		switch (message[0]) {
-
+		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
-						value   = 'ready';
+						data.command = 'bro';
+						data.value   = 'device status ready';
 						break;
 
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						data.command = 'bro';
+						data.value   = 'device status ready after reset';
 						break;
 				}
 				break;
 
 			case 0x10: // Request: ignition status
-				command = 'request';
-				value   = 'ignition status';
+				data.command = 'req';
+				data.value   = 'ignition status';
 				break;
 
 			case 0x14: // Country coding request
-				command = 'request';
-				value   = 'country coding';
+				data.command = 'req';
+				data.value   = 'country coding';
 				break;
 
 			case 0x16: // Odometer request
-				command = 'request';
-				value   = 'odometer';
+				data.command = 'req';
+				data.value   = 'odometer';
 				break;
 
 			case 0x74: // Broadcast: immobiliser status
-				// Init variables
-				var value_1;
-				var value_2;
+				data.command = 'bro';
 
-				// Bitmask for message[1]
+				// Bitmask for data.msg[1]
 				// 0x00 = no key detected
 				// 0x01 = immobilisation deactivated
 				// 0x04 = valid key detected
 
 				// Key detected/vehicle immobilised
-				switch (message[1]) {
+				switch (data.msg[1]) {
 					case 0x00:
-						value = 'no key';
+						data.value = 'no key';
 						status.immobilizer.key_present = false;
 						break;
 					case 0x01:
-						value = 'immobilisation deactivated';
+						data.value = 'immobilisation deactivated';
 						// status.immobilizer.key_present = null;
 						status.immobilizer.immobilized = false;
 						break;
 					case 0x04:
-						value = 'valid key';
+						data.value = 'valid key';
 						status.immobilizer.key_present = true;
 						status.immobilizer.immobilized = false;
 						break;
 					default:
-						value = Buffer.from([message[1]]);
+						data.value = Buffer.from([data.msg[1]]);
 						break;
 				}
-				command = 'key presence';
-				console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
-				value = null;
+
+				data.value = 'key presence : \''+data.value+'\'';
+				log.out(data);
+
+				// Start over again
+				data.value = null;
 
 				// Key number 255/0xFF = no key, vehicle immobilized
-				if (message[2] == 0xFF) {
-					status.immobilizer.key_number  = null;
+				if (data.msg[2] == 0xFF) {
+					status.immobilizer.key_number = null;
 					// status.immobilizer.immobilized = true;
 				}
 				else {
-					status.immobilizer.key_number = message[2];
+					status.immobilizer.key_number = data.msg[2];
 				}
-				command = 'key number';
-				console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, message[2]);
-				value = null;
+
+				data.value = 'key number : \''+status.immobilizer.key_number+'\'';
 				break;
 
 			case 0xA0: // Broadcast: diagnostic command acknowledged
-				command = 'diagnostic command';
-				value   = 'acknowledged';
+				data.command = 'bro';
+				data.value   = 'diagnostic command acknowledged';
 				break;
 
 			case 0xA2: // Broadcast: diagnostic command rejected
-				command = 'diagnostic command';
-				value   = 'rejected';
+				data.command = 'bro';
+				data.value   = 'diagnostic command rejected';
 				break;
 
 			case 0xFF: // Broadcast: diagnostic command not acknowledged
-				command = 'diagnostic command';
-				value   = 'not acknowledged';
+				data.command = 'bro';
+				data.value   = 'diagnostic command not acknowledged';
 				break;
 
 			case 0x79: // Request: door/flap status
-				command = 'request';
-				value   = 'door/flap status';
+				data.command = 'req';
+				data.value   = 'door/flap status';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(message);
+				data.command = 'unk';
+				data.value   = Buffer.from(data.msg);
 				break;
 		}
 
-		if (value !== null) {
-			console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
-		}
+		log.out(data);
 	}
 }
 

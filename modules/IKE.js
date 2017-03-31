@@ -1,6 +1,6 @@
 // HUD refresh vars
 var interval_hud_refresh;
-var last_hud_refresh = 0;
+var last_hud_refresh = now();
 
 // Ignition state change vars
 var state_powerdown;
@@ -319,11 +319,11 @@ module.exports = {
           // Welcome message
           omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);
 
-          // Refresh OBC HUD once every 15 seconds
+          // Refresh OBC HUD once every 10 seconds
           omnibus.IKE.hud_refresh(true);
           interval_hud_refresh = setInterval(() => {
             omnibus.IKE.hud_refresh(true);
-          }, 15000);
+          }, 10000);
         }
 
         if (state_run === true) {
@@ -800,8 +800,8 @@ module.exports = {
   hud_refresh : (interval = false) => {
     var time_now = now();
 
-    // Bounce if the last update was less than 14 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 14000 && interval === true) {
+    // Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 9000 && interval === true) {
       console.log('[node::IKE] HUD refresh: too soon');
       return;
     }

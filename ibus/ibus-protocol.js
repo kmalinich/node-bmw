@@ -9,13 +9,15 @@ module.exports = {
 	// Emit a data event on each complete IBUS message
 	parser : (buffer) => {
 		// Mark last event time
-		status.ibus.last_event = now();
+		//status.ibus.last_event = now();
+
+		if (debug === true) {
+			console.log('Data length   : \'%s\'', data.length);
+			console.log('Buffer        :', buffer);
+			console.log('Data          :', data);
+		}
 
 		data.push(buffer);
-		// data.push(buffer.readUInt16LE(0, buffer.length));
-		// console.log('Data length   : \'%s\'', data.length);
-		// console.log('Buffer        :', buffer);
-		// console.log('Data          :', data);
 
 		if (data.length >= 5) {
 			// IBUS packet:

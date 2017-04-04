@@ -26,7 +26,7 @@ serial_port.on('open', function() {
 
 	serial_port.set({
 		cts : true,
-		dsr : true,
+		dsr : false,
 		rts : true,
 	}, function() {
 		console.log('[IBUS:PORT] Options set');
@@ -40,8 +40,8 @@ serial_port.on('close', function() {
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	for (const pair of data.entries()) {
-		omnibus.protocol.parser(pair[1]);
+	for (var byte = 0; byte < data.length; byte++) {
+		omnibus.protocol.parser(data[byte]);
 	}
 });
 
@@ -100,7 +100,7 @@ module.exports = {
 	// Open serial port
 	startup : (callback) => {
 		// Last time any data did something
-		status.ibus.last_event = now();
+		// status.ibus.last_event = now();
 
 		// Open port if it is closed
 		if (!serial_port.isOpen) {
@@ -113,8 +113,8 @@ module.exports = {
 					console.log('[IBUS:PORT] Opened');
 
 					setTimeout(() => {
-						omnibus.IKE.request('ignition');
-						//omnibus.IKE.obc_refresh();
+						// omnibus.IKE.request('ignition');
+						omnibus.IKE.obc_refresh();
 						callback();
 					}, 250);
 				}

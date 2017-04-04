@@ -4,6 +4,7 @@ var CCM = function() {
 
 	// Parse data sent from CCM module
 	function parse_out(data) {
+		return;
 		// Init variables
 		var command;
 		var value;

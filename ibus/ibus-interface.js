@@ -100,7 +100,7 @@ module.exports = {
 	// Open serial port
 	startup : (callback) => {
 		// Last time any data did something
-		// status.ibus.last_event = now();
+		status.ibus.last_event = now();
 
 		// Open port if it is closed
 		if (!serial_port.isOpen) {

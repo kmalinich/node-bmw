@@ -337,7 +337,11 @@ module.exports = {
           });
         }
 
-        omnibus.LCM.auto_lights_check();
+				omnibus.LCM.auto_lights_check();
+				//if (status.vehicle.ignition_level != data.msg[1]) {
+				//	if (config.lights.auto === true) {
+				//	}
+				//}
 
         data.command = 'bro';
         data.value   = 'ignition status : '+status.vehicle.ignition;

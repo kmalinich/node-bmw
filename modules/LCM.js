@@ -3,10 +3,10 @@ var welcome_lights_timeout;
 
 // Automatic lights handling
 function auto_lights(action) {
-  console.log('[node::LCM] Trying to set auto lights to \'%s\'; current status \'%s\'', action, status.lights.auto.active);
+  console.log('[node::LCM] Setting autolights \'%s\'; now \'%s\'', action, status.lights.auto.active);
 
   switch (action) {
-    case 'off':
+    case false:
       if (status.lights.auto.active === true) {
 				clearInterval(auto_lights_interval);
 				// Set status variables
@@ -16,7 +16,7 @@ function auto_lights(action) {
 				reset();
       }
       break;
-    case 'on':
+    case true:
       if (status.lights.auto.active === false) {
         // Set status variable
         status.lights.auto.active = true;
@@ -43,9 +43,9 @@ function auto_lights_process() {
 	var lights_off   = sun_times.sunriseEnd;
 
 	// Debug logging
-	// console.log('   current : %s', current_time);
-	// console.log(' lights_on : %s', lights_on);
-	// console.log('lights_off : %s', lights_off);
+	// console.log('[node::LCM]    current : %s', current_time);
+	// console.log('[node::LCM]  lights_on : %s', lights_on);
+	// console.log('[node::LCM] lights_off : %s', lights_off);
 
 	// Check time of day
 	if (current_time < lights_off) {
@@ -481,7 +481,7 @@ function io_set(packet) {
   });
 
   // Request the IO status after
-  //omnibus.LCM.request('io-status');
+  omnibus.LCM.request('io-status');
 }
 
 // Make things.. how they should be?
@@ -495,8 +495,6 @@ function reset() {
 		io_encode({});
 		return;
 	}
-
-	console.log('[node::LCM] reset(): Vehicle running');
 
   switch (status.lights.auto.lowbeam) {
     case true:
@@ -522,12 +520,12 @@ module.exports = {
 	// Should we turn the auto-lights on?
 	auto_lights_check : () => {
     // Check ignition
-    if (status.vehicle.ignition !== 'run' || config.lights.auto !== true) {
+    if (status.vehicle.ignition_level === 0 || config.lights.auto !== true) {
       // Not in run: turn off auto lights
-      auto_lights('off');
+      auto_lights(false);
       return;
     }
-    auto_lights('on');
+    auto_lights(true);
 	},
 
   // Parse data sent from LCM module

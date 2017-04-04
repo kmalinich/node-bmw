@@ -111,9 +111,12 @@ module.exports = {
 				}
 				else {
 					console.log('[IBUS:PORT] Opened');
-					omnibus.IKE.request('ignition');
-					omnibus.IKE.obc_refresh();
-					callback();
+
+					setTimeout(() => {
+						omnibus.IKE.request('ignition');
+						//omnibus.IKE.obc_refresh();
+						callback();
+					}, 250);
 				}
 			});
 		}

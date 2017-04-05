@@ -40,10 +40,10 @@ var BMBT = function() {
 	function refresh_status() {
 		if (status.vehicle.ignition_level > 0) {
 			request_rad_status();
-			log.msg({
-				src : 'BMBT',
-				msg : 'Ping',
-			});
+			// log.msg({
+			// 	src : 'BMBT',
+			// 	msg : 'Ping',
+			// });
 		}
 		else {
 			interval_status('unset');

@@ -156,7 +156,7 @@ function text_urgent_off() {
     dst: 'IKE',
     msg: [0x1A, 0x30, 0x00],
   });
-	omnibus.IKE.hud_refresh();
+	omnibus.IKE.hud_refresh(false);
 }
 
 // Exported functions
@@ -317,13 +317,14 @@ module.exports = {
 					omnibus.kodi.command('pause');
 
           // Welcome message
-          omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);
+          omnibus.IKE.text_warning('node-bmw  '+os.hostname(), 5000);
 
-          // Refresh OBC HUD once every 10 seconds
-          omnibus.IKE.hud_refresh(true);
+          // Refresh OBC HUD once every 5 seconds
+          //omnibus.IKE.hud_refresh(true);
           interval_hud_refresh = setInterval(() => {
-            omnibus.IKE.hud_refresh(true);
-          }, 10000);
+						omnibus.IKE.request('temperature');
+            //omnibus.IKE.hud_refresh(true);
+          }, 1000);
         }
 
         if (state_run === true) {
@@ -804,11 +805,15 @@ module.exports = {
   hud_refresh : (interval = false) => {
     var time_now = now();
 
-    // Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 9000 && interval === true) {
-      console.log('[node::IKE] HUD refresh: too soon');
+    // Bounce if the last update was less than 2 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 2000 && interval === true) {
+      // console.log('[node::IKE] HUD refresh: too soon');
       return;
     }
+
+		if (interval === true) {
+			omnibus.IKE.request('temperature');
+		}
 
     var spacing1;
     var spacing2;
@@ -931,7 +936,7 @@ module.exports = {
 
   // Request various things from IKE
   request : (value) => {
-    console.log('[node::IKE] Requesting \'%s\'', value);
+    // console.log('[node::IKE] Requesting \'%s\'', value);
 
     var cmd;
     var src = 'VID';

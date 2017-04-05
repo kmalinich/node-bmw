@@ -87,15 +87,19 @@ function startup() {
 
 	json.read_config(() => { // Read JSON config file
 		json.read_status(() => { // Read JSON status file
-			load_modules(() => {
-				startup_api_server(() => { // Open API server
-					socket_server.startup(() => { // Config WebSocket server
-						omnibus.HDMI.startup(() => { // Open HDMI-CEC
-							omnibus.ibus.startup(() => { // Open IBUS serial port
-								omnibus.dbus.interface.startup(() => { // Open DBUS serial port
-									log.msg({
-										src : 'run',
-										msg : 'Started',
+			json.reset_modules(() => { // Reset modules vars pertinent to launching app
+				json.reset_status(() => { // Reset status vars pertinent to launching app
+					load_modules(() => {
+						startup_api_server(() => { // Open API server
+							socket_server.startup(() => { // Config WebSocket server
+								omnibus.HDMI.startup(() => { // Open HDMI-CEC
+									omnibus.ibus.startup(() => { // Open IBUS serial port
+										omnibus.dbus.interface.startup(() => { // Open DBUS serial port
+											log.msg({
+												src : 'run',
+												msg : 'Started',
+											});
+										});
 									});
 								});
 							});
@@ -119,8 +123,12 @@ function shutdown() {
 			omnibus.HDMI.shutdown(() => { // Close HDMI-CEC
 				shutdown_api_server(() => { // Close API server
 					json.write_config(() => { // Write JSON config file
-						json.write_status(() => { // Write JSON status file
-							process.exit();
+						json.reset_modules(() => { // Reset modules vars pertinent to launching app
+							json.reset_status(() => { // Reset status vars pertinent to launching app
+								json.write_status(() => { // Write JSON status file
+									process.exit();
+								});
+							});
 						});
 					});
 				});

@@ -17,7 +17,7 @@ function auto_lights(action) {
 			status.lights.auto.reason  = null;
 			status.lights.auto.active  = false;
 			status.lights.auto.lowbeam = false;
-			reset();
+			io_encode({});
 			break;
 		case true:
 			// Set status variable
@@ -490,7 +490,8 @@ function io_set(packet) {
 		msg: packet,
 	});
 
-	// Request the IO status after
+	// Request the Lamp+IO status after
+	omnibus.LCM.request('lampstatus');
 	omnibus.LCM.request('io-status');
 }
 
@@ -499,10 +500,7 @@ function reset() {
 	var reset_dimmer_val; // Determine dimmer value from config, depending if lowbeams are on
 	var reset_standing;   // Determine standing lights on/off from lowbeam (it's either one or the other)
 
-	if (status.vehicle.ignition !== 'run' || config.lights.auto !== true) {
-		// Not in run: turn off all lights
-		console.log('[node::LCM] reset(): Vehicle off; disabling');
-		io_encode({});
+	if (config.lights.auto !== true) {
 		return;
 	}
 

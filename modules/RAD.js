@@ -155,6 +155,7 @@ var RAD = function() {
 				break;
 
 			case 0x4A: // Cassette control
+				return;
 				data.command = 'con';
 				data.value = 'cassette control '+data.msg[1];
 				break;

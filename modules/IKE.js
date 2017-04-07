@@ -1,5 +1,5 @@
 // HUD refresh vars
-var interval_hud_refresh;
+var interval_data_refresh;
 var last_hud_refresh = now();
 
 // Ignition state change vars
@@ -156,7 +156,7 @@ function text_urgent_off() {
     dst: 'IKE',
     msg: [0x1A, 0x30, 0x00],
   });
-	omnibus.IKE.hud_refresh();
+	omnibus.IKE.hud_refresh(false);
 }
 
 // Exported functions
@@ -210,7 +210,7 @@ module.exports = {
 							state_poweron = true;
 							break;
 						case 3: // Run
-							if (status.vehicle.ignition_level == 0) {
+							if (status.vehicle.ignition_level === 0) {
 								console.log('[node::IKE] Trigger: poweron state');
 								state_poweron = true;
 							}
@@ -241,7 +241,16 @@ module.exports = {
 					}
 				}
 
-				// Set iIgnition status value
+				// Set ignition status value
+				if (status.vehicle.ignition_level != data.msg[1]) {
+					console.log('[node::IKE] Ignition level change \'%s\' => \'%s\'', status.vehicle.ignition_level, data.msg[1]);
+					status.vehicle.ignition_level = data.msg[1];
+
+					if (config.lights.auto === true) {
+						omnibus.LCM.auto_lights_check();
+					}
+				}
+
         switch (data.msg[1]) {
           case 0  : status.vehicle.ignition = 'off';       break;
           case 1  : status.vehicle.ignition = 'accessory'; break;
@@ -249,12 +258,11 @@ module.exports = {
           case 7  : status.vehicle.ignition = 'start';     break;
           default : status.vehicle.ignition = 'unknown';   break;
         }
-        status.vehicle.ignition_level = data.msg[1];
 
 				if (state_poweroff === true) {
 					// Disable HUD refresh
-					clearInterval(interval_hud_refresh, () => {
-            console.log('[node::IKE] Cleared HUD refresh interval');
+					clearInterval(interval_data_refresh, () => {
+            console.log('[node::IKE] Cleared data refresh interval');
           });
 
           // Disable BMBT keepalive
@@ -269,23 +277,8 @@ module.exports = {
 					omnibus.kodi.command('pause');
 
           // Set modules as not ready
-          status.bmbt.ready = false;
-          status.bmbt.reset = true;
-          status.cdc.ready  = false;
-          status.cdc.reset  = true;
-          status.dsp.ready  = false;
-          status.dsp.reset  = true;
-          status.dspc.ready = false;
-          status.dspc.reset = true;
-          status.ike.ready  = false;
-          status.ike.reset  = true;
-          status.lcm.ready  = false;
-          status.lcm.reset  = true;
-          status.mid.ready  = false;
-          status.mid.reset  = true;
-          status.rad.ready  = false;
-          status.rad.reset  = true;
-          // THERE'S GOTTA BE A BETTER WAY
+					json.reset_modules(() => {
+					});
 
           // Turn off HDMI display after 2 seconds
           setTimeout(() => {
@@ -299,12 +292,14 @@ module.exports = {
         }
 
         if (state_powerdown === true) {
+					state_powerdown = false;
           if (status.vehicle.locked === true) { // If the doors are locked
             omnibus.GM.locks(); // Send message to GM to toggle door locks
           }
         }
 
         if (state_poweron === true) {
+					state_poweron = false;
           // Enable BMBT keepalive
 					if (config.emulate.bmbt === true) {
 						omnibus.BMBT.interval_status('set');
@@ -317,16 +312,18 @@ module.exports = {
 					omnibus.kodi.command('pause');
 
           // Welcome message
-          omnibus.IKE.text_warning('node-bmw     '+os.hostname(), 3000);
+          omnibus.IKE.text_warning('node-bmw  '+os.hostname(), 5000);
 
-          // Refresh OBC HUD once every 10 seconds
-          omnibus.IKE.hud_refresh(true);
-          interval_hud_refresh = setInterval(() => {
-            omnibus.IKE.hud_refresh(true);
-          }, 10000);
+          // Refresh OBC HUD once every 2 seconds
+          interval_data_refresh = setInterval(() => {
+						omnibus.IKE.request('temperature');
+						omnibus.GM.request('io-status');
+						omnibus.GM.request('door-flap-status');
+          }, 2000);
         }
 
         if (state_run === true) {
+					state_run = false;
           if (status.vehicle.locked === false) { // If the doors are unlocked
             omnibus.GM.locks(); // Send message to GM to toggle door locks
           }
@@ -336,8 +333,6 @@ module.exports = {
             });
           });
         }
-
-        omnibus.LCM.auto_lights_check();
 
         data.command = 'bro';
         data.value   = 'ignition status : '+status.vehicle.ignition;
@@ -800,9 +795,9 @@ module.exports = {
   hud_refresh : (interval = false) => {
     var time_now = now();
 
-    // Bounce if the last update was less than 9 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 9000 && interval === true) {
-      console.log('[node::IKE] HUD refresh: too soon');
+    // Bounce if the last update was less than 2 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 2000 && interval === true) {
+      // console.log('[node::IKE] HUD refresh: too soon');
       return;
     }
 
@@ -898,7 +893,8 @@ module.exports = {
     omnibus.GM.request('door-flap-status');
 
     // IKE data
-    omnibus.IKE.request('statusall'  );
+    omnibus.IKE.request('status-glo' );
+    omnibus.IKE.request('status-loc' );
     omnibus.IKE.request('coding'     );
     omnibus.IKE.request('ignition'   );
     omnibus.IKE.request('odometer'   );
@@ -927,7 +923,7 @@ module.exports = {
 
   // Request various things from IKE
   request : (value) => {
-    console.log('[node::IKE] Requesting \'%s\'', value);
+    // console.log('[node::IKE] Requesting \'%s\'', value);
 
     var cmd;
     var src = 'VID';
@@ -955,9 +951,14 @@ module.exports = {
         src = 'LCM';
         cmd = [0x1D, 0xC5];
         break;
-      case 'statusall':
+      case 'status-glo':
         src = 'IKE';
         dst = 'GLO';
+        cmd = [0x01];
+        break;
+      case 'status-loc':
+        src = 'IKE';
+        dst = 'LOC';
         cmd = [0x01];
         break;
       case 'vin':

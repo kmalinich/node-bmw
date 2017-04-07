@@ -46,7 +46,7 @@ var CDC = function() {
 				break;
 		}
 
-		log.out(data);
+		// log.out(data);
 	}
 
 	// Parse data sent from CDC module

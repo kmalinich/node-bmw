@@ -1,6 +1,8 @@
 // HUD refresh vars
 var interval_data_refresh;
 var last_hud_refresh = now();
+var hud_override = false;
+var hud_override_text;
 
 // Ignition state change vars
 var state_powerdown;
@@ -309,10 +311,10 @@ module.exports = {
 					}
 
           // Toggle media playback
-					omnibus.kodi.command('pause');
+					// omnibus.kodi.command('pause');
 
           // Welcome message
-          omnibus.IKE.text_warning('node-bmw  '+os.hostname(), 5000);
+          // omnibus.IKE.text_warning('node-bmw  '+os.hostname(), 5000);
 
           // Refresh OBC HUD once every 2 seconds
           interval_data_refresh = setInterval(() => {
@@ -793,6 +795,11 @@ module.exports = {
 
   // Refresh custom HUD
   hud_refresh : (interval = false) => {
+		// Bounce if the override is active
+		if(hud_override === true) {
+			return;
+		}
+
     var time_now = now();
 
     // Bounce if the last update was less than 6 sec ago, and it's the auto interval calling
@@ -976,7 +983,7 @@ module.exports = {
   },
 
   // Check control warnings
-  text_warning : (message, timeout) => {
+  text_warning : (message, timeout = 10000) => {
     // 3rd byte:
     // 0x00 : no gong,   no arrow
     // 0x01 : no gong,   solid arrow
@@ -988,6 +995,7 @@ module.exports = {
     // 0x10 : 1 lo gong, no arrow
     // 0x18 : 3 beep,    no arrow
 
+		hud_override = true;
     var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrow
     var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
@@ -997,19 +1005,15 @@ module.exports = {
       msg : message_hex,
     });
 
-    // Default timeout = 10 sec
-    if (typeof timeout === 'undefined' || timeout === null) { var timeout = 10000; }
-
-		last_hud_refresh = now();
-
     // Clear the message after the timeout
     setTimeout(() => {
+			hud_override = false;
       text_urgent_off();
     }, timeout);
   },
 
   // Check control messages
-  text_urgent : (message, timeout) => {
+  text_urgent : (message, timeout = 5000) => {
     var message_hex = [0x1A, 0x35, 0x00];
     var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
@@ -1019,33 +1023,75 @@ module.exports = {
       msg : message_hex,
     });
 
-    // Default timeout = 5 sec
-    if (typeof timeout === 'undefined' || timeout === null) { var timeout = 5000; }
-
-		last_hud_refresh = now();
-
     // Clear the message after 5 seconds
     setTimeout(() => {
+			hud_override = false;
       text_urgent_off();
     }, timeout);
   },
 
+  // IKE cluster text send message, override other messages
+  text_override : (message, timeout = 1000) => {
+		hud_override = true;
+
+		var max_length   = 20;
+		var scroll_delay = 1000;
+
+		// Delare that we're currently first up
+		hud_override_text = message;
+
+    // console.log('[node::IKE] Sending text to IKE screen: \'%s\'', message);
+
+		// Equal to or less than 20 char
+		if (message.length-max_length <= 0) {
+			omnibus.IKE.text(message);
+    }
+    else {
+      // Adjust timeout since we will be scrolling
+			timeout = timeout+(scroll_delay*(message.length-max_length));
+
+			// Add a buffer to the whole apparatus
+			setTimeout(() => {
+				for (var scroll = 0; scroll <= message.length-max_length ; scroll++) {
+					setTimeout((current_scroll, message_full) => {
+						var message_trim = message.substring(current_scroll, current_scroll+max_length);
+						var message_trim_hex = [0x23, 0x50, 0x30, 0x07];
+						var message_trim_hex = message_trim_hex.concat(ascii2hex(message_trim));
+						var message_trim_hex = message_trim_hex.concat(0x04);
+
+						// Only send the message if we're currently the first up
+						if (hud_override_text == message_full) {
+							omnibus.ibus.send({
+								src: 'RAD',
+								dst: 'GLO',
+								msg: message_trim_hex,
+							});
+						}
+					}, scroll_delay*scroll, scroll, message);
+				}
+			}, scroll_delay*.25);
+		}
+
+		// Clear the override flag
+    setTimeout(() => {
+			hud_override = false;
+    }, timeout);
+  },
+
   // IKE cluster text send message
-  text : (string) => {
-    // console.log('[node::IKE] Sending text to IKE screen: \'%s\'', string);
-    string = string.ike_pad();
+  text : (message) => {
+    // console.log('[node::IKE] Sending text to IKE screen: \'%s\'', message);
+    message = message.ike_pad();
 
     // Need to center text..
-    var string_hex = [0x23, 0x50, 0x30, 0x07];
-    var string_hex = string_hex.concat(ascii2hex(string));
-    var string_hex = string_hex.concat(0x04);
-
-		last_hud_refresh = now();
+    var message_hex = [0x23, 0x50, 0x30, 0x07];
+    var message_hex = message_hex.concat(ascii2hex(message));
+    var message_hex = message_hex.concat(0x04);
 
     omnibus.ibus.send({
       src: 'RAD',
       dst: 'GLO',
-      msg: string_hex,
+      msg: message_hex,
     });
   },
 };

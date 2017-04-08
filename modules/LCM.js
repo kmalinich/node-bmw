@@ -538,10 +538,6 @@ module.exports = {
 
 	// Parse data sent from LCM module
 	parse_out : (data) => {
-		// Init variables
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
 			case 0x02: // Broadcast: device status
 				data.command     = 'bro';

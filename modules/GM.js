@@ -39,35 +39,34 @@ var array_of_possible_values = {
 };
 
 // [0x72] Decode a key fob message from the GM and act upon the results
-function decode_status_keyfob(message) {
-	// Init variables
-	var button;
-
-	switch(message[1]) {
+function decode_status_keyfob(data) {
+	data.command = 'bro';
+	switch(data.msg[1]) {
 		case 0x00:
-			button = 'none';
+			data.value = 'none';
 			break;
 
 		case 0x10:
-			button = 'lock';
+			data.value = 'lock';
 			omnibus.LCM.welcome_lights(false);
 			break;
 
 		case 0x20:
-			button = 'unlock';
+			data.value = 'unlock';
 			omnibus.LCM.welcome_lights(true);
 			break;
 
 		case 0x40:
-			button = 'trunk';
+			data.value = 'trunk';
 			break;
 
 		default:
-			button = 'unknown';
+			data.value = 'unknown: '+data.msg[1];
 			break;
 	}
 
-	console.log('[node:::GM] key fob button \'%s\'', button);
+	data.value = 'key fob button: '+data.value;
+	log.out(data);
 }
 
 // [0x7A] Decode a door/flap status message from the GM and act upon the results
@@ -108,124 +107,124 @@ function io_set(packet) {
 module.exports = {
 	// Parse data sent from GM module
 	parse_out : (data) => {
-		// Init variables
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
-			case 0x02: // device status
+			case 0x02: // Broadcast: device status
+				data.command     = 'bro';
+				status.lcm.ready = true;
+
 				switch (data.msg[1]) {
 					case 0x00:
-						command = 'device status';
-						value   = 'ready';
+						data.value = 'status: ready';
 						break;
-
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						status.lcm.reset = false;
+						data.value = 'status: ready after reset';
 						break;
+					default:
+						data.value = 'status: unknown';
 				}
 				break;
 
 			case 0x10: // Ignition status
-				command = 'request';
-				value   = 'ignition status';
+				data.command = 'req';
+				data.value   = 'ignition status';
 				break;
 
 			case 0x12: // IKE sensor status
-				command = 'request';
-				value   = 'IKE sensor status';
+				data.command = 'req';
+				data.value   = 'IKE sensor status';
 				break;
 
 			case 0x14: // Coding
-				command = 'request';
-				value   = 'country coding data';
+				data.command = 'req';
+				data.value   = 'country coding data';
 				break;
 
 			case 0x16: // Odometer
-				command = 'request';
-				value   = 'odometer';
+				data.command = 'req';
+				data.value   = 'odometer';
 				break;
 
 			case 0x1D: // Temperature status
-				command = 'request';
-				value   = 'current temperature';
+				data.command = 'req';
+				data.value   = 'current temperature';
 				break;
 
 			case 0x72: // Key fob status
-				command = 'broadcast';
-				value   = 'key fob status';
-				decode_status_keyfob(data.msg);
+				data.command = 'bro';
+				data.value   = 'key fob status';
+				decode_status_keyfob(data);
 				break;
 
 			case 0x76: // 'Crash alarm' ..
-				command = 'crash alarm';
+				data.command = 'bro';
 				switch (data.msg[1]) {
 					case 0x00:
-						value = 'no crash';
+						data.value = 'crash alarm: no crash';
 						break;
 					case 0x02: // A guess
-						value = 'armed';
+						data.value = 'crash alarm: armed';
 						break;
 					default:
-						value = Buffer.from(data.msg[1]);
+						data.value = Buffer.from(data.msg[1]);
 						break;
 				}
 				break;
 
 			case 0x77: // Wiper status
-				command = 'wiper status';
+				data.command = 'bro';
 				switch (data.msg[1]) {
 					case 0x0C:
-						value = 'off';
+						data.value = 'off';
 						break;
 					case 0x0D:
-						value = 'low/auto';
+						data.value = 'low/auto';
 						break;
 					case 0x0E:
-						value = 'medium';
+						data.value = 'medium';
 						break;
 					case 0x0F:
-						value = 'high';
+						data.value = 'high';
 						break;
 				}
+				data.value = 'wiper status: '+data.value;
 
-				status.gm.wiper_status = value;
+				status.gm.wiper_status = data.value;
 				break;
 
 			case 0x78: // seat memory data
-				command = 'broadcast';
-				value   = 'seat memory data';
+				data.command = 'bro';
+				data.value   = 'seat memory data';
 				break;
 
 			case 0x7A: // door/flap status
-				command = 'broadcast';
-				value   = 'door/flap status';
+				data.command = 'bro';
+				data.value   = 'door/flap status';
 				decode_status_open(data.msg);
 				break;
 
 			case 0xA0: // diagnostic command acknowledged
-				command = 'diagnostic command';
-				value   = Buffer.from(data.msg);
+				data.command = 'rep';
+				data.value   = Buffer.from(data.msg);
 				break;
 
 			case 0xA2: // diagnostic command rejected
-				command = 'diagnostic command';
-				value   = 'rejected';
+				data.command = 'rep';
+				data.value   = 'diagnostic command rejected';
 				break;
 
 			case 0xFF: // diagnostic command not acknowledged
-				command = 'diagnostic command';
-				value   = 'not acknowledged';
+				data.command = 'rep';
+				data.value   = 'diagnostic command not acknowledged';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unk';
+				data.value   = Buffer.from(data.msg);
 				break;
 		}
 
-		console.log('[%s::%s] %s:', data.src.name, data.dst.name, command, value);
+		log.out(data);
 	},
 
 	// Handle incoming commands from API

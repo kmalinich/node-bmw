@@ -33,13 +33,17 @@ function process() {
 	// Invalid message
 	if (msg_dst_name === 'UNKNOWN') {
 		error_current = error_current+1;
-		console.log('[IBUS:PROT] error_current is now %s - invalid destination %s', error_current, msg_dst);
+		if (debug === true) {
+			console.log('[IBUS:PROT] error_current is now %s - invalid destination %s', error_current, msg_dst);
+		}
 		return 0;
 	}
 
 	if (msg_src_name === 'UNKNOWN') {
 		error_current = error_current+1;
-		console.log('[IBUS:PROT] error_current is now %s - invalid source %s', error_current, msg_src);
+		if (debug === true) {
+			console.log('[IBUS:PROT] error_current is now %s - invalid source %s', error_current, msg_src);
+		}
 		return 0;
 	}
 
@@ -78,7 +82,9 @@ function process() {
 	// If the shoe doesn't fit..
 	if (calc_crc !== msg_crc) {
 		error_current = error_current+1;
-		console.log('[IBUS:PROT] error_current is now %s', error_current);
+		if (debug === true) {
+			console.log('[IBUS:PROT] error_current is now %s', error_current);
+		}
 		return 0;
 	}
 
@@ -134,7 +140,9 @@ module.exports = {
 
 		// Buffer overflow?
 		if (input_buffer.length > 80) {
-			console.log('[IBUS:PROT] Input buffer too large (%s); clearing', input_buffer.length);
+			if (debug === true) {
+				console.log('[IBUS:PROT] Input buffer too large (%s); clearing', input_buffer.length);
+			}
 			error_current  = 0;
 			input_buffer   = [];
 			process_buffer = [];
@@ -142,7 +150,9 @@ module.exports = {
 
 		// If it's been too long since success, reset input_buffer
 		if (error_current > 5) {
-			console.log('[IBUS:PROT] Too many errors (%s); clearing input buffer', error_current);
+			if (debug === true) {
+				console.log('[IBUS:PROT] Too many errors (%s); clearing input buffer', error_current);
+			}
 			error_current  = 0;
 			input_buffer   = [];
 			process_buffer = [];

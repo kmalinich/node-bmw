@@ -1,6 +1,6 @@
 var BMBT = function() {
 	// Exposed data
-	this.interval_status      = interval_status;
+	this.status_loop      = status_loop;
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
 	this.power_on_if_ready    = power_on_if_ready;
@@ -10,21 +10,21 @@ var BMBT = function() {
 	this.send_device_status   = send_device_status;
 
 	// Interval var
-	var status_interval;
+	var interval_status_loop;
 
 	// Set or unset the status interval
-	function interval_status(action) {
+	function status_loop(action) {
 		if (config.emulate.bmbt === true) {
 			switch (action) {
 				case 'set':
 					refresh_status();
-					status_interval = setInterval(() => {
+					interval_status_loop = setInterval(() => {
 						refresh_status();
 					}, 25000);
 					break;
 
 				case 'unset':
-					clearInterval(status_interval, () => {
+					clearInterval(interval_status_loop, () => {
 					});
 					break;
 			}
@@ -46,7 +46,7 @@ var BMBT = function() {
 			// });
 		}
 		else {
-			interval_status('unset');
+			status_loop('unset');
 		}
 	}
 

@@ -68,26 +68,30 @@ var MFL = function() {
 				if      (bitmask.bit_test(message[1], bitmask.bit[0])) { button = 'right';    }
 				else if (bitmask.bit_test(message[1], bitmask.bit[3])) { button = 'left';     }
 				else if (bitmask.bit_test(message[1], bitmask.bit[7])) { button = 'send/end'; }
-				else                                  { button = 'unknown';  }
+				else                                                   { button = 'unknown';  }
 
 				// Detect action
 				if      (bitmask.bit_test(message[1], bitmask.bit[4])) { action = 'long depress'; }
 				else if (bitmask.bit_test(message[1], bitmask.bit[5])) { action = 'release';      }
-				else                                  { action = 'depress';      }
+				else                                                   { action = 'depress';      }
 
 				// Perform media control based on pressed key
 
 				// BT control version
-				// if      (button == 'left'     && action == 'depress')      { omnibus.BT.command('previous'); }
-				// else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
-				// else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...
-				// else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
+				if (config.media.bluetooth === true && config.media.kodi.enable === false) {
+					if      (button == 'left'     && action == 'depress')      { omnibus.BT.command('previous'); }
+					else if (button == 'right'    && action == 'depress')      { omnibus.BT.command('next');     }
+					else if (button == 'send/end' && action == 'depress')      { omnibus.BT.command('pause');    } // Think about it...
+					else if (button == 'send/end' && action == 'long depress') { omnibus.BT.command('play');     }
+				}
 
 				// Kodi version
-				if      (button == 'left'     && action == 'depress')      { omnibus.kodi.command('previous'); }
-				else if (button == 'right'    && action == 'depress')      { omnibus.kodi.command('next');     }
-				else if (button == 'send/end' && action == 'depress')      { omnibus.kodi.command('pause');    }
-				//else if (button == 'send/end' && action == 'long depress') { omnibus.kodi.command('play');     }
+				if (config.media.bluetooth === false && config.media.kodi.enable === true) {
+					if      (button == 'left'     && action == 'depress')      { omnibus.kodi.command('previous'); }
+					else if (button == 'right'    && action == 'depress')      { omnibus.kodi.command('next');     }
+					else if (button == 'send/end' && action == 'depress')      { omnibus.kodi.command('pause');    }
+					//else if (button == 'send/end' && action == 'long depress') { omnibus.kodi.command('play');     }
+				}
 				break;
 
 			case 0x5d:

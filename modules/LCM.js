@@ -26,12 +26,12 @@ function auto_lights(action) {
 			// Send one through to prime the pumps
 			auto_lights_process();
 
-			// Process/send LCM data on 12 second interval
+			// Process/send LCM data on 7 second interval
 			// LCM diag command timeout is 15 seconds
 			interval_auto_lights = setInterval(() => {
 				// Process auto lights
 				auto_lights_process();
-			}, 12000);
+			}, 7000);
 	}
 }
 

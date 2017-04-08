@@ -28,7 +28,6 @@ var api_header          = {
 }
 
 function load_modules(callback) {
-
 	// Everything connection object
 	omnibus = {
 		// IBUS libraries - these should be combined
@@ -89,15 +88,17 @@ function startup() {
 		json.read_status(() => { // Read JSON status file
 			json.reset_modules(() => { // Reset modules vars pertinent to launching app
 				json.reset_status(() => { // Reset status vars pertinent to launching app
-					load_modules(() => {
+					load_modules(() => { // Load IBUS module node modules
 						startup_api_server(() => { // Open API server
 							socket_server.startup(() => { // Config WebSocket server
 								omnibus.HDMI.startup(() => { // Open HDMI-CEC
-									omnibus.ibus.startup(() => { // Open IBUS serial port
-										omnibus.dbus.interface.startup(() => { // Open DBUS serial port
-											log.msg({
-												src : 'run',
-												msg : 'Started',
+									omnibus.kodi.autoconfig(() => { // Open Kodi websocket
+										omnibus.ibus.startup(() => { // Open IBUS serial port
+											omnibus.dbus.interface.startup(() => { // Open DBUS serial port
+												log.msg({
+													src : 'run',
+													msg : 'Started',
+												});
 											});
 										});
 									});
@@ -121,12 +122,14 @@ function shutdown() {
 	omnibus.ibus.shutdown(() => { // Close IBUS serial port
 		omnibus.dbus.interface.shutdown(() => { // Close DBUS serial port
 			omnibus.HDMI.shutdown(() => { // Close HDMI-CEC
-				shutdown_api_server(() => { // Close API server
-					json.write_config(() => { // Write JSON config file
-						json.reset_modules(() => { // Reset modules vars pertinent to launching app
-							json.reset_status(() => { // Reset status vars pertinent to launching app
-								json.write_status(() => { // Write JSON status file
-									process.exit();
+				omnibus.kodi.shutdown(() => { // Close Kodi websocket/clean up
+					shutdown_api_server(() => { // Close API server
+						json.write_config(() => { // Write JSON config file
+							json.reset_modules(() => { // Reset modules vars pertinent to launching app
+								json.reset_status(() => { // Reset status vars pertinent to launching app
+									json.write_status(() => { // Write JSON status file
+										process.exit();
+									});
 								});
 							});
 						});

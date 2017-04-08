@@ -267,10 +267,10 @@ module.exports = {
 
           // Disable BMBT keepalive
 					if (config.emulate.bmbt === true) {
-						omnibus.BMBT.interval_status('unset');
+						omnibus.BMBT.status_loop('unset');
 					}
 					if (config.emulate.mid === true) {
-						omnibus.MID.interval_status('unset');
+						omnibus.MID.status_loop('unset');
 					}
 
           // Toggle media playback
@@ -302,10 +302,10 @@ module.exports = {
 					state_poweron = false;
           // Enable BMBT keepalive
 					if (config.emulate.bmbt === true) {
-						omnibus.BMBT.interval_status('set');
+						omnibus.BMBT.status_loop('set');
 					}
 					if (config.emulate.mid === true) {
-						omnibus.MID.interval_status('set');
+						omnibus.MID.status_loop('set');
 					}
 
           // Toggle media playback
@@ -319,7 +319,7 @@ module.exports = {
 						omnibus.IKE.request('temperature');
 						omnibus.GM.request('io-status');
 						omnibus.GM.request('door-flap-status');
-          }, 2000);
+          }, 5000);
         }
 
         if (state_run === true) {
@@ -795,8 +795,8 @@ module.exports = {
   hud_refresh : (interval = false) => {
     var time_now = now();
 
-    // Bounce if the last update was less than 2 sec ago, and it's the auto interval calling
-    if (time_now-last_hud_refresh <= 2000 && interval === true) {
+    // Bounce if the last update was less than 6 sec ago, and it's the auto interval calling
+    if (time_now-last_hud_refresh <= 6000 && interval === true) {
       // console.log('[node::IKE] HUD refresh: too soon');
       return;
     }

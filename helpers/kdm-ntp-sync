@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+
+#### Config ==start ####
+
+# Enable pipefail to detect errors in piped commands
+set -o pipefail
+
+# Set PATH variable
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:/sbin:/bin:/usr/sbin:/usr/bin:/usr/bin/X11:/usr/games"
+
+#### Config ==final ####
+
+
+#### Variables ==start ####
+
+# Interval between loops, on failure
+LOOP="10"
+
+# Init attempt counter
+NTP_ATTEMPT="0"
+# Attempt limit
+NTP_ATTEMPT_LIMIT="10"
+
+# NTP server to check
+NTP_SERVER="${1}"
+NTP_SERVER_DEFAULT="0.north-america.pool.ntp.org"
+
+# Uncomment for debug output
+#DEBUG="1"
+
+# Preface string for syslog
+LOG_STRING="kdm-ntp-sync"
+
+#### Variables ==final ####
+
+
+#### Functions ==start ####
+
+# Write to stderr and syslog
+log() {
+	logger -s -t "${LOG_STRING}" "${1}"
+}
+
+# NTP sync wrapper
+ntp_sync_work() {
+	if [[ -z "${1}" ]]; then
+		log "ERR: ntp_sync_work() not passed an argument - how'd you do that?"
+		exit 4
+	fi
+
+	while true; do
+		# If we're at the attempt limit
+		if [[ "${NTP_ATTEMPT}" == "${NTP_ATTEMPT_LIMIT}" ]]; then
+			# If we already failed with the default server
+			if [[ "${1}" == "${NTP_SERVER_DEFAULT}" ]]; then
+				log "ERR: All available servers failed, NTP sync possible at this time"
+				exit 3
+			else
+				# Provided server failed, now try default server
+				ntp_sync_work "${NTP_SERVER_DEFAULT}"
+			fi
+		fi
+
+		# Increment NTP attempt counter
+		((NTP_ATTEMPT++))
+
+		[[ "${DEBUG}" ]] && log "DBG: Started NTP sync attempt #${NTP_ATTEMPT} with '${1}'"
+
+		NTP_SYNC=$(ntpdate ${1} 2>&1)
+		NTP_EXIT="${?}"
+		NTP_OFFSET=$(echo ${NTP_SYNC} | awk -F 'offset ' '{print $2}')
+
+		[[ "${DEBUG}" ]] && log "DBG: Finished NTP sync attempt #${NTP_ATTEMPT} with '${1}'"
+
+		# If NTP sync succeeds, break the loop and bounce
+		if [[ "${NTP_EXIT}" == "0" ]]; then
+			log "INF: NTP sync attempt #${NTP_ATTEMPT} with '${1}' successful, time offset: '${NTP_OFFSET}'"
+			exit 0
+		fi
+
+		# If NTP sync fails, wait and try again
+		log "ERR: NTP sync attempt #${NTP_ATTEMPT} with '${1}' failed, waiting ${LOOP} seconds"
+		[[ "${DEBUG}" ]] && log "DBG: Output of failed NTP sync attempt #${NTP_ATTEMPT}: '${NTP_SYNC}'"
+		# Try again after ${LOOP} seconds
+		sleep ${LOOP}
+	done
+}
+
+#### Functions ==final ####
+
+
+#### Sanity checks ==start ####
+
+PLATFORM="$(uname)"
+if [[ "${PLATFORM}" != "Linux" ]]; then
+	echo "ERR: Platforms other than Linux are not supported (this is '${PLATFORM}'), cannot continue"
+	exit 1
+fi
+
+if ! hash ntpdate > /dev/null 2>&1; then
+	echo "ERR: ntpdate is not available, cannot continue"
+	exit 2
+fi
+
+#### Sanity checks ==final ####
+
+
+#### Main code ==start ####
+
+[[ "${DEBUG}" ]] && log "DBG: Started at $(date) (may be incorrect)"
+
+# Check for 1st argument
+if [[ -z "${1}" ]]; then
+	log "INF: No NTP server passed, defaulting to '${NTP_SERVER_DEFAULT}'"
+	ntp_sync_work "${NTP_SERVER_DEFAULT}"
+else
+	ntp_sync_work "${1}"
+fi
+
+[[ "${DEBUG}" ]] && log "DBG: Finished at $(date); runtime ${SECONDS} seconds"
+
+exit 0
+
+#### Main code ==final ####

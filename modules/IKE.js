@@ -1031,11 +1031,11 @@ module.exports = {
   },
 
   // IKE cluster text send message, override other messages
-  text_override : (message, timeout = 1000) => {
+  text_override : (message, timeout = 3000) => {
 		hud_override = true;
 
 		var max_length   = 20;
-		var scroll_delay = 1000;
+		var scroll_delay = 500;
 
 		// Delare that we're currently first up
 		hud_override_text = message;
@@ -1044,11 +1044,17 @@ module.exports = {
 
 		// Equal to or less than 20 char
 		if (message.length-max_length <= 0) {
-			omnibus.IKE.text(message);
+			if (hud_override_text == message) {
+				omnibus.IKE.text(message);
+			}
     }
     else {
       // Adjust timeout since we will be scrolling
-			timeout = timeout+(scroll_delay*(message.length-max_length));
+			timeout = timeout+2500+(scroll_delay*(message.length-max_length));
+
+			if (hud_override_text == message) {
+				omnibus.IKE.text(message);
+			}
 
 			// Add a buffer to the whole apparatus
 			setTimeout(() => {
@@ -1069,13 +1075,17 @@ module.exports = {
 						}
 					}, scroll_delay*scroll, scroll, message);
 				}
-			}, scroll_delay*.25);
+			}, 2000);
 		}
 
 		// Clear the override flag
-    setTimeout(() => {
-			hud_override = false;
-    }, timeout);
+    setTimeout((message_full) => {
+			// Only deactive the override if we're currently the first up
+			if (hud_override_text == message_full) {
+				hud_override = false;
+				omnibus.IKE.hud_refresh(false);
+			}
+    }, timeout, message);
   },
 
   // IKE cluster text send message

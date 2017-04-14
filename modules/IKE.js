@@ -747,6 +747,11 @@ module.exports = {
         data.value   = 'vehicle data';
         break;
 
+      case 0x55: // Broadcast service interval display
+        data.command = 'bro';
+        data.value   = 'service interval';
+        break;
+
       case 0x57: // BC button in cluster
         data.command = 'bro';
         data.value   = 'BC button';

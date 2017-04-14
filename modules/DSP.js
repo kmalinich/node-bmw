@@ -104,27 +104,23 @@ var DSP = function() {
 
 	// Parse data sent from DSP module
 	function parse_out(data) {
-		// Init variables
-		var command;
-		var value;
-
 		switch (data.msg[0]) {
 			case 0x01: // Request: device status
-				command = 'request';
-				value   = 'device status';
+				data.command = 'request';
+				data.value   = 'device status';
 				break;
 
 			case 0x02: // Device status
 				switch (data.msg[1]) {
 					case 0x00:
 						status.dsp.ready = true;
-						command = 'device status';
-						value   = 'ready';
+						data.command = 'device status';
+						data.value   = 'ready';
 						break;
 
 					case 0x01:
-						command = 'device status';
-						value   = 'ready after reset';
+						data.command = 'device status';
+						data.value   = 'ready after reset';
 
 						// Set value to okay powering on via BMBT
 						status.dsp.ready = true;
@@ -145,28 +141,28 @@ var DSP = function() {
 				break;
 
 			case 0x10: // Request: ignition status
-				command = 'request';
-				value   = 'ignition status';
+				data.command = 'request';
+				data.value   = 'ignition status';
 				break;
 
 			case 0x35: // Broadcast: DSP memory
-				command = 'broadcast';
-				value   = 'DSP memory';
+				data.command = 'broadcast';
+				data.value   = 'DSP memory';
 				eq_decode(data.msg);
 				break;
 
 			case 0x79: // Request: door/flap status
-				command = 'request';
-				value   = 'door/flap status';
+				data.command = 'request';
+				data.value   = 'door/flap status';
 				break;
 
 			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
+				data.command = 'unknown';
+				data.value   = Buffer.from(data.msg);
 				break;
 		}
 
-		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
+		log.out(data);
 	}
 
 	// Send EQ data to DSP

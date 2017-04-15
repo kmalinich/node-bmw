@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var kbus_interface = require('./kbus-interface');
-var bus_modules    = require('../lib/bus-modules');
+var kbus_interface = require('./kbus-interface.js');
+var bus_modules    = require('../lib/bus-modules.js');
 
 // KBUS connection
 var kbus_connection = new kbus_interface();
@@ -17,6 +17,8 @@ function on_signal_int() {
 }
 
 function on_kbus_data(data) {
+	var module_src = bus_modules.hex2name(data.src);
+	var module_dst = bus_modules.hex2name(data.dst);
 	if (data.src == 0x00 && data.dst == 0x00) {
 		console.log(data);
 	}

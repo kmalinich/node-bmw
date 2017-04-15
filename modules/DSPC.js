@@ -110,7 +110,7 @@ var DSPC = function() {
 			msg  = [0x02, 0x00];
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'DSPC',
 			dst: 'GLO',
 			msg: msg,

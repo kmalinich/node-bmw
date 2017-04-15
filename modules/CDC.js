@@ -115,7 +115,7 @@ var CDC = function() {
 			msg = [0x02, 0x00];
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'CDC',
 			dst: 'LOC',
 			msg: msg,
@@ -136,7 +136,7 @@ var CDC = function() {
 				break;
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'CDC',
 			dst: 'RAD',
 			msg: msg,

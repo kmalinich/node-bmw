@@ -31,9 +31,17 @@ function load_modules(callback) {
 	// Everything connection object
 	omnibus = {
 		// IBUS libraries - these should be combined
-		data_handler : require('./ibus/data-handler'  ), // Data handler/router
-		protocol     : require('./ibus/ibus-protocol' ), // Protocol
-		ibus         : require('./ibus/ibus-interface'), // Connection
+		data_handler : require('./ibus/data-handler'), // Data handler/router
+
+		ibus : {
+			protocol     : require('./ibus/ibus-protocol' ), // Protocol
+			interface    : require('./ibus/ibus-interface'), // Connection
+		},
+
+		kbus : {
+			protocol     : require('./kbus/kbus-protocol' ), // Protocol
+			interface    : require('./kbus/kbus-interface'), // Connection
+		},
 
 		dbus : {
 			protocol     : require('./dbus/dbus-protocol' ), // Protocol
@@ -93,7 +101,7 @@ function startup() {
 							socket_server.startup(() => { // Config WebSocket server
 								omnibus.HDMI.startup(() => { // Open HDMI-CEC
 									omnibus.kodi.autoconfig(() => { // Open Kodi websocket
-										omnibus.ibus.startup(() => { // Open IBUS serial port
+										omnibus.ibus.interface.startup(() => { // Open IBUS serial port
 											omnibus.kbus.interface.startup(() => { // Open KBUS serial port
 												omnibus.dbus.interface.startup(() => { // Open DBUS serial port
 													log.msg({
@@ -121,7 +129,7 @@ function shutdown() {
 		msg : 'Shutting down',
 	});
 
-	omnibus.ibus.shutdown(() => { // Close IBUS serial port
+	omnibus.ibus.interface.shutdown(() => { // Close IBUS serial port
 		omnibus.dbus.interface.shutdown(() => { // Close DBUS serial port
 			omnibus.HDMI.shutdown(() => { // Close HDMI-CEC
 				omnibus.kodi.shutdown(() => { // Close Kodi websocket/clean up

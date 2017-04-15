@@ -41,7 +41,7 @@ serial_port.on('close', function() {
 // Send the data to the parser
 serial_port.on('data', (data) => {
 	for (var byte = 0; byte < data.length; byte++) {
-		omnibus.protocol.parser(data[byte]);
+		omnibus.ibus.protocol.parser(data[byte]);
 	}
 });
 
@@ -113,7 +113,6 @@ module.exports = {
 					console.log('[IBUS:PORT] Opened');
 
 					setTimeout(() => {
-						// omnibus.IKE.request('ignition');
 						omnibus.IKE.obc_refresh();
 						callback();
 					}, 250);
@@ -150,7 +149,7 @@ module.exports = {
 	// Insert a message into the write queue
 	send : (msg) => {
 		// Generate IBUS message with checksum, etc
-		queue_write.push(omnibus.protocol.create(msg));
+		queue_write.push(omnibus.ibus.protocol.create(msg));
 
 		// console.log('[IBUS:SEND] Pushed data into write queue');
 		if (active_write === false) {

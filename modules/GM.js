@@ -97,7 +97,7 @@ function io_set(packet) {
 	packet.unshift(0x0C);
 
 	// Set IO status
-	omnibus.ibus.send({
+	omnibus.kbus.interface.send({
 		src: 'DIA',
 		dst: 'GM',
 		msg: packet,
@@ -342,7 +342,7 @@ module.exports = {
 				break;
 		}
 
-		omnibus.ibus.send({
+		omnibus.kbus.interface.send({
 			src : src,
 			dst : 'GM',
 			msg : cmd,

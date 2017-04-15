@@ -82,7 +82,7 @@ function auto_lights_process() {
 function coding_get() {
 	// Get all 20 blocks of coding data
 	for (var byte = 0; byte < 21; byte++) {
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'DIA',
 			dst: 'LCM',
 			msg: [0x08, byte],
@@ -484,7 +484,7 @@ function io_encode(object) {
 function io_set(packet) {
 	// console.log('[node::LCM] Sending \'Set IO status\' message');
 	packet.unshift(0x0C);
-	omnibus.ibus.send({
+	omnibus.ibus.interface.send({
 		src: 'DIA',
 		dst: 'LCM',
 		msg: packet,
@@ -654,7 +654,7 @@ module.exports = {
 				cmd = [0x53];
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: src,
 			dst: 'LCM',
 			msg: cmd,

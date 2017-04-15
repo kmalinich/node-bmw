@@ -12,7 +12,7 @@ var queue_write  = [];
 var active_write = false;
 
 // Local data
-var device      = '/dev/dbus';
+var device      = '/dev/ddbus';
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',

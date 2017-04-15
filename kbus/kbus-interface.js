@@ -1,22 +1,15 @@
 const serialport = require('serialport');
-var byte_length  = serialport.parsers.ByteLength;
-
-// Read/write queues
-var queue_read  = [];
-var active_read = false;
 
 var queue_write  = [];
 var active_write = false;
 
 // Local data
-var device      = '/dev/kbus';
+var device      = '/dev/ttyUSB1';
 var serial_port = new serialport(device, {
 	autoOpen : false,
 	parity   : 'even',
-	parser   : serialport.parsers.byteLength(1),
+	rtscts   : true,
 });
-
-var parser = serial_port.pipe(new byte_length({length: 1}));
 
 /*
  * Event handling
@@ -30,6 +23,14 @@ serial_port.on('error', function(error) {
 // On port open
 serial_port.on('open', function() {
 	console.log('[KBUS:PORT] Opened [%s]', device);
+
+	serial_port.set({
+		cts : true,
+		dsr : false,
+		rts : true,
+	}, function() {
+		console.log('[KBUS:PORT] Options set');
+	});
 });
 
 // On port close
@@ -39,7 +40,9 @@ serial_port.on('close', function() {
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	omnibus.protocol.parser(data);
+	for (var byte = 0; byte < data.length; byte++) {
+		omnibus.kbus.protocol.parser(data[byte]);
+	}
 });
 
 
@@ -64,45 +67,29 @@ function write_message() {
 		return;
 	}
 
-	// Do we need to wait longer?
-	var time_now = now();
-	if (now()-status.kbus.last_event < 20) {
-		// Do we still have data?
-		if (queue_busy()) {
-			// console.log('[KBUS:RITE] Waiting for %s', time_now-status.kbus.last_event);
-			setTimeout(() => {
-				write_message();
-			}, (20-(now()-status.kbus.last_event)));
-		}
-		else {
-			console.log('[KBUS:RITE] Queue done');
-		}
-	}
-	else {
-		if (queue_busy()) {
-			serial_port.write(queue_write[0], (error) => {
-				if (error) { console.log('[KBUS:RITE] Failed : ', queue_write[0], error); }
+	if (queue_busy()) {
+		serial_port.write(queue_write[0], (error) => {
+			if (error) { console.log('[KBUS:RITE] Failed : ', queue_write[0], error); }
 
-				serial_port.drain((error) => {
-					// console.log('[KBUS::DRN] %s message(s) remain(s)', queue_write.length);
+			serial_port.drain((error) => {
+				// console.log('[KBUS::DRN] %s message(s) remain(s)', queue_write.length);
 
-					if (error) {
-						console.log('[KBUS::DRN] Failed : ', queue_write[0], error);
+				if (error) {
+					console.log('[KBUS::DRN] Failed : ', queue_write[0], error);
+				}
+				else {
+					// console.log('[KBUS:RITE] Success : ', queue_write[0]);
+
+					// Successful write, remove this message from the queue
+					queue_write.splice(0, 1);
+
+					// Do we still have data?
+					if (queue_busy()) {
+						write_message();
 					}
-					else {
-						// console.log('[KBUS:RITE] Success : ', queue_write[0]);
-
-						// Successful write, remove this message from the queue
-						queue_write.splice(0, 1);
-
-						// Do we still have data?
-						if (queue_busy()) {
-							write_message();
-						}
-					}
-				});
+				}
 			});
-		}
+		});
 	}
 }
 
@@ -124,6 +111,7 @@ module.exports = {
 				}
 				else {
 					console.log('[KBUS:PORT] Opened');
+
 					callback();
 				}
 			});
@@ -158,7 +146,7 @@ module.exports = {
 	// Insert a message into the write queue
 	send : (msg) => {
 		// Generate KBUS message with checksum, etc
-		queue_write.push(omnibus.protocol.create(msg));
+		queue_write.push(omnibus.kbus.protocol.create(msg));
 
 		// console.log('[KBUS:SEND] Pushed data into write queue');
 		if (active_write === false) {

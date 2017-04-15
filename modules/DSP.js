@@ -36,7 +36,7 @@ var DSP = function() {
 				break;
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: src,
 			dst: 'DSP',
 			msg: cmd,
@@ -73,7 +73,7 @@ var DSP = function() {
 				break;
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'RAD',
 			dst: 'DSP',
 			msg: cmd,
@@ -95,7 +95,7 @@ var DSP = function() {
 				break;
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src: 'RAD',
 			dst: 'DSP',
 			msg: cmd,
@@ -167,7 +167,7 @@ var DSP = function() {
 
 	// Send EQ data to DSP
 	function eq_send(msg) {
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			src : 'DSPC',
 			dst : 'DSP',
 			msg : msg,
@@ -250,7 +250,7 @@ var DSP = function() {
 			msg  = [0x02, 0x01];
 		}
 
-		omnibus.ibus.send({
+		omnibus.ibus.interface.send({
 			dst : 'GLO',
 			msg : msg,
 			src : 'DSP',

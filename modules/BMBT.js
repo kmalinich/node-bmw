@@ -1,6 +1,6 @@
 var BMBT = function() {
 	// Exposed data
-	this.status_loop      = status_loop;
+	this.status_loop          = status_loop;
 	this.parse_in             = parse_in;
 	this.parse_out            = parse_out;
 	this.power_on_if_ready    = power_on_if_ready;

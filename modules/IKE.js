@@ -410,34 +410,44 @@ module.exports = {
         status.temperature.exterior.f = Math.round(convert(parseFloat(data.msg[1])).from('celsius').to('fahrenheit'));
         status.temperature.coolant.f  = Math.round(convert(parseFloat(data.msg[2])).from('celsius').to('fahrenheit'));
 
-        // Refresh the HUD
-        omnibus.IKE.hud_refresh(false);
+				// Refresh the HUD
+				omnibus.IKE.hud_refresh(false);
 
-        data.command = 'bro';
-        data.value   = 'temperature values';
-        break;
+				data.command = 'bro';
+				data.value   = 'temperature values';
+				break;
 
-      case 0x1B: // ACK text message
-        data.command = 'acknowledged';
-        data.value   = parseFloat(data.msg[1])+' text messages';
-        break;
+			case 0x1B: // ACK text message
+				data.command = 'acknowledged';
+				data.value   = parseFloat(data.msg[1])+' text messages';
+				break;
 
-      case 0x24: // OBC values broadcast
-        switch (data.msg[1]) {
-          case 0x01: // Time
-            // Parse unit
-            string_time_unit = Buffer.from([data.msg[8], data.msg[9]]);
-            string_time_unit = string_time_unit.toString().trim().toLowerCase();
+			case 0x21: // Update menu text
+				data.command = 'con';
+				data.value   = 'menu text';
+				break;
 
-            // Detect 12h or 24h time and parse value
-            if (string_time_unit === 'am' || string_time_unit === 'pm') {
-              status.coding.unit.time = '12h';
-              string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
-            }
-            else {
-              status.coding.unit.time = '24h';
-              string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
-            }
+			case 0x23: // Update display text
+        data.command = 'con';
+				data.value   = 'display text';
+				break;
+
+			case 0x24: // OBC values broadcast
+				switch (data.msg[1]) {
+					case 0x01: // Time
+						// Parse unit
+						string_time_unit = Buffer.from([data.msg[8], data.msg[9]]);
+						string_time_unit = string_time_unit.toString().trim().toLowerCase();
+
+						// Detect 12h or 24h time and parse value
+						if (string_time_unit === 'am' || string_time_unit === 'pm') {
+							status.coding.unit.time = '12h';
+							string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7], data.msg[8], data.msg[9]]);
+						}
+						else {
+							status.coding.unit.time = '24h';
+							string_time = Buffer.from([data.msg[3], data.msg[4], data.msg[5], data.msg[6], data.msg[7]]);
+						}
 
             string_time = string_time.toString().trim().toLowerCase();
 
@@ -747,11 +757,6 @@ module.exports = {
         data.value   = 'vehicle data';
         break;
 
-      case 0x55: // Broadcast service interval display
-        data.command = 'bro';
-        data.value   = 'service interval';
-        break;
-
       case 0x57: // BC button in cluster
         data.command = 'bro';
         data.value   = 'BC button';
@@ -981,11 +986,6 @@ module.exports = {
     }
 
     omnibus.ibus.interface.send({
-      src: src,
-      dst: dst,
-      msg: cmd,
-    });
-    omnibus.kbus.interface.send({
       src: src,
       dst: dst,
       msg: cmd,

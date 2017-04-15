@@ -4,8 +4,7 @@ var queue_write  = [];
 var active_write = false;
 
 // Local data
-var device      = '/dev/ibus';
-var serial_port = new serialport(device, {
+var serial_port = new serialport(config.interface.ibus, {
 	autoOpen : false,
 	parity   : 'even',
 	rtscts   : true,
@@ -22,7 +21,7 @@ serial_port.on('error', function(error) {
 
 // On port open
 serial_port.on('open', function() {
-	console.log('[IBUS:PORT] Opened [%s]', device);
+	console.log('[IBUS:PORT] Opened [%s]', config.interface.ibus);
 
 	serial_port.set({
 		cts : true,
@@ -35,7 +34,7 @@ serial_port.on('open', function() {
 
 // On port close
 serial_port.on('close', function() {
-	console.log('[IBUS:PORT] Closed [%s]', device);
+	console.log('[IBUS:PORT] Closed [%s]', config.interface.ibus);
 });
 
 // Send the data to the parser

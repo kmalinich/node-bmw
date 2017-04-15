@@ -12,8 +12,7 @@ var queue_write  = [];
 var active_write = false;
 
 // Local data
-var device      = '/dev/ddbus';
-var serial_port = new serialport(device, {
+var serial_port = new serialport(config.interface.dbus, {
 	autoOpen : false,
 	parity   : 'even',
 });
@@ -32,12 +31,12 @@ serial_port.on('error', function(error) {
 
 // On port open
 serial_port.on('open', function() {
-	console.log('[DBUS:PORT] Opened [%s]', device);
+	console.log('[DBUS:PORT] Opened [%s]', config.interface.dbus);
 });
 
 // On port close
 serial_port.on('close', function() {
-	console.log('[DBUS:PORT] Closed [%s]', device);
+	console.log('[DBUS:PORT] Closed [%s]', config.interface.dbus);
 });
 
 // Send the data to the parser

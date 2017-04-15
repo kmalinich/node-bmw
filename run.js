@@ -23,8 +23,8 @@ var api_socket_map      = {};
 socket_server           = require('./lib/socket-server');
 api_server              = http.createServer(api_handler);
 var api_header          = {
-'Content-Type'  : 'application/json',
-'Cache-Control' : 'no-cache',
+	'Content-Type'  : 'application/json',
+	'Cache-Control' : 'no-cache',
 }
 
 function load_modules(callback) {
@@ -94,10 +94,12 @@ function startup() {
 								omnibus.HDMI.startup(() => { // Open HDMI-CEC
 									omnibus.kodi.autoconfig(() => { // Open Kodi websocket
 										omnibus.ibus.startup(() => { // Open IBUS serial port
-											omnibus.dbus.interface.startup(() => { // Open DBUS serial port
-												log.msg({
-													src : 'run',
-													msg : 'Started',
+											omnibus.kbus.interface.startup(() => { // Open KBUS serial port
+												omnibus.dbus.interface.startup(() => { // Open DBUS serial port
+													log.msg({
+														src : 'run',
+														msg : 'Started',
+													});
 												});
 											});
 										});

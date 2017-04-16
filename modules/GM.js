@@ -230,21 +230,21 @@ module.exports = {
 	// Handle incoming commands from API
 	api_command : (data) => {
 		if (typeof data['gm-interior-light'] !== 'undefined') {
-			interior_light(data['gm-interior-light']);
+			omnibus.GM.interior_light(data['gm-interior-light']);
 		}
 
 		// Sort-of.. future-mode.. JSON command.. object? maybe..
 		else if (typeof data['gm-command'] !== 'undefined') {
 			switch (data['gm-command']) {
-				case 'gm-get' : request('io-status'); break; // Get IO status
-				case 'lock'   : lock();               break; // Central locking
+				case 'gm-get' : omnibus.GM.request('io-status'); break; // Get IO status
+				case 'locks'  : omnibus.GM.locks();              break; // Toggle central locking
 				default       : console.log('[node:::GM] Unknown command'); break; // Dunno what I sent
 			}
 		}
 
 		// Window control
 		else if (typeof data['gm-window'] !== 'undefined') {
-			windows(data['gm-window'], data['gm-window-action']);
+			omnibus.GM.windows(data['gm-window'], data['gm-window-action']);
 		}
 
 		else {

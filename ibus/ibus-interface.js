@@ -19,29 +19,17 @@ serial_port.on('error', function(error) {
 	console.error('[IBUS:PORT]', error);
 });
 
-// On port open
-serial_port.on('open', function() {
-	console.log('[IBUS:PORT] Opened [%s]', config.interface.ibus);
-
-	serial_port.set({
-		cts : true,
-		dsr : false,
-		rts : true,
-	}, function() {
-		console.log('[IBUS:PORT] Options set');
-	});
-});
 
 // On port close
-serial_port.on('close', function() {
+serial_port.on('close', () => {
 	console.log('[IBUS:PORT] Closed [%s]', config.interface.ibus);
 });
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	for (var byte = 0; byte < data.length; byte++) {
-		omnibus.ibus.protocol.parser(data[byte]);
-	}
+	// for (var byte = 0; byte < data.length; byte++) {
+	// 	omnibus.ibus.protocol.parser(data[byte]);
+	// }
 });
 
 
@@ -109,12 +97,21 @@ module.exports = {
 					callback();
 				}
 				else {
-					console.log('[IBUS:PORT] Opened');
+					// On port open
 
-					setTimeout(() => {
-						omnibus.IKE.obc_refresh();
+					console.log('[IBUS:PORT] Opened %s', config.interface.ibus);
+
+					serial_port.set({
+						cts : true,
+						dsr : false,
+						rts : true,
+					}, () => {
 						callback();
-					}, 250);
+						console.log('[IBUS:PORT] Options set');
+						setTimeout(() => {
+							omnibus.IKE.obc_refresh();
+						}, 250);
+					});
 				}
 			});
 		}

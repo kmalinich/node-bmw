@@ -153,7 +153,7 @@ function gm_cl(action) {
 		type     : 'POST',
 		dataType : 'json',
 		data     : {
-			'gm-command'        : 'gm-cl',
+			'gm-command'        : 'locks',
 			'gm-command-action' : action,
 		},
 		success : function(return_data) {

@@ -15,32 +15,20 @@ var serial_port = new serialport(config.interface.kbus, {
  */
 
 // On port error
-serial_port.on('error', function(error) {
+serial_port.on('error', (error) => {
 	console.error('[KBUS:PORT]', error);
 });
 
-// On port open
-serial_port.on('open', function() {
-	console.log('[KBUS:PORT] Opened [%s]', config.interface.kbus);
-
-	serial_port.set({
-		cts : true,
-		dsr : false,
-		rts : true,
-	}, function() {
-		console.log('[KBUS:PORT] Options set');
-	});
-});
 
 // On port close
-serial_port.on('close', function() {
+serial_port.on('close', () => {
 	console.log('[KBUS:PORT] Closed [%s]', config.interface.kbus);
 });
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
 	for (var byte = 0; byte < data.length; byte++) {
-		omnibus.kbus.protocol.parser(data[byte]);
+		omnibus.ibus.protocol.parser(data[byte]);
 	}
 });
 
@@ -109,9 +97,21 @@ module.exports = {
 					callback();
 				}
 				else {
-					console.log('[KBUS:PORT] Opened');
+					// On port open
 
-					callback();
+					console.log('[KBUS:PORT] Opened %s', config.interface.kbus);
+
+					serial_port.set({
+						cts : true,
+						dsr : false,
+						rts : true,
+					}, () => {
+						callback();
+						console.log('[KBUS:PORT] Options set');
+						setTimeout(() => {
+							omnibus.IKE.obc_refresh();
+						}, 250);
+					});
 				}
 			});
 		}
@@ -128,17 +128,17 @@ module.exports = {
 			serial_port.close((error) => {
 				if (error) {
 					console.log('[KBUS:PORT]', error);
-					callback();
+					if (typeof callback === 'function') { callback(); }
 				}
 				else {
 					console.log('[KBUS:PORT] Closed');
-					callback();
+					if (typeof callback === 'function') { callback(); }
 				};
 			});
 		}
 		else {
 			console.log('[KBUS:PORT] Already closed');
-			callback();
+			if (typeof callback === 'function') { callback(); }
 		}
 	},
 

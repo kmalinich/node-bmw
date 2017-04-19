@@ -36,7 +36,7 @@ function ascii2hex(str) {
 // Cluster/interior backlight
 function backlight(value) {
   console.log('[node::IKE] Setting LCD screen backlight to %s', value);
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'LCM',
     dst: 'GLO',
     msg: [0x5C, value.toString(16), 0x00]
@@ -64,7 +64,7 @@ function ignition(value) {
       break;
   }
 
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'IKE',
     dst: 'GLO',
     msg: [0x11, status],
@@ -78,14 +78,14 @@ function obc_clock() {
   var time = moment();
 
   // Time
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'GT',
     dst: 'IKE',
     msg: [0x40, 0x01, time.format('H'), time.format('m')],
   });
 
   // Date
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'GT',
     dst: 'IKE',
     msg: [0x40, 0x02, time.format('D'), time.format('M'), time.format('YY')],
@@ -144,7 +144,7 @@ function obc_data(action, value, target) {
 
   // console.log('[node::IKE] Performing \'%s\' on OBC value \'%s\'', action, value);
 
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'GT',
     dst: 'IKE',
     msg: msg,
@@ -153,7 +153,7 @@ function obc_data(action, value, target) {
 
 // Clear check control messages, then refresh HUD
 function text_urgent_off() {
-  omnibus.ibus.interface.send({
+  omnibus.data_send.send({
     src: 'CCM',
     dst: 'IKE',
     msg: [0x1A, 0x30, 0x00],
@@ -985,7 +985,7 @@ module.exports = {
         break;
     }
 
-    omnibus.ibus.interface.send({
+    omnibus.data_send.send({
       src: src,
       dst: dst,
       msg: cmd,
@@ -1009,7 +1009,7 @@ module.exports = {
     var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrow
     var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
-    omnibus.ibus.interface.send({
+    omnibus.data_send.send({
       src : 'CCM',
       dst : 'IKE',
       msg : message_hex,
@@ -1027,7 +1027,7 @@ module.exports = {
     var message_hex = [0x1A, 0x35, 0x00];
     var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 
-    omnibus.ibus.interface.send({
+    omnibus.data_send.send({
       src : 'CCM',
       dst : 'IKE',
       msg : message_hex,
@@ -1077,7 +1077,7 @@ module.exports = {
 
 						// Only send the message if we're currently the first up
 						if (hud_override_text == message_full) {
-							omnibus.ibus.interface.send({
+							omnibus.data_send.send({
 								src: 'RAD',
 								dst: 'GLO',
 								msg: message_trim_hex,
@@ -1108,7 +1108,7 @@ module.exports = {
     var message_hex = message_hex.concat(ascii2hex(message));
     var message_hex = message_hex.concat(0x04);
 
-    omnibus.ibus.interface.send({
+    omnibus.data_send.send({
       src: 'RAD',
       dst: 'GLO',
       msg: message_hex,

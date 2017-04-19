@@ -101,6 +101,7 @@ function process() {
 	}
 
 	var msg_obj = {
+		bus : 'kbus',
 		crc : msg_crc,
 		dst : {
 			name : msg_dst_name,

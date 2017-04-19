@@ -8,11 +8,11 @@ os      = require('os');
 suncalc = require('suncalc');
 
 // Global objects
-bitmask     = require('./lib/bitmask');
-bus_modules = require('./lib/bus-modules');
-hex         = require('./lib/hex');
-json        = require('./lib/json');
-log         = require('./lib/log');
+bitmask     = require('bitmask');
+bus_modules = require('bus-modules');
+hex         = require('hex');
+json        = require('json');
+log         = require('log-output');
 
 // API config - should be moved into API object
 const dispatcher        = new (require('httpdispatcher'));
@@ -20,7 +20,7 @@ const http              = require('http');
 const query_string      = require('querystring');
 var api_socket_key_last = 0;
 var api_socket_map      = {};
-socket_server           = require('./lib/socket-server');
+socket_server           = require('socket-server');
 api_server              = http.createServer(api_handler);
 var api_header          = {
 	'Content-Type'  : 'application/json',
@@ -31,54 +31,55 @@ function load_modules(callback) {
 	// Everything connection object
 	omnibus = {
 		// IBUS libraries - these should be combined
-		data_handler : require('./ibus/data-handler'), // Data handler/router
+		data_handler : require('data-handler'), // Data handler/router
+		data_send    : require('data-send'),    // Data sender (sorts based on dest module)
 
 		ibus : {
-			protocol  : require('./ibus/ibus-protocol' ), // Protocol
-			interface : require('./ibus/ibus-interface'), // Connection
+			protocol  : require('ibus-protocol'), // Protocol
+			interface : require('ibus-interface'), // Connection
 		},
 
 		kbus : {
-			protocol  : require('./kbus/kbus-protocol' ), // Protocol
-			interface : require('./kbus/kbus-interface'), // Connection
+			protocol  : require('kbus-protocol'), // Protocol
+			interface : require('kbus-interface'), // Connection
 		},
 
 		dbus : {
-			protocol  : require('./dbus/dbus-protocol' ), // Protocol
-			interface : require('./dbus/dbus-interface'), // Connection
+			protocol  : require('dbus-protocol'), // Protocol
+			interface : require('dbus-interface'), // Connection
 		},
 
 		// Custom libraries
-		BT   : require('./lib/BT'  ),
-		HDMI : require('./lib/HDMI'),
-		kodi : require('./lib/kodi'),
+		BT   : require('BT'),
+		HDMI : require('HDMI'),
+		kodi : require('kodi'),
 
 		// Data bus module libraries
-		GM  : require('./modules/GM'),
-		LCM : require('./modules/LCM'),
-		IKE : require('./modules/IKE'),
+		GM  : require('GM'),
+		LCM : require('LCM'),
+		IKE : require('IKE'),
 
-		ABG  : new (require('./modules/ABG' )),
-		ANZV : new (require('./modules/ANZV')),
-		BMBT : new (require('./modules/BMBT')),
-		CCM  : new (require('./modules/CCM' )),
-		CDC  : new (require('./modules/CDC' )),
-		DSP  : new (require('./modules/DSP' )),
-		DSPC : new (require('./modules/DSPC')),
-		EWS  : new (require('./modules/EWS' )),
-		GT   : new (require('./modules/GT'  )),
-		HAC  : new (require('./modules/HAC' )),
-		IHKA : new (require('./modules/IHKA')),
-		MFL  : new (require('./modules/MFL' )),
-		MID  : new (require('./modules/MID' )),
-		NAV  : new (require('./modules/NAV' )),
-		PDC  : new (require('./modules/PDC' )),
-		RAD  : new (require('./modules/RAD' )),
-		RLS  : new (require('./modules/RLS' )),
-		SES  : new (require('./modules/SES' )),
-		SHD  : new (require('./modules/SHD' )),
-		TEL  : new (require('./modules/TEL' )),
-		VID  : new (require('./modules/VID' )),
+		ABG  : new (require('ABG')),
+		ANZV : new (require('ANZV')),
+		BMBT : new (require('BMBT')),
+		CCM  : new (require('CCM')),
+		CDC  : new (require('CDC')),
+		DSP  : new (require('DSP')),
+		DSPC : new (require('DSPC')),
+		EWS  : new (require('EWS')),
+		GT   : new (require('GT')),
+		HAC  : new (require('HAC')),
+		IHKA : new (require('IHKA')),
+		MFL  : new (require('MFL')),
+		MID  : new (require('MID')),
+		NAV  : new (require('NAV')),
+		PDC  : new (require('PDC')),
+		RAD  : new (require('RAD')),
+		RLS  : new (require('RLS')),
+		SES  : new (require('SES')),
+		SHD  : new (require('SHD')),
+		TEL  : new (require('TEL')),
+		VID  : new (require('VID')),
 	};
 
 	if (typeof callback === 'function') { callback(); }
@@ -97,9 +98,11 @@ function startup() {
 			json.reset_modules(() => { // Reset modules vars pertinent to launching app
 				json.reset_status(() => { // Reset status vars pertinent to launching app
 					load_modules(() => { // Load IBUS module node modules
-						omnibus.ibus.interface.startup(() => { // Open IBUS serial port
+
+						omnibus.dbus.interface.startup(() => { // Open DBUS serial port
 							omnibus.kbus.interface.startup(() => { // Open KBUS serial port
-								omnibus.dbus.interface.startup(() => { // Open DBUS serial port
+								omnibus.ibus.interface.startup(() => { // Open IBUS serial port
+
 									startup_api_server(() => { // Open API server
 										socket_server.startup(() => { // Config WebSocket server
 											omnibus.HDMI.startup(() => { // Open HDMI-CEC
@@ -134,9 +137,11 @@ function shutdown() {
 	omnibus.HDMI.shutdown(() => { // Close HDMI-CEC
 		omnibus.kodi.shutdown(() => { // Close Kodi websocket/clean up
 			shutdown_api_server(() => { // Close API server
-				omnibus.ibus.interface.shutdown(() => { // Close IBUS serial port
+
+				omnibus.dbus.interface.shutdown(() => { // Close DBUS serial port
 					omnibus.kbus.interface.shutdown(() => { // Close KBUS serial port
-						omnibus.dbus.interface.shutdown(() => { // Close DBUS serial port
+						omnibus.ibus.interface.shutdown(() => { // Close IBUS serial port
+
 							json.write_config(() => { // Write JSON config file
 								json.reset_modules(() => { // Reset modules vars pertinent to launching app
 									json.reset_status(() => { // Reset status vars pertinent to launching app
@@ -163,7 +168,7 @@ function startup_api_server(callback) {
 	api_server.listen(config.api.port, () => {
 		log.msg({
 			src : 'API',
-			msg : 'Started, port '+config.api.port,
+			msg : 'API server up, port '+config.api.port,
 		});
 
 		if (typeof callback === 'function') { callback(); }

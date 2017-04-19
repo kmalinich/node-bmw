@@ -97,7 +97,7 @@ function io_set(packet) {
 	packet.unshift(0x0C);
 
 	// Set IO status
-	omnibus.kbus.interface.send({
+	omnibus.data_send.send({
 		src: 'DIA',
 		dst: 'GM',
 		msg: packet,
@@ -153,6 +153,12 @@ module.exports = {
 			case 0x72: // Key fob status
 				data.command = 'bro';
 				data.value   = 'key fob status';
+				decode_status_keyfob(data);
+				break;
+
+			case 0x73: // Immobiliser status request
+				data.command = 'req';
+				data.value   = 'immobiliser status';
 				decode_status_keyfob(data);
 				break;
 
@@ -342,7 +348,7 @@ module.exports = {
 				break;
 		}
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src : src,
 			dst : 'GM',
 			msg : cmd,

@@ -44,7 +44,7 @@ var IHKA = function() {
 				break;
 			case 0xA0: // Diagnostic command replies
 				command = 'diagnostic command';
-				value   = 'acknowledged';
+				value   = 'acknowledged: '+data.msg;
 				break;
 			case 0xA2:
 				command = 'diagnostic command';

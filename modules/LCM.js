@@ -50,6 +50,9 @@ function auto_lights_process() {
 	// console.log('[node::LCM]  lights_on : %s', lights_on);
 	// console.log('[node::LCM] lights_off : %s', lights_off);
 
+	// Request ignition
+	omnibus.IKE.request('ignition'   );
+
 	// Check time of day
 	if (current_time < lights_off) {
 		status.lights.auto.reason  = 'before lights off';
@@ -82,7 +85,7 @@ function auto_lights_process() {
 function coding_get() {
 	// Get all 20 blocks of coding data
 	for (var byte = 0; byte < 21; byte++) {
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'DIA',
 			dst: 'LCM',
 			msg: [0x08, byte],
@@ -118,7 +121,7 @@ function comfort_turn(data) {
 		if (!data.after.left.active && !data.after.right.active) { // If left turn is now off and right turn is now off
 			// If the time difference is less than 1000ms, fire comfort turn signal
 			status.lights.turn.depress_elapsed = now()-status.lights.turn.left.depress;
-			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
+			// console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
 			if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
 				action = 'left';
 			}
@@ -135,7 +138,7 @@ function comfort_turn(data) {
 		if (!data.after.left.active && !data.after.right.active) { // If left turn is now off and right turn is now off
 			// If the time difference is less than 1000ms, fire comfort turn signal
 			status.lights.turn.depress_elapsed = now()-status.lights.turn.right.depress;
-			console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
+			// console.log('[node::LCM] Firing \'%s\'', status.lights.turn.depress_elapsed);
 			if (status.lights.turn.depress_elapsed > 0 && status.lights.turn.depress_elapsed < 1000) {
 				action = 'right';
 			}
@@ -167,7 +170,7 @@ function comfort_turn(data) {
 
 		status.lights.turn.comfort_cool = false;
 		reset();
-		// omnibus.IKE.text(cluster_msg);
+
 		omnibus.IKE.text_warning(cluster_msg, 2000+status.lights.turn.depress_elapsed);
 
 		// Turn off comfort turn signal - 1 blink ~ 500ms, so 5x blink ~ 2500ms
@@ -484,7 +487,7 @@ function io_encode(object) {
 function io_set(packet) {
 	// console.log('[node::LCM] Sending \'Set IO status\' message');
 	packet.unshift(0x0C);
-	omnibus.ibus.interface.send({
+	omnibus.data_send.send({
 		src: 'DIA',
 		dst: 'LCM',
 		msg: packet,
@@ -654,7 +657,7 @@ module.exports = {
 				cmd = [0x53];
 		}
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: src,
 			dst: 'LCM',
 			msg: cmd,

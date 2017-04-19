@@ -15,7 +15,7 @@ var EWS = function() {
 				break;
 		}
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'CCM',
 			dst: 'EWS',
 			msg: cmd,

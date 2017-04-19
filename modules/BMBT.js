@@ -179,7 +179,7 @@ var BMBT = function() {
 
 	// Request status from RAD module
 	function request_rad_status() {
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'BMBT',
 			dst: 'RAD',
 			msg: [0x01],
@@ -200,7 +200,7 @@ var BMBT = function() {
 			msg = [0x02, 0x00];
 		}
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'BMBT',
 			dst: 'GLO',
 			msg: msg,
@@ -209,7 +209,7 @@ var BMBT = function() {
 
 	// Say we have no tape in the player
 	function send_cassette_status() {
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'BMBT',
 			dst: 'RAD',
 			msg: [0x4B, 0x05],
@@ -242,7 +242,7 @@ var BMBT = function() {
 		var packet_down = [command, button_down];
 		var packet_up = [command, button_up];
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'BMBT',
 			dst: 'RAD',
 			msg: packet_down,
@@ -251,7 +251,7 @@ var BMBT = function() {
 		// Prepare and send the up message after 150ms
 		setTimeout(() => {
 			console.log('[BMBT::RAD] Sending button up: %s', button);
-			omnibus.ibus.interface.send({
+			omnibus.data_send.send({
 				src: 'BMBT',
 				dst: 'RAD',
 				msg: packet_up,

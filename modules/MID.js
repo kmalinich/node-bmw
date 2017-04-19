@@ -52,7 +52,7 @@ var MID = function() {
     var message_hex = message_hex.concat(ascii2hex(message));
     // var message_hex = message_hex.concat(0x04);
 
-    omnibus.ibus.interface.send({
+    omnibus.data_send.send({
       src: 'IKE',
       dst: 'MID',
       msg: message_hex,
@@ -324,7 +324,7 @@ var MID = function() {
 
 	// Request status from RAD module
 	function request_rad_status() {
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'MID',
 			dst: 'RAD',
 			msg: [0x01],
@@ -345,7 +345,7 @@ var MID = function() {
 			msg = [0x02, 0x00];
 		}
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'MID',
 			dst: 'GLO',
 			msg: msg,
@@ -354,7 +354,7 @@ var MID = function() {
 
 	// Say we have no tape in the player
 	function send_cassette_status() {
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'MID',
 			dst: 'RAD',
 			msg: [0x4B, 0x05],
@@ -387,7 +387,7 @@ var MID = function() {
 		var packet_down = [command, button_down];
 		var packet_up = [command, button_up];
 
-		omnibus.ibus.interface.send({
+		omnibus.data_send.send({
 			src: 'MID',
 			dst: 'RAD',
 			msg: packet_down,
@@ -396,7 +396,7 @@ var MID = function() {
 		// Prepare and send the up message after 150ms
 		setTimeout(() => {
 			console.log('[MID::RAD] Sending button up: %s', button);
-			omnibus.ibus.interface.send({
+			omnibus.data_send.send({
 				src: 'MID',
 				dst: 'RAD',
 				msg: packet_up,

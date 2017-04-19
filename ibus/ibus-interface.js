@@ -1,4 +1,5 @@
 const serialport = require('serialport');
+const log_src = 'ibus';
 
 var queue_write  = [];
 var active_write = false;
@@ -7,6 +8,7 @@ var active_write = false;
 var serial_port = new serialport(config.interface.ibus, {
 	autoOpen : false,
 	parity   : 'even',
+	// rtscts   : false,
 });
 
 /*
@@ -14,14 +16,11 @@ var serial_port = new serialport(config.interface.ibus, {
  */
 
 // On port error
-serial_port.on('error', function(error) {
-	console.error('[IBUS:PORT]', error);
-});
-
-
-// On port close
-serial_port.on('close', () => {
-	console.log('[IBUS:PORT] Closed [%s]', config.interface.ibus);
+serial_port.on('error', (error) => {
+	log.msg({
+		src : log_src,
+		msg : 'Port error: '+error,
+	});
 });
 
 // Send the data to the parser
@@ -29,6 +28,13 @@ serial_port.on('data', (data) => {
 	for (var byte = 0; byte < data.length; byte++) {
 		omnibus.ibus.protocol.parser(data[byte]);
 	}
+});
+
+serial_port.on('close', () => {
+	log.msg({
+		src : log_src,
+		msg : 'Port closed: '+config.interface.ibus,
+	});
 });
 
 
@@ -41,7 +47,10 @@ function queue_busy() {
 		active_write = false;
 	}
 
-	// console.log('[IBUS::QUE] Queue busy: %s', active_write);
+	// log.msg({
+	// 	src : log_src,
+	// 	msg : 'Queue busy: '+active_write,
+	// });
 	return active_write;
 }
 
@@ -49,22 +58,39 @@ function queue_busy() {
 function write_message() {
 	// Only write data if port is open
 	if (!serial_port.isOpen) {
-		console.log('[IBUS:RITE] Chilling until port is open');
+		log.msg({
+			src : log_src,
+			msg : 'Waiting for port to open',
+		});
 		return;
 	}
 
 	if (queue_busy()) {
 		serial_port.write(queue_write[0], (error) => {
-			if (error) { console.log('[IBUS:RITE] Failed : ', queue_write[0], error); }
+			if (error) {
+				log.msg({
+					src : log_src,
+					msg : 'Write failed: '+error+' '+queue_write[0],
+				});
+			}
 
 			serial_port.drain((error) => {
-				// console.log('[IBUS::DRN] %s message(s) remain(s)', queue_write.length);
+				// log.msg({
+				// 	src : log_src,
+				// 	msg : queue_write.length+' message(s) remain(s)',
+				// });
 
 				if (error) {
-					console.log('[IBUS::DRN] Failed : ', queue_write[0], error);
+					log.msg({
+						src : log_src,
+						msg : 'Drain failed: '+error+' '+queue_write[0],
+					});
 				}
 				else {
-					// console.log('[IBUS:RITE] Success : ', queue_write[0]);
+					// log.msg({
+					// 	src : log_src,
+					// 	msg : 'Drain success: '+queue_write[0],
+					// });
 
 					// Successful write, remove this message from the queue
 					queue_write.splice(0, 1);
@@ -92,30 +118,40 @@ module.exports = {
 		if (!serial_port.isOpen) {
 			serial_port.open((error) => {
 				if (error) {
-					console.log('[IBUS:PORT]', error);
+					log.msg({
+						src : log_src,
+						msg : 'Port error: '+error,
+					});
 					callback();
 				}
 				else {
 					// On port open
-					console.log('[IBUS:PORT] Opened %s', config.interface.ibus);
+					log.msg({
+						src : log_src,
+						msg : 'Port opened: '+config.interface.ibus,
+					});
 
 					serial_port.set({
 						cts : true,
 						dsr : false,
 						rts : true,
 					}, () => {
-						if (typeof callback === 'function') { callback(); }
-						console.log('[IBUS:PORT] Options set');
-						setTimeout(() => {
-							omnibus.IKE.obc_refresh();
-						}, 250);
+						log.msg({
+							src : log_src,
+							msg : 'Port options set',
+						});
+						omnibus.IKE.obc_refresh();
+						callback();
 					});
 				}
 			});
 		}
 		else {
-			console.log('[IBUS:PORT] Already open');
-			if (typeof callback === 'function') { callback(); }
+			log.msg({
+				src : log_src,
+				msg : 'Port already open',
+			});
+			callback();
 		}
 	},
 
@@ -125,32 +161,42 @@ module.exports = {
 		if (serial_port.isOpen) {
 			serial_port.close((error) => {
 				if (error) {
-					console.log('[IBUS:PORT]', error);
+					log.msg({
+						src : log_src,
+						msg : 'Port error: '+error,
+					});
 					if (typeof callback === 'function') { callback(); }
 				}
 				else {
 					// On port close
-					serial_port.on('close', () => {
-						console.log('[KBUS:PORT] Closed [%s]', config.interface.ibus);
-						if (typeof callback === 'function') { callback(); }
-					});
+					if (typeof callback === 'function') { callback(); }
 				};
 			});
 		}
 		else {
-			console.log('[IBUS:PORT] Already closed');
+			log.msg({
+				src : log_src,
+				msg : 'Port already closed',
+			});
 			if (typeof callback === 'function') { callback(); }
 		}
 	},
 
 	// Insert a message into the write queue
 	send : (msg) => {
-		// Generate IBUS message with checksum, etc
+		// Generate KBUS message with checksum, etc
 		queue_write.push(omnibus.ibus.protocol.create(msg));
 
-		// console.log('[IBUS:SEND] Pushed data into write queue');
-		if (active_write === false) {
-			// console.log('[IBUS:SEND] Starting queue write');
+		// log.msg({
+		// 	src : log_src,
+		// 	msg : 'Send: Pushed data into write queue',
+		// });
+
+		if (!active_write) {
+			// log.msg({
+			// 	src : log_src,
+			// 	msg : 'Send: Starting write queue',
+			// });
 			write_message();
 		}
 	},

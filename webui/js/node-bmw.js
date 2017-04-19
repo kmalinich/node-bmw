@@ -287,7 +287,7 @@ function prepare_gm_interior_light() {
 		}
 	});
 
-	slider.noUiSlider.on('change', function(data) {
+	slider.noUiSlider.on('update', function(data) {
 		var value = parseInt(data[0]);
 		gm_interior_light(value);
 	});

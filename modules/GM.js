@@ -342,7 +342,7 @@ module.exports = {
 				break;
 		}
 
-		omnibus.kbus.interface.send({
+		omnibus.ibus.interface.send({
 			src : src,
 			dst : 'GM',
 			msg : cmd,

@@ -7,7 +7,6 @@ var active_write = false;
 var serial_port = new serialport(config.interface.ibus, {
 	autoOpen : false,
 	parity   : 'even',
-	rtscts   : true,
 });
 
 /*
@@ -27,9 +26,9 @@ serial_port.on('close', () => {
 
 // Send the data to the parser
 serial_port.on('data', (data) => {
-	// for (var byte = 0; byte < data.length; byte++) {
-	// 	omnibus.ibus.protocol.parser(data[byte]);
-	// }
+	for (var byte = 0; byte < data.length; byte++) {
+		omnibus.ibus.protocol.parser(data[byte]);
+	}
 });
 
 
@@ -98,7 +97,6 @@ module.exports = {
 				}
 				else {
 					// On port open
-
 					console.log('[IBUS:PORT] Opened %s', config.interface.ibus);
 
 					serial_port.set({
@@ -106,7 +104,7 @@ module.exports = {
 						dsr : false,
 						rts : true,
 					}, () => {
-						callback();
+						if (typeof callback === 'function') { callback(); }
 						console.log('[IBUS:PORT] Options set');
 						setTimeout(() => {
 							omnibus.IKE.obc_refresh();
@@ -117,7 +115,7 @@ module.exports = {
 		}
 		else {
 			console.log('[IBUS:PORT] Already open');
-			callback();
+			if (typeof callback === 'function') { callback(); }
 		}
 	},
 
@@ -128,17 +126,20 @@ module.exports = {
 			serial_port.close((error) => {
 				if (error) {
 					console.log('[IBUS:PORT]', error);
-					callback();
+					if (typeof callback === 'function') { callback(); }
 				}
 				else {
-					console.log('[IBUS:PORT] Closed');
-					callback();
+					// On port close
+					serial_port.on('close', () => {
+						console.log('[KBUS:PORT] Closed [%s]', config.interface.ibus);
+						if (typeof callback === 'function') { callback(); }
+					});
 				};
 			});
 		}
 		else {
 			console.log('[IBUS:PORT] Already closed');
-			callback();
+			if (typeof callback === 'function') { callback(); }
 		}
 	},
 

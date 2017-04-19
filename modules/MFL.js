@@ -31,9 +31,15 @@ var MFL = function() {
 				switch (message[1]) {
 					case 0x10:
 						action = 'decrease 1 step';
+						if (config.media.bluetooth === false && config.media.kodi.enable === true) {
+							omnibus.kodi.command('volumedown');
+						}
 						break;
 					case 0x11:
 						action = 'increase 1 step';
+						if (config.media.bluetooth === false && config.media.kodi.enable === true) {
+							omnibus.kodi.command('volumeup');
+						}
 						break;
 				}
 				break;

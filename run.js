@@ -34,18 +34,18 @@ function load_modules(callback) {
 		data_handler : require('./ibus/data-handler'), // Data handler/router
 
 		ibus : {
-			protocol     : require('./ibus/ibus-protocol' ), // Protocol
-			interface    : require('./ibus/ibus-interface'), // Connection
+			protocol  : require('./ibus/ibus-protocol' ), // Protocol
+			interface : require('./ibus/ibus-interface'), // Connection
 		},
 
 		kbus : {
-			protocol     : require('./kbus/kbus-protocol' ), // Protocol
-			interface    : require('./kbus/kbus-interface'), // Connection
+			protocol  : require('./kbus/kbus-protocol' ), // Protocol
+			interface : require('./kbus/kbus-interface'), // Connection
 		},
 
 		dbus : {
-			protocol     : require('./dbus/dbus-protocol' ), // Protocol
-			interface    : require('./dbus/dbus-interface'), // Connection
+			protocol  : require('./dbus/dbus-protocol' ), // Protocol
+			interface : require('./dbus/dbus-interface'), // Connection
 		},
 
 		// Custom libraries

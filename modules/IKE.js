@@ -276,7 +276,7 @@ function decode_ignition_status(data) {
 		omnibus.IKE.interval_data_refresh = setInterval(() => {
 			omnibus.IKE.request('temperature');
 			// omnibus.GM.request('io-status');
-			// omnibus.GM.request('door-flap-status');
+			// omnibus.GM.request('door-door-status');
 		}, 1000);
 	}
 
@@ -894,7 +894,7 @@ module.exports = {
 		// Immo+GM data
 		omnibus.EWS.request('immobiliserstatus');
 		omnibus.GM.request('io-status');
-		omnibus.GM.request('door-flap-status');
+		omnibus.GM.request('door-door-status');
 
 		// IKE data
 		omnibus.IKE.request('status-glo' );

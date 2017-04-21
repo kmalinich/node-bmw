@@ -3,6 +3,7 @@ var module_name = 'gm';
 // All the possible values to send to the GM
 var array_of_possible_values = {
 	light_alarm                   : true,
+	light_alarm_blink             : true,
 	light_interior                : true,
 	locks_lock                    : true,
 	locks_toggle                  : true,
@@ -71,24 +72,51 @@ function decode_status_keyfob(data) {
 	log.out(data);
 }
 
-// [0x7A] Decode a door/flap status message from the GM and act upon the results
+// [0x7A] Decode a door/door status message from the GM and act upon the results
 function decode_status_open(message) {
-	// Set status from message by decrypting bitmask
-	status.flaps.front_left    = bitmask.bit_test(message[1], 0x01);
-	status.flaps.front_right   = bitmask.bit_test(message[1], 0x02);
-	status.flaps.rear_left     = bitmask.bit_test(message[1], 0x04);
-	status.flaps.rear_right    = bitmask.bit_test(message[1], 0x08);
-	status.lights.interior     = bitmask.bit_test(message[1], 0x40);
+	// Set status from message by decoding bitmask
+	status.doors.front_left  = bitmask.bit_test(message[1], 0x01);
+	status.doors.front_right = bitmask.bit_test(message[1], 0x02);
+	status.doors.hood        = bitmask.bit_test(message[2], 0x40);
+	status.doors.rear_left   = bitmask.bit_test(message[1], 0x04);
+	status.doors.rear_right  = bitmask.bit_test(message[1], 0x08);
+	status.doors.trunk       = bitmask.bit_test(message[2], 0x20);
+
+	status.lights.interior = bitmask.bit_test(message[1], 0x40);
+
 	status.windows.front_left  = bitmask.bit_test(message[2], 0x01);
 	status.windows.front_right = bitmask.bit_test(message[2], 0x02);
 	status.windows.rear_left   = bitmask.bit_test(message[2], 0x04);
 	status.windows.rear_right  = bitmask.bit_test(message[2], 0x08);
 	status.windows.roof        = bitmask.bit_test(message[2], 0x10);
-	status.flaps.trunk         = bitmask.bit_test(message[2], 0x20);
-	status.flaps.hood          = bitmask.bit_test(message[2], 0x40);
 
-	// This is correct, in a sense... Not a good sense, but in a sense.
+	// This is correct, in a sense... Not a good sense, but in a sense
 	status.vehicle.locked = bitmask.bit_test(message[1], 0x20);
+
+	// Set status.vehicle.closed var if all doors are closed
+	if (
+	status.doors.front_left  &&
+	status.doors.front_right &&
+	status.doors.hood        &&
+	status.doors.rear_left   &&
+	status.doors.rear_right  &&
+	status.doors.trunk
+  ) {
+    status.vehicle.closed = true;
+  }
+
+	// Set status.vehicle.sealed var if all windows are closed
+	if (
+	status.windows.front_left  &&
+	status.windows.front_right &&
+	status.windows.roof        &&
+	status.windows.rear_left   &&
+	status.windows.rear_right  &&
+  ) {
+    status.vehicle.sealed = true;
+  }
+
+	// Set status.vehicle.sealed var if all windows are closed
 }
 
 // Send message to GM
@@ -191,13 +219,13 @@ function io_decode(array) {
 
 function parse_out(data) {
 	switch (data.msg[0]) {
-		case 0x72: // Key fob status
+		case 0x72: // Broadcast: Key fob status
 			data.command = 'bro';
 			data.value   = 'key fob status';
 			decode_status_keyfob(data);
 			break;
 
-		case 0x76: // 'Crash alarm' ..
+		case 0x76: // Broadcast: 'Crash alarm' ..
 			data.command = 'bro';
 			switch (data.msg[1]) {
 				case 0x00:
@@ -212,7 +240,7 @@ function parse_out(data) {
 			}
 			break;
 
-		case 0x77: // Wiper status
+		case 0x77: // Broadcast: Wiper status
 			data.command = 'bro';
 			switch (data.msg[1]) {
 				case 0x0C:
@@ -233,18 +261,18 @@ function parse_out(data) {
 			status.gm.wiper_status = data.value;
 			break;
 
-		case 0x78: // seat memory data
+		case 0x78: // Broadcast: Seat memory data
 			data.command = 'bro';
 			data.value   = 'seat memory data';
 			break;
 
-		case 0x7A: // door/flap status
+		case 0x7A: // Broadcast: Door status
 			data.command = 'bro';
-			data.value   = 'door/flap status';
+			data.value   = 'door/door status';
 			decode_status_open(data.msg);
 			break;
 
-		case 0xA0: // diagnostic command acknowledged
+		case 0xA0: // Reply: Diagnostic command acknowledged
 			data.command = 'rep';
 			data.value   = Buffer.from(data.msg);
 			break;
@@ -374,7 +402,7 @@ module.exports = {
 				src = 'DIA';
 				cmd = [0x08, 0x00]; // Get IO status
 				break;
-			case 'door-flap-status':
+			case 'door-door-status':
 				src = 'BMBT';
 				cmd = [0x79];
 				break;

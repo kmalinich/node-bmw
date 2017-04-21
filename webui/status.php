@@ -37,7 +37,7 @@
 
 						<div class="col-xs-12">
 							<div class="row">
-								<h6 id="flaps-hood"></h6>
+								<h6 id="doors-hood"></h6>
 							</div>
 							<hr>
 						</div>
@@ -45,11 +45,11 @@
 						<div class="col-xs-12">
 							<div class="row">
 								<div class="col-xs-6">
-									<h6 id="flaps-front-left" ></h6>
+									<h6 id="doors-front-left" ></h6>
 									<h6 id="windows-front-left" ></h6>
 								</div>
 								<div class="col-xs-6">
-									<h6 id="flaps-front-right"></h6>
+									<h6 id="doors-front-right"></h6>
 									<h6 id="windows-front-right"></h6>
 								</div>
 							</div>
@@ -66,11 +66,11 @@
 						<div class="col-xs-12">
 							<div class="row">
 								<div class="col-xs-6">
-									<h6 id="flaps-rear-left" ></h6>
+									<h6 id="doors-rear-left" ></h6>
 									<h6 id="windows-rear-left" ></h6>
 								</div>
 								<div class="col-xs-6">
-									<h6 id="flaps-rear-right"></h6>
+									<h6 id="doors-rear-right"></h6>
 									<h6 id="windows-rear-right"></h6>
 								</div>
 							</div>
@@ -78,7 +78,7 @@
 						</div>
 
 						<div class="col-xs-12">
-							<h6 id="flaps-trunk"></h6>
+							<h6 id="doors-trunk"></h6>
 						</div>
 
 					</div>

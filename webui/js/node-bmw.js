@@ -3,12 +3,12 @@ function clean_class_all() {
 	// This is really dumb and there is a better way
 	clean_class('#engine-running');
 	clean_class('#engine-speed');
-	clean_class('#flaps-front-left');
-	clean_class('#flaps-front-right');
-	clean_class('#flaps-hood');
-	clean_class('#flaps-rear-left');
-	clean_class('#flaps-rear-right');
-	clean_class('#flaps-trunk');
+	clean_class('#doors-front-left');
+	clean_class('#doors-front-right');
+	clean_class('#doors-hood');
+	clean_class('#doors-rear-left');
+	clean_class('#doors-rear-right');
+	clean_class('#doors-trunk');
 	clean_class('#obc-aux-heat-timer-1');
 	clean_class('#obc-aux-heat-timer-2');
 	clean_class('#obc-coding-unit-cons');
@@ -419,13 +419,13 @@ function status() {
 					break;
 			}
 
-			// Doors (flaps) and window status
-			if (return_data.flaps.front_left)    { $('#flaps-front-left').text('Door open');      } else { $('#flaps-front-left').text('Door closed');      }
-			if (return_data.flaps.front_right)   { $('#flaps-front-right').text('Door open');     } else { $('#flaps-front-right').text('Door closed');     }
-			if (return_data.flaps.hood)          { $('#flaps-hood').text('Hood open');            } else { $('#flaps-hood').text('Hood closed');            }
-			if (return_data.flaps.rear_left)     { $('#flaps-rear-left').text('Door open');       } else { $('#flaps-rear-left').text('Door closed');       }
-			if (return_data.flaps.rear_right)    { $('#flaps-rear-right').text('Door open');      } else { $('#flaps-rear-right').text('Door closed');      }
-			if (return_data.flaps.trunk)         { $('#flaps-trunk').text('Trunk open');          } else { $('#flaps-trunk').text('Trunk closed');          }
+			// Doors (doors) and window status
+			if (return_data.doors.front_left)    { $('#doors-front-left').text('Door open');      } else { $('#doors-front-left').text('Door closed');      }
+			if (return_data.doors.front_right)   { $('#doors-front-right').text('Door open');     } else { $('#doors-front-right').text('Door closed');     }
+			if (return_data.doors.hood)          { $('#doors-hood').text('Hood open');            } else { $('#doors-hood').text('Hood closed');            }
+			if (return_data.doors.rear_left)     { $('#doors-rear-left').text('Door open');       } else { $('#doors-rear-left').text('Door closed');       }
+			if (return_data.doors.rear_right)    { $('#doors-rear-right').text('Door open');      } else { $('#doors-rear-right').text('Door closed');      }
+			if (return_data.doors.trunk)         { $('#doors-trunk').text('Trunk open');          } else { $('#doors-trunk').text('Trunk closed');          }
 			if (return_data.windows.front_left)  { $('#windows-front-left').text('Window open');  } else { $('#windows-front-left').text('Window closed');  }
 			if (return_data.windows.front_right) { $('#windows-front-right').text('Window open'); } else { $('#windows-front-right').text('Window closed'); }
 			if (return_data.windows.rear_left)   { $('#windows-rear-left').text('Window open');   } else { $('#windows-rear-left').text('Window closed');   }

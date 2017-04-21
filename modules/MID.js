@@ -80,7 +80,7 @@ function refresh_status() {
 		return;
 	}
 
-	status_loop('unset');
+	status_loop(false);
 }
 
 // Send the power on button command if needed/ready

@@ -225,10 +225,10 @@ function decode_ignition_status(data) {
 
 		// Disable BMBT/MID keepalive
 		if (config.emulate.bmbt === true) {
-			omnibus.BMBT.status_loop('unset');
+			omnibus.BMBT.status_loop(false);
 		}
 		if (config.emulate.mid === true) {
-			omnibus.MID.status_loop('unset');
+			omnibus.MID.status_loop(false);
 		}
 
 		// Toggle media playback
@@ -260,10 +260,10 @@ function decode_ignition_status(data) {
 		omnibus.IKE.state_poweron = false;
 		// Enable BMBT keepalive
 		if (config.emulate.bmbt === true) {
-			omnibus.BMBT.status_loop('set');
+			omnibus.BMBT.status_loop(true);
 		}
 		if (config.emulate.mid === true) {
-			omnibus.MID.status_loop('set');
+			omnibus.MID.status_loop(true);
 		}
 
 		// Toggle media playback

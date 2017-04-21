@@ -14,13 +14,13 @@ function parse_out(data) {
 				case 0x10:
 					data.value = data.value+' decrease 1 step';
 					if (config.media.bluetooth === false && config.media.kodi.enable === true) {
-						omnibus.kodi.command('volumedown');
+						omnibus.kodi.volume('down');
 					}
 					break;
 				case 0x11:
 					data.value = data.value+' increase 1 step';
 					if (config.media.bluetooth === false && config.media.kodi.enable === true) {
-						omnibus.kodi.command('volumeup');
+						omnibus.kodi.volume('up');
 					}
 					break;
 			}
@@ -57,12 +57,12 @@ function parse_out(data) {
 			if      (bitmask.bit_test(data.msg[1], bitmask.bit[0])) { button = 'right';    data.value = data.value+' '+button; }
 			else if (bitmask.bit_test(data.msg[1], bitmask.bit[3])) { button = 'left';     data.value = data.value+' '+button; }
 			else if (bitmask.bit_test(data.msg[1], bitmask.bit[7])) { button = 'send/end'; data.value = data.value+' '+button; }
-			else                                                   { button = 'unknown';  data.value = data.value+' '+button; }
+			else                                                    { button = 'unknown';  data.value = data.value+' '+button; }
 
 			// Detect action
 			if      (bitmask.bit_test(data.msg[1], bitmask.bit[4])) { action = 'long depress'; data.value = data.value+' '+action; }
 			else if (bitmask.bit_test(data.msg[1], bitmask.bit[5])) { action = 'release';      data.value = data.value+' '+action; }
-			else                                                   { action = 'depress';      data.value = data.value+' '+action; }
+			else                                                    { action = 'depress';      data.value = data.value+' '+action; }
 
 			// Perform media control based on pressed key
 

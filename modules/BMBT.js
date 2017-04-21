@@ -1,40 +1,63 @@
 var module_name = 'bmbt';
 
-// Interval var
-var interval_status_loop;
-
 // Set or unset the status interval
 function status_loop(action) {
-	if (config.emulate.bmbt === true) {
-		switch (action) {
-			case 'set':
+	if (config.emulate.bmbt !== true) {
+		return;
+	}
+
+	if (status.vehicle.ignition_level < 1) {
+		action = false;
+	}
+
+	if (omnibus.BMBT.status_status_loop == action) {
+		return;
+	}
+
+	log.msg({
+		src : 'BMBT',
+		msg : 'Status loop '+action,
+	});
+
+	switch (action) {
+		case false:
+			clearInterval(omnibus.BMBT.interval_status_loop);
+
+			// Set status variables
+			omnibus.BMBT.status_status_loop = false;
+
+			status.rad.audio_control = 'audio off';
+
+			status.dsp.reset  = true;
+			status.dsp.ready  = false;
+			status.dspc.reset = true;
+			status.dspc.ready = false;
+			status.rad.reset  = true;
+			status.rad.ready  = false;
+
+			break;
+		case true:
+			// Set status variable
+			omnibus.BMBT.status_status_loop = true;
+
+			// Send a couple through to prime the pumps
+			refresh_status();
+
+			omnibus.BMBT.interval_status_loop = setInterval(() => {
 				refresh_status();
-				interval_status_loop = setInterval(() => {
-					refresh_status();
-				}, 25000);
-				break;
-
-			case 'unset':
-				clearInterval(interval_status_loop, () => {
-				});
-				break;
-		}
-
-		log.msg({
-			src : 'BMBT',
-			msg : 'Ping interval '+action,
-		});
+			}, 20000);
+			break;
 	}
 }
 
 // Send BMBT status, and request status from RAD
 function refresh_status() {
 	if (status.vehicle.ignition_level > 0) {
-		bus_commands.request_device_status(module_name, 'RAD');
+		bus_commands.request_device_status('BMBT', 'RAD');
 		return;
 	}
 
-	status_loop('unset');
+	status_loop(false);
 }
 
 // Send the power on button command if needed/ready
@@ -169,6 +192,8 @@ function send_button(button) {
 
 
 module.exports = {
+	status_status_loop   : false,
+	interval_status_loop : null,
 	parse_in             : (data)        => { parse_in(data); },
 	parse_out            : (data)        => { parse_out(data); },
 	power_on_if_ready    : ()            => { power_on_if_ready(); },

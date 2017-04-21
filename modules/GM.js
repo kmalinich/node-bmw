@@ -1,3 +1,5 @@
+var module_name = 'gm';
+
 // All the possible values to send to the GM
 var array_of_possible_values = {
 	light_alarm                   : true,
@@ -87,8 +89,6 @@ function decode_status_open(message) {
 
 	// This is correct, in a sense... Not a good sense, but in a sense.
 	status.vehicle.locked = bitmask.bit_test(message[1], 0x20);
-
-	console.log('[node:::GM] decoded status');
 }
 
 // Send message to GM
@@ -104,202 +104,234 @@ function io_set(packet) {
 	});
 }
 
+function io_decode(array) {
+	var bitmask_0 = array[0];
+	var bitmask_1 = array[1];
+	var bitmask_2 = array[2];
+	var bitmask_3 = array[3];
+
+	var light_alarm                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var light_interior                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var locks_lock                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var locks_toggle                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var locks_trunk                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var locks_unlock                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_backrest_backward = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_backrest_forward  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_backward          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_down              = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_forward           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_headrest_down     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_headrest_up       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_tilt_backward     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_tilt_forward      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_up                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_upper_backwards   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var seat_driver_upper_forwards    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wheel_backward                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wheel_down                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wheel_forward                 = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wheel_up                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_front_left_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_front_left_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_front_right_down       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_front_right_up         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_rear_left_down         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_rear_left_up           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_rear_right_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_rear_right_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_sunroof_down           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var window_sunroof_up             = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wipers_auto                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wipers_maintenance            = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wipers_once                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+	var wipers_spray                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
+
+	var output = {
+		light_alarm                   : light_alarm,
+		light_interior                : light_interior,
+		locks_lock                    : locks_lock,
+		locks_toggle                  : locks_toggle,
+		locks_trunk                   : locks_trunk,
+		locks_unlock                  : locks_unlock,
+		seat_driver_backrest_backward : seat_driver_backrest_backward,
+		seat_driver_backrest_forward  : seat_driver_backrest_forward,
+		seat_driver_backward          : seat_driver_backward,
+		seat_driver_down              : seat_driver_down,
+		seat_driver_forward           : seat_driver_forward,
+		seat_driver_headrest_down     : seat_driver_headrest_down,
+		seat_driver_headrest_up       : seat_driver_headrest_up,
+		seat_driver_tilt_backward     : seat_driver_tilt_backward,
+		seat_driver_tilt_forward      : seat_driver_tilt_forward,
+		seat_driver_up                : seat_driver_up,
+		seat_driver_upper_backwards   : seat_driver_upper_backwards,
+		seat_driver_upper_forwards    : seat_driver_upper_forwards,
+		wheel_backward                : wheel_backward,
+		wheel_down                    : wheel_down,
+		wheel_forward                 : wheel_forward,
+		wheel_up                      : wheel_up,
+		window_front_left_down        : window_front_left_down,
+		window_front_left_up          : window_front_left_up,
+		window_front_right_down       : window_front_right_down,
+		window_front_right_up         : window_front_right_up,
+		window_rear_left_down         : window_rear_left_down,
+		window_rear_left_up           : window_rear_left_up,
+		window_rear_right_down        : window_rear_right_down,
+		window_rear_right_up          : window_rear_right_up,
+		window_sunroof_down           : window_sunroof_down,
+		window_sunroof_up             : window_sunroof_up,
+		wipers_auto                   : wipers_auto,
+		wipers_maintenance            : wipers_maintenance,
+		wipers_once                   : wipers_once,
+		wipers_spray                  : wipers_spray,
+	}
+
+	return output;
+}
+
+function parse_out(data) {
+	switch (data.msg[0]) {
+		case 0x72: // Key fob status
+			data.command = 'bro';
+			data.value   = 'key fob status';
+			decode_status_keyfob(data);
+			break;
+
+		case 0x76: // 'Crash alarm' ..
+			data.command = 'bro';
+			switch (data.msg[1]) {
+				case 0x00:
+					data.value = 'crash alarm: no crash';
+					break;
+				case 0x02: // A guess
+					data.value = 'crash alarm: armed';
+					break;
+				default:
+					data.value = Buffer.from(data.msg[1]);
+					break;
+			}
+			break;
+
+		case 0x77: // Wiper status
+			data.command = 'bro';
+			switch (data.msg[1]) {
+				case 0x0C:
+					data.value = 'off';
+					break;
+				case 0x0D:
+					data.value = 'low/auto';
+					break;
+				case 0x0E:
+					data.value = 'medium';
+					break;
+				case 0x0F:
+					data.value = 'high';
+					break;
+			}
+			data.value = 'wiper status: '+data.value;
+
+			status.gm.wiper_status = data.value;
+			break;
+
+		case 0x78: // seat memory data
+			data.command = 'bro';
+			data.value   = 'seat memory data';
+			break;
+
+		case 0x7A: // door/flap status
+			data.command = 'bro';
+			data.value   = 'door/flap status';
+			decode_status_open(data.msg);
+			break;
+
+		case 0xA0: // diagnostic command acknowledged
+			data.command = 'rep';
+			data.value   = Buffer.from(data.msg);
+			break;
+
+		default:
+			data.command = 'unk';
+			data.value   = Buffer.from(data.msg);
+			break;
+	}
+
+	log.out(data);
+}
+
+function api_command (data) {
+	if (typeof data['gm-interior-light'] !== 'undefined') {
+		omnibus.GM.interior_light(data['gm-interior-light']);
+	}
+
+	// Sort-of.. future-mode.. JSON command.. object? maybe..
+	else if (typeof data['gm-command'] !== 'undefined') {
+		switch (data['gm-command']) {
+			case 'gm-get' : omnibus.GM.request('io-status'); break; // Get IO status
+			case 'locks'  : omnibus.GM.locks();              break; // Toggle central locking
+			default       : console.log('[node:::GM] Unknown command'); break; // Dunno what I sent
+		}
+	}
+
+	// Window control
+	else if (typeof data['gm-window'] !== 'undefined') {
+		omnibus.GM.windows(data['gm-window'], data['gm-window-action']);
+	}
+
+	else {
+		console.log('[node:::GM] Unknown data: \'%s\'', data);
+	}
+}
+
+function windows(window, action) {
+	console.log('[node:::GM] Window control: \'%s\', \'%s\'', window, action);
+
+	// Init message variable
+	var msg;
+
+	// Switch for window and action
+	switch (window) {
+		case 'roof': // Moonroof
+			switch (action) {
+				case 'dn' : msg = [0x03, 0x01, 0x01]; break;
+				case 'up' : msg = [0x03, 0x02, 0x01]; break;
+				case 'tt' : msg = [0x03, 0x00, 0x01]; break;
+			}
+			break;
+		case 'lf' : // Left front
+			switch (action) {
+				case 'dn' : msg = [0x01, 0x36, 0x01]; break;
+				case 'up' : msg = [0x01, 0x1A, 0x01]; break;
+			}
+			break;
+		case 'rf' : // Right front
+			switch (action) {
+				case 'dn' : msg = [0x02, 0x20, 0x01]; break;
+				case 'up' : msg = [0x02, 0x22, 0x01]; break;
+			}
+			break;
+		case 'lr' : // Left rear
+			switch (action) {
+				case 'dn' : msg = [0x00, 0x00, 0x01]; break;
+				case 'up' : msg = [0x42, 0x01];       break;
+			}
+			break;
+		case 'rr' : // Right rear
+			switch (action) {
+				case 'dn' : msg = [0x00, 0x03, 0x01]; break;
+				case 'up' : msg = [0x43, 0x01];       break;
+			}
+	}
+
+	io_set(msg);
+}
+
 module.exports = {
 	// Parse data sent from GM module
-	parse_out : (data) => {
-		switch (data.msg[0]) {
-			case 0x02: // Broadcast: device status
-				data.command     = 'bro';
-				status.lcm.ready = true;
-
-				switch (data.msg[1]) {
-					case 0x00:
-						data.value = 'status: ready';
-						break;
-					case 0x01:
-						status.lcm.reset = false;
-						data.value = 'status: ready after reset';
-						break;
-					default:
-						data.value = 'status: unknown';
-				}
-				break;
-
-			case 0x10: // Ignition status
-				data.command = 'req';
-				data.value   = 'ignition status';
-				break;
-
-			case 0x12: // IKE sensor status
-				data.command = 'req';
-				data.value   = 'IKE sensor status';
-				break;
-
-			case 0x14: // Coding
-				data.command = 'req';
-				data.value   = 'country coding data';
-				break;
-
-			case 0x16: // Odometer
-				data.command = 'req';
-				data.value   = 'odometer';
-				break;
-
-			case 0x1D: // Temperature status
-				data.command = 'req';
-				data.value   = 'current temperature';
-				break;
-
-			case 0x72: // Key fob status
-				data.command = 'bro';
-				data.value   = 'key fob status';
-				decode_status_keyfob(data);
-				break;
-
-			case 0x73: // Immobiliser status request
-				data.command = 'req';
-				data.value   = 'immobiliser status';
-				decode_status_keyfob(data);
-				break;
-
-			case 0x76: // 'Crash alarm' ..
-				data.command = 'bro';
-				switch (data.msg[1]) {
-					case 0x00:
-						data.value = 'crash alarm: no crash';
-						break;
-					case 0x02: // A guess
-						data.value = 'crash alarm: armed';
-						break;
-					default:
-						data.value = Buffer.from(data.msg[1]);
-						break;
-				}
-				break;
-
-			case 0x77: // Wiper status
-				data.command = 'bro';
-				switch (data.msg[1]) {
-					case 0x0C:
-						data.value = 'off';
-						break;
-					case 0x0D:
-						data.value = 'low/auto';
-						break;
-					case 0x0E:
-						data.value = 'medium';
-						break;
-					case 0x0F:
-						data.value = 'high';
-						break;
-				}
-				data.value = 'wiper status: '+data.value;
-
-				status.gm.wiper_status = data.value;
-				break;
-
-			case 0x78: // seat memory data
-				data.command = 'bro';
-				data.value   = 'seat memory data';
-				break;
-
-			case 0x7A: // door/flap status
-				data.command = 'bro';
-				data.value   = 'door/flap status';
-				decode_status_open(data.msg);
-				break;
-
-			case 0xA0: // diagnostic command acknowledged
-				data.command = 'rep';
-				data.value   = Buffer.from(data.msg);
-				break;
-
-			case 0xA2: // diagnostic command rejected
-				data.command = 'rep';
-				data.value   = 'diagnostic command rejected';
-				break;
-
-			case 0xFF: // diagnostic command not acknowledged
-				data.command = 'rep';
-				data.value   = 'diagnostic command not acknowledged';
-				break;
-
-			default:
-				data.command = 'unk';
-				data.value   = Buffer.from(data.msg);
-				break;
-		}
-
-		log.out(data);
-	},
-
+	parse_out : () => { parse_out(data); },
 	// Handle incoming commands from API
-	api_command : (data) => {
-		if (typeof data['gm-interior-light'] !== 'undefined') {
-			omnibus.GM.interior_light(data['gm-interior-light']);
-		}
-
-		// Sort-of.. future-mode.. JSON command.. object? maybe..
-		else if (typeof data['gm-command'] !== 'undefined') {
-			switch (data['gm-command']) {
-				case 'gm-get' : omnibus.GM.request('io-status'); break; // Get IO status
-				case 'locks'  : omnibus.GM.locks();              break; // Toggle central locking
-				default       : console.log('[node:::GM] Unknown command'); break; // Dunno what I sent
-			}
-		}
-
-		// Window control
-		else if (typeof data['gm-window'] !== 'undefined') {
-			omnibus.GM.windows(data['gm-window'], data['gm-window-action']);
-		}
-
-		else {
-			console.log('[node:::GM] Unknown data: \'%s\'', data);
-		}
-	},
-
+	api_command : () => { api_command(data); },
 	// GM window control
-	windows : (window, action) => {
-		console.log('[node:::GM] Window control: \'%s\', \'%s\'', window, action);
-
-		// Init message variable
-		var msg;
-
-		// Switch for window and action
-		switch (window) {
-			case 'roof': // Moonroof
-				switch (action) {
-					case 'dn' : msg = [0x03, 0x01, 0x01]; break;
-					case 'up' : msg = [0x03, 0x02, 0x01]; break;
-					case 'tt' : msg = [0x03, 0x00, 0x01]; break;
-				}
-				break;
-			case 'lf' : // Left front
-				switch (action) {
-					case 'dn' : msg = [0x01, 0x36, 0x01]; break;
-					case 'up' : msg = [0x01, 0x1A, 0x01]; break;
-				}
-				break;
-			case 'rf' : // Right front
-				switch (action) {
-					case 'dn' : msg = [0x02, 0x20, 0x01]; break;
-					case 'up' : msg = [0x02, 0x22, 0x01]; break;
-				}
-				break;
-			case 'lr' : // Left rear
-				switch (action) {
-					case 'dn' : msg = [0x00, 0x00, 0x01]; break;
-					case 'up' : msg = [0x42, 0x01];       break;
-				}
-				break;
-			case 'rr' : // Right rear
-				switch (action) {
-					case 'dn' : msg = [0x00, 0x03, 0x01]; break;
-					case 'up' : msg = [0x43, 0x01];       break;
-				}
-		}
-		io_set(msg);
-	},
+	windows : () => { windows(window, action); },
 
 	// Cluster/interior backlight
 	interior_light : (value) => {
@@ -379,88 +411,5 @@ module.exports = {
 	},
 
 	// Decode the GM bitmask string and output an array of true/false values
-	io_decode : (array) => {
-		var bitmask_0 = array[0];
-		var bitmask_1 = array[1];
-		var bitmask_2 = array[2];
-		var bitmask_3 = array[3];
-
-		var light_alarm                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var light_interior                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var locks_lock                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var locks_toggle                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var locks_trunk                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var locks_unlock                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_backrest_backward = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_backrest_forward  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_backward          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_down              = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_forward           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_headrest_down     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_headrest_up       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_tilt_backward     = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_tilt_forward      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_up                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_upper_backwards   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var seat_driver_upper_forwards    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wheel_backward                = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wheel_down                    = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wheel_forward                 = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wheel_up                      = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_front_left_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_front_left_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_front_right_down       = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_front_right_up         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_rear_left_down         = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_rear_left_up           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_rear_right_down        = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_rear_right_up          = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_sunroof_down           = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var window_sunroof_up             = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wipers_auto                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wipers_maintenance            = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wipers_once                   = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-		var wipers_spray                  = bitmask.bit_test(bitmask_0, bitmask.bit[0]);
-
-		var output = {
-			light_alarm                   : light_alarm,
-			light_interior                : light_interior,
-			locks_lock                    : locks_lock,
-			locks_toggle                  : locks_toggle,
-			locks_trunk                   : locks_trunk,
-			locks_unlock                  : locks_unlock,
-			seat_driver_backrest_backward : seat_driver_backrest_backward,
-			seat_driver_backrest_forward  : seat_driver_backrest_forward,
-			seat_driver_backward          : seat_driver_backward,
-			seat_driver_down              : seat_driver_down,
-			seat_driver_forward           : seat_driver_forward,
-			seat_driver_headrest_down     : seat_driver_headrest_down,
-			seat_driver_headrest_up       : seat_driver_headrest_up,
-			seat_driver_tilt_backward     : seat_driver_tilt_backward,
-			seat_driver_tilt_forward      : seat_driver_tilt_forward,
-			seat_driver_up                : seat_driver_up,
-			seat_driver_upper_backwards   : seat_driver_upper_backwards,
-			seat_driver_upper_forwards    : seat_driver_upper_forwards,
-			wheel_backward                : wheel_backward,
-			wheel_down                    : wheel_down,
-			wheel_forward                 : wheel_forward,
-			wheel_up                      : wheel_up,
-			window_front_left_down        : window_front_left_down,
-			window_front_left_up          : window_front_left_up,
-			window_front_right_down       : window_front_right_down,
-			window_front_right_up         : window_front_right_up,
-			window_rear_left_down         : window_rear_left_down,
-			window_rear_left_up           : window_rear_left_up,
-			window_rear_right_down        : window_rear_right_down,
-			window_rear_right_up          : window_rear_right_up,
-			window_sunroof_down           : window_sunroof_down,
-			window_sunroof_up             : window_sunroof_up,
-			wipers_auto                   : wipers_auto,
-			wipers_maintenance            : wipers_maintenance,
-			wipers_once                   : wipers_once,
-			wipers_spray                  : wipers_spray,
-		}
-
-		return output;
-	},
+	io_decode : () => { io_decode(array); },
 };

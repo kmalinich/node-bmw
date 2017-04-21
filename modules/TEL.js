@@ -1,51 +1,22 @@
-var TEL = function() {
-	// Exposed data
-	this.parse_data = parse_data;
+var module_name = 'tel';
 
-	// Parse data sent from TEL module
-	function parse_data(message) {
-		// Init variables
-		var command;
-		var data;
+// Parse data sent from TEL module
+function parse_out(data) {
+	switch (data.msg[0]) {
+		case 0x2B: // Broadcast: Indicator status
+			data.command = 'bro';
+			data.value   = 'indicator status';
+			break;
 
-		// Device status
-		if (message[0] == 0x02) {
-			if (message[1] == 0x00) {
-				command = 'device status';
-				data    = 'ready';
-			}
-
-			else if (message[1] == 0x01) {
-				command = 'device status';
-				data    = 'ready after reset';
-			}
-		}
-
-		// Broadcast: indicator status
-		else if (message[0] == 0x2B) {
-			command = 'broadcast';
-			data    = 'indicator status';
-		}
-
-		// Ignition status request
-		else if (message[0] == 0x10) {
-			command = 'request';
-			data    = 'ignition status';
-		}
-
-		// Door/flap status request
-		else if (message[0] == 0x79) {
-			command = 'request';
-			data    = 'door/flap status';
-		}
-
-		else {
-			command = 'unknown';
-			data    = Buffer.from(message);
-		}
-
-		console.log('[TEL]  Sent %s:', command, data);
+		default:
+			data.command = 'unk';
+			data.value   = Buffer.from(data.msg);
 	}
+
+	log.out(data);
 }
 
-module.exports = TEL;
+module.exports = {
+  parse_out          : () => { parse_out(data); },
+  send_device_status : () => { bus_commands.send_device_status(module_name); },
+}

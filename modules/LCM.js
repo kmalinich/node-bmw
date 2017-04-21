@@ -1,3 +1,5 @@
+var module_name = 'lcm';
+
 var interval_auto_lights;
 var welcome_lights_timeout;
 
@@ -542,38 +544,6 @@ module.exports = {
 	// Parse data sent from LCM module
 	parse_out : (data) => {
 		switch (data.msg[0]) {
-			case 0x02: // Broadcast: device status
-				data.command     = 'bro';
-				status.lcm.ready = true;
-
-				switch (data.msg[1]) {
-					case 0x00:
-						data.value = 'status: ready';
-						break;
-					case 0x01:
-						status.lcm.reset = false;
-						data.value = 'status: ready after reset';
-						break;
-					default:
-						data.value = 'status: unknown';
-				}
-				break;
-
-			case 0x10: // Request: ignition status
-				data.command = 'req';
-				data.value   = 'ignition status';
-				break;
-
-			case 0x12: // Request: IKE sensor status
-				data.command = 'req';
-				data.value   = 'IKE sensor status';
-				break;
-
-			case 0x1D: // Request: temperature
-				data.command = 'req';
-				data.value   = 'temperature';
-				break;
-
 			case 0x54: // Broadcast: vehicle data
 				data.command = 'bro';
 				data.value   = 'vehicle data';
@@ -590,11 +560,6 @@ module.exports = {
 				status.lights.dimmer_value_3 = data.msg[1];
 				data.command = 'bro';
 				data.value   = 'dimmer 3 : '+status.lights.dimmer_value_3;
-				break;
-
-			case 0x79: // Request: door/flap status
-				data.command = 'req';
-				data.value   = 'door/flap status';
 				break;
 
 			case 0xA0: // Reply to DIA: success
@@ -614,11 +579,6 @@ module.exports = {
 					default:
 						data.value = Buffer.from(data.msg);
 				}
-				break;
-
-			case 0xA2: // diagnostic command rejected
-				data.command = 'rep';
-				data.value   = 'diagnostic command rejected';
 				break;
 
 			default:

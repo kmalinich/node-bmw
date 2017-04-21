@@ -1,66 +1,27 @@
-var IHKA = function() {
-	// Exposed data
-	this.parse_out = parse_out;
+var module_name = 'ihka';
 
-	// Parse data sent from IHKA module
-	function parse_out(data) {
-		// Init variables
-		var command;
-		var value;
+// Parse data sent from IHKA module
+function parse_out(data) {
+	switch (data.msg[0]) {
+		case 0x83: // AC compressor status
+			data.command = 'bro';
+			data.value   = 'AC compressor status '+data.msg;
+			break;
 
-		switch (data.msg[0]) {
-			case 0x02: // Broadcast: device status
-				command = 'device status';
-				switch (data.msg[1]) {
-					case 0x00:
-						value = 'ready';
-						break;
-					case 0x01:
-						value = 'ready after reset';
-						break;
-					default:
-						value = 'unknown';
-				}
-				break;
-			case 0x10: // Request: ignition status
-				command = 'request';
-				value   = 'ignition status';
-				break;
-			case 0x12: // Request: IKE sensor status
-				command = 'request';
-				value   = 'temperature';
-				break;
-			case 0x71: // Request: rain sensor status
-				command = 'request';
-				value   = 'rain sensor status';
-				break;
-			case 0x79: // Door/flap status request
-				command = 'request';
-				value   = 'door/flap status';
-				break;
-			case 0x83: // AC compressor status
-				command = 'broadcast';
-				value   = 'AC compressor status';
-				break;
-			case 0xA0: // Diagnostic command replies
-				command = 'diagnostic command';
-				value   = 'acknowledged: '+data.msg;
-				break;
-			case 0xA2:
-				command = 'diagnostic command';
-				value   = 'rejected';
-				break;
-			case 0xFF:
-				command = 'diagnostic command';
-				value   = 'not acknowledged';
-				break;
-			default:
-				command = 'unknown';
-				value   = Buffer.from(data.msg);
-		}
+		case 0xA0: // Diagnostic command replies
+			data.command = 'diagnostic command';
+			data.value   = 'acknowledged: '+data.msg;
+			break;
 
-		console.log('[%s->%s] %s:', data.src.name, data.dst.name, command, value);
+		default:
+			data.command = 'unk';
+			data.value   = Buffer.from(data.msg);
 	}
+
+	log.out(data);
 }
 
-module.exports = IHKA;
+module.exports = {
+	parse_out          : () => { parse_out(data); },
+	send_device_status : () => { bus_commands.send_device_status(module_name); },
+};

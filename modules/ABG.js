@@ -1,51 +1,23 @@
-var ABG = function() {
-	// Exposed data
-	this.parse_data = parse_data;
+var module_name = 'abg';
 
-	// Parse data sent from ABG module
-	function parse_data(message) {
-		// Init variables
-		var command;
-		var data;
+// Parse data sent from ABG module
+function parse_out(data) {
+	switch (data.msg[0]) {
+		case 0x70: // Broadcast: Remote control central locking status
+			data.command = 'bro';
+			data.value   = 'remote control central locking status '+data.msg;
+			break;
 
-		switch (message[0]) {
-			case 0x02: // Device status
-				switch (message[1]) {
-					case 0x00:
-						command = 'device status';
-						data    = 'ready';
-						break;
-
-					case 0x01:
-						command = 'device status';
-						data    = 'ready after reset';
-						break;
-				}
-				break;
-
-			case 0x10: // Request: ignition status
-				command = 'request';
-				data    = 'ignition status';
-				break;
-
-			case 0x70: // Broadcast: Remote control central locking status
-				command = 'broadcast';
-				data    = 'remote control central locking status';
-				break;
-
-			case 0x79: // Request: door/flap status
-				command = 'request';
-				data    = 'door/flap status';
-				break;
-
-			default:
-				command = 'unknown';
-				data    = Buffer.from(message);
-				break;
-		}
-
-		console.log('[ABG:::???] Sent %s:', command, data);
+		default:
+			data.command = 'unk';
+			data.value   = Buffer.from(data.msg);
+			break;
 	}
+
+	log.out(data);
 }
 
-module.exports = ABG;
+module.exports = {
+	parse_out          : () => { parse_out(data); },
+	send_device_status : () => { bus_commands.send_device_status(module_name); },
+};

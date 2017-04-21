@@ -8,11 +8,12 @@ os      = require('os');
 suncalc = require('suncalc');
 
 // Global objects
-bitmask     = require('bitmask');
-bus_modules = require('bus-modules');
-hex         = require('hex');
-json        = require('json');
-log         = require('log-output');
+bitmask      = require('bitmask');
+bus_commands = require('bus-commands');
+bus_modules  = require('bus-modules');
+hex          = require('hex');
+json         = require('json');
+log          = require('log-output');
 
 // API config - should be moved into API object
 const dispatcher        = new (require('httpdispatcher'));
@@ -55,31 +56,30 @@ function load_modules(callback) {
 		kodi : require('kodi'),
 
 		// Data bus module libraries
-		GM  : require('GM'),
-		LCM : require('LCM'),
-		IKE : require('IKE'),
-
-		ABG  : new (require('ABG')),
-		ANZV : new (require('ANZV')),
-		BMBT : new (require('BMBT')),
-		CCM  : new (require('CCM')),
-		CDC  : new (require('CDC')),
-		DSP  : new (require('DSP')),
-		DSPC : new (require('DSPC')),
-		EWS  : new (require('EWS')),
-		GT   : new (require('GT')),
-		HAC  : new (require('HAC')),
-		IHKA : new (require('IHKA')),
-		MFL  : new (require('MFL')),
-		MID  : new (require('MID')),
-		NAV  : new (require('NAV')),
-		PDC  : new (require('PDC')),
-		RAD  : new (require('RAD')),
-		RLS  : new (require('RLS')),
-		SES  : new (require('SES')),
-		SHD  : new (require('SHD')),
-		TEL  : new (require('TEL')),
-		VID  : new (require('VID')),
+		ABG  : require('ABG'),
+		ANZV : require('ANZV'),
+		BMBT : require('BMBT'),
+		CCM  : require('CCM'),
+		CDC  : require('CDC'),
+		DSP  : require('DSP'),
+		DSPC : require('DSPC'),
+		EWS  : require('EWS'),
+		GM   : require('GM'),
+		GT   : require('GT'),
+		HAC  : require('HAC'),
+		IHKA : require('IHKA'),
+		IKE  : require('IKE'),
+		LCM  : require('LCM'),
+		MFL  : require('MFL'),
+		MID  : require('MID'),
+		NAV  : require('NAV'),
+		PDC  : require('PDC'),
+		RAD  : require('RAD'),
+		RLS  : require('RLS'),
+		SES  : require('SES'),
+		SHD  : require('SHD'),
+		TEL  : require('TEL'),
+		VID  : require('VID'),
 	};
 
 	if (typeof callback === 'function') { callback(); }
@@ -107,7 +107,7 @@ function startup() {
 										socket_server.startup(() => { // Config WebSocket server
 											omnibus.HDMI.startup(() => { // Open HDMI-CEC
 												omnibus.BT.autoconfig(() => { // Open Bluetooth connection
-													omnibus.kodi.autoconfig(() => { // Open Kodi websocket
+													omnibus.kodi.autoconfig_loop(true, () => { // Open Kodi websocket
 														log.msg({
 															src : 'run',
 															msg : 'Started',

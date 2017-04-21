@@ -113,6 +113,10 @@ function parse_out(data) {
 	log.out(data);
 }
 
+// Speaker test
+// Start : 3F 6A 32
+// End   : 3F 6A 33
+
 // Send EQ data to DSP
 function eq_send(msg) {
 	omnibus.data_send.send({

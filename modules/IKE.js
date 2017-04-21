@@ -893,7 +893,6 @@ module.exports = {
 
 		// IKE data
 		omnibus.IKE.request('status-glo' );
-		omnibus.IKE.request('status-loc' );
 		omnibus.IKE.request('coding'     );
 		omnibus.IKE.request('ignition'   );
 		omnibus.IKE.request('odometer'   );

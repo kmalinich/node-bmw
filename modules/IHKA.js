@@ -6,6 +6,7 @@ function parse_out(data) {
 		case 0x83: // AC compressor status
 			data.command = 'bro';
 			data.value   = 'AC compressor status '+data.msg;
+      status.ihka.ac_status = bitmask.bit_test(data.msg[1], 0x80);
 			break;
 
 		case 0xA0: // Diagnostic command replies
@@ -21,7 +22,30 @@ function parse_out(data) {
 	log.out(data);
 }
 
+// Enable/disable aux heat/vent
+function aux(type, action) {
+  var cmd;
+
+  // Set command base value based on type argument
+  switch (type) {
+    case 'heat' : cmd = [0x11]; break;
+    case 'vent' : cmd = [0x13]; break;
+  }
+
+  // Add 1 if we're turning it on
+  switch (action) {
+    case true : cmd++; break;
+  }
+
+  omnibus.data_send.send({
+    src: 'GT',
+    dst: 'IKE',
+    msg: [0x41, cmd],
+  });
+}
+
 module.exports = {
-	parse_out          : (data) => { parse_out(data); },
-	send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
+	aux                : (type, action) => { aux(type, action); }
+	parse_out          : (data)         => { parse_out(data); },
+	send_device_status : (module_name)  => { bus_commands.send_device_status(module_name); },
 };

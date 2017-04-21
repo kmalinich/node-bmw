@@ -36,7 +36,7 @@ When gear is put in reverse and ignition is on these messages are sent: (Thanks 
 Note that the four red marked bytes are really a bitvector. Only the bold one bit is significant for these messages.
 
 80 0A BF 13 02 10 00 00 00 00 38 0C // in
-80 0A BF 13 02 00 00 00 00 00 38 1C //out
+80 0A BF 13 02 00 00 00 00 00 38 1C // out
 
 handbrake on
 oil pressure low
@@ -145,7 +145,7 @@ GT –> IKE : On-board computer set data: Set Date = 27/05/08
 
 ' 15h is an answer to 14h or is used to save new settings
 
-' 80 07 BF 15 00 04 00 42 6B
+' 80 BF 15 00 04 00 42
 ' IKE  --> GLO : Country coding status, Data="00 04 00 42"
 
 ' first byte = vehicle + language
@@ -179,7 +179,7 @@ GT –> IKE : On-board computer set data: Set Date = 27/05/08
 
 Thanks NAVCoder/Jochen
 
-80 07 BF 15 F1 00 00 00 DC
+80 BF 15 F1 00 00 00
 IKE  --> GLO : Country coding status: Ntwk=E46 Lang=GB_English Clock=24h OutTemp=°C AvgSpd=km/h Limit=km Dist=km ArrTime=24h Consump=l/100_km Motor=Petrol
 
 
@@ -190,27 +190,28 @@ To change country coding, first tell the IKE what it should be
 The IKE then does the job of telling everyone else.
 
 Here is an E46 that just changed km to miles:
-3B 07 80 15 F1 70 10 00 38
+3B 80 15 F1 70 10 00
 GT --> IKE : Country coding status: Ntwk=E46 Lang=GB_English Clock=24h OutTemp=°C AvgSpd=mph Limit=mls Dist=mls ArrTime=12h Motor=Petrol
 
 So it uses the same country coding status, but the GT sends the info to the IKE
-80 05 BF 15 01 00  cc
+80 BF 15 01 00
 
 change OBC temp to C, 24H time, MPG
 
-80 05 BF 15 01 01  cc       change OBC temp to C, 12H time, KM/L
-80 05 BF 15 01 02  cc       change OBC temp to F, 24H time, L/100km
-80 05 BF 15 01 03  cc       change OBC temp to F, 12H time, US MPG
-80 05 BF 15 01 04  cc       change OBC temp to C, 24H time, MPG
-80 05 BF 15 01 05  cc       change OBC temp to C, 12H time, KM/L
-80 05 BF 15 01 06  cc       change OBC temp to F, 24H time, L/100KM
-80 05 BF 15 01 07  cc       change OBC temp to F, 12H time, US MPG
-80 05 BF 15 01 08  cc       change OBC temp to C, 24H time, MPG
-80 05 BF 15 01 09  cc       change OBC temp to C, 12H time, KM/L
+80 BF 15 01 01  change OBC temp to C, 12H time, KM/L
+80 BF 15 01 02  change OBC temp to F, 24H time, L/100km
+80 BF 15 01 03  change OBC temp to F, 12H time, US MPG
+80 BF 15 01 04  change OBC temp to C, 24H time, MPG
+80 BF 15 01 05  change OBC temp to C, 12H time, KM/L
+80 BF 15 01 06  change OBC temp to F, 24H time, L/100KM
+80 BF 15 01 07  change OBC temp to F, 12H time, US MPG
+80 BF 15 01 08  change OBC temp to C, 24H time, MPG
+80 BF 15 01 09  change OBC temp to C, 12H time, KM/L
 
 country coding (0x15) has 4 x databytes
 
-A complete message would be 80 07 BF 15 00 04 00 42 6B
+A complete message would be:
+80 BF 15 00 04 00 42
 
 
 DB1
@@ -229,27 +230,31 @@ Lower nibble: language coding, decimal:
 10=RU
 
 DB2:
-bit 0 time and date, 0=24h, 1=12h
-bit 1 temperature 0=°C, 1=°F
-bit 4 avg speed 0=km/h, 1=mph
-bit 5 limit 0=km, 1=miles
-bit 6 distance 0=km, 1=miles
-bit 7 arrival time 0=24h, 1=12h
+bit0 : time and date 0=24h, 1=12h
+bit1 : temperature   0=°C   1=°F
+bit4 : avg speed     0=km/h 1=mph
+bit5 : limit         0=km   1=miles
+bit6 : distance      0=km   1=miles
+bit7 : arrival time  0=24h  1=12h
 
 DB3:
 bits 0...3 control the units for the consumption values
 0000 0000 l/100 km 0x00
-0000 0101 mpg 0x05
+0000 0101 mpg  0x05
 0000 1111 km/l 0x0F
+
 I think this is 2 x different unit values: one for Cons1 and one for Cons2
 but nav applies same settings to Consumpt1 and Consumpt2
+
 eg:
 xxxx xx00 Consumpt.1 L/100
 xxxx xx01 Consumpt.1 MPG
 xxxx xx11 Consumpt.1 KM/L
+
 xxxx 00xx Consumpt.2 L/100
 xxxx 01xx Consumpt.2 MPG
 xxxx 11xx Consumpt.2 KM/L
+
 
 DB4:
 bit 0 motor type 0=petrol, 1=Diesel

@@ -4,7 +4,14 @@ A node.js powered interface for IBUS BMW vehicles, for use with whatever runs th
 It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and macOS 10.12.
 
 # Disclaimers
-* If it breaks/hurts you/your car/your something else/etc... not my fault. Harsh disclaimer but it is what it is. See MIT license.
+* First and foremost, this project can and might hurt you.
+  * If you rely on the auto lights, and they cut out at night, you might die.
+  * If you are trapped in the vehicle, and the app locks up the GM and the door locks don't work, you might die.
+  * If you drive into a body of water and need to roll down the window to release the pressure, and the app locks up the GM and the windows don't work, you might die.
+  * If the app develops some bug/level of sentience .. it's worth knowing that it can talk to/hear from the airbag computer. If they deploy randomly.. you guessed it, you might die.
+* If it breaks/hurts/kills you/your car/your something else/etc... not my fault.
+  * Harsh disclaimer but it is what it is.
+  * See MIT license.
 * I routinely break master. Like, 100% un-functional.
 * I make no assertations that I am a professional. I'm just doing this for fun and to learn a little Node.js.
 * It's probably best to use this project as a reference versus fork it.

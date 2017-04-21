@@ -507,7 +507,7 @@ function io_set(packet) {
 		msg: packet,
 	});
 
-	// Request the Lamp+IO status after
+	// Request the IO status after
 	omnibus.LCM.request('io-status');
 }
 
@@ -621,7 +621,7 @@ module.exports = {
 				src = 'DIA';
 				cmd = [0x0B, 0x00]; // Get IO status
 				break;
-			case 'lampstatus':
+			case 'light-status':
 				src = 'GT';
 				cmd = [0x5A];
 				break;

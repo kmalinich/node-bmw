@@ -2,21 +2,20 @@
   "name": "node-bmw",
   "version": "0.0.1",
   "description": "NodeJS-powered BMW IBUS interface",
-  "main": "run.js",
+  "main": "launch.sh",
   "devDependencies": {},
   "author": "kdm <kennygprs@gmail.com>",
   "license": "ISC",
   "homepage": "https://github.com/kmalinich/node-bmw#readme",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kmalinich/node-bmw.git"
   },
   "keywords": [
     "bmw",
-    "ibus"
+    "dbus",
+    "ibus",
+    "kbus"
   ],
   "bugs": {
     "url": "https://github.com/kmalinich/node-bmw/issues"

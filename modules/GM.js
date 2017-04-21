@@ -93,30 +93,42 @@ function decode_status_open(message) {
 	// This is correct, in a sense... Not a good sense, but in a sense
 	status.vehicle.locked = bitmask.bit_test(message[1], 0x20);
 
-	// Set status.vehicle.closed var if all doors are closed
+	// Set status.doors.sealed var if all doors are closed
 	if (
-	status.doors.front_left  &&
-	status.doors.front_right &&
-	status.doors.hood        &&
-	status.doors.rear_left   &&
-	status.doors.rear_right  &&
-	status.doors.trunk
+	!status.doors.front_left  &&
+	!status.doors.front_right &&
+	!status.doors.hood        &&
+	!status.doors.rear_left   &&
+	!status.doors.rear_right  &&
+	!status.doors.trunk
   ) {
-    status.vehicle.closed = true;
+    status.doors.sealed = true;
   }
+	else {
+		status.doors.sealed = false;
+	}
+
+	// Set status.windows.sealed var if all windows are closed
+	if (
+	!status.windows.front_left  &&
+	!status.windows.front_right &&
+	!status.windows.roof        &&
+	!status.windows.rear_left   &&
+	!status.windows.rear_right
+  ) {
+    status.windows.sealed = true;
+  }
+	else {
+		status.windows.sealed = false;
+	}
 
 	// Set status.vehicle.sealed var if all windows are closed
-	if (
-	status.windows.front_left  &&
-	status.windows.front_right &&
-	status.windows.roof        &&
-	status.windows.rear_left   &&
-	status.windows.rear_right  &&
-  ) {
-    status.vehicle.sealed = true;
-  }
-
-	// Set status.vehicle.sealed var if all windows are closed
+	if (status.doors.sealed && status.windows.sealed) {
+		status.vehicle.sealed = true;
+	}
+	else {
+		status.vehicle.sealed = false;
+	}
 }
 
 // Send message to GM
@@ -402,7 +414,7 @@ module.exports = {
 				src = 'DIA';
 				cmd = [0x08, 0x00]; // Get IO status
 				break;
-			case 'door-door-status':
+			case 'door-status':
 				src = 'BMBT';
 				cmd = [0x79];
 				break;

@@ -251,7 +251,7 @@ function decode_ignition_status(data) {
 
 	if (omnibus.IKE.state_powerdown === true) {
 		omnibus.IKE.state_powerdown = false;
-		if (status.vehicle.locked === true) { // If the doors are locked
+		if (status.vehicle.locked && status.doors.sealed) { // If the doors are locked
 			omnibus.GM.locks(); // Send message to GM to toggle door locks
 		}
 	}
@@ -275,17 +275,13 @@ function decode_ignition_status(data) {
 		// Refresh OBC HUD once every second
 		omnibus.IKE.interval_data_refresh = setInterval(() => {
 			omnibus.IKE.request('temperature');
+			omnibus.GM.request('door-status');
 			// omnibus.GM.request('io-status');
-			// omnibus.GM.request('door-door-status');
 		}, 1000);
 	}
 
 	if (omnibus.IKE.state_run === true) {
 		omnibus.IKE.state_run = false;
-		if (status.vehicle.locked === false) { // If the doors are unlocked
-			omnibus.GM.locks(); // Send message to GM to toggle door locks
-		}
-
 		json.write_config(() => { // Write JSON config file
 			json.write_status(() => { // Write JSON status file
 			});
@@ -894,7 +890,7 @@ module.exports = {
 		// Immo+GM data
 		omnibus.EWS.request('immobiliserstatus');
 		omnibus.GM.request('io-status');
-		omnibus.GM.request('door-door-status');
+		omnibus.GM.request('door-status');
 
 		// IKE data
 		omnibus.IKE.request('status-glo' );

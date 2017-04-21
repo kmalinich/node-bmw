@@ -350,7 +350,7 @@ function decode_temperature_values(data) {
 
 function decode_aux_heat_led(data) {
 	// This actually is a bitmask but.. this is also a freetime project
-	switch(data.msg[2]) {
+	switch (data.msg[2]) {
 		case 0x00:
 			status.obc.aux_heat_led = 'off';
 			break;
@@ -629,7 +629,7 @@ module.exports = {
 						string_speedavg = parseFloat(string_speedavg.toString().trim().toLowerCase());
 
 						// Convert values appropriately based on coding valueunits
-						switch(string_speedavg_unit) {
+						switch (string_speedavg_unit) {
 							case 'k':
 								status.coding.unit.speed = 'kmh';
 								// Update status variables

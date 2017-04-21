@@ -65,7 +65,7 @@ function send_cd_status(status) {
 	var data;
 	var msg;
 
-	switch(status) {
+	switch (status) {
 		case 'stop':
 			msg = [0x39, 0x00, 0x02, 0x00, 0x01, 0x00, 0x01, 0x01];
 			break;

@@ -41,31 +41,30 @@ var array_of_possible_values = {
 	wipers_spray                  : true,
 };
 
-// [0x72] Decode a key fob message from the GM and act upon the results
+// [0x72] Decode a key fob bitmask message, and act upon the results
 function decode_status_keyfob(data) {
 	data.command = 'bro';
-	switch(data.msg[1]) {
-		case 0x00:
-			data.value = 'none';
-			break;
 
-		case 0x10:
-			data.value = 'lock';
-			omnibus.LCM.welcome_lights(false);
-			break;
+	// 0x00 : no buttons
+	if (data.msg[1] == 0x00) {
+		data.value = 'key fob button: none';
+		log.out(data);
+		return;
+	}
 
-		case 0x20:
-			data.value = 'unlock';
-			omnibus.LCM.welcome_lights(true);
-			break;
-
-		case 0x40:
-			data.value = 'trunk';
-			break;
-
-		default:
-			data.value = 'unknown: '+data.msg[1];
-			break;
+	if (bitmask.bit_test(data[1], 0x10)) {
+		data.value = 'lock';
+		omnibus.LCM.welcome_lights(false);
+	}
+	else if (bitmask.bit_test(data[1], 0x20)) {
+		data.value = 'unlock';
+		omnibus.LCM.welcome_lights(true);
+	}
+	else if (bitmask.bit_test(data[1], 0x40)) {
+		data.value = 'trunk';
+	}
+	else {
+		data.value = 'unknown: '+data.msg[1];
 	}
 
 	data.value = 'key fob button: '+data.value;
@@ -95,29 +94,29 @@ function decode_status_open(message) {
 
 	// Set status.doors.sealed var if all doors are closed
 	if (
-	!status.doors.front_left  &&
-	!status.doors.front_right &&
-	!status.doors.hood        &&
-	!status.doors.rear_left   &&
-	!status.doors.rear_right  &&
-	!status.doors.trunk
-  ) {
-    status.doors.sealed = true;
-  }
+		!status.doors.front_left  &&
+		!status.doors.front_right &&
+		!status.doors.hood        &&
+		!status.doors.rear_left   &&
+		!status.doors.rear_right  &&
+		!status.doors.trunk
+	) {
+		status.doors.sealed = true;
+	}
 	else {
 		status.doors.sealed = false;
 	}
 
 	// Set status.windows.sealed var if all windows are closed
 	if (
-	!status.windows.front_left  &&
-	!status.windows.front_right &&
-	!status.windows.roof        &&
-	!status.windows.rear_left   &&
-	!status.windows.rear_right
-  ) {
-    status.windows.sealed = true;
-  }
+		!status.windows.front_left  &&
+		!status.windows.front_right &&
+		!status.windows.roof        &&
+		!status.windows.rear_left   &&
+		!status.windows.rear_right
+	) {
+		status.windows.sealed = true;
+	}
 	else {
 		status.windows.sealed = false;
 	}

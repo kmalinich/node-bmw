@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Global libraries
 now = require('performance-now');
 

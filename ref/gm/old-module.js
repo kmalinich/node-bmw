@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // General module
 function gm(object, action) {
 	var FoldMirrorsE46           = Buffer.from([0x9b, 0x51, 0x6d, 0x90]);

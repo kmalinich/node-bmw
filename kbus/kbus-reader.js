@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Global libraries
 convert = require('node-unit-conversion');
 moment  = require('moment');

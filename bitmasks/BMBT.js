@@ -1,7 +1,4 @@
-#!/usr/bin/env node
-
 var clc = require('cli-color');
-
 
 // This below is unfinished work, but it shows bitmask testing for BMBT.
 // This would be much more useful for things like LCM & GM modules.

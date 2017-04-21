@@ -1,7 +1,7 @@
 # node-bmw
 
 A node.js powered interface for IBUS BMW vehicles, for use with whatever runs the dependencies.
-It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and macOS 10.10/10.11.
+It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and macOS 10.12.
 
 # Disclaimers
 * If it breaks/hurts you/your car/your something else/etc... not my fault. Harsh disclaimer but it is what it is. See MIT license.
@@ -15,6 +15,10 @@ About 90% of it is done in a way I don't really like, but I have so little time 
 It acts as, more or less.. plug-in custom firmware for the BMW modules.
 
 It does:
+* BMW bus interface:
+  * DBUS
+  * IBUS
+  * KBUS
 * Module emulation:
   * CDC (trunk-mounted CD changer - useful to repurpose as aux input)
   * MID (Multi-information display)
@@ -23,15 +27,18 @@ It does:
 * Lights:
   * Standing lights auto on/off, essentially as DRLs
   * Low beam auto on/off, based on locale and sun position (latitude/longitude are set in config.json)
-  * Rear fog LED in gauge cluster acts as auto-lights status light (since my car doesn't actually have rear fogs)
-    * But it only shows when fogs or low-beams are on =/
+  * Rear fog LED in gauge cluster acts as auto-lights status light (since my car doesn't actually have a rear fog)
+    * It only shows when fogs or low-beams are on =/
   * "Comfort" turn signal emulation, a la newer BMWs
-    * Except 3-flash comfort turn is a joke, this does 6-flash
+    * 3-flash comfort turn is a joke, this does 6-flash
 * Media:
   * HDMI CEC control to power on/off HDMI display on ignition change
-  * Kodi API integration so the steering wheel controls work with Kodi, among other things
+  * Kodi API integration
+    * Steering wheel controls work with Kodi
+    * Key on/off starts/stops Kodi playback
+    * Song titles scroll in IKE cluster
 * Custom display in gauge cluster (IKE) with system load, coolant temp in deg C, and time (from OS, not from car)
-* Welcome message in gauge cluster (IKE)
+* Welcome message in gauge cluster (IKE) on key on/app start
 * WebUI:
   * Current vehicle status
     * Vehicle speed
@@ -67,8 +74,7 @@ It does:
     * HDMI CEC on/off
 * Other:
   * Time/date sync from OS to car
-  * Auto-lock doors when key is turned on
-  * Auto-unlock doors when key is turned off
+  * Auto-unlock doors when key is turned from run to accessory
   * Parsing/decoding of IO status from LCM and GM
   * WebSocket UI/dynamic table for displaying decoded data in WebUI, with 2-way communication for sending data as well
   * What I'm about 97% certain is the single largest documented collection of BMW IBUS commands, under /ref 

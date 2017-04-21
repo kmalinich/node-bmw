@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var ibus_interface = require('./ibus-interface.js');
 var bus_modules    = require('../lib/bus-modules.js');
 

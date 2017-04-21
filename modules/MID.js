@@ -1,4 +1,4 @@
-var module_name = 'mid';
+var module_name = __filename.slice(__dirname.length + 1, -3);
 
 // Pad string for IKE text screen length (20 characters)
 String.prototype.mid_pad = function() {

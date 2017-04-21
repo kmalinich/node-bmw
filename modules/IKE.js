@@ -1,4 +1,4 @@
-var module_name = 'ike';
+var module_name = __filename.slice(__dirname.length + 1, -3);
 
 // Pad string for IKE text screen length (20 characters)
 String.prototype.ike_pad = function() {
@@ -235,8 +235,7 @@ function decode_ignition_status(data) {
 		omnibus.kodi.command('pause');
 
 		// Set modules as not ready
-		json.reset_modules(() => {
-		});
+		json.modules_reset(() => {});
 
 		// Turn off HDMI display after 2 seconds
 		setTimeout(() => {

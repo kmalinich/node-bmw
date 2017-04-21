@@ -1,4 +1,4 @@
-var module_name = 'rls';
+var module_name = __filename.slice(__dirname.length + 1, -3);
 
 // Parse data sent from RLS module
 function parse_out(data) {

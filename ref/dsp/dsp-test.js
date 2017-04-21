@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Test number for bitmask
 function bit_test(num, bit) {
   if ((num & bit) != 0) { return true; }

@@ -1,4 +1,4 @@
-var module_name = 'mfl';
+var module_name = __filename.slice(__dirname.length + 1, -3);
 
 // Parse data sent from MFL module
 function parse_out(data) {

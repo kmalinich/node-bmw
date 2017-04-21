@@ -1,3 +1,5 @@
+var module_name = __filename.slice(__dirname.length + 1, -3);
+
 // Global libraries
 convert = require('node-unit-conversion');
 moment  = require('moment');
@@ -22,8 +24,8 @@ var api_socket_map      = {};
 socket_server           = require('socket-server');
 api_server              = http.createServer(api_handler);
 var api_header          = {
-	'Content-Type'  : 'application/json',
-	'Cache-Control' : 'no-cache',
+'Content-Type'  : 'application/json',
+'Cache-Control' : 'no-cache',
 }
 
 function load_modules(callback) {
@@ -127,30 +129,26 @@ function load_modules(callback) {
 // Global startup
 function startup() {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Starting',
 	});
 
-	json.read_config(() => { // Read JSON config file
-		json.read_status(() => { // Read JSON status file
-			json.reset_modules(() => { // Reset modules vars pertinent to launching app
-				json.reset_status(() => { // Reset status vars pertinent to launching app
-					load_modules(() => { // Load IBUS module node modules
+	json.read(() => { // Read JSON config and status files
+		json.reset(() => { // Reset status and module vars pertinent to launching app
+			load_modules(() => { // Load IBUS module node modules
 
-						omnibus.dbus.interface.startup(() => { // Open DBUS serial port
-							omnibus.kbus.interface.startup(() => { // Open KBUS serial port
-								omnibus.ibus.interface.startup(() => { // Open IBUS serial port
+				omnibus.dbus.interface.startup(() => { // Open DBUS serial port
+					omnibus.kbus.interface.startup(() => { // Open KBUS serial port
+						omnibus.ibus.interface.startup(() => { // Open IBUS serial port
 
-									startup_api_server(() => { // Open API server
-										socket_server.startup(() => { // Config WebSocket server
-											omnibus.HDMI.startup(() => { // Open HDMI-CEC
-												omnibus.BT.autoconfig(() => { // Open Bluetooth connection
-													omnibus.kodi.autoconfig_loop(true, () => { // Open Kodi websocket
-														log.msg({
-															src : 'run',
-															msg : 'Started',
-														});
-													});
+							startup_api_server(() => { // Open API server
+								socket_server.startup(() => { // Config WebSocket server
+									omnibus.HDMI.startup(() => { // Open HDMI-CEC
+										omnibus.BT.autoconfig(() => { // Open Bluetooth connection
+											omnibus.kodi.autoconfig_loop(true, () => { // Open Kodi websocket
+												log.msg({
+													src : module_name,
+													msg : 'Started',
 												});
 											});
 										});
@@ -168,7 +166,7 @@ function startup() {
 // Global shutdown
 function shutdown() {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Shutting down',
 	});
 
@@ -180,13 +178,9 @@ function shutdown() {
 					omnibus.kbus.interface.shutdown(() => { // Close KBUS serial port
 						omnibus.ibus.interface.shutdown(() => { // Close IBUS serial port
 
-							json.write_config(() => { // Write JSON config file
-								json.reset_modules(() => { // Reset modules vars pertinent to launching app
-									json.reset_status(() => { // Reset status vars pertinent to launching app
-										json.write_status(() => { // Write JSON status file
-											process.exit();
-										});
-									});
+							json.reset(() => { // Reset status and module vars pertinent to launching app
+								json.write(() => { // Write JSON config and status files
+									process.exit();
 								});
 							});
 						});
@@ -313,7 +307,7 @@ dispatcher.onError((request, response) => {
 // Shutdown events/signals
 process.on('SIGTERM', () => {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Received SIGTERM, launching shutdown()',
 	});
 	shutdown();
@@ -321,7 +315,7 @@ process.on('SIGTERM', () => {
 
 process.on('SIGINT', () => {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Received SIGINT, launching shutdown()',
 	});
 	shutdown();
@@ -329,7 +323,7 @@ process.on('SIGINT', () => {
 
 process.on('SIGPIPE', () => {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Received SIGPIPE, launching shutdown()',
 	});
 	shutdown();
@@ -337,7 +331,7 @@ process.on('SIGPIPE', () => {
 
 process.on('exit', () => {
 	log.msg({
-		src : 'run',
+		src : module_name,
 		msg : 'Shut down',
 	});
 });

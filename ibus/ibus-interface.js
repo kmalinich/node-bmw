@@ -4,48 +4,45 @@ const log_src = 'ibus';
 var queue_write  = [];
 var active_write = false;
 
-// Local data
-var serial_port = new serialport(config.interface.ibus, {
-	autoOpen : false,
-	parity   : 'even',
-	rtscts   : true,
-});
-
-/*
- * Event handling
- */
-
-// On port error
-serial_port.on('error', (error) => {
-	log.msg({
-		src : log_src,
-		msg : 'Port error: '+error,
+if (config.interface.ibus !== null) {
+	// Local data
+	var serial_port = new serialport(config.interface.ibus, {
+		autoOpen : false,
+		parity   : 'even',
+		rtscts   : true,
 	});
-});
 
-// Send the data to the parser
-serial_port.on('data', (data) => {
-	for (var byte = 0; byte < data.length; byte++) {
-		omnibus.ibus.protocol.parser(data[byte]);
-	}
-});
+	/*
+	 * Event handling
+	 */
 
-serial_port.on('close', () => {
-	log.msg({
-		src : log_src,
-		msg : 'Port closed: '+config.interface.ibus,
+	// On port error
+	serial_port.on('error', (error) => {
+		log.msg({
+			src : log_src,
+			msg : 'Port error: '+error,
+		});
 	});
-});
+
+	// Send the data to the parser
+	serial_port.on('data', (data) => {
+		for (var byte = 0; byte < data.length; byte++) {
+			omnibus.ibus.protocol.parser(data[byte]);
+		}
+	});
+
+	serial_port.on('close', () => {
+		log.msg({
+			src : log_src,
+			msg : 'Port closed: '+config.interface.ibus,
+		});
+	});
+}
 
 
 // Return false if there's still something to write
 function queue_busy() {
-	if (typeof queue_write[0] !== 'undefined' && queue_write.length !== 0) {
-		active_write = true;
-	}
-	else {
-		active_write = false;
-	}
+	active_write = typeof queue_write[0] !== 'undefined' && queue_write.length !== 0;
 
 	// log.msg({
 	// 	src : log_src,
@@ -114,6 +111,11 @@ module.exports = {
 		// Last time any data did something
 		status.ibus.last_event = now();
 
+		if (config.interface.ibus === null) {
+			callback();
+			return;
+		}
+
 		// Open port if it is closed
 		if (!serial_port.isOpen) {
 			serial_port.open((error) => {
@@ -157,6 +159,11 @@ module.exports = {
 
 	// Close serial port
 	shutdown : (callback) => {
+		if (config.interface.ibus === null) {
+			callback();
+			return;
+		}
+
 		// Close port if it is open
 		if (serial_port.isOpen) {
 			serial_port.close((error) => {
@@ -184,6 +191,11 @@ module.exports = {
 
 	// Insert a message into the write queue
 	send : (msg) => {
+		if (config.interface.ibus === null) {
+			callback();
+			return;
+		}
+
 		// Generate KBUS message with checksum, etc
 		queue_write.push(omnibus.ibus.protocol.create(msg));
 

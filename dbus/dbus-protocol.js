@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var data = new Array();
 
 module.exports = {

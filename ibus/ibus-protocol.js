@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 //var debug = true;
 var debug = false;
 

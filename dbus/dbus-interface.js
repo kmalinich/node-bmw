@@ -1,8 +1,5 @@
 const serialport = require('serialport');
 var byte_length  = serialport.parsers.ByteLength;
-var dbus = {
-	protocol  : require('./dbus-protocol' ), // Protocol
-};
 
 // Read/write queues
 var queue_read  = [];
@@ -11,48 +8,45 @@ var active_read = false;
 var queue_write  = [];
 var active_write = false;
 
-// Local data
-var serial_port = new serialport(config.interface.dbus, {
-	autoOpen : false,
-	parity   : 'even',
-});
+if (config.interface.dbus !== null) {
+	// Local data
+	var serial_port = new serialport(config.interface.dbus, {
+		autoOpen : false,
+		parity   : 'even',
+	});
 
-var parser = serial_port.pipe(new byte_length({length: 1}));
+	var parser = serial_port.pipe(new byte_length({length: 1}));
 
 
-/*
- * Event handling
- */
+	/*
+	 * Event handling
+	 */
 
-// On port error
-serial_port.on('error', function(error) {
-	console.error('[DBUS:PORT]', error);
-});
+	// On port error
+	serial_port.on('error', function(error) {
+		console.error('[DBUS:PORT]', error);
+	});
 
-// On port open
-serial_port.on('open', function() {
-	console.log('[DBUS:PORT] Opened [%s]', config.interface.dbus);
-});
+	// On port open
+	serial_port.on('open', function() {
+		console.log('[DBUS:PORT] Opened [%s]', config.interface.dbus);
+	});
 
-// On port close
-serial_port.on('close', function() {
-	console.log('[DBUS:PORT] Closed [%s]', config.interface.dbus);
-});
+	// On port close
+	serial_port.on('close', function() {
+		console.log('[DBUS:PORT] Closed [%s]', config.interface.dbus);
+	});
 
-// Send the data to the parser
-serial_port.on('data', (data) => {
-	dbus.protocol.parser(data);
-});
+	// Send the data to the parser
+	serial_port.on('data', (data) => {
+		omnibus.dbus.protocol.parser(data);
+	});
+}
 
 
 // Return false if there's still something to write
 function queue_busy() {
-	if (typeof queue_write[0] !== 'undefined' && queue_write.length !== 0) {
-		active_write = true;
-	}
-	else {
-		active_write = false;
-	}
+	active_write = typeof queue_write[0] !== 'undefined' && queue_write.length !== 0;
 
 	// console.log('[DBUS::QUE] Queue busy: %s', active_write);
 	return active_write;
@@ -117,6 +111,11 @@ module.exports = {
 		// Last time any data did something
 		status.dbus.last_event = now();
 
+		if (config.interface.dbus === null) {
+			callback();
+			return;
+		}
+
 		// Open port if it is closed
 		if (!serial_port.isOpen) {
 			serial_port.open((error) => {
@@ -138,6 +137,11 @@ module.exports = {
 
 	// Close serial port
 	shutdown : (callback) => {
+		if (config.interface.dbus === null) {
+			callback();
+			return;
+		}
+
 		// Close port if it is open
 		if (serial_port.isOpen) {
 			serial_port.close((error) => {
@@ -159,8 +163,12 @@ module.exports = {
 
 	// Insert a message into the write queue
 	send : (msg) => {
+		if (config.interface.dbus === null) {
+			return;
+		}
+
 		// Generate DBUS message with checksum, etc
-		queue_write.push(dbus.protocol.create(msg));
+		queue_write.push(omnibus.dbus.protocol.create(msg));
 
 		// console.log('[DBUS:SEND] Pushed data into write queue');
 		if (active_write === false) {

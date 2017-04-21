@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // Color terminal output
 var clc  = require('cli-color');
 var wait = require('wait.for');

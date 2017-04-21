@@ -1,4 +1,4 @@
-var module_name = 'lcm';
+var module_name = __filename.slice(__dirname.length + 1, -3);
 var welcome_lights_timeout;
 
 // Automatic lights handling

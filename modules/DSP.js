@@ -23,7 +23,7 @@ function request(value) {
 			src = 'DIA';
 			cmd = [0x0B, 0x00]; // Get IO status
 			break;
-		case 'dsp-memory':
+		case 'memory':
 			src = 'RAD';
 			cmd = [0x34, 0x08]; // Get DSP memory
 			break;
@@ -181,11 +181,11 @@ function eq_encode(data) {
 }
 
 module.exports = {
-	eq_decode          : () => { eq_decode(data); },
-	eq_encode          : () => { eq_encode(data); },
-	eq_send            : () => { eq_send(msg); },
-	m_audio            : () => { m_audio(value); },
-	request            : () => { request(value); },
-	parse_out          : () => { parse_out(data); },
-	send_device_status : () => { bus_commands.send_device_status(module_name); },
+	eq_decode          : (data)        => { eq_decode(data); },
+	eq_encode          : (data)        => { eq_encode(data); },
+	eq_send            : (msg)         => { eq_send(msg); },
+	m_audio            : (value)       => { m_audio(value); },
+	parse_out          : (data)        => { parse_out(data); },
+	request            : (value)       => { request(value); },
+	send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 };

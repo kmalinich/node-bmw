@@ -5,7 +5,7 @@ function parse_out(data) {
 	switch (data.msg[0]) {
 		case 0x58: // Broadcast: Headlight wipe interval
 			data.command = 'bro';
-			data.value   = 'headlight wipe interval';
+			data.value   = 'headlight wipe interval '+data.msg;
 			break;
 
 		default:
@@ -17,6 +17,6 @@ function parse_out(data) {
 }
 
 module.exports = {
-  parse_out          : () => { parse_out(data); },
-  send_device_status : () => { bus_commands.send_device_status(module_name); },
+  parse_out          : (data) => { parse_out(data); },
+  send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 };

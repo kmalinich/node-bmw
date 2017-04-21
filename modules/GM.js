@@ -327,11 +327,11 @@ function windows(window, action) {
 
 module.exports = {
 	// Parse data sent from GM module
-	parse_out : () => { parse_out(data); },
+	parse_out : (data) => { parse_out(data); },
 	// Handle incoming commands from API
-	api_command : () => { api_command(data); },
+	api_command : (data) => { api_command(data); },
 	// GM window control
-	windows : () => { windows(window, action); },
+	windows : (window, action) => { windows(window, action); },
 
 	// Cluster/interior backlight
 	interior_light : (value) => {

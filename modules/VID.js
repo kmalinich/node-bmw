@@ -46,6 +46,6 @@ function parse_out(data) {
 }
 
 module.exports = {
-  parse_out          : () => { parse_out(data); },
-  send_device_status : () => { bus_commands.send_device_status(module_name); },
+  parse_out          : (data) => { parse_out(data); },
+  send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 }

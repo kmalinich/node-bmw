@@ -217,10 +217,10 @@ function decode_ignition_status(data) {
 	if (status.vehicle.ignition_level != data.msg[1]) {
 		console.log('[node::IKE] Ignition level change \'%s\' => \'%s\'', status.vehicle.ignition_level, data.msg[1]);
 		status.vehicle.ignition_level = data.msg[1];
+	}
 
-		if (config.lights.auto === true) {
-			omnibus.LCM.auto_lights_check();
-		}
+	if (config.lights.auto === true) {
+		omnibus.LCM.auto_lights_check();
 	}
 
 	switch (data.msg[1]) {
@@ -228,7 +228,7 @@ function decode_ignition_status(data) {
 		case 1  : status.vehicle.ignition = 'accessory'; break;
 		case 3  : status.vehicle.ignition = 'run';       break;
 		case 7  : status.vehicle.ignition = 'start';     break;
-		default : status.vehicle.ignition = 'unk';   break;
+		default : status.vehicle.ignition = 'unknown';   break;
 	}
 
 	if (state_poweroff === true) {
@@ -237,7 +237,7 @@ function decode_ignition_status(data) {
 			console.log('[node::IKE] Cleared data refresh interval');
 		});
 
-		// Disable BMBT keepalive
+		// Disable BMBT/MID keepalive
 		if (config.emulate.bmbt === true) {
 			omnibus.BMBT.status_loop('unset');
 		}
@@ -414,8 +414,8 @@ module.exports = {
 				break;
 
 			case 0x17: // Odometer
-				data.value   = odometer_value;
-				data.command = 'odometer';
+				data.command = 'bro';
+				data.value   = 'odometer';
 				decode_odometer(data);
 				break;
 
@@ -546,9 +546,6 @@ module.exports = {
 						// Update status variables
 						status.obc.consumption.c1.mpg  = parseFloat(consumption_mpg.toFixed(2));
 						status.obc.consumption.c1.l100 = parseFloat(consumption_l100.toFixed(2));
-
-						// Refresh the HUD
-						// omnibus.IKE.hud_refresh(false);
 
 						data.command = 'OBC consumption 1';
 						data.value   = status.obc.consumption.c1.mpg;
@@ -803,9 +800,8 @@ module.exports = {
 
 		var time_now = now();
 
-		// Bounce if the last update was less than 6 sec ago, and it's the auto interval calling
-		if (time_now-last_hud_refresh <= 6000 && interval === true) {
-			// console.log('[node::IKE] HUD refresh: too soon');
+		// Bounce if the last update was less than 1 sec ago
+		if (time_now-last_hud_refresh <= 1000) {
 			return;
 		}
 
@@ -936,6 +932,7 @@ module.exports = {
 		var cmd;
 		var src = 'VID';
 		var dst = 'IKE';
+		var exe = true;
 		switch (value) {
 			case 'ignition':
 				cmd = [0x10];
@@ -960,14 +957,34 @@ module.exports = {
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'status-glo':
+				exe = false;
+				cmd = [0x01];
 				src = 'IKE';
 				dst = 'GLO';
-				cmd = [0x01];
+				for (var dst in bus_modules.modules) {
+					if (dst != 'DIA' && dst != 'GLO' && dst != 'LOC') {
+						omnibus.data_send.send({
+							src: src,
+							dst: dst,
+							msg: cmd,
+						});
+					}
+				}
 				break;
 			case 'status-loc':
+				exe = false;
+				cmd = [0x01];
 				src = 'IKE';
 				dst = 'LOC';
-				cmd = [0x01];
+				for (var dst in bus_modules.modules) {
+					if (dst != 'DIA' && dst != 'GLO' && dst != 'LOC') {
+						omnibus.data_send.send({
+							src: src,
+							dst: dst,
+							msg: cmd,
+						});
+					}
+				}
 				break;
 			case 'vin':
 				src = 'IKE';
@@ -976,11 +993,13 @@ module.exports = {
 				break;
 		}
 
-		omnibus.data_send.send({
-			src: src,
-			dst: dst,
-			msg: cmd,
-		});
+		if (exe === true) {
+			omnibus.data_send.send({
+				src: src,
+				dst: dst,
+				msg: cmd,
+			});
+		}
 	},
 
 	// Check control warnings
@@ -996,7 +1015,7 @@ module.exports = {
 		// 0x10 : 1 lo gong, no arrow
 		// 0x18 : 3 beep,    no arrow
 
-		hud_override = true;
+		hud_override    = true;
 		var message_hex = [0x1A, 0x37, 0x03]; // no gong, flash arrow
 		var message_hex = message_hex.concat(ascii2hex(message.ike_pad()));
 

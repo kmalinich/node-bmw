@@ -10,7 +10,7 @@ function parse_in(data) {
 
 			// Send the ready packet since this module doesn't actually exist
 			if (config.emulate.cdc === true) {
-				omnibus[module_name.toUpperCase()].send_device_status();
+				bus_commands.send_device_status(module_name);
 			}
 			break;
 
@@ -83,8 +83,8 @@ function send_cd_status(status) {
 
 
 module.exports = {
-	parse_in           : () => { parse_in(data); },
-	parse_out          : () => { parse_out(data); },
+	parse_in           : (data) => { parse_in(data); },
+	parse_out          : (data) => { parse_out(data); },
 	send_cd_status     : () => { send_cd_status(status) },
-	send_device_status : () => { bus_commands.send_device_status(module_name); },
+	send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 };

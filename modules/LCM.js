@@ -1,19 +1,23 @@
 var module_name = 'lcm';
-
-var interval_auto_lights;
 var welcome_lights_timeout;
 
 // Automatic lights handling
 function auto_lights(action) {
+	if (status.vehicle.ignition_level < 1) {
+		action = false;
+	}
+
 	if (status.lights.auto.active != action) {
 		console.log('[node::LCM] Auto lights \'%s\' => \'%s\'', status.lights.auto.active, action);
-	} else { return; }
+	}
+	else {
+		return;
+	}
 
 	switch (action) {
 		case false:
-			clearInterval(interval_auto_lights, () => {
-				console.log('[node::IKE] Cleared autolights interval');
-			});
+			clearInterval(omnibus.LCM.interval_auto_lights);
+			console.log('[node::IKE] Cleared autolights interval');
 
 			// Set status variables
 			status.lights.auto.reason  = null;
@@ -25,12 +29,12 @@ function auto_lights(action) {
 			// Set status variable
 			status.lights.auto.active = true;
 
-			// Send one through to prime the pumps
+			// Send a couple through to prime the pumps
 			auto_lights_process();
 
 			// Process/send LCM data on 7 second interval
 			// LCM diag command timeout is 15 seconds
-			interval_auto_lights = setInterval(() => {
+			omnibus.LCM.interval_auto_lights = setInterval(() => {
 				// Process auto lights
 				auto_lights_process();
 			}, 7000);
@@ -52,8 +56,16 @@ function auto_lights_process() {
 	// console.log('[node::LCM]  lights_on : %s', lights_on);
 	// console.log('[node::LCM] lights_off : %s', lights_off);
 
-	// Request ignition
-	omnibus.IKE.request('ignition'   );
+	if (status.vehicle.ignition_level < 1) {
+		auto_lights(false);
+		return;
+	}
+
+	log.msg({
+		src : module_name.toUpperCase(),
+		msg : 'Processing auto lights',
+	});
+
 
 	// Check time of day
 	if (current_time < lights_off) {
@@ -496,7 +508,6 @@ function io_set(packet) {
 	});
 
 	// Request the Lamp+IO status after
-	omnibus.LCM.request('lampstatus');
 	omnibus.LCM.request('io-status');
 }
 
@@ -540,6 +551,8 @@ module.exports = {
 		}
 		auto_lights(true);
 	},
+
+	interval_auto_lights : null,
 
 	// Parse data sent from LCM module
 	parse_out : (data) => {

@@ -4,21 +4,22 @@ var module_name = 'ccm';
 function parse_out(data) {
 	switch (data.msg[0]) {
 		case 0x1A: // Broadcast: check control message
-			data.command = 'check control message';
-			data.value   = ''+data.msg+'';
+			data.command = 'bro';
+			data.value   = 'check control message TODO';
 			break;
 
 		case 0x51: // Broadcast: check control sensors
-			data.command = 'check control sensors';
+			data.command = 'bro';
+			data.value   = 'check control sensors';
 			switch (data.msg[1]) {
 				case 0x00:
-					data.value = 'none';
+					data.value = data.value+' none';
 					break;
 				case 0x04:
-					data.value = 'key in ignition';
+					data.value = data.value+' key in ignition';
 					break;
 				case 0x12:
-					data.value = 'seatbelt not fastened';
+					data.value = data.value+' seatbelt not fastened';
 					break;
 				default:
 					data.value = Buffer.from(data.msg[1]);
@@ -36,6 +37,6 @@ function parse_out(data) {
 }
 
 module.exports = {
-	parse_out          : () => { parse_out(data); },
-	send_device_status : () => { bus_commands.send_device_status(module_name); },
+	parse_out          : (data) => { parse_out(data); },
+	send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 };

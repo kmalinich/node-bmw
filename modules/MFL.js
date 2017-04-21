@@ -30,7 +30,7 @@ function parse_out(data) {
 			data.command = 'con';
 			data.value   = 'recirculation button';
 
-			switch (message[1]) {
+			switch (data.msg[1]) {
 				case 0x00:
 					data.value = data.value+' released';
 					break;
@@ -54,14 +54,14 @@ function parse_out(data) {
 			// 0x80 = send/end
 
 			// Detect button
-			if      (bitmask.bit_test(message[1], bitmask.bit[0])) { button = 'right';    data.value = data.value+' '+button; }
-			else if (bitmask.bit_test(message[1], bitmask.bit[3])) { button = 'left';     data.value = data.value+' '+button; }
-			else if (bitmask.bit_test(message[1], bitmask.bit[7])) { button = 'send/end'; data.value = data.value+' '+button; }
+			if      (bitmask.bit_test(data.msg[1], bitmask.bit[0])) { button = 'right';    data.value = data.value+' '+button; }
+			else if (bitmask.bit_test(data.msg[1], bitmask.bit[3])) { button = 'left';     data.value = data.value+' '+button; }
+			else if (bitmask.bit_test(data.msg[1], bitmask.bit[7])) { button = 'send/end'; data.value = data.value+' '+button; }
 			else                                                   { button = 'unknown';  data.value = data.value+' '+button; }
 
 			// Detect action
-			if      (bitmask.bit_test(message[1], bitmask.bit[4])) { action = 'long depress'; data.value = data.value+' '+action; }
-			else if (bitmask.bit_test(message[1], bitmask.bit[5])) { action = 'release';      data.value = data.value+' '+action; }
+			if      (bitmask.bit_test(data.msg[1], bitmask.bit[4])) { action = 'long depress'; data.value = data.value+' '+action; }
+			else if (bitmask.bit_test(data.msg[1], bitmask.bit[5])) { action = 'release';      data.value = data.value+' '+action; }
 			else                                                   { action = 'depress';      data.value = data.value+' '+action; }
 
 			// Perform media control based on pressed key
@@ -92,6 +92,6 @@ function parse_out(data) {
 }
 
 module.exports = {
-	parse_out          : () => { parse_out(data); },
-	send_device_status : () => { bus_commands.send_device_status(module_name); },
+	parse_out          : (data) => { parse_out(data); },
+	send_device_status : (module_name) => { bus_commands.send_device_status(module_name); },
 };

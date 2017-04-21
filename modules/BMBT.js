@@ -30,7 +30,7 @@ function status_loop(action) {
 // Send BMBT status, and request status from RAD
 function refresh_status() {
 	if (status.vehicle.ignition_level > 0) {
-		request_rad_status();
+		bus_commands.request_device_status(module_name, 'RAD');
 		return;
 	}
 
@@ -61,19 +61,8 @@ function parse_in(data) {
 			data.value   = 'device status';
 
 			// Send the ready packet since this module doesn't actually exist
-			omnibus[module_name.toUpperCase()].send_device_status();
-			break;
-
-		case 0x02: // Device status
-			data.command = 'bro';
-			data.value   = 'device status ';
-			switch (data.msg[1]) {
-				case 0x00:
-					data.value = data.value+'ready';
-					break;
-				case 0x01:
-					data.value = data.value+'ready after reset';
-					break;
+			if (config.emulate.bmbt === true) {
+				bus_commands.send_device_status(module_name);
 			}
 			break;
 
@@ -124,15 +113,6 @@ function parse_out(data) {
 	}
 
 	log.out(data);
-}
-
-// Request status from RAD module
-function request_rad_status() {
-	omnibus.data_send.send({
-		src: 'BMBT',
-		dst: 'RAD',
-		msg: [0x01],
-	});
 }
 
 // Say we have no tape in the player
@@ -189,12 +169,11 @@ function send_button(button) {
 
 
 module.exports = {
-	parse_in             : () => { parse_in(data); },
-	parse_out            : () => { parse_out(data); },
-	power_on_if_ready    : () => { power_on_if_ready(); },
-	request_rad_status   : () => { request_rad_status(); },
-	send_button          : () => { send_button(button); },
-	send_cassette_status : () => { send_cassette_status(); },
-	send_device_status   : () => { bus_commands.send_device_status(module_name); },
-	status_loop          : () => { status_loop(action); },
+	parse_in             : (data)        => { parse_in(data); },
+	parse_out            : (data)        => { parse_out(data); },
+	power_on_if_ready    : ()            => { power_on_if_ready(); },
+	send_button          : (button)      => { send_button(button); },
+	send_cassette_status : ()            => { send_cassette_status(); },
+	send_device_status   : (module_name) => { bus_commands.send_device_status(module_name); },
+	status_loop          : (action)      => { status_loop(action); },
 }

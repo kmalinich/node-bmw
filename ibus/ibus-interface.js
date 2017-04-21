@@ -8,7 +8,7 @@ var active_write = false;
 var serial_port = new serialport(config.interface.ibus, {
 	autoOpen : false,
 	parity   : 'even',
-	// rtscts   : false,
+	rtscts   : true,
 });
 
 /*
@@ -133,7 +133,7 @@ module.exports = {
 
 					serial_port.set({
 						cts : true,
-						dsr : false,
+						dsr : true,
 						rts : true,
 					}, () => {
 						log.msg({

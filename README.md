@@ -16,7 +16,7 @@ It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and 
 * I make no assertations that I am a professional. I'm just doing this for fun and to learn a little Node.js.
 * It's probably best to use this project as a reference versus fork it.
 
-Currently being developed using my US-spec 2000 E39 540i, and a Raspberry Pi 3 running the latest Raspbian and NodeJS 7.4.x.
+Currently being developed using my US-spec 2000 E39 540i, and a Raspberry Pi 3 running the latest Raspbian and NodeJS 7.9.x.
 About 90% of it is done in a way I don't really like, but I have so little time to work on this... =/
 
 It acts as, more or less.. plug-in custom firmware for the BMW modules.

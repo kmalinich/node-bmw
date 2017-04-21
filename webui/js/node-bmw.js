@@ -153,8 +153,8 @@ function gm_cl(action) {
 		type     : 'POST',
 		dataType : 'json',
 		data     : {
-			'gm-command'        : 'locks',
-			'gm-command-action' : action,
+'command'        : 'locks',
+'command-action' : action,
 		},
 		success : function(return_data) {
 			console.log(return_data);
@@ -164,13 +164,11 @@ function gm_cl(action) {
 
 // AJAX for GM interior_light
 function gm_interior_light(value) {
-	console.log('gm_interior_light(%s);', value);
-
 	$.ajax({
 		url      : '/api/gm',
 		type     : 'POST',
 		dataType : 'json',
-		data     : 'gm-interior-light='+value,
+		data     : 'interior-light='+value,
 		success  : function(return_data) {
 			console.log(return_data);
 		}
@@ -186,8 +184,8 @@ function gm_windows(window, action) {
 		type     : 'POST',
 		dataType : 'json',
 		data     : {
-			'gm-window'        : window,
-			'gm-window-action' : action,
+'window'        : window,
+'window-action' : action,
 		},
 		success  : function(return_data) {
 			console.log(return_data);
@@ -245,7 +243,19 @@ function gm_get() {
 		type     : 'POST',
 		dataType : 'json',
 		data     : {
-			'gm-command' : 'gm-get',
+'command' : 'door-status',
+		},
+		success : function(return_data) {
+			console.log(return_data);
+		}
+	});
+
+	$.ajax({
+		url      : '/api/gm',
+		type     : 'POST',
+		dataType : 'json',
+		data     : {
+'command' : 'io-status',
 		},
 		success : function(return_data) {
 			console.log(return_data);
@@ -282,8 +292,8 @@ function prepare_gm_interior_light() {
 		step    : 1,
 		connect : [true, false],
 		range   : {
-			'min': 0,
-			'max': 255
+'min': 0,
+'max': 255
 		}
 	});
 
@@ -325,8 +335,8 @@ function prepare_lcm_dimmer() {
 		step    : 1,
 		connect : [true, false],
 		range   : {
-			'min': 0,
-			'max': 255
+'min': 0,
+'max': 255
 		}
 	});
 

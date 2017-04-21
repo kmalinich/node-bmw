@@ -3,28 +3,75 @@
 A node.js powered interface for IBUS BMW vehicles, for use with whatever runs the dependencies.
 It builds (but isn't _really_ tested) on Linux x86_64, Linux ARMv7 (raspi), and macOS 10.10/10.11.
 
+# Disclaimers
+* If it breaks/hurts you/your car/your something else/etc... not my fault. Harsh disclaimer but it is what it is. See MIT license.
+* I routinely break master. Like, 100% un-functional.
+* I make no assertations that I am a professional. I'm just doing this for fun and to learn a little Node.js.
+* It's probably best to use this project as a reference versus fork it.
+
 Currently being developed using my US-spec 2000 E39 540i, and a Raspberry Pi 3 running the latest Raspbian and NodeJS 7.4.x.
 About 90% of it is done in a way I don't really like, but I have so little time to work on this... =/
 
-It provides these custom features for me:
-* Automatic lights based on locale and sun position (currently hardcoded to my latitude/longitude)
-  * Rear fog LED as status light
-* HDMI CEC control to power on/off display with ignition
-* Kodi WebSocket integration so the steering wheel controls work with Kodi, among other things
-* Dynamic welcome lights (the more you press inside a 15 second window, the more lights illuminate)
-* 5-flash "comfort" turn signal emulation a la newer BMWs
-* Custom heads-up display in gauge cluster (IKE) with fuel economy, coolant temp in deg C, and time (from OS, not from car)
-* WebUI
+It acts as, more or less.. plug-in custom firmware for the BMW modules.
+
+It does:
+* Module emulation:
+  * CDC (trunk-mounted CD changer - useful to repurpose as aux input)
+  * MID (Multi-information display)
+  * BMBT (Bordmonitor/On-board monitor)
+  * DSPC (DSP controller)
+* Lights:
+  * Standing lights auto on/off, essentially as DRLs
+  * Low beam auto on/off, based on locale and sun position (latitude/longitude are set in config.json)
+  * Rear fog LED in gauge cluster acts as auto-lights status light (since my car doesn't actually have rear fogs)
+    * But it only shows when fogs or low-beams are on =/
+  * "Comfort" turn signal emulation, a la newer BMWs
+    * Except 3-flash comfort turn is a joke, this does 6-flash
+* Media:
+  * HDMI CEC control to power on/off HDMI display on ignition change
+  * Kodi API integration so the steering wheel controls work with Kodi, among other things
+* Custom display in gauge cluster (IKE) with system load, coolant temp in deg C, and time (from OS, not from car)
+* Welcome message in gauge cluster (IKE)
+* WebUI:
   * Current vehicle status
-  * Control/configure DSP amp/equalizer
-  * Control LCM (light module)
-  * Control IKE (gauge cluster) and OBC data set/reset
-  * Control GM (windows/doors/locks and their status)
-* Time/date sync from OS to car
-* Auto-unlock door locks when key is turned off
-* Parsing/decoding of IO status from LCM and GM
-* WebSocket UI/dynamic table for displaying decoded data in WebUI, with 2-way communication for sending data as well
-* What I'm about 97% certain is the single largest documented collection of BMW IBUS commands, under /ref 
+    * Vehicle speed
+    * Engine RPM
+    * Engine status (running/not running)
+    * Country coding/units (parsing is terrible, I do it all wrong, don't look..)
+    * Coolant/exterior temperatures
+    * VIN (last 7)
+    * Odometer
+    * Doors/hood/trunk open/closed
+    * Windows up/down
+    * Central locking
+    * Handbrake status
+    * In reverse gear or not
+    * Ignition position
+    * OBC data:
+      * Aux heat/vent timer 1+2
+      * Average speed
+      * Consumption 1+2
+      * Date/time
+      * Distance remaining
+      * Range to empty
+      * Speed limit
+      * Stopwatch
+      * Timer
+  * Control vehicle modules:
+    * DSP amp/equalizer
+    * GM (windows/doors/locks)
+    * IKE (gauge cluster)
+    * LCM (light module)
+    * OBC data set/reset
+  * Control other things:
+    * HDMI CEC on/off
+* Other:
+  * Time/date sync from OS to car
+  * Auto-lock doors when key is turned on
+  * Auto-unlock doors when key is turned off
+  * Parsing/decoding of IO status from LCM and GM
+  * WebSocket UI/dynamic table for displaying decoded data in WebUI, with 2-way communication for sending data as well
+  * What I'm about 97% certain is the single largest documented collection of BMW IBUS commands, under /ref 
 * .. and a lot of other stuff, I'm probably forgetting.
 
 Future plans/ideas/to do list:

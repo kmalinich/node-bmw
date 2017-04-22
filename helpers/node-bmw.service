@@ -4,18 +4,17 @@ Description = node-bmw daemon
 Requires    = network.target
 
 [Service]
-Nice                 = -19
-OOMScoreAdjust       = -1000
-IOSchedulingPriority = 0
-Group                = pi
-User                 = pi
-Environment          = NODE_PATH=/usr/lib/node_modules:/usr/lib/nodejs:/usr/local/lib/node_modules:/usr/local/node-bmw/node_modules:/usr/share/javascript
-ExecStart            = /usr/bin/env node --trace-deprecation --throw-deprecation --trace-warnings --preserve-symlinks /usr/local/node-bmw/run.js
-Restart              = on-failure
-StandardError        = syslog
-StandardOutput       = syslog
-SyslogIdentifier     = node-bmw
-WorkingDirectory     = /usr/local/node-bmw
+Nice             = -19
+OOMScoreAdjust   = -1000
+Group            = pi
+User             = pi
+Environment      = NODE_PATH=/usr/lib/node_modules:/usr/lib/nodejs:/usr/local/lib/node_modules:/usr/local/node-bmw/node_modules:/usr/share/javascript
+ExecStart        = /usr/bin/env node --stack-size=2048 --trace-deprecation --throw-deprecation --trace-warnings --preserve-symlinks /usr/local/node-bmw/run.js
+Restart          = on-failure
+StandardError    = syslog
+StandardOutput   = syslog
+SyslogIdentifier = node-bmw
+WorkingDirectory = /usr/local/node-bmw
 
 [Install]
 WantedBy = multi-user.target

@@ -1,5 +1,8 @@
 var module_name = __filename.slice(__dirname.length + 1, -3);
 
+var pad    = require('pad');
+var pitemp = require('pi-temperature');
+
 // Pad string for IKE text screen length (20 characters)
 String.prototype.ike_pad = function() {
 	var string = this;
@@ -265,10 +268,17 @@ function decode_ignition_status(data) {
 		omnibus.BT.command('connect');
 
 		// Welcome message
-		omnibus.IKE.text_override('node-bmw. host: '+os.hostname()+', platform: '+os.platform()+', memory: '+os.freemem()+'/'+os.totalmem()+', uptime: '+os.uptime()+' seconds');
+		omnibus.IKE.text_override('node-bmw | Host:'+os.hostname()+' | Mem:'+parseFloat(parseFloat((os.freemem()/os.totalmem()).toFixed(2))*100)+'% | Up:'+parseFloat((os.uptime()/3600).toFixed(2))+' hrs');
+
+		// Refresh OBC data
+		omnibus.IKE.obc_refresh();
 
 		// Refresh OBC HUD once every 5 seconds, by requesting current temperatures
 		omnibus.IKE.interval_data_refresh = setInterval(() => {
+			// Get+save RPi temp
+			pitemp.measure((temperature) => {
+				status.pi.temperature = parseFloat(temperature.toFixed(0));
+			});
 			omnibus.IKE.request('temperature');
 		}, 5000);
 	}
@@ -782,16 +792,16 @@ module.exports = {
 		if(omnibus.IKE.hud_override === true) {
       log.msg({
         src : module_name,
-        msg : 'HUD refresh: override active ('+(time_now-omnibus.IKE.last_hud_refresh)+' ms)',
+        msg : 'HUD refresh: override active',
       });
 			return;
 		}
 
-		// Bounce if the last update was less than 1 sec ago
-		if (time_now-omnibus.IKE.last_hud_refresh <= 1000) {
+		// Bounce if the last update was less than 3 sec ago
+		if (time_now-omnibus.IKE.last_hud_refresh <= 3000) {
       log.msg({
         src : module_name,
-        msg : 'HUD refresh: too soon ('+(time_now-omnibus.IKE.last_hud_refresh)+' ms)',
+        msg : 'HUD refresh: too soon ('+(time_now-omnibus.IKE.last_hud_refresh).toFixed(0)+' ms)',
       });
 			return;
 		}
@@ -822,41 +832,24 @@ module.exports = {
 		// Format the output (ghetto-ly)
 		switch (string_temp.length) {
 			case 4:
-				spacing1 = '   ';
 				spacing2 = '   ';
 				break;
 			case 3:
-				spacing1 = '    ';
+				string_temp = ' '+string_temp;
 				spacing2 = '   ';
 				break;
 			case 2:
-				spacing1 = '    ';
+				string_temp = ' '+string_temp;
 				spacing2 = '    ';
 				break;
-			default:
-				spacing1 = ' ';
-				spacing2 = ' ';
-				break;
 		}
 
-		// 1m sysload - to 3 digits
-		var load_1m = os.loadavg()[0].toFixed(3);
+		// 1m sysload to percentage
+		var load_1m = (parseFloat((os.loadavg()[0]/os.cpus().length).toFixed(2))*100).toFixed(0);
+		var load_1m = status.pi.temperature+'¨|'+load_1m+'%';
 
-		// Format the output (ghetto-ly)
-		switch (load_1m.length) {
-			case 4:
-				load_1m = load_1m+'0';
-				break;
-			case 3:
-				load_1m = load_1m+'00';
-				break;
-			case 2:
-				load_1m = load_1m+'000';
-				break;
-			case 1:
-				load_1m = '0.000';
-				break;
-		}
+		// Format the output
+    var load_1m = pad(load_1m, 8);
 
 		// Add space to left-most string (consumption 1)
 		if (string_cons.length === 4) {
@@ -871,7 +864,7 @@ module.exports = {
 			return;
 		}
 		else {
-			var hud_string = load_1m+spacing1+string_temp+spacing2+string_time;
+			var hud_string = load_1m+string_temp+spacing2+string_time;
 			omnibus.IKE.text(hud_string, () => {
 				omnibus.IKE.last_hud_refresh = now();
 			});
@@ -1037,69 +1030,59 @@ module.exports = {
   },
 
   // IKE cluster text send message, override other messages
-  text_override : (message, timeout = 3000) => {
+  text_override : (message, timeout = 2500) => {
     var max_length   = 20;
-    var scroll_delay = 400;
+		var scroll_delay = 300;
 
-    // Delare that we're currently first up
-    omnibus.IKE.hud_override      = true;
-    omnibus.IKE.hud_override_text = message;
+		// Delare that we're currently first up
+		omnibus.IKE.hud_override      = true;
+		omnibus.IKE.hud_override_text = message;
 
-    // console.log('[node::IKE] Sending text to IKE screen: \'%s\'', message);
+		// Equal to or less than 20 char
+		if (message.length-max_length <= 0) {
+			if (omnibus.IKE.hud_override_text == message) {
+				omnibus.IKE.text(message);
+			}
+		}
+		else {
+			// Adjust timeout since we will be scrolling
+			timeout = timeout+(scroll_delay*5)+(scroll_delay*(message.length-max_length));
 
-    // Equal to or less than 20 char
-    if (message.length-max_length <= 0) {
-      if (omnibus.IKE.hud_override_text == message) {
-        omnibus.IKE.text(message);
-      }
-    }
-    else {
-      // Adjust timeout since we will be scrolling
-      timeout = timeout+2500+(scroll_delay*(message.length-max_length));
+			// Send initial string if we're currently the first up
+			if (omnibus.IKE.hud_override_text == message) {
+				omnibus.IKE.text(message);
+			}
 
-      if (omnibus.IKE.hud_override_text == message) {
-        omnibus.IKE.text(message);
-      }
+			// Add a time buffer before scrolling starts
+			setTimeout(() => {
+				for (var scroll = 0; scroll <= message.length-max_length ; scroll++) {
+					setTimeout((current_scroll, message_full) => {
+						// Only send the message if we're currently the first up
+						if (omnibus.IKE.hud_override_text == message_full) {
+							omnibus.IKE.text(message.substring(current_scroll, current_scroll+max_length));
+						}
+					}, scroll_delay*scroll, scroll, message);
+				}
+			}, (scroll_delay*5));
+		}
 
-      // Add a buffer to the whole apparatus
-      setTimeout(() => {
-        for (var scroll = 0; scroll <= message.length-max_length ; scroll++) {
-          setTimeout((current_scroll, message_full) => {
-            var message_trim     = message.substring(current_scroll, current_scroll+max_length);
-            var message_trim_hex = [0x23, 0x50, 0x30, 0x07];
-            var message_trim_hex = message_trim_hex.concat(ascii2hex(message_trim));
-            var message_trim_hex = message_trim_hex.concat(0x04);
-
-            // Only send the message if we're currently the first up
-            if (omnibus.IKE.hud_override_text == message_full) {
-              omnibus.data_send.send({
-                src: 'RAD',
-                dst: 'IKE',
-                msg: message_trim_hex,
-              });
-            }
-          }, scroll_delay*scroll, scroll, message);
-        }
-      }, 2000);
-    }
-
-    // Clear the override flag
-    setTimeout((message_full) => {
-      // Only deactivate the override if we're currently first up
-      if (omnibus.IKE.hud_override_text == message_full) {
-        omnibus.IKE.hud_override = false;
-        omnibus.IKE.hud_refresh();
-      }
-    }, timeout, message);
-  },
+		// Clear the override flag
+		setTimeout((message_full) => {
+			// Only deactivate the override if we're currently first up
+			if (omnibus.IKE.hud_override_text == message_full) {
+				omnibus.IKE.hud_override = false;
+				omnibus.IKE.hud_refresh();
+			}
+		}, timeout, message);
+	},
 
 	// IKE cluster text send message
 	text : (message) => {
-		message = message.ike_pad();
+		var max_length = 20;
 
-		// Need to center text..
 		var message_hex = [0x23, 0x50, 0x30, 0x07];
-		var message_hex = message_hex.concat(ascii2hex(message));
+		// Trim string to max length
+		var message_hex = message_hex.concat(ascii2hex(message.ike_pad().substring(0, max_length)));
 		var message_hex = message_hex.concat(0x04);
 
 		omnibus.data_send.send({

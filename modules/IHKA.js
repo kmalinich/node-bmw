@@ -12,7 +12,7 @@ function parse_out(data) {
 		case 0x83: // Broadcast: AC compressor status
 			data.command = 'bro';
 			data.value   = 'AC compressor status '+data.msg;
-      status.ihka.ac_status = bitmask.bit_test(data.msg[1], 0x80);
+      status.ihka.ac = bitmask.bit_test(data.msg[1], 0x80);
 			break;
 
 		case 0xA0: // Broadcast: Diagnostic command reply

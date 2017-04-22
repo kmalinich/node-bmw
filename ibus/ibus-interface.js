@@ -142,8 +142,9 @@ module.exports = {
 							src : log_src,
 							msg : 'Port options set',
 						});
-						omnibus.IKE.obc_refresh();
 						callback();
+						omnibus.IKE.request('ignition');
+						bus_commands.request_device_status('IKE', 'RAD');
 					});
 				}
 			});

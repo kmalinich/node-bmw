@@ -5,41 +5,28 @@ function parse_out(data) {
 	switch (data.msg[0]) {
 		case 0x2B: // Broadcast: Indicator status
 			data.command = 'bro';
-			data.value   = 'indicator status';
+			data.value   = 'indicator status TODO';
 			break;
+
+			// Bit0 = red
+			// Bit1 = red + flashing
+			// Bit2 = orange
+			// Bit3 = orange + flashing
+			// Bit4 = green
+			// Bit5 = green + flashing
 
 		case 0x2C: // Broadcast: Telephone status
 			data.command = 'bro';
 			data.value   = 'telephone status TODO';
-
-			// Bit0
-			// 0 = Handsfree off
-			// 1 = Handsfree on
-
-			// Bit1
-			// 0 = Telephone menu on board monitor or MID
-			// 1 = active call
-
-			// Bit2
-			// 0 = Incoming call : false
-			// 1 = Incoming call : true
-
-			// Bit3
-			// 0 - Phone screen disabled : false
-			// 1 = Phone screen disabled : true
-
-			// Bit4
-			// 0 = Phone off
-			// 1 = Phone on
-
-			// Bit5
-			// 0 = Phone inactive
-			// 1 = Phone active
-
-			// Bit6
-			// 0 = Adapter not installed
-			// 1 = Adapter installed
 			break;
+
+			// Bit0 : Handsfree
+			// Bit1 : Active call (false = phone menu displayed)
+			// Bit2 : Incoming call
+			// Bit3 : Phone screen disabled
+			// Bit4 : Phone on
+			// Bit5 : Phone active
+			// Bit6 : Phone adapter installed
 
 		default:
 			data.command = 'unk';

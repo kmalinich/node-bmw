@@ -219,7 +219,8 @@ function parse_out(data) {
   log.out(data);
 }
 
-function api_command (data) {
+// This is a horrible trainwreck
+function api_command(data) {
   if (typeof data['interior-light'] !== 'undefined') {
     omnibus.GM.interior_light(data['interior-light']);
   }

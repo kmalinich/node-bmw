@@ -3,13 +3,19 @@ var module_name = __filename.slice(__dirname.length + 1, -3);
 // Parse data sent from IHKA module
 function parse_out(data) {
 	switch (data.msg[0]) {
-		case 0x83: // AC compressor status
+		case 0x82: // Broadcast: Rear defroster status
+      status.ihka.defroster = bitmask.bit_test(data.msg[1], 0x01);
+			data.command = 'bro';
+			data.value   = 'defroster status '+status.ihka.defroster;
+			break;
+
+		case 0x83: // Broadcast: AC compressor status
 			data.command = 'bro';
 			data.value   = 'AC compressor status '+data.msg;
       status.ihka.ac_status = bitmask.bit_test(data.msg[1], 0x80);
 			break;
 
-		case 0xA0: // Diagnostic command replies
+		case 0xA0: // Broadcast: Diagnostic command reply
 			data.command = 'diagnostic command';
 			data.value   = 'acknowledged: '+data.msg;
 			break;

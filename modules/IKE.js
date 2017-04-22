@@ -890,7 +890,7 @@ module.exports = {
 
 		// Immo+GM data
 		omnibus.EWS.request('immobiliserstatus');
-		omnibus.GM.request('io-status');
+		// omnibus.GM.request('io-status');
 		omnibus.GM.request('door-status');
 
 		// IKE data

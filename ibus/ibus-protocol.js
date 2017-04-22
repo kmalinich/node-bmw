@@ -113,7 +113,13 @@ function process() {
 		},
 	};
 
-	omnibus.data_handler.check_data(msg_obj);
+	// Skip GLO destination messages from IBUS, if KBUS is present
+	if (msg_obj.dst.name != 'GLO') {
+		omnibus.data_handler.check_data(msg_obj);
+	}
+	else if (msg_obj.dst.name == 'GLO' && config.interface.kbus === null) {
+		omnibus.data_handler.check_data(msg_obj);
+	}
 
 	// Return true!
 	error_current = 0;

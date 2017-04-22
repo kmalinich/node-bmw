@@ -167,15 +167,15 @@ function comfort_turn(data) {
 				// Set status variables
 				status.lights.turn.left.comfort  = true;
 				status.lights.turn.right.comfort = false;
-				cluster_msg_1 = '< < < <';
-				cluster_msg_3 = '< < < <';
+				cluster_msg_1 = '< < < < < < <';
+				cluster_msg_3 = '< < < < < < <';
 				break;
 			case 'right':
 				// Set status variables
 				status.lights.turn.left.comfort  = false;
 				status.lights.turn.right.comfort = true;
-				cluster_msg_1 = '> > > >';
-				cluster_msg_3 = '> > > >';
+				cluster_msg_1 = '> > > > > > >';
+				cluster_msg_3 = '> > > > > > >';
 				break;
 		}
 
@@ -185,7 +185,7 @@ function comfort_turn(data) {
 		status.lights.turn.comfort_cool = false;
 		reset();
 
-		omnibus.IKE.text_warning(cluster_msg, 2000+status.lights.turn.depress_elapsed);
+		omnibus.IKE.text_override(cluster_msg, 2000+status.lights.turn.depress_elapsed);
 
 		// Turn off comfort turn signal - 1 blink ~ 500ms, so 5x blink ~ 2500ms
 		setTimeout(() => {
@@ -543,8 +543,12 @@ function reset() {
 module.exports = {
 	// Should we turn the auto-lights on?
 	auto_lights_check : () => {
+		if (config.lights.auto !== true) {
+			return;
+		}
+
 		// Check ignition
-		if (status.vehicle.ignition_level === 0 || config.lights.auto !== true) {
+		if (status.vehicle.ignition_level !== 3) {
 			// Not in run: turn off auto lights
 			auto_lights(false);
 			return;

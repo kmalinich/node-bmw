@@ -322,7 +322,7 @@ module.exports = {
     // Send the cluster and Kodi a notification
     var notify_message = 'Toggling door locks';
     omnibus.kodi.notify('GM', notify_message);
-    omnibus.IKE.text_urgent(notify_message)
+    omnibus.IKE.text_override(notify_message)
   },
 
   // Request various things from GM

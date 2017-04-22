@@ -51,26 +51,28 @@ function text(message) {
 
 // Set or unset the status interval
 function status_loop(action) {
-	if (config.emulate.mid === true) {
-		switch (action) {
-			case 'set':
-				refresh_status();
-				interval_status_loop = setInterval(() => {
-					refresh_status();
-				}, 25000);
-				break;
-
-			case 'unset':
-				clearInterval(interval_status_loop, () => {
-				});
-				break;
-		}
-
-		log.msg({
-			src : 'MID',
-			msg : 'Ping interval '+action,
-		});
+	if (config.emulate.mid !== true) {
+		return;
 	}
+
+	switch (action) {
+		case 'set':
+			refresh_status();
+			interval_status_loop = setInterval(() => {
+				refresh_status();
+			}, 20000);
+			break;
+
+		case 'unset':
+			clearInterval(interval_status_loop, () => {
+			});
+			break;
+	}
+
+	log.msg({
+		src : 'MID',
+		msg : 'Ping interval '+action,
+		});
 }
 
 // Send MID status, and request status from RAD
@@ -85,15 +87,16 @@ function refresh_status() {
 
 // Send the power on button command if needed/ready
 function power_on_if_ready() {
-	// Debug logging
-	console.log('[node:MID] MID.power_on_if_ready(): evaluating');
-	console.log('[node:MID] MID.power_on_if_ready(): ignition_level    : \'%s\'', status.vehicle.ignition_level);
-	console.log('[node:MID] MID.power_on_if_ready(): dsp.ready         : \'%s\'', status.dsp.ready);
-	console.log('[node:MID] MID.power_on_if_ready(): rad.audio_control : \'%s\'', status.rad.audio_control);
-	console.log('[node:MID] MID.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
+	if (config.emulate.mid !== true) {
+		return;
+	}
 
-	if (status.rad.audio_control == 'audio off') {
-		console.log('[node:MID] MID.power_on_if_ready(): Sending power!');
+	// Debug logging
+	// console.log('[node:MID] dsp.ready         : \'%s\'', status.dsp.ready);
+	// console.log('[node:MID] rad.audio_control : \'%s\'', status.rad.audio_control);
+
+	if (status.rad.audio_control == 'audio off' && status.dsp.ready === true) {
+		console.log('[node:MID] Sending power!');
 		send_button('power');
 	}
 }

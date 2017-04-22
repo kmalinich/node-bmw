@@ -62,15 +62,16 @@ function refresh_status() {
 
 // Send the power on button command if needed/ready
 function power_on_if_ready() {
+	if (config.emulate.bmbt !== true) {
+		return;
+	}
+
 	// Debug logging
-	// console.log('[node:BMBT] BMBT.power_on_if_ready(): evaluating');
-	// console.log('[node:BMBT] BMBT.power_on_if_ready(): ignition_level    : \'%s\'', status.vehicle.ignition_level);
-	// console.log('[node:BMBT] BMBT.power_on_if_ready(): dsp.ready         : \'%s\'', status.dsp.ready);
-	// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.audio_control : \'%s\'', status.rad.audio_control);
-	// console.log('[node:BMBT] BMBT.power_on_if_ready(): rad.ready         : \'%s\'', status.rad.ready);
+	// console.log('[node:BMBT] dsp.ready         : \'%s\'', status.dsp.ready);
+	// console.log('[node:BMBT] rad.audio_control : \'%s\'', status.rad.audio_control);
 
 	if (status.rad.audio_control == 'audio off' && status.dsp.ready === true) {
-		console.log('[node:BMBT] BMBT.power_on_if_ready(): Sending power!');
+		console.log('[node:BMBT] Sending power!');
 		send_button('power');
 	}
 }

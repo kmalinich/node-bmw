@@ -242,10 +242,7 @@ function decode_ignition_status(data) {
 			omnibus.HDMI.command('poweroff');
 		}, 2000);
 
-		json.write_config(() => { // Write JSON config file
-			json.write_status(() => { // Write JSON status file
-			});
-		});
+		json.write(() => {}); // Write JSON config and status files
 	}
 
 	if (omnibus.IKE.state_powerdown === true) {
@@ -281,10 +278,7 @@ function decode_ignition_status(data) {
 
 	if (omnibus.IKE.state_run === true) {
 		omnibus.IKE.state_run = false;
-		json.write_config(() => { // Write JSON config file
-			json.write_status(() => { // Write JSON status file
-			});
-		});
+		json.write(() => {}); // Write JSON config and status files
 	}
 }
 
@@ -378,15 +372,15 @@ module.exports = {
 				break;
 
 			case 0x11: // Broadcast: Ignition status
+				decode_ignition_status(data);
 				data.command = 'bro';
 				data.value   = 'ignition status : '+status.vehicle.ignition;
-				decode_ignition_status(data);
 				break;
 
 			case 0x13: // IKE sensor status
+				decode_sensor_status(data);
 				data.command = 'bro';
 				data.value   = 'sensor status';
-				decode_sensor_status(data);
 				break;
 
 			case 0x15: // country coding data
@@ -395,25 +389,25 @@ module.exports = {
 				break;
 
 			case 0x17: // Odometer
+				decode_odometer(data);
 				data.command = 'bro';
 				data.value   = 'odometer';
-				decode_odometer(data);
 				break;
 
 			case 0x18: // Vehicle speed and RPM
+				decode_speed_values(data);
 				data.command = 'bro';
 				data.value   = 'speed values';
-				decode_speed_values(data);
 				break;
 
 			case 0x19: // Coolant temp and external temp
+				decode_temperature_values(data);
 				data.command = 'bro';
 				data.value   = 'temperature values';
-				decode_temperature_values(data);
 				break;
 
 			case 0x1B: // ACK text message
-				data.command = 'acknowledged';
+				data.command = 'ack';
 				data.value   = parseFloat(data.msg[1])+' text messages';
 				break;
 
@@ -892,7 +886,6 @@ module.exports = {
 		omnibus.GM.request('door-status');
 
 		// IKE data
-		omnibus.IKE.request('status-glo' );
 		omnibus.IKE.request('coding'     );
 		omnibus.IKE.request('ignition'   );
 		omnibus.IKE.request('odometer'   );
@@ -917,16 +910,16 @@ module.exports = {
 		obc_data('get', 'temp_exterior');
 		obc_data('get', 'time'         );
 		obc_data('get', 'timer'        );
+
+		// Blow it out
+		// omnibus.IKE.request('status-glo');
 	},
 
 	// Request various things from IKE
 	request : (value) => {
-		// console.log('[node::IKE] Requesting \'%s\'', value);
-
-		var cmd;
+		var cmd = null;
 		var src = 'VID';
 		var dst = 'IKE';
-		var exe = true;
 		switch (value) {
 			case 'ignition':
 				cmd = [0x10];
@@ -951,31 +944,25 @@ module.exports = {
 				cmd = [0x1D, 0xC5];
 				break;
 			case 'status-glo':
-				exe = false;
-				cmd = [0x01];
 				src = 'IKE';
-				dst = 'GLO';
 				for (var dst in bus_modules.modules) {
 					if (dst != 'DIA' && dst != 'GLO' && dst != 'LOC') {
 						omnibus.data_send.send({
 							src: src,
 							dst: dst,
-							msg: cmd,
+							msg: [0x01],
 						});
 					}
 				}
 				break;
 			case 'status-loc':
-				exe = false;
-				cmd = [0x01];
 				src = 'IKE';
-				dst = 'LOC';
 				for (var dst in bus_modules.modules) {
 					if (dst != 'DIA' && dst != 'GLO' && dst != 'LOC') {
 						omnibus.data_send.send({
 							src: src,
 							dst: dst,
-							msg: cmd,
+							msg: [0x01],
 						});
 					}
 				}
@@ -987,7 +974,7 @@ module.exports = {
 				break;
 		}
 
-		if (exe === true) {
+		if (cmd !== null) {
 			omnibus.data_send.send({
 				src: src,
 				dst: dst,

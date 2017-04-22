@@ -191,7 +191,6 @@ module.exports = {
 	// Insert a message into the write queue
 	send : (msg) => {
 		if (config.interface.kbus === null) {
-			callback();
 			return;
 		}
 

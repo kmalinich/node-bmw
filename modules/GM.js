@@ -71,7 +71,7 @@ function decode_status_keyfob(data) {
   log.out(data);
 }
 
-// [0x7A] Decode a door/door status message from the GM and act upon the results
+// [0x7A] Decode a door status message from the GM and act upon the results
 function decode_status_open(message) {
   // Set status from message by decoding bitmask
   status.doors.front_left  = bitmask.bit_test(message[1], 0x01);
@@ -146,7 +146,7 @@ function io_set(packet) {
 // This is just a dumb placeholder
 function io_decode(data) {
   return {
-    seat_driver_backrest_backward : bitmask.bit_test(data[0], bitmask.bit[0]);
+    seat_driver_backrest_backward : bitmask.bit_test(data[0], bitmask.bit[0]),
   }
 }
 
@@ -201,7 +201,7 @@ function parse_out(data) {
 
     case 0x7A: // Broadcast: Door status
       data.command = 'bro';
-      data.value   = 'door/door status';
+      data.value   = 'door status';
       decode_status_open(data.msg);
       break;
 
@@ -327,8 +327,6 @@ module.exports = {
 
   // Request various things from GM
   request : (value) => {
-    console.log('[node:::GM] Requesting \'%s\'', value);
-
     // Init variables
     var src;
     var cmd;

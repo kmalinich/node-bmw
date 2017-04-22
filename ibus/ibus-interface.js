@@ -192,7 +192,6 @@ module.exports = {
 	// Insert a message into the write queue
 	send : (msg) => {
 		if (config.interface.ibus === null) {
-			callback();
 			return;
 		}
 

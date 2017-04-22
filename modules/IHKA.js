@@ -45,7 +45,7 @@ function aux(type, action) {
 }
 
 module.exports = {
-	aux                : (type, action) => { aux(type, action); }
+	aux                : (type, action) => { aux(type, action); },
 	parse_out          : (data)         => { parse_out(data); },
 	send_device_status : (module_name)  => { bus_commands.send_device_status(module_name); },
 };

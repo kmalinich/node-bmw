@@ -79,8 +79,8 @@ const char *anzv_codes[] = {
     "UNKNOWN23",
     "UNKNOWN24",
     "UNKNOWN25",
-    "INTERIM TIME"
-        "AUX HEAT/VENT",
+    "INTERIM TIME",
+    "AUX HEAT/VENT",
 };
 
 static char *get_address(unsigned char addr)
@@ -176,13 +176,13 @@ static void decode_message(const unsigned char *msg, int len)
             printf("IKE SENSOR STATUS ");
             break;
         case 0x14:
-            printf("COUTRY CODING STATUS REQUEST ");
+            printf("COUNTRY CODING STATUS REQUEST ");
             break;
         case 0x15:
-            printf("COUTRY CODING STATUS LANG=%s, MODEL=%s, TIME=%s, "
-                    "TEMP=%s, AVG=%s, LIMIT=%s, DISTANCE=%s, ARRIVAL=%s ",
+            printf("COUNTRY CODING STATUS LANG=%s, MODEL=%s, TIME=%s, TEMP=%s, AVG=%s, LIMIT=%s, DISTANCE=%s, ARRIVAL=%s",
                     languages[msg[4] & 0x0f],
                     model[(msg[4] >> 4) & 0x0f],
+
                     msg[5] & 1   ? "12h"   : "24h",
                     msg[5] & 2   ? "F"     : "C",
                     msg[5] & 16  ? "mph"   : "km/h",

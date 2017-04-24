@@ -4,8 +4,15 @@
 #### Variables ==start ####
 
 export PATH="/bin:/usr/bin"
+
 UNIT="node-bmw"
-APP_DIR="/usr/local/${UNIT}"
+
+DIR_APP="/usr/local/${UNIT}"
+DIR_SYSTEMD="/etc/systemd/system"
+
+SYSTEMD_UNIT="${UNIT}.service"
+SYSTEMD_UNIT_FILE="${DIR_SYSTEMD}/${SYSTEMD_UNIT}"
+
 OLD_PWD=${PWD}
 
 #### Variables ==final ####
@@ -39,22 +46,95 @@ restart() {
 	status
 }
 
-stop() {
-	log "Stopping ${UNIT}"
-	sudo systemctl stop ${UNIT}
+uninstall() {
+	log "Uninstalling ${SYSTEMD_UNIT}"
+	if [[ -s ${SYSTEMD_UNIT_FILE} ]]; then
+		if ! sudo rm -f ${SYSTEMD_UNIT_FILE}; then
+			log "Failed to remove existing systemd unit file, cannot continue"
+			exit 1
+		fi
+	fi
+
+	if ! sudo systemctl daemon-reload; then
+		log "Failed to reload systemd, cannot continue"
+		exit 3
+	fi
+
+	log "Uninstalled systemd unit successfully"
+}
+
+install() {
+	log "Installing ${SYSTEMD_UNIT}"
+	if [[ -s ${SYSTEMD_UNIT_FILE} ]]; then
+		if ! sudo rm -f ${SYSTEMD_UNIT_FILE}; then
+			log "Failed to remove existing systemd unit file, cannot continue"
+			exit 1
+		fi
+	fi
+
+	if ! sudo cp ${DIR_APP}/helpers/${SYSTEMD_UNIT} ${SYSTEMD_UNIT_FILE}; then
+		log "Failed to copy systemd unit file, cannot continue"
+		exit 2
+	fi
+
+	if ! sudo systemctl daemon-reload; then
+		log "Failed to reload systemd, cannot continue"
+		exit 3
+	fi
+
+	log "Installed systemd unit successfully"
+}
+
+disable() {
+	log "Disabling ${SYSTEMD_UNIT}"
+	sudo systemctl disable ${SYSTEMD_UNIT}
 	sleep_msg
-	status
+	if ! sudo systemctl -q is-enabled ${SYSTEMD_UNIT}; then
+		log "Disabled ${SYSTEMD_UNIT} successfully"
+	else
+		log "Failed to disable ${SYSTEMD_UNIT}"
+	fi
+}
+
+enable() {
+	log "Enabling ${SYSTEMD_UNIT}"
+	sudo systemctl enable ${SYSTEMD_UNIT}
+	sleep_msg
+	if sudo systemctl -q is-enabled ${SYSTEMD_UNIT}; then
+		log "Enabled ${SYSTEMD_UNIT} successfully"
+	else
+		log "Failed to enable ${SYSTEMD_UNIT}"
+	fi
+}
+
+stop() {
+	log "Stopping ${SYSTEMD_UNIT}"
+	sudo systemctl stop ${SYSTEMD_UNIT}
+	sleep_msg
+	if ! sudo systemctl -q is-active ${SYSTEMD_UNIT}; then
+		log "Stopped ${SYSTEMD_UNIT} successfully"
+	else
+		log "Failed to stop ${SYSTEMD_UNIT}"
+		echo
+		status
+	fi
 }
 
 start() {
-	log "Starting ${UNIT}"
-	sudo systemctl start ${UNIT}
+	log "Starting ${SYSTEMD_UNIT}"
+	sudo systemctl start ${SYSTEMD_UNIT}
 	sleep_msg
-	status
+	if ! sudo systemctl -q is-active ${SYSTEMD_UNIT}; then
+		log "Stopped ${SYSTEMD_UNIT} successfully"
+	else
+		log "Failed to stop ${SYSTEMD_UNIT}"
+		echo
+		status
+	fi
 }
 
 update() {
-	cd ${APP_DIR}
+	cd ${DIR_APP}
 
 	GIT_BRANCH="$(git branch | grep '*' | sed 's/^*\ //g')"
 	git fetch origin ${GIT_BRANCH} &> /dev/null

@@ -102,13 +102,13 @@ function parse_out(data) {
       }
       break;
 
-    case 0x4A: // Cassette control
+		case 0x4A: // Control: Cassette
       return;
       data.command = 'con';
       data.value   = 'cassette control '+data.msg[1];
       break;
 
-    case 0x46: // LCD control
+		case 0x46: // Control: LCD
       data.command = 'con';
       data.value   = 'LCD status ';
 
@@ -121,6 +121,16 @@ function parse_out(data) {
           data.value = data.value+data.msg[1];
           break;
       }
+      break;
+
+		case 0xA5: // Control: Screen text
+      data.command = 'con';
+      data.value   = 'screen text TODO';
+      break;
+
+		case 0xA5: // Control: Screen text
+      data.command = 'con';
+      data.value   = 'screen text TODO';
       break;
 
     default:

@@ -52,22 +52,22 @@ function decode_status_keyfob(data) {
     return;
   }
 
-  if (bitmask.bit_test(data[1], 0x10)) {
-    data.value = 'lock';
-    omnibus.LCM.welcome_lights(false);
-  }
-  else if (bitmask.bit_test(data[1], 0x20)) {
-    data.value = 'unlock';
-    omnibus.LCM.welcome_lights(true);
-  }
-  else if (bitmask.bit_test(data[1], 0x40)) {
-    data.value = 'trunk';
-  }
-  else {
-    data.value = 'unknown: '+data.msg[1];
-  }
+	if (bitmask.bit_test(data.msg[1], 0x10)) {
+		data.value = 'lock';
+		omnibus.LCM.welcome_lights(false);
+	}
+	else if (bitmask.bit_test(data.msg[1], 0x20)) {
+		data.value = 'unlock';
+		omnibus.LCM.welcome_lights(true);
+	}
+	else if (bitmask.bit_test(data.msg[1], 0x40)) {
+		data.value = 'trunk';
+	}
+	else {
+		data.value = 'unknown: '+data.msg[1];
+	}
 
-  data.value = 'key fob button: '+data.value;
+	data.value = 'key fob button: '+data.value;
   log.out(data);
 }
 

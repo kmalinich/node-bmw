@@ -268,7 +268,7 @@ function decode_ignition_status(data) {
 		omnibus.BT.command('connect');
 
 		// Welcome message
-		omnibus.IKE.text_override('node-bmw | Host:'+os.hostname()+' | Mem:'+parseFloat(parseFloat((os.freemem()/os.totalmem()).toFixed(2))*100)+'% | Up:'+parseFloat((os.uptime()/3600).toFixed(2))+' hrs');
+		omnibus.IKE.text_override('node-bmw | Host:'+os.hostname()+' | Mem:'+Math.round((os.freemem()/os.totalmem())*100)+'% | Up:'+parseFloat(os.uptime()/3600).toFixed(2)+' hrs');
 
 		// Refresh OBC data
 		omnibus.IKE.obc_refresh();

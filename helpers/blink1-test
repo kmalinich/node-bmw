@@ -1,7 +1,0 @@
-#/usr/bin/env bash
-
-killall -9 blink1-tool
-blink1-tool --red           -t 0 --chase=10,1,9
-blink1-tool --rgb=255,130,0 -t 0 --chase=10,1,12
-blink1-tool --green         -t 0 --chase=3,1,24
-blink1-tool --blue          -t 0 --chase=3,1,24

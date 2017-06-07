@@ -1,3 +1,0 @@
-53 :: IKE -> LCM // Vehicle data request
-5A :: GT --> LCM // Lamp status request
-5D :: BMBT > LCM // Light dimmer status request

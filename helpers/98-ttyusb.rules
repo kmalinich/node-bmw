@@ -1,3 +1,0 @@
-SUBSYSTEM=="tty", ATTRS{serial}=="R.Resler IBUS Interface V6b - Serial:20150416155959003502", SYMLINK+="ibus"
-SUBSYSTEM=="tty", ATTRS{serial}=="R.Resler IBUS Interface V6b - Serial:20150416192325003699", SYMLINK+="kbus"
-SUBSYSTEM=="tty", ATTRS{serial}=="47514789", SYMLINK+="dbus"

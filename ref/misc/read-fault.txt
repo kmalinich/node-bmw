@@ -1,1 +1,0 @@
-3F LL D0 04 00 CK // Reading fault from LCM

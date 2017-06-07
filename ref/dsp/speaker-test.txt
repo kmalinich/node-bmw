@@ -1,3 +1,0 @@
-Start : 3F 6A 32 
-End   : 3F 6A 33 
-Reply : 6A 3F A0 (A0 is ACK)
